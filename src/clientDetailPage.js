@@ -42,7 +42,7 @@ const VisitTable = (props) => (
 class ClientDetailPage extends Component {
   constructor(props) {
     super(props);
-    this.state = clientList.filter(client => client.id == this.props.match.params.id)[0];
+    this.state = clientList.filter(client => client.clientId == this.props.match.params.id)[0];
   }
 
   hideFixedMenu = () => this.setState({ visible: false })
@@ -93,7 +93,7 @@ class ClientDetailPage extends Component {
               <Grid.Column floated='right' width={12}>
                 <Header as='h1' style={{ fontSize: '4em' }}>{this.state.name}</Header>
                 <Segment style={{ padding: '1em'}} vertical>
-                  <Header as='h3' style={{ fontSize: '2.5em' }}>Client ID: {this.state.id}</Header>              
+                  <Header as='h3' style={{ fontSize: '2.5em' }}>Client ID: {this.state.clientId}</Header>              
                   <p style={{ fontSize: '1.33em' }}>Date of Birth: {this.state.dob}</p>
                   <p style={{ fontSize: '1.33em' }}>Zip Code: {this.state.zipCode}</p>
                 </Segment>           
@@ -105,7 +105,7 @@ class ClientDetailPage extends Component {
                 (<Container style={{ width: '100%' }}><Header as='h4' style={{ fontSize: '2em' }}>Previous Visits</Header>   
                 <VisitTable pageState={this.state}/></Container>) : (<br/>)
               }
-              <Link to={`/visit/${this.state.id}/${(this.state.visits.length + 1)}`}><Button color='teal' size='large'>Create New Visit</Button></Link>           
+              <Link to={`/visit/${this.state.clientId}/${(this.state.visits.length + 1)}`}><Button color='teal' size='large'>Create New Visit</Button></Link>           
             </Grid.Row>
           </Grid>
         </Segment>

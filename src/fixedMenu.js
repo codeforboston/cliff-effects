@@ -17,7 +17,7 @@ const FixedMenu = () => (
       <Menu.Item><Link to="/intake">New Client Intake</Link></Menu.Item>
       <Menu.Menu position='right'>
         <Menu.Item className='item'>
-          <Button><Link to="/login">Log in</Link></Button>
+        <Link to="/login"><Button inverted>Log in</Button></Link>
         </Menu.Item>
         {/*<Menu.Item>
           <Button as='a' primary>Sign Up</Button>

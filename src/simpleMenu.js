@@ -10,7 +10,7 @@ const SimpleMenu = (props) => (
         </Menu.Item>
         <Menu.Item name='navigation'>
         {props.client ? 
-          (<Link to={`/detail/${props.client.id}`}>Back to Client Detail</Link>) :
+          (<Link to={`/detail/${props.client.clientId}`}>Back to Client Detail</Link>) :
           (<Link to="/">Go Home</Link>)}         
         </Menu.Item>
         {props.client ? 

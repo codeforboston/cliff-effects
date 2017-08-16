@@ -26,4 +26,38 @@ function percentStateMedianIncome(annualIncome, householdSize) {
     return (100*(annualIncome)/(smi.get(householdSize))); 
 }
 
-export {percentPovertyLevel, percentStateMedianIncome};
+function getSnapEligibility(client) {
+    let percentPov = percentPovertyLevel(parseInt(client.annualIncome), client.householdSize);
+    if (client.annualIncome == 0 || percentPov < 70) {
+        return {result: 'good', details: 'All good!'};
+    } else if ( percentPov > 70 && percentPov < 80) {
+        return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`};
+    } else {
+        return {result: 'warning', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is above the 80% limit.`};
+    }
+}
+
+function getHousingEligibility(client) {
+    let percentPov = parseInt(percentPovertyLevel(parseInt(client.annualIncome), client.householdSize));
+    if (client.annualIncome == 0 || percentPov < 70) {
+        return {result: 'good', details: 'All good!'};
+    } else if (percentPov > 70 && percentPov < 80) {
+        return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`};
+    } else {
+        return {result: 'warning', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is above the 80% limit.`};
+    }
+}
+
+function getMassHealthEligibility(client) {
+    let percentSmi = percentStateMedianIncome(parseInt(client.annualIncome), client.householdSize);
+    if (client.annualIncome == 0 || percentSmi < 120) {
+        return {result: 'good', details: 'All good!'};
+    } else if (percentSmi > 120 && percentSmi < 130) {
+        return {result: 'information', details: `Your income puts you at ${percentSmi.toFixed()}% of the state median income, which is close to the 130% limit.`};
+    } else {
+        return {result: 'warning', details: `Your income puts you at ${percentSmi.toFixed()}% of the state median income, which is above the 130% limit.`};
+    }
+}
+
+
+export {percentPovertyLevel, percentStateMedianIncome, getSnapEligibility, getHousingEligibility, getMassHealthEligibility};

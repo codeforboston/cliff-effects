@@ -10,10 +10,15 @@ import { Button,
         Checkbox, 
         Divider, 
         Radio, 
-        Statistic } from 'semantic-ui-react';
+        Statistic,
+        Reveal } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
 import SimpleMenu from './simpleMenu';
-import { percentPovertyLevel, percentStateMedianIncome } from './helperFunctions';
+import { percentPovertyLevel, 
+        percentStateMedianIncome, 
+        getSnapEligibility, 
+        getHousingEligibility, 
+        getMassHealthEligibility } from './helperFunctions';
 import { clientList } from './clientList';
 
 const AlertSidebar = (props) => {
@@ -74,43 +79,82 @@ const AlertSidebar = (props) => {
 
   if (props.hasMassHealth) {
     massHealthCard = (
-      <Card fluid color={alertColor(props.massHealthAlert)}>
-        <Card.Content>
-            {alertIcon(props.massHealthAlert)}
-            <Card.Header>
-              MassHealth
-            </Card.Header>
-            {alertDescription(props.massHealthAlert,'MassHealth')}
-        </Card.Content>                    
-      </Card>
+      <Reveal animated='fade' fluid>
+        <Reveal.Content visible as={Card} fluid color={alertColor(props.massHealthAlert.result)}>
+            <Card.Content>
+                {alertIcon(props.massHealthAlert.result)}
+                <Card.Header>
+                  MassHealth
+                </Card.Header>
+                {alertDescription(props.massHealthAlert.result,'MassHealth')}
+            </Card.Content>                    
+        </Reveal.Content>
+        <Reveal.Content hidden as={Card} fluid color={alertColor(props.massHealthAlert.result)}>
+            <Card.Content>
+                {alertIcon(props.massHealthAlert.result)}
+                <Card.Header>
+                  MassHealth
+                </Card.Header>
+                <Card.Description>
+                  {props.massHealthAlert.details}
+                </Card.Description>
+            </Card.Content>                    
+        </Reveal.Content>
+    </Reveal>      
     );
   }
 
   if (props.hasHousing) {
     housingCard = (
-      <Card fluid color={alertColor(props.housingAlert)}>
-        <Card.Content>
-            {alertIcon(props.housingAlert)}
-            <Card.Header>
-              Section 8 Housing
-            </Card.Header>
-            {alertDescription(props.housingAlert,'Section 8 Housing')}
-        </Card.Content>                    
-      </Card>
+      <Reveal animated='fade'>
+        <Reveal.Content visible as={Card} fluid color={alertColor(props.housingAlert.result)}>  
+            <Card.Content>
+                {alertIcon(props.housingAlert.result)}
+                <Card.Header>
+                  Section 8 Housing
+                </Card.Header>
+                {alertDescription(props.housingAlert.result,'Section 8 Housing')}
+            </Card.Content>                    
+        </Reveal.Content>
+        <Reveal.Content hidden as={Card} fluid color={alertColor(props.housingAlert.result)}>
+            <Card.Content>
+                {alertIcon(props.housingAlert.result)}
+                <Card.Header>
+                  Section 8 Housing
+                </Card.Header>
+                <Card.Description>
+                  {props.housingAlert.details}
+                </Card.Description>
+            </Card.Content>                    
+        </Reveal.Content>
+      </Reveal>
     )
   }
 
   if (props.hasSnap) {
     snapCard = (
-      <Card fluid color={alertColor(props.snapAlert)}>
-        <Card.Content>
-            {alertIcon(props.snapAlert)}
-            <Card.Header>
-              SNAP
-            </Card.Header>
-            {alertDescription(props.snapAlert,'SNAP')}
-        </Card.Content>                    
-      </Card>
+      <Reveal animated='fade' >
+        <Reveal.Content visible as={Card} fluid color={alertColor(props.snapAlert.result)}>  
+            <Card.Content>
+                {alertIcon(props.snapAlert.result)}
+                <Card.Header>
+                  SNAP
+                </Card.Header>
+                {alertDescription(props.snapAlert.result,'SNAP')}
+            </Card.Content>                    
+        </Reveal.Content>
+        <Reveal.Content hidden as={Card} fluid color={alertColor(props.snapAlert.result)}>
+            <Card.Content>
+              {alertIcon(props.snapAlert.result)}
+              <Card.Header>
+                SNAP
+              </Card.Header>
+              <Card.Description>
+                {props.snapAlert.details}
+              </Card.Description>
+            </Card.Content>                    
+        </Reveal.Content>
+      </Reveal>
     )
   }
 
@@ -438,7 +482,7 @@ class VisitPage extends Component {
         annualIncome: 0,
         citizenshipStatus:'citizen',
         qualifyingConditions: false,
-        clientInfo: clientList.filter(client => client.id == this.props.match.params.clientId)[0],
+        clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId}
   }
 
@@ -515,14 +559,13 @@ class VisitPage extends Component {
   };
 
   render() {
-      
     return (
       <div className='login-form'>
         <Prompt
           when={this.state.isBlocking}
           message='Are you sure you want to leave the page with unsaved changes?'
         />
-        {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.id}`}/>) : false}
+        {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.clientId}`}/>) : false}
         <SimpleMenu save={this.saveForm} client={this.state.clientInfo} visit={this.state.visitId} />
         <br/>
         <ProgressBar style={{ display: 'block'}} percentDone={Math.round(((this.state.currentStep - 1) / VisitPage.totalSteps())*100)} />
@@ -542,9 +585,9 @@ class VisitPage extends Component {
               <AlertSidebar hasSnap={this.state.hasSnap} 
                             hasHousing={this.state.hasHousing} 
                             hasMassHealth={this.state.hasMassHealth}
-                            snapAlert={this.state.snapAlert}
-                            housingAlert={this.state.housingAlert}
-                            massHealthAlert={this.state.massHealthAlert} />
+                            snapAlert={getSnapEligibility(this.state)}
+                            housingAlert={getHousingEligibility(this.state)}
+                            massHealthAlert={getMassHealthEligibility(this.state)} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

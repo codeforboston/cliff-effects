@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import {
   Button,
@@ -11,9 +12,10 @@ import {
   Segment,
   Visibility,
   Card,
-  Search
+  Search,
+  Label,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import FixedMenu from './fixedMenu';
 import logo from './logo.png';
 import { clientList } from './clientList';
@@ -23,47 +25,62 @@ class SearchExistingClients extends Component {
   componentWillMount() {
     this.resetComponent()
   }
-
+  
   resetComponent = () => this.setState({ isLoading: false, results: clientList, value: '' })
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+  handleResultSelect = (e, { result }) => this.setState({ value: result.clientId, redirect: true })
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value })
 
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent()
-
-      // const isMatch = (result) => true
+      
+      const re = new RegExp(_.escapeRegExp(this.state.value),'i');
+      const isMatch = (result) => re.test(result.name) || re.test(result.clientId);
 
       this.setState({
         isLoading: false,
-        results: clientList.filter(client => (client.id == value) || (client.name.toLowerCase() == value.toLowerCase()))
+        results: _.filter(clientList,isMatch),
       })
     }, 500)
   }
 
   render() {
-    const { isLoading, value, results } = this.state
-
+    const { isLoading, value, results, redirect } = this.state
+    const resultRenderer = ({ image, name, clientId }) => (
+          <Segment horizontal>
+            <div className='content'>
+              <div className='title'>{name}</div>
+              <div className='description'>{clientId}</div>
+            </div>
+            <Image key={clientId} src={image}/>
+          </Segment>)
+    
+    {/*[ image && <Image key='image' size='mini' shape='circular' className='image' src={image}/>, 
+                              <div key='content' className='content'>
+                              {name && <div className='title'>{name}</div>}
+  {id && <div className='description'>{id}</div>} </div>, ]*/}
     return (
       <Segment>
+        {redirect ? (<Redirect to={`/detail/${value}`}/>) : false}
         <Search
-              loading={isLoading}
-              onResultSelect={this.handleResultSelect}
-              onSearchChange={this.handleSearchChange}
-              /*results={results}*/
-              value={value}
-              /*{...this.props}*/
-            />
+          loading={isLoading}
+          onResultSelect={this.handleResultSelect}
+          onSearchChange={this.handleSearchChange}
+          results={results}
+          value={value}
+          {...this.props}
+          resultRenderer={resultRenderer}
+        />
         <Card.Group itemsPerRow={6} style={{ padding: '3em 3em' }}>
-          {this.state.results.map(client =>
-            (<Link to={'/detail/' + client.id} key={client.id}>
+          {clientList.map(client =>
+            (<Link to={'/detail/' + client.clientId} key={client.clientId}>
               <Card style={{ margin: '.5em .5em .5em .5em' }}
                 image={client.image}
                 header={client.name}
                 meta={'Last Visit: ' + client.lastVisit}
-                description= {client.id}
+                description= {client.clientId}
               />
             </Link>)
           )}             
@@ -72,7 +89,6 @@ class SearchExistingClients extends Component {
     )
   }
 }
-
 
 class HomePage extends Component {
   state = {}
@@ -129,7 +145,7 @@ class HomePage extends Component {
                 inverted
                 style={{ fontSize: '1.7em', fontWeight: 'normal' }}
               />             
-              <Link to="/intake"><Button size='big'>Intake New Client<Icon name='right arrow' /></Button></Link>             
+              <Link to="/intake"><Button size='big' inverted>Intake New Client<Icon name='right arrow'/></Button></Link>             
             </Container>
           </Segment>
         </Visibility>

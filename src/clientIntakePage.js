@@ -25,7 +25,7 @@ class ClientIntakePage extends Component {
     redirect: false,
     name: '',
     lastVisit: '',
-    id: '',
+    clientId: '',
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg',
     dob: '',
     zipCode: '',
