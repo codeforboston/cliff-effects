@@ -176,23 +176,23 @@ const Results = (props) => {
     labels: xRange,
     datasets: [{
         label: "MassHealth",
-        borderColor: "rgba(75, 192, 192, 1)",
+        borderColor: "rgba(206, 125, 61, 1)",
         data: massHealthData,
         fill: false,
     },
     {
       label: "SNAP",
-      borderColor: "rgba(153, 102, 255, 1)",
+      borderColor: "rgba(101, 47, 138, 1)",
       data: snapData, //xRange.map(x => ({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
       fill: false
     },
     {
       label: "Section 8 Housing",
-      borderColor: "rgba(255, 206, 86, 1)",
+      borderColor: "rgba(206, 203, 61, 1)",
       data: housingData, //xRange.map(x => getHousingEligibility({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
       fill: false
-    }
-  ]
+    },
+    ]
   };
 
   var options = {
