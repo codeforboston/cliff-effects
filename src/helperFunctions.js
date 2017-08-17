@@ -29,33 +29,33 @@ function percentStateMedianIncome(annualIncome, householdSize) {
 function getSnapEligibility(client) {
     let percentPov = percentPovertyLevel(parseInt(client.annualIncome), client.householdSize);
     if (client.annualIncome == 0 || percentPov < 70) {
-        return {result: 'good', details: 'All good!'};
+        return {result: 'good', details: 'All good!', benefitValue: 1000};
     } else if ( percentPov > 70 && percentPov < 80) {
-        return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`};
+        return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`, benefitValue: 1000};
     } else {
-        return {result: 'warning', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is above the 80% limit.`};
+        return {result: 'warning', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is above the 80% limit.`, benefitValue: 0};
     }
 }
 
 function getHousingEligibility(client) {
     let percentPov = parseInt(percentPovertyLevel(parseInt(client.annualIncome), client.householdSize));
     if (client.annualIncome == 0 || percentPov < 70) {
-        return {result: 'good', details: 'All good!'};
+        return {result: 'good', details: 'All good!', benefitValue: 800};
     } else if (percentPov > 70 && percentPov < 80) {
-        return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`};
+        return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`, benefitValue: 800};
     } else {
-        return {result: 'warning', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is above the 80% limit.`};
+        return {result: 'warning', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is above the 80% limit.`, benefitValue: 0};
     }
 }
 
 function getMassHealthEligibility(client) {
     let percentSmi = percentStateMedianIncome(parseInt(client.annualIncome), client.householdSize);
     if (client.annualIncome == 0 || percentSmi < 120) {
-        return {result: 'good', details: 'All good!'};
+        return {result: 'good', details: 'All good!', benefitValue: 600};
     } else if (percentSmi > 120 && percentSmi < 130) {
-        return {result: 'information', details: `Your income puts you at ${percentSmi.toFixed()}% of the state median income, which is close to the 130% limit.`};
+        return {result: 'information', details: `Your income puts you at ${percentSmi.toFixed()}% of the state median income, which is close to the 130% limit.`, benefitValue: 600};
     } else {
-        return {result: 'warning', details: `Your income puts you at ${percentSmi.toFixed()}% of the state median income, which is above the 130% limit.`};
+        return {result: 'warning', details: `Your income puts you at ${percentSmi.toFixed()}% of the state median income, which is above the 130% limit.`, benefitValue: 0};
     }
 }
 

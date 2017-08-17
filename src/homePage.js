@@ -50,17 +50,13 @@ class SearchExistingClients extends Component {
     const { isLoading, value, results, redirect } = this.state
     const resultRenderer = ({ image, name, clientId }) => (
           <Segment horizontal>
+            <Image key={clientId} src={image}/>
             <div className='content'>
               <div className='title'>{name}</div>
               <div className='description'>{clientId}</div>
-            </div>
-            <Image key={clientId} src={image}/>
-          </Segment>)
-    
-    {/*[ image && <Image key='image' size='mini' shape='circular' className='image' src={image}/>, 
-                              <div key='content' className='content'>
-                              {name && <div className='title'>{name}</div>}
-  {id && <div className='description'>{id}</div>} </div>, ]*/}
+            </div>           
+          </Segment>
+          )
     return (
       <Segment>
         {redirect ? (<Redirect to={`/detail/${value}`}/>) : false}

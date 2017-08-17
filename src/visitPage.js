@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react';
 import { Button, 
         Form, 
@@ -20,6 +21,7 @@ import { percentPovertyLevel,
         getHousingEligibility, 
         getMassHealthEligibility } from './helperFunctions';
 import { clientList } from './clientList';
+import { Line } from 'react-chartjs-2';
 
 const AlertSidebar = (props) => {
   let massHealthCard = null;
@@ -43,21 +45,21 @@ const AlertSidebar = (props) => {
     switch (alert) {
       case 'good':
         return (
-          <Card.Description>
-              <strong>All Good!</strong> Based on your inputs, your <strong>{benefit}</strong> benefits are safe.
-          </Card.Description>
+          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
+            <strong>All Good!</strong> Based on your inputs, your <strong>{benefit}</strong> benefits are safe.
+          </Reveal.Content>
         );
       case 'information':
         return (
-          <Card.Description>
-              <strong>FYI!</strong> You are in danger of losing your <strong>{benefit}</strong> benefits.
-          </Card.Description>
+          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
+            <strong>FYI!</strong> You are in danger of losing your <strong>{benefit}</strong> benefits.
+          </Reveal.Content>
         );
       case 'warning':
         return (
-        <Card.Description>
+          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
             <strong>Warning!</strong> Based on your inputs, you will lose <strong>{benefit}</strong> benefits!
-          </Card.Description>
+          </Reveal.Content>
         );
       default:
         break;
@@ -79,82 +81,58 @@ const AlertSidebar = (props) => {
 
   if (props.hasMassHealth) {
     massHealthCard = (
-      <Reveal animated='fade' fluid>
-        <Reveal.Content visible as={Card} fluid color={alertColor(props.massHealthAlert.result)}>
-            <Card.Content>
-                {alertIcon(props.massHealthAlert.result)}
-                <Card.Header>
-                  MassHealth
-                </Card.Header>
-                {alertDescription(props.massHealthAlert.result,'MassHealth')}
-            </Card.Content>                    
-        </Reveal.Content>
-        <Reveal.Content hidden as={Card} fluid color={alertColor(props.massHealthAlert.result)}>
-            <Card.Content>
-                {alertIcon(props.massHealthAlert.result)}
-                <Card.Header>
-                  MassHealth
-                </Card.Header>
-                <Card.Description>
-                  {props.massHealthAlert.details}
-                </Card.Description>
-            </Card.Content>                    
-        </Reveal.Content>
-    </Reveal>      
-    );
+      <Card fluid color={alertColor(props.massHealthAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
+        <Card.Content>
+          {alertIcon(props.massHealthAlert.result)}
+          <Card.Header>
+            MassHealth
+          </Card.Header>
+          <Reveal animated='fade' >        
+            {alertDescription(props.massHealthAlert.result,'MassHealth')}                    
+            <Reveal.Content hidden as={Card.Description}>
+            {props.massHealthAlert.details}           
+            </Reveal.Content>
+          </Reveal>
+        </Card.Content>
+    </Card>      
+    )
   }
 
   if (props.hasHousing) {
     housingCard = (
-      <Reveal animated='fade'>
-        <Reveal.Content visible as={Card} fluid color={alertColor(props.housingAlert.result)}>  
-            <Card.Content>
-                {alertIcon(props.housingAlert.result)}
-                <Card.Header>
-                  Section 8 Housing
-                </Card.Header>
-                {alertDescription(props.housingAlert.result,'Section 8 Housing')}
-            </Card.Content>                    
-        </Reveal.Content>
-        <Reveal.Content hidden as={Card} fluid color={alertColor(props.housingAlert.result)}>
-            <Card.Content>
-                {alertIcon(props.housingAlert.result)}
-                <Card.Header>
-                  Section 8 Housing
-                </Card.Header>
-                <Card.Description>
-                  {props.housingAlert.details}
-                </Card.Description>
-            </Card.Content>                    
-        </Reveal.Content>
-      </Reveal>
+      <Card fluid color={alertColor(props.housingAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
+        <Card.Content>
+          {alertIcon(props.housingAlert.result)}
+          <Card.Header>
+            Section 8 Housing
+          </Card.Header>
+          <Reveal animated='fade' >        
+              {alertDescription(props.housingAlert.result,'Section 8 Housing')}                   
+            <Reveal.Content hidden as={Card.Description}>
+                {props.housingAlert.details}              
+            </Reveal.Content>
+          </Reveal>
+        </Card.Content>
+      </Card>     
     )
   }
 
   if (props.hasSnap) {
     snapCard = (
-      <Reveal animated='fade' >
-        <Reveal.Content visible as={Card} fluid color={alertColor(props.snapAlert.result)}>  
-            <Card.Content>
-                {alertIcon(props.snapAlert.result)}
-                <Card.Header>
-                  SNAP
-                </Card.Header>
-                {alertDescription(props.snapAlert.result,'SNAP')}
-            </Card.Content>                    
-        </Reveal.Content>
-        <Reveal.Content hidden as={Card} fluid color={alertColor(props.snapAlert.result)}>
-            <Card.Content>
-              {alertIcon(props.snapAlert.result)}
-              <Card.Header>
-                SNAP
-              </Card.Header>
-              <Card.Description>
-                {props.snapAlert.details}
-              </Card.Description>
-            </Card.Content>                    
-        </Reveal.Content>
-      </Reveal>
+      <Card fluid color={alertColor(props.snapAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
+        <Card.Content>
+          {alertIcon(props.snapAlert.result)}
+          <Card.Header>
+            SNAP
+          </Card.Header>
+          <Reveal animated='fade' >        
+            {alertDescription(props.snapAlert.result,'SNAP')}                   
+            <Reveal.Content hidden as={Card.Description}>
+              {props.snapAlert.details}            
+            </Reveal.Content>
+          </Reveal>
+        </Card.Content>
+      </Card>     
     )
   }
 
@@ -179,6 +157,69 @@ const ProgressBar = (props) => {
 }
 
 const Results = (props) => {
+  var xRange = _.range(0, 100000, 1000);
+  var client = props.pageState
+
+  var massHealthData = xRange.map(x => {
+      client.annualIncome = x;
+      return getMassHealthEligibility(client).benefitValue});
+  
+  var snapData = xRange.map(x => {
+      client.annualIncome = x;
+      return getSnapEligibility(client).benefitValue});
+  
+  var housingData = xRange.map(x => {
+      client.annualIncome = x;
+      return getHousingEligibility(client).benefitValue});
+
+  var data = {
+    labels: xRange,
+    datasets: [{
+        label: "MassHealth",
+        borderColor: "rgba(75, 192, 192, 1)",
+        data: massHealthData,
+        fill: false,
+    },
+    {
+      label: "SNAP",
+      borderColor: "rgba(153, 102, 255, 1)",
+      data: snapData, //xRange.map(x => ({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
+      fill: false
+    },
+    {
+      label: "Section 8 Housing",
+      borderColor: "rgba(255, 206, 86, 1)",
+      data: housingData, //xRange.map(x => getHousingEligibility({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
+      fill: false
+    }
+  ]
+  };
+
+  var options = {
+    title: {
+      display: true,
+      text: 'Benefit Eligibility for Household Size ' + props.pageState.householdSize
+    },
+    showLines: true,
+    scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Benefit Value ($)'
+          },
+          ticks: {
+              beginAtZero: true
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Annual Income ($)'
+          }
+        }]
+    }
+  };
+
   return (      
     <Segment padded='very' style={{ minHeight: '600' }}>
       <Segment style={{ minHeight: '500' }} basic={true}>
@@ -186,6 +227,7 @@ const Results = (props) => {
           Results
         </Header>
         <div>
+          <Line data={data} options={options} />
         </div>
       </Segment>
       <Divider />
