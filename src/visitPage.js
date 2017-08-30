@@ -16,10 +16,10 @@ import { Button,
 import { Redirect, Prompt } from 'react-router-dom';
 import SimpleMenu from './simpleMenu';
 import { percentPovertyLevel, 
-        percentStateMedianIncome } from '.programs/helperFunctions';
-import { getSnapEligibility } from '.programs/snap';
-import { getHousingEligibility } from '.programs/housing';
-import { getMassHealthEligibility } from '.programs/masshealth';
+        percentStateMedianIncome } from './programs/helperFunctions';
+import { getSnapEligibility } from './programs/snap';
+import { getHousingEligibility } from './programs/housing';
+import { getMassHealthEligibility } from './programs/masshealth';
 import { clientList } from './clientList';
 import { Line } from 'react-chartjs-2';
 
