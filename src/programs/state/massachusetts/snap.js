@@ -1,5 +1,5 @@
 import { percentPovertyLevel, 
-    percentStateMedianIncome } from './helperFunctions';
+    percentStateMedianIncome } from '../../../helper/helperFunctions';
 
 function getSnapEligibility(client) {
     let percentPov = percentPovertyLevel(parseInt(client.annualIncome), client.householdSize);

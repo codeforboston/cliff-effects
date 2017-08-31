@@ -1,5 +1,5 @@
 import { percentPovertyLevel, 
-    percentStateMedianIncome } from './helperFunctions';
+    percentStateMedianIncome } from '../../../helper/helperFunctions';
 
 function getHousingEligibility(client) {
     let percentPov = parseInt(percentPovertyLevel(parseInt(client.annualIncome), client.householdSize));

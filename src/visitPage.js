@@ -4,8 +4,8 @@ import { Button,
         Form, 
         Grid, 
         Header, 
-        Segment, 
-        Progress, 
+        Segment,
+        Step, 
         Card, 
         Icon, 
         Checkbox, 
@@ -16,12 +16,26 @@ import { Button,
 import { Redirect, Prompt } from 'react-router-dom';
 import SimpleMenu from './simpleMenu';
 import { percentPovertyLevel, 
-        percentStateMedianIncome } from './programs/helperFunctions';
-import { getSnapEligibility } from './programs/snap';
-import { getHousingEligibility } from './programs/housing';
-import { getMassHealthEligibility } from './programs/masshealth';
+        percentStateMedianIncome } from './helper/helperFunctions';
+import { getSnapEligibility } from './programs/state/massachusetts/snap';
+import { getHousingEligibility } from './programs/state/massachusetts/housing';
+import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 import { clientList } from './clientList';
 import { Line } from 'react-chartjs-2';
+
+const StepBar = (props) => {
+  let steps = props.steps;
+
+  props.completedSteps.forEach(function(element) {
+    steps[element].completed = true
+  }, this);
+
+  steps[props.currentStep-1].active = true
+
+  return(
+    <Step.Group size='mini' ordered items={steps} />
+  )
+}
 
 const AlertSidebar = (props) => {
   let massHealthCard = null;
@@ -145,14 +159,6 @@ const AlertSidebar = (props) => {
         {massHealthCard}
       </Card.Group>
     </Segment>
-  )
-}
-
-const ProgressBar = (props) => {
-  return (
-    <div>
-      <Progress percent={props.percentDone} indicating progress />
-    </div>
   )
 }
 
@@ -512,6 +518,7 @@ class VisitPage extends Component {
   constructor(props) {
     super(props);
     this.state = {currentStep: 1,
+        completedSteps: [],
         isBlocking: true,
         redirect: false,
         hasSnap: false,
@@ -525,10 +532,9 @@ class VisitPage extends Component {
         citizenshipStatus:'citizen',
         qualifyingConditions: false,
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
-        visitId: this.props.match.params.visitId}
+        visitId: this.props.match.params.visitId
+    }
   }
-
-  static totalSteps = () => 5;
 
   handleToggleChange = (e, { name, checked }) => this.setState({ [name]: checked })
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
@@ -590,17 +596,30 @@ class VisitPage extends Component {
 
   nextStep = () => {
     this.setState(prevState => ({
-      currentStep: prevState.currentStep + 1
+      currentStep: prevState.currentStep + 1,
+      completedSteps: _.range(prevState.currentStep)
     }));
   };
 
   previousStep = () => {
     this.setState(prevState => ({
-      currentStep: prevState.currentStep - 1
+      currentStep: prevState.currentStep - 1,
+      completedSteps: _.range(prevState.currentStep-2)
     }));
   };
 
   render() {
+    const steps = [
+      { completed: false, active: false, title: 'Current Benefits', /*description: 'Choose your shipping options'*/ },
+      { completed: false, active: false, title: 'Household' },
+      { completed: false, active: false, title: 'Income' },
+      { completed: false, active: false, title: 'Citizenship' },
+      { completed: false, active: false, title: 'MassHealth' },
+      // { completed: false, active: false, title: 'SNAP' },
+      // { completed: false, active: false, title: 'Housing' },
+      { completed: false, active: false, title: 'Results' }
+    ]
+
     return (
       <div className='login-form'>
         <Prompt
@@ -609,14 +628,16 @@ class VisitPage extends Component {
         />
         {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.clientId}`}/>) : false}
         <SimpleMenu save={this.saveForm} client={this.state.clientInfo} visit={this.state.visitId} />
-        <br/>
-        <ProgressBar style={{ display: 'block'}} percentDone={Math.round(((this.state.currentStep - 1) / VisitPage.totalSteps())*100)} />
-        <br/>
         <Grid
           textAlign='center'
           style={{ height: '100%', padding: '2em 2em' }}
           verticalAlign='middle'
         >
+          <Grid.Row>
+            <Grid.Column width = {16}>
+              <StepBar currentStep={this.state.currentStep} steps={steps} completedSteps={this.state.completedSteps} />
+            </Grid.Column>
+          </Grid.Row>         
           <Grid.Row>
             <Grid.Column width={12}>
               <div>
