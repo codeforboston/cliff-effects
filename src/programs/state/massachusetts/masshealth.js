@@ -1,5 +1,5 @@
 import { percentPovertyLevel, 
-    percentStateMedianIncome } from '../../../helper/helperFunctions';
+    percentStateMedianIncome } from '../../../helpers/helperFunctions';
 
 function getMassHealthEligibility(client) {
     let percentSmi = percentStateMedianIncome(parseInt(client.annualIncome), client.householdSize);

@@ -16,7 +16,7 @@ import { Button,
 import { Redirect, Prompt } from 'react-router-dom';
 import SimpleMenu from './simpleMenu';
 import { percentPovertyLevel, 
-        percentStateMedianIncome } from './helper/helperFunctions';
+        percentStateMedianIncome } from './helpers/helperFunctions';
 import { getSnapEligibility } from './programs/state/massachusetts/snap';
 import { getHousingEligibility } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
