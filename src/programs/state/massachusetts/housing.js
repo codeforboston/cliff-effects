@@ -2,7 +2,7 @@ import { percentPovertyLevel,
     percentStateMedianIncome } from '../../../helpers/helperFunctions';
 
 function getHousingEligibility(client) {
-    let percentPov = parseInt(percentPovertyLevel(parseInt(client.annualIncome), client.householdSize));
+    let percentPov = parseInt(percentStateMedianIncome(parseInt(client.annualIncome), client.householdSize));
     if (client.annualIncome == 0 || percentPov < 70) {
         return {result: 'good', details: 'All good!', benefitValue: 800};
     } else if (percentPov > 70 && percentPov < 80) {
