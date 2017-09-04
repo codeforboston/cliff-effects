@@ -11,7 +11,7 @@ I would also recommend getting the [React Developer Tools](https://www.google.co
 8. Type `Ctrl-C` to stop the app from running.
 9. Type `npm run build` to build a production version of the app.
 
-Note that I also have it set up to deploy automatically to github pages with the command `npm deploy`.
+Note that I also have it set up to deploy automatically to github pages with the command `npm run deploy`.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
