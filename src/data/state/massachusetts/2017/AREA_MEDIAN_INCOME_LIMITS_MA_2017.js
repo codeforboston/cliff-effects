@@ -1,6 +1,6 @@
 /**
 * @todo Is this table correct for all programs, or just for the
-* 	Section 8 Housing Voucher Program. The link to the downloadable
+* 	Section 8 Project-Based Voucher Program. The link to the downloadable
 * 	document at https://www.huduser.gov/portal/datasets/il.html#2017_data
 * 	calls it "Data for Section 8 Income Limits"
 * @todo How shall we handle an expiration date?
