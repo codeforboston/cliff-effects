@@ -1,19 +1,23 @@
+// Apparently React (?) doesn't even let you test whether a variable
+// is defined or not. If it's not defined, then you can't even write
+// it in the script...
 // UMD pattern - this object is now available whether you're using amd,
 // commonjs-like/node, or just referencing this js file in an html file
-(function (root, fmrsFactory) {  // root is usually `window`
-    if (typeof define === 'function' && define.amd) {
-    	// AMD. Register as an anonymous module.
-        define( [], fmrsFactory );
-    } else if (typeof module === 'object' && module.exports) {
-	    // Node. Does not work with strict CommonJS, but only CommonJS-like
-	    // environments that support module.exports, like Node.
-        module.exports = fmrsFactory();
-    } else {
-    	// Browser global
-    	root.FMRS_MA_2018 = fmrsFactory();
-    }
-// An self-invoking function that is immediately invoked when loaded
-}(this, function () {
+// (function (root, fmrsFactory) {  // root is usually `window`
+
+//     if (typeof define === 'function' && define.amd) {
+//     	// AMD. Register as an anonymous module.
+//         define( [], fmrsFactory );
+//     } else if (typeof module === 'object' && module.exports) {
+// 	    // Node. Does not work with strict CommonJS, but only CommonJS-like
+// 	    // environments that support module.exports, like Node.
+//         module.exports = fmrsFactory();
+//     } else {
+//     	// Browser global
+//     	root.FMRS_MA_2018 = fmrsFactory();
+//     }
+// // An self-invoking function that is immediately invoked when loaded
+// }(this, function () {
 
 	/**
 	 * Object: MA fair market rents by county and then by number of rooms in the
@@ -389,6 +393,8 @@
 		"Worcester city": [850, 942, 1192, 1494, 1654],
 	};
 
-	// Now available externally
-    return FMRS_MA_2018;
-}));  // End UMD pattern
+	export { FMRS_MA_2018 };
+
+// 	// Now available externally
+//     return FMRS_MA_2018;
+// }));  // End UMD pattern

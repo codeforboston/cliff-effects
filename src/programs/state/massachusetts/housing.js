@@ -1,4 +1,4 @@
-import {FMR_MA_2018} from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
+import { FMRS_MA_2018 } from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
 
 /** Get maximum benefit/subsidy amount for client from Section 8 Project-Based
 * Voucher program. Please allow the client to put in their own subsidy amount
@@ -48,7 +48,7 @@ var getHousingEligibility = function ( client ) {
 
 	// TTP = total tenant payment
     var minTTP = Math.max( adjusted, gross, welfareRent, PHAMinRent ),
-    	estimatedRent = FMR_MA_2018[ client.areaOfResidence ][ client.housing.numBedrooms ],
+    	estimatedRent = FMRS_MA_2018[ client.areaOfResidence ][ client.housing.numBedrooms ],
 	// The maximum amount a PHA (public housing agency) can give to client has a range
 	// of 90% to 110% depending on how it choose to do things.
 	// We're currently going to assume the minimum of that range. That is, we're going
