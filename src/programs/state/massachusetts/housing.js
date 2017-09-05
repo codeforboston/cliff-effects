@@ -1,6 +1,6 @@
 import {FMR_MA_2018} from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
 
-/** Get maximum benefit/subsidy amount for client from Section 8 Housing Choice
+/** Get maximum benefit/subsidy amount for client from Section 8 Project-Based
 * Voucher program. Please allow the client to put in their own subsidy amount
 * if needed since custom amounts are totally a thing that happen (like the PHA
 * requesting a standard that is higher than 110%). An accurate amount is important
