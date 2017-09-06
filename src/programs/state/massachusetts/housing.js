@@ -31,6 +31,20 @@ var getHousingEligibility = function ( client ) {
 	* the rent amount. Maybe a custom subsidy amount would be better?
 	*/
 
+	// Send it right back if it's missing input values
+	var props = propsNeeded( client )
+	if ( props.length ) {
+		var details = "Not enough information. These fields need to be filled in: ";
+		for (let propi = 0; propi < props.length; propi++) {
+			let prop = props[ propi ];
+			details += prop;
+			if ( propi < props.length - 1 ) { details += ", "; }
+			else { details += "."; }
+		};
+		return { result: "information", details: details }
+	}
+
+	// Not sure about this part
     if ( typeof client.customRentSubsidyAmount === 'number' ) {
     	return subsidyResult( client.customRentSubsidyAmount );
     }
@@ -89,5 +103,27 @@ var subsidyResult = function ( subsidyAmount ) {
 
 	return result;
 };  // End subsidyResult()
+
+
+var requiredProps = [
+	"householdMonthlyAdjustedIncome"
+	"householdMonthlyGrossIncome"
+	"areaOfResidence"
+	"numberOfBedrooms"
+];
+
+
+var propsNeeded = function ( client ) {
+
+	var missingProps = [];
+
+	for ( let propi = 0; propi < requiredProps.length; propi++ ) {
+		let key = requiredProps[ propi ];
+		if ( client[ key ] === undefined ) { missingProps.push( key ); }
+	}
+
+	return missingProps;
+};  // End propsNeeded()
+
 
 export { getHousingEligibility };
