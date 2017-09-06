@@ -1,27 +1,27 @@
-/**
-* @todo Is this table correct for all programs, or just for the
-* 	Section 8 Project-Based Voucher Program. The link to the downloadable
-* 	document at https://www.huduser.gov/portal/datasets/il.html#2017_data
-* 	calls it "Data for Section 8 Income Limits"
-* @todo How shall we handle an expiration date?
-*/
+// /**
+// * @todo Is this table correct for all programs, or just for the
+// * 	Section 8 Project-Based Voucher Program. The link to the downloadable
+// * 	document at https://www.huduser.gov/portal/datasets/il.html#2017_data
+// * 	calls it "Data for Section 8 Income Limits"
+// * @todo How shall we handle an expiration date?
+// */
 
-// UMD pattern - this object is now available whether you're using amd,
-// commonjs-like/node, or just referencing this js file in an html file
-(function (root, medianIncomeLimitsFactory) {  // root is usually `window`
-    if (typeof define === 'function' && define.amd) {
-    	// AMD. Register as an anonymous module.
-        define( [], medianIncomeLimitsFactory );
-    } else if (typeof module === 'object' && module.exports) {
-	    // Node. Does not work with strict CommonJS, but only CommonJS-like
-	    // environments that support module.exports, like Node.
-        module.exports = medianIncomeLimitsFactory();
-    } else {
-    	// Browser global
-    	root.AREA_MEDIAN_INCOME_LIMITS_MA_2017 = medianIncomeLimitsFactory();
-    }
-// An self-invoking function that is immediately invoked when loaded
-}(this, function () {
+// // UMD pattern - this object is now available whether you're using amd,
+// // commonjs-like/node, or just referencing this js file in an html file
+// (function (root, medianIncomeLimitsFactory) {  // root is usually `window`
+//     if (typeof define === 'function' && define.amd) {
+//     	// AMD. Register as an anonymous module.
+//         define( [], medianIncomeLimitsFactory );
+//     } else if (typeof module === 'object' && module.exports) {
+// 	    // Node. Does not work with strict CommonJS, but only CommonJS-like
+// 	    // environments that support module.exports, like Node.
+//         module.exports = medianIncomeLimitsFactory();
+//     } else {
+//     	// Browser global
+//     	root.AREA_MEDIAN_INCOME_LIMITS_MA_2017 = medianIncomeLimitsFactory();
+//     }
+// // An self-invoking function that is immediately invoked when loaded
+// }(this, function () {
 
 	/**
 	 * Object: MA median and low income limits by county valid through Sept. 30 2017 (I believe)
