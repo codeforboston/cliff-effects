@@ -1,4 +1,5 @@
 import { FMRS_MA_2018 } from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
+import { Result } from '../../../helpers/Result';
 
 /** Get maximum benefit/subsidy amount for client from Section 8 Project-Based
 * Voucher program. Please allow the client to put in their own subsidy amount
@@ -34,14 +35,21 @@ var getHousingEligibility = function ( client ) {
 	// Send it right back if it's missing input values
 	var props = propsNeeded( client )
 	if ( props.length ) {
-		var details = "Not enough information. These fields need to be filled in: ";
-		for (let propi = 0; propi < props.length; propi++) {
-			let prop = props[ propi ];
-			details += prop;
-			if ( propi < props.length - 1 ) { details += ", "; }
-			else { details += "."; }
-		};
-		return { result: "information", details: details }
+
+		// var details = 'Not enough information. These fields need to be filled in: ';
+		// for (let propi = 0; propi < props.length; propi++) {
+		// 	let prop = props[ propi ];
+		// 	details += prop;
+		// 	if ( propi < props.length - 1 ) { details += ', '; }
+		// 	else { details += '.'; }
+		// };
+
+		// Until we have some reliable way of knowing the right names for the fields:
+		var details = 'Some required form fields have\'t been filled in yet.';
+
+		var result = new Result( { result: 'information', details: details } );
+
+		return result;
 	}
 
 	// Not sure about this part
@@ -57,7 +65,7 @@ var getHousingEligibility = function ( client ) {
 	// Does the client know the amount?)
     	welfareRent = client.welfareRent || 0,
 	// Possibly also the public housing agency's own minimum rent, which doesn't
-	// always exist, can be different amounts, and can sometimes we waived (pg 63 of "Book")
+	// always exist, can be different amounts, and can sometimes we waived (pg 63 of 'Book')
 		PHAMinRent 	= client.PHAMinRent || 0;
 
 	// TTP = total tenant payment
@@ -106,10 +114,10 @@ var subsidyResult = function ( subsidyAmount ) {
 
 
 var requiredProps = [
-	"householdMonthlyAdjustedIncome",
-	"householdMonthlyGrossIncome",
-	"areaOfResidence",
-	"numberOfBedrooms"
+	'householdMonthlyAdjustedIncome',
+	'householdMonthlyGrossIncome',
+	'areaOfResidence',
+	'numberOfBedrooms'
 ];
 
 
