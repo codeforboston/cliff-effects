@@ -22,7 +22,7 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build&&gh-pages -d build"
   },
-  "homepage": "https://adanaher.github.io/cliff-effects",
+  "homepage": "https://codeforboston.github.io/cliff-effects",
   "devDependencies": {
     "gh-pages": "^1.0.0"
   },
@@ -30,11 +30,11 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adanaher/cliff-effects.git"
+    "url": "git+https://github.com/codeforboston/cliff-effects.git"
   },
-  "author": "Alec Danaher",
+  "author": "Code for Boston",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adanaher/cliff-effects/issues"
+    "url": "https://github.com/codeforboston/cliff-effects/issues"
   }
 }
