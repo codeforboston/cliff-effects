@@ -1,9 +1,9 @@
 ## Installation and Setup for Local Development
 
-1. Install [Node.js](https://nodejs.org/en/) (I used v6.11.1).
+1. If you don't already Node.js, [install it](https://nodejs.org/en/). (I used v6.11.1).  To check if Node is already installed, type `node --version` into terminal.
 2. Open the node command prompt and change into the directory that you want to clone the app to.
 3. Clone the repo to your local machine with `git clone https://github.com/adanaher/cliff-effects.git`.
-4. Change into the new app directory with `cd cliff-effects`.  For Windows machines, use `dir` instead of `cd`.
+4. Change into the new app directory with `cd cliff-effects`.
 5. Change to the master branch with `git checkout master`.
 6. Install all necessary node packages with `npm install`. This might take a few minutes.
 7. Type `npm start` to run the app in your browser in dev mode. It is set up for live updating if you make changes to the code.
