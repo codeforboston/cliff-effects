@@ -19,6 +19,8 @@
 // // An self-invoking function that is immediately invoked when loaded
 // }(this, function () {
 
+	var expirationDate = new Date( 2018, 10, 1 );
+
 	/**
 	 * Object: MA fair market rents by county and then by number of rooms in the
 	 * housing unit effective October 2, 2017 for the year of 2018. Presumably
@@ -393,7 +395,7 @@
 		"Worcester city": [850, 942, 1192, 1494, 1654],
 	};
 
-	export { FMRS_MA_2018 };
+	export { FMRS_MA_2018, expirationDate };
 
 // 	// Now available externally
 //     return FMRS_MA_2018;
