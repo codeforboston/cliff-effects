@@ -531,7 +531,7 @@ class VisitPage extends Component {
         annualIncome: 0,
         citizenshipStatus:'citizen',
         qualifyingConditions: false,       
-        numBedrooms: 0,
+        numberOfBedrooms: 0,
         areaOfResidence: 'Boston city',
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId
