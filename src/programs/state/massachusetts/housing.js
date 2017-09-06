@@ -106,9 +106,9 @@ var subsidyResult = function ( subsidyAmount ) {
 
 
 var requiredProps = [
-	"householdMonthlyAdjustedIncome"
-	"householdMonthlyGrossIncome"
-	"areaOfResidence"
+	"householdMonthlyAdjustedIncome",
+	"householdMonthlyGrossIncome",
+	"areaOfResidence",
 	"numberOfBedrooms"
 ];
 
