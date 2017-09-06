@@ -48,7 +48,7 @@ var getHousingEligibility = function ( client ) {
 
 	// TTP = total tenant payment
     var minTTP = Math.max( adjusted, gross, welfareRent, PHAMinRent ),
-    	estimatedRent = FMRS_MA_2018[ client.areaOfResidence ][ client.housing.numBedrooms ],
+    	estimatedRent = FMRS_MA_2018[ client.areaOfResidence ][ client.numBedrooms ],
 	// The maximum amount a PHA (public housing agency) can give to client has a range
 	// of 90% to 110% depending on how it choose to do things.
 	// We're currently going to assume the minimum of that range. That is, we're going
