@@ -22,6 +22,7 @@ import { getHousingEligibility } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 import { clientList } from './clientList';
 import { Line } from 'react-chartjs-2';
+// import { IncomeStep } from './forms/income';
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -261,7 +262,9 @@ const CurrentBenefitsStep = (props) => {
     <Form size='massive'>
       <Segment padded='very' style={{ minHeight: '600' }}>
         <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>Current Benefits</Header>
+          <Header as='h1' color='teal' textAlign='center'>
+            Current Benefits
+          </Header>
           <Header as='h3' textAlign='center'>
             Select the benefits you currently receive.
           </Header>
@@ -299,8 +302,7 @@ const CurrentBenefitsStep = (props) => {
         <Divider />
         <Grid textAlign='center' verticalAlign='middle' >
           <Grid.Row>
-            <Grid.Column width={13}>
-            </Grid.Column>
+            <Grid.Column width={13}></Grid.Column>
             <Grid.Column width={3}>
               <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
             </Grid.Column>
@@ -323,20 +325,20 @@ const HouseholdSizeStep = (props) => {
           <Header as='h3' textAlign='center'>
             Select the number of people in your household including yourself.
           </Header>
-            <div className={'field-aligner'}>
-              {[1,2,3,4,5,6,7,8].map(size =>
-                (<Form.Field>
-                  <Radio
-                    label={size}
-                    name='householdSize'
-                    value={size}
-                    checked={props.pageState.householdSize === size}
-                    onChange={props.handleChange}
-                  />
-                </Form.Field>)
-              )}
-            </div>
-          </Segment>
+          <div className={'field-aligner'}>
+            {[1,2,3,4,5,6,7,8].map(size =>
+              (<Form.Field>
+                <Radio
+                  label={size}
+                  name='householdSize'
+                  value={size}
+                  checked={props.pageState.householdSize === size}
+                  onChange={props.handleChange}
+                />
+              </Form.Field>)
+            )}
+          </div>
+        </Segment>
         <Divider />
         <Grid
           textAlign='center'
