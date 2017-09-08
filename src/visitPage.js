@@ -625,13 +625,20 @@ class VisitPage extends Component {
       { completed: false, active: false, title: 'Results' }
     ]
 
+
+        //   message='Are you sure you want to leave the page with unsaved changes?'
+        // />
+        // {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.clientId}`}/>) : false}
+        // <SimpleMenu save={this.saveForm} client={this.state.clientInfo} visit={this.state.visitId} />
+        // <Grid
+
+    // Simplified for prototype testing
     return (
       <div className='login-form'>
         <Prompt
           when={this.state.isBlocking}
           message='Are you sure you want to leave the page with unsaved changes?'
         />
-        {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.clientId}`}/>) : false}
         <SimpleMenu save={this.saveForm} client={this.state.clientInfo} visit={this.state.visitId} />
         <Grid
           textAlign='center'
