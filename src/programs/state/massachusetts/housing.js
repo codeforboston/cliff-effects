@@ -12,6 +12,12 @@ import { Result } from '../../../helpers/Result';
 * case managers what they want to do about those. They're weird.
 * There will be extra info if subsidy amount is $0, though.
 * 
+* Notes on citizenship: Details avaialble at
+* {@link https://www.law.cornell.edu/uscode/text/42/1436a#a}
+* but that stuff isn't important for continued eligibility/benefits calculations
+* becasue the client wouldn't be in the program in the first place if they didn't
+* have qualifying citizenship. And that's what we're calculating right now.
+* 
 * @function
 * @since 09/2017
 * 
