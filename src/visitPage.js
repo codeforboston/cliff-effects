@@ -22,7 +22,7 @@ import { getHousingEligibility } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 import { clientList } from './clientList';
 import { Line } from 'react-chartjs-2';
-// import { IncomeStep } from './forms/income';
+import { IncomeStep } from './forms/income';
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -356,54 +356,6 @@ const HouseholdSizeStep = (props) => {
         </Grid>
       </Segment>
     </Form>
-  )
-}
-
-const IncomeStep = (props) => {
-  return (
-      <Form>
-        <Segment padded='very' style={{ minHeight: '600' }}>
-          <Segment style={{ minHeight: '500' }} basic={true}>
-            <Header as='h1' color='teal' textAlign='center'>
-              Household Annual Income
-            </Header>
-            <Header as='h3' textAlign='center'>
-              How much money does your household earn every year before taxes?
-            </Header>
-            <Form.Input label='Annual Income' placeholder='Annual Income' name='annualIncome' onChange={props.handleChange} type='number' />
-            <br/>
-            <br/>
-            <div>
-              <Header as='h4' textAlign='center'>
-                FOR A HOUSEHOLD SIZE OF <strong>{props.pageState.householdSize}</strong>:
-              </Header>
-              <Statistic>
-                <Statistic.Label>% of Federal Poverty Level</Statistic.Label>
-                <Statistic.Value>{Math.round(percentPovertyLevel(props.pageState.annualIncome,props.pageState.householdSize))}%</Statistic.Value>
-              </Statistic>
-              <Statistic>
-                <Statistic.Label>% of State Median Income</Statistic.Label>
-                <Statistic.Value>{Math.round(percentStateMedianIncome(props.pageState.annualIncome,props.pageState.householdSize))}%</Statistic.Value>
-              </Statistic>
-            </div>
-          </Segment>
-          <Divider />
-          <Grid
-            textAlign='center'
-            verticalAlign='middle'
-          >
-            <Grid.Row>
-              <Grid.Column width={3}>
-                <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-              </Grid.Column>
-              <Grid.Column width={10} />
-              <Grid.Column width={3}>
-                <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
-      </Form>
   )
 }
 
