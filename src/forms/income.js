@@ -67,9 +67,22 @@ var localVals = {};
 
 
 
+
+// ========================================
+// CONSTANTS
+// ========================================
+
+const UNEARNED_INCOME_SOURCES = [
+  'earnedIncome', 'TAFDC', 'SSI', 'SSDI', 'childSupport', 'unemployment',
+  'workersComp', 'pension', 'socialSecurity', 'alimony', 'otherIncome'
+];
+
+
+
 // ========================================
 // FUNCTIONS
 // ========================================
+
 
 var roundMoney = function ( val ) {
   // Only round values for display. In actual calculations, keep things
@@ -96,9 +109,26 @@ var limit = function ( initialVal, minMax ) {
 };  // End limit()
 
 
+var handleGrossUnearnedIncome = function () {
+
+  var generics  = UNEARNED_INCOME_SOURCES,  // DO NOT ALTER THIS ARRAY
+      sum       = 0;
+
+  for (let namei = 0; namei < generics.length; namei++) {
+
+    let name = generics[ namei ];
+    sum += originals[ name + 'Monthly' ];
+
+  };
+
+  originals[ 'unearnedIncomeMonthly' ] = sum;
+
+  return sum;
+};  // End handleGrossUnearnedIncome()
+
+
 
 var equalizers = {};
-
 
 equalizers.weekly = function ( evnt, genericID, weeklyVal ) {
 
@@ -125,6 +155,8 @@ equalizers.monthly = function ( evnt, genericID, monthlyVal ) {
 
   var incomeObj = { name: genericID + 'Monthly', value: monthly };
   originals.handleChange( evnt, incomeObj );
+
+  handleGrossUnearnedIncome();
 
   return monthly;
 

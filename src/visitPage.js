@@ -501,6 +501,7 @@ class VisitPage extends Component {
         socialSecurityMonthly: 0,
         alimonyMonthly: 0,
         otherIncomeMonthly: 0,
+        unearnedIncomeMonthly: 0,
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId
     }
