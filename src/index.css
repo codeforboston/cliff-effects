@@ -8,3 +8,10 @@ form .field-aligner {
 	display: inline-block;
 	text-align: left;
 }
+
+/* One of these two groups */
+.info-revealer .info-tooltip { display: none; }
+.info-revealer:hover .info-tooltip { display: inline-block; }
+
+.label-info { display: inline; }
+.label-info.hidden { display: none; }

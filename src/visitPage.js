@@ -490,13 +490,62 @@ class VisitPage extends Component {
         qualifyingConditions: false,       
         numberOfBedrooms: 0,
         areaOfResidence: 'Boston city',
+        earnedIncome: '',
+        TAFDC: '',
+        SSI: '',
+        SSDI: '',
+        childSupport: '',
+        unemployment: '',
+        workersComp: '',
+        pension: '',
+        socialSecurity: '',
+        alimony: '',
+        otherIncome: '',
+        earnedIncomeWeekly: '',
+        TAFDCWeekly: '',
+        SSIWeekly: '',
+        SSDIWeekly: '',
+        childSupportWeekly: '',
+        unemploymentWeekly: '',
+        workersCompWeekly: '',
+        pensionWeekly: '',
+        socialSecurityWeekly: '',
+        alimonyWeekly: '',
+        otherIncomeWeekly: '',
+        earnedIncomeMonthly: '',
+        TAFDCMonthly: '',
+        SSIMonthly: '',
+        SSDIMonthly: '',
+        childSupportMonthly: '',
+        unemploymentMonthly: '',
+        workersCompMonthly: '',
+        pensionMonthly: '',
+        socialSecurityMonthly: '',
+        alimonyMonthly: '',
+        otherIncomeMonthly: '',
+        earnedIncomeYearly: '',
+        TAFDCYearly: '',
+        SSIYearly: '',
+        SSDIYearly: '',
+        childSupportYearly: '',
+        unemploymentYearly: '',
+        workersCompYearly: '',
+        pensionYearly: '',
+        socialSecurityYearly: '',
+        alimonyYearly: '',
+        otherIncomeYearly: '',
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId
     }
   }
 
   handleToggleChange = (e, { name, checked }) => this.setState({ [name]: checked })
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  handleChange = (e, { name, value }, callback) => {
+    this.setState(
+      { [name]: value },
+      function () { if ( callback ) { callback( this.state ); } }  // This is given no arguments
+    );
+  }
 
   saveForm = (exitAfterSave) => {
     alert('Form saved (not really, this is a placeholder).');
@@ -569,7 +618,7 @@ class VisitPage extends Component {
 
   render() {
     const steps = [
-      { completed: false, active: false, title: 'Current Benefits', /*description: 'Choose your shipping options'*/ },
+      { completed: false, active: false, title: 'Current Benefits', /*description: 'Choose your shipping options' (what does this mean?)*/ },
       { completed: false, active: false, title: 'Household' },
       { completed: false, active: false, title: 'Income' },
       { completed: false, active: false, title: 'Citizenship' },
