@@ -5,13 +5,7 @@ import {
   Form,
   Grid,
   Header,
-  // Segment,
-  // Step,
-  // Card,
-  // Icon,
-  // Checkbox,
-  // Divider,
-  // Radio,
+  // Segment, Step, Card, Icon, Checkbox, Divider, Radio,
   Statistic,
   // Reveal,
   Input
@@ -26,18 +20,6 @@ import { PrevNext, FormPartsContainer } from './formHelpers';
 * @todo Figure out which programs need to know which types of incomes
 * and categorize them accordingly.
 * @todo Kristin's lists (@see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9}):
-* - Income
-*  - Earned income
-*  - TAFDC
-*  - SSI
-*  - SSDI
-*  - Child support
-*  - Unemployment
-*  - Worker’s comp
-*  - Pension
-*  - Social Security
-*  - Alimony
-*  - Other income
 * - Expenses (expenses need to be calculated in income stuff, but maybe
 * they should be in an adjacent part of the form)
 *  - Rent (@see more notes in above doc)
@@ -45,6 +27,7 @@ import { PrevNext, FormPartsContainer } from './formHelpers';
 *  - Childcare/dependent care costs
 *  - Other “expenses” (client word) (@see more notes in above doc)
 */
+
 
 // Ideas of how to handle a different styling situation (if the designers switch columns)
 
@@ -60,16 +43,6 @@ import { PrevNext, FormPartsContainer } from './formHelpers';
 //   </Grid.Row>
 // </Grid>
 
-
-// <Form.Input
-//   label='Annual Income'
-//   placeholder='Annual Income'
-//   name='annualIncome'
-//   onChange={props.handleChange}
-//   type='number'
-// />
-
-
 // <Form.Field inline>
 //   <span className='column-1-header'>Income Source</span>
 //   <div className='right-column'>
@@ -84,21 +57,13 @@ import { PrevNext, FormPartsContainer } from './formHelpers';
 //     name='Earned Income' placeholder='Earned Income'
 //   />
 
-// <input
-//   className='weekly'
-//   type='number'
-//   onChange={props.handleChange}
-//   name='Earned Income Weekly' placeholder='Earned Income Weekly'
-// />
-
-// <div className='income-inputs-column left-column'>
 
 
 
 // ========================================
 // TEMPORARY STORAGE
 // ========================================
-var values = {};
+var localVals = {};
 
 
 
@@ -108,231 +73,71 @@ var values = {};
 
 var roundMoney = function ( val ) {
   // Only round values for display. In actual calculations, keep things
-  // exact otherwise the numbers keep changing
-  if ( val === 0 || val === '' ) { return ''; }
+  // exact otherwise the numbers change under the cursor
+  if ( val === 0 || val === '' ) { return 0; }
   else { return ( Math.round(val * 100) / 100); }
 };  // End roundMoney()
 
 
 var limit = function ( initialVal, minMax ) {
 
-  /** @todo Make sure 0's can't be entered after two decimal places */
+  /** @todo Add trailing 0's */
   var min = minMax.min,
       max = minMax.max;
 
   var raw   = parseFloat( initialVal ),
-      value = raw;
+      value = null;
   if ( typeof min === 'number' && !isNaN(min) ) { value = Math.max( min, raw ); }
   if ( typeof max === 'number' && !isNaN(max) ) { value = Math.min( max, raw ); }
 
-  if ( isNaN( value ) || value === 0 ) { value = ''; }
+  if ( isNaN( value ) ) { value = 0; }
 
   return value;
 };  // End limit()
 
+
+
 var equalizers = {};
 
-/** About the data being sent back to `state`, three pieces of data are
-* always sent because different types of programs may use different
-* income timeframes (weekly, monthly, yearly/annualy), so all three
-* are being made available. @todo Change that to one thing.
-*/
 
-// equalizers.sendData = function ( evnt, funcProps, incomeDataArr ) {
-
-//   var equalized = {};
-
-//   for ( let dati = 0; dati < incomeDataArr.length; dati++ ) {
-
-//     let data      = incomeDataArr[ dati ],
-//         incomeObj = { name: data[0], value: data[1] };
-
-//     funcProps.handleChange( evnt, incomeObj );
-//     equalized[ data[0] ] = data[1];
-
-//   };
-
-//   return equalized;
-// };  // End equalizers.sendData()
-
-
-// equalizers.weekly = function ( evnt, weeklyNode, funcProps ) {
-
-//   var grandparent = weeklyNode.parentNode.parentNode;
-//   var weeklyVal   = limit( weeklyNode.value, { min: 0 } );
-
-//   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-//   var weekly  = weeklyVal,
-//       monthly = ( weekly * 4.33 ) || '',
-//       yearly  = ( weekly * 52 ) || '';
-
-//   var monthlyNode = ( grandparent.querySelector('.monthly') ).querySelector('input'),
-//       yearlyNode  = ( grandparent.querySelector('.yearly') ).querySelector('input');
-
-//   var equalized = equalizers.sendData( evnt, original, [
-//     [ weeklyNode.name, weekly ],
-//     [ monthlyNode.name, monthly ],
-//     [ yearlyNode.name, yearly ]
-//   ]);
-
-//   return equalized;
-
-// };  // End equalizers.weekly()
-
-
-// equalizers.monthly = function ( evnt, monthlyNode, funcProps ) {
-
-//   var grandparent = monthlyNode.parentNode.parentNode;
-//   var monthlyVal  = limit( monthlyNode.value, { min: 0 } );
-
-//   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-//   var monthly = monthlyVal,
-//       weekly  = ( monthly / 4.33 ) || '',
-//       yearly  = ( weekly * 52 ) || '';
-
-//   var weeklyNode = ( grandparent.querySelector('.weekly') ).querySelector('input'),
-//       yearlyNode = ( grandparent.querySelector('.yearly') ).querySelector('input');
-
-//   var equalized = equalizers.sendData( evnt, original, [
-//     [ weeklyNode.name, weekly ],
-//     [ monthlyNode.name, monthly ],
-//     [ yearlyNode.name, yearly ]
-//   ]);
-
-//   return equalized;
-
-// };  // End equalizers.monthly()
-
-
-// equalizers.yearly = function ( evnt, yearlyNode, funcProps ) {
-
-//   var grandparent = yearlyNode.parentNode.parentNode;
-//   var yearlyVal   = limit( yearlyNode.value, { min: 0 } );
-
-//   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-//   var yearly  = yearlyVal,
-//       weekly  = ( yearly / 52 ) || '',
-//       monthly = ( weekly * 4.33 ) || '';
-
-//   var weeklyNode  = ( grandparent.querySelector('.weekly') ).querySelector('input'),
-//       monthlyNode = ( grandparent.querySelector('.monthly') ).querySelector('input');
-
-//   var equalized = equalizers.sendData( evnt, original, [
-//     [ weeklyNode.name, weekly ],
-//     [ monthlyNode.name, monthly ],
-//     [ yearlyNode.name, yearly ]
-//   ]);
-
-//   return equalized;
-
-// };  // End equalizers.yearly()
-
-
-
-equalizers.weekly2 = function ( evnt, weeklyNode ) {
-
-  // var grandparent = weeklyNode.parentNode.parentNode;
-  // var weeklyVal   = limit( weeklyNode.value, { min: 0 } );
-
-  // /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-  // var monthly = ( weeklyVal * 4.33 ) || '',
-  //     yearly  = ( weeklyVal * 52 ) || '';
-
-  // var monthlyNode = ( grandparent.querySelector('.monthly') ).querySelector('input'),
-  //     yearlyNode  = ( grandparent.querySelector('.yearly') ).querySelector('input');
-
-  // // var equalized = equalizers.sendData( evnt, [
-  // //   [ weeklyNode.name, weekly ],
-  // //   [ monthlyNode.name, monthly ],
-  // //   [ yearlyNode.name, yearly ]
-  // // ]);
-  // // return equalized;
-
-  // values[ monthlyNode.id ] = monthly;
-  // values[ yearlyNode.id  ]  = yearly;
-
-  // console.log( 'values:', values );
-
-  // // monthlyNode.value = roundMoney( monthly )
-  // // yearlyNode.value  = roundMoney( yearly )
-
-  // var incomeObj = { name: weeklyNode.id, value: weeklyVal };
-  // original.handleChange( evnt, incomeObj );
-
-  // return incomeObj;
-
-
-  // instead get generic and value
-  var grandparent = weeklyNode.parentNode.parentNode;
-  var weeklyVal   = weeklyNode.value;
-  // weeklyVal       = weeklyVal.toFixed(2);
-  console.log( 'weekly:', weeklyVal );
+equalizers.weekly = function ( evnt, genericID, weeklyVal ) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-  var monthlyNode    = ( grandparent.querySelector('.monthly') ).querySelector('input');
-  monthlyNode.value  = ( weeklyVal * 4.33 ) || '';
-  console.log( 'monthly value:', monthlyNode.value );
-
-  var incomes = equalizers[ 'monthly2' ]( evnt, monthlyNode );
-  return incomes;
+  var monthly = weeklyVal * 4.33;
+  equalizers[ 'monthly' ]( evnt, genericID, monthly );
+  console.log( 'weekly:', weeklyVal, arguments );
+  
+  return localVals[ genericID + 'Weekly' ];
 
 };  // End equalizers.weekly()
 
 
-equalizers.monthly2 = function ( evnt, monthlyNode ) {
+equalizers.monthly = function ( evnt, genericID, monthlyVal ) {
+// Monthly is used for a lot of things and is the one we want to store
 
-
-  // var grandparent = monthlyNode.parentNode.parentNode;
-  // var monthlyVal  = limit( monthlyNode.value, { min: 0 } );
-
-  // /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-  // var weeklyNode    = ( grandparent.querySelector('.weekly') ).querySelector('input');
-  // weeklyNode.value  = ( monthlyVal / 4.33 ) || '';
-
-  // var incomes = equalizers[ 'weekly' ]( evnt, weeklyNode );
-  // return incomes;
-
-
-
-  var grandparent = monthlyNode.parentNode.parentNode;
-  var monthlyVal  = limit( monthlyNode.value, { min: 0 } );
-  // monthlyVal      = monthlyVal.toFixed(2);
-  console.log( 'monthly value:', monthlyNode.value, monthlyVal );
-  console.log( 'to be weekly:', ( monthlyVal / 4.33 ), roundMoney( ( monthlyVal / 4.33 ) ) );
-
+  var monthly = limit( monthlyVal, { min: 0 } );
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-  var weekly = roundMoney( ( monthlyVal / 4.33 ) ) || '',
-      yearly  = roundMoney( ( monthlyVal * 12 ) ) || '';
-  console.log( 'other values 1:', weekly, yearly, monthlyVal/4.33, monthlyVal * 12 );
+  var weekly = monthly / 4.33,
+      yearly = monthly * 12;
 
-  var weeklyNode = ( grandparent.querySelector('.weekly') ).querySelector('input'),
-      yearlyNode = ( grandparent.querySelector('.yearly') ).querySelector('input');
+  localVals[ genericID + 'Weekly' ] = weekly;
+  localVals[ genericID + 'Yearly' ] = yearly;
 
-  values[ weeklyNode.id ]   = weekly;
-  values[ yearlyNode.id  ]  = yearly;
-  console.log( 'other values 2:', weekly, yearly );
+  var incomeObj = { name: genericID + 'Monthly', value: monthly };
+  originals.handleChange( evnt, incomeObj );
 
-  var incomeObj = { name: monthlyNode.id, value: roundMoney( monthlyVal ) };
-  original.handleChange( evnt, incomeObj );
-
-  return incomeObj;
+  return monthly;
 
 };  // End equalizers.monthly()
 
 
-equalizers.yearly2 = function ( evnt, yearlyNode ) {
-
-  var grandparent = yearlyNode.parentNode.parentNode;
-  var yearlyVal   = yearlyNode.value;
-  // yearlyVal       = yearlyVal.toFixed(2);
+equalizers.yearly = function ( evnt, genericID, yearlyVal ) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-  var monthlyNode    = ( grandparent.querySelector('.monthly') ).querySelector('input');
-  monthlyNode.value  = ( yearlyVal / 12 ) || '';
-  console.log( 'monthly value:', monthlyNode.value );
+  var monthly  = ( yearlyVal / 12 );
+  equalizers[ 'monthly' ]( evnt, genericID, monthly );
 
-  var incomes = equalizers[ 'monthly2' ]( evnt, monthlyNode );
-  return incomes;
+  return localVals[ genericID + 'Yearly' ];
 
 };  // End equalizers.yearly()
 
@@ -342,106 +147,29 @@ equalizers.yearly2 = function ( evnt, yearlyNode ) {
 // COMPONENTS
 // ========================================
 
-// const IncomeRow = ( newProps ) => {
-
-//   var lefterColStyles = { width: '7em', marginRight: '.2em' },
-//       rightColStyles  = { width: '7em', marginRight: '.9em' };
-
-//   var props = newProps.props;
-
-//   var handleChange = function ( evnt, inputProps ) {
-//     equalizers[ inputProps['data-timeframe'] ]( evnt, evnt.target, props );
-//   };
-
-//   var fromWeekly = function ( evnt, inputProps ) {
-//     var weeklyClass = '#' + inputProps.id
-//     // var node      = ((evnt.target.parentNode).parentNode).querySelector( '.weekly' )
-//     var node      = document.body.querySelector( weeklyClass ),
-//         node      = evnt.target,
-//         equalized = equalizers[ 'weekly' ]( evnt, node, props );
-
-//     return equalized[ inputProps.name ];
-//   }
-
-//   var InputFieldsComponent = (
-//     <div>
-//     <Form.Field inline>
-//       <Input
-//         className='weekly income-column'
-//         data-timeframe={ 'weekly' }
-//         type='number'
-//         onChange={ handleChange }
-//         style={ lefterColStyles }
-//         name={ newProps.id + 'Weekly' }
-//         id={ newProps.id + 'Weekly' }
-//         min={ '0' }
-//         value={ props.pageState[ newProps.id + 'Weekly' ] }
-//         componentDidMount={ fromWeekly }
-//       />
-//       <Input
-//         className='monthly income-column'
-//         data-timeframe={ 'monthly' }
-//         type='number'
-//         onChange={ handleChange }
-//         style={ lefterColStyles }
-//         name={ newProps.id + 'Monthly' }
-//         id={ newProps.id + 'Monthly' }
-//         min={ '0' }
-//       />
-//       <Input
-//         className='yearly income-column'
-//         data-timeframe={ 'yearly' }
-//         type='number'
-//         onChange={ handleChange }
-//         style={ rightColStyles }
-//         name={ newProps.id + 'Yearly' }
-//         id={ newProps.id + 'Yearly' }
-//         min={ '0' }
-//       />
-//       <label>{newProps.label}</label>
-//     </Form.Field>
-//     </div>
-//   );
-
-//   return InputFieldsComponent;
-// };  // End IncomeRow() Component
-
-
-
-
 /**
 * @todo Earned income has a specialy info/tooltip thing going
 * on. Possible solution below
 * @todo Earned Income should be `<Form.Field inline required>`,
 * but there's no submit, so that has to be handled in here
-* somehow. (`blocking` is in visitPage.js?)
+* somehow. (`isBlocking` is in visitPage.js?)
 */
-
-var count = 0;
 
 class IncomeInput extends Component {
 
-  constructor ( props ) {
-    super( props );  // makes `this.props`
-    this.handleIndex = count;
-    count++
-  }
+  // makes `this.props`
+  constructor ( props ) { super( props );   }
 
   handleChange = ( evnt, inputProps ) => {
-    // if ( inputProps['data-handleIndex'] % 2 ) {
-    //   console.log( 'evens:', evnt.target.id );
-    //   equalizers[ inputProps['data-timeframe'] ]( evnt, evnt.target, original );
-    // } else {
-    //   console.log( 'alternate:', evnt.target.id );
-      equalizers[ inputProps['data-timeframe'] + '2' ]( evnt, evnt.target, original );
-    // }
+    var generic = inputProps[ 'data-generic' ];
+    equalizers[ inputProps['data-timeframe'] ]( evnt, generic, evnt.target.value );
   }
 
   componentDidMount = () => {
-    var id  = '#' + this.props.id,
+    var id        = '#' + this.props.id,
         node      = document.body.querySelector( id ),
-        equalized = equalizers[ this.props.timeframe + '2' ]( null, node, original );
-    return equalized[ this.props.id ];
+        equalized = equalizers[ this.props.timeframe ]( null, this.props.generic, node.value );
+    return originals[ this.props.id ];
   }
 
   render () {
@@ -458,9 +186,9 @@ class IncomeInput extends Component {
         style           = { props.style }
         name            = { props.id }
         id              = { props.id }
+        data-generic    = { props.generic }
         min             = { '0' }
         value           = { props.value }
-        data-handleIndex = { this.handleIndex }
       />
     );
   }  // End render()
@@ -481,45 +209,36 @@ class IncomeRow extends Component {
   lefterColStyles = { width: '7em', marginRight: '.2em' }
   rightColStyles  = { width: '7em', marginRight: '.9em' }
 
-  handleChange ( evnt, inputProps ) {
-    equalizers[ inputProps['data-timeframe'] + '2' ]( evnt, evnt.target, original );
-  }
-
   render () {
-
-    var weekly = roundMoney( original.pageState[ this.props.id + 'Weekly' ] ) || ''
 
     return (
       <Form.Field inline>
         <IncomeInput
           classes       = 'weekly income-column'
-          timeframe     = { 'weekly' }
+          timeframe     = 'weekly'
           type          = 'number'
           style         = { this.lefterColStyles }
           generic       = { this.props.id }
           id            = { this.props.id + 'Weekly' }
-          min           = { '0' }
-          value         = { values[ this.props.id + 'Weekly' ] || '' }
+          value         = { roundMoney( localVals[ this.props.id + 'Weekly' ] ) || '' }
         />
         <IncomeInput
           classes       = 'monthly income-column'
-          timeframe     = { 'monthly' }
+          timeframe     = 'monthly'
           type          = 'number'
           style         = { this.lefterColStyles }
           generic       = { this.props.id }
           id            = { this.props.id + 'Monthly' }
-          min           = { '0' }
-          value         = { original.pageState[ this.props.id + 'Monthly' ] || '' }
+          value         = { roundMoney( originals.pageState[ this.props.id + 'Monthly' ] ) || '' }
         />
         <IncomeInput
           classes       = 'yearly income-column'
-          timeframe     = { 'yearly' }
+          timeframe     = 'yearly'
           type          = 'number'
           style         = { this.rightColStyles }
           generic       = { this.props.id }
           id            = { this.props.id + 'Yearly' }
-          min           = { '0' }
-          value         = { values[ this.props.id + 'Yearly' ] || '' }
+          value         = { roundMoney( localVals[ this.props.id + 'Yearly' ] ) || '' }
         />
         <label>{this.props.label}</label>
         <div className = { 'label-info' + this.labelInfoDisplayClass } style = {{
@@ -554,11 +273,6 @@ const IncomeForm = ( propsContainer ) => {
 
   var lefterColStyles = { width: '7em', marginRight: '.2em', textAlign: 'center', display: 'inline-block', fontSize: '14px' },
       rightColStyles  = { width: '7em', marginRight: '.9em', textAlign: 'center', display: 'inline-block', fontSize: '14px' };
-
-  var handleChange = function ( evnt, inputProps ) {
-    equalizers[ inputProps['data-timeframe'] ]( evnt, inputProps, props );
-    // originals.handleChange( evnt, inputProps );
-  };
 
   return (
     <div className='field-aligner two-column'>
@@ -612,6 +326,7 @@ const IncomeForm = ( propsContainer ) => {
 
 };  // End IncomeForm() Component
 
+
 // Tooltip version of labels:
 // (could be made official in the Row creator with conditionals)
 // <label>Earned Income
@@ -639,13 +354,15 @@ const IncomeForm = ( propsContainer ) => {
 //   </div>
 // </label>
 
+
+
 // When props are passed along into classes, etc., the are cloned. They
 // don't stay the same object.
-var original;
+var originals;
 
 const IncomeStep = ( props ) => {
 
-  original = props;
+  originals = props;
 
   return (
     <Form className='income-form'>
@@ -726,5 +443,3 @@ const incomeSourcesList = [
 
 
 export { IncomeStep };
-
-
