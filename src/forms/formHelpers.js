@@ -30,13 +30,21 @@ import {
 * @property {string} props.name - The text to be displayed on
 * the button.
 */
-const NavButton = ( props ) => {
+class NavButton extends Component {
 
-  return (
-    <Grid.Column className="formNav" width={3}>
-      <Button color='teal' fluid size='large' onClick={() => props.func()}>{ props.name }</Button>
-    </Grid.Column>
-  );
+  constructor ( props ) { super( props ); }
+
+  render () {
+
+    return (
+      <Grid.Column className="formNav" width={3}>
+        <Button color='teal' fluid size='large' onClick={() => this.props.func()}>
+          { this.props.name }
+        </Button>
+      </Grid.Column>
+    );
+
+  }  // End render()
 
 };  // End PrevNext() Component
 
@@ -59,19 +67,23 @@ const NavButton = ( props ) => {
 * but then hide the 'previous' and the 'next' respectively? Or
 * split those into their own Components?
 */
-const PrevNext = ( propsContainer ) => {
+class PrevNext extends Component {
 
-  let props = propsContainer.props;
+  constructor ( props ) { super( props ); }
 
-  return (
-    <Grid textAlign='center' verticalAlign='middle'>
-      <Grid.Row>
-        <NavButton name='Previous' func={ props.previousStep } />
-        <Grid.Column width={10} />
-        <NavButton name='Next' func={ props.nextStep } />
-      </Grid.Row>
-    </Grid>
-  );
+  render () {
+
+    return (
+      <Grid textAlign='center' verticalAlign='middle'>
+        <Grid.Row>
+          <NavButton name='Previous' func={ this.props.prev } />
+          <Grid.Column width={10} />
+          <NavButton name='Next' func={ this.props.next } />
+        </Grid.Row>
+      </Grid>
+    );
+
+  }  // End render()
 
 };  // End PrevNext() Component
 
@@ -82,35 +94,38 @@ const PrevNext = ( propsContainer ) => {
 * (the 'CurrentBenefitsStep' gives it `size='massive'`).
 * 
 * @function
-* @param {object} parts
-* @property {string} parts.title - Text to go in the `h1` element.
-* @property {string} parts.clarifier - Text to go in the `h3`
+* @param {object} props
+* @property {string} props.title - Text to go in the `h1` element.
+* @property {string} props.clarifier - Text to go in the `h3`
 * element, giving some description, instructions, or clarifications.
-* @property {string} parts.Insertable - Component to be inserted
+* @property {string} props.Insertable - Component to be inserted
 * into the middle - a custom form section containing inputs, etc.
-* @property {Object} parts.props - properties to pass on to the
-* Insertable Component.
+* @property {Object} props.next - the 'next form section' function
+* @property {Object} props.prev - the 'previous form section' function
 */
-const FormPartsContainer = ( parts ) => {
+class FormPartsContainer extends Component {
 
-  let props = parts.props,
-      Insertable  = parts.Insertable;
+  constructor ( props ) { super( props ); }
 
-  return (
-    <Segment padded='very' style={{ minHeight: '600' }}>
-      <Segment style={{ minHeight: '500' }} basic={true}>
-        <Header as='h1' color='teal' textAlign='center'>
-          { parts.title }
-        </Header>
-        <Header as='h3' textAlign='center'>
-          { parts.clarifier }
-        </Header>
-        <Insertable props={props} />
+  render () {
+
+    return (
+      <Segment padded='very' style={{ minHeight: '600' }}>
+        <Segment style={{ minHeight: '500' }} basic={true}>
+          <Header as='h1' color='teal' textAlign='center'>
+            { this.props.title }
+          </Header>
+          <Header as='h3' textAlign='center'>
+            { this.props.clarifier }
+          </Header>
+          <this.props.Insertable/>
+        </Segment>
+        <Divider />
+        <PrevNext next={this.props.next} prev={this.props.prev} />
       </Segment>
-      <Divider />
-      <PrevNext props={props} />
-    </Segment>
-  );
+    );
+
+  }  // End render()
 
 };  // End FormPartsContainer() Component
 

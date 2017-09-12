@@ -86,6 +86,13 @@ const UNEARNED_INCOME_SOURCES = [
 
 var handleGrossUnearnedIncome = function () {
 
+  // Possibly calculate this elsewhere instead of storing
+  // it as a property.
+
+  // Or we could store /only/ the `unearnedIncomeMonthly` as a property
+  // and leave the rest in here, though then refreshing will destroy the
+  // data and it will all have to be filled out again. Also, I'm not sure
+  // what data we're storing permanently.
   var generics  = UNEARNED_INCOME_SOURCES,  // DO NOT ALTER THIS ARRAY
       sum       = 0;
 
@@ -273,9 +280,7 @@ class IncomeRow extends Component {
 * necessary medical expenses and personal care services." (@see {@link
 * http://www.masslegalhelp.org/housing/financial-eligibility})
 */
-const IncomeForm = ( propsContainer ) => {
-
-  let props = propsContainer.props;
+const IncomeForm = ( props ) => {
 
   var lefterColStyles = { width: '7em', marginRight: '.2em', textAlign: 'center', display: 'inline-block', fontSize: '14px' },
       rightColStyles  = { width: '7em', marginRight: '.9em', textAlign: 'center', display: 'inline-block', fontSize: '14px' };
@@ -298,32 +303,32 @@ const IncomeForm = ( propsContainer ) => {
         </Header>
       </Form.Field>
 
-      <IncomeRow id='earnedIncome'    label='Earned income'   props={props} labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}/>
-      <IncomeRow id='TAFDC'           label='TAFDC'           props={props} labelInfo={null}/>
-      <IncomeRow id='SSI'             label='SSI'             props={props} labelInfo={null}/>
-      <IncomeRow id='SSDI'            label='SSDI'            props={props} labelInfo={null}/>
-      <IncomeRow id='childSupport'    label='Child support coming in'   props={props} labelInfo={null}/>
-      <IncomeRow id='unemployment'    label='Unemployment'    props={props} labelInfo={null}/>
-      <IncomeRow id='workersComp'     label='Worker’s comp'   props={props} labelInfo={null}/>
-      <IncomeRow id='pension'         label='Pension'         props={props} labelInfo={null}/>
-      <IncomeRow id='socialSecurity'  label='Social security' props={props} labelInfo={null}/>
-      <IncomeRow id='alimony'         label='Alimony'         props={props} labelInfo={null}/>
-      <IncomeRow id='otherIncome'     label='Other income'    props={props} labelInfo={null}/>
+      <IncomeRow id='earnedIncome'    label='Earned income'   labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}/>
+      <IncomeRow id='TAFDC'           label='TAFDC'           labelInfo={null}/>
+      <IncomeRow id='SSI'             label='SSI'             labelInfo={null}/>
+      <IncomeRow id='SSDI'            label='SSDI'            labelInfo={null}/>
+      <IncomeRow id='childSupport'    label='Child support coming in'   labelInfo={null}/>
+      <IncomeRow id='unemployment'    label='Unemployment'    labelInfo={null}/>
+      <IncomeRow id='workersComp'     label='Worker’s comp'   labelInfo={null}/>
+      <IncomeRow id='pension'         label='Pension'         labelInfo={null}/>
+      <IncomeRow id='socialSecurity'  label='Social security' labelInfo={null}/>
+      <IncomeRow id='alimony'         label='Alimony'         labelInfo={null}/>
+      <IncomeRow id='otherIncome'     label='Other income'    labelInfo={null}/>
 
       <br/>
       <br/>
 
       <div>
         <Header as='h4' textAlign='center'>
-          FOR A HOUSEHOLD SIZE OF <strong>{props.pageState.householdSize}</strong>:
+          FOR A HOUSEHOLD SIZE OF <strong>{originals.pageState.householdSize}</strong>:
         </Header>
         <Statistic>
           <Statistic.Label>% of Federal Poverty Level</Statistic.Label>
-          <Statistic.Value>{Math.round(percentPovertyLevel(props.pageState.annualIncome,props.pageState.householdSize))}%</Statistic.Value>
+          <Statistic.Value>{Math.round(percentPovertyLevel(originals.pageState.annualIncome,originals.pageState.householdSize))}%</Statistic.Value>
         </Statistic>
         <Statistic>
           <Statistic.Label>% of State Median Income</Statistic.Label>
-          <Statistic.Value>{Math.round(percentStateMedianIncome(props.pageState.annualIncome,props.pageState.householdSize))}%</Statistic.Value>
+          <Statistic.Value>{Math.round(percentStateMedianIncome(originals.pageState.annualIncome,originals.pageState.householdSize))}%</Statistic.Value>
         </Statistic>
       </div>
 
@@ -371,12 +376,13 @@ const IncomeStep = ( props ) => {
   originals = props;
 
   return (
-    <Form className='income-form'>
+    <Form className = 'income-form'>
       <FormPartsContainer
-        title='Household Annual Income'
-        clarifier='How much money does your household earn every year before taxes?'
-        props={props}
-        Insertable={IncomeForm}
+        title = 'Household Annual Income'
+        clarifier = 'How much money does your household earn every year before taxes?'
+        Insertable = { IncomeForm }
+        next = { props.nextStep }
+        prev = { props.previousStep }
       />
     </Form>
   );
