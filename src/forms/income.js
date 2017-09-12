@@ -14,6 +14,7 @@ import {
 import { percentPovertyLevel, 
         percentStateMedianIncome } from '../helpers/helperFunctions';
 import { PrevNext, FormPartsContainer } from './formHelpers';
+import { roundMoney, limit } from '../helpers/math';
 
 
 /**
@@ -73,7 +74,7 @@ var localVals = {};
 // ========================================
 
 const UNEARNED_INCOME_SOURCES = [
-  'earnedIncome', 'TAFDC', 'SSI', 'SSDI', 'childSupport', 'unemployment',
+  'TAFDC', 'SSI', 'SSDI', 'childSupport', 'unemployment',
   'workersComp', 'pension', 'socialSecurity', 'alimony', 'otherIncome'
 ];
 
@@ -82,32 +83,6 @@ const UNEARNED_INCOME_SOURCES = [
 // ========================================
 // FUNCTIONS
 // ========================================
-
-
-var roundMoney = function ( val ) {
-  // Only round values for display. In actual calculations, keep things
-  // exact otherwise the numbers change under the cursor
-  if ( val === 0 || val === '' ) { return 0; }
-  else { return ( Math.round(val * 100) / 100); }
-};  // End roundMoney()
-
-
-var limit = function ( initialVal, minMax ) {
-
-  /** @todo Add trailing 0's */
-  var min = minMax.min,
-      max = minMax.max;
-
-  var raw   = parseFloat( initialVal ),
-      value = null;
-  if ( typeof min === 'number' && !isNaN(min) ) { value = Math.max( min, raw ); }
-  if ( typeof max === 'number' && !isNaN(max) ) { value = Math.min( max, raw ); }
-
-  if ( isNaN( value ) ) { value = 0; }
-
-  return value;
-};  // End limit()
-
 
 var handleGrossUnearnedIncome = function () {
 
