@@ -495,7 +495,7 @@ class VisitPage extends Component {
         previousTAFDCMonthly: 0,
         previousSSIMonthly: 0,
         previousSSDIMonthly: 0,
-        previousChildSupportMonthly: 0,
+        previousChildSupportInMonthly: 0,
         previousUnemploymentMonthly: 0,
         previousWorkersCompMonthly: 0,
         previousPensionMonthly: 0,

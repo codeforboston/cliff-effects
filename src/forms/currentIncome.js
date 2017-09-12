@@ -15,6 +15,7 @@ import { percentPovertyLevel,
         percentStateMedianIncome } from '../helpers/helperFunctions';
 import { FormPartsContainer } from './formHelpers';
 import { roundMoney, limit } from '../helpers/math';
+import { grossMonthlyIncome } from '../programs/grossMonthlyIncome';
 
 
 /**
@@ -245,6 +246,9 @@ class IncomeForm extends Component {
     var client      = this.props.client,
         otherProps  = this.props.props;
 
+    var monthly     = grossMonthlyIncome( client, 'current' ),
+        grossAnnual = monthly * 12;
+
     /** 
     * As per Project Hope input, for the first prototype we're only
     * including the ability to change earned income.
@@ -274,15 +278,15 @@ class IncomeForm extends Component {
 
         <div>
           <Header as='h4' textAlign='center'>
-            FOR A HOUSEHOLD SIZE OF <strong>{otherProps.pageState.householdSize}</strong>:
+            FOR A HOUSEHOLD SIZE OF <strong>{ otherProps.pageState.householdSize }</strong>:
           </Header>
           <Statistic>
             <Statistic.Label>% of Federal Poverty Level</Statistic.Label>
-            <Statistic.Value>{Math.round(percentPovertyLevel(otherProps.pageState.annualIncome,otherProps.pageState.householdSize))}%</Statistic.Value>
+            <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
           </Statistic>
           <Statistic>
             <Statistic.Label>% of State Median Income</Statistic.Label>
-            <Statistic.Value>{Math.round(percentStateMedianIncome(otherProps.pageState.annualIncome,otherProps.pageState.householdSize))}%</Statistic.Value>
+            <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
           </Statistic>
         </div>
 

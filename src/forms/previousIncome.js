@@ -319,7 +319,7 @@ class IncomeForm extends Component {
         <IncomeRow id='previousTAFDC'           label='TAFDC'           client={ client } labelInfo={null}/>
         <IncomeRow id='previousSSI'             label='SSI'             client={ client } labelInfo={null}/>
         <IncomeRow id='previousSSDI'            label='SSDI'            client={ client } labelInfo={null}/>
-        <IncomeRow id='previousChildSupport'    label='Child support coming in'   client={ client } labelInfo={null}/>
+        <IncomeRow id='previousChildSupportIn'  label='Child support coming in'   client={ client } labelInfo={null}/>
         <IncomeRow id='previousUnemployment'    label='Unemployment'    client={ client } labelInfo={null}/>
         <IncomeRow id='previousWorkersComp'     label='Worker’s comp'   client={ client } labelInfo={null}/>
         <IncomeRow id='previousPension'         label='Pension'         client={ client } labelInfo={null}/>
@@ -327,29 +327,31 @@ class IncomeForm extends Component {
         <IncomeRow id='previousAlimony'         label='Alimony'         client={ client } labelInfo={null}/>
         <IncomeRow id='previousOtherIncome'     label='Other income'    client={ client } labelInfo={null}/>
 
-        <br/>
-        <br/>
-
-        <div>
-          <Header as='h4' textAlign='center'>
-            FOR A HOUSEHOLD SIZE OF <strong>{otherProps.pageState.householdSize}</strong>:
-          </Header>
-          <Statistic>
-            <Statistic.Label>% of Federal Poverty Level</Statistic.Label>
-            <Statistic.Value>{Math.round(percentPovertyLevel(otherProps.pageState.annualIncome,otherProps.pageState.householdSize))}%</Statistic.Value>
-          </Statistic>
-          <Statistic>
-            <Statistic.Label>% of State Median Income</Statistic.Label>
-            <Statistic.Value>{Math.round(percentStateMedianIncome(otherProps.pageState.annualIncome,otherProps.pageState.householdSize))}%</Statistic.Value>
-          </Statistic>
-        </div>
-
       </div>
     );
 
   }  // End render()
 
 };  // End IncomeForm() Component
+
+
+// Do we want these for previous income?
+// <br/>
+// <br/>
+
+// <div>
+//   <Header as='h4' textAlign='center'>
+//     FOR A HOUSEHOLD SIZE OF <strong>{otherProps.pageState.householdSize}</strong>:
+//   </Header>
+//   <Statistic>
+//     <Statistic.Label>% of Federal Poverty Level</Statistic.Label>
+//     <Statistic.Value>{Math.round(percentPovertyLevel(otherProps.pageState.annualIncome,otherProps.pageState.householdSize))}%</Statistic.Value>
+//   </Statistic>
+//   <Statistic>
+//     <Statistic.Label>% of State Median Income</Statistic.Label>
+//     <Statistic.Value>{Math.round(percentStateMedianIncome(otherProps.pageState.annualIncome,otherProps.pageState.householdSize))}%</Statistic.Value>
+//   </Statistic>
+// </div>
 
 
 // Tooltip version of labels:
