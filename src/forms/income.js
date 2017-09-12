@@ -396,15 +396,13 @@ class IncomeStep extends Component {
 
   render () {
 
-    // Prospective titles:
-    // title = 'Previous Household Monthly Income'
-    // clarifier = 'How much money did your household make the last time you were assessed for your benefits?'
+    /** @todo Are these titles accurate now? */
 
     return (
       <Form className = 'income-form'>
         <FormPartsContainer
-          title = 'Household Annual Income'
-          clarifier = 'How much money does your household earn every year before taxes?'
+          title = 'Previous Household Monthly Income'
+          clarifier = 'How much money did your household make the last time you were assessed for your benefits?'
           next = { this.props.nextStep }
           prev = { this.props.previousStep }
           Insertable = { IncomeForm }
