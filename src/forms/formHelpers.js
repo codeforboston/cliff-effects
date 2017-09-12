@@ -118,7 +118,7 @@ class FormPartsContainer extends Component {
           <Header as='h3' textAlign='center'>
             { this.props.clarifier }
           </Header>
-          <this.props.Insertable client = { this.props.client }/>
+          <this.props.Insertable client = { this.props.client } props = { this.props.props }/>
         </Segment>
         <Divider />
         <PrevNext next={this.props.next} prev={this.props.prev} />

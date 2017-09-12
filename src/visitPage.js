@@ -22,7 +22,8 @@ import { getHousingEligibility } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 import { clientList } from './clientList';
 import { Line } from 'react-chartjs-2';
-import { IncomeStep } from './forms/income';
+import { PreviousIncomeStep } from './forms/previousIncome';
+import { CurrentIncomeStep } from './forms/currentIncome';
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -490,18 +491,20 @@ class VisitPage extends Component {
         qualifyingConditions: false,       
         numberOfBedrooms: 0,
         areaOfResidence: 'Boston city',
-        earnedIncomeMonthly: 0,
-        TAFDCMonthly: 0,
-        SSIMonthly: 0,
-        SSDIMonthly: 0,
-        childSupportMonthly: 0,
-        unemploymentMonthly: 0,
-        workersCompMonthly: 0,
-        pensionMonthly: 0,
-        socialSecurityMonthly: 0,
-        alimonyMonthly: 0,
-        otherIncomeMonthly: 0,
-        unearnedIncomeMonthly: 0,
+        previousEarnedIncomeMonthly: 0,
+        previousTAFDCMonthly: 0,
+        previousSSIMonthly: 0,
+        previousSSDIMonthly: 0,
+        previousChildSupportMonthly: 0,
+        previousUnemploymentMonthly: 0,
+        previousWorkersCompMonthly: 0,
+        previousPensionMonthly: 0,
+        previousSocialSecurityMonthly: 0,
+        previousAlimonyMonthly: 0,
+        previousOtherIncomeMonthly: 0,
+        previousUnearnedIncomeMonthly: 0,
+        currentEarnedIncomeMonthly: 0,
+        currentUnearnedIncomeMonthly: 0,
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId
     }
@@ -539,24 +542,30 @@ class VisitPage extends Component {
                                     handleChange={this.handleChange} 
                                     pageState={this.state}/>);
       case 3:
-        return (<IncomeStep currentStep={this.state.currentStep} 
+        return (<PreviousIncomeStep currentStep={this.state.currentStep} 
                             nextStep={this.nextStep} 
                             previousStep={this.previousStep}
                             handleChange={this.handleChange} 
                             pageState={this.state}/>);
       case 4:
+        return (<CurrentIncomeStep currentStep={this.state.currentStep} 
+                            nextStep={this.nextStep} 
+                            previousStep={this.previousStep}
+                            handleChange={this.handleChange} 
+                            pageState={this.state}/>);
+      case 5:
         return (<CitizenshipStep currentStep={this.state.currentStep} 
                             nextStep={this.nextStep}
                             previousStep={this.previousStep}
                             handleChange={this.handleChange} 
                             pageState={this.state}/>);
-      case 5:
+      case 6:
         return (<HealthStep currentStep={this.state.currentStep} 
                             nextStep={this.nextStep}
                             previousStep={this.previousStep}
                             handleChange={this.handleToggleChange} 
                             pageState={this.state}/>);
-      case 6:
+      case 7:
         return (<Results currentStep={this.state.currentStep} 
                           previousStep={this.previousStep}
                           pageState={this.state}
