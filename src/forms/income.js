@@ -117,11 +117,11 @@ var handleGrossUnearnedIncome = function () {
   for (let namei = 0; namei < generics.length; namei++) {
 
     let name = generics[ namei ];
-    sum += originals[ name + 'Monthly' ];
+    sum += originals.pageState[ name + 'Monthly' ];
 
   };
 
-  originals[ 'unearnedIncomeMonthly' ] = sum;
+  originals.handleChange(null, { name: 'unearnedIncomeMonthly', value: sum });
 
   return sum;
 };  // End handleGrossUnearnedIncome()
@@ -135,7 +135,6 @@ equalizers.weekly = function ( evnt, genericID, weeklyVal ) {
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
   var monthly = weeklyVal * 4.33;
   equalizers[ 'monthly' ]( evnt, genericID, monthly );
-  console.log( 'weekly:', weeklyVal, arguments );
   
   return localVals[ genericID + 'Weekly' ];
 
