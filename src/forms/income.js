@@ -62,14 +62,6 @@ import { roundMoney, limit } from '../helpers/math';
 
 
 // ========================================
-// TEMPORARY STORAGE
-// ========================================
-var localVals = {};
-
-
-
-
-// ========================================
 // CONSTANTS
 // ========================================
 
@@ -84,7 +76,7 @@ const UNEARNED_INCOME_SOURCES = [
 // FUNCTIONS
 // ========================================
 
-var handleGrossUnearnedIncome = function () {
+var handleGrossUnearnedIncome = function ( client ) {
 
   // Possibly calculate this elsewhere instead of storing
   // it as a property.
@@ -99,11 +91,11 @@ var handleGrossUnearnedIncome = function () {
   for (let namei = 0; namei < generics.length; namei++) {
 
     let name = generics[ namei ];
-    sum += originals.pageState[ name + 'Monthly' ];
+    sum += client[ name + 'Monthly' ];
 
   };
 
-  originals.handleChange(null, { name: 'unearnedIncomeMonthly', value: sum });
+  funcs.handleChange(null, { name: 'unearnedIncomeMonthly', value: sum });
 
   return sum;
 };  // End handleGrossUnearnedIncome()
@@ -118,7 +110,7 @@ equalizers.weekly = function ( evnt, genericID, weeklyVal ) {
   var monthly = weeklyVal * 4.33;
   equalizers[ 'monthly' ]( evnt, genericID, monthly );
   
-  return localVals[ genericID + 'Weekly' ];
+  return weeklyVal;
 
 };  // End equalizers.weekly()
 
@@ -131,13 +123,10 @@ equalizers.monthly = function ( evnt, genericID, monthlyVal ) {
   var weekly = monthly / 4.33,
       yearly = monthly * 12;
 
-  localVals[ genericID + 'Weekly' ] = weekly;
-  localVals[ genericID + 'Yearly' ] = yearly;
-
   var incomeObj = { name: genericID + 'Monthly', value: monthly };
-  originals.handleChange( evnt, incomeObj );
-
-  handleGrossUnearnedIncome();
+  funcs.handleChange( evnt, incomeObj, function ( that ) {
+    handleGrossUnearnedIncome( that.state );
+  });
 
   return monthly;
 
@@ -147,10 +136,10 @@ equalizers.monthly = function ( evnt, genericID, monthlyVal ) {
 equalizers.yearly = function ( evnt, genericID, yearlyVal ) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-  var monthly  = ( yearlyVal / 12 );
+  var monthly = ( yearlyVal / 12 );
   equalizers[ 'monthly' ]( evnt, genericID, monthly );
 
-  return localVals[ genericID + 'Yearly' ];
+  return yearlyVal;
 
 };  // End equalizers.yearly()
 
@@ -171,7 +160,7 @@ equalizers.yearly = function ( evnt, genericID, yearlyVal ) {
 class IncomeInput extends Component {
 
   // makes `this.props`
-  constructor ( props ) { super( props );   }
+  constructor ( props ) { super( props ); }
 
   handleChange = ( evnt, inputProps ) => {
     var generic = inputProps[ 'data-generic' ];
@@ -182,7 +171,6 @@ class IncomeInput extends Component {
     var id        = '#' + this.props.id,
         node      = document.body.querySelector( id ),
         equalized = equalizers[ this.props.timeframe ]( null, this.props.generic, node.value );
-    return originals[ this.props.id ];
   }
 
   render () {
@@ -204,6 +192,7 @@ class IncomeInput extends Component {
         value           = { props.value }
       />
     );
+
   }  // End render()
 
 };  // End IncomeInput{} Component
@@ -224,34 +213,40 @@ class IncomeRow extends Component {
 
   render () {
 
+    var client  = this.props.client,
+        baseVal = client[ this.props.id + 'Monthly' ]
+
     return (
       <Form.Field inline>
         <IncomeInput
-          classes       = 'weekly income-column'
-          timeframe     = 'weekly'
-          type          = 'number'
-          style         = { this.lefterColStyles }
-          generic       = { this.props.id }
-          id            = { this.props.id + 'Weekly' }
-          value         = { roundMoney( localVals[ this.props.id + 'Weekly' ] ) || '' }
+          classes   = 'weekly income-column'
+          timeframe = 'weekly'
+          type      = 'number'
+          style     = { this.lefterColStyles }
+          generic   = { this.props.id }
+          id        = { this.props.id + 'Weekly' }
+          value     = { roundMoney( baseVal / 4.33 ) || '' }
+          client    = { client }
         />
         <IncomeInput
-          classes       = 'monthly income-column'
-          timeframe     = 'monthly'
-          type          = 'number'
-          style         = { this.lefterColStyles }
-          generic       = { this.props.id }
-          id            = { this.props.id + 'Monthly' }
-          value         = { roundMoney( originals.pageState[ this.props.id + 'Monthly' ] ) || '' }
+          classes   = 'monthly income-column'
+          timeframe = 'monthly'
+          type      = 'number'
+          style     = { this.lefterColStyles }
+          generic   = { this.props.id }
+          id        = { this.props.id + 'Monthly' }
+          value     = { roundMoney( client[ this.props.id + 'Monthly' ] ) || '' }
+          client    = { client }
         />
         <IncomeInput
-          classes       = 'yearly income-column'
-          timeframe     = 'yearly'
-          type          = 'number'
-          style         = { this.rightColStyles }
-          generic       = { this.props.id }
-          id            = { this.props.id + 'Yearly' }
-          value         = { roundMoney( localVals[ this.props.id + 'Yearly' ] ) || '' }
+          classes   = 'yearly income-column'
+          timeframe = 'yearly'
+          type      = 'number'
+          style     = { this.rightColStyles }
+          generic   = { this.props.id }
+          id        = { this.props.id + 'Yearly' }
+          value     = { roundMoney( baseVal * 12 ) || '' }
+          client    = { client }
         />
         <label>{this.props.label}</label>
         <div className = { 'label-info' + this.labelInfoDisplayClass } style = {{
@@ -280,60 +275,79 @@ class IncomeRow extends Component {
 * necessary medical expenses and personal care services." (@see {@link
 * http://www.masslegalhelp.org/housing/financial-eligibility})
 */
-const IncomeForm = ( props ) => {
+class IncomeForm extends Component {
 
-  var lefterColStyles = { width: '7em', marginRight: '.2em', textAlign: 'center', display: 'inline-block', fontSize: '14px' },
-      rightColStyles  = { width: '7em', marginRight: '.9em', textAlign: 'center', display: 'inline-block', fontSize: '14px' };
+  constructor ( props ) {
+    super( props );  // makes `this.props`
 
-  return (
-    <div className='field-aligner two-column'>
+    this.color = 'teal';
 
-      <Form.Field inline>
-        <Header as='h4' className='weekly income-column header' style={ lefterColStyles } color='teal'>
-          Weekly
-        </Header>
-        <Header as='h4' className='monthly income-column header' style={ lefterColStyles } color='teal'>
-          Monthly
-        </Header>
-        <Header as='h4' className='yearly income-column header' style={ rightColStyles } color='teal'>
-          Yearly
-        </Header>
-        <Header as='h4' style={ { display: 'inline-block', fontSize: '14px' } } color='teal'>
-          Income Type
-        </Header>
-      </Form.Field>
+    this.lefterColStyles = {
+      width: '7em', marginRight: '.2em',
+      textAlign: 'center', display: 'inline-block', fontSize: '14px'
+    };
 
-      <IncomeRow id='earnedIncome'    label='Earned income'   labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}/>
-      <IncomeRow id='TAFDC'           label='TAFDC'           labelInfo={null}/>
-      <IncomeRow id='SSI'             label='SSI'             labelInfo={null}/>
-      <IncomeRow id='SSDI'            label='SSDI'            labelInfo={null}/>
-      <IncomeRow id='childSupport'    label='Child support coming in'   labelInfo={null}/>
-      <IncomeRow id='unemployment'    label='Unemployment'    labelInfo={null}/>
-      <IncomeRow id='workersComp'     label='Worker’s comp'   labelInfo={null}/>
-      <IncomeRow id='pension'         label='Pension'         labelInfo={null}/>
-      <IncomeRow id='socialSecurity'  label='Social security' labelInfo={null}/>
-      <IncomeRow id='alimony'         label='Alimony'         labelInfo={null}/>
-      <IncomeRow id='otherIncome'     label='Other income'    labelInfo={null}/>
+    this.rightColStyles  = {
+      width: '7em', marginRight: '.9em',
+      textAlign: 'center', display: 'inline-block', fontSize: '14px'
+    };
 
-      <br/>
-      <br/>
+  }
 
-      <div>
-        <Header as='h4' textAlign='center'>
-          FOR A HOUSEHOLD SIZE OF <strong>{originals.pageState.householdSize}</strong>:
-        </Header>
-        <Statistic>
-          <Statistic.Label>% of Federal Poverty Level</Statistic.Label>
-          <Statistic.Value>{Math.round(percentPovertyLevel(originals.pageState.annualIncome,originals.pageState.householdSize))}%</Statistic.Value>
-        </Statistic>
-        <Statistic>
-          <Statistic.Label>% of State Median Income</Statistic.Label>
-          <Statistic.Value>{Math.round(percentStateMedianIncome(originals.pageState.annualIncome,originals.pageState.householdSize))}%</Statistic.Value>
-        </Statistic>
+  render () {
+
+    var client = this.props.client;
+    return (
+      <div className='field-aligner two-column'>
+
+        <Form.Field inline>
+          <Header as='h4' className='weekly income-column header' style={ this.lefterColStyles } color={ this.color }>
+            Weekly
+          </Header>
+          <Header as='h4' className='monthly income-column header' style={ this.lefterColStyles } color={ this.color }>
+            Monthly
+          </Header>
+          <Header as='h4' className='yearly income-column header' style={ this.rightColStyles } color={ this.color }>
+            Yearly
+          </Header>
+          <Header as='h4' style={ { display: 'inline-block', fontSize: '14px' } } color={ this.color }>
+            Income Type
+          </Header>
+        </Form.Field>
+
+        <IncomeRow id='earnedIncome'    label='Earned income'   client={ client } labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}/>
+        <IncomeRow id='TAFDC'           label='TAFDC'           client={ client } labelInfo={null}/>
+        <IncomeRow id='SSI'             label='SSI'             client={ client } labelInfo={null}/>
+        <IncomeRow id='SSDI'            label='SSDI'            client={ client } labelInfo={null}/>
+        <IncomeRow id='childSupport'    label='Child support coming in'   client={ client } labelInfo={null}/>
+        <IncomeRow id='unemployment'    label='Unemployment'    client={ client } labelInfo={null}/>
+        <IncomeRow id='workersComp'     label='Worker’s comp'   client={ client } labelInfo={null}/>
+        <IncomeRow id='pension'         label='Pension'         client={ client } labelInfo={null}/>
+        <IncomeRow id='socialSecurity'  label='Social security' client={ client } labelInfo={null}/>
+        <IncomeRow id='alimony'         label='Alimony'         client={ client } labelInfo={null}/>
+        <IncomeRow id='otherIncome'     label='Other income'    client={ client } labelInfo={null}/>
+
+        <br/>
+        <br/>
+
+        <div>
+          <Header as='h4' textAlign='center'>
+            FOR A HOUSEHOLD SIZE OF <strong>{funcs.pageState.householdSize}</strong>:
+          </Header>
+          <Statistic>
+            <Statistic.Label>% of Federal Poverty Level</Statistic.Label>
+            <Statistic.Value>{Math.round(percentPovertyLevel(funcs.pageState.annualIncome,funcs.pageState.householdSize))}%</Statistic.Value>
+          </Statistic>
+          <Statistic>
+            <Statistic.Label>% of State Median Income</Statistic.Label>
+            <Statistic.Value>{Math.round(percentStateMedianIncome(funcs.pageState.annualIncome,funcs.pageState.householdSize))}%</Statistic.Value>
+          </Statistic>
+        </div>
+
       </div>
+    );
 
-    </div>
-  );
+  }  // End render()
 
 };  // End IncomeForm() Component
 
@@ -369,23 +383,37 @@ const IncomeForm = ( props ) => {
 
 // When props are passed along into classes, etc., the are cloned. They
 // don't stay the same object.
-var originals;
+var funcs;
 
-const IncomeStep = ( props ) => {
+// `props` is a cloned version of the original props. References broken.
+class IncomeStep extends Component {
 
-  originals = props;
+  constructor ( props ) {
+    super( props );  // makes `this.props`
+    // Just use the functions from that since other references are broken
+    funcs = props;
+  }
 
-  return (
-    <Form className = 'income-form'>
-      <FormPartsContainer
-        title = 'Household Annual Income'
-        clarifier = 'How much money does your household earn every year before taxes?'
-        Insertable = { IncomeForm }
-        next = { props.nextStep }
-        prev = { props.previousStep }
-      />
-    </Form>
-  );
+  render () {
+
+    // Prospective titles:
+    // title = 'Previous Household Monthly Income'
+    // clarifier = 'How much money did your household make the last time you were assessed for your benefits?'
+
+    return (
+      <Form className = 'income-form'>
+        <FormPartsContainer
+          title = 'Household Annual Income'
+          clarifier = 'How much money does your household earn every year before taxes?'
+          next = { this.props.nextStep }
+          prev = { this.props.previousStep }
+          Insertable = { IncomeForm }
+          client = { this.props.pageState }
+        />
+      </Form>
+    );
+
+  }  // End render()
 
 };  // End IncomeStep() Component
 

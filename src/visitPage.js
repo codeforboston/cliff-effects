@@ -511,7 +511,7 @@ class VisitPage extends Component {
   handleChange = (e, { name, value }, callback) => {
     this.setState(
       { [name]: value },
-      function () { if ( callback ) { callback( this.state ); } }  // This is given no arguments
+      function () { if ( callback ) { callback( this ); } }  // This is given no arguments
     );
   }
 
