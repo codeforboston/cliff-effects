@@ -551,15 +551,16 @@ class VisitPage extends Component {
     }
 
     // If it's ok to put in properties that won't be used, we can cover
-    // everything with two objects
-    // On the income page, 'enter' triggers `previousStep()`. Why?
+    // everything with two objects. Giving the handlers two different
+    // names would mean just one object, so maybe that's the way to go.
+    /** @todo On the income page, 'enter' triggers `previousStep()`. Why? */
     switch (this.state.currentStep) {
       case 1: return (<CurrentBenefitsStep  { ...toggleProps }  />);
       case 2: return (<HouseholdSizeStep    { ...noToggleProps }/>);
       case 3: return (<PreviousIncomeStep   { ...noToggleProps }/>);
-      case 4: return (<CurrentIncomeStep    { ...noToggleProps }/>);
-      case 5: return (<PreviousExpensesStep { ...noToggleProps }
+      case 4: return (<PreviousExpensesStep { ...noToggleProps }
                               toggle = {this.handleToggleChange}/>);
+      case 5: return (<CurrentIncomeStep    { ...noToggleProps }/>);
       case 6: return (<CitizenshipStep      { ...noToggleProps }/>);
       case 7: return (<HealthStep           { ...toggleProps }  />);
       // Would it be a problem to hand in the nextStep property too?
