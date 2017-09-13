@@ -24,6 +24,7 @@ import { clientList } from './clientList';
 import { Line } from 'react-chartjs-2';
 import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
+import { PreviousExpensesStep } from './forms/previousExpenses';
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -113,7 +114,7 @@ const AlertSidebar = (props) => {
     </Card>      
     )
   }
-
+  /** @todo 'hasHousing' really means 'has housing voucher'. Change name for clarity? */
   if (props.hasHousing) {
     housingCard = (
       <Card fluid color={alertColor(props.housingAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
@@ -475,7 +476,8 @@ const HealthStep = (props) => {
 class VisitPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {currentStep: 1,
+    this.state = {
+        currentStep: 5,
         completedSteps: [],
         isBlocking: true,
         redirect: false,
@@ -490,6 +492,8 @@ class VisitPage extends Component {
         citizenshipStatus:'citizen',
         qualifyingConditions: false,       
         numberOfBedrooms: 0,
+        previousHomeless: false,
+        previousHomeowner: false,
         areaOfResidence: 'Boston city',
         previousEarnedIncomeMonthly: 0,
         previousTAFDCMonthly: 0,
@@ -528,54 +532,46 @@ class VisitPage extends Component {
   }
 
   getCurrentStep = () => {
+
+    const stepsAndState = {
+      currentStep: this.state.currentStep,
+      nextStep: this.nextStep,
+      previousStep: this.previousStep,
+      pageState: this.state
+    }
+
+    const noToggleProps = { handleChange: this.handleChange };
+    for ( let key in stepsAndState ) {
+      noToggleProps[ key ] = stepsAndState[ key ];
+    }
+
+    const toggleProps = { handleChange: this.handleToggleChange };
+    for ( let key in stepsAndState ) {
+      toggleProps[ key ] = stepsAndState[ key ];
+    }
+
+    // If it's ok to put in properties that won't be used, we can cover
+    // everything with two objects
+    // On the income page, 'enter' triggers `previousStep()`. Why?
     switch (this.state.currentStep) {
-      case 1:
-        return (<CurrentBenefitsStep currentStep={this.state.currentStep} 
-                                      nextStep={this.nextStep} 
-                                      previousStep={this.previousStep} 
-                                      handleChange={this.handleToggleChange} 
-                                      pageState={this.state}/>);
-      case 2:
-        return (<HouseholdSizeStep currentStep={this.state.currentStep} 
-                                    nextStep={this.nextStep} 
-                                    previousStep={this.previousStep}
-                                    handleChange={this.handleChange} 
-                                    pageState={this.state}/>);
-      case 3:
-        return (<PreviousIncomeStep currentStep={this.state.currentStep} 
-                            nextStep={this.nextStep} 
-                            previousStep={this.previousStep}
-                            handleChange={this.handleChange} 
-                            pageState={this.state}/>);
-      case 4:
-        return (<CurrentIncomeStep currentStep={this.state.currentStep} 
-                            nextStep={this.nextStep} 
-                            previousStep={this.previousStep}
-                            handleChange={this.handleChange} 
-                            pageState={this.state}/>);
-      case 5:
-        return (<CitizenshipStep currentStep={this.state.currentStep} 
-                            nextStep={this.nextStep}
-                            previousStep={this.previousStep}
-                            handleChange={this.handleChange} 
-                            pageState={this.state}/>);
-      case 6:
-        return (<HealthStep currentStep={this.state.currentStep} 
-                            nextStep={this.nextStep}
-                            previousStep={this.previousStep}
-                            handleChange={this.handleToggleChange} 
-                            pageState={this.state}/>);
-      case 7:
-        return (<Results currentStep={this.state.currentStep} 
-                          previousStep={this.previousStep}
-                          pageState={this.state}
-                          saveForm={this.saveForm}/>);
-      default:
-        return (<HouseholdSizeStep currentStep={this.state.currentStep} 
-                                    nextStep={this.nextStep} 
-                                    previousStep={this.previousStep}
-                                    handleChange={this.handleChange} 
-                                    pageState={this.pageState}/>);
+      case 1: return (<CurrentBenefitsStep  { ...toggleProps }  />);
+      case 2: return (<HouseholdSizeStep    { ...noToggleProps }/>);
+      case 3: return (<PreviousIncomeStep   { ...noToggleProps }/>);
+      case 4: return (<CurrentIncomeStep    { ...noToggleProps }/>);
+      case 5: return (<PreviousExpensesStep { ...noToggleProps }
+                              toggle = {this.handleToggleChange}/>);
+      case 6: return (<CitizenshipStep      { ...noToggleProps }/>);
+      case 7: return (<HealthStep           { ...toggleProps }  />);
+      // Would it be a problem to hand in the nextStep property too?
+      // case 8:
+        // return (<Results
+        //           currentStep={this.state.currentStep}
+        //           previousStep={this.previousStep}
+        //           pageState={this.state}
+        //           saveForm={this.saveForm}/>);
+      case 8: return (<Results {...stepsAndState}
+                                    saveForm = {this.saveForm}  />);
+      default: return (<HouseholdSizeStep    { ...noToggleProps }/>);
     }
   }
 
@@ -593,11 +589,39 @@ class VisitPage extends Component {
     }));
   };
 
+  // /** @todo: see code below */
+  // stepsAndState = {
+  //   currentStep: this.state.currentStep,
+  //   nextStep: this.nextStep,
+  //   previousStep: this.previousStep,
+  //   pageState: this.state
+  // }
+
+  // noToggleProps = { handleChange: this.handleChange };
+  // for ( let key in stepsAndState ) {
+  //   noToggleProps[ key ] = stepsAndState[ key ];
+  // }
+
+  // toggleProps = { handleChange: this.handleToggleChange };
+  // for ( let key in stepsAndState ) {
+  //   toggleProps[ key ] = stepsAndState[ key ];
+  // }
+
+  // steps = [
+  //   { Component: <CurrentBenefitsStep { ...toggleProps }/>, completed: false, active: false },
+  //   {}
+  // ];
+
+  // Then in `getCurrentStep()` use the step to get the right index in the list
+  // Then remove const steps below
+
   render() {
     const steps = [
       { completed: false, active: false, title: 'Current Benefits', /*description: 'Choose your shipping options' (what does this mean?)*/ },
       { completed: false, active: false, title: 'Household' },
-      { completed: false, active: false, title: 'Income' },
+      { completed: false, active: false, title: 'Previous Income' },
+      { completed: false, active: false, title: 'Current Income' },
+      { completed: false, active: false, title: 'Previous Expenses' },
       { completed: false, active: false, title: 'Citizenship' },
       { completed: false, active: false, title: 'MassHealth' },
       // { completed: false, active: false, title: 'SNAP' },
