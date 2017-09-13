@@ -477,7 +477,7 @@ class VisitPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        currentStep: 5,
+        currentStep: 1,
         completedSteps: [],
         isBlocking: true,
         redirect: false,
