@@ -42,18 +42,32 @@ var AboutPage = React.createClass({
 
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 
+// class App extends React.Component {
+//   state = {loggedIn: false}
+//   render() {
+//     return(
+//   <HashRouter>
+//     <div>
+//       <Route exact path="/" component={HomePage}/>
+//       <Route path="/about" component={AboutPage}/>
+//       <Route path="/login" component={LoginPage}/>
+//       <Route path="/visit/:clientId/:visitId" component={VisitPage}/>
+//       <Route path="/detail/:id" component={ClientDetailPage}/>
+//       <Route path="/intake" component={ClientIntakePage}/>
+//     </div>
+//   </HashRouter>)
+//   }
+// }
+
+
+// For simple prototype
 class App extends React.Component {
   state = {loggedIn: false}
   render() {
     return(
   <HashRouter>
     <div>
-      <Route exact path="/" component={HomePage}/>
-      <Route path="/about" component={AboutPage}/>
-      <Route path="/login" component={LoginPage}/>
-      <Route path="/visit/:clientId/:visitId" component={VisitPage}/>
-      <Route path="/detail/:id" component={ClientDetailPage}/>
-      <Route path="/intake" component={ClientIntakePage}/>
+      <Route exact path="/" component={VisitPage}/>
     </div>
   </HashRouter>)
   }

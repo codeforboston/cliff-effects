@@ -250,13 +250,15 @@ const Results = (props) => {
             </Grid.Column>
             <Grid.Column width={10}/>
             <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.saveForm(false)}>Save Results</Button>
+              <div className='save-button-was-here'/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
     </Segment>
   )
 }
+// Removed from where the blank line is now
+// <Button color='teal' fluid size='large' onClick={() => props.saveForm(false)}>Save Results</Button>
 
 /** @todo Add "vertical list of options" creator that will create a list of fields using the `.field-aligner` class */
 const CurrentBenefitsStep = (props) => {
@@ -630,13 +632,20 @@ class VisitPage extends Component {
       { completed: false, active: false, title: 'Results' }
     ]
 
+
+        //   message='Are you sure you want to leave the page with unsaved changes?'
+        // />
+        // {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.clientId}`}/>) : false}
+        // <SimpleMenu save={this.saveForm} client={this.state.clientInfo} visit={this.state.visitId} />
+        // <Grid
+
+    // Simplified for prototype testing
     return (
       <div className='login-form'>
         <Prompt
           when={this.state.isBlocking}
           message='Are you sure you want to leave the page with unsaved changes?'
         />
-        {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.clientId}`}/>) : false}
         <SimpleMenu save={this.saveForm} client={this.state.clientInfo} visit={this.state.visitId} />
         <Grid
           textAlign='center'
