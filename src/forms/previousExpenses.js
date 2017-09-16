@@ -51,6 +51,7 @@ const Housing = function ( props ) {
   var utils = client.previousPaidUtilities, climate = client.previousGotClimateControl,
       electricity = client.previousNonHeatElectricity, phone = client.previousTelephone;
 
+  /** @todo Owning a home vs. renting vs. homeless should probably be radio buttons */
   return (
     <wrapper>
       <FormHeading>Housing</FormHeading>
@@ -62,9 +63,6 @@ const Housing = function ( props ) {
         : <MassiveToggle id={ time + 'Homeowner' } value={ ownedAHome }
             storeBoolean={ storeBool } label={ 'Did the household own a home?' } />
       }
-
-      <Divider></Divider>
-
       { ownedAHome
         ? <wrapper>
             <IntervalColumnHeadings type={ props.type }/>
@@ -72,7 +70,9 @@ const Housing = function ( props ) {
             <CashFlowRow {...merge( sharedProps, {generic: 'HousingInsurance'} )}> Insurance Costs </CashFlowRow>
             <CashFlowRow {...merge( sharedProps, {generic: 'PropertyTax'} )}> Property Tax </CashFlowRow>
           </wrapper>
-        : <wrapper>
+        : <wrapper> { wasHomeless
+          ? null
+          : <wrapper>
             <IntervalColumnHeadings type={ props.type }/>
             <CashFlowRow {...merge( sharedProps, {generic: 'RentOrMortgage'} )}> Rent </CashFlowRow>
             <MassiveToggle id={ time + 'PaidUtilities' } value={ utils } storeBoolean={ storeBool }
@@ -87,10 +87,9 @@ const Housing = function ( props ) {
                   <MassiveToggle id={ time + 'Telephone' } value={ phone } storeBoolean={ storeBool }
                     label={'Did the household pay for its own telephone service?'}/>
                 </wrapper>
-            }
-          </wrapper>
-      }
-    </wrapper>
+            } </wrapper>
+        } </wrapper>
+    } </wrapper>
   );
 
 };  // End Housing()
