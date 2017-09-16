@@ -187,7 +187,7 @@ const FormSubheading = function ( props ) {
 
   return (
     <wrapper className = { 'form-subheading' }
-      style={{ textAlign: 'left' }}>
+      style={{ display: 'block', textAlign: 'left' }}>
         { props.children }
     </wrapper>
   );
