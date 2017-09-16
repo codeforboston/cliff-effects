@@ -231,8 +231,7 @@ const FormHeading = function ( props ) {
 */
 const InlineLabelInfo = function ( props ) {
 
-  // var labelInfoDisplay = ' hidden'; // Will be '' in future
-  var labelInfoDisplay = ''; // Will be '' in future
+  var labelInfoDisplay = ' hidden'; // Will be '' in future
 
   // return (
   //   <wrapper className = { 'label-info info-revealer' + labelInfoDisplay } style = {{
@@ -297,12 +296,12 @@ const IntervalColumnHeadings = function ( props ) {
       rightStyles  = merge( { marginRight: '0.9em' }, inputStyles );
 
   return (
-    <Form.Field inline>
+    <wrapper style={{ display: 'inline-block' }}>
       <ColumnHeading type={props.type} colName='weekly'  style={lefterStyles}>Weekly</ColumnHeading>
       <ColumnHeading type={props.type} colName='monthly' style={lefterStyles}>Monthly</ColumnHeading>
       <ColumnHeading type={props.type} colName='yearly'  style={rightStyles}>Yearly</ColumnHeading>
       <ColumnHeading type={props.type} colName={props.type} style={baseStyles}>Expense Type</ColumnHeading>
-    </Form.Field>
+    </wrapper>
   );
 
 };  // End IntervalColumnHeadings{} Component
