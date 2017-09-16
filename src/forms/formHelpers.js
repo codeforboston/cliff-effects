@@ -28,6 +28,8 @@ import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
 * button is clicked.
 * @property {string} props.name - The text to be displayed on
 * the button.
+* 
+* @returns Component
 */
 class NavButton extends Component {
 
@@ -65,6 +67,8 @@ class NavButton extends Component {
 * @todo Use this somehow for the first page and last page too,
 * but then hide the 'previous' and the 'next' respectively? Or
 * split those into their own Components?
+* 
+* @returns Component
 */
 class PrevNext extends Component {
 
@@ -101,6 +105,8 @@ class PrevNext extends Component {
 * into the middle - a custom form section containing inputs, etc.
 * @property {Object} props.next - the 'next form section' function
 * @property {Object} props.prev - the 'previous form section' function
+* 
+* @returns Component
 */
 class FormPartsContainer extends Component {
 
@@ -137,13 +143,16 @@ class FormPartsContainer extends Component {
 * 
 * @function
 * @param {object} props - sent from attributes of previous element
+* @property {string} props.label - Text displayed next to toggle
 * @property {string} props.value - Should reflect state change and
 * will be displayed as the value. Flow goes:
 * user input > state > value > visual feedback
 * @property {object} props.storeBoolean - Function that changes page
 * state (changes the "source of truth")
 * @property {string} props.id - For the 'name' property (@todo switch
-* from name to id? I don't see why not.)
+* from name to id? Maybe the source of truth only likes names.)
+* 
+* @returns Component
 */
 const MassiveToggle = function ( props ) {
 
@@ -163,42 +172,66 @@ const MassiveToggle = function ( props ) {
 };  // End MassiveToggle{} Component
 
 
+/** A clearer way than a ternary operator to have a possible
+* subheader. Also, clearer for separate styling
+* 
+* @function
+* @param {object} props
+* @property {object} props.children - Contents of this element
+* 
+* @returns Component
+*/
 const FormSubheading = function ( props ) {
 
   if ( !props.children ) { return null; }
 
   return (
-    <div className = { 'form-subheading' }
+    <wrapper className = { 'form-subheading' }
       style={{ textAlign: 'left' }}>
         { props.children }
-    </div>
+    </wrapper>
   );
 
 };  // End FormSubheading{} Component
 
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const FormHeading = function ( props ) {
 
   if ( !props.children ) { return null; }
 
   return (
-    <div className={'form-heading'} >
+    <wrapper className={'form-heading'} >
       <br/>
       <Divider horizontal style={{ display: 'inline-block' }}>
         { props.children }
       </Divider>
       <FormSubheading>{ props.subheading }</FormSubheading>
       <br/>
-    </div>
+    </wrapper>
   );
 
 };  // End FormHeading{} Component
 
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const InlineLabelInfo = function ( props ) {
 
-  // var labelInfoDisplay = ' hidden'; // Will be '' in future
-  var labelInfoDisplay = ''; // Will be '' in future
+  var labelInfoDisplay = ' hidden'; // Will be '' in future
 
   // return (
   //   <wrapper className = { 'label-info info-revealer' + labelInfoDisplay } style = {{
@@ -221,20 +254,92 @@ const InlineLabelInfo = function ( props ) {
 
 };  // End InlineLabelInfo{} Component
 
+// Possible tooltip version of labels:
+// (could be made official in the Row creator with conditionals)
+// <label>Earned Income
+//   <style type='display on hover handled in css'></style>
+//   <div
+//     className={ 'info-revealer' }
+//     style={{
+//       position: 'relative',
+//       display: 'inline-block',
+//       fontSize: '10px',
+//       border: '1px solid black',
+//       margin: '1em',
+//       top: '-0.5em',
+//       textAlign: 'center',
+//       width: '1.6em',
+//       height: '1.6em'
+//     }}>
+//     <div style={{ position: 'relative', top: '-0.2em' }}>i</div>
+//     <div
+//       className={ 'info-tooltip' }
+//       style={{ position: 'absolute', padding: '.2em' }}
+//     >
+//       Weekly income = hourly wage times average number of work hours per week
+//     </div>
+//   </div>
+// </label>
+
 
 
 // ========================================
 // MONEY ON INTERVALS COLUMNS COMPONENTS
 // ========================================
 
+// Ideas of how to handle a different styling situation (if the designers switch columns)
+
+// If we want more control over placement, we may look into this:
+// <Grid textAlign='center' verticalAlign='middle'>
+//   <Grid.Row className='inputs-in-right-column'>
+//     <Grid.Column className='left-label'>
+//       <label>Earned Income</label>
+//     </Grid.Column>
+//     <Grid.Column className='right-input'>
+//       <Input type='number'/>
+//     </Grid.Column>
+//   </Grid.Row>
+// </Grid>
+
+// <Form.Field inline>
+//   <span className='column-1-header'>Income Source</span>
+//   <div className='right-column'>
+//     <span className='Weekly'>Income Source</span>
+//     <span className='Monthly'>Income Source</span>
+//     <span className='Yearly'>Income Source</span>
+//   </div>
+//   <Input
+//     type='number'
+//     onChange={props.storeComplex}
+//     className='right-column'
+//     name='Earned Income' placeholder='Earned Income'
+//   />
+
+
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const ColumnHeading = function ( props ) {
   var classes = props.type + '-column header ' + props.colName;
   return (
     <Header as='h4' className={classes} style={props.style} color='teal'>{ props.children }</Header>
   );
 };  // End ColumnHeading()
- 
 
+
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const IntervalColumnHeadings = function ( props ) {
 
   var baseStyles  = {
@@ -246,17 +351,25 @@ const IntervalColumnHeadings = function ( props ) {
       rightStyles  = merge( { marginRight: '0.9em' }, inputStyles );
 
   return (
-    <Form.Field inline>
+    <wrapper style={{ display: 'inline-block' }}>
       <ColumnHeading type={props.type} colName='weekly'  style={lefterStyles}>Weekly</ColumnHeading>
       <ColumnHeading type={props.type} colName='monthly' style={lefterStyles}>Monthly</ColumnHeading>
       <ColumnHeading type={props.type} colName='yearly'  style={rightStyles}>Yearly</ColumnHeading>
       <ColumnHeading type={props.type} colName={props.type} style={baseStyles}>Expense Type</ColumnHeading>
-    </Form.Field>
+    </wrapper>
   );
 
 };  // End IntervalColumnHeadings{} Component
 
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const CashFlowInput = function ( props ) {
 
   /**
@@ -274,7 +387,7 @@ const CashFlowInput = function ( props ) {
 
   return (
     <Input
-      className = { props.type + '-column ' + props.interval }
+      className = { props.type + ' cashflow-column ' + props.interval }
       onChange  = { handleChange }
       value     = { props.value }
       style     = { props.style }
@@ -287,6 +400,14 @@ const CashFlowInput = function ( props ) {
 };  // End CashFlowInput{} Component
 
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const CashFlowRow = function ( props ) {
   /**
   * Needs: generic, client, store, children, labelInfo, type, time

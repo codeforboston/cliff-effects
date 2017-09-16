@@ -15,9 +15,8 @@ import {
 // import { percentPovertyLevel, 
 //         percentStateMedianIncome } from '../helpers/helperFunctions';
 import {
-  FormPartsContainer, MassiveToggle, FormSubheading,
-  FormHeading, InlineLabelInfo,
-  IntervalColumnHeadings, CashFlowInput, CashFlowRow
+  FormPartsContainer, MassiveToggle, FormHeading,
+  IntervalColumnHeadings, CashFlowRow
 } from './formHelpers';
 import { merge } from '../helpers/object-manipulation';
 import { roundMoney, limit } from '../helpers/math';
@@ -27,6 +26,14 @@ import { roundMoney, limit } from '../helpers/math';
 // COMPONENTS
 // ========================================
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const Housing = function ( props ) {
 
   var client      = props.props.pageState,
@@ -44,6 +51,7 @@ const Housing = function ( props ) {
   var utils = client.previousPaidUtilities, climate = client.previousGotClimateControl,
       electricity = client.previousNonHeatElectricity, phone = client.previousTelephone;
 
+  /** @todo Owning a home vs. renting vs. homeless should probably be radio buttons */
   return (
     <wrapper>
       <FormHeading>Housing</FormHeading>
@@ -55,9 +63,6 @@ const Housing = function ( props ) {
         : <MassiveToggle id={ time + 'Homeowner' } value={ ownedAHome }
             storeBoolean={ storeBool } label={ 'Did the household own a home?' } />
       }
-
-      <Divider></Divider>
-
       { ownedAHome
         ? <wrapper>
             <IntervalColumnHeadings type={ props.type }/>
@@ -65,7 +70,9 @@ const Housing = function ( props ) {
             <CashFlowRow {...merge( sharedProps, {generic: 'HousingInsurance'} )}> Insurance Costs </CashFlowRow>
             <CashFlowRow {...merge( sharedProps, {generic: 'PropertyTax'} )}> Property Tax </CashFlowRow>
           </wrapper>
-        : <wrapper>
+        : <wrapper> { wasHomeless
+          ? null
+          : <wrapper>
             <IntervalColumnHeadings type={ props.type }/>
             <CashFlowRow {...merge( sharedProps, {generic: 'RentOrMortgage'} )}> Rent </CashFlowRow>
             <MassiveToggle id={ time + 'PaidUtilities' } value={ utils } storeBoolean={ storeBool }
@@ -80,15 +87,22 @@ const Housing = function ( props ) {
                   <MassiveToggle id={ time + 'Telephone' } value={ phone } storeBoolean={ storeBool }
                     label={'Did the household pay for its own telephone service?'}/>
                 </wrapper>
-            }
-          </wrapper>
-      }
-    </wrapper>
+            } </wrapper>
+        } </wrapper>
+    } </wrapper>
   );
 
 };  // End Housing()
 
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const ExpensesFormContent = function ( props ) {
 
   var client    = props.client,
@@ -105,7 +119,7 @@ const ExpensesFormContent = function ( props ) {
 
       <FormHeading subheading = {'(a dependant is a child or disabled adult)'}>
         Dependent Monthly Care</FormHeading>
-      <IntervalColumnHeadings type={props.type}/>
+      <IntervalColumnHeadings type={type}/>
       <CashFlowRow {...merge( sharedProps, {generic: 'DirectCareCosts'} )}> Direct Care Costs </CashFlowRow>
       <CashFlowRow {...merge( sharedProps, {generic: 'BeforeAndAfterSchoolPrograms'} )}> Before- and After-School Programs </CashFlowRow>
       <CashFlowRow {...merge( sharedProps, {generic: 'TransportationCosts'} )}> Transportation Costs </CashFlowRow>
@@ -139,7 +153,14 @@ const ExpensesFormContent = function ( props ) {
 * household member?
 */
 
-// `props` is a cloned version of the original props. References broken.
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/// `props` is a cloned version of the original props. References broken.
 const PreviousExpensesStep = function ( props ) {
 
   return (
