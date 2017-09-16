@@ -55,7 +55,7 @@ var handleGrossUnearnedIncome = function ( client ) {
 
   };
 
-  originals.handleChange(null, { name: 'currentUnearnedIncomeMonthly', value: sum });
+  originals.storeComplex(null, { name: 'currentUnearnedIncomeMonthly', value: sum });
 
   return sum;
 };  // End handleGrossUnearnedIncome()
@@ -81,7 +81,7 @@ equalizers.monthly = function ( evnt, genericID, monthlyVal ) {
   var monthly = limit( monthlyVal, { min: 0 } );
 
   var incomeObj = { name: genericID + 'Monthly', value: monthly };
-  originals.handleChange( evnt, incomeObj, function ( that ) {
+  originals.storeComplex( evnt, incomeObj, function ( that ) {
     handleGrossUnearnedIncome( that.state );
   });
 
@@ -111,7 +111,7 @@ class IncomeInput extends Component {
   // makes `this.props`
   constructor ( props ) { super( props ); }
 
-  handleChange = ( evnt, inputProps ) => {
+  storeComplex = ( evnt, inputProps ) => {
     var generic = inputProps[ 'data-generic' ];
     equalizers[ inputProps['data-timeframe'] ]( evnt, generic, evnt.target.value );
   }
@@ -132,7 +132,7 @@ class IncomeInput extends Component {
         data-timeframe  = { props.timeframe }
         type            = 'number'
         step            = { '0.01' }
-        onChange        = { this.handleChange }
+        onChange        = { this.storeComplex }
         style           = { props.style }
         name            = { props.id }
         id              = { props.id }
@@ -221,7 +221,6 @@ class IncomeRow extends Component {
 };  // End IncomeRow{} Component
 
 
-/** WATCH OUT: THIS COMES FROM FORM HELPERS, NOT CurrentIncomeStep */
 class IncomeForm extends Component {
 
   constructor ( props ) {
@@ -299,21 +298,12 @@ class IncomeForm extends Component {
 
 
 
-
-
-// ===========================================
-// ===========================================
-// THIS IS ACTUALLY SEPARATE STUFF DOWN HERE
-// ===========================================
-// ===========================================
-
 // When props are passed along into classes, etc., the are cloned. They
 // don't stay the same object.
 // I suppose I could pass everythign in repeatedly...
 /** @todo Pass in everything, not just `pageState`/`client` */
 var originals;
 
-/** WATCH OUT: THIS SENDS TO FORM HELPERS AND /THEN/ TO IncomeForm */
 // `props` is a cloned version of the original props. References broken.
 class CurrentIncomeStep extends Component {
 
@@ -325,21 +315,20 @@ class CurrentIncomeStep extends Component {
   render () {
 
     originals = this.props;
+    var props = this.props;
 
     /** @todo Are these titles accurate now? */
 
-    /** WATCH OUT: THIS SENDS TO FORM HELPERS AND /THEN/ TO IncomeForm */
     return (
       <Form className = 'income-form'>
         <FormPartsContainer
           title = 'Current Household Monthly Income'
           clarifier = 'How much money does your household make now?'
-          next = { this.props.nextStep }
-          prev = { this.props.previousStep }
-          Insertable = { IncomeForm }
-          props = { this.props }
-          client = { this.props.pageState }
-        />
+          next = { props.nextStep }
+          prev = { props.previousStep }
+        >
+          <IncomeForm client={props.pageState} props={props}/>
+        </FormPartsContainer>
       </Form>
     );
 

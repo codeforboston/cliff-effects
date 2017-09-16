@@ -14,17 +14,25 @@ import { Button,
         Statistic,
         Reveal } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
-import SimpleMenu from './simpleMenu';
+import { Line } from 'react-chartjs-2';
+
+// Logic
 import { percentPovertyLevel, 
         percentStateMedianIncome } from './helpers/helperFunctions';
 import { getSnapEligibility } from './programs/state/massachusetts/snap';
 import { getHousingEligibility } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
+
+// Data
 import { clientList } from './clientList';
-import { Line } from 'react-chartjs-2';
+
+// Our Components
+import SimpleMenu from './simpleMenu';
 import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { PreviousExpensesStep } from './forms/previousExpenses';
+
+
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -163,7 +171,7 @@ const AlertSidebar = (props) => {
       </Card.Group>
     </Segment>
   )
-}
+};  // End AlertSidebar()
 
 const Results = (props) => {
   var xRange = _.range(0, 100000, 1000);
@@ -256,7 +264,7 @@ const Results = (props) => {
         </Grid>
     </Segment>
   )
-}
+};  // End Results()
 
 /** @todo Add "vertical list of options" creator that will create a list of fields using the `.field-aligner` class */
 const CurrentBenefitsStep = (props) => {
@@ -275,7 +283,7 @@ const CurrentBenefitsStep = (props) => {
             <Form.Field
               name='hasSnap'
               checked={props.pageState.hasSnap}
-              onChange={props.handleChange}
+              onChange={props.storeBoolean}
               control={Checkbox}
               label={{ children: props.pageState.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
               size='massive'
@@ -285,7 +293,7 @@ const CurrentBenefitsStep = (props) => {
             <Form.Field
               name='hasHousing'
               checked={props.pageState.hasHousing}
-              onChange={props.handleChange}
+              onChange={props.storeBoolean}
               control={Checkbox}
               label={{ children: props.pageState.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
               toggle
@@ -294,7 +302,7 @@ const CurrentBenefitsStep = (props) => {
             <Form.Field
               name='hasMassHealth'
               checked={props.pageState.hasMassHealth}
-              onChange={props.handleChange}
+              onChange={props.storeBoolean}
               control={Checkbox}
               label={{ children: props.pageState.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
               toggle
@@ -313,7 +321,7 @@ const CurrentBenefitsStep = (props) => {
       </Segment>
     </Form>
   )
-}
+};  // End CurrentBenefitsStep()
 
 /** @todo Could this be a number field? If not, then a dropdown? */
 const HouseholdSizeStep = (props) => {
@@ -335,7 +343,7 @@ const HouseholdSizeStep = (props) => {
                   name='householdSize'
                   value={size}
                   checked={props.pageState.householdSize === size}
-                  onChange={props.handleChange}
+                  onChange={props.storeComplex}
                 />
               </Form.Field>)
             )}
@@ -359,7 +367,7 @@ const HouseholdSizeStep = (props) => {
       </Segment>
     </Form>
   )
-}
+};  // End HouseholdSizeStep()
 
 const CitizenshipStep = (props) => {
   return (      
@@ -380,7 +388,7 @@ const CitizenshipStep = (props) => {
                   name='citizenshipStatus'
                   value='citizen'
                   checked={props.pageState.citizenshipStatus === 'citizen'}
-                  onChange={props.handleChange}
+                  onChange={props.storeComplex}
                 />
               </Form.Field>
               <br/>
@@ -390,7 +398,7 @@ const CitizenshipStep = (props) => {
                   name='citizenshipStatus'
                   value='immigrant'
                   checked={props.pageState.citizenshipStatus === 'immigrant'}
-                  onChange={props.handleChange}
+                  onChange={props.storeComplex}
                 />
               </Form.Field>
               <br/>
@@ -400,7 +408,7 @@ const CitizenshipStep = (props) => {
                   name='citizenshipStatus'
                   value='unknown'
                   checked={props.pageState.citizenshipStatus === 'unknown'}
-                  onChange={props.handleChange}
+                  onChange={props.storeComplex}
                 />
               </Form.Field>
             </div>
@@ -423,55 +431,55 @@ const CitizenshipStep = (props) => {
       </Segment>
     </Form>
   )
-}
+};  // End CitizenshipStep()
 
 const HealthStep = (props) => {
-  return (        
-      <Form>
-        <Segment padded='very' style={{ minHeight: '600' }}>
-          <Segment style={{ minHeight: '500' }} basic={true}>
-            <Header as='h1' color='teal' textAlign='center'>
-              MassHealth Qualifying Conditions
-            </Header>
-            <Header as='h3' textAlign='center'>
-              Do you have any of the following MassHealth qualifying conditions?
-            </Header>
-            <Form.Field
-              name='qualifyingConditions'
-              checked={props.pageState.qualifyingConditions}
-              onChange={props.handleChange}
-              control={Checkbox}
-              label={props.pageState.qualifyingConditions ? { children: 'Yes'} : {children: 'No'}}
-              size='massive'
-              toggle      
-            />
-            <br/>
-            <Segment.Group>
-              <Segment>Pregnant</Segment>
-              <Segment>HIV+</Segment>
-              <Segment>Disabled</Segment>
-              <Segment>Woman with breast or cervical cancer</Segment>
-            </Segment.Group>
-          </Segment>
-          <Divider />
-          <Grid
-            textAlign='center'
-            verticalAlign='middle'
-          >
-            <Grid.Row>
-              <Grid.Column width={3}>
-                <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-              </Grid.Column>
-              <Grid.Column width={10} />
-              <Grid.Column width={3}>
-                <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+  return (
+    <Form>
+      <Segment padded='very' style={{ minHeight: '600' }}>
+        <Segment style={{ minHeight: '500' }} basic={true}>
+          <Header as='h1' color='teal' textAlign='center'>
+            MassHealth Qualifying Conditions
+          </Header>
+          <Header as='h3' textAlign='center'>
+            Do you have any of the following MassHealth qualifying conditions?
+          </Header>
+          <Form.Field
+            name='qualifyingConditions'
+            checked={props.pageState.qualifyingConditions}
+            onChange={props.storeBoolean}
+            control={Checkbox}
+            label={props.pageState.qualifyingConditions ? { children: 'Yes'} : {children: 'No'}}
+            size='massive'
+            toggle      
+          />
+          <br/>
+          <Segment.Group>
+            <Segment>Pregnant</Segment>
+            <Segment>HIV+</Segment>
+            <Segment>Disabled</Segment>
+            <Segment>Woman with breast or cervical cancer</Segment>
+          </Segment.Group>
         </Segment>
-      </Form>
-  )
-}
+        <Divider />
+        <Grid
+          textAlign='center'
+          verticalAlign='middle'
+        >
+          <Grid.Row>
+            <Grid.Column width={3}>
+              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
+            </Grid.Column>
+            <Grid.Column width={10} />
+            <Grid.Column width={3}>
+              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+    </Form>
+  );
+};  // End HealthStep()
 
 class VisitPage extends Component {
   constructor(props) {
@@ -511,14 +519,53 @@ class VisitPage extends Component {
         currentUnearnedIncomeMonthly: 0,
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId
-    }
+    };  // end this.state {}
+
+    this.steps = [
+      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, /*description: 'Choose your shipping options' (what does this mean?)*/ },
+      { completed: false, active: false, title: 'Household', form: HouseholdSizeStep },
+      { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
+      { completed: false, active: false, title: 'Current Income', form: PreviousExpensesStep },
+      { completed: false, active: false, title: 'Previous Expenses', form: CurrentIncomeStep },
+      { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },
+      { completed: false, active: false, title: 'MassHealth', form: HealthStep },
+      // { completed: false, active: false, title: 'SNAP', form: SNAPStep },
+      // { completed: false, active: false, title: 'Housing', form: HousingStep },
+      { completed: false, active: false, title: 'Results', form: Results }
+    ];  // end this.steps {}
+
+    this.stepProps = {
+      currentStep:  this.state.currentStep,
+      nextStep:     this.nextStep,
+      previousStep: this.previousStep,
+      storeComplex: this.storeComplex,
+      storeBoolean: this.storeBoolean,
+      saveForm:     this.saveForm,
+      pageState:    this.state
+    };
+
+  };  // End constructor()
+
+  updateProps () {
+    this.stepProps.currentStep = this.state.currentStep;
+    this.stepProps.pageState   = this.state;
   }
 
-  handleToggleChange = (e, { name, checked }) => this.setState({ [name]: checked })
-  handleChange = (e, { name, value }, callback) => {
+  storeBoolean = (e, { name, checked }, callback) => {
+    this.setState({ [name]: checked },
+      function () {
+       // console.log(name, checked, this);
+       if ( callback ) { callback( this ); }
+    });
+  }
+
+  storeComplex = (e, { name, value }, callback) => {
     this.setState(
       { [name]: value },
-      function () { if ( callback ) { callback( this ); } }  // This is given no arguments
+      function () {
+        // console.log(this);
+        if ( callback ) { callback( this ); }
+      }  // This is given no arguments
     );
   }
 
@@ -533,48 +580,18 @@ class VisitPage extends Component {
 
   getCurrentStep = () => {
 
-    const stepsAndState = {
-      currentStep: this.state.currentStep,
-      nextStep: this.nextStep,
-      previousStep: this.previousStep,
-      pageState: this.state
-    }
+    // Apparently, the reference to the `this` created in `constructor()`
+    // doesn't stay. `this` becomes something new. Which is crazy.
+    this.updateProps();
 
-    const noToggleProps = { handleChange: this.handleChange };
-    for ( let key in stepsAndState ) {
-      noToggleProps[ key ] = stepsAndState[ key ];
-    }
+    // keep it between 1 and 8
+    var step = this.state.currentStep = Math.max( 1, Math.min( 8, this.state.currentStep ));
+    step -= 1;  // convert to 0 index
+    var FormSection = this.steps[ step ].form;
 
-    const toggleProps = { handleChange: this.handleToggleChange };
-    for ( let key in stepsAndState ) {
-      toggleProps[ key ] = stepsAndState[ key ];
-    }
+    return ( <FormSection { ...this.stepProps } /> );
 
-    // If it's ok to put in properties that won't be used, we can cover
-    // everything with two objects. Giving the handlers two different
-    // names would mean just one object, so maybe that's the way to go.
-    /** @todo On the income page, 'enter' triggers `previousStep()`. Why? */
-    switch (this.state.currentStep) {
-      case 1: return (<CurrentBenefitsStep  { ...toggleProps }  />);
-      case 2: return (<HouseholdSizeStep    { ...noToggleProps }/>);
-      case 3: return (<PreviousIncomeStep   { ...noToggleProps }/>);
-      case 4: return (<PreviousExpensesStep { ...noToggleProps }
-                              toggle = {this.handleToggleChange}/>);
-      case 5: return (<CurrentIncomeStep    { ...noToggleProps }/>);
-      case 6: return (<CitizenshipStep      { ...noToggleProps }/>);
-      case 7: return (<HealthStep           { ...toggleProps }  />);
-      // Would it be a problem to hand in the nextStep property too?
-      // case 8:
-        // return (<Results
-        //           currentStep={this.state.currentStep}
-        //           previousStep={this.previousStep}
-        //           pageState={this.state}
-        //           saveForm={this.saveForm}/>);
-      case 8: return (<Results {...stepsAndState}
-                                    saveForm = {this.saveForm}  />);
-      default: return (<HouseholdSizeStep    { ...noToggleProps }/>);
-    }
-  }
+  };  // End getCurrentStep()
 
   nextStep = () => {
     this.setState(prevState => ({
@@ -590,45 +607,15 @@ class VisitPage extends Component {
     }));
   };
 
-  // /** @todo: see code below */
-  // stepsAndState = {
-  //   currentStep: this.state.currentStep,
-  //   nextStep: this.nextStep,
-  //   previousStep: this.previousStep,
-  //   pageState: this.state
-  // }
-
-  // noToggleProps = { handleChange: this.handleChange };
-  // for ( let key in stepsAndState ) {
-  //   noToggleProps[ key ] = stepsAndState[ key ];
-  // }
-
-  // toggleProps = { handleChange: this.handleToggleChange };
-  // for ( let key in stepsAndState ) {
-  //   toggleProps[ key ] = stepsAndState[ key ];
-  // }
-
-  // steps = [
-  //   { Component: <CurrentBenefitsStep { ...toggleProps }/>, completed: false, active: false },
-  //   {}
-  // ];
-
-  // Then in `getCurrentStep()` use the step to get the right index in the list
-  // Then remove const steps below
-
   render() {
-    const steps = [
-      { completed: false, active: false, title: 'Current Benefits', /*description: 'Choose your shipping options' (what does this mean?)*/ },
-      { completed: false, active: false, title: 'Household' },
-      { completed: false, active: false, title: 'Previous Income' },
-      { completed: false, active: false, title: 'Current Income' },
-      { completed: false, active: false, title: 'Previous Expenses' },
-      { completed: false, active: false, title: 'Citizenship' },
-      { completed: false, active: false, title: 'MassHealth' },
-      // { completed: false, active: false, title: 'SNAP' },
-      // { completed: false, active: false, title: 'Housing' },
-      { completed: false, active: false, title: 'Results' }
-    ]
+
+    // Why are we resetting these values each time? Especially `.completed`
+    const steps = this.steps;
+    for ( let stepi = 0; stepi < steps.length; stepi++ ) {
+      let step = steps[ stepi ];
+      step.completed = false;
+      step.active = false;
+    }
 
     return (
       <div className='login-form'>

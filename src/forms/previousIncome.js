@@ -1,4 +1,5 @@
 // import _ from 'lodash'
+/** @todo Try without `Component` */
 import React, { Component } from 'react';
 import {
 	// Button,
@@ -53,7 +54,7 @@ import { roundMoney, limit } from '../helpers/math';
 //   </div>
 //   <Input
 //     type='number'
-//     onChange={props.handleChange}
+//     onChange={props.storeComplex}
 //     className='right-column'
 //     name='Earned Income' placeholder='Earned Income'
 //   />
@@ -95,50 +96,50 @@ var handleGrossUnearnedIncome = function ( client ) {
 
   };
 
-  originals.handleChange(null, { name: 'previousUnearnedIncomeMonthly', value: sum });
+  originals.storeComplex(null, { name: 'previousUnearnedIncomeMonthly', value: sum });
 
   return sum;
 };  // End handleGrossUnearnedIncome()
 
 
 
-var equalizers = {};
+var populators = {};
 
-equalizers.weekly = function ( evnt, genericID, weeklyVal ) {
+populators.weekly = function ( evnt, genericID, weeklyVal ) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
   var monthly = weeklyVal * 4.33;
-  equalizers[ 'monthly' ]( evnt, genericID, monthly );
+  populators[ 'monthly' ]( evnt, genericID, monthly );
   
   return weeklyVal;
 
-};  // End equalizers.weekly()
+};  // End populators.weekly()
 
 
-equalizers.monthly = function ( evnt, genericID, monthlyVal ) {
+populators.monthly = function ( evnt, genericID, monthlyVal ) {
 // Monthly is used for a lot of things and is the one we want to store
 
   var monthly = limit( monthlyVal, { min: 0 } );
 
   var incomeObj = { name: genericID + 'Monthly', value: monthly };
-  originals.handleChange( evnt, incomeObj, function ( that ) {
-    handleGrossUnearnedIncome( that.state );
+  originals.storeComplex( evnt, incomeObj, function ( visitPage ) {
+    handleGrossUnearnedIncome( visitPage.state );
   });
 
   return monthly;
 
-};  // End equalizers.monthly()
+};  // End populators.monthly()
 
 
-equalizers.yearly = function ( evnt, genericID, yearlyVal ) {
+populators.yearly = function ( evnt, genericID, yearlyVal ) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
   var monthly = ( yearlyVal / 12 );
-  equalizers[ 'monthly' ]( evnt, genericID, monthly );
+  populators[ 'monthly' ]( evnt, genericID, monthly );
 
   return yearlyVal;
 
-};  // End equalizers.yearly()
+};  // End populators.yearly()
 
 
 
@@ -154,108 +155,85 @@ equalizers.yearly = function ( evnt, genericID, yearlyVal ) {
 * somehow. (`isBlocking` is in visitPage.js?)
 */
 
-class IncomeInput extends Component {
+var IncomeInput = function ( props ) {
 
-  // makes `this.props`
-  constructor ( props ) { super( props ); }
-
-  handleChange = ( evnt, inputProps ) => {
-    var generic = inputProps[ 'data-generic' ];
-    equalizers[ inputProps['data-timeframe'] ]( evnt, generic, evnt.target.value );
+  var handleChange = function ( evnt, inputProps ) {
+    populators[ props.timeframe ]( evnt, props.generic, evnt.target.value );
   }
 
-  componentDidMount = () => {
-    var id        = '#' + this.props.id,
-        node      = document.body.querySelector( id ),
-        equalized = equalizers[ this.props.timeframe ]( null, this.props.generic, node.value );
+  return (
+    <Input
+      className       = { props.classes }
+      data-timeframe  = { props.timeframe }
+      type            = 'number'
+      step            = { '0.01' }
+      onChange        = { handleChange }
+      style           = { props.style }
+      name            = { props.id }
+      id              = { props.id }
+      data-generic    = { props.generic }
+      min             = { '0' }
+      value           = { props.value }
+    />
+  );
+
+};  // End IncomeInput()
+
+
+var compileInputProps = function ( props, timeframe ) {
+
+  var capped = timeframe[0].toUpperCase() + timeframe.substr(1);
+ 
+  var obj = {
+    classes   : 'income-column ' + timeframe,
+    timeframe : timeframe,
+    generic   : props.id,
+    id        : props.id + capped,
+    client    : props.client,
   }
 
-  render () {
+  return obj;
+};  // End compileInputProps()
 
-    var props = this.props;
 
-    return (
-      <Input
-        className       = { props.classes }
-        data-timeframe  = { props.timeframe }
-        type            = 'number'
-        step            = { '0.01' }
-        onChange        = { this.handleChange }
-        style           = { props.style }
-        name            = { props.id }
-        id              = { props.id }
-        data-generic    = { props.generic }
-        min             = { '0' }
-        value           = { props.value }
+const IncomeRow = function ( props ) {
+
+  var labelInfoDisplay = ' hidden'; // Will be '' in future
+  if ( !props.labelInfo ) { labelInfoDisplay = ' hidden'; }
+
+  var lefterColStyles = { width: '7em', marginRight: '.2em' }
+  var rightColStyles  = { width: '7em', marginRight: '.9em' }
+
+  var baseVal = props.client[ props.id + 'Monthly' ]
+
+  return (
+    <Form.Field inline>
+      <IncomeInput
+        { ...compileInputProps( props, 'weekly' ) }
+        style     = { lefterColStyles }
+        value     = { roundMoney( baseVal / 4.33 ) || '' }
       />
-    );
+      <IncomeInput
+        { ...compileInputProps( props, 'monthly' ) }
+        style     = { lefterColStyles }
+        value     = { roundMoney( baseVal ) || '' }
+      />
+      <IncomeInput
+        { ...compileInputProps( props, 'yearly' ) }
+        style     = { rightColStyles }
+        value     = { roundMoney( baseVal * 12 ) || '' }
+      />
+      <label>{ props.label }</label>
+      <div className = { 'label-info' + labelInfoDisplay } style = {{
+        position: 'relative', marginLeft: '1em',
+        textAlign: 'left', verticalAlign: 'middle'
+      }}>
+        { props.labelInfo }
+      </div>
+    </Form.Field>
+  );  // end return
 
-  }  // End render()
-
-};  // End IncomeInput{} Component
-
-
-class IncomeRow extends Component {
-
-  constructor ( props ) {
-    super( props );  // makes this.props
-
-    // In future, may show label info text
-    if ( props.labelInfo ) { this.labelInfoDisplayClass = ' hidden'; }  // Will be '' in future
-    else { this.labelInfoDisplayClass = ' hidden'; }
-  }
-
-  lefterColStyles = { width: '7em', marginRight: '.2em' }
-  rightColStyles  = { width: '7em', marginRight: '.9em' }
-
-  render () {
-
-    var client  = this.props.client,
-        baseVal = client[ this.props.id + 'Monthly' ]
-
-    return (
-      <Form.Field inline>
-        <IncomeInput
-          classes   = 'weekly income-column'
-          timeframe = 'weekly'
-          type      = 'number'
-          style     = { this.lefterColStyles }
-          generic   = { this.props.id }
-          id        = { this.props.id + 'Weekly' }
-          value     = { roundMoney( baseVal / 4.33 ) || '' }
-          client    = { client }
-        />
-        <IncomeInput
-          classes   = 'monthly income-column'
-          timeframe = 'monthly'
-          type      = 'number'
-          style     = { this.lefterColStyles }
-          generic   = { this.props.id }
-          id        = { this.props.id + 'Monthly' }
-          value     = { roundMoney( baseVal ) || '' }
-          client    = { client }
-        />
-        <IncomeInput
-          classes   = 'yearly income-column'
-          timeframe = 'yearly'
-          type      = 'number'
-          style     = { this.rightColStyles }
-          generic   = { this.props.id }
-          id        = { this.props.id + 'Yearly' }
-          value     = { roundMoney( baseVal * 12 ) || '' }
-          client    = { client }
-        />
-        <label>{this.props.label}</label>
-        <div className = { 'label-info' + this.labelInfoDisplayClass } style = {{
-          position: 'relative', marginLeft: '1em',
-          textAlign: 'left', verticalAlign: 'middle'
-        }}>
-          {this.props.labelInfo}
-        </div>
-      </Form.Field>
-    );
-  }  // End render()
-};  // End IncomeRow{} Component
+};  // End IncomeRow()
 
 /** 
 * @todo Is it possible for id's to be the same as the text in the label?
@@ -272,67 +250,58 @@ class IncomeRow extends Component {
 * necessary medical expenses and personal care services." (@see {@link
 * http://www.masslegalhelp.org/housing/financial-eligibility})
 */
-/** WATCH OUT: THIS COMES FROM FORM HELPERS, NOT IncomeStep */
-class IncomeForm extends Component {
+const IncomeForm = function ( props ) {
 
-  constructor ( props ) {
-    super( props );  // makes `this.props`
+  var headingColor = 'teal';
 
-    this.color = 'teal';
+  var lefterColStyles = {
+    width: '7em', marginRight: '.2em',
+    textAlign: 'center', display: 'inline-block', fontSize: '14px'
+  };
 
-    this.lefterColStyles = {
-      width: '7em', marginRight: '.2em',
-      textAlign: 'center', display: 'inline-block', fontSize: '14px'
-    };
+  var rightColStyles  = {
+    width: '7em', marginRight: '.9em',
+    textAlign: 'center', display: 'inline-block', fontSize: '14px'
+  };
 
-    this.rightColStyles  = {
-      width: '7em', marginRight: '.9em',
-      textAlign: 'center', display: 'inline-block', fontSize: '14px'
-    };
 
-  }
+  var client      = props.client,
+      otherProps  = props.props;
 
-  render () {
+  return (
+    <div className='field-aligner two-column'>
 
-    var client      = this.props.client,
-        otherProps  = this.props.props;
+      <Form.Field inline>
+        <Header as='h4' className='weekly income-column header' style={ lefterColStyles } color={ headingColor }>
+          Weekly
+        </Header>
+        <Header as='h4' className='monthly income-column header' style={ lefterColStyles } color={ headingColor }>
+          Monthly
+        </Header>
+        <Header as='h4' className='yearly income-column header' style={ rightColStyles } color={ headingColor }>
+          Yearly
+        </Header>
+        <Header as='h4' style={ { display: 'inline-block', fontSize: '14px' } } color={ headingColor }>
+          Income Type
+        </Header>
+      </Form.Field>
 
-    return (
-      <div className='field-aligner two-column'>
+      <IncomeRow id='previousEarnedIncome'    label='Earned income'   client={ client } labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}/>
+      <IncomeRow id='previousTAFDC'           label='TAFDC'           client={ client } labelInfo={null}/>
+      <IncomeRow id='previousSSI'             label='SSI'             client={ client } labelInfo={null}/>
+      <IncomeRow id='previousSSDI'            label='SSDI'            client={ client } labelInfo={null}/>
+      <IncomeRow id='previousChildSupportIn'  label='Child support coming in'   client={ client } labelInfo={null}/>
+      <IncomeRow id='previousUnemployment'    label='Unemployment'    client={ client } labelInfo={null}/>
+      <IncomeRow id='previousWorkersComp'     label='Worker’s comp'   client={ client } labelInfo={null}/>
+      <IncomeRow id='previousPension'         label='Pension'         client={ client } labelInfo={null}/>
+      <IncomeRow id='previousSocialSecurity'  label='Social security' client={ client } labelInfo={null}/>
+      <IncomeRow id='previousAlimony'         label='Alimony'         client={ client } labelInfo={null}/>
+      <IncomeRow id='previousOtherIncome'     label='Other income'    client={ client } labelInfo={null}/>
 
-        <Form.Field inline>
-          <Header as='h4' className='weekly income-column header' style={ this.lefterColStyles } color={ this.color }>
-            Weekly
-          </Header>
-          <Header as='h4' className='monthly income-column header' style={ this.lefterColStyles } color={ this.color }>
-            Monthly
-          </Header>
-          <Header as='h4' className='yearly income-column header' style={ this.rightColStyles } color={ this.color }>
-            Yearly
-          </Header>
-          <Header as='h4' style={ { display: 'inline-block', fontSize: '14px' } } color={ this.color }>
-            Income Type
-          </Header>
-        </Form.Field>
+    </div>
+  );  // end return
 
-        <IncomeRow id='previousEarnedIncome'    label='Earned income'   client={ client } labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}/>
-        <IncomeRow id='previousTAFDC'           label='TAFDC'           client={ client } labelInfo={null}/>
-        <IncomeRow id='previousSSI'             label='SSI'             client={ client } labelInfo={null}/>
-        <IncomeRow id='previousSSDI'            label='SSDI'            client={ client } labelInfo={null}/>
-        <IncomeRow id='previousChildSupportIn'  label='Child support coming in'   client={ client } labelInfo={null}/>
-        <IncomeRow id='previousUnemployment'    label='Unemployment'    client={ client } labelInfo={null}/>
-        <IncomeRow id='previousWorkersComp'     label='Worker’s comp'   client={ client } labelInfo={null}/>
-        <IncomeRow id='previousPension'         label='Pension'         client={ client } labelInfo={null}/>
-        <IncomeRow id='previousSocialSecurity'  label='Social security' client={ client } labelInfo={null}/>
-        <IncomeRow id='previousAlimony'         label='Alimony'         client={ client } labelInfo={null}/>
-        <IncomeRow id='previousOtherIncome'     label='Other income'    client={ client } labelInfo={null}/>
-
-      </div>
-    );
-
-  }  // End render()
-
-};  // End IncomeForm() Component
+};  // End IncomeForm()
 
 
 // Do we want these for previous income?
@@ -382,52 +351,32 @@ class IncomeForm extends Component {
 // </label>
 
 
-
-// ===========================================
-// ===========================================
-// THIS IS ACTUALLY SEPARATE STUFF DOWN HERE
-// ===========================================
-// ===========================================
-
 // When props are passed along into classes, etc., the are cloned. They
 // don't stay the same object.
 // I suppose I could pass everythign in repeatedly...
 /** @todo Pass in everything, not just `pageState`/`client` */
 var originals;
 
-/** WATCH OUT: THIS SENDS TO FORM HELPERS AND /THEN/ TO IncomeForm */
 // `props` is a cloned version of the original props. References broken.
-class PreviousIncomeStep extends Component {
+const PreviousIncomeStep = function ( props ) {
 
-  constructor ( props ) {
-    super( props );  // makes `this.props`
-    // Just use the functions from that since other references are broken
-    originals = props;
-  }
+  originals = props;
 
-  render () {
+  /** @todo Are these titles accurate now? */
+  return (
+    <Form className = 'income-form'>
+      <FormPartsContainer
+        title     = 'Previous Household Monthly Income'
+        clarifier = 'How much money did your household make the last time you were assessed for your benefits?'
+        next      = {props.nextStep}
+        prev      = {props.previousStep}
+      >
+        <IncomeForm client={props.pageState} props={props}/>
+      </FormPartsContainer>
+    </Form>
+  );
 
-    originals = this.props;
-
-    /** @todo Are these titles accurate now? */
-    /** WATCH OUT: THIS SENDS TO FORM HELPERS AND /THEN/ TO IncomeForm */
-    return (
-      <Form className = 'income-form'>
-        <FormPartsContainer
-          title = 'Previous Household Monthly Income'
-          clarifier = 'How much money did your household make the last time you were assessed for your benefits?'
-          next = { this.props.nextStep }
-          prev = { this.props.previousStep }
-          Insertable = { IncomeForm }
-          props = { this.props }
-          client = { this.props.pageState }
-        />
-      </Form>
-    );
-
-  }  // End render()
-
-};  // End PreviousIncomeStep() Component
+};  // End PreviousIncomeStep()
 
 
 export { PreviousIncomeStep };

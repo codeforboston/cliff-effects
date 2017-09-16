@@ -25,4 +25,34 @@ var limit = function ( initialVal, minMax ) {
 };  // End limit()
 
 
-export { roundMoney, limit };
+var toMonthlyAmount = {};
+
+toMonthlyAmount.weekly = function ( evnt, weeklyVal ) {
+
+  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
+  var monthlyRaw  = weeklyVal * 4.33,
+      monthly     = toMonthlyAmount[ 'monthly' ]( evnt, monthlyRaw );
+  return monthly;
+
+};  // End toMonthlyAmount.weekly()
+
+
+toMonthlyAmount.monthly = function ( evnt, monthlyVal ) {
+  // Monthly is used for a lot of things and is the one we want to store
+  var monthlyInBounds = limit( monthlyVal, { min: 0 } );
+  return monthlyInBounds;
+
+};  // End toMonthlyAmount.monthly()
+
+
+toMonthlyAmount.yearly = function ( evnt, yearlyVal ) {
+
+  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
+  var monthlyRaw  = ( yearlyVal / 12 ),
+      monthly     = toMonthlyAmount[ 'monthly' ]( evnt, monthlyRaw );
+  return monthly;
+
+};  // End toMonthlyAmount.yearly()
+
+
+export { roundMoney, limit, toMonthlyAmount };
