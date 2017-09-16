@@ -7,10 +7,6 @@ import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formH
 import { roundMoney, limit } from '../helpers/math';
 import { merge } from '../helpers/object-manipulation';
 
-// BENEFIT PROGRAM CALCULATIONS
-import { percentPovertyLevel, percentStateMedianIncome } from '../helpers/helperFunctions';
-import { grossMonthlyIncome } from '../programs/grossMonthlyIncome';
-
 
 /**
 * @todo Figure out which programs need to know which types of incomes

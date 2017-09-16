@@ -9,7 +9,7 @@ import { merge } from '../helpers/object-manipulation';
 
 // BENEFIT PROGRAM CALCULATIONS
 import { percentPovertyLevel, percentStateMedianIncome } from '../helpers/helperFunctions';
-import { grossMonthlyIncome } from '../programs/grossMonthlyIncome';
+import { getGrossIncomeMonthly } from '../helpers/income';
 
 
 // ========================================
@@ -33,7 +33,7 @@ const IncomeForm = function ( props ) {
       sharedProps = { client: client, type: type, time: time,
                     storeComplex: otherProps.storeComplex };
 
-  var monthly     = grossMonthlyIncome( client, 'current' ),
+  var monthly     = getGrossIncomeMonthly( client, 'current' ),
       grossAnnual = monthly * 12;
 
   /** 
