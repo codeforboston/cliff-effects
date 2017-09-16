@@ -15,9 +15,8 @@ import {
 // import { percentPovertyLevel, 
 //         percentStateMedianIncome } from '../helpers/helperFunctions';
 import {
-  FormPartsContainer, MassiveToggle, FormSubheading,
-  FormHeading, InlineLabelInfo,
-  IntervalColumnHeadings, CashFlowInput, CashFlowRow
+  FormPartsContainer, MassiveToggle, FormHeading,
+  IntervalColumnHeadings, CashFlowRow
 } from './formHelpers';
 import { merge } from '../helpers/object-manipulation';
 import { roundMoney, limit } from '../helpers/math';
