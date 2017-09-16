@@ -254,11 +254,66 @@ const InlineLabelInfo = function ( props ) {
 
 };  // End InlineLabelInfo{} Component
 
+// Possible tooltip version of labels:
+// (could be made official in the Row creator with conditionals)
+// <label>Earned Income
+//   <style type='display on hover handled in css'></style>
+//   <div
+//     className={ 'info-revealer' }
+//     style={{
+//       position: 'relative',
+//       display: 'inline-block',
+//       fontSize: '10px',
+//       border: '1px solid black',
+//       margin: '1em',
+//       top: '-0.5em',
+//       textAlign: 'center',
+//       width: '1.6em',
+//       height: '1.6em'
+//     }}>
+//     <div style={{ position: 'relative', top: '-0.2em' }}>i</div>
+//     <div
+//       className={ 'info-tooltip' }
+//       style={{ position: 'absolute', padding: '.2em' }}
+//     >
+//       Weekly income = hourly wage times average number of work hours per week
+//     </div>
+//   </div>
+// </label>
+
 
 
 // ========================================
 // MONEY ON INTERVALS COLUMNS COMPONENTS
 // ========================================
+
+// Ideas of how to handle a different styling situation (if the designers switch columns)
+
+// If we want more control over placement, we may look into this:
+// <Grid textAlign='center' verticalAlign='middle'>
+//   <Grid.Row className='inputs-in-right-column'>
+//     <Grid.Column className='left-label'>
+//       <label>Earned Income</label>
+//     </Grid.Column>
+//     <Grid.Column className='right-input'>
+//       <Input type='number'/>
+//     </Grid.Column>
+//   </Grid.Row>
+// </Grid>
+
+// <Form.Field inline>
+//   <span className='column-1-header'>Income Source</span>
+//   <div className='right-column'>
+//     <span className='Weekly'>Income Source</span>
+//     <span className='Monthly'>Income Source</span>
+//     <span className='Yearly'>Income Source</span>
+//   </div>
+//   <Input
+//     type='number'
+//     onChange={props.storeComplex}
+//     className='right-column'
+//     name='Earned Income' placeholder='Earned Income'
+//   />
 
 
 /** @todo description
@@ -332,7 +387,7 @@ const CashFlowInput = function ( props ) {
 
   return (
     <Input
-      className = { props.type + '-column ' + props.interval }
+      className = { props.type + ' cashflow-column ' + props.interval }
       onChange  = { handleChange }
       value     = { props.value }
       style     = { props.style }

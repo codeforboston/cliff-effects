@@ -104,7 +104,7 @@ const ExpensesFormContent = function ( props ) {
 
       <FormHeading subheading = {'(a dependant is a child or disabled adult)'}>
         Dependent Monthly Care</FormHeading>
-      <IntervalColumnHeadings type={props.type}/>
+      <IntervalColumnHeadings type={type}/>
       <CashFlowRow {...merge( sharedProps, {generic: 'DirectCareCosts'} )}> Direct Care Costs </CashFlowRow>
       <CashFlowRow {...merge( sharedProps, {generic: 'BeforeAndAfterSchoolPrograms'} )}> Before- and After-School Programs </CashFlowRow>
       <CashFlowRow {...merge( sharedProps, {generic: 'TransportationCosts'} )}> Transportation Costs </CashFlowRow>
