@@ -128,8 +128,9 @@ const ExpensesFormContent = function ( props ) {
       <Housing props={props.props} time={time} type={type} />
 
       <FormHeading>Other</FormHeading>
-      <CashFlowRow {...merge( sharedProps, {generic: 'Medical'} )}>Medical</CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'ChildSupportPaidOut'} )}>LEGALLY OBLIGATED Child support paid out</CashFlowRow>
+      <CashFlowRow {...merge( sharedProps, {generic: 'Medical'} )}> Medical </CashFlowRow>
+      <CashFlowRow {...merge( sharedProps, {generic: 'ChildSupportPaidOut'} )}> LEGALLY OBLIGATED Child support paid out </CashFlowRow>
+      <CashFlowRow {...merge( sharedProps, {generic: 'OtherExpenses'} )}> Other Expenses </CashFlowRow>
 
     </wrapper>
   );
