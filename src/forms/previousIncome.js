@@ -1,23 +1,3 @@
-// // import _ from 'lodash'
-// /** @todo Try without `Component` */
-// import React, { Component } from 'react';
-// import {
-// 	// Button,
-//   Form,
-//   Grid,
-//   Header,
-//   // Segment, Step, Card, Icon, Checkbox, Divider, Radio,
-//   Statistic,
-//   // Reveal,
-//   Input
-// } from 'semantic-ui-react';
-// // import { Redirect, Prompt } from 'react-router-dom';
-// import { percentPovertyLevel, 
-//         percentStateMedianIncome } from '../helpers/helperFunctions';
-// import { FormPartsContainer } from './formHelpers';
-// import { roundMoney, limit } from '../helpers/math';
-
-
 // COMPONENTS
 import React, { Component } from 'react';
 import { Form, Header, Statistic } from 'semantic-ui-react';

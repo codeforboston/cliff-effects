@@ -16,6 +16,14 @@ import { grossMonthlyIncome } from '../programs/grossMonthlyIncome';
 // COMPONENTS
 // ========================================
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const IncomeForm = function ( props ) {
 
   var time = 'current', type = 'income';
@@ -64,6 +72,14 @@ const IncomeForm = function ( props ) {
 };  // End IncomeForm() Component
 
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 // `props` is a cloned version of the original props. References broken.
 const CurrentIncomeStep = function ( props ) {
 

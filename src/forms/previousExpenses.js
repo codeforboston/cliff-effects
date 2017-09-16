@@ -26,6 +26,14 @@ import { roundMoney, limit } from '../helpers/math';
 // COMPONENTS
 // ========================================
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const Housing = function ( props ) {
 
   var client      = props.props.pageState,
@@ -88,6 +96,14 @@ const Housing = function ( props ) {
 };  // End Housing()
 
 
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
 const ExpensesFormContent = function ( props ) {
 
   var client    = props.client,
@@ -138,7 +154,14 @@ const ExpensesFormContent = function ( props ) {
 * household member?
 */
 
-// `props` is a cloned version of the original props. References broken.
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/// `props` is a cloned version of the original props. References broken.
 const PreviousExpensesStep = function ( props ) {
 
   return (
