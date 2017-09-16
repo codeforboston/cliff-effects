@@ -128,21 +128,24 @@ const ExpensesFormContent = function ( props ) {
       <Housing props={props.props} time={time} type={type} />
 
       <FormHeading>Other</FormHeading>
-      <MassiveToggle id={ time + 'DisabledOrElderlyMember' } value={ client.previousDisabledOrElderlyMember }
-        storeBoolean={ storeBool }
-        label={'Was any member of the household elderly (age 60+) or receiving a disability-based benefit (e.g. SSI, EAEDC, MassHealth Disability, etc.)'}/>
-      <IntervalColumnHeadings type={type}/>
-      { !needsMedical
-        ? null
-        : <CashFlowRow {...merge( sharedProps, {generic: 'Medical'} )}>Medical</CashFlowRow>
-      }
-      <CashFlowRow {...merge( sharedProps, {generic: 'ChildSupportPaidOut'} )}>Child support paid out</CashFlowRow>
+      <CashFlowRow {...merge( sharedProps, {generic: 'Medical'} )}> Medical </CashFlowRow>
+      <CashFlowRow {...merge( sharedProps, {generic: 'ChildSupportPaidOut'} )}> LEGALLY OBLIGATED Child support paid out </CashFlowRow>
+      <CashFlowRow {...merge( sharedProps, {generic: 'OtherExpenses'} )}> Other Expenses </CashFlowRow>
 
     </wrapper>
   );
 
 };  // End ExpensesFormContent()
 
+// If medical is only for disabled or elderly
+// <MassiveToggle id={ time + 'DisabledOrElderlyMember' } value={ client.previousDisabledOrElderlyMember }
+//   storeBoolean={ storeBool }
+//   label={'Was any member of the household elderly (age 60+) or receiving a disability-based benefit (e.g. SSI, EAEDC, MassHealth Disability, etc.)'}/>
+// <IntervalColumnHeadings type={type}/>
+// { !needsMedical
+//   ? null
+//   : <CashFlowRow {...merge( sharedProps, {generic: 'Medical'} )}>Medical</CashFlowRow>
+// }
 
 /**
 * @todo Does a medical assistant's payments count as a medical expense?
