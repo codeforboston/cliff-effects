@@ -1,6 +1,6 @@
 # cliff-effects
 
-> **cliff effect**: You are a person on government benefits, and you get a raise.  You're making more money!  But now that your income is higher, you don't make the cutoff for the benefits you receive.  Even though you're making more money, your situation is worse. Some of your benefits drop to nothing, or almost nothing. You've fallen off "the cliff."
+> **cliff effect**: You are a person on government benefits, and you get a raise.  You're making more money!  But now that your income is higher, you don't make the cutoff for the benefits you receive.  Even though you're taking home more money, your situation is worse. Some of your benefits drop to nothing, or almost nothing. You've fallen off "the cliff."
 
 We are building the Cliff Effects webapp to help [Project Hope](http://www.prohope.org/) case workers make quantifiable predictions about their clients' potential cliff effects.
 
