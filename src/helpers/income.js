@@ -104,7 +104,11 @@ const getGrossIncomeMonthly = function ( client, timeframe ) {
   var earned    = client[ timeframe + 'EarnedIncomeMonthly' ],
       unearned  = getGrossUnearnedIncome( client, timeframe ),
       comingIn  = earned + unearned,
-      total     = comingIn - deductions.childSupportPayments( client );
+      /** @todo This document {@link https://www.masslegalservices.org/content/online-snap-calculator}
+      * implies that there are deductions to be removed from income in order to calculate
+      * gross income. Is that a mistake? Is that just for SNAP? */
+      // total     = comingIn - deductions.childSupportPayments( client );
+      total     = comingIn;
 	return total;
 
 };  // End getGrossIncomeMonthly()
