@@ -31,7 +31,7 @@ import SimpleMenu from './simpleMenu';
 import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { PreviousExpensesStep } from './forms/previousExpenses';
-
+import { HealthStep } from './forms/health';
 
 
 const StepBar = (props) => {
@@ -433,53 +433,53 @@ const CitizenshipStep = (props) => {
   )
 };  // End CitizenshipStep()
 
-const HealthStep = (props) => {
-  return (
-    <Form>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            MassHealth Qualifying Conditions
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Do you have any of the following MassHealth qualifying conditions?
-          </Header>
-          <Form.Field
-            name='qualifyingConditions'
-            checked={props.pageState.qualifyingConditions}
-            onChange={props.storeChecked}
-            control={Checkbox}
-            label={props.pageState.qualifyingConditions ? { children: 'Yes'} : {children: 'No'}}
-            size='massive'
-            toggle      
-          />
-          <br/>
-          <Segment.Group>
-            <Segment>Pregnant</Segment>
-            <Segment>HIV+</Segment>
-            <Segment>Disabled</Segment>
-            <Segment>Woman with breast or cervical cancer</Segment>
-          </Segment.Group>
-        </Segment>
-        <Divider />
-        <Grid
-          textAlign='center'
-          verticalAlign='middle'
-        >
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-            </Grid.Column>
-            <Grid.Column width={10} />
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  );
-};  // End HealthStep()
+// const HealthStep = (props) => {
+//   return (
+//     <Form>
+//       <Segment padded='very' style={{ minHeight: '600' }}>
+//         <Segment style={{ minHeight: '500' }} basic={true}>
+//           <Header as='h1' color='teal' textAlign='center'>
+//             MassHealth Qualifying Conditions
+//           </Header>
+//           <Header as='h3' textAlign='center'>
+//             Do you have any of the following MassHealth qualifying conditions?
+//           </Header>
+//           <Form.Field
+//             name='qualifyingConditions'
+//             checked={props.pageState.qualifyingConditions}
+//             onChange={props.storeChecked}
+//             control={Checkbox}
+//             label={props.pageState.qualifyingConditions ? { children: 'Yes'} : {children: 'No'}}
+//             size='massive'
+//             toggle      
+//           />
+//           <br/>
+//           <Segment.Group>
+//             <Segment>Pregnant</Segment>
+//             <Segment>HIV+</Segment>
+//             <Segment>Disabled</Segment>
+//             <Segment>Woman with breast or cervical cancer</Segment>
+//           </Segment.Group>
+//         </Segment>
+//         <Divider />
+//         <Grid
+//           textAlign='center'
+//           verticalAlign='middle'
+//         >
+//           <Grid.Row>
+//             <Grid.Column width={3}>
+//               <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
+//             </Grid.Column>
+//             <Grid.Column width={10} />
+//             <Grid.Column width={3}>
+//               <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
+//             </Grid.Column>
+//           </Grid.Row>
+//         </Grid>
+//       </Segment>
+//     </Form>
+//   );
+// };  // End HealthStep()
 
 class VisitPage extends Component {
   constructor(props) {

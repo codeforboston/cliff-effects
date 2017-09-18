@@ -117,8 +117,8 @@ class FormPartsContainer extends Component {
     var props = this.props;
 
     return (
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
+      <Segment padded='very' style={{ minHeight: '600px' }}>
+        <Segment style={{ minHeight: '500px' }} basic={true}>
           <Header as='h1' color='teal' textAlign='center'>
             { props.title }
           </Header>
@@ -158,13 +158,14 @@ const MassiveToggle = function ( props ) {
 
   var time = props.time || '';
 
+  /** @todo Switch props.storeChecked to props.onChange everywhere */
   return (
     <Form.Field className='massive-toggle'
       toggle
       label={ props.label }
       checked={ props.value }
-      onChange={ props.storeChecked }
-      name={ props.id }
+      onChange={ props.onChange || props.storeChecked }
+      name={ props.name || props.id }
       control={ Checkbox }
       size='massive'/>
   );
