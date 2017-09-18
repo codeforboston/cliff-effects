@@ -117,6 +117,8 @@ const ExpensesFormContent = function ( props ) {
   var time = 'previous', type = 'expense';
   var sharedProps = { client: client, type: type, time: time,
                     storeComplex: truth.storeComplex };
+  var incomeProps = merge( {}, sharedProps );
+  incomeProps.type = 'income';
 
   /** @todo Determine if client can only enter amounts not covered by other programs
   * for childcare expenses (does money from those programs count as income?). */
@@ -142,7 +144,7 @@ const ExpensesFormContent = function ( props ) {
       <CashFlowRow {...merge( {generic: 'ChildBeforeAndAfterSchoolCareCosts'}, sharedProps )}> Before- and After-School Care </CashFlowRow>
       <CashFlowRow {...merge( {generic: 'ChildTransportationCosts'}, sharedProps )}> Transportation Costs </CashFlowRow>
       <CashFlowRow {...merge( {generic: 'ChildOtherCareCosts'}, sharedProps )}> Other Care </CashFlowRow>
-      <CashFlowRow {...merge( {generic: 'EarnedIncomeBecauseOfChildCare'}, sharedProps )}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
+      <CashFlowRow {...merge( {generic: 'EarnedIncomeBecauseOfChildCare'}, incomeProps )}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
 
       <FormHeading>Dependent Care</FormHeading>
       <IntervalColumnHeadings type={type}/>
@@ -172,7 +174,7 @@ const ExpensesFormContent = function ( props ) {
         ? <CashFlowRow {...merge( {generic: 'Medical'}, sharedProps )}> Medical expenses of the individual(s) </CashFlowRow>
         : <wrapper>
           <CashFlowRow {...merge( {generic: 'HandicappedAssistance'}, sharedProps )}> Handicapped Assistance </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'EarnedIncomeBecauseOfAdultCare'}, sharedProps )}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by elderly or disabled care expenses </CashFlowRow>
+          <CashFlowRow {...merge( {generic: 'EarnedIncomeBecauseOfAdultCare'}, incomeProps )}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by elderly or disabled care expenses </CashFlowRow>
           <CashFlowRow {...merge( {generic: 'Medical'}, sharedProps )}> Medical expenses of the individual(s) </CashFlowRow>
         </wrapper>
       }
