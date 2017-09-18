@@ -1,23 +1,14 @@
-// import _ from 'lodash'
+// REACT COMPONENTS
 import React, { Component } from 'react';
-import {
-  // Button,
-  Form,
-  // Grid,
-  Header,
-  // Segment, Step, Card, Icon, Checkbox, Divider, Radio,
-  Statistic,
-  Divider,
-  // Reveal,
-  Input
-} from 'semantic-ui-react';
-// import { Redirect, Prompt } from 'react-router-dom';
-// import { percentPovertyLevel, 
-//         percentStateMedianIncome } from '../helpers/helperFunctions';
+import { Form, Header, Statistic, Divider, Input } from 'semantic-ui-react';
+
+// PROJECT COMPONENTS
 import {
   FormPartsContainer, MassiveToggle, FormHeading,
   IntervalColumnHeadings, CashFlowRow
 } from './formHelpers';
+
+// UTILITIES
 import { merge } from '../helpers/object-manipulation';
 import { roundMoney, limit } from '../helpers/math';
 

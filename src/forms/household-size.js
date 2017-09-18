@@ -1,8 +1,8 @@
-
+// REACT COMPONENTS
 import React, { Component } from 'react';
-import { Form, Segment, Radio } from 'semantic-ui-react';
+import { Form, Radio } from 'semantic-ui-react';
 
-// Our Components
+// PROJECT COMPONENTS
 import {
   FormPartsContainer
 } from './formHelpers';

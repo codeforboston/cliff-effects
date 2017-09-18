@@ -1,3 +1,4 @@
+// REACT COMPONENTS
 import React, { Component } from 'react';
 import {
   // Generic Form stuff
@@ -11,6 +12,8 @@ import {
   Checkbox
   // Money columns
 } from 'semantic-ui-react';
+
+// UTILITIES
 import { merge } from '../helpers/object-manipulation';
 import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
 
