@@ -1,23 +1,14 @@
-// import _ from 'lodash'
+// REACT COMPONENTS
 import React, { Component } from 'react';
-import {
-  // Button,
-  Form,
-  // Grid,
-  Header,
-  // Segment, Step, Card, Icon, Checkbox, Divider, Radio,
-  Statistic,
-  Divider,
-  // Reveal,
-  Input
-} from 'semantic-ui-react';
-// import { Redirect, Prompt } from 'react-router-dom';
-// import { percentPovertyLevel, 
-//         percentStateMedianIncome } from '../helpers/helperFunctions';
+import { Form, Header, Statistic, Divider, Input } from 'semantic-ui-react';
+
+// PROJECT COMPONENTS
 import {
   FormPartsContainer, MassiveToggle, FormHeading,
   IntervalColumnHeadings, CashFlowRow
 } from './formHelpers';
+
+// UTILITIES
 import { merge } from '../helpers/object-manipulation';
 import { roundMoney, limit } from '../helpers/math';
 
@@ -106,8 +97,8 @@ const Housing = function ( props ) {
 const ExpensesFormContent = function ( props ) {
 
   var client    = props.client,
-      truth     = props.props,
-      storeBool = truth.storeChecked,
+      origin    = props.props,
+      storeBool = origin.storeChecked,
       time      = 'previous', type = 'expense';
 
   var needsHandicappedAssistance = client[ time + 'GettingHandicappedAssistance' ]
@@ -116,7 +107,7 @@ const ExpensesFormContent = function ( props ) {
 
   var time = 'previous', type = 'expense';
   var sharedProps = { client: client, type: type, time: time,
-                    storeComplex: truth.storeComplex };
+                    storeComplex: origin.storeComplex };
   var incomeProps = merge( {}, sharedProps );
   incomeProps.type = 'income';
 
@@ -129,7 +120,7 @@ const ExpensesFormContent = function ( props ) {
       <Form.Field inline>
         <Input
           className = { type + 'Dependents' }
-          onChange  = { truth.storeComplex }
+          onChange  = { origin.storeComplex }
           value     = { client[ type + 'Dependents' ] }
           name      = { type + 'Dependents' }
           id        = { type + 'Dependents' }

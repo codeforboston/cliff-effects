@@ -31,8 +31,10 @@ import SimpleMenu from './simpleMenu';
 import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { PreviousExpensesStep } from './forms/previousExpenses';
-
-
+import { HealthStep } from './forms/health';
+import { CitizenshipStep } from './forms/citizenship';
+import { HouseholdSizeStep } from './forms/household-size';
+import { CurrentBenefitsStep } from './forms/current-benefits';
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -266,220 +268,6 @@ const Results = (props) => {
   )
 };  // End Results()
 
-/** @todo Add "vertical list of options" creator that will create a list of fields using the `.field-aligner` class */
-const CurrentBenefitsStep = (props) => {
-  return (      
-    <Form size='massive'>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            Current Benefits
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Select the benefits you currently receive.
-          </Header>
-          <br/>
-          <div className={'field-aligner'}>
-            <Form.Field
-              name='hasSnap'
-              checked={props.pageState.hasSnap}
-              onChange={props.storeChecked}
-              control={Checkbox}
-              label={{ children: props.pageState.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
-              size='massive'
-              toggle      
-            />
-            <br/>
-            <Form.Field
-              name='hasHousing'
-              checked={props.pageState.hasHousing}
-              onChange={props.storeChecked}
-              control={Checkbox}
-              label={{ children: props.pageState.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
-              toggle
-            />
-            <br/>
-            <Form.Field
-              name='hasMassHealth'
-              checked={props.pageState.hasMassHealth}
-              onChange={props.storeChecked}
-              control={Checkbox}
-              label={{ children: props.pageState.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
-              toggle
-            />
-          </div>
-        </Segment>
-        <Divider />
-        <Grid textAlign='center' verticalAlign='middle' >
-          <Grid.Row>
-            <Grid.Column width={13}></Grid.Column>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  )
-};  // End CurrentBenefitsStep()
-
-/** @todo Could this be a number field? If not, then a dropdown? */
-const HouseholdSizeStep = (props) => {
-  return (      
-    <Form>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            Household Size
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Select the number of people in your household including yourself.
-          </Header>
-          <div className={'field-aligner'}>
-            {[1,2,3,4,5,6,7,8].map(size =>
-              (<Form.Field>
-                <Radio
-                  label={size}
-                  name='householdSize'
-                  value={size}
-                  checked={props.pageState.householdSize === size}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>)
-            )}
-          </div>
-        </Segment>
-        <Divider />
-        <Grid
-          textAlign='center'
-          verticalAlign='middle'
-        >
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-            </Grid.Column>
-            <Grid.Column width={10} />
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  )
-};  // End HouseholdSizeStep()
-
-const CitizenshipStep = (props) => {
-  return (      
-    <Form>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            Citizenship Status
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Select your citizenship status.
-          </Header>
-            <br/>
-            <div className={'field-aligner'}>
-              <Form.Field>
-                <Radio
-                  label='US Citizen / National'
-                  name='citizenshipStatus'
-                  value='citizen'
-                  checked={props.pageState.citizenshipStatus === 'citizen'}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>
-              <br/>
-              <Form.Field>
-                <Radio
-                  label='Lawfully present immigrant / AWSS'
-                  name='citizenshipStatus'
-                  value='immigrant'
-                  checked={props.pageState.citizenshipStatus === 'immigrant'}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>
-              <br/>
-              <Form.Field>
-                <Radio
-                  label="Don't Know"
-                  name='citizenshipStatus'
-                  value='unknown'
-                  checked={props.pageState.citizenshipStatus === 'unknown'}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>
-            </div>
-          </Segment>
-        <Divider />
-        <Grid
-          textAlign='center'
-          verticalAlign='middle'
-        >
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-            </Grid.Column>
-            <Grid.Column width={10} />
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  )
-};  // End CitizenshipStep()
-
-const HealthStep = (props) => {
-  return (
-    <Form>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            MassHealth Qualifying Conditions
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Do you have any of the following MassHealth qualifying conditions?
-          </Header>
-          <Form.Field
-            name='qualifyingConditions'
-            checked={props.pageState.qualifyingConditions}
-            onChange={props.storeChecked}
-            control={Checkbox}
-            label={props.pageState.qualifyingConditions ? { children: 'Yes'} : {children: 'No'}}
-            size='massive'
-            toggle      
-          />
-          <br/>
-          <Segment.Group>
-            <Segment>Pregnant</Segment>
-            <Segment>HIV+</Segment>
-            <Segment>Disabled</Segment>
-            <Segment>Woman with breast or cervical cancer</Segment>
-          </Segment.Group>
-        </Segment>
-        <Divider />
-        <Grid
-          textAlign='center'
-          verticalAlign='middle'
-        >
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-            </Grid.Column>
-            <Grid.Column width={10} />
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  );
-};  // End HealthStep()
 
 class VisitPage extends Component {
   constructor(props) {
@@ -523,7 +311,7 @@ class VisitPage extends Component {
 
     this.steps = [
       { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, /*description: 'Choose your shipping options' (what does this mean?)*/ },
-      { completed: false, active: false, title: 'Household', form: HouseholdSizeStep },
+      { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
       { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
       { completed: false, active: false, title: 'Previous Expenses', form: PreviousExpensesStep },
       { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
