@@ -55,20 +55,22 @@ deductions.medical = function ( client, timeframe ) {
 * Transportation Costs
 * Other
 */
-deductions.dependentCare = function ( client, timerame ) {
+deductions.dependentCare = function ( client, timeframe ) {
   return client[ timeframe + 'ChildSupportPaidOutMonthly' ];
 };  // End deductions.dependentCare()
 
 
-/** Dependent = child or disabled adult
-* Sum of:
-* Direct Care Costs
-* Before- and After-School Programs
-* Transportation Costs
-* Other
+/** @todo description
+* Monthly
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
 */
-deductions.dependentCare = function ( client, timeframe ) {
-};  // End deductions.dependentCare()
+deductions.handicappedAssistance = function ( client, timeframe ) {
+};  // End deductions.handicappedAssistance()
 
 
 /** Just child support. Here for consistency and validation */

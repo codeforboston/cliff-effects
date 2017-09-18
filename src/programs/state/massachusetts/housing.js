@@ -1,6 +1,6 @@
-// import { FMRS_MA_2018 } from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
+import { FMRS_MA_2018 } from '../../../data/state/massachusetts/2018/FMRS_MA_2018';  // to remove
 import { Result } from '../../../helpers/Result';
-import { getGrossIncomeMonthly,  } from '../../../helpers/income';
+import { getGrossIncomeMonthly } from '../../../helpers/income';
 
 /** Using old and new income data, return new subsidy amount, etc..
 * 

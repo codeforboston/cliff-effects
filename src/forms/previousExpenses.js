@@ -129,7 +129,6 @@ const ExpensesFormContent = function ( props ) {
           className = { type + 'Dependents' }
           onChange  = { truth.storeComplex }
           value     = { client[ type + 'Dependents' ] }
-          style     = {}
           name      = { type + 'Dependents' }
           id        = { type + 'Dependents' }
           type = { 'number' } step = { '0.01' } min = { '0' } />
