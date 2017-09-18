@@ -32,6 +32,7 @@ import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { PreviousExpensesStep } from './forms/previousExpenses';
 import { HealthStep } from './forms/health';
+import { CitizenshipStep } from './forms/citizenship';
 
 
 const StepBar = (props) => {
@@ -368,70 +369,6 @@ const HouseholdSizeStep = (props) => {
     </Form>
   )
 };  // End HouseholdSizeStep()
-
-const CitizenshipStep = (props) => {
-  return (      
-    <Form>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            Citizenship Status
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Select your citizenship status.
-          </Header>
-            <br/>
-            <div className={'field-aligner'}>
-              <Form.Field>
-                <Radio
-                  label='US Citizen / National'
-                  name='citizenshipStatus'
-                  value='citizen'
-                  checked={props.pageState.citizenshipStatus === 'citizen'}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>
-              <br/>
-              <Form.Field>
-                <Radio
-                  label='Lawfully present immigrant / AWSS'
-                  name='citizenshipStatus'
-                  value='immigrant'
-                  checked={props.pageState.citizenshipStatus === 'immigrant'}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>
-              <br/>
-              <Form.Field>
-                <Radio
-                  label="Don't Know"
-                  name='citizenshipStatus'
-                  value='unknown'
-                  checked={props.pageState.citizenshipStatus === 'unknown'}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>
-            </div>
-          </Segment>
-        <Divider />
-        <Grid
-          textAlign='center'
-          verticalAlign='middle'
-        >
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-            </Grid.Column>
-            <Grid.Column width={10} />
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  )
-};  // End CitizenshipStep()
 
 
 class VisitPage extends Component {

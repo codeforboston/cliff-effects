@@ -56,7 +56,7 @@ const HealthContent = (props) => {
 const HealthStep = function ( props ) {
 
   return (
-    <Form className = 'expense-form'>
+    <Form className='health-form'>
       <FormPartsContainer
         title     = {'MassHealth Qualifying Conditions'}
         clarifier = {'Do you have any of the following MassHealth qualifying conditions?'}
