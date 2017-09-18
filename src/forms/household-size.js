@@ -4,7 +4,7 @@ import { Form, Segment, Radio } from 'semantic-ui-react';
 
 // Our Components
 import {
-  FormPartsContainer, MassiveToggle
+  FormPartsContainer
 } from './formHelpers';
 
 
