@@ -1,16 +1,8 @@
-import { FMRS_MA_2018 } from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
+// import { FMRS_MA_2018 } from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
 import { Result } from '../../../helpers/Result';
+import { getGrossIncomeMonthly,  } from '../../../helpers/income';
 
-/** Get maximum benefit/subsidy amount for client from Section 8 Project-Based
-* Voucher program. Please allow the client to put in their own subsidy amount
-* if needed since custom amounts are totally a thing that happen (like the PHA
-* requesting a standard that is higher than 110%). An accurate amount is important
-* when calculating eligibility/amounts from other benefit programs.
-* Once you're enrolled in the program, which our interface is
-* currently assuming to be the case, you stay in it. There are
-* reasons that you leave it, but we have to discuss with the
-* case managers what they want to do about those. They're weird.
-* There will be extra info if subsidy amount is $0, though.
+/** Using old and new income data, return new subsidy amount, etc..
 * 
 * Notes on citizenship: Details avaialble at
 * {@link https://www.law.cornell.edu/uscode/text/42/1436a#a}
@@ -22,21 +14,21 @@ import { Result } from '../../../helpers/Result';
 * @since 09/2017
 * 
 * @see trello: https://trello.com/c/EIt2BCMQ/53-housing-choice-voucher-section-8-pseudocode-doc
-* @see docs: https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=1209051854
-* @see docs: https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=1209051854 (recommended by Kristin, Project Hope staff)
-* @see gathered info: https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=1209051854
-* @see codepen test: https://codepen.io/knod/pen/oeOpRz?editors=0010
+* @see ~~docs: https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=1209051854~~
+* @see ~~docs: https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=1209051854 (recommended by Kristin, Project Hope staff)~~
+* @see ~~gathered info: https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=1209051854~~
+* @see ~~codepen test: https://codepen.io/knod/pen/oeOpRz?editors=0010~~
+* @see Deriving: {@link https://docs.google.com/document/d/1o1Tm0HioHeY4NcBSDcjSbXDOjmCAJdI47kG5Fyms0UI/edit#}. Summation:
+* old full subsidy = always same gross rent - old ttp (known) (pg 62, pg 69 Table 6.10 and #2 before it) (ofs = gr - ottp*)
+* old full subsidy = always same contract rent (known) - old rent share (known) (common sense?) (ofs = cr* - ors*)
+* gross rent = old full subsidy* + old ttp*
+* new full subsidy = gross rent* - new ttp*
+* new rent share = contract rent* + new full subsidy*
 * 
 * @todo Find out how close to 0 the benefit amount needs
 * to be in order for the client to be warned.
 */
 var getHousingEligibility = function ( client ) {
-	/** @todo Maybe allow client to put in a custom rent amount, but
-	* should be warned that this amount may not be accurate either
-	* because in some cases calculations and estimates have to be made
-	* for essential utilitie allowances if utilities aren't included in
-	* the rent amount. Maybe a custom subsidy amount would be better?
-	*/
 
 	// Send it right back if it's missing input values
 	var props = propsNeeded( client )
