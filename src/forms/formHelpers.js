@@ -163,7 +163,7 @@ const MassiveToggle = function ( props ) {
     <Form.Field className='massive-toggle'
       toggle
       label={ props.label }
-      checked={ props.value }
+      checked={ props.checked || props.value }
       onChange={ props.onChange || props.storeChecked }
       name={ props.name || props.id }
       control={ Checkbox }

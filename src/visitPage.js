@@ -34,7 +34,7 @@ import { PreviousExpensesStep } from './forms/previousExpenses';
 import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
-
+import { CurrentBenefitsStep } from './forms/current-benefits';
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -267,63 +267,6 @@ const Results = (props) => {
     </Segment>
   )
 };  // End Results()
-
-/** @todo Add "vertical list of options" creator that will create a list of fields using the `.field-aligner` class */
-const CurrentBenefitsStep = (props) => {
-  return (      
-    <Form size='massive'>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            Current Benefits
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Select the benefits you currently receive.
-          </Header>
-          <br/>
-          <div className={'field-aligner'}>
-            <Form.Field
-              name='hasSnap'
-              checked={props.pageState.hasSnap}
-              onChange={props.storeChecked}
-              control={Checkbox}
-              label={{ children: props.pageState.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
-              size='massive'
-              toggle      
-            />
-            <br/>
-            <Form.Field
-              name='hasHousing'
-              checked={props.pageState.hasHousing}
-              onChange={props.storeChecked}
-              control={Checkbox}
-              label={{ children: props.pageState.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
-              toggle
-            />
-            <br/>
-            <Form.Field
-              name='hasMassHealth'
-              checked={props.pageState.hasMassHealth}
-              onChange={props.storeChecked}
-              control={Checkbox}
-              label={{ children: props.pageState.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
-              toggle
-            />
-          </div>
-        </Segment>
-        <Divider />
-        <Grid textAlign='center' verticalAlign='middle' >
-          <Grid.Row>
-            <Grid.Column width={13}></Grid.Column>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  )
-};  // End CurrentBenefitsStep()
 
 
 class VisitPage extends Component {
