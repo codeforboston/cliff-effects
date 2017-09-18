@@ -147,7 +147,7 @@ class FormPartsContainer extends Component {
 * @property {string} props.value - Should reflect state change and
 * will be displayed as the value. Flow goes:
 * user input > state > value > visual feedback
-* @property {object} props.storeBoolean - Function that changes page
+* @property {object} props.storeChecked - Function that changes page
 * state (changes the "source of truth")
 * @property {string} props.id - For the 'name' property (@todo switch
 * from name to id? Maybe the source of truth only likes names.)
@@ -163,7 +163,7 @@ const MassiveToggle = function ( props ) {
       toggle
       label={ props.label }
       checked={ props.value }
-      onChange={ props.storeBoolean }
+      onChange={ props.storeChecked }
       name={ props.id }
       control={ Checkbox }
       size='massive'/>
@@ -384,6 +384,8 @@ const CashFlowInput = function ( props ) {
     props.store( evnt, obj );
 
   };  // End handleChange()
+
+  /** @todo Different class for something current that has a previous value that isn't 0 */
 
   return (
     <Input

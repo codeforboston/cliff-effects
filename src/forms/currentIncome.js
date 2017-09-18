@@ -9,7 +9,7 @@ import { merge } from '../helpers/object-manipulation';
 
 // BENEFIT PROGRAM CALCULATIONS
 import { percentPovertyLevel, percentStateMedianIncome } from '../helpers/helperFunctions';
-import { grossMonthlyIncome } from '../programs/grossMonthlyIncome';
+import { getGrossIncomeMonthly } from '../helpers/income';
 
 
 // ========================================
@@ -33,7 +33,7 @@ const IncomeForm = function ( props ) {
       sharedProps = { client: client, type: type, time: time,
                     storeComplex: otherProps.storeComplex };
 
-  var monthly     = grossMonthlyIncome( client, 'current' ),
+  var monthly     = getGrossIncomeMonthly( client, 'current' ),
       grossAnnual = monthly * 12;
 
   /** 
@@ -44,8 +44,8 @@ const IncomeForm = function ( props ) {
     <div className='field-aligner two-column'>
 
       <IntervalColumnHeadings type={type}/>
-      <CashFlowRow {...merge( sharedProps, {generic: 'EarnedIncome',
-        labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'} )}>
+      <CashFlowRow {...merge( {generic: 'EarnedIncome',
+        labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'}, sharedProps )}>
           Earned income
       </CashFlowRow>
 
