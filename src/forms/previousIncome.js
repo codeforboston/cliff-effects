@@ -58,8 +58,8 @@ const IncomeForm = function ( props ) {
 
       <IntervalColumnHeadings type={type}/>
 
-      <CashFlowRow {...merge( sharedProps, {generic: 'EarnedIncome',
-        labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'} )}>
+      <CashFlowRow {...merge( {generic: 'EarnedIncome',
+        labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'}, sharedProps )}>
           Earned income
       </CashFlowRow>
       <CashFlowRow {...merge( sharedProps, {generic: 'TAFDC'} )}> TAFDC </CashFlowRow>

@@ -283,7 +283,7 @@ const CurrentBenefitsStep = (props) => {
             <Form.Field
               name='hasSnap'
               checked={props.pageState.hasSnap}
-              onChange={props.storeBoolean}
+              onChange={props.storeChecked}
               control={Checkbox}
               label={{ children: props.pageState.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
               size='massive'
@@ -293,7 +293,7 @@ const CurrentBenefitsStep = (props) => {
             <Form.Field
               name='hasHousing'
               checked={props.pageState.hasHousing}
-              onChange={props.storeBoolean}
+              onChange={props.storeChecked}
               control={Checkbox}
               label={{ children: props.pageState.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
               toggle
@@ -302,7 +302,7 @@ const CurrentBenefitsStep = (props) => {
             <Form.Field
               name='hasMassHealth'
               checked={props.pageState.hasMassHealth}
-              onChange={props.storeBoolean}
+              onChange={props.storeChecked}
               control={Checkbox}
               label={{ children: props.pageState.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
               toggle
@@ -447,7 +447,7 @@ const HealthStep = (props) => {
           <Form.Field
             name='qualifyingConditions'
             checked={props.pageState.qualifyingConditions}
-            onChange={props.storeBoolean}
+            onChange={props.storeChecked}
             control={Checkbox}
             label={props.pageState.qualifyingConditions ? { children: 'Yes'} : {children: 'No'}}
             size='massive'
@@ -538,8 +538,8 @@ class VisitPage extends Component {
       currentStep:  this.state.currentStep,
       nextStep:     this.nextStep,
       previousStep: this.previousStep,
-      storeComplex: this.storeComplex,
-      storeBoolean: this.storeBoolean,
+      storeComplex: this.storeComplex, // Maybe put these straight on state
+      storeChecked: this.storeChecked, // Maybe put these straight on state
       saveForm:     this.saveForm,
       pageState:    this.state
     };
@@ -551,7 +551,7 @@ class VisitPage extends Component {
     this.stepProps.pageState   = this.state;
   }
 
-  storeBoolean = (e, { name, checked }, callback) => {
+  storeChecked = (e, { name, checked }, callback) => {
     this.setState({ [name]: checked },
       function () {
        // console.log(name, checked, this);
