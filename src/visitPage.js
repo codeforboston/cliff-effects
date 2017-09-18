@@ -33,6 +33,7 @@ import { CurrentIncomeStep } from './forms/currentIncome';
 import { PreviousExpensesStep } from './forms/previousExpenses';
 import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
+import { HouseholdSizeStep } from './forms/household-size';
 
 
 const StepBar = (props) => {
@@ -324,52 +325,6 @@ const CurrentBenefitsStep = (props) => {
   )
 };  // End CurrentBenefitsStep()
 
-/** @todo Could this be a number field? If not, then a dropdown? */
-const HouseholdSizeStep = (props) => {
-  return (      
-    <Form>
-      <Segment padded='very' style={{ minHeight: '600' }}>
-        <Segment style={{ minHeight: '500' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            Household Size
-          </Header>
-          <Header as='h3' textAlign='center'>
-            Select the number of people in your household including yourself.
-          </Header>
-          <div className={'field-aligner'}>
-            {[1,2,3,4,5,6,7,8].map(size =>
-              (<Form.Field>
-                <Radio
-                  label={size}
-                  name='householdSize'
-                  value={size}
-                  checked={props.pageState.householdSize === size}
-                  onChange={props.storeComplex}
-                />
-              </Form.Field>)
-            )}
-          </div>
-        </Segment>
-        <Divider />
-        <Grid
-          textAlign='center'
-          verticalAlign='middle'
-        >
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Previous</Button>
-            </Grid.Column>
-            <Grid.Column width={10} />
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.nextStep()}>Next</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    </Form>
-  )
-};  // End HouseholdSizeStep()
-
 
 class VisitPage extends Component {
   constructor(props) {
@@ -413,7 +368,7 @@ class VisitPage extends Component {
 
     this.steps = [
       { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, /*description: 'Choose your shipping options' (what does this mean?)*/ },
-      { completed: false, active: false, title: 'Household', form: HouseholdSizeStep },
+      { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
       { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
       { completed: false, active: false, title: 'Previous Expenses', form: PreviousExpensesStep },
       { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
