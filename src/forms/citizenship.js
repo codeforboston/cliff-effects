@@ -73,9 +73,9 @@ const CitizenshipStep = function ( props ) {
       <FormPartsContainer
         title     = {'Citizenship Status'}
         clarifier = {'Select your citizenship status.'}
-        next      = {props.nextStep}
-        prev      = {props.previousStep} >
-        <CitizenshipContent origin={props}/>
+        left      = {{name: 'Previous', func: props.previousStep}}
+        right     = {{name: 'Next', func: props.nextStep}}>
+          <CitizenshipContent origin={props}/>
       </FormPartsContainer>
     </Form>
   );

@@ -34,26 +34,26 @@ import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
 * 
 * @returns Component
 */
-class NavButton extends Component {
+class BottomButton extends Component {
 
   constructor ( props ) { super( props ); }
 
   render () {
 
     return (
-      <Grid.Column className="formNav" width={3}>
-        <Button color='teal' fluid size='large' onClick={() => this.props.func()}>
-          { this.props.name }
+      <Grid.Column className='large-bottom-button' width={3}>
+        <Button color='teal' fluid size='large' onClick={this.props.func}>
+          { this.props.children }
         </Button>
       </Grid.Column>
     );
 
   }  // End render()
 
-};  // End PrevNext() Component
+};  // End BottomButton() Component
 
 
-/** The row containing the "Previous" and 'Next' buttons at the
+/** The row containing the 'Previous' and 'Next' buttons at the
 * bottom of each form page.
 * 
 * @function
@@ -73,25 +73,34 @@ class NavButton extends Component {
 * 
 * @returns Component
 */
-class PrevNext extends Component {
+class BottomButtons extends Component {
 
   constructor ( props ) { super( props ); }
 
   render () {
 
+    var props = this.props;
+
     return (
       <Grid textAlign='center' verticalAlign='middle'>
         <Grid.Row>
-          <NavButton name='Previous' func={ this.props.prev } />
+          { !props.left
+            ? <Grid.Column className='large-bottom-button' width={3}/>
+            : <BottomButton func={props.left.func}>{ props.left.name }</BottomButton>
+          }
           <Grid.Column width={10} />
-          <NavButton name='Next' func={ this.props.next } />
+          { !props.right
+            ? <Grid.Column className='large-bottom-button' width={3}/>
+            : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
+            
+          }
         </Grid.Row>
       </Grid>
     );
 
   }  // End render()
 
-};  // End PrevNext() Component
+};  // End BottomButtons() Component
 
 
 /** Constructor for all the stuff that's supposed to go inside
@@ -104,7 +113,7 @@ class PrevNext extends Component {
 * @property {string} props.title - Text to go in the `h1` element.
 * @property {string} props.clarifier - Text to go in the `h3`
 * element, giving some description, instructions, or clarifications.
-* @property {string} props.Insertable - Component to be inserted
+* @property {string} props.children - Component(s) to be inserted
 * into the middle - a custom form section containing inputs, etc.
 * @property {Object} props.next - the 'next form section' function
 * @property {Object} props.prev - the 'previous form section' function
@@ -125,15 +134,19 @@ class FormPartsContainer extends Component {
           <Header as='h1' color='teal' textAlign='center'>
             { props.title }
           </Header>
-          <Header as='h3' textAlign='center'>
-            { props.clarifier }
-          </Header>
+          { !props.clarifier
+            ? null
+            : <Header as='h3' textAlign='center'>
+                { props.clarifier }
+              </Header>
+          }
 
           { props.children }
 
         </Segment>
         <Divider />
-        <PrevNext next={props.next} prev={props.prev} />
+        <BottomButtons left={props.left} right={props.right} next={props.next} prev={props.prev} />
+        
       </Segment>
     );
 
@@ -214,7 +227,7 @@ const FormHeading = function ( props ) {
   return (
     <wrapper className={'form-heading'} >
       <br/>
-      <Header as='h3' horizontal style={{ display: 'inline-block' }}>
+      <Header as='h3' style={{ display: 'inline-block' }}>
         { props.children }
       </Header>
       <FormSubheading>{ props.subheading }</FormSubheading>
@@ -489,7 +502,7 @@ const CashFlowRow = function ( props ) {
 
 /** @todo Separate into different files? */
 export {
-  PrevNext, FormPartsContainer, NavButton,
+  BottomButtons, FormPartsContainer, BottomButton,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
   IntervalColumnHeadings, ColumnHeading, CashFlowInput,

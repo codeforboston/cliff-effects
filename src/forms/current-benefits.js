@@ -63,9 +63,8 @@ const CurrentBenefitsStep = (props) => {
       <FormPartsContainer
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
-        next      = {props.nextStep}
-        prev      = {props.previousStep} >
-        <CurrentBenefitsContent origin={props}/>
+        right     = {{name: 'Next', func: props.nextStep}}>
+          <CurrentBenefitsContent origin={props}/>
       </FormPartsContainer>
     </Form>
   );
