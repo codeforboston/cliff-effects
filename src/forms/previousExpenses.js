@@ -4,7 +4,7 @@ import { Form, Header, Statistic, Divider, Input } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import {
-  FormPartsContainer, MassiveToggle, FormHeading,
+  FormPartsContainer, MassiveToggle, FormHeading, InlineLabelInfo,
   IntervalColumnHeadings, CashFlowRow
 } from './formHelpers';
 
@@ -124,8 +124,11 @@ const ExpensesFormContent = function ( props ) {
           value     = { client[ type + 'Dependents' ] }
           name      = { type + 'Dependents' }
           id        = { type + 'Dependents' }
-          type = { 'number' } step = { '0.01' } min = { '0' } />
-        <label labelInfo={'Non-head of hold or their spouse that is under 18, disabled, handicapped, and//or a full-time student'}>Number of dependents</label>
+          type = { 'number' } step = { '1' } min = { '0' } />
+        <wrapper>
+          <label>Number of dependents</label>
+          <InlineLabelInfo>Non-head of hold or their spouse that is under 18, disabled, handicapped, and/or a full-time student</InlineLabelInfo>
+        </wrapper>
       </Form.Field>
 
       <FormHeading subheading = {'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n'}>
@@ -207,7 +210,7 @@ const PreviousExpensesStep = function ( props ) {
   return (
     <Form className = 'expense-form'>
       <FormPartsContainer
-        title     = {'Previous Household Monthly Expenses'}
+        title     = {'Previous Household Expenses'}
         clarifier = {'What were the household\'s expenses at the last time benefits were calculated?'}
         next      = {props.nextStep}
         prev      = {props.previousStep} >

@@ -89,7 +89,7 @@ const CurrentIncomeStep = function ( props ) {
   return (
     <Form className = 'income-form'>
       <FormPartsContainer
-        title = 'Current Household Monthly Income'
+        title = 'Current Household Income'
         clarifier = 'How much money does your household make now?'
         next = { props.nextStep }
         prev = { props.previousStep }
