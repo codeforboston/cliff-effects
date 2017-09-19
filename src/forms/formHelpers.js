@@ -214,9 +214,9 @@ const FormHeading = function ( props ) {
   return (
     <wrapper className={'form-heading'} >
       <br/>
-      <Divider horizontal style={{ display: 'inline-block' }}>
+      <Header as='h3' horizontal style={{ display: 'inline-block' }}>
         { props.children }
-      </Divider>
+      </Header>
       <FormSubheading>{ props.subheading }</FormSubheading>
       <br/>
     </wrapper>
@@ -477,8 +477,10 @@ const CashFlowRow = function ( props ) {
         id       = { generic + 'Yearly' }
         style    = { righter }
       />
-      <label>{ props.children }</label>
-      <InlineLabelInfo>{ props.labelInfo }</InlineLabelInfo>
+      <wrapper>
+        <label>{ props.children }</label>
+        <InlineLabelInfo>{ props.labelInfo }</InlineLabelInfo>
+      </wrapper>
     </Form.Field>
   );
 

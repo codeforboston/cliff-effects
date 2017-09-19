@@ -96,7 +96,7 @@ const PreviousIncomeStep = function ( props ) {
   return (
     <Form className = 'income-form'>
       <FormPartsContainer
-        title     = 'Previous Household Monthly Income'
+        title     = 'Previous Household Income'
         clarifier = 'How much money did your household make the last time you were assessed for your benefits?'
         next      = {props.nextStep}
         prev      = {props.previousStep}
