@@ -56,9 +56,9 @@ const HouseholdSizeStep = function ( props ) {
       <FormPartsContainer
         title     = {'Household Size'}
         clarifier = {'Select the number of people in your household including yourself.'}
-        next      = {props.nextStep}
-        prev      = {props.previousStep} >
-        <HouseholdSizeContent origin={props}/>
+        left      = {{name: 'Previous', func: props.previousStep}}
+        right     = {{name: 'Next', func: props.nextStep}}>
+          <HouseholdSizeContent origin={props}/>
       </FormPartsContainer>
     </Form>
   );

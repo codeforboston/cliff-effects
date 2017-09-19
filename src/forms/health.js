@@ -60,9 +60,9 @@ const HealthStep = function ( props ) {
       <FormPartsContainer
         title     = {'MassHealth Qualifying Conditions'}
         clarifier = {'Do you have any of the following MassHealth qualifying conditions?'}
-        next      = {props.nextStep}
-        prev      = {props.previousStep} >
-        <HealthContent origin={props}/>
+        left      = {{name: 'Previous', func: props.previousStep}}
+        right     = {{name: 'Next', func: props.nextStep}}>
+          <HealthContent origin={props}/>
       </FormPartsContainer>
     </Form>
   );

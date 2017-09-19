@@ -28,6 +28,7 @@ import { clientList } from './clientList';
 
 // Our Components
 import SimpleMenu from './simpleMenu';
+import { FormPartsContainer } from './forms/formHelpers';
 import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { PreviousExpensesStep } from './forms/previousExpenses';
@@ -239,32 +240,15 @@ const Results = (props) => {
     }
   };
 
-  return (      
-    <Segment padded='very' style={{ minHeight: '600' }}>
-      <Segment style={{ minHeight: '500' }} basic={true}>
-        <Header as='h1' color='teal' textAlign='center'>
-          Results
-        </Header>
-        <div>
-          <Line data={data} options={options} />
-        </div>
-      </Segment>
-      <Divider />
-        <Grid
-          textAlign='center'
-          verticalAlign='middle'
-        >
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.previousStep()}>Go Back</Button>
-            </Grid.Column>
-            <Grid.Column width={10}/>
-            <Grid.Column width={3}>
-              <Button color='teal' fluid size='large' onClick={() => props.saveForm(false)}>Save Results</Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-    </Segment>
+  return (
+    <wrapper className = 'result-page'>
+      <FormPartsContainer
+        title     = {'Results'}
+        left      = {{ name: 'Go Back', func: props.previousStep }}
+        right     = {{ name: 'Save Results', func: () => props.saveForm(false) }}>
+         <div> <Line data={data} options={options} /> </div>
+      </FormPartsContainer>
+    </wrapper>
   )
 };  // End Results()
 

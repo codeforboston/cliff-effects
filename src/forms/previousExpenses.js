@@ -212,8 +212,8 @@ const PreviousExpensesStep = function ( props ) {
       <FormPartsContainer
         title     = {'Previous Household Expenses'}
         clarifier = {'What were the household\'s expenses at the last time benefits were calculated?'}
-        next      = {props.nextStep}
-        prev      = {props.previousStep} >
+        left      = {{name: 'Previous', func: props.previousStep}}
+        right     = {{name: 'Next', func: props.nextStep}}>
         <ExpensesFormContent client={props.pageState} props={props}/>
       </FormPartsContainer>
     </Form>
