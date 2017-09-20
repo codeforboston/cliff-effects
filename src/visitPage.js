@@ -403,7 +403,7 @@ class VisitPage extends Component {
     }
 
     return (
-      <div className='login-form'>
+      <div className='forms-container'>
         <Prompt
           when={this.state.isBlocking}
           message='Are you sure you want to leave the page with unsaved changes?'

@@ -142,7 +142,7 @@ class HomePage extends Component {
                 <Menu.Item><Link to="/about">About</Link></Menu.Item>
                 <Menu.Item><Link to="/intake">New Client Intake</Link></Menu.Item>
                 <Menu.Item position='right'>
-                  <Link to="/login"><Button inverted>Log in</Button></Link>
+                  {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
                   {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
                 </Menu.Item>
               </Menu>
