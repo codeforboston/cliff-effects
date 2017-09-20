@@ -54,7 +54,7 @@ const IncomeForm = function ( props ) {
       <br/>
       <br/>
 
-      <div>
+      <div style={{ textAlign: 'center' }}>
         <Header as='h4' textAlign='center'>
           FOR A HOUSEHOLD SIZE OF <strong>{ otherProps.pageState.householdSize }</strong>:
         </Header>
@@ -62,10 +62,10 @@ const IncomeForm = function ( props ) {
           <Statistic.Label>Federal Poverty Level Percentage</Statistic.Label>
           <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
         </Statistic>
-        <Statistic>
+        {/*<Statistic>
           <Statistic.Label>Area Median Income Percentage</Statistic.Label>
           <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
-        </Statistic>
+        </Statistic>*/}
       </div>
 
     </div>
