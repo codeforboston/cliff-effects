@@ -38,7 +38,7 @@ class ClientIntakePage extends Component {
   handleInputChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleFormSubmit = e => {
-    alert('Placeholder. Will save the client and take you to the client detail page')
+    // alert('Placeholder. Will save the client and take you to the client detail page')
     this.setState({redirect:true});
     // Take the current state and create a new client in the database
   }
