@@ -63,7 +63,7 @@ const IncomeForm = function ( props ) {
           <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
         </Statistic>
         <Statistic>
-          <Statistic.Label>Area Median Income</Statistic.Label>
+          <Statistic.Label>Area Median Income Percentage</Statistic.Label>
           <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
         </Statistic>
       </div>
