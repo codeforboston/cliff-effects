@@ -59,36 +59,36 @@ class SearchExistingClients extends Component {
           </Segment>
           )
       const panes = [
-            { menuItem: 'Card View', render: () => <Tab.Pane attached={false}>
-                                                    <Card.Group itemsPerRow={6} style={{ padding: '3em 3em' }}>
-                                                      {clientList.map(client =>
-                                                        (<Link to={'/detail/' + client.clientId} key={client.clientId}>
-                                                          <Card style={{ margin: '.5em .5em .5em .5em' }}
-                                                            image={client.image}
-                                                            header={client.name}
-                                                            meta={'Last Visit: ' + client.lastVisit}
-                                                            description= {client.clientId}
-                                                          />
-                                                        </Link>)
-                                                      )}             
-                                                    </Card.Group>
-                                                  </Tab.Pane> },
-            { menuItem: 'List View', render: () => <Tab.Pane attached={false} textAlign='left'>
-                                                      <List>
-                                                        {clientList.map(client =>
-                                                          (<Link to={'/detail/' + client.clientId} key={client.clientId}>
-                                                              <Segment as={List.Item} horizontal>
-                                                                <Image avatar src={client.image} size='tiny' verticalAlign='middle' />
-                                                                <List.Content verticalAlign="middle">
-                                                                  <List.Header>{client.name}</List.Header>
-                                                                  <List.Description>{client.clientId}</List.Description>
-                                                                </List.Content>
-                                                              </Segment>
-                                                          </Link>)
-                                                        )}  
-                                                      </List>
-                                                  </Tab.Pane> },
-          ]
+        { menuItem: 'Card View', render: () => <Tab.Pane attached={false}>
+          <Card.Group itemsPerRow={6} style={{ padding: '3em 3em' }}>
+            {clientList.map(client =>
+              (<Link to={'/detail/' + client.clientId} key={client.clientId}>
+                <Card style={{ margin: '.5em .5em .5em .5em' }}
+                  image={client.image}
+                  header={client.name}
+                  meta={'Last Visit: ' + client.lastVisit}
+                  description= {client.clientId}
+                />
+              </Link>)
+            )}             
+          </Card.Group>
+        </Tab.Pane> },
+        { menuItem: 'List View', render: () => <Tab.Pane attached={false} textAlign='left'>
+          <List>
+            {clientList.map(client =>
+              (<Link to={'/detail/' + client.clientId} key={client.clientId}>
+                <Segment as={List.Item} horizontal>
+                  <Image avatar src={client.image} size='tiny' verticalAlign='middle' />
+                  <List.Content verticalAlign="middle">
+                    <List.Header>{client.name}</List.Header>
+                    <List.Description>{client.clientId}</List.Description>
+                  </List.Content>
+                </Segment>
+              </Link>)
+            )}  
+          </List>
+        </Tab.Pane> },
+      ];
 
     return (
       <Segment>
@@ -142,7 +142,7 @@ class HomePage extends Component {
                 <Menu.Item><Link to="/about">About</Link></Menu.Item>
                 <Menu.Item><Link to="/intake">New Client Intake</Link></Menu.Item>
                 <Menu.Item position='right'>
-                  <Link to="/login"><Button inverted>Log in</Button></Link>
+                  {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
                   {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
                 </Menu.Item>
               </Menu>
@@ -157,21 +157,30 @@ class HomePage extends Component {
                 inverted
                 style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '1em' }}
               />
-              <Header
+              {/*<Header
                 as='h2'
                 content='Intake a new client or select an existing client to begin.'
+                content='Intake a new client to begin.'
                 inverted
                 style={{ fontSize: '1.7em', fontWeight: 'normal' }}
-              />             
+              />*/}
+              <Header
+                as='h2'
+                content='Intake a new client to begin.'
+                inverted
+                style={{ fontSize: '1.7em', fontWeight: 'normal' }}
+              />
               <Link to="/intake"><Button size='big' inverted>Intake New Client<Icon name='right arrow'/></Button></Link>             
             </Container>
           </Segment>
         </Visibility>
 
-        <Segment style={{ padding: '8em 0em' }} vertical textAlign='center'>
+        {/*<Segment style={{ padding: '8em 0em' }} vertical textAlign='center'>
           <Header as='h1' style={{ fontSize: '2em' }}>Existing Clients</Header>
           <SearchExistingClients />
-        </Segment>
+        </Segment>*/}
+
+        <Segment style={{ padding: '8em 0em' }} vertical textAlign='center' className={'spaceholder'}/>
 
         <Segment inverted vertical style={{ padding: '5em 0em' }} color='teal'>
           <Container>

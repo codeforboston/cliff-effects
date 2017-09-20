@@ -38,7 +38,7 @@ class ClientIntakePage extends Component {
   handleInputChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleFormSubmit = e => {
-    alert('Placeholder. Will save the client and take you to the client detail page')
+    // alert('Placeholder. Will save the client and take you to the client detail page')
     this.setState({redirect:true});
     // Take the current state and create a new client in the database
   }
@@ -72,7 +72,7 @@ class ClientIntakePage extends Component {
                 <Menu.Item><Link to="/about">About</Link></Menu.Item>
                 <Menu.Item active><Link to="/intake">New Client Intake</Link></Menu.Item>
                 <Menu.Item position='right'>
-                  <Link to="/login"><Button inverted>Log in</Button></Link>
+                  {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
                   {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
                 </Menu.Item>
               </Menu>
