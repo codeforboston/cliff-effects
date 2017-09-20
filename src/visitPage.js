@@ -240,16 +240,29 @@ const Results = (props) => {
     }
   };
 
+  // return (
+  //   <wrapper className = 'result-page'>
+  //     <FormPartsContainer
+  //       title     = {'Results'}
+  //       left      = {{ name: 'Go Back', func: props.previousStep }}
+  //       right     = {{ name: 'Save Results', func: () => props.saveForm(false) }}
+  //        <div> <Line data={data} options={options} /> </div>
+  //     </FormPartsContainer>
+  //   </wrapper>
+  // )
+
+  // Non-saving version for first prototype testing
   return (
     <wrapper className = 'result-page'>
       <FormPartsContainer
         title     = {'Results'}
         left      = {{ name: 'Go Back', func: props.previousStep }}
-        right     = {{ name: 'Save Results', func: () => props.saveForm(false) }}>
+      >
          <div> <Line data={data} options={options} /> </div>
       </FormPartsContainer>
     </wrapper>
   )
+
 };  // End Results()
 
 
