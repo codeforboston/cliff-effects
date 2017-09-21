@@ -183,7 +183,7 @@ const Results = (props) => {
   var massHealthData = xRange.map(x => {
       client.annualIncome = x;
       return getMassHealthEligibility(client).benefitValue});
-  
+    
   var snapData = xRange.map(x => {
       client.annualIncome = x;
       return getSnapEligibility(client).benefitValue});
@@ -225,20 +225,32 @@ const Results = (props) => {
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Benefit Value ($)'
+              labelString: 'Benefit Value ($)'
           },
           ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              /*
+               * function to add $ and 1,000s separators to graph axes
+               * we are using chart.js v2.7 so it requires a callback function
+               */
+              callback: function(label) {
+                  return label.toLocaleString("en-US",{style:"currency", currency:"USD"}).replace('.00','');
+              }
           }
         }],
         xAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Annual Income ($)'
-          }
+              labelString: 'Annual Income ($)'
+          },
+            ticks: {
+              callback: function(label) {
+                  return label.toLocaleString("en-US",{style:"currency", currency:"USD"}).replace('.00','');
+              }
+            }
         }]
     }
-  };
+  }
 
   // return (
   //   <wrapper className = 'result-page'>
