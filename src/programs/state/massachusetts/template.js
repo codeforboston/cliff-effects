@@ -70,10 +70,12 @@ var getProgramNameBenefits = function ( client ) {
 * @param {number} arg2 - How many times did my alarm go off before I
 * got out of bed this morning
 * 
-* @returns {boolean} - whether or not I like puns
+* @returns {boolean} punnier - whether or not I like puns
 */
 // var aFunction = function ( arg1, arg2 ) {
 // 	// Some useful abstracted logic
+//   var punnier = false;
+// 	return punnier;
 // };  // End aFunction()
 
 
