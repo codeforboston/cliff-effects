@@ -271,7 +271,7 @@ const Results = (props) => {
     tooltips: {
         callbacks: {
             label: function(tooltipItem, data) {
-                return data.datasets[tooltipItem.datasetIndex].label + " " + 
+                return data.datasets[tooltipItem.datasetIndex].label + ": " + 
                     tooltipItem.yLabel.toLocaleString("en-US",{style:"currency", 
                         currency:"USD"}).replace('.00','');
             }
