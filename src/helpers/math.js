@@ -1,6 +1,15 @@
 /** For different kinds of math operations we need, some unconventional */
 
-var roundMoney = function ( val ) {
+const sum = function ( vals ) {
+  var total = 0;
+  for (let vali = 0; vali < vals.length; vali++) {
+    total += vals[ vali ];
+  };
+  return total;
+};
+
+
+const roundMoney = function ( val ) {
   // Only round values for display. In actual calculations and
   // storage objects, keep things exact. Also, this doesn't restrict
   // to two decimal places. Do that in the input's attributes.
@@ -8,7 +17,7 @@ var roundMoney = function ( val ) {
 };  // End roundMoney()
 
 
-var limit = function ( initialVal, minMax ) {
+const limit = function ( initialVal, minMax ) {
 
   /** @todo Add trailing 0's somewhere */
   var min = minMax.min,
@@ -55,4 +64,4 @@ toMonthlyAmount.yearly = function ( evnt, yearlyVal ) {
 };  // End toMonthlyAmount.yearly()
 
 
-export { roundMoney, limit, toMonthlyAmount };
+export { sum, roundMoney, limit, toMonthlyAmount };
