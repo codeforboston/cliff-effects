@@ -212,13 +212,13 @@ const Results = (props) => {
       data: housingData, //xRange.map(x => getHousingEligibility({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
       fill: false
     },
-    ]
-  };
+    ]};
 
   var options = {
     title: {
       display: true,
-      text: 'Benefit Eligibility for Household Size ' + props.pageState.householdSize
+        text: 'Benefit Eligibility for Household Size ' + 
+                props.pageState.householdSize
     },
     showLines: true,
     scales: {
@@ -249,8 +249,16 @@ const Results = (props) => {
               }
             }
         }]
+    },
+    tooltips: {
+        callbacks: {
+            label: function(tooltipItem, data) {
+                return tooltipItem.yLabel.toLocaleString("en-US",{style:"currency", currency:"USD"})
+                    .replace('.00','');
+            }
+        }
     }
-  }
+  };
 
   // return (
   //   <wrapper className = 'result-page'>
