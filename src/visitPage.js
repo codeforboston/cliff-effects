@@ -234,7 +234,8 @@ const Results = (props) => {
                * we are using chart.js v2.7 so it requires a callback function
                */
               callback: function(label) {
-                  return label.toLocaleString("en-US",{style:"currency", currency:"USD"}).replace('.00','');
+                  return label.toLocaleString("en-US",{style:"currency", 
+                      currency:"USD"}).replace('.00','');
               }
           }
         }],
@@ -245,16 +246,34 @@ const Results = (props) => {
           },
             ticks: {
               callback: function(label) {
-                  return label.toLocaleString("en-US",{style:"currency", currency:"USD"}).replace('.00','');
+                  return label.toLocaleString("en-US",{style:"currency", 
+                      currency:"USD"}).replace('.00','');
               }
             }
         }]
     },
+      /* to add number formatting to the tooltips. returns the data label + currency format 
+       * from https://github.com/chartjs/Chart.js/issues/2386
+       *
+       * default tooltip for chart.js 2.0+  when unspecified looks like:
+       *
+       * options: {
+       *   tooltips: {
+       *       callbacks: {
+       *           label: function(tooltipItem, data) {
+       *               return tooltipItem.yLabel;
+       *           }
+       *       }
+       *   }
+       * }
+       *
+       */
     tooltips: {
         callbacks: {
             label: function(tooltipItem, data) {
-                return tooltipItem.yLabel.toLocaleString("en-US",{style:"currency", currency:"USD"})
-                    .replace('.00','');
+                return data.datasets[tooltipItem.datasetIndex].label + " " + 
+                    tooltipItem.yLabel.toLocaleString("en-US",{style:"currency", 
+                        currency:"USD"}).replace('.00','');
             }
         }
     }
