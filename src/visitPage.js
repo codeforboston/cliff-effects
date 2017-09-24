@@ -183,7 +183,7 @@ const Results = (props) => {
   var massHealthData = xRange.map(x => {
       client.annualIncome = x;
       return getMassHealthEligibility(client).benefitValue});
-  
+    
   var snapData = xRange.map(x => {
       client.annualIncome = x;
       return getSnapEligibility(client).benefitValue});
@@ -212,31 +212,76 @@ const Results = (props) => {
       data: housingData, //xRange.map(x => getHousingEligibility({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
       fill: false
     },
-    ]
-  };
+    ]};
 
   var options = {
     title: {
       display: true,
-      text: 'Benefit Eligibility for Household Size ' + props.pageState.householdSize
+        text: 'Benefit Eligibility for Household Size ' + 
+                props.pageState.householdSize
     },
     showLines: true,
     scales: {
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Benefit Value ($)'
+              labelString: 'Benefit Value ($)'
           },
           ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              /*
+               * function to add $ and 1,000s separators to graph axes
+               * we are using chart.js v2.7 so it requires a callback function
+               */
+              callback: function(label) {
+                  return label.toLocaleString("en-US");
+              }
           }
         }],
         xAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Annual Income ($)'
-          }
+              labelString: 'Annual Income ($)'
+          },
+            ticks: {
+              callback: function(label) {
+                  return label.toLocaleString("en-US");
+              }
+            }
         }]
+    },
+      /*        
+       * default tooltip for chart.js 2.0+  when unspecified looks like:
+       *
+       * options: {
+       *   tooltips: {
+       *       callbacks: {
+       *           label: function(tooltipItem, data) {
+       *               return tooltipItem.yLabel;
+       *           }
+       *       }
+       *   }
+       * }
+       *
+       */
+    tooltips: {
+        callbacks: {
+            // format the title of the tooltips to be in USD
+            title: function(tooltipItems, data) {
+                return data.labels[tooltipItems[0].index].toLocaleString("en-US",
+                    {style:"currency",currency:"USD"}).replace('.00','');
+            },
+            /*
+             * to add number formatting to the tooltips. returns the data label 
+             * + currency format 
+             * from https://github.com/chartjs/Chart.js/issues/2386
+             */
+            label: function(tooltipItem, data) {
+                return data.datasets[tooltipItem.datasetIndex].label + ": " + 
+                    tooltipItem.yLabel.toLocaleString("en-US",{style:"currency", 
+                        currency:"USD"}).replace('.00','');
+            }
+        }
     }
   };
 
