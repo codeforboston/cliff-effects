@@ -188,7 +188,7 @@ const Results = (props) => {
       client.annualIncome = x;
       return getSnapEligibility(client).benefitValue});
 
-  /** @todo Base this rent on FMR areas and client area of residence */
+  /** @todo Base this rent on FMR areas and client area of residence if no rent available */
   client.previousContractRentMonthly = 700;
   client.previousEarnedIncomeMonthly = 0;
   var housingData = xRange.map(function ( annualIncome ) {
