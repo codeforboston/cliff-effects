@@ -151,7 +151,7 @@ const toCashflow = function ( client, timeframe, prop ) {
 * 
 * @todo @returns
 */
-const getGrossIncomeMonthly = function ( client, timeframe ) {
+const getSimpleGrossIncomeMonthly = function ( client, timeframe ) {
   /** @todo Add checks, validtators, and error messages */
   /** @todo Include info like "only count up to $480/12 of what full time students make" */
   var earned    = client[ timeframe + 'EarnedIncomeMonthly' ],
@@ -169,7 +169,7 @@ const getGrossIncomeMonthly = function ( client, timeframe ) {
       total     = comingIn;
 	return total;
 
-};  // End getGrossIncomeMonthly()
+};  // End getSimpleGrossIncomeMonthly()
 
 
 // from 2006 ~~Source: https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf~~
@@ -252,7 +252,7 @@ const getAdjustedIncomeMonthly = function ( client, timeframe ) {
 
 
 export {
-  deductions, // getGrossIncomeMonthly,
+  deductions, getSimpleGrossIncomeMonthly,
   getGrossUnearnedIncomeMonthly, getAdjustedIncomeMonthly,
-  toCashflow
+  toCashflow, sumCashflow
 };

@@ -20,7 +20,7 @@ import { Line } from 'react-chartjs-2';
 import { percentPovertyLevel, 
         percentStateMedianIncome } from './helpers/helperFunctions';
 import { getSnapEligibility } from './programs/state/massachusetts/snap';
-import { getHousingEligibility } from './programs/state/massachusetts/housing';
+import { getHousingBenefit } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 
 // Data
@@ -187,10 +187,20 @@ const Results = (props) => {
   var snapData = xRange.map(x => {
       client.annualIncome = x;
       return getSnapEligibility(client).benefitValue});
-  
-  var housingData = xRange.map(x => {
-      client.annualIncome = x;
-      return getHousingEligibility(client).benefitValue});
+
+  /** @todo Base this rent on FMR areas and client area of residence */
+  client.previousContractRentMonthly = 700;
+  client.previousEarnedIncomeMonthly = 0;
+  var housingData = xRange.map(function ( annualIncome ) {
+    // New renting data
+    client.currentEarnedIncomeMonthly = annualIncome/12;
+    var result  = getHousingBenefit(client),
+        subsidy = result.benefitValue * 12;
+    // Prep for next loop
+    client[ 'previousRentOrMortgageMonthly' ] = result.data.newRentShare;
+    client.previousEarnedIncomeMonthly = annualIncome/12;
+    return subsidy;
+  });
 
   var data = {
     labels: xRange,
@@ -209,7 +219,7 @@ const Results = (props) => {
     {
       label: "Section 8 Housing",
       borderColor: "rgba(206, 203, 61, 1)",
-      data: housingData, //xRange.map(x => getHousingEligibility({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
+      data: housingData, //xRange.map(x => getHousingBenefit({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
       fill: false
     },
     ]};
@@ -476,7 +486,7 @@ class VisitPage extends Component {
                             hasHousing={this.state.hasHousing} 
                             hasMassHealth={this.state.hasMassHealth}
                             snapAlert={getSnapEligibility(this.state)}
-                            housingAlert={getHousingEligibility(this.state)}
+                            housingAlert={getHousingBenefit(this.state)}
                             massHealthAlert={getMassHealthEligibility(this.state)} />
             </Grid.Column>
           </Grid.Row>

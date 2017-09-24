@@ -13,10 +13,12 @@ import { Result } from '../../../helpers/Result';
 
 /**
 * Properties client is required to have to get some kind
-* of value back;
+* of value back. I guess none really, since at the very
+* start they won't have any properties...
 */
 var subsidyRequiredProps = [
-
+// Maybe old rent share and contract rent
+// Maybe some kind of income and expenses?
 ];
 
 
@@ -34,12 +36,13 @@ var subsidyRequiredProps = [
 * @todo Find out how close to 0/change the benefit amount needs to be in
 * order for the client to be warned.
 */
-const getHousingBenefits = function ( client ) {
+const getHousingBenefit = function ( client ) {
   /*
-    var diff = new min ttp - old min ttp;
-    var new rent share = old rent share + diff;
-    var new subsidy = contract rent - new rent share
+  * var diff = new min ttp - old min ttp;
+  * var new rent share = old rent share + diff;
+  * var new subsidy = contract rent - new rent share
   */
+  var prev = 'previous';
 
   // Send it right back if it's missing input values
   var missingProps = propsNeeded( client, subsidyRequiredProps );
@@ -50,37 +53,33 @@ const getHousingBenefits = function ( client ) {
     return result;
   }
 
-  var diff = getDiff( client );
+  var ttps        = getTTPs( client ),
+      diff        = ttps.newTTP - ttps.oldTTP,
+      // newShare    = (client[ 'previousRentShareMonthly' ] || 0) + diff,
+      newShare    = toCashflow( client, prev, 'RentOrMortgage' ) + diff,
+      contrRent   = toCashflow( client, prev, 'ContractRent' );
 
+  // Don't pay more rent than the landlord is asking for
+  var maxShare    = Math.min( contrRent, newShare ),
+      newSubsidy  = contrRent - maxShare;
 
-  //   // (24 CFR 5.611 https://www.ecfr.gov/cgi-bin/text-idx?SID=51891282d9b5314112b0b2462cb22681&mc=true&node=se24.1.5_1611&rgn=div8, https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf)
-  //   var adjusted  = (30/100) * client.householdMonthlyAdjustedIncome,
-  //   // (24CFR5.609 (linked from http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf) https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf)
-  //     gross     = 0.1 * client.householdMonthlyGrossIncome,
-  // // welfare rent (Does MA have welfare rent? If so, how is it calculated?
-  // // Does the client know the amount?)
-  //     welfareRent = client.welfareRent || 0,
-  // // Possibly also the public housing agency's own minimum rent, which doesn't
-  // // always exist, can be different amounts, and can sometimes we waived (pg 63 of 'Book')
-  //   PHAMinRent  = client.PHAMinRent || 0;
+  var result = {
+    result: 'good',
+    details: 'All good!',
+    benefitValue: newSubsidy,
+    data: { newRentShare: maxShare }
+  };
 
-  // // TTP = total tenant payment
-  //   var minTTP = Math.max( adjusted, gross, welfareRent, PHAMinRent ),
-  //     estimatedRent = FMRS_MA_2018[ client.areaOfResidence ][ client.numberOfBedrooms ],
-  // // The maximum amount a PHA (public housing agency) can give to client has a range
-  // // of 90% to 110% depending on how it choose to do things.
-  // // We're currently going to assume the minimum of that range. That is, we're going
-  // // to assume a PHA with a standard that sets their maximum subsidy at 90%. In this
-  // // way if we mislead the client, it'll at least be in a cautious direction. Maybe
-  // // allow the client to override that value if they want.
-  //   maxSubsidyAllowedMin = estimatedRent * 0.9,
-  // // Actual subsidy takes into account what the client can pay
-  //   subsidy = maxSubsidyAllowedMin - minTTP;
+  /** @todo When to give a warning for Section 8? */
+  if ( newSubsidy <= 500 ) {
+    result.result   = 'information';
+    result.details  = 'Your housing subsidy is getting low.';
+  }
 
-  // var result = subsidyResult( subsidy );
+  var officialResult = new Result( result );
 
-  // return result;
-};  // End getHousingEligibility
+  return officialResult;
+};  // End getHousingBenefit
 
 
 /**
@@ -89,7 +88,7 @@ const getHousingBenefits = function ( client ) {
 * '#' refers to # item on form at Appendix B of http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf
 * Is using raw monthly values or converting values to monthly amounts
 */
-const getDiff = function ( client ) {
+const getTTPs = function ( client ) {
 
   var oldNet = getNetIncome( client, 'previous' ),
       newNet = getNetIncome( client, 'current' );
@@ -114,10 +113,10 @@ const getDiff = function ( client ) {
   * can be waived.
   */
   var oldMaxTTP = Math.max( oldNetToTest, oldAdjToTest ),
-      newMaxTTP = Math.max( newNetToTest, newAdjToTest );;
+      newMaxTTP = Math.max( newNetToTest, newAdjToTest );
 
-  return newMaxTTP - oldMaxTTP;
-};  // End getDiff()
+  return { oldTTP: oldMaxTTP, newTTP: newMaxTTP };
+};  // End getTTPs()
 
 
 // =============================
@@ -128,12 +127,9 @@ const getDiff = function ( client ) {
 * @todo Function description
 */
 const getNetIncome = function ( client, timeframe ) {
-
-  var gross = toCashflow( client, timeframe, 'EarnedIncomeMonthly' );
-  gross += getGrossUnearnedIncomeMonthly( client, timeframe );
-
-  var net = gross - toCashflow( client, timeframe, 'IncomeExclusions' );
-
+  var unearned = getGrossUnearnedIncomeMonthly( client, timeframe ),
+      gross    = unearned + toCashflow( client, timeframe, 'EarnedIncome' ),
+      net      = gross - toCashflow( client, timeframe, 'IncomeExclusions' );
   return net;
 };  // End getNetIncome()
 
@@ -167,7 +163,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   // #6
   var childcare   = sumCashflow( client, time, childcareProps ),
       /** @todo Change to 'ChildCareIncome' */
-      ccIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfChildCare' ),
+      ccIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfChildCare' );
   allowances.push( Math.min( childcare, ccIncome ) );
   // #7 - 13
   allowances.push( getDisabledAndMedicalAllowancesSum( client, timeframe, net ) );
@@ -177,7 +173,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   var total = sum( allowances ),
       adj   = net - total;
 
-  return 0;
+  return adj;
 };  // End getAdjustedIncome()
 
 
@@ -236,32 +232,6 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 };  // End getDisabledAndMedicalAllowancesSum()
 
 
-const subsidyResult = function ( subsidyAmount ) {
-	/** @todo Include a warning somewhere about items
-	* that are uncertain. Also, maybe provide option to
-	* give even more detailed info, like that particular
-	* PHA's min rent amount, the PHA's percent for their
-	* standard, or just the PHA's flat subsidy amount for
-	* that apartment (before other things like minTTP are
-	* factored in). (This for all programs ideally. Of
-	* course this whole todo is a dream goal...)
-	*/
-	var result = { result: 'good', details: 'All good!', benefitValue: Math.max( 0, Math.round( subsidyAmount ) ) };
-
-	if ( subsidyAmount <= 0 ) {
-		result.result 	= 'information';
-		/** @todo Check accuracy of language used. */
-		result.details 	= 'Your PHA must allow you the option of continuing in the HCV program for six more months. Without selecting to continue, you will be unenrolled.';
-	} else if ( subsidyAmount <= 50 ) {
-		result.result 	= 'information';
-		/** @todo Give more specific message about which limit is getting hit. Not sure how to judge which limit is the one that's getting close, though. */
-		result.details 	= 'Your income amount means your subsidy is close to $0. When it gets to $0 you might be unenrolled from the HCV program, but you should be able to choose an option to extend your enrollment.';
-  }
-
-	return result;
-};  // End subsidyResult()
-
-
 const propsNeeded = function ( client, props ) {
 
   /** @todo Accumulate a string instead */
@@ -277,7 +247,10 @@ const propsNeeded = function ( client, props ) {
 };  // End propsNeeded()
 
 
-export { getHousingEligibility };
+export {
+  // getHousingEligibility,
+  getHousingBenefit
+};
 
 
 
@@ -347,3 +320,29 @@ export { getHousingEligibility };
 
 //   return result;
 // };  // End getHousingEligibility
+
+
+// const subsidyResult = function ( subsidyAmount ) {
+//   /** @todo Include a warning somewhere about items
+//   * that are uncertain. Also, maybe provide option to
+//   * give even more detailed info, like that particular
+//   * PHA's min rent amount, the PHA's percent for their
+//   * standard, or just the PHA's flat subsidy amount for
+//   * that apartment (before other things like minTTP are
+//   * factored in). (This for all programs ideally. Of
+//   * course this whole todo is a dream goal...)
+//   */
+//   var result = { result: 'good', details: 'All good!', benefitValue: Math.max( 0, Math.round( subsidyAmount ) ) };
+
+//   if ( subsidyAmount <= 0 ) {
+//     result.result   = 'information';
+//     /** @todo Check accuracy of language used. */
+//     result.details  = 'Your PHA must allow you the option of continuing in the HCV program for six more months. Without selecting to continue, you will be unenrolled.';
+//   } else if ( subsidyAmount <= 50 ) {
+//     result.result   = 'information';
+//     /** @todo Give more specific message about which limit is getting hit. Not sure how to judge which limit is the one that's getting close, though. */
+//     result.details  = 'Your income amount means your subsidy is close to $0. When it gets to $0 you might be unenrolled from the HCV program, but you should be able to choose an option to extend your enrollment.';
+//   }
+
+//   return result;
+// };  // End subsidyResult()
