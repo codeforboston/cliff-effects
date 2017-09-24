@@ -50,7 +50,7 @@ class Result {
 
 
 // ========================================
-// =========================================
+// ========================================
 // VALIDATION
 // ========================================
 // ========================================
@@ -60,7 +60,7 @@ class Result {
 */
 var checkTypes = function ( data ) {
 
-  /** @todo Is there a way to lop through to do this? I attempted
+  /** @todo Is there a way to loop through to do this? I attempted
   * it with a 'types' object to check types, but type tests aren't
   * enough. For example, `expirationDate` needs to be tested for
   * `instanceof Date`. */
