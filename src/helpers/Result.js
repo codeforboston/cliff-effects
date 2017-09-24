@@ -17,6 +17,7 @@
 * @param {string} trial.details - Explanation of results that will be seen
 * by the user. Examples: 'All good!', 'Because your income is x% above some
 * value, your benefit amount could go down soon.'
+* @param {string} trial.benefitValue - Monthly subsidy benefit will provide.
 * @param {object} trial.data - This is an object that can contain any
 * other information needed. The code using your `.data` will have to know
 * what to expect in there.
@@ -38,8 +39,9 @@ class Result {
     result.result       = trial.result;
     /** @todo Should be allowed to be `undefined` or 'null'? */
     result.details      = trial.details;
+    result.benefitValue = trial.benefitValue;
     /** @property {Object} result.data - Not required */
-    result.data       = trial.data;
+    result.data         = trial.data;
     // /** @todo Make this required and validate that it's a Date object.
     // * Possibly handle alert/flag for expired data. */
     // result.expirationDate  = trial.expirationDate;
@@ -64,10 +66,11 @@ var checkTypes = function ( data ) {
   * it with a 'types' object to check types, but type tests aren't
   * enough. For example, `expirationDate` needs to be tested for
   * `instanceof Date`. */
-  var invalid = [],
-    result  = data[ 'result' ],
-    details = data[ 'details' ];  // Should this be allowed to be undefined?
-    // , date   = data[ 'expirationDate' ];
+  var invalid       = [],
+      result        = data.result,
+      benefitValue  = data.benefitValue,
+      details       = data.details;  // Should this be allowed to be undefined?
+    // , date   = data.expirationDate;
 
   if ( typeof pushUndefined( 'result', result, invalid ) !== 'string' ) {
     if ( typeof result !== 'string' ) {
@@ -78,6 +81,12 @@ var checkTypes = function ( data ) {
   if ( typeof pushUndefined( 'details', details, invalid ) !== 'string' ) {
     if ( typeof details !== 'string' ) {
       invalid.push( 'The value of `details` was type of ' + (typeof details) + ' instead of "string".' );
+    }
+  }
+
+  if ( typeof pushUndefined( 'benefitValue', benefitValue, invalid ) !== 'string' ) {
+    if ( typeof benefitValue !== 'number' ) {
+      invalid.push( 'The value of `benefitValue` was type of ' + (typeof benefitValue) + ' instead of "number".' );
     }
   }
 

@@ -94,21 +94,53 @@ deductions.childSupportPayments = function ( client, timeframe ) {
 * @returns Component
 */
 const getGrossUnearnedIncomeMonthly = function ( client, timeframe ) {
-  var cores = UNEARNED_INCOME_SOURCES,  // DO NOT ALTER THIS ARRAY
-      sum   = 0;
-  for (let namei = 0; namei < cores.length; namei++) {
-    sum += client[ timeframe + cores[ namei ] + 'Monthly' ] || 0;  // if that prop exists, add it
-  };
-  return sum;
+  return sumCashflow( client, timeframe, UNEARNED_INCOME_SOURCES );
 };  // End getGrossUnearnedIncomeMonthly()
 
+
+/** @todo description
+* Monthly
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
+const sumCashflow = function ( client, timeframe, props ) {
+  var sum = 0;
+  for (let namei = 0; namei < props.length; namei++) {
+    sum += toCashflow( client, timeframe, props[ namei ] );  // if that prop exists, add it
+  };
+  return sum;
+};  // End sumCashflow()
+
+
+/** @todo description
+* Monthly
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
+const toCashflow = function ( client, timeframe, prop ) {
+  return client[ timeframe + prop + 'Monthly' ] || 0;
+};  // End toCashflow()
+
+
 /**
+* NON-FUNCTIONAL - different programs calculate gross income
+* differently.
+* 
+* Previous Description:
 * Calculates the gross monthly income based on client values
 * This is the household gross monthly income.
 * Derived from excel formulas from download made available here:
 * {@link https://www.masslegalservices.org/content/online-snap-calculator}.
-* Another source, implying something else:
-* {@link https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf}
+* From 2006 ~~Another source, implying something else:
+* {@link https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf}~~
 * 
 * @todo Add checks for properties with messages for mistakes
 * @todo Does this return an instance of `Result`?
@@ -119,7 +151,7 @@ const getGrossUnearnedIncomeMonthly = function ( client, timeframe ) {
 * 
 * @todo @returns
 */
-const getGrossIncomeMonthly = function ( client, timeframe ) {
+const getSimpleGrossIncomeMonthly = function ( client, timeframe ) {
   /** @todo Add checks, validtators, and error messages */
   /** @todo Include info like "only count up to $480/12 of what full time students make" */
   var earned    = client[ timeframe + 'EarnedIncomeMonthly' ],
@@ -137,10 +169,10 @@ const getGrossIncomeMonthly = function ( client, timeframe ) {
       total     = comingIn;
 	return total;
 
-};  // End getGrossIncomeMonthly()
+};  // End getSimpleGrossIncomeMonthly()
 
 
-//https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf
+// from 2006 ~~Source: https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf~~
 const getEarnedIncomeDisregardMonthly = function ( client, timeframe ) {
   // Annual
   // Ask Kristin if this is something she wants to include in the prototype
@@ -149,7 +181,8 @@ const getEarnedIncomeDisregardMonthly = function ( client, timeframe ) {
 };  // End getEarnedIncomeDisregardMonthly()
 
 
-// Source: https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf
+// from 2006 ~~Source: https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf~~
+// NON FUNCTIONAL - This is actually just for Section 8
 const getAllowancesMonthly = function ( client, timeframe ) {
   // Calculations need annual amounts
 
@@ -204,7 +237,7 @@ const getNetIncomeMonthly = function ( client, timeframe ) {
 
 
 // Adjusted gross?
-// Source: https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf
+// from 2006 ~~Source: https://www.hudexchange.info/resources/documents/incomeresidentrentcalc.pdf~~
 const getAdjustedIncomeMonthly = function ( client, timeframe ) {
 
   // or use the function?
@@ -219,6 +252,7 @@ const getAdjustedIncomeMonthly = function ( client, timeframe ) {
 
 
 export {
-  deductions, getGrossIncomeMonthly,
-  getGrossUnearnedIncomeMonthly, getAdjustedIncomeMonthly
+  deductions, getSimpleGrossIncomeMonthly,
+  getGrossUnearnedIncomeMonthly, getAdjustedIncomeMonthly,
+  toCashflow, sumCashflow
 };
