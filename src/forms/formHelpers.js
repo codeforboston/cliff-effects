@@ -226,7 +226,7 @@ const FormHeading = function ( props ) {
 
   return (
     <wrapper className={'form-heading'} >
-      <br/>
+      <div></div>
       <Header as='h3' style={{ display: 'inline-block' }}>
         { props.children }
       </Header>
@@ -445,7 +445,8 @@ const CashFlowRow = function ( props ) {
 
   /** baseVal
   * Get the time ('current' or 'previous') monthly value unless there is
-  * none, in which case, get the previous monthly cash flow value.
+  * none, in which case, get the previous monthly cash flow value (to
+  * prefill current values with previous ones if needed).
   * 
   * @var
   * 
