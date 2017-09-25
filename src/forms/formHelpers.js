@@ -381,6 +381,9 @@ const IntervalColumnHeadings = function ( props ) {
 
 /** @todo description
 * 
+* @todo Make this more generic and make the caller
+* handle more of the specifics.
+* 
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
@@ -434,14 +437,15 @@ const CashFlowRow = function ( props ) {
 
   var lefter  = { width: '7em', marginRight: '.2em' },
       righter = { width: '7em', marginRight: '.9em' },
+      time    = props.time,
       sharedProps = {
-        type: props.type, time: props.time,
+        type: props.type, time: time,
         store: props.storeComplex, generic: generic
       };
 
   /** baseVal
-  * Get the current monthly value unless there is none, in which case, get
-  * the previous monthly cash flow value.
+  * Get the time ('current' or 'previous') monthly value unless there is
+  * none, in which case, get the previous monthly cash flow value.
   * 
   * @var
   * 
@@ -451,7 +455,7 @@ const CashFlowRow = function ( props ) {
   */
   var generic     = props.generic,
       intervalID  = generic + 'Monthly',
-      baseVal     = props.client[ 'current' + intervalID ];
+      baseVal     = props.client[ time + intervalID ];
 
   if ( !baseVal ) { baseVal = props.client[ 'previous' + intervalID ] || ''; }
 
@@ -467,7 +471,7 @@ const CashFlowRow = function ( props ) {
         value    = { roundMoney( baseVal / 4.33 ) || '' }
         store    = { props.storeComplex }
         generic  = { generic }
-        id       = { generic + 'Weekly' }
+        id       = { time + generic + 'Weekly' }
         style    = { lefter }
       />
       <CashFlowInput
@@ -477,7 +481,7 @@ const CashFlowRow = function ( props ) {
         value    = { roundMoney( baseVal ) || '' }
         store    = { props.storeComplex }
         generic  = { generic }
-        id       = { generic + 'Monthly' }
+        id       = { time + generic + 'Monthly' }
         style    = { lefter }
       />
       <CashFlowInput
@@ -487,7 +491,7 @@ const CashFlowRow = function ( props ) {
         value    = { roundMoney( baseVal * 12 ) || '' }
         store    = { props.storeComplex }
         generic  = { generic }
-        id       = { generic + 'Yearly' }
+        id       = { time + generic + 'Yearly' }
         style    = { righter }
       />
       <wrapper>
