@@ -10,9 +10,9 @@ We currently have a ReactJS frontend prototype.
 
 We are working on:
 
-- Benefits eligibility rules: Converting rules into backend logic
-- Data visualization: Experimenting with different ways of portraying "the cliff"
-- Simplifying user experience: Making the tool navigable by case workers
+- *Benefits eligibility rules*: Converting rules into backend logic
+- *Data visualization*: Experimenting with different ways of portraying "the cliff"
+- *Simplifying user experience*: Making the tool navigable by case workers
 
 
 ## How Can I Contribute?
@@ -30,7 +30,7 @@ Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git
 
 1. If you don't already have Node.js, [install it](https://nodejs.org/en/) (v6.11.1 is verified as compatible).  Check if Node is already installed with `node --version` in terminal.
 2. Open the node command prompt and change into the directory that you want to clone the app to.
-3. Clone this repo to your local machine with `https://github.com/codeforboston/cliff-effects.git`.
+3. Clone this repo to your local machine with `git clone https://github.com/codeforboston/cliff-effects.git`.
 4. Change into the new repository's directory with `cd cliff-effects`.
 5. Change to the master branch with `git checkout master`.
 6. Install all necessary node packages with `npm install`. This might take a few minutes.
