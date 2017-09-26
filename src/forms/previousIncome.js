@@ -1,6 +1,6 @@
 // REACT COMPONENTS
 import React, { Component } from 'react';
-import { Form, Header, Statistic } from 'semantic-ui-react';
+import { Form, Header, Statistic, Divider } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
@@ -60,6 +60,7 @@ const IncomeForm = function ( props ) {
 
       <IntervalColumnHeadings type={type}/>
 
+      {/* All kinds of things need to be explained. */}
       <CashFlowRow {...merge( {generic: 'EarnedIncome',
         labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'}, sharedProps )}>
           Earned income
@@ -74,6 +75,8 @@ const IncomeForm = function ( props ) {
       <CashFlowRow {...merge( sharedProps, {generic: 'SocialSecurity'} )}> Social security </CashFlowRow>
       <CashFlowRow {...merge( sharedProps, {generic: 'Alimony'} )}> Alimony </CashFlowRow>
       <CashFlowRow {...merge( sharedProps, {generic: 'OtherIncome'} )}> Other income </CashFlowRow>
+      <Divider/>
+      <CashFlowRow {...merge( sharedProps, {generic: 'IncomeExclusions'} )}> Income exclusions </CashFlowRow>
 
     </div>
   );  // end return
@@ -97,7 +100,7 @@ const PreviousIncomeStep = function ( props ) {
     <Form className = 'income-form'>
       <FormPartsContainer
         title     = 'Previous Household Income'
-        clarifier = 'How much money did your household make the last time you were assessed for your benefits?'
+        clarifier = 'Income that you expected to collect during the 12 months following the previous assessment'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
           <IncomeForm client={props.pageState} props={props}/>
