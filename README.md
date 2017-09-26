@@ -12,9 +12,9 @@ We currently have a ReactJS frontend prototype.
 
 We are working on:
 
-- Benefits eligibility rules: Converting rules into backend logic
-- Data visualization: Experimenting with different ways of portraying "the cliff"
-- Simplifying user experience: Making the tool navigable by case workers
+- *Benefits eligibility rules*: Converting rules into backend logic
+- *Data visualization*: Experimenting with different ways of portraying "the cliff"
+- *Simplifying user experience*: Making the tool navigable by case workers
 
 
 ## How Can I Contribute?
