@@ -226,7 +226,7 @@ const FormHeading = function ( props ) {
 
   return (
     <wrapper className={'form-heading'} >
-      <div></div>
+      <div></div> {/** div here to make sure header margin doesn\'t collapse */}
       <Header as='h3' style={{ display: 'inline-block' }}>
         { props.children }
       </Header>

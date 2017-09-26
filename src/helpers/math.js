@@ -16,7 +16,12 @@ const roundMoney = function ( val ) {
   return ( Math.round(val * 100) / 100 ); // val = '' returns 0
 };  // End roundMoney()
 
-
+/**
+* Turns a value into a float, limits it in between min and max, and
+* makes sure to return a number (not NaN).
+* 
+* @todo Testing required
+*/
 const limit = function ( initialVal, minMax ) {
 
   /** @todo Add trailing 0's somewhere */
