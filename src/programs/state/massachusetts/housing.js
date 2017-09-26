@@ -232,7 +232,7 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
   // In both cases rawAssistance is >= 0.
   } else if ( rawAssistance >= 0 && asstRemainder < 0 ) {
     var sum = rawMedical + rawAssistance;
-    altAllowance = Math.min( 0, sum - netSubtractor );
+    altAllowance = Math.max( 0, sum - netSubtractor );
   }
 
   return altAllowance || (asstAllowance + medAllowance);
