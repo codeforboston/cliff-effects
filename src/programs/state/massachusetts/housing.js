@@ -55,8 +55,7 @@ const getHousingBenefit = function ( client ) {
 
   var ttps        = getTTPs( client ),
       diff        = ttps.newTTP - ttps.oldTTP,
-      // newShare    = (client[ 'previousRentShareMonthly' ] || 0) + diff,
-      newShare    = toCashflow( client, prev, 'RentOrMortgage' ) + diff,
+      newShare    = diff + toCashflow( client, prev, 'RentShare' ),
       contrRent   = toCashflow( client, prev, 'ContractRent' );
 
   // Don't pay more rent than the landlord is asking for
@@ -96,6 +95,10 @@ const getTTPs = function ( client ) {
   var oldAdj = getAdjustedIncome( client, 'previous', oldNet ),
       newAdj = getAdjustedIncome( client, 'current', newNet );
 
+  /** @todo A placeholder till we know what to do with negative values */
+  oldAdj = Math.max( 0, oldAdj );
+  newAdj = Math.max( 0, newAdj );
+
   // #17, 30% of Adjusted Monthly Income
   var oldAdjToTest = oldAdj * 0.3,
       newAdjToTest = newAdj * 0.3,
@@ -113,9 +116,10 @@ const getTTPs = function ( client ) {
   * can be waived.
   */
   var oldMaxTTP = Math.max( oldNetToTest, oldAdjToTest ),
-      newMaxTTP = Math.max( newNetToTest, newAdjToTest );
+      newMaxTTP = Math.max( newNetToTest, newAdjToTest ),
+      ttps      = { oldTTP: oldMaxTTP, newTTP: newMaxTTP };
 
-  return { oldTTP: oldMaxTTP, newTTP: newMaxTTP };
+  return ttps;
 };  // End getTTPs()
 
 
@@ -163,16 +167,20 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   // #6
   var childcare   = sumCashflow( client, time, childcareProps ),
       /** @todo Change to 'ChildCareIncome' */
-      ccIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfChildCare' );
-  allowances.push( Math.min( childcare, ccIncome ) );
+      ccIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfChildCare' ),
+      ccMin       = Math.min( childcare, ccIncome );
+  allowances.push( ccMin );
   // #7 - 13
-  allowances.push( getDisabledAndMedicalAllowancesSum( client, timeframe, net ) );
+  var disAndMed = getDisabledAndMedicalAllowancesSum( client, timeframe, net )
+  allowances.push( disAndMed );
   // #14
-  if ( !client[ time + 'HandicappedHeadOrSpouse' ] ) { allowances.push( 400/12 ); }
+  /** @todo Fix 'current' + etc not existing while 'previous' + etc does */
+  if ( client[ time + 'DisabledOrElderlyHeadOrSpouse' ] ) { allowances.push( 400/12 ); }
 
   var total = sum( allowances ),
       adj   = net - total;
 
+  /** @todo What do we do if this is negative, e.g. dependent allowances are greater than income? */
   return adj;
 };  // End getAdjustedIncome()
 
@@ -194,7 +202,7 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
   // pg 5-30 to 5-31
   /** @todo Change to 'DisabledAssistance' */
-  var rawAssistance = toCashflow( client, time, 'HandicappedAssistance' ),
+  var rawAssistance = toCashflow( client, time, 'DisabledAssistance' ),
       /** @todo Change to 'AssistanceIncome' */
       asstIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfAdultCare' ),
       asstRemainder = rawAssistance - netSubtractor;
@@ -204,11 +212,10 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
   }
 
   // ----- Medical Allowance #D, #12 - 13 ----- \\
-  /** @todo Change to 'DisabledHeadOrSpouse' */
-  if ( !client[ time + 'HandicappedHeadOrSpouse' ] ) { return asstAllowance; }
+  /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
+  if ( !client[ time + 'DisabledOrElderlyHeadOrSpouse' ] ) { return asstAllowance; }
 
   // pg 5-31 to 5-32
-  /** @todo Change form to contain these. */
   var disOrElderlyMedical = toCashflow( client, time, 'DisabledOrElderlyMedical' ),
       // pg 5-31 says all medical expenses count for this household
       otherMedical        = toCashflow( client, time, 'RegularMedical' ),

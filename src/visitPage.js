@@ -16,6 +16,10 @@ import { Button,
 import { Redirect, Prompt } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 
+/** @todo Add these for chart. Or abstract chart to a different script. */
+// Utilities
+// import { merge } from './helpers/object-manipulation.js'
+
 // Logic
 import { percentPovertyLevel, 
         percentStateMedianIncome } from './helpers/helperFunctions';
@@ -179,6 +183,9 @@ const AlertSidebar = (props) => {
 const Results = (props) => {
   var xRange = _.range(0, 100000, 1000);
   var client = props.pageState
+  /** @todo Need a new object or client's data gets changed. Switch to: */
+  // var fakeClient = {};
+  // merge( fakeClient, props.pageState );
 
   var massHealthData = xRange.map(x => {
       client.annualIncome = x;
@@ -188,17 +195,22 @@ const Results = (props) => {
       client.annualIncome = x;
       return getSnapEligibility(client).benefitValue});
 
-  /** @todo Base this rent on FMR areas and client area of residence if no rent available */
+  /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
   client.previousContractRentMonthly = 700;
   client.previousEarnedIncomeMonthly = 0;
   var housingData = xRange.map(function ( annualIncome ) {
     // New renting data
+    var oldRentShare = client[ 'previousRentShareMonthly' ];
     client.currentEarnedIncomeMonthly = annualIncome/12;
+
     var result  = getHousingBenefit(client),
         subsidy = result.benefitValue * 12;
+
     // Prep for next loop
-    client[ 'previousRentOrMortgageMonthly' ] = result.data.newRentShare;
+    var newShare = result.data.newRentShare
+    client[ 'previousRentShareMonthly' ] = newShare;
     client.previousEarnedIncomeMonthly = annualIncome/12;
+
     return subsidy;
   });
 
