@@ -15,10 +15,9 @@ import { Button,
         Reveal } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
-
-/** @todo Add these for chart. Or abstract chart to a different script. */
+ 
 // Utilities
-// import { merge } from './helpers/object-manipulation.js'
+import { merge } from './helpers/object-manipulation.js'
 
 // Logic
 import { percentPovertyLevel, 
@@ -182,34 +181,34 @@ const AlertSidebar = (props) => {
 
 const Results = (props) => {
   var xRange = _.range(0, 100000, 1000);
-  var client = props.pageState
-  /** @todo Need a new object or client's data gets changed. Switch to: */
-  // var fakeClient = {};
-  // merge( fakeClient, props.pageState );
+  /** Need a new object so client's data doesn't get changed. */
+  var fakeClient = {};
+  merge( fakeClient, props.pageState );
 
   var massHealthData = xRange.map(x => {
-      client.annualIncome = x;
-      return getMassHealthEligibility(client).benefitValue});
+      fakeClient.annualIncome = x;
+      return getMassHealthEligibility(fakeClient).benefitValue});
     
   var snapData = xRange.map(x => {
-      client.annualIncome = x;
-      return getSnapEligibility(client).benefitValue});
+      fakeClient.annualIncome = x;
+      return getSnapEligibility(fakeClient).benefitValue});
 
+  /** Section-8 Housing Choice Voucher */
   /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
-  client.previousContractRentMonthly = 700;
-  client.previousEarnedIncomeMonthly = 0;
+  fakeClient.previousContractRentMonthly = 700;
+  fakeClient.previousEarnedIncomeMonthly = 0;
   var housingData = xRange.map(function ( annualIncome ) {
     // New renting data
-    var oldRentShare = client[ 'previousRentShareMonthly' ];
-    client.currentEarnedIncomeMonthly = annualIncome/12;
+    var oldRentShare = fakeClient[ 'previousRentShareMonthly' ];
+    fakeClient.currentEarnedIncomeMonthly = annualIncome/12;
 
-    var result  = getHousingBenefit(client),
+    var result  = getHousingBenefit(fakeClient),
         subsidy = result.benefitValue * 12;
 
     // Prep for next loop
     var newShare = result.data.newRentShare
-    client[ 'previousRentShareMonthly' ] = newShare;
-    client.previousEarnedIncomeMonthly = annualIncome/12;
+    fakeClient[ 'previousRentShareMonthly' ] = newShare;
+    fakeClient.previousEarnedIncomeMonthly   = annualIncome/12;
 
     return subsidy;
   });
