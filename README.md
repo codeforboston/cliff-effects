@@ -27,6 +27,8 @@ We use GitHub Issues to organize our work.  Here's some quick reading about [how
 
 Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1).
 
+[Create React App README](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
 
 ## Environment Setup
 
