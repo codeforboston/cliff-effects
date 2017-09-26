@@ -152,7 +152,7 @@ const childcareProps = [
 * 
 * This is only adjusted income as defined for the Section 8 program
 * '#' refers to # item on form at Appendix B of http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf
-* 'pg' refers to the written page number of https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf
+* 'pg' refers to the written page number of https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf (gone)
 * 
 * Is using raw monthly values or converting values to monthly amounts
 */
@@ -166,8 +166,8 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   allowances.push( depAllowanceAnnual/12 );
   // #6
   var childcare   = sumCashflow( client, time, childcareProps ),
-      /** @todo Change to 'ChildCareIncome' */
       ccIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfChildCare' ),
+      /** @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
       ccMin       = Math.min( childcare, ccIncome );
   allowances.push( ccMin );
   // #7 - 13
@@ -188,54 +188,55 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
 /**
 * Medical allowance needs assistance allowance amounts
 * '#' refers to # item on form at Appendix B of http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf
-* 'pg' refers to the written page number of https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf
+* 'pg' refers to the written page number of https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf (gone)
 * Is using raw monthly values
 */
 const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
   var time          = timeframe,
-      netSubtractor = net * 0.03,
-      asstAllowance = 0,
-      medAllowance  = 0,
-      altAllowance  = 0;
+      netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
   // pg 5-30 to 5-31
-  /** @todo Change to 'DisabledAssistance' */
-  var rawAssistance = toCashflow( client, time, 'DisabledAssistance' ),
-      /** @todo Change to 'AssistanceIncome' */
-      asstIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfAdultCare' ),
-      asstRemainder = rawAssistance - netSubtractor;
+  var handcpExpense  = toCashflow( client, time, 'DisabledAssistance' ),  // #7
+      asstSubtracted = handcpExpense - netSubtractor,  // #9
+      asstIncome     = toCashflow( client, time, 'EarnedIncomeBecauseOfAdultCare' ), // #10
+      hcapAllowance  = Math.min( asstSubtracted, asstIncome ),  // #11
+      hcapMin        = Math.max( 0, hcapAllowance );  // Don't get negative
 
-  if ( asstRemainder >= 0 ) {
-    asstAllowance = Math.min( asstRemainder, asstIncome );
-  }
-
-  // ----- Medical Allowance #D, #12 - 13 ----- \\
+  // ----- Maybe Stop #D ----- \\
   /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
-  if ( !client[ time + 'DisabledOrElderlyHeadOrSpouse' ] ) { return asstAllowance; }
+  if ( !client[ time + 'DisabledOrElderlyHeadOrSpouse' ] ) { return hcapMin; }
 
-  // pg 5-31 to 5-32
+
+  // ----- Medical Allowance #12 - 13 ----- \\
+  // #12, pg 5-31 to 5-32
   var disOrElderlyMedical = toCashflow( client, time, 'DisabledOrElderlyMedical' ),
       // pg 5-31 says all medical expenses count for this household
       otherMedical        = toCashflow( client, time, 'RegularMedical' ),
-      rawMedical          = disOrElderlyMedical + otherMedical;
+      medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
 
   // Read all of pg 5-32 and 5-34 for the following conditional.
   // Jumps around because cases are overlapping.
 
-  // pg 5-32 bottom (5-33 to 5-34 example falls in here)
+  var medAllowance = 0;
+  // #13a, pg 5-32 bottom (5-33 to 5-34 example falls in here)
   // Note: #13 forgets the '>=' part and just says '>'
-  if ( asstRemainder >= 0 ) {
-    medAllowance = rawMedical;
+  if ( asstSubtracted >= 0 ) {
+    medAllowance = medicalExpenses;
+
+  // #13b
   // pg 5-33 middle /and/ pg 5-32 middle, above "special calcuations"
-  // In both cases rawAssistance is >= 0.
-  } else if ( rawAssistance >= 0 && asstRemainder < 0 ) {
-    var sum = rawMedical + rawAssistance;
-    altAllowance = Math.max( 0, sum - netSubtractor );
+  // In both cases handcpExpense is >= 0 and can be safely aded.
+  } else {
+    var sum = medicalExpenses + handcpExpense;
+    medAllowance = sum - netSubtractor;
   }
 
-  return altAllowance || (asstAllowance + medAllowance);
+  var medMin = Math.max( 0, medAllowance );
+
+  // #15 contribution ( #11 + #13 )
+  return hcapMin + medMin;
 };  // End getDisabledAndMedicalAllowancesSum()
 
 
