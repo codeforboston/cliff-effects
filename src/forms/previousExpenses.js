@@ -27,13 +27,9 @@ import { roundMoney, limit } from '../helpers/math';
 */
 const Housing = function ( props ) {
 
-  var client        = props.props.pageState,
-      time          = props.time,
-      storeChecked  = props.props.storeChecked,
-      sharedProps   = {
-        client: client, type: props.type, time: time,
-        storeComplex: props.props.storeComplex
-      };
+  var origin        = props.props,
+      client        = origin.pageState,
+      time          = props.time;
 
   // `hasHousing` is actually whether they're in the housing voucher program
   var ownedAHome  = client[ time + 'Homeowner' ],
@@ -42,6 +38,42 @@ const Housing = function ( props ) {
 
   var utils = client[ time + 'PaidUtilities' ], climate = client[ time + 'GotClimateControl' ],
       electricity = client[ time + 'NonHeatElectricity' ], phone = client[ time + 'Phone' ];
+
+
+  /** Makes sure values are propagated to 'current' properties if needed */
+  var ensureCurrComplex = function ( evnt, inputProps ) {
+    
+    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    if ( !client[ keyOfCurr ] ) {
+      origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+    }
+
+    // Do the usual thing too
+    origin.storeComplex( evnt, inputProps );
+
+  };  // End ensureCurrComplex()
+
+
+  /** Makes sure values are propagated to 'current' properties if needed */
+  var ensureCurrChecked = function ( evnt, inputProps ) {
+    
+    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    if ( !client[ keyOfCurr ] ) {
+      origin.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
+    }
+
+    // Do the usual thing too
+    origin.storeChecked( evnt, inputProps );
+
+  };  // End ensureCurrChecked()
+
+
+  var storeChecked  = ensureCurrChecked,
+      sharedProps   = {
+        client: client, type: props.type, time: time,
+        storeComplex: ensureCurrComplex
+      };
+
 
   /** @todo Owning a home vs. rented vs. homeless should probably be radio buttons */
   return (
