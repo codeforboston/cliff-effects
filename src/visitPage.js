@@ -403,19 +403,21 @@ class VisitPage extends Component {
   }
 
   storeChecked = (e, { name, checked }, callback) => {
-    this.setState({ [name]: checked },
+    var truth = this;
+    truth.setState({ [name]: checked },
       function () {
-       // console.log(name, checked, this);
-       if ( callback ) { callback( this ); }
+       // console.log( name, checked, truth );
+       if ( callback ) { callback( truth ); }
     });
   }
 
   storeComplex = (e, { name, value }, callback) => {
-    this.setState(
+    var truth = this;
+    truth.setState(
       { [name]: value },
       function () {
-        // console.log(this);
-        if ( callback ) { callback( this ); }
+        // console.log( truth );
+        if ( callback ) { callback( truth ); }
       }  // This is given no arguments
     );
   }

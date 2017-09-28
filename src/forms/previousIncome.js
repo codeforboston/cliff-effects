@@ -48,12 +48,28 @@ import { merge } from '../helpers/object-manipulation';
 */
 const IncomeForm = function ( props ) {
 
-  var time = 'previous', type = 'income';
+  var time    = 'previous',
+      type    = 'income',
+      client  = props.client,
+      origin  = props.props;
 
-  var client      = props.client,
-      otherProps  = props.props,
-      sharedProps = { client: client, type: type, time: time,
-                    storeComplex: otherProps.storeComplex };
+
+  /** Makes sure values are propagated to 'current' properties if needed */
+  var ensureCurrent = function ( evnt, inputProps ) {
+    
+    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
+    if ( !client[ keyOfCurr ] ) {
+      origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+    }
+
+    // Do the usual thing too
+    origin.storeComplex( evnt, inputProps );
+
+  };  // End ensureCurrent()
+
+
+  var sharedProps = { client: client, type: type, time: time,
+                      storeComplex: ensureCurrent };
 
   return (
     <div className='field-aligner two-column'>
