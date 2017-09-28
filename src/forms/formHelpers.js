@@ -182,6 +182,7 @@ const MassiveToggle = function ( props ) {
       checked={ props.checked || props.value }
       onChange={ props.onChange || props.storeChecked }
       name={ props.name || props.id }
+      id={ props.name || props.id }
       control={ Checkbox }
       size='massive'/>
   );
