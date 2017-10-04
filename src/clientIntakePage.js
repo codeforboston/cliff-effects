@@ -89,7 +89,7 @@ class ClientIntakePage extends Component {
               </Grid.Column>
               <Grid.Column floated='right' width={12}>
                 <Form onSubmit={this.handleFormSubmit}>
-                  <Form.Input label='Name' placeholder='First name and last initial' name='newname' value={this.state.name} onChange={this.handleInputChange} />
+                  <Form.Input label='Name' placeholder='First name and last initial' name='name' value={this.state.name} onChange={this.handleInputChange} />
                   <Form.Input label='Date of Birth' placeholder='Date of Birth' name='dob' value={this.state.dob} onChange={this.handleInputChange}  />
                   <Form.Input label='Zip Code' placeholder='Zip Code' name='zipCode' value={this.state.zipCode} onChange={this.handleInputChange}  />
                   <Form.Input label='Client Avatar URL' placeholder='Avatar URL' name='image' value={this.state.image} onChange={this.handleInputChange}  />
