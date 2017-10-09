@@ -43,7 +43,7 @@ const Housing = function ( props ) {
   /** Makes sure values are propagated to 'current' properties if needed */
   var ensureCurrComplex = function ( evnt, inputProps ) {
     
-    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
       origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
@@ -57,7 +57,7 @@ const Housing = function ( props ) {
   /** Makes sure values are propagated to 'current' properties if needed */
   var ensureCurrChecked = function ( evnt, inputProps ) {
     
-    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
       origin.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
@@ -100,11 +100,11 @@ const Housing = function ( props ) {
       */}
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle id={ time + 'Homeless' } value={ wasHomeless } storeChecked={ storeChecked }
+      <MassiveToggle name={ time + 'Homeless' } value={ wasHomeless } storeChecked={ storeChecked }
           label={'Was the household homeless at the last benefit assessment?'}/>
       { wasHomeless
         ? null
-        : <MassiveToggle id={ time + 'Homeowner' } value={ ownedAHome }
+        : <MassiveToggle name={ time + 'Homeowner' } value={ ownedAHome }
             storeChecked={ storeChecked } label={ 'Did the household own a home?' } />
       }
       { !ownedAHome
@@ -140,16 +140,16 @@ const Housing = function ( props ) {
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle id={ time + 'PaidUtilities' } value={ utils } storeChecked={ storeChecked }
+          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ storeChecked }
             label={'Did the household pay utilities seperately from the rent?'}/>
           { !client[ time + 'PaidUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle id={ time + 'ClimateControl' } value={ climate } storeChecked={ storeChecked }
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ storeChecked }
                 label={'Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months prior to the previous benefit assessment?'}/>
-              <MassiveToggle id={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ storeChecked }
+              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ storeChecked }
                 label={'Did the household pay for electricity for non-heating purposes?'}/>
-              <MassiveToggle id={ time + 'Phone' } value={ phone } storeChecked={ storeChecked }
+              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ storeChecked }
                 label={'Did the household pay for its own telephone service?'}/>
             </wrapper>
           }
