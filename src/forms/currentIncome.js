@@ -30,9 +30,8 @@ const IncomeForm = function ( props ) {
   var time = 'current', type = 'income';
 
   var client      = props.client,
-      otherProps  = props.props,
       sharedProps = { client: client, type: type, time: time,
-                    storeComplex: otherProps.storeComplex };
+                    storeComplex: props.storeComplex };
 
   var monthly     = getSimpleGrossIncomeMonthly( client, 'current' ),
       grossAnnual = monthly * 12;
@@ -54,15 +53,15 @@ const IncomeForm = function ( props ) {
 
       <div style={{ textAlign: 'center' }}>
         <Header as='h4' textAlign='center'>
-          FOR A HOUSEHOLD SIZE OF <strong>{ otherProps.pageState.householdSize }</strong>:
+          FOR A HOUSEHOLD SIZE OF <strong>{ props.pageState.householdSize }</strong>:
         </Header>
         <Statistic>
           <Statistic.Label>Federal Poverty Level Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
+          <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, props.pageState.householdSize ))}%</Statistic.Value>
         </Statistic>
         {/*<Statistic>
           <Statistic.Label>Area Median Income Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
+          <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, props.pageState.householdSize ))}%</Statistic.Value>
         </Statistic>*/}
       </div>
 
@@ -91,7 +90,7 @@ const CurrentIncomeStep = function ( props ) {
         clarifier = 'How much money does your household make now?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm client={props.pageState} props={props}/>
+          <IncomeForm {...props} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );
