@@ -388,11 +388,6 @@ class VisitPage extends Component {
 
   };  // End constructor()
 
-  updateProps () {
-    this.stepProps.currentStep = this.state.currentStep;
-    this.stepProps.pageState   = this.state;
-  }
-
   storeChecked = (e, { name, checked }, callback) => {
     var truth = this;
     truth.setState({ [name]: checked },
