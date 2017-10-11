@@ -391,16 +391,10 @@ class VisitPage extends Component {
       previousStep: this.previousStep,
       storeComplex: this.storeComplex, // Maybe put these straight on state
       storeChecked: this.storeChecked, // Maybe put these straight on state
-      saveForm:     this.saveForm,
-      pageState:    this.state
+      saveForm:     this.saveForm
     };
 
   };  // End constructor()
-
-  updateProps () {
-    this.stepProps.currentStep = this.state.currentStep;
-    this.stepProps.pageState   = this.state;
-  }
 
   storeChecked = (e, { name, checked }, callback) => {
     var truth = this;
@@ -432,18 +426,9 @@ class VisitPage extends Component {
   }
 
   getCurrentStep = () => {
-
-    // Apparently, the reference to the `this` created in `constructor()`
-    // doesn't stay. `this` becomes something new. Which is crazy.
-    this.updateProps();
-
-    // keep it between 1 and 8
-    var step = this.state.currentStep = Math.max( 1, Math.min( 8, this.state.currentStep ));
-    step -= 1;  // convert to 0 index
+    var step = Math.max( 1, Math.min( 8, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
-
-    return ( <FormSection { ...this.stepProps } /> );
-
+    return ( <FormSection { ...this.stepProps} pageState={this.state} currentStep={step} /> );
   };  // End getCurrentStep()
 
   nextStep = () => {
