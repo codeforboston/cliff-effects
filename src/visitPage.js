@@ -373,7 +373,7 @@ class VisitPage extends Component {
     };  // end this.state {}
 
     this.steps = [
-      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, /*description: 'Choose your shipping options' (what does this mean?)*/ },
+      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
       { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
       { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
       { completed: false, active: false, title: 'Previous Expenses', form: PreviousExpensesStep },
@@ -432,17 +432,10 @@ class VisitPage extends Component {
   }
 
   getCurrentStep = () => {
-
-    // Apparently, the reference to the `this` created in `constructor()`
-    // doesn't stay. `this` becomes something new. Which is crazy.
-    this.updateProps();
-
-    // keep it between 1 and 8
-    var step = this.state.currentStep = Math.max( 1, Math.min( 8, this.state.currentStep ));
-    step -= 1;  // convert to 0 index
+    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
 
-    return ( <FormSection { ...this.stepProps } /> );
+    return ( <FormSection { ...this.stepProps } currentStep = {this.state.currentStep} pageState={this.state} /> );
 
   };  // End getCurrentStep()
 
