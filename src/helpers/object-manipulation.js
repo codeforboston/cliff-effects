@@ -7,7 +7,7 @@
 * @todo Change name so it doesn't sound like destroys both objects.
 */
 const merge = function ( needy, giver ) { // Function to merge all of the properties from one object into another
-    for ( var key in giver ) {  needy[ key ] = giver [ key ]; }
+    for ( var key in giver ) {  needy[key] = giver[key]; }
     return  needy;
 };
 

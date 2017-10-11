@@ -1,16 +1,11 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
-import { Form, Header, Statistic, Divider, Input } from 'semantic-ui-react';
+import React from 'react';
+import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import {
-  FormPartsContainer, MassiveToggle, FormHeading, InlineLabelInfo,
-  IntervalColumnHeadings, CashFlowRow
+  FormPartsContainer, MassiveToggle, FormHeading, IntervalColumnHeadings, CashFlowRow
 } from './formHelpers';
-
-// UTILITIES
-import { merge } from '../helpers/object-manipulation';
-import { roundMoney, limit } from '../helpers/math';
 
 
 // ========================================
@@ -27,23 +22,23 @@ import { roundMoney, limit } from '../helpers/math';
 */
 const Housing = function ( props ) {
 
-  var origin        = props.props,
+  let origin        = props.props,
       client        = origin.pageState,
       time          = props.time;
 
   // `hasHousing` is actually whether they're in the housing voucher program
-  var ownedAHome  = client[ time + 'Homeowner' ],
+  let ownedAHome  = client[ time + 'Homeowner' ],
       wasHomeless = client[ time + 'Homeless' ] && !client.hasHousing && !ownedAHome,
       rented      = !wasHomeless && !ownedAHome;
 
-  var utils = client[ time + 'PaidUtilities' ], climate = client[ time + 'GotClimateControl' ],
+  let utils = client[ time + 'PaidUtilities' ], climate = client[ time + 'GotClimateControl' ],
       electricity = client[ time + 'NonHeatElectricity' ], phone = client[ time + 'Phone' ];
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
-  var ensureCurrComplex = function ( evnt, inputProps ) {
+  let ensureCurrComplex = function ( evnt, inputProps ) {
     
-    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    let keyOfCurr = inputProps.id.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
       origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
@@ -55,9 +50,9 @@ const Housing = function ( props ) {
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
-  var ensureCurrChecked = function ( evnt, inputProps ) {
+  let ensureCurrChecked = function ( evnt, inputProps ) {
     
-    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    let keyOfCurr = inputProps.id.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
       origin.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
@@ -68,7 +63,7 @@ const Housing = function ( props ) {
   };  // End ensureCurrChecked()
 
 
-  var storeChecked  = ensureCurrChecked,
+  let storeChecked  = ensureCurrChecked,
       sharedProps   = {
         client: client, type: props.type, time: time,
         storeComplex: ensureCurrComplex
@@ -114,9 +109,9 @@ const Housing = function ( props ) {
           <FormHeading>Homeowner</FormHeading>
 
           <IntervalColumnHeadings type={ props.type }/>
-          <CashFlowRow {...merge( {generic: 'Mortgage'}, sharedProps )}> Mortgage </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'HousingInsurance'}, sharedProps )}> Insurance Costs </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'PropertyTax'}, sharedProps )}> Property Tax </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'Mortgage'}> Mortgage </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'HousingInsurance'}> Insurance Costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'PropertyTax'}> Property Tax </CashFlowRow>
         </wrapper>
       }
       { !rented
@@ -128,13 +123,13 @@ const Housing = function ( props ) {
           <IntervalColumnHeadings type={ props.type }/>
           { client.hasHousing
             ? <wrapper>
-              <CashFlowRow {...merge( {generic: 'RentShare'}, sharedProps )}> Rent Share </CashFlowRow>
-              <CashFlowRow {...merge(
-                { generic: 'ContractRent',
-                  labeInfo: 'The full amount the landord would charge without a Section 8 voucher'}
-                , sharedProps )}> Contract Rent </CashFlowRow>
+              <CashFlowRow {...sharedProps} generic={'RentShare'}> Rent Share </CashFlowRow>
+              <CashFlowRow {...sharedProps}
+                generic={'ContractRent'}
+                labeInfo={'The full amount the landord would charge without a Section 8 voucher'}>
+				Contract Rent </CashFlowRow>
             </wrapper>
-            : <CashFlowRow {...merge( {generic: 'Rent'}, sharedProps )}> Rent </CashFlowRow>
+            : <CashFlowRow {...sharedProps} generic={'Rent'}> Rent </CashFlowRow>
           }
           
           {/** No padding for an element all on its own */}
@@ -174,20 +169,16 @@ const Housing = function ( props ) {
 */
 const ExpensesFormContent = function ( props ) {
 
-  var client        = props.client,
+  let client        = props.client,
       origin        = props.props,
       storeChecked  = origin.storeChecked,
       time          = 'previous', type = 'expense';
 
-  var needsDisabledAssistance = client[ time + 'GettingDisabledAssistance' ]
+  let needsDisabledAssistance = client[ time + 'GettingDisabledAssistance' ]
     || client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
     || client[ time + 'DisabledOrElderlyHeadOrSpouse' ];
 
-  var time = 'previous', type = 'expense';
-  var sharedProps = { client: client, type: type, time: time,
-                    storeComplex: origin.storeComplex };
-  var incomeProps = merge( {}, sharedProps );
-  incomeProps.type = 'income';
+  let sharedProps = { client: client, type: type, time: time, storeComplex: origin.storeComplex };
 
   /** @todo 1) Can client only enter amounts not covered by other programs
   * for childcare expenses? 2) Does money from those programs count as income?
@@ -213,11 +204,11 @@ const ExpensesFormContent = function ( props ) {
           <FormHeading subheading = {'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Reasonable Unreimbursed Non-Medical Child(ren) Care</FormHeading>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...merge( {generic: 'ChildDirectCareCosts'}, sharedProps )}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'ChildBeforeAndAfterSchoolCareCosts'}, sharedProps )}> Before- and after-school care </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'ChildTransportationCosts'}, sharedProps )}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'ChildOtherCareCosts'}, sharedProps )}> Other care </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'EarnedIncomeBecauseOfChildCare'}, incomeProps )}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'ChildDirectCareCosts'}> Direct care costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'ChildBeforeAndAfterSchoolCareCosts'}> Before- and after-school care </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'ChildTransportationCosts'}> Transportation costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'ChildOtherCareCosts'}> Other care </CashFlowRow>
+          <CashFlowRow {...sharedProps} type={'income'} generic={'EarnedIncomeBecauseOfChildCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
         </wrapper>
       }
 
@@ -226,7 +217,7 @@ const ExpensesFormContent = function ( props ) {
       <wrapper>
         <FormHeading>Child Support</FormHeading>
         <IntervalColumnHeadings type={type}/>
-        <CashFlowRow {...merge( {generic: 'ChildSupportPaidOut'}, sharedProps )}> LEGALLY OBLIGATED Child support paid out </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'ChildSupportPaidOut'}> LEGALLY OBLIGATED Child support paid out </CashFlowRow>
       </wrapper>
 
       {/** 
@@ -242,9 +233,9 @@ const ExpensesFormContent = function ( props ) {
           <FormHeading subheading = {'A adult dependent is a person older than 12 and either disabled or 62 or older. Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Disabled or Elderly Care</FormHeading>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...merge( {generic: 'AdultDirectCareCosts'}, sharedProps )}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'AdultTransportationCosts'}, sharedProps )}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'AdultOtherCareCosts'}, sharedProps )}> Other care </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'AdultDirectCareCosts'}> Direct care costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'AdultTransportationCosts'}> Transportation costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'AdultOtherCareCosts'}> Other care </CashFlowRow>
         </wrapper>
       }
 
@@ -268,8 +259,8 @@ const ExpensesFormContent = function ( props ) {
             <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...merge( {generic: 'DisabledAssistance'}, sharedProps )}> Disabled/Handicapped assistance </CashFlowRow>
-          <CashFlowRow {...merge( {generic: 'EarnedIncomeBecauseOfAdultCare'}, incomeProps )}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'DisabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'EarnedIncomeBecauseOfAdultCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses </CashFlowRow>
         </wrapper>
       }
 
@@ -308,14 +299,14 @@ const ExpensesFormContent = function ( props ) {
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred). The allowance may include only the amount expected to be paid in the coming 12 months.</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...merge( {generic: 'DisabledAssistance'}, sharedProps )}> Disabled/Handicapped/Elderly assistance </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'DisabledAssistance'}> Disabled/Handicapped/Elderly assistance </CashFlowRow>
         </wrapper>
       }
 
       <Housing props={props.props} time={time} type={type}/>
 
       <FormHeading>Other</FormHeading>
-      <CashFlowRow {...merge( {generic: 'OtherExpenses'}, sharedProps )}> Other Expenses </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic={'OtherExpenses'}> Other Expenses </CashFlowRow>
 
     </wrapper>
   );
