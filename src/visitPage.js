@@ -39,6 +39,7 @@ import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
+import { ConfirmInformation } from './forms/confirmInformation';
 
 const StepBar = (props) => {
   let steps = props.steps;
@@ -52,30 +53,6 @@ const StepBar = (props) => {
   return(
     <Step.Group size='mini' ordered items={steps} />
   )
-}
-
-
-const ConfirmInformation = (props) => {
-	
-	return (
-		<FormPartsContainer
-			title     = 'Confirm Information'
-			clarifier = ''
-			left      = {{name: 'Previous', func: props.previousStep}}
-			right     = {{name: 'Next', func: props.nextStep}}>
-			  <div>
-				<Header as='span' color='teal'>Current Benefits</Header> 
-				{props.pageState.hasSnap ? "SNAP, ": ""}
-				{props.pageState.hasHousing ? "Section 8, ": ""}
-				{props.pageState.hasMassHealth ? "MassHealth": ""}<br/>
-				<Header as='span' color='teal'>Household Size</Header> {props.pageState.householdSize}<br/>
-				<Header as='span' color='teal'>Household Annual Income</Header> {props.pageState.annualIncome}<br/>
-				<Header as='span' color='teal'>Citizenship Status</Header> {props.pageState.citizenshipStatus == "citizen" ? "US Citizen" : "Resident" }<br/>
-				<Header as='span' color='teal'>MassHealth</Header> {props.pageState.hasMassHealth ? "Yes, has qualifying conditions" : "No qualifying conditions"  }
-			  </div>
-		  
-      </FormPartsContainer>
-	  )
 }
 
 const AlertSidebar = (props) => {
