@@ -25,17 +25,16 @@ const AlertIcon = ({alert}) => {
 	return <Icon name={icons[alert] || ''} size='huge' color={alertColor(alert)} />
  }
  
- 
 const AlertDescription = ({alert, benefit}) => {
 	let alertMessages = {
-		'good':  `<strong>All Good!</strong> Based on your inputs, your <strong>${benefit}</strong> benefits are safe.`,
-        'information': `<strong>FYI!</strong> You are in danger of losing your <strong>${benefit}</strong> benefits.`,
-	    'warning': `<strong>Warning!</strong> Based on your inputs, you will lose <strong>${benefit}</strong> benefits!`
+		'good':  (<span><strong>All Good!</strong> Based on your inputs, your <strong>{benefit}</strong> benefits are safe.</span>),
+        'information': (<span><strong>FYI!</strong> You are in danger of losing your <strong>{benefit}</strong> benefits.</span>),
+	    'warning': (<span><strong>Warning!</strong> Based on your inputs, you will lose <strong>{benefit}</strong> benefits!</span>)
 	}
-	
+
 	return (
 		<Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
-            <span dangerouslySetInnerHTML={{__html: alertMessages[alert] || ''}} />
+			{alertMessages[alert]}
 		</Reveal.Content>
 	);
 }
