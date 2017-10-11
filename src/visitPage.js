@@ -254,7 +254,7 @@ class VisitPage extends Component {
     };  // end this.state {}
 
     this.steps = [
-      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, /*description: 'Choose your shipping options' (what does this mean?)*/ },
+      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
       { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
       { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
       { completed: false, active: false, title: 'Previous Expenses', form: PreviousExpensesStep },
@@ -307,7 +307,7 @@ class VisitPage extends Component {
   }
 
   getCurrentStep = () => {
-    var step = Math.max( 1, Math.min( 8, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
+    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
     return ( <FormSection { ...this.stepProps} pageState={this.state} currentStep={step} /> );
   };  // End getCurrentStep()
