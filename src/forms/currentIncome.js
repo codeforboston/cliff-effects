@@ -1,13 +1,12 @@
 // COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Header, Statistic } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 
 // UTILITIES
-import { roundMoney, limit } from '../helpers/math';
-import { merge } from '../helpers/object-manipulation';
+import { roundMoney } from '../helpers/math';
 
 // BENEFIT PROGRAM CALCULATIONS
 import { percentPovertyLevel, percentStateMedianIncome } from '../helpers/helperFunctions';
@@ -46,8 +45,7 @@ const IncomeForm = function ( props ) {
     <div className='field-aligner two-column'>
 
       <IntervalColumnHeadings type={type}/>
-      <CashFlowRow {...merge( {generic: 'EarnedIncome',
-        labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'}, sharedProps )}>
+      <CashFlowRow {...sharedProps} generic={'EarnedIncome'} labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}>
           Earned income
       </CashFlowRow>
 

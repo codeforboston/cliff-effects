@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Segment } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS

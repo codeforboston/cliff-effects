@@ -1,6 +1,6 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
-import { Form, Radio } from 'semantic-ui-react';
+import React from 'react';
+import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import {
