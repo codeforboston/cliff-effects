@@ -27,12 +27,12 @@ import { CurrentBenefitsStep } from './forms/current-benefits';
 
 const StepBar = (props) => {
   let steps = props.steps;
-
-  props.completedSteps.forEach(function(element) {
-    steps[element].completed = true
-  }, this);
-
-  steps[props.currentStep-1].active = true
+  
+  for ( let stepi = 0; stepi < steps.length; stepi++ ) {
+      let step = steps[ stepi ];
+	  step.completed = (stepi < props.currentStep);
+      step.active = (stepi == props.currentStep - 1);
+  }
 
   return(
     <Step.Group size='mini' ordered items={steps} />
@@ -321,7 +321,6 @@ class VisitPage extends Component {
     super(props);
     this.state = {
         currentStep: 1,
-        completedSteps: [],
         isBlocking: true,
         redirect: false,
         hasSnap: false,
@@ -425,15 +424,13 @@ class VisitPage extends Component {
 
   nextStep = () => {
     this.setState(prevState => ({
-      currentStep: prevState.currentStep + 1,
-      completedSteps: _.range(prevState.currentStep)
+      currentStep: prevState.currentStep + 1
     }));
   };
 
   previousStep = () => {
     this.setState(prevState => ({
-      currentStep: prevState.currentStep - 1,
-      completedSteps: _.range(prevState.currentStep-2)
+      currentStep: prevState.currentStep - 1
     }));
   };
 
@@ -462,7 +459,7 @@ class VisitPage extends Component {
         >
           <Grid.Row>
             <Grid.Column width = {16}>
-              <StepBar currentStep={this.state.currentStep} steps={steps} completedSteps={this.state.completedSteps} />
+              <StepBar currentStep={this.state.currentStep} steps={this.steps} />
             </Grid.Column>
           </Grid.Row>         
           <Grid.Row>
