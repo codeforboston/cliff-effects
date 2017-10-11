@@ -31,7 +31,7 @@ const HouseholdSizeContent = (props) => {
   var ensureCurrComplex = function ( evnt, inputProps ) {
 
     var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
+    if ( !props.client[ keyOfCurr ] ) {
       props.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
 
@@ -45,7 +45,7 @@ const HouseholdSizeContent = (props) => {
   var ensureCurrChecked = function ( evnt, inputProps ) {
     
     var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
+    if ( !props.client[ keyOfCurr ] ) {
       props.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
 
@@ -96,7 +96,6 @@ const HouseholdSizeContent = (props) => {
           value     = {props.client[ time + 'Dependents' ] || ''}
           name      = {time + 'Dependents'}
           type={'number'} step={1} min={0} max={props.client[ time + 'HouseholdSize' ] - 1} />
-
         <wrapper>
           <label>Number of dependents</label>
           <InlineLabelInfo>Members that are under 18, disabled, handicapped, and/or a full-time student. Cannot include the head of household, their spouse, or foster children.</InlineLabelInfo>

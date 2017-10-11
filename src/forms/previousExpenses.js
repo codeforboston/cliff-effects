@@ -37,8 +37,12 @@ const Housing = function ( props ) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureCurrComplex = function ( evnt, inputProps ) {
     
+<<<<<<< HEAD
 
     let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
+=======
+    let keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+>>>>>>> 2097f11f7ef1608d0fbf3c3db939d5077e6d7c2c
     if ( !client[ keyOfCurr ] ) {
       props.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
@@ -52,7 +56,11 @@ const Housing = function ( props ) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureCurrChecked = function ( evnt, inputProps ) {
     
+<<<<<<< HEAD
 	let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
+=======
+    let keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+>>>>>>> 2097f11f7ef1608d0fbf3c3db939d5077e6d7c2c
     if ( !client[ keyOfCurr ] ) {
       props.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
