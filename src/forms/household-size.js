@@ -24,8 +24,7 @@ import { limit } from '../helpers/math';
 */
 const HouseholdSizeContent = (props) => {
 
-  var origin = props.origin,
-      client = origin.pageState,
+  var client = props.pageState,
       time   = 'previous';
 
 
@@ -34,11 +33,11 @@ const HouseholdSizeContent = (props) => {
 
     var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+      props.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
 
     // Do the usual thing too
-    origin.storeComplex( evnt, inputProps );
+    props.storeComplex( evnt, inputProps );
 
   };  // End ensureCurrComplex()
 
@@ -48,11 +47,11 @@ const HouseholdSizeContent = (props) => {
     
     var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      origin.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
+      props.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
-    origin.storeChecked( evnt, inputProps );
+    props.storeChecked( evnt, inputProps );
 
   };  // End ensureCurrChecked()
 
@@ -73,7 +72,7 @@ const HouseholdSizeContent = (props) => {
             name='householdSize'
             value={size}
             checked={client.householdSize === size}
-            onChange={origin.storeComplex}
+            onChange={props.storeComplex}
           />
         </Form.Field>)
       )*/}
@@ -150,7 +149,7 @@ const HouseholdSizeStep = function ( props ) {
         clarifier = {'Information about the members of the household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <HouseholdSizeContent origin={props}/>
+          <HouseholdSizeContent {...props}/>
       </FormPartsContainer>
     </Form>
   );

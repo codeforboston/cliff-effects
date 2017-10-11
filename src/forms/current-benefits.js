@@ -20,27 +20,26 @@ import {
 */
 const CurrentBenefitsContent = (props) => {
 
-	var origin = props.origin,
-      client = origin.pageState;
+  var client = props.pageState;
 
   return (
     <wrapper className={'field-aligner'}>
       <MassiveToggle
         label={{ children: client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
         checked={client.hasSnap}
-        onChange={origin.storeChecked}
+        onChange={props.storeChecked}
         name='hasSnap' />
       <br/>
       <MassiveToggle
         label={{ children: client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
         checked={client.hasHousing}
-        onChange={origin.storeChecked}
+        onChange={props.storeChecked}
         name='hasHousing' />
       <br/>
       <MassiveToggle
         label={{ children: client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
         checked={client.hasMassHealth}
-        onChange={origin.storeChecked}
+        onChange={props.storeChecked}
         name='hasMassHealth' />
     </wrapper>
   );  // end return
@@ -64,7 +63,7 @@ const CurrentBenefitsStep = (props) => {
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CurrentBenefitsContent origin={props}/>
+          <CurrentBenefitsContent {...props} />
       </FormPartsContainer>
     </Form>
   );

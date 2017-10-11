@@ -18,8 +18,7 @@ import {
 */
 const CitizenshipContent = (props) => {
 
-	var origin = props.origin,
-      client = origin.pageState;
+	var client = props.pageState;
 
   return (
     <wrapper className={'field-aligner'}>
@@ -29,7 +28,7 @@ const CitizenshipContent = (props) => {
           name='citizenshipStatus'
           value='citizen'
           checked={client.citizenshipStatus === 'citizen'}
-          onChange={origin.storeComplex}
+          onChange={props.storeComplex}
         />
       </Form.Field>
       <br/>
@@ -39,7 +38,7 @@ const CitizenshipContent = (props) => {
           name='citizenshipStatus'
           value='immigrant'
           checked={client.citizenshipStatus === 'immigrant'}
-          onChange={origin.storeComplex}
+          onChange={props.storeComplex}
         />
       </Form.Field>
       <br/>
@@ -49,7 +48,7 @@ const CitizenshipContent = (props) => {
           name='citizenshipStatus'
           value='unknown'
           checked={client.citizenshipStatus === 'unknown'}
-          onChange={origin.storeComplex}
+          onChange={props.storeComplex}
         />
       </Form.Field>
     </wrapper>
@@ -75,7 +74,7 @@ const CitizenshipStep = function ( props ) {
         clarifier = {'Select your citizenship status.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CitizenshipContent origin={props}/>
+          <CitizenshipContent {...props} />
       </FormPartsContainer>
     </Form>
   );

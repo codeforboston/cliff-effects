@@ -27,11 +27,9 @@ import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 */
 const IncomeForm = function ( props ) {
 
-  var time = 'current', type = 'income';
-
-  var client      = props.client,
-      sharedProps = { client: client, type: type, time: time,
-                    storeComplex: props.storeComplex };
+  var time = 'current', 
+	  type = 'income',
+	  client = props.client
 
   var monthly     = getSimpleGrossIncomeMonthly( client, 'current' ),
       grossAnnual = monthly * 12;
@@ -44,7 +42,12 @@ const IncomeForm = function ( props ) {
     <div className='field-aligner two-column'>
 
       <IntervalColumnHeadings type={type}/>
-      <CashFlowRow {...sharedProps} generic={'EarnedIncome'} labelInfo={'(Weekly income = hourly wage times average number of work hours per week)'}>
+      <CashFlowRow client={client}
+				  type={type} 
+				  time={time}
+				  storeComplex={props.storeComplex}
+				  generic='EarnedIncome' 
+				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
       </CashFlowRow>
 

@@ -18,8 +18,7 @@ import {
 */
 const HealthContent = (props) => {
 
-  var origin = props.origin,
-      client = origin.pageState;
+  var client = props.pageState;
 
   return (
     <wrapper>
@@ -27,7 +26,7 @@ const HealthContent = (props) => {
       <MassiveToggle
         label={client.qualifyingConditions ? {children: 'Yes'} : {children: 'No'}}
         checked={client.qualifyingConditions}
-        onChange={origin.storeChecked}
+        onChange={props.storeChecked}
         name='qualifyingConditions'
       />
 
@@ -62,7 +61,7 @@ const HealthStep = function ( props ) {
         clarifier = {'Do you have any of the following MassHealth qualifying conditions?'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <HealthContent origin={props}/>
+          <HealthContent {...props}/>
       </FormPartsContainer>
     </Form>
   );
