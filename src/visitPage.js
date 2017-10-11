@@ -25,18 +25,15 @@ import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
 
-const StepBar = (props) => {
-  let steps = props.steps;
+const StepBar = ({ steps, currentStep }) => {
   
   for ( let stepi = 0; stepi < steps.length; stepi++ ) {
       let step = steps[ stepi ];
-	  step.completed = (stepi < props.currentStep);
-      step.active = (stepi == props.currentStep - 1);
+	  step.completed = (stepi < currentStep);
+      step.active = (stepi == currentStep - 1);
   }
 
-  return(
-    <Step.Group size='mini' ordered items={steps} />
-  )
+  return (<Step.Group size='mini' ordered items={steps} />)
 }
 
 const AlertSidebar = (props) => {
