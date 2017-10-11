@@ -25,20 +25,20 @@ const CurrentBenefitsContent = (props) => {
   return (
     <wrapper className={'field-aligner'}>
       <MassiveToggle
-        label={{ children: client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
-        checked={client.hasSnap}
+        label={{ children: props.client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
+        checked={props.client.hasSnap}
         onChange={props.storeChecked}
         name='hasSnap' />
       <br/>
       <MassiveToggle
-        label={{ children: client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
-        checked={client.hasHousing}
+        label={{ children: props.client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
+        checked={props.client.hasHousing}
         onChange={props.storeChecked}
         name='hasHousing' />
       <br/>
       <MassiveToggle
-        label={{ children: client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
-        checked={client.hasMassHealth}
+        label={{ children: props.client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
+        checked={props.client.hasMassHealth}
         onChange={props.storeChecked}
         name='hasMassHealth' />
     </wrapper>
@@ -63,7 +63,7 @@ const CurrentBenefitsStep = (props) => {
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CurrentBenefitsContent {...props} />
+          <CurrentBenefitsContent storeChecked={props.storeChecked} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

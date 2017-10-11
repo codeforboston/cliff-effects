@@ -24,15 +24,14 @@ import { limit } from '../helpers/math';
 */
 const HouseholdSizeContent = (props) => {
 
-  var client = props.pageState,
-      time   = 'previous';
+  var time   = 'previous';
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
   var ensureCurrComplex = function ( evnt, inputProps ) {
 
     var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
+    if ( !props.client[ keyOfCurr ] ) {
       props.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
 
@@ -46,7 +45,7 @@ const HouseholdSizeContent = (props) => {
   var ensureCurrChecked = function ( evnt, inputProps ) {
     
     var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
+    if ( !props.client[ keyOfCurr ] ) {
       props.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
 
@@ -71,7 +70,7 @@ const HouseholdSizeContent = (props) => {
             label={size}
             name='householdSize'
             value={size}
-            checked={client.householdSize === size}
+            checked={props.client.householdSize === size}
             onChange={props.storeComplex}
           />
         </Form.Field>)
@@ -81,7 +80,7 @@ const HouseholdSizeContent = (props) => {
         <Input
           className = {time + 'HouseholdSize'}
           onChange  = {numberChange}
-          value     = {client[ time + 'HouseholdSize' ] || 1}
+          value     = {props.client[ time + 'HouseholdSize' ] || 1}
           name      = {time + 'HouseholdSize'}
           id        = {time + 'HouseholdSize'}
           type={'number'} step={1} min={1} max={8} />
@@ -95,10 +94,10 @@ const HouseholdSizeContent = (props) => {
         <Input
           className = {time + 'Dependents'}
           onChange  = {numberChange}
-          value     = {client[ time + 'Dependents' ] || ''}
+          value     = {props.client[ time + 'Dependents' ] || ''}
           name      = {time + 'Dependents'}
           id        = {time + 'Dependents'}
-          type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1} />
+          type={'number'} step={1} min={0} max={props.client[ time + 'HouseholdSize' ] - 1} />
         <wrapper>
           <label>Number of dependents</label>
           <InlineLabelInfo>Members that are under 18, disabled, handicapped, and/or a full-time student. Cannot include the head of household, their spouse, or foster children.</InlineLabelInfo>
@@ -109,21 +108,21 @@ const HouseholdSizeContent = (props) => {
         <Input
           className = {time + 'ChildrenUnder12'}
           onChange  = {numberChange}
-          value     = {client[ time + 'ChildrenUnder12' ] || ''}
+          value     = {props.client[ time + 'ChildrenUnder12' ] || ''}
           name      = {time + 'ChildrenUnder12'}
           id        = {time + 'ChildrenUnder12'}
-          type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1} />
+          type={'number'} step={1} min={0} max={props.client[ time + 'HouseholdSize' ] - 1} />
         <wrapper>
           <label>Number of children under 12</label>
         </wrapper>
       </Form.Field>
 
-      <MassiveToggle id={time + 'DisabledOrElderlyHeadOrSpouse'} value={client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
+      <MassiveToggle id={time + 'DisabledOrElderlyHeadOrSpouse'} value={props.client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
         storeChecked={ensureCurrChecked}
         label={'Was the head of household or their spouse considered disabled, handicapped, or elderly (62 or older)?'} />
 
       {/** Really should be split into disabled under 12 and other disabled? */}
-      <MassiveToggle id={time + 'DisabledOrElderlyMember'} value={client[ time + 'DisabledOrElderlyMember' ]}
+      <MassiveToggle id={time + 'DisabledOrElderlyMember'} value={props.client[ time + 'DisabledOrElderlyMember' ]}
         storeChecked={ensureCurrChecked}
         label={'Was any other household member, including children, considered disabled, handicapped, or elderly (62 or older)?'} />
 
@@ -149,7 +148,7 @@ const HouseholdSizeStep = function ( props ) {
         clarifier = {'Information about the members of the household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <HouseholdSizeContent {...props}/>
+<HouseholdSizeContent storeChecked={props.storeChecked} storeComplex={props.storeComplex} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );
