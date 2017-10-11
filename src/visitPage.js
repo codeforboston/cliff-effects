@@ -1,23 +1,8 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
-import { Button, 
-        Form, 
-        Grid, 
-        Header, 
-        Segment,
-        Step, 
-        Card, 
-        Icon, 
-        Checkbox, 
-        Divider, 
-        Radio, 
-        Statistic,
-        Reveal } from 'semantic-ui-react';
+import { Grid, Step } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
- 
-// Utilities
-import { merge } from './helpers/object-manipulation.js'
 
 // Logic
 import { percentPovertyLevel, 
@@ -182,8 +167,7 @@ const AlertSidebar = (props) => {
 const Results = (props) => {
   var xRange = _.range(0, 100000, 1000);
   /** Need a new object so client's data doesn't get changed. */
-  var fakeClient = {};
-  merge( fakeClient, props.pageState );
+  var fakeClient = { ...props.pageState };
 
   var massHealthData = xRange.map(x => {
       fakeClient.annualIncome = x;
