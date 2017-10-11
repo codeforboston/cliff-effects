@@ -42,7 +42,12 @@ import { CurrentBenefitsStep } from './forms/current-benefits';
 
 const StepBar = (props) => {
   let steps = props.steps;
-
+  
+  for ( let stepi = 0; stepi < steps.length; stepi++ ) {
+      let step = steps[ stepi ];
+      step.completed = false;
+      step.active = false;
+  }
   props.completedSteps.forEach(function(element) {
     steps[element].completed = true
   }, this);
@@ -54,72 +59,60 @@ const StepBar = (props) => {
   )
 }
 
+let alertColor = (alert) => {
+    let alertColors = {
+		'good': 'green',
+		'information': 'orange',
+		'warning': 'red'
+    }
+	
+	return alertColors[alert] || '';
+}
+
+const AlertIcon = ({alert}) => {
+	let icons = {
+	  'good': 'thumbs up',
+      'information': 'info circle',
+	  'warning': 'warning sign'
+	}
+
+	return <Icon name={icons[alert] || ''} size='huge' color={alertColor(alert)} />
+ }
+ 
+ 
+const AlertDescription = ({alert, benefit}) => {
+	
+	let alertMessages = {
+		'good':  `<strong>All Good!</strong> Based on your inputs, your <strong>${benefit}</strong> benefits are safe.`,
+        'information': `<strong>FYI!</strong> You are in danger of losing your <strong>${benefit}</strong> benefits.`,
+	    'warning': `<strong>Warning!</strong> Based on your inputs, you will lose <strong>${benefit}</strong> benefits!`
+	}
+	
+	let message = alertMessages[alert] || ''
+	
+	return (
+		<Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
+            <span dangerouslySetInnerHTML={{__html: message}} />
+		</Reveal.Content>
+	);
+}
+
+
 const AlertSidebar = (props) => {
   let massHealthCard = null;
   let snapCard = null;
   let housingCard = null;
 
-  let alertIcon = (alert) => {
-    switch (alert) {
-      case 'good':
-        return(<Icon name='thumbs up' size='huge' color='green' />);
-      case 'information':
-        return(<Icon name='info circle' size='huge' color='orange' />);
-      case 'warning':
-        return(<Icon name='warning sign' size='huge' color='red' />);
-      default:
-        break;
-    }
-  }
-
-  let alertDescription = (alert, benefit) => {
-    switch (alert) {
-      case 'good':
-        return (
-          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
-            <strong>All Good!</strong> Based on your inputs, your <strong>{benefit}</strong> benefits are safe.
-          </Reveal.Content>
-        );
-      case 'information':
-        return (
-          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
-            <strong>FYI!</strong> You are in danger of losing your <strong>{benefit}</strong> benefits.
-          </Reveal.Content>
-        );
-      case 'warning':
-        return (
-          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
-            <strong>Warning!</strong> Based on your inputs, you will lose <strong>{benefit}</strong> benefits!
-          </Reveal.Content>
-        );
-      default:
-        break;
-    }
-  }
-
-  let alertColor = (alert) => {
-    switch (alert) {
-      case 'good':
-        return 'green';
-      case 'information':
-        return 'orange';
-      case 'warning':
-        return 'red';
-      default:
-        break;
-    }
-  }
-
   if (props.hasMassHealth) {
     massHealthCard = (
       <Card fluid color={alertColor(props.massHealthAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
         <Card.Content>
-          {alertIcon(props.massHealthAlert.result)}
+          <AlertIcon alert={props.massHealthAlert.result} />
           <Card.Header>
             MassHealth
           </Card.Header>
           <Reveal animated='fade' >        
-            {alertDescription(props.massHealthAlert.result,'MassHealth')}                    
+            <AlertDescription alert={props.massHealthAlert.result} benefit={'MassHealth'} />                    
             <Reveal.Content hidden as={Card.Description}>
             {props.massHealthAlert.details}           
             </Reveal.Content>
@@ -133,12 +126,12 @@ const AlertSidebar = (props) => {
     housingCard = (
       <Card fluid color={alertColor(props.housingAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
         <Card.Content>
-          {alertIcon(props.housingAlert.result)}
+          <AlertIcon alert={props.housingAlert.result} />
           <Card.Header>
             Section 8 Housing
           </Card.Header>
           <Reveal animated='fade' >        
-              {alertDescription(props.housingAlert.result,'Section 8 Housing')}                   
+              <AlertDescription alert={props.housingAlert.result} benefit={'Section 8 Housing'} />                   
             <Reveal.Content hidden as={Card.Description}>
                 {props.housingAlert.details}              
             </Reveal.Content>
@@ -152,12 +145,12 @@ const AlertSidebar = (props) => {
     snapCard = (
       <Card fluid color={alertColor(props.snapAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
         <Card.Content>
-          {alertIcon(props.snapAlert.result)}
+          <AlertIcon alert={props.snapAlert.result} />
           <Card.Header>
             SNAP
           </Card.Header>
           <Reveal animated='fade' >        
-            {alertDescription(props.snapAlert.result,'SNAP')}                   
+            <AlertDescription alert={props.snapAlert.result} benefit={'SNAP'} />                   
             <Reveal.Content hidden as={Card.Description}>
               {props.snapAlert.details}            
             </Reveal.Content>
@@ -461,15 +454,6 @@ class VisitPage extends Component {
   };
 
   render() {
-
-    // Why are we resetting these values each time? Especially `.completed`
-    const steps = this.steps;
-    for ( let stepi = 0; stepi < steps.length; stepi++ ) {
-      let step = steps[ stepi ];
-      step.completed = false;
-      step.active = false;
-    }
-
     return (
       <div className='forms-container'>
         <Prompt
@@ -485,7 +469,7 @@ class VisitPage extends Component {
         >
           <Grid.Row>
             <Grid.Column width = {16}>
-              <StepBar currentStep={this.state.currentStep} steps={steps} completedSteps={this.state.completedSteps} />
+              <StepBar currentStep={this.state.currentStep} steps={this.steps} completedSteps={this.state.completedSteps} />
             </Grid.Column>
           </Grid.Row>         
           <Grid.Row>
