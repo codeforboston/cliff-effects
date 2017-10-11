@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Step } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
-import { Line } from 'react-chartjs-2';
 
 // Logic
-import { percentPovertyLevel, 
-        percentStateMedianIncome } from './helpers/helperFunctions';
 import { getSnapEligibility } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
@@ -30,7 +27,7 @@ const StepBar = ({ steps, currentStep }) => {
   for ( let stepi = 0; stepi < steps.length; stepi++ ) {
       let step = steps[ stepi ];
 	  step.completed = (stepi < currentStep);
-      step.active = (stepi == currentStep - 1);
+      step.active = (stepi === currentStep - 1);
   }
 
   return (<Step.Group size='mini' ordered items={steps} />)
@@ -71,7 +68,7 @@ class VisitPage extends Component {
         previousUnearnedIncomeMonthly: 0,
         currentEarnedIncomeMonthly: 0,
         currentUnearnedIncomeMonthly: 0,
-        clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
+        clientInfo: clientList.filter(client => client.clientId === this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId
     };  // end this.state {}
 

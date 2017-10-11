@@ -34,23 +34,13 @@ import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
 * 
 * @returns Component
 */
-class BottomButton extends Component {
-
-  constructor ( props ) { super( props ); }
-
-  render () {
-
-    return (
+const BottomButton = (props) => (
       <Grid.Column className='large-bottom-button' width={3}>
-        <Button color='teal' fluid size='large' onClick={this.props.func}>
-          { this.props.children }
+        <Button color='teal' fluid size='large' onClick={props.func}>
+          { props.children }
         </Button>
       </Grid.Column>
-    );
-
-  }  // End render()
-
-};  // End BottomButton() Component
+    );  //End BottomButton() Component
 
 
 /** The row containing the 'Previous' and 'Next' buttons at the
@@ -73,15 +63,7 @@ class BottomButton extends Component {
 * 
 * @returns Component
 */
-class BottomButtons extends Component {
-
-  constructor ( props ) { super( props ); }
-
-  render () {
-
-    var props = this.props;
-
-    return (
+const BottomButtons = (props) => (
       <Grid textAlign='center' verticalAlign='middle'>
         <Grid.Row>
           { !props.left
@@ -96,11 +78,7 @@ class BottomButtons extends Component {
           }
         </Grid.Row>
       </Grid>
-    );
-
-  }  // End render()
-
-};  // End BottomButtons() Component
+    ); // End BottomButtons() Component
 
 
 /** Constructor for all the stuff that's supposed to go inside
@@ -120,15 +98,7 @@ class BottomButtons extends Component {
 * 
 * @returns Component
 */
-class FormPartsContainer extends Component {
-
-  constructor ( props ) { super( props ); }
-
-  render () {
-
-    var props = this.props;
-
-    return (
+const FormPartsContainer = (props) =>  (
       <Segment padded='very' style={{ minHeight: '600px' }}>
         <Segment style={{ minHeight: '500px' }} basic={true}>
           <Header as='h1' color='teal' textAlign='center'>
@@ -148,11 +118,7 @@ class FormPartsContainer extends Component {
         <BottomButtons left={props.left} right={props.right} next={props.next} prev={props.prev} />
         
       </Segment>
-    );
-
-  }  // End render()
-
-};  // End FormPartsContainer() Component
+    ); // End FormPartsContainer() Component
 
 
 /** Toggle with size='massive'
@@ -438,12 +404,8 @@ const CashFlowRow = function ( props ) {
 
   var lefter  = { width: '7em', marginRight: '.2em' },
       righter = { width: '7em', marginRight: '.9em' },
-      time    = props.time,
-      sharedProps = {
-        type: props.type, time: time,
-        store: props.storeComplex, generic: generic
-      };
-
+      time    = props.time
+	  
   /** baseVal
   * Get the time ('current' or 'previous') monthly value unless there is
   * none, in which case, get the previous monthly cash flow value (to

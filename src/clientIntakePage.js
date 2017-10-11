@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Button,
   Container,
   Divider,
   Grid,
@@ -11,13 +10,11 @@ import {
   Segment,
   Visibility,
   Icon,
-  Table,
   Form
 } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import FixedMenu from './fixedMenu';
 import logo from './logo.png';
-import { clientList } from './clientList';
 
 class ClientIntakePage extends Component {
 
