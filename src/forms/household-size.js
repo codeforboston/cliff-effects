@@ -57,7 +57,7 @@ const HouseholdSizeContent = (props) => {
 
   var numberChange = function ( evnt, inputProps ) {
     var val = limit( inputProps.value, { min: inputProps.min, max: inputProps.max } );
-    ensureCurrComplex( evnt, {name: inputProps.id, id: inputProps.id, value: val} );
+    ensureCurrComplex( evnt, {name: inputProps.name, value: val} );
   };
 
 
@@ -82,7 +82,6 @@ const HouseholdSizeContent = (props) => {
           onChange  = {numberChange}
           value     = {props.client[ time + 'HouseholdSize' ] || 1}
           name      = {time + 'HouseholdSize'}
-          id        = {time + 'HouseholdSize'}
           type={'number'} step={1} min={1} max={8} />
         <wrapper>
           <label>Number of members in the household</label>

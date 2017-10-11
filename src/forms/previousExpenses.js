@@ -139,8 +139,8 @@ const Housing = function ( props ) {
           { !client[ time + 'PaidUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle id={ time + 'ClimateControl' } value={ climate } storeChecked={ storeChecked }
-                label={'Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months prior to the previous benefit assessment?'}/>
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ storeChecked }
+                label='Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months prior to the previous benefit assessment?' />
               <MassiveToggle id={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ storeChecked }
                 label='Did the household pay for electricity for non-heating purposes?' />
               <MassiveToggle id={ time + 'Phone' } value={ phone } storeChecked={ storeChecked }
