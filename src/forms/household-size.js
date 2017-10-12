@@ -32,7 +32,7 @@ const HouseholdSizeContent = (props) => {
   /** Makes sure values are propagated to 'current' properties if needed */
   var ensureCurrComplex = function ( evnt, inputProps ) {
 
-    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
       origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
@@ -46,7 +46,7 @@ const HouseholdSizeContent = (props) => {
   /** Makes sure values are propagated to 'current' properties if needed */
   var ensureCurrChecked = function ( evnt, inputProps ) {
     
-    var keyOfCurr = inputProps.id.replace( 'previous', 'current' );
+    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
       origin.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
@@ -59,7 +59,7 @@ const HouseholdSizeContent = (props) => {
 
   var numberChange = function ( evnt, inputProps ) {
     var val = limit( inputProps.value, { min: inputProps.min, max: inputProps.max } );
-    ensureCurrComplex( evnt, {name: inputProps.id, id: inputProps.id, value: val} );
+    ensureCurrComplex( evnt, {name: inputProps.name, value: val} );
   };
 
 
@@ -84,7 +84,6 @@ const HouseholdSizeContent = (props) => {
           onChange  = {numberChange}
           value     = {client[ time + 'HouseholdSize' ] || 1}
           name      = {time + 'HouseholdSize'}
-          id        = {time + 'HouseholdSize'}
           type={'number'} step={1} min={1} max={8} />
         <wrapper>
           <label>Number of members in the household</label>
@@ -98,7 +97,6 @@ const HouseholdSizeContent = (props) => {
           onChange  = {numberChange}
           value     = {client[ time + 'Dependents' ] || ''}
           name      = {time + 'Dependents'}
-          id        = {time + 'Dependents'}
           type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1} />
         <wrapper>
           <label>Number of dependents</label>
@@ -112,19 +110,18 @@ const HouseholdSizeContent = (props) => {
           onChange  = {numberChange}
           value     = {client[ time + 'ChildrenUnder12' ] || ''}
           name      = {time + 'ChildrenUnder12'}
-          id        = {time + 'ChildrenUnder12'}
           type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1} />
         <wrapper>
           <label>Number of children under 12</label>
         </wrapper>
       </Form.Field>
 
-      <MassiveToggle id={time + 'DisabledOrElderlyHeadOrSpouse'} value={client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
+      <MassiveToggle name={time + 'DisabledOrElderlyHeadOrSpouse'} value={client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
         storeChecked={ensureCurrChecked}
         label={'Was the head of household or their spouse considered disabled, handicapped, or elderly (62 or older)?'} />
 
       {/** Really should be split into disabled under 12 and other disabled? */}
-      <MassiveToggle id={time + 'DisabledOrElderlyMember'} value={client[ time + 'DisabledOrElderlyMember' ]}
+      <MassiveToggle name={time + 'DisabledOrElderlyMember'} value={client[ time + 'DisabledOrElderlyMember' ]}
         storeChecked={ensureCurrChecked}
         label={'Was any other household member, including children, considered disabled, handicapped, or elderly (62 or older)?'} />
 

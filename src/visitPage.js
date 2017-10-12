@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
-import { Button, 
-        Form, 
+import { Form, 
         Grid, 
         Header, 
         Segment,
@@ -15,9 +14,6 @@ import { Button,
         Reveal } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
- 
-// Utilities
-import { merge } from './helpers/object-manipulation.js'
 
 // Logic
 import { percentPovertyLevel, 
@@ -55,16 +51,13 @@ const StepBar = (props) => {
 
   steps[props.currentStep-1].active = true
 
-  return(
-    <Step.Group size='mini' ordered items={steps} />
-  )
+  return (<Step.Group size='mini' ordered items={steps} />)
 }
 
 const Results = (props) => {
   var xRange = _.range(0, 100000, 1000);
   /** Need a new object so client's data doesn't get changed. */
-  var fakeClient = {};
-  merge( fakeClient, props.pageState );
+  var fakeClient = { ...props.pageState };
 
   var massHealthData = xRange.map(x => {
       fakeClient.annualIncome = x;
@@ -218,7 +211,6 @@ class VisitPage extends Component {
     super(props);
     this.state = {
         currentStep: 1,
-        completedSteps: [],
         isBlocking: true,
         redirect: false,
         hasSnap: false,
@@ -254,7 +246,7 @@ class VisitPage extends Component {
     };  // end this.state {}
 
     this.steps = [
-      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, /*description: 'Choose your shipping options' (what does this mean?)*/ },
+      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
       { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
       { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
       { completed: false, active: false, title: 'Previous Expenses', form: PreviousExpensesStep },
@@ -277,11 +269,6 @@ class VisitPage extends Component {
     };
 
   };  // End constructor()
-
-  updateProps () {
-    this.stepProps.currentStep = this.state.currentStep;
-    this.stepProps.pageState   = this.state;
-  }
 
   storeChecked = (e, { name, checked }, callback) => {
     var truth = this;
@@ -313,31 +300,22 @@ class VisitPage extends Component {
   }
 
   getCurrentStep = () => {
-
-    // Apparently, the reference to the `this` created in `constructor()`
-    // doesn't stay. `this` becomes something new. Which is crazy.
-    this.updateProps();
-
-    // keep it between 1 and 8
-    var step = this.state.currentStep = Math.max( 1, Math.min( 8, this.state.currentStep ));
-    step -= 1;  // convert to 0 index
+    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
 
-    return ( <FormSection { ...this.stepProps } /> );
+    return ( <FormSection { ...this.stepProps } currentStep = {this.state.currentStep} pageState={this.state} /> );
 
   };  // End getCurrentStep()
 
   nextStep = () => {
     this.setState(prevState => ({
-      currentStep: prevState.currentStep + 1,
-      completedSteps: _.range(prevState.currentStep)
+      currentStep: prevState.currentStep + 1
     }));
   };
 
   previousStep = () => {
     this.setState(prevState => ({
-      currentStep: prevState.currentStep - 1,
-      completedSteps: _.range(prevState.currentStep-2)
+      currentStep: prevState.currentStep - 1
     }));
   };
 

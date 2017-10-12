@@ -165,8 +165,8 @@ class FormPartsContainer extends Component {
 * user input > state > value > visual feedback
 * @property {object} props.storeChecked - Function that changes page
 * state (changes the "source of truth")
-* @property {string} props.id - For the 'name' property (@todo switch
-* from name to id? Maybe the source of truth only likes names.)
+* @property {string} props.name - The key of the client property that
+* will be saved and will be used to fill in the field's value.
 * 
 * @returns Component
 */
@@ -181,8 +181,7 @@ const MassiveToggle = function ( props ) {
       label={ props.label }
       checked={ props.checked || props.value }
       onChange={ props.onChange || props.storeChecked }
-      name={ props.name || props.id }
-      id={ props.name || props.id }
+      name={ props.name || props.name }
       control={ Checkbox }
       size='massive'/>
   );
@@ -414,9 +413,8 @@ const CashFlowInput = function ( props ) {
       onChange  = { handleChange }
       value     = { props.value }
       style     = { props.style }
-      name      = { props.id }
-      id        = { props.id }
-      type = { 'number' } step = { '0.01' } min = { '0' }
+      name      = { props.name }
+      type      = { 'number' } step = { '0.01' } min = { '0' }
     />
   );
 
@@ -473,7 +471,7 @@ const CashFlowRow = function ( props ) {
         value    = { roundMoney( baseVal / 4.33 ) || '' }
         store    = { props.storeComplex }
         generic  = { generic }
-        id       = { time + generic + 'Weekly' }
+        name     = { time + generic + 'Weekly' }
         style    = { lefter }
       />
       <CashFlowInput
@@ -483,7 +481,7 @@ const CashFlowRow = function ( props ) {
         value    = { roundMoney( baseVal ) || '' }
         store    = { props.storeComplex }
         generic  = { generic }
-        id       = { time + generic + 'Monthly' }
+        name     = { time + generic + 'Monthly' }
         style    = { lefter }
       />
       <CashFlowInput
@@ -493,7 +491,7 @@ const CashFlowRow = function ( props ) {
         value    = { roundMoney( baseVal * 12 ) || '' }
         store    = { props.storeComplex }
         generic  = { generic }
-        id       = { time + generic + 'Yearly' }
+        name     = { time + generic + 'Yearly' }
         style    = { righter }
       />
       <wrapper>
