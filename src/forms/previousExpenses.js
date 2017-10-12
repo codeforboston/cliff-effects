@@ -330,7 +330,7 @@ const ExpensesFormContent = function ( props ) {
 * 
 * @returns Component
 */
-// `props` is a cloned version of the propsal props. References broken.
+// `props` is a cloned version of the original props. References broken.
 const PreviousExpensesStep = function ( props ) {
 
   return (

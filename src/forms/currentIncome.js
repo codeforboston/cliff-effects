@@ -25,11 +25,10 @@ import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 * 
 * @returns Component
 */
-const IncomeForm = function ( props ) {
+const IncomeForm = function ({ storeComplex, client }) {
 
   var time = 'current', 
-	  type = 'income',
-	  client = props.client
+	  type = 'income'
 
   var monthly     = getSimpleGrossIncomeMonthly( client, 'current' ),
       grossAnnual = monthly * 12;
@@ -45,7 +44,7 @@ const IncomeForm = function ( props ) {
       <CashFlowRow client={client}
 				  type={type} 
 				  time={time}
-				  storeComplex={props.storeComplex}
+				  storeComplex={storeComplex}
 				  generic='EarnedIncome' 
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
@@ -56,15 +55,15 @@ const IncomeForm = function ( props ) {
 
       <div style={{ textAlign: 'center' }}>
         <Header as='h4' textAlign='center'>
-          FOR A HOUSEHOLD SIZE OF <strong>{ props.pageState.householdSize }</strong>:
+          FOR A HOUSEHOLD SIZE OF <strong>{ client.householdSize }</strong>:
         </Header>
         <Statistic>
           <Statistic.Label>Federal Poverty Level Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, props.pageState.householdSize ))}%</Statistic.Value>
+          <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, client.householdSize ))}%</Statistic.Value>
         </Statistic>
         {/*<Statistic>
           <Statistic.Label>Area Median Income Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, props.pageState.householdSize ))}%</Statistic.Value>
+          <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, client.householdSize ))}%</Statistic.Value>
         </Statistic>*/}
       </div>
 
@@ -93,7 +92,7 @@ const CurrentIncomeStep = function ( props ) {
         clarifier = 'How much money does your household make now?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm {...props} client={props.pageState} />
+          <IncomeForm prevStep={props.prevStep} nextStep={props.nextStep} storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

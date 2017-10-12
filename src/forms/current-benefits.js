@@ -18,28 +18,26 @@ import {
 * 
 * @returns Component
 */
-const CurrentBenefitsContent = (props) => {
-
-  var client = props.pageState;
+const CurrentBenefitsContent = ({ client, storeChecked }) => {
 
   return (
     <wrapper className={'field-aligner'}>
       <MassiveToggle
-        label={{ children: props.client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
-        checked={props.client.hasSnap}
-        onChange={props.storeChecked}
+        label={{ children: client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
+        checked={client.hasSnap}
+        onChange={storeChecked}
         name='hasSnap' />
       <br/>
       <MassiveToggle
-        label={{ children: props.client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
-        checked={props.client.hasHousing}
-        onChange={props.storeChecked}
+        label={{ children: client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
+        checked={client.hasHousing}
+        onChange={storeChecked}
         name='hasHousing' />
       <br/>
       <MassiveToggle
-        label={{ children: props.client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
-        checked={props.client.hasMassHealth}
-        onChange={props.storeChecked}
+        label={{ children: client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
+        checked={client.hasMassHealth}
+        onChange={storeChecked}
         name='hasMassHealth' />
     </wrapper>
   );  // end return
