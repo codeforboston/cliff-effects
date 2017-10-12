@@ -27,6 +27,7 @@ import { clientList } from './clientList';
 
 // Our Components
 import SimpleMenu from './simpleMenu';
+import AlertSidebar from './alertSidebar'
 import { FormPartsContainer } from './forms/formHelpers';
 import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
@@ -36,141 +37,22 @@ import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
 
-const StepBar = ({ steps, currentStep }) => {
+const StepBar = (props) => {
+  let steps = props.steps;
   
   for ( let stepi = 0; stepi < steps.length; stepi++ ) {
       let step = steps[ stepi ];
-	  step.completed = (stepi < currentStep);
-      step.active = (stepi == currentStep - 1);
+      step.completed = false;
+      step.active = false;
   }
+  props.completedSteps.forEach(function(element) {
+    steps[element].completed = true
+  }, this);
+
+  steps[props.currentStep-1].active = true
 
   return (<Step.Group size='mini' ordered items={steps} />)
 }
-
-const AlertSidebar = (props) => {
-  let massHealthCard = null;
-  let snapCard = null;
-  let housingCard = null;
-
-  let alertIcon = (alert) => {
-    switch (alert) {
-      case 'good':
-        return(<Icon name='thumbs up' size='huge' color='green' />);
-      case 'information':
-        return(<Icon name='info circle' size='huge' color='orange' />);
-      case 'warning':
-        return(<Icon name='warning sign' size='huge' color='red' />);
-      default:
-        break;
-    }
-  }
-
-  let alertDescription = (alert, benefit) => {
-    switch (alert) {
-      case 'good':
-        return (
-          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
-            <strong>All Good!</strong> Based on your inputs, your <strong>{benefit}</strong> benefits are safe.
-          </Reveal.Content>
-        );
-      case 'information':
-        return (
-          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
-            <strong>FYI!</strong> You are in danger of losing your <strong>{benefit}</strong> benefits.
-          </Reveal.Content>
-        );
-      case 'warning':
-        return (
-          <Reveal.Content visible as={Card.Description} style={{ backgroundColor: '#ffffff' }} >
-            <strong>Warning!</strong> Based on your inputs, you will lose <strong>{benefit}</strong> benefits!
-          </Reveal.Content>
-        );
-      default:
-        break;
-    }
-  }
-
-  let alertColor = (alert) => {
-    switch (alert) {
-      case 'good':
-        return 'green';
-      case 'information':
-        return 'orange';
-      case 'warning':
-        return 'red';
-      default:
-        break;
-    }
-  }
-
-  if (props.hasMassHealth) {
-    massHealthCard = (
-      <Card fluid color={alertColor(props.massHealthAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
-        <Card.Content>
-          {alertIcon(props.massHealthAlert.result)}
-          <Card.Header>
-            MassHealth
-          </Card.Header>
-          <Reveal animated='fade' >        
-            {alertDescription(props.massHealthAlert.result,'MassHealth')}                    
-            <Reveal.Content hidden as={Card.Description}>
-            {props.massHealthAlert.details}           
-            </Reveal.Content>
-          </Reveal>
-        </Card.Content>
-    </Card>      
-    )
-  }
-  /** @todo 'hasHousing' really means 'has housing voucher'. Change name for clarity? */
-  if (props.hasHousing) {
-    housingCard = (
-      <Card fluid color={alertColor(props.housingAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
-        <Card.Content>
-          {alertIcon(props.housingAlert.result)}
-          <Card.Header>
-            Section 8 Housing
-          </Card.Header>
-          <Reveal animated='fade' >        
-              {alertDescription(props.housingAlert.result,'Section 8 Housing')}                   
-            <Reveal.Content hidden as={Card.Description}>
-                {props.housingAlert.details}              
-            </Reveal.Content>
-          </Reveal>
-        </Card.Content>
-      </Card>     
-    )
-  }
-
-  if (props.hasSnap) {
-    snapCard = (
-      <Card fluid color={alertColor(props.snapAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
-        <Card.Content>
-          {alertIcon(props.snapAlert.result)}
-          <Card.Header>
-            SNAP
-          </Card.Header>
-          <Reveal animated='fade' >        
-            {alertDescription(props.snapAlert.result,'SNAP')}                   
-            <Reveal.Content hidden as={Card.Description}>
-              {props.snapAlert.details}            
-            </Reveal.Content>
-          </Reveal>
-        </Card.Content>
-      </Card>     
-    )
-  }
-
-  return (
-    <Segment padded='very'  style={{ minHeight: '700' }}>
-      <Header as='h1'>Warnings and Alerts</Header>
-      <Card.Group>
-        {snapCard}
-        {housingCard}
-        {massHealthCard}
-      </Card.Group>
-    </Segment>
-  )
-};  // End AlertSidebar()
 
 const Results = (props) => {
   var xRange = _.range(0, 100000, 1000);
@@ -438,15 +320,6 @@ class VisitPage extends Component {
   };
 
   render() {
-
-    // Why are we resetting these values each time? Especially `.completed`
-    const steps = this.steps;
-    for ( let stepi = 0; stepi < steps.length; stepi++ ) {
-      let step = steps[ stepi ];
-      step.completed = false;
-      step.active = false;
-    }
-
     return (
       <div className='forms-container'>
         <Prompt
@@ -462,7 +335,7 @@ class VisitPage extends Component {
         >
           <Grid.Row>
             <Grid.Column width = {16}>
-              <StepBar currentStep={this.state.currentStep} steps={this.steps} />
+              <StepBar currentStep={this.state.currentStep} steps={this.steps} completedSteps={this.state.completedSteps} />
             </Grid.Column>
           </Grid.Row>         
           <Grid.Row>
