@@ -36,6 +36,7 @@ import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
+import { ConfirmInformation } from './forms/confirmInformation';
 
 const StepBar = ({ steps, currentStep }) => {
 
@@ -247,6 +248,7 @@ class VisitPage extends Component {
       { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
       { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },
       { completed: false, active: false, title: 'MassHealth', form: HealthStep },
+      { completed: false, active: false, title: 'Confirm Information', form: ConfirmInformation  },
       // { completed: false, active: false, title: 'SNAP', form: SNAPStep },
       // { completed: false, active: false, title: 'Housing', form: HousingStep },
       { completed: false, active: false, title: 'Results', form: Results }
