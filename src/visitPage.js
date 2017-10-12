@@ -37,19 +37,13 @@ import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
 
-const StepBar = (props) => {
-  let steps = props.steps;
-  
+const StepBar = ({ steps, currentStep }) => {
+
   for ( let stepi = 0; stepi < steps.length; stepi++ ) {
       let step = steps[ stepi ];
-      step.completed = false;
-      step.active = false;
+      step.completed = (stepi < currentStep);
+      step.active = (stepi === currentStep - 1);
   }
-  props.completedSteps.forEach(function(element) {
-    steps[element].completed = true
-  }, this);
-
-  steps[props.currentStep-1].active = true
 
   return (<Step.Group size='mini' ordered items={steps} />)
 }
@@ -335,7 +329,7 @@ class VisitPage extends Component {
         >
           <Grid.Row>
             <Grid.Column width = {16}>
-              <StepBar currentStep={this.state.currentStep} steps={this.steps} completedSteps={this.state.completedSteps} />
+              <StepBar currentStep={this.state.currentStep} steps={this.steps} />
             </Grid.Column>
           </Grid.Row>         
           <Grid.Row>
