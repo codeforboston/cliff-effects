@@ -41,23 +41,21 @@ import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formH
 * 
 * @returns Component
 */
-const IncomeForm = function ( props ) {
+const IncomeForm = function ({ storeComplex, client }) {
 
   var time    = 'previous',
-      type    = 'income',
-      client  = props.client;
-
+      type    = 'income'
 
   /** Makes sure values are propagated to 'current' properties if needed */
   var ensureCurrent = function ( evnt, inputProps ) {
     
     var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      props.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+      storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
 
     // Do the usual thing too
-    props.storeComplex( evnt, inputProps );
+    storeComplex( evnt, inputProps );
 
   };  // End ensureCurrent()
 
@@ -113,7 +111,7 @@ const PreviousIncomeStep = function ( props ) {
         clarifier = 'Income that you expected to collect during the 12 months following the previous assessment'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm {...props} client={props.pageState} />
+          <IncomeForm storeComplex={props.storeComplex} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

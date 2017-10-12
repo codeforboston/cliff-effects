@@ -16,15 +16,15 @@ import {
 * 
 * @returns Component
 */
-const HealthContent = (props) => {
+const HealthContent = ({ storeChecked, client }) => {
 
   return (
     <wrapper>
 
       <MassiveToggle
-        label={props.client.qualifyingConditions ? {children: 'Yes'} : {children: 'No'}}
-        checked={props.client.qualifyingConditions}
-        onChange={props.storeChecked}
+        label={client.qualifyingConditions ? {children: 'Yes'} : {children: 'No'}}
+        checked={client.qualifyingConditions}
+        onChange={storeChecked}
         name='qualifyingConditions'
       />
 

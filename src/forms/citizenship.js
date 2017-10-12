@@ -16,7 +16,7 @@ import {
 * 
 * @returns Component
 */
-const CitizenshipContent = (props) => {
+const CitizenshipContent = ({ storeComplex, client }) => {
 
   return (
     <wrapper className={'field-aligner'}>
@@ -25,8 +25,8 @@ const CitizenshipContent = (props) => {
           label='US Citizen / National'
           name='citizenshipStatus'
           value='citizen'
-          checked={props.client.citizenshipStatus === 'citizen'}
-          onChange={props.storeComplex}
+          checked={client.citizenshipStatus === 'citizen'}
+          onChange={storeComplex}
         />
       </Form.Field>
       <br/>
@@ -35,8 +35,8 @@ const CitizenshipContent = (props) => {
           label='Lawfully present immigrant / AWSS'
           name='citizenshipStatus'
           value='immigrant'
-          checked={props.client.citizenshipStatus === 'immigrant'}
-          onChange={props.storeComplex}
+          checked={client.citizenshipStatus === 'immigrant'}
+          onChange={storeComplex}
         />
       </Form.Field>
       <br/>
@@ -45,8 +45,8 @@ const CitizenshipContent = (props) => {
           label="Don't Know"
           name='citizenshipStatus'
           value='unknown'
-          checked={props.client.citizenshipStatus === 'unknown'}
-          onChange={props.storeComplex}
+          checked={client.citizenshipStatus === 'unknown'}
+          onChange={storeComplex}
         />
       </Form.Field>
     </wrapper>

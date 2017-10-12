@@ -20,10 +20,7 @@ import {
 * 
 * @returns Component
 */
-const Housing = function ( props ) {
-
-  let client        = props.pageState,
-      time          = props.time;
+const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 
   // `hasHousing` is actually whether they're in the housing voucher program
   let ownedAHome  = client[ time + 'Homeowner' ],
@@ -39,11 +36,11 @@ const Housing = function ( props ) {
     
     let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      props.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+      storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
 
     // Do the usual thing too
-    props.storeComplex( evnt, inputProps );
+    storeComplex( evnt, inputProps );
 
   };  // End ensureCurrComplex()
 
@@ -53,18 +50,18 @@ const Housing = function ( props ) {
 
 	let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      props.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
+      storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
-    props.storeChecked( evnt, inputProps );
+    storeChecked( evnt, inputProps );
 
   };  // End ensureCurrChecked()
 
 
-  let storeChecked  = ensureCurrChecked,
+  let componentStoreChecked  = ensureCurrChecked,
       sharedProps   = {
-        client: client, type: props.type, time: time,
+        client: client, type: type, time: time,
         storeComplex: ensureCurrComplex
       };
 
@@ -94,12 +91,12 @@ const Housing = function ( props ) {
       */}
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ wasHomeless } storeChecked={ storeChecked }
+      <MassiveToggle name={ time + 'Homeless' } value={ wasHomeless } storeChecked={ componentStoreChecked }
           label='Was the household homeless at the last benefit assessment?' />
       { wasHomeless
         ? null
         : <MassiveToggle name={ time + 'Homeowner' } value={ ownedAHome }
-            storeChecked={ storeChecked } label='Did the household own a home?' />
+            storeChecked={ componentStoreChecked } label='Did the household own a home?' />
       }
       { !ownedAHome
         ? null
@@ -107,7 +104,7 @@ const Housing = function ( props ) {
 
           <FormHeading>Homeowner</FormHeading>
 
-          <IntervalColumnHeadings type={ props.type }/>
+          <IntervalColumnHeadings type={ type }/>
           <CashFlowRow {...sharedProps} generic='Mortgage'> Mortgage </CashFlowRow>
           <CashFlowRow {...sharedProps} generic='HousingInsurance'> Insurance Costs </CashFlowRow>
           <CashFlowRow {...sharedProps} generic='PropertyTax'> Property Tax </CashFlowRow>
@@ -119,7 +116,7 @@ const Housing = function ( props ) {
 
           <FormHeading>Renter</FormHeading>
 
-          <IntervalColumnHeadings type={ props.type }/>
+          <IntervalColumnHeadings type={ type }/>
           { client.hasHousing
             ? <wrapper>
               <CashFlowRow {...sharedProps} generic='RentShare'> Rent Share </CashFlowRow>
@@ -134,16 +131,16 @@ const Housing = function ( props ) {
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ storeChecked }
+          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ componentStoreChecked }
             label='Did the household pay utilities seperately from the rent?' />
           { !client[ time + 'PaidUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ storeChecked }
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ componentStoreChecked }
                 label='Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months prior to the previous benefit assessment?' />
-              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ storeChecked }
+              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ componentStoreChecked }
                 label='Did the household pay for electricity for non-heating purposes?' />
-              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ storeChecked }
+              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ componentStoreChecked }
                 label='Did the household pay for its own telephone service?' />
             </wrapper>
           }
@@ -166,17 +163,17 @@ const Housing = function ( props ) {
 * 
 * @returns Component
 */
-const ExpensesFormContent = function ( props ) {
+const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
 
-  let client        = props.client,
-      storeChecked  = props.storeChecked,
-      time          = 'previous', type = 'expense';
+  //let client        = props.client,
+  //    storeChecked  = props.storeChecked,
+  let time          = 'previous', type = 'expense';
 
   let needsDisabledAssistance = client[ time + 'GettingDisabledAssistance' ]
     || client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
     || client[ time + 'DisabledOrElderlyHeadOrSpouse' ];
 
-  let sharedProps = { client: client, type: type, time: time, storeComplex: props.storeComplex };
+  let sharedProps = { client: client, type: type, time: time, storeComplex: storeComplex };
 
   /** @todo 1) Can client only enter amounts not covered by other programs
   * for childcare expenses? 2) Does money from those programs count as income?
@@ -301,7 +298,7 @@ const ExpensesFormContent = function ( props ) {
         </wrapper>
       }
 
-      <Housing {...props} time={time} type={type}/>
+      <Housing client={client} time={time} type={type} storeChecked={storeChecked} storeComplex={storeComplex} />
 
       <FormHeading>Other</FormHeading>
       <CashFlowRow {...sharedProps} generic={'OtherExpenses'}> Other Expenses </CashFlowRow>
