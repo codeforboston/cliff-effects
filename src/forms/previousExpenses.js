@@ -308,7 +308,8 @@ const ExpensesFormContent = function ( props ) {
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred). The allowance may include only the amount expected to be paid in the coming 12 months.</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...merge( {generic: 'DisabledAssistance'}, sharedProps )}> Disabled/Handicapped/Elderly assistance </CashFlowRow>
+          <CashFlowRow {...merge( {generic: 'DisabledOrElderlyMedicalCosts'}, sharedProps )}> Disabled/Elderly medical expenses </CashFlowRow>
+          <CashFlowRow {...merge( {generic: 'MembersMedicalCosts'}, sharedProps )}> Other members' medical expenses </CashFlowRow>
         </wrapper>
       }
 
