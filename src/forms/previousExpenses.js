@@ -7,7 +7,6 @@ import {
   FormPartsContainer, MassiveToggle, FormHeading, IntervalColumnHeadings, CashFlowRow
 } from './formHelpers';
 
-
 // ========================================
 // COMPONENTS
 // ========================================
