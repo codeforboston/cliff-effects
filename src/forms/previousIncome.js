@@ -1,14 +1,9 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
-import { Form, Header, Statistic, Divider } from 'semantic-ui-react';
+import React from 'react';
+import { Form, Divider } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
-
-// UTILITIES
-import { roundMoney, limit } from '../helpers/math';
-import { merge } from '../helpers/object-manipulation';
-
 
 /**
 * @todo Figure out which programs need to know which types of incomes
@@ -46,24 +41,21 @@ import { merge } from '../helpers/object-manipulation';
 * 
 * @returns Component
 */
-const IncomeForm = function ( props ) {
+const IncomeForm = function ({ storeComplex, client }) {
 
   var time    = 'previous',
-      type    = 'income',
-      client  = props.client,
-      origin  = props.props;
-
+      type    = 'income'
 
   /** Makes sure values are propagated to 'current' properties if needed */
   var ensureCurrent = function ( evnt, inputProps ) {
     
     var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+      storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
 
     // Do the usual thing too
-    origin.storeComplex( evnt, inputProps );
+    storeComplex( evnt, inputProps );
 
   };  // End ensureCurrent()
 
@@ -77,22 +69,22 @@ const IncomeForm = function ( props ) {
       <IntervalColumnHeadings type={type}/>
 
       {/* All kinds of things need to be explained. */}
-      <CashFlowRow {...merge( {generic: 'EarnedIncome',
-        labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'}, sharedProps )}>
+	  <CashFlowRow  {...sharedProps} generic='EarnedIncome' labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
-      </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'TAFDC'} )}> TAFDC </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'SSI'} )}> SSI </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'SSDI'} )}> SSDI </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'ChildSupportIn'} )}> Child support coming in </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'Unemployment'} )}> Unemployment </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'WorkersComp'} )}> Worker’s comp </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'Pension'} )}> Pension </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'SocialSecurity'} )}> Social security </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'Alimony'} )}> Alimony </CashFlowRow>
-      <CashFlowRow {...merge( sharedProps, {generic: 'OtherIncome'} )}> Other income </CashFlowRow>
+		  </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='TAFDC'> TAFDC </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='TAFDC'> TAFDC </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='SSI'> SSI </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='SSDI'> SSDI </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='ChildSupportIn'> Child support coming in </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='Unemployment'> Unemployment </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='WorkersComp'> Worker’s comp </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='Pension'> Pension </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='SocialSecurity'> Social security </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='Alimony'> Alimony </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='OtherIncome'> Other income </CashFlowRow>
       <Divider/>
-      <CashFlowRow {...merge( sharedProps, {generic: 'IncomeExclusions'} )}> Income exclusions </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='IncomeExclusions'> Income exclusions </CashFlowRow>
 
     </div>
   );  // end return
@@ -119,7 +111,7 @@ const PreviousIncomeStep = function ( props ) {
         clarifier = 'Income that you expected to collect during the 12 months following the previous assessment'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm client={props.pageState} props={props}/>
+          <IncomeForm storeComplex={props.storeComplex} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

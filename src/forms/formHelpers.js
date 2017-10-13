@@ -14,8 +14,7 @@ import {
 } from 'semantic-ui-react';
 
 // UTILITIES
-import { merge } from '../helpers/object-manipulation';
-import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
+import { roundMoney, toMonthlyAmount } from '../helpers/math';
 
 
 // ========================================
@@ -142,9 +141,7 @@ const FormPartsContainer = function(props) {
 * 
 * @returns Component
 */
-const MassiveToggle = function ( props ) {
-
-  var time = props.time || '';
+const MassiveToggle = function (props) {
 
   /** @todo Switch props.storeChecked to props.onChange everywhere */
   return (
@@ -192,17 +189,17 @@ const FormSubheading = function ( props ) {
 * 
 * @returns Component
 */
-const FormHeading = function ( props ) {
+const FormHeading = function ({ subheading, children }) {
 
-  if ( !props.children ) { return null; }
+  if ( !children ) { return null; }
 
   return (
     <wrapper className={'form-heading'} >
       <div></div> {/** div here to make sure header margin doesn\'t collapse */}
       <Header as='h3' style={{ display: 'inline-block' }}>
-        { props.children }
+        { children }
       </Header>
-      <FormSubheading>{ props.subheading }</FormSubheading>
+      <FormSubheading>{subheading}</FormSubheading>
       <br/>
     </wrapper>
   );
@@ -313,10 +310,10 @@ const InlineLabelInfo = function ( props ) {
 * 
 * @returns Component
 */
-const ColumnHeading = function ( props ) {
-  var classes = props.type + '-column header ' + props.colName;
+const ColumnHeading = function ({ type, colName, style, children }) {
+  var classes = type + '-column header ' + colName;
   return (
-    <Header as='h4' className={classes} style={props.style} color='teal'>{ props.children }</Header>
+    <Header as='h4' className={classes} style={style} color='teal'>{children}</Header>
   );
 };  // End ColumnHeading()
 
@@ -329,22 +326,22 @@ const ColumnHeading = function ( props ) {
 * 
 * @returns Component
 */
-const IntervalColumnHeadings = function ( props ) {
+const IntervalColumnHeadings = function ({ type }) {
 
   var baseStyles  = {
         marginTop: '0.7em', marginBottom: '0.7em',
         display: 'inline-block', fontSize: '14px'
       },
-      inputStyles  = merge( { width: '7em', textAlign: 'center' }, baseStyles  ),
-      lefterStyles = merge( { marginRight: '0.2em' }, inputStyles ),
-      rightStyles  = merge( { marginRight: '0.9em' }, inputStyles );
+      inputStyles  = { ...baseStyles, width: '7em', textAlign: 'center' },
+      lefterStyles = { ...inputStyles, marginRight: '0.2em' },
+      rightStyles  = { ...inputStyles, marginRight: '0.9em' };
 
   return (
     <wrapper style={{ display: 'inline-block' }}>
-      <ColumnHeading type={props.type} colName='weekly'  style={lefterStyles}>Weekly</ColumnHeading>
-      <ColumnHeading type={props.type} colName='monthly' style={lefterStyles}>Monthly</ColumnHeading>
-      <ColumnHeading type={props.type} colName='yearly'  style={rightStyles}>Yearly</ColumnHeading>
-      <ColumnHeading type={props.type} colName={props.type} style={baseStyles}>Expense Type</ColumnHeading>
+      <ColumnHeading type={type} colName='weekly'  style={lefterStyles}>Weekly</ColumnHeading>
+      <ColumnHeading type={type} colName='monthly' style={lefterStyles}>Monthly</ColumnHeading>
+      <ColumnHeading type={type} colName='yearly'  style={rightStyles}>Yearly</ColumnHeading>
+      <ColumnHeading type={type} colName={type} style={baseStyles}>Expense Type</ColumnHeading>
     </wrapper>
   );
 
@@ -362,18 +359,15 @@ const IntervalColumnHeadings = function ( props ) {
 * 
 * @returns Component
 */
-const CashFlowInput = function ( props ) {
+const CashFlowInput = function ({ interval, generic, time, type, store, value, style, id, name }) {
 
-  /**
-  * Needs: interval, generic, time, store, type, value, style, id
-  */
   var handleChange = function ( evnt, inputProps ) {
 
-    var name    = props.time + props.generic + 'Monthly',
-        monthly = toMonthlyAmount[ props.interval ]( evnt, evnt.target.value ),
+    var name    = time + generic + 'Monthly',
+        monthly = toMonthlyAmount[ interval ]( evnt, evnt.target.value ),
         obj     = { name: name , value: monthly };
 
-    props.store( evnt, obj );
+    store( evnt, obj );
 
   };  // End handleChange()
 
@@ -381,11 +375,11 @@ const CashFlowInput = function ( props ) {
 
   return (
     <Input
-      className = { props.type + ' cashflow-column ' + props.interval }
+      className = { type + ' cashflow-column ' + interval }
       onChange  = { handleChange }
-      value     = { props.value }
-      style     = { props.style }
-      name      = { props.name }
+      value     = { value }
+      style     = { style }
+      name      = { name }
       type      = { 'number' } step = { '0.01' } min = { '0' }
     />
   );
@@ -401,18 +395,10 @@ const CashFlowInput = function ( props ) {
 * 
 * @returns Component
 */
-const CashFlowRow = function ( props ) {
-  /**
-  * Needs: generic, client, store, children, labelInfo, type, time
-  */
+const CashFlowRow = function ({ generic, client, storeComplex, children, labelInfo, type, time }) {
 
   var lefter  = { width: '7em', marginRight: '.2em' },
-      righter = { width: '7em', marginRight: '.9em' },
-      time    = props.time,
-      sharedProps = {
-        type: props.type, time: time,
-        store: props.storeComplex, generic: generic
-      };
+      righter = { width: '7em', marginRight: '.9em' };
 
   /** baseVal
   * Get the time ('current' or 'previous') monthly value unless there is
@@ -425,50 +411,49 @@ const CashFlowRow = function ( props ) {
   * value. What if some of the row's values are the same and some are
   * different?
   */
-  var generic     = props.generic,
-      intervalID  = generic + 'Monthly',
-      baseVal     = props.client[ time + intervalID ];
+  var intervalID  = generic + 'Monthly',
+      baseVal     = client[ time + intervalID ];
 
-  if ( !baseVal ) { baseVal = props.client[ 'previous' + intervalID ] || ''; }
+  if ( !baseVal ) { baseVal = client[ 'previous' + intervalID ] || ''; }
 
-  // Could use `capitalizeWord()` in CashFlowInput to use `props.type`
+  // Could use `capitalizeWord()` in CashFlowInput to use `type`
   // to get id, but doesn't seem worth it at the moment.
   // Maybe put some of these in an object?
   return (
     <Form.Field inline>
       <CashFlowInput
-        type     = { props.type }
-        time     = { props.time }
+        type     = { type }
+        time     = { time }
         interval = { 'weekly' }
         value    = { roundMoney( baseVal / 4.33 ) || '' }
-        store    = { props.storeComplex }
+        store    = { storeComplex }
         generic  = { generic }
         name     = { time + generic + 'Weekly' }
         style    = { lefter }
       />
       <CashFlowInput
-        type     = { props.type }
-        time     = { props.time }
+        type     = { type }
+        time     = { time }
         interval = { 'monthly' }
         value    = { roundMoney( baseVal ) || '' }
-        store    = { props.storeComplex }
+        store    = { storeComplex }
         generic  = { generic }
         name     = { time + generic + 'Monthly' }
         style    = { lefter }
       />
       <CashFlowInput
-        type     = { props.type }
-        time     = { props.time }
+        type     = { type }
+        time     = { time }
         interval = { 'yearly' }
         value    = { roundMoney( baseVal * 12 ) || '' }
-        store    = { props.storeComplex }
+        store    = { storeComplex }
         generic  = { generic }
         name     = { time + generic + 'Yearly' }
         style    = { righter }
       />
       <wrapper>
-        <label>{ props.children }</label>
-        <InlineLabelInfo>{ props.labelInfo }</InlineLabelInfo>
+        <label>{ children }</label>
+        <InlineLabelInfo>{ labelInfo }</InlineLabelInfo>
       </wrapper>
     </Form.Field>
   );

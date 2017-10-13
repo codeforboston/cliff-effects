@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Segment } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -16,10 +16,7 @@ import {
 * 
 * @returns Component
 */
-const HealthContent = (props) => {
-
-  var origin = props.origin,
-      client = origin.pageState;
+const HealthContent = ({ storeChecked, client }) => {
 
   return (
     <wrapper>
@@ -27,7 +24,7 @@ const HealthContent = (props) => {
       <MassiveToggle
         label={client.qualifyingConditions ? {children: 'Yes'} : {children: 'No'}}
         checked={client.qualifyingConditions}
-        onChange={origin.storeChecked}
+        onChange={storeChecked}
         name='qualifyingConditions'
       />
 
@@ -62,7 +59,7 @@ const HealthStep = function ( props ) {
         clarifier = {'Do you have any of the following MassHealth qualifying conditions?'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <HealthContent origin={props}/>
+			<HealthContent storeChecked={props.storeChecked} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

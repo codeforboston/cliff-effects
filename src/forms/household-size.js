@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Form, Input, // Radio
 } from 'semantic-ui-react';
@@ -22,11 +22,9 @@ import { limit } from '../helpers/math';
 * 
 * @returns Component
 */
-const HouseholdSizeContent = (props) => {
+const HouseholdSizeContent = ({ storeChecked, storeComplex, client }) => {
 
-  var origin = props.origin,
-      client = origin.pageState,
-      time   = 'previous';
+  var time   = 'previous';
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
@@ -34,11 +32,11 @@ const HouseholdSizeContent = (props) => {
 
     var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      origin.storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+      storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
 
     // Do the usual thing too
-    origin.storeComplex( evnt, inputProps );
+    storeComplex( evnt, inputProps );
 
   };  // End ensureCurrComplex()
 
@@ -48,11 +46,11 @@ const HouseholdSizeContent = (props) => {
     
     var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
     if ( !client[ keyOfCurr ] ) {
-      origin.storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
+      storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
-    origin.storeChecked( evnt, inputProps );
+    storeChecked( evnt, inputProps );
 
   };  // End ensureCurrChecked()
 
@@ -73,7 +71,7 @@ const HouseholdSizeContent = (props) => {
             name='householdSize'
             value={size}
             checked={client.householdSize === size}
-            onChange={origin.storeComplex}
+            onChange={props.storeComplex}
           />
         </Form.Field>)
       )*/}
@@ -147,7 +145,7 @@ const HouseholdSizeStep = function ( props ) {
         clarifier = {'Information about the members of the household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <HouseholdSizeContent origin={props}/>
+			<HouseholdSizeContent storeChecked={props.storeChecked} storeComplex={props.storeComplex} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

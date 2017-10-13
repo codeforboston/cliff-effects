@@ -1,13 +1,12 @@
 // COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Header, Statistic } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 
 // UTILITIES
-import { roundMoney, limit } from '../helpers/math';
-import { merge } from '../helpers/object-manipulation';
+import { roundMoney } from '../helpers/math';
 
 // BENEFIT PROGRAM CALCULATIONS
 import { percentPovertyLevel, percentStateMedianIncome } from '../helpers/helperFunctions';
@@ -26,14 +25,10 @@ import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 * 
 * @returns Component
 */
-const IncomeForm = function ( props ) {
+const IncomeForm = function ({ storeComplex, client }) {
 
-  var time = 'current', type = 'income';
-
-  var client      = props.client,
-      otherProps  = props.props,
-      sharedProps = { client: client, type: type, time: time,
-                    storeComplex: otherProps.storeComplex };
+  var time = 'current', 
+	  type = 'income'
 
   var monthly     = getSimpleGrossIncomeMonthly( client, 'current' ),
       grossAnnual = monthly * 12;
@@ -46,8 +41,12 @@ const IncomeForm = function ( props ) {
     <div className='field-aligner two-column'>
 
       <IntervalColumnHeadings type={type}/>
-      <CashFlowRow {...merge( {generic: 'EarnedIncome',
-        labelInfo: '(Weekly income = hourly wage times average number of work hours per week)'}, sharedProps )}>
+      <CashFlowRow client={client}
+				  type={type} 
+				  time={time}
+				  storeComplex={storeComplex}
+				  generic='EarnedIncome' 
+				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
       </CashFlowRow>
 
@@ -56,15 +55,15 @@ const IncomeForm = function ( props ) {
 
       <div style={{ textAlign: 'center' }}>
         <Header as='h4' textAlign='center'>
-          FOR A HOUSEHOLD SIZE OF <strong>{ otherProps.pageState.householdSize }</strong>:
+          FOR A HOUSEHOLD SIZE OF <strong>{ client.householdSize }</strong>:
         </Header>
         <Statistic>
           <Statistic.Label>Federal Poverty Level Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
+          <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, client.householdSize ))}%</Statistic.Value>
         </Statistic>
         {/*<Statistic>
           <Statistic.Label>Area Median Income Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, otherProps.pageState.householdSize ))}%</Statistic.Value>
+          <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, client.householdSize ))}%</Statistic.Value>
         </Statistic>*/}
       </div>
 
@@ -93,7 +92,7 @@ const CurrentIncomeStep = function ( props ) {
         clarifier = 'How much money does your household make now?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm client={props.pageState} props={props}/>
+          <IncomeForm prevStep={props.prevStep} nextStep={props.nextStep} storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

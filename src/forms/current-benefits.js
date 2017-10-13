@@ -1,6 +1,6 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
-import { Form, Radio } from 'semantic-ui-react';
+import React from 'react';
+import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import {
@@ -18,29 +18,26 @@ import {
 * 
 * @returns Component
 */
-const CurrentBenefitsContent = (props) => {
-
-	var origin = props.origin,
-      client = origin.pageState;
+const CurrentBenefitsContent = ({ client, storeChecked }) => {
 
   return (
     <wrapper className={'field-aligner'}>
       <MassiveToggle
         label={{ children: client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
         checked={client.hasSnap}
-        onChange={origin.storeChecked}
+        onChange={storeChecked}
         name='hasSnap' />
       <br/>
       <MassiveToggle
         label={{ children: client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
         checked={client.hasHousing}
-        onChange={origin.storeChecked}
+        onChange={storeChecked}
         name='hasHousing' />
       <br/>
       <MassiveToggle
         label={{ children: client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
         checked={client.hasMassHealth}
-        onChange={origin.storeChecked}
+        onChange={storeChecked}
         name='hasMassHealth' />
     </wrapper>
   );  // end return
@@ -64,7 +61,7 @@ const CurrentBenefitsStep = (props) => {
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CurrentBenefitsContent origin={props}/>
+          <CurrentBenefitsContent storeChecked={props.storeChecked} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );

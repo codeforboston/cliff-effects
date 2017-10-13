@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Radio } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -16,10 +16,7 @@ import {
 * 
 * @returns Component
 */
-const CitizenshipContent = (props) => {
-
-	var origin = props.origin,
-      client = origin.pageState;
+const CitizenshipContent = ({ storeComplex, client }) => {
 
   return (
     <wrapper className={'field-aligner'}>
@@ -29,7 +26,7 @@ const CitizenshipContent = (props) => {
           name='citizenshipStatus'
           value='citizen'
           checked={client.citizenshipStatus === 'citizen'}
-          onChange={origin.storeComplex}
+          onChange={storeComplex}
         />
       </Form.Field>
       <br/>
@@ -39,7 +36,7 @@ const CitizenshipContent = (props) => {
           name='citizenshipStatus'
           value='immigrant'
           checked={client.citizenshipStatus === 'immigrant'}
-          onChange={origin.storeComplex}
+          onChange={storeComplex}
         />
       </Form.Field>
       <br/>
@@ -49,7 +46,7 @@ const CitizenshipContent = (props) => {
           name='citizenshipStatus'
           value='unknown'
           checked={client.citizenshipStatus === 'unknown'}
-          onChange={origin.storeComplex}
+          onChange={storeComplex}
         />
       </Form.Field>
     </wrapper>
@@ -75,7 +72,7 @@ const CitizenshipStep = function ( props ) {
         clarifier = {'Select your citizenship status.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CitizenshipContent origin={props}/>
+          <CitizenshipContent storeComplex={props.storeComplex} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );
