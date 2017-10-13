@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import {
   // Generic Form stuff
 	Button,
@@ -34,22 +34,14 @@ import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
 * 
 * @returns Component
 */
-class BottomButton extends Component {
-
-  constructor ( props ) { super( props ); }
-
-  render () {
-
+const BottomButton = function(props){
     return (
       <Grid.Column className='large-bottom-button' width={3}>
-        <Button color='teal' fluid size='large' onClick={this.props.func}>
-          { this.props.children }
+        <Button color='teal' fluid size='large' onClick={props.func}>
+          { props.children }
         </Button>
       </Grid.Column>
     );
-
-  }  // End render()
-
 };  // End BottomButton() Component
 
 
