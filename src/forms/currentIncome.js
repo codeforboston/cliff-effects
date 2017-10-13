@@ -92,7 +92,7 @@ const CurrentIncomeStep = function ( props ) {
         clarifier = 'How much money does your household make now?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm prevStep={props.prevStep} nextStep={props.nextStep} storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.pageState} />
+          <IncomeForm storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.pageState} />
       </FormPartsContainer>
     </Form>
   );
