@@ -62,7 +62,7 @@ const IncomeForm = function ({ storeComplex, client }) {
 
   var sharedProps = { client: client, type: type, time: time,
                       storeComplex: ensureCurrent };
-					  
+
   return (
     <div className='field-aligner two-column'>
 
