@@ -1,17 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
-import { Form, 
-        Grid, 
-        Header, 
-        Segment,
-        Step, 
-        Card, 
-        Icon, 
-        Checkbox, 
-        Divider, 
-        Radio, 
-        Statistic,
-        Reveal } from 'semantic-ui-react';
+import { Grid, Step } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 

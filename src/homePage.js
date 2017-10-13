@@ -13,7 +13,6 @@ import {
   Visibility,
   Card,
   Search,
-  Label,
   Tab,
 } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
