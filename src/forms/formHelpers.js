@@ -73,14 +73,7 @@ class BottomButton extends Component {
 * 
 * @returns Component
 */
-class BottomButtons extends Component {
-
-  constructor ( props ) { super( props ); }
-
-  render () {
-
-    var props = this.props;
-
+const BottomButtons = function(props){
     return (
       <Grid textAlign='center' verticalAlign='middle'>
         <Grid.Row>
@@ -97,9 +90,6 @@ class BottomButtons extends Component {
         </Grid.Row>
       </Grid>
     );
-
-  }  // End render()
-
 };  // End BottomButtons() Component
 
 
@@ -120,14 +110,7 @@ class BottomButtons extends Component {
 * 
 * @returns Component
 */
-class FormPartsContainer extends Component {
-
-  constructor ( props ) { super( props ); }
-
-  render () {
-
-    var props = this.props;
-
+const FormPartsContainer = function(props) {
     return (
       <Segment padded='very' style={{ minHeight: '600px' }}>
         <Segment style={{ minHeight: '500px' }} basic={true}>
@@ -149,9 +132,6 @@ class FormPartsContainer extends Component {
         
       </Segment>
     );
-
-  }  // End render()
-
 };  // End FormPartsContainer() Component
 
 
