@@ -293,7 +293,8 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred). The allowance may include only the amount expected to be paid in the coming 12 months.</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic={'DisabledAssistance'}> Disabled/Handicapped/Elderly assistance </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='DisabledOrElderlyMedicalCosts'> Disabled/Elderly medical expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='MembersMedicalCosts'> Medical expenses of other members </CashFlowRow>
         </wrapper>
       }
 
