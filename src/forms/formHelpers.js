@@ -322,7 +322,7 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 * 
 * @function
 * @param {object} props
-* @property {object} __ - explanation
+* @property {object} props.__ - explanation
 * 
 * @returns Component
 */
@@ -355,7 +355,7 @@ const IntervalColumnHeadings = function ({ type }) {
 * 
 * @function
 * @param {object} props
-* @property {object} __ - explanation
+* @property {object} props.__ - explanation
 * 
 * @returns Component
 */
@@ -391,7 +391,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 * 
 * @function
 * @param {object} props
-* @property {object} __ - explanation
+* @property {object} props.__ - explanation
 * 
 * @returns Component
 */
