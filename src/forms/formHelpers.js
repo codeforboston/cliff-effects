@@ -35,13 +35,13 @@ import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
 * @returns Component
 */
 const BottomButton = function(props){
-    return (
-      <Grid.Column className='large-bottom-button' width={3}>
-        <Button color='teal' fluid size='large' onClick={props.func}>
-          { props.children }
-        </Button>
-      </Grid.Column>
-    );
+  return (
+    <Grid.Column className='large-bottom-button' width={3}>
+      <Button color='teal' fluid size='large' onClick={props.func}>
+        { props.children }
+      </Button>
+    </Grid.Column>
+  );
 };  // End BottomButton() Component
 
 
@@ -66,22 +66,22 @@ const BottomButton = function(props){
 * @returns Component
 */
 const BottomButtons = function(props){
-    return (
-      <Grid textAlign='center' verticalAlign='middle'>
-        <Grid.Row>
-          { !props.left
-            ? <Grid.Column className='large-bottom-button' width={3}/>
-            : <BottomButton func={props.left.func}>{ props.left.name }</BottomButton>
-          }
-          <Grid.Column width={10} />
-          { !props.right
-            ? <Grid.Column className='large-bottom-button' width={3}/>
-            : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
-            
-          }
-        </Grid.Row>
-      </Grid>
-    );
+  return (
+    <Grid textAlign='center' verticalAlign='middle'>
+      <Grid.Row>
+        { !props.left
+          ? <Grid.Column className='large-bottom-button' width={3}/>
+          : <BottomButton func={props.left.func}>{ props.left.name }</BottomButton>
+        }
+        <Grid.Column width={10} />
+        { !props.right
+          ? <Grid.Column className='large-bottom-button' width={3}/>
+          : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
+          
+        }
+      </Grid.Row>
+    </Grid>
+  );
 };  // End BottomButtons() Component
 
 
@@ -103,27 +103,27 @@ const BottomButtons = function(props){
 * @returns Component
 */
 const FormPartsContainer = function(props) {
-    return (
-      <Segment padded='very' style={{ minHeight: '600px' }}>
-        <Segment style={{ minHeight: '500px' }} basic={true}>
-          <Header as='h1' color='teal' textAlign='center'>
-            { props.title }
-          </Header>
-          { !props.clarifier
-            ? null
-            : <Header as='h3' textAlign='center'>
-                { props.clarifier }
-              </Header>
-          }
+  return (
+    <Segment padded='very' style={{ minHeight: '600px' }}>
+      <Segment style={{ minHeight: '500px' }} basic={true}>
+        <Header as='h1' color='teal' textAlign='center'>
+          { props.title }
+        </Header>
+        { !props.clarifier
+          ? null
+          : <Header as='h3' textAlign='center'>
+              { props.clarifier }
+            </Header>
+        }
 
-          { props.children }
+        { props.children }
 
-        </Segment>
-        <Divider />
-        <BottomButtons left={props.left} right={props.right} next={props.next} prev={props.prev} />
-        
       </Segment>
-    );
+      <Divider />
+      <BottomButtons left={props.left} right={props.right} next={props.next} prev={props.prev} />
+      
+    </Segment>
+  );
 };  // End FormPartsContainer() Component
 
 
