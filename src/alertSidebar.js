@@ -39,76 +39,29 @@ const AlertDescription = ({alert, benefit}) => {
 	);
 }
 
-
+const BenefitCard = ({alert, benefit}) => (
+      <Card fluid color={alertColor(alert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
+        <Card.Content>
+          <AlertIcon alert={alert.result} />
+		  <Card.Header>{benefit}</Card.Header>
+          <Reveal animated='fade' >        
+            <AlertDescription alert={alert.result} benefit={benefit} />                    
+            <Reveal.Content hidden as={Card.Description}>
+            {alert.details}           
+            </Reveal.Content>
+          </Reveal>
+        </Card.Content>
+    </Card>
+)
+     
 const AlertSidebar = (props) => {
-  let massHealthCard = null;
-  let snapCard = null;
-  let housingCard = null;
-
-  if (props.hasMassHealth) {
-    massHealthCard = (
-      <Card fluid color={alertColor(props.massHealthAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
-        <Card.Content>
-          <AlertIcon alert={props.massHealthAlert.result} />
-          <Card.Header>
-            MassHealth
-          </Card.Header>
-          <Reveal animated='fade' >        
-            <AlertDescription alert={props.massHealthAlert.result} benefit={'MassHealth'} />                    
-            <Reveal.Content hidden as={Card.Description}>
-            {props.massHealthAlert.details}           
-            </Reveal.Content>
-          </Reveal>
-        </Card.Content>
-    </Card>      
-    )
-  }
-  /** @todo 'hasHousing' really means 'has housing voucher'. Change name for clarity? */
-  if (props.hasHousing) {
-    housingCard = (
-      <Card fluid color={alertColor(props.housingAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
-        <Card.Content>
-          <AlertIcon alert={props.housingAlert.result} />
-          <Card.Header>
-            Section 8 Housing
-          </Card.Header>
-          <Reveal animated='fade' >        
-              <AlertDescription alert={props.housingAlert.result} benefit={'Section 8 Housing'} />                   
-            <Reveal.Content hidden as={Card.Description}>
-                {props.housingAlert.details}              
-            </Reveal.Content>
-          </Reveal>
-        </Card.Content>
-      </Card>     
-    )
-  }
-
-  if (props.hasSnap) {
-    snapCard = (
-      <Card fluid color={alertColor(props.snapAlert.result)} style={{ minHeight:'150px', marginTop:'10px' }}>
-        <Card.Content>
-          <AlertIcon alert={props.snapAlert.result} />
-          <Card.Header>
-            SNAP
-          </Card.Header>
-          <Reveal animated='fade' >        
-            <AlertDescription alert={props.snapAlert.result} benefit={'SNAP'} />                   
-            <Reveal.Content hidden as={Card.Description}>
-              {props.snapAlert.details}            
-            </Reveal.Content>
-          </Reveal>
-        </Card.Content>
-      </Card>     
-    )
-  }
-
   return (
-    <Segment padded='very'  style={{ minHeight: '700' }}>
+    <Segment padded='very' style={{ minHeight: '700' }}>
       <Header as='h1'>Warnings and Alerts</Header>
       <Card.Group>
-        {snapCard}
-        {housingCard}
-        {massHealthCard}
+        {props.hasSnap ? <BenefitCard alert={props.snapAlert} benefit='SNAP' /> : ''}
+        {props.hasHousing ? <BenefitCard alert={props.housingAlert} benefit='Section 8 Housing' /> : ''}
+        {props.hasMassHealth ? <BenefitCard alert={props.massHealthAlert} benefit='MassHealth' /> : ''}
       </Card.Group>
     </Segment>
   )
