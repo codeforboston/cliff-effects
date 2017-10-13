@@ -59,8 +59,7 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
   };  // End ensureCurrChecked()
 
 
-  let componentStoreChecked  = ensureCurrChecked,
-      sharedProps   = {
+  let sharedProps   = {
         client: client, type: type, time: time,
         storeComplex: ensureCurrComplex
       };
@@ -91,12 +90,12 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
       */}
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ wasHomeless } storeChecked={ componentStoreChecked }
+      <MassiveToggle name={ time + 'Homeless' } value={ wasHomeless } storeChecked={ ensureCurrChecked }
           label='Was the household homeless at the last benefit assessment?' />
       { wasHomeless
         ? null
         : <MassiveToggle name={ time + 'Homeowner' } value={ ownedAHome }
-            storeChecked={ componentStoreChecked } label='Did the household own a home?' />
+            storeChecked={ ensureCurrChecked } label='Did the household own a home?' />
       }
       { !ownedAHome
         ? null
@@ -131,16 +130,16 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ componentStoreChecked }
+          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ ensureCurrChecked }
             label='Did the household pay utilities seperately from the rent?' />
           { !client[ time + 'PaidUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ componentStoreChecked }
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ ensureCurrChecked }
                 label='Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months prior to the previous benefit assessment?' />
-              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ componentStoreChecked }
+              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ ensureCurrChecked }
                 label='Did the household pay for electricity for non-heating purposes?' />
-              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ componentStoreChecked }
+              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ ensureCurrChecked }
                 label='Did the household pay for its own telephone service?' />
             </wrapper>
           }
