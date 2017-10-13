@@ -14,7 +14,7 @@ import {
 } from 'semantic-ui-react';
 
 // UTILITIES
-import { roundMoney, limit, toMonthlyAmount } from '../helpers/math';
+import { roundMoney, toMonthlyAmount } from '../helpers/math';
 
 
 // ========================================
@@ -142,8 +142,6 @@ const FormPartsContainer = function(props) {
 * @returns Component
 */
 const MassiveToggle = function (props) {
-
-  var time = props.time || '';
 
   /** @todo Switch props.storeChecked to props.onChange everywhere */
   return (
@@ -400,12 +398,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 const CashFlowRow = function ({ generic, client, storeComplex, children, labelInfo, type, time }) {
 
   var lefter  = { width: '7em', marginRight: '.2em' },
-      righter = { width: '7em', marginRight: '.9em' },
-      time    = time,
-      sharedProps = {
-        type: type, time: time,
-        store: storeComplex, generic: generic
-      };
+      righter = { width: '7em', marginRight: '.9em' };
 
   /** baseVal
   * Get the time ('current' or 'previous') monthly value unless there is
@@ -418,8 +411,7 @@ const CashFlowRow = function ({ generic, client, storeComplex, children, labelIn
   * value. What if some of the row's values are the same and some are
   * different?
   */
-  var generic     = generic,
-      intervalID  = generic + 'Monthly',
+  var intervalID  = generic + 'Monthly',
       baseVal     = client[ time + intervalID ];
 
   if ( !baseVal ) { baseVal = client[ 'previous' + intervalID ] || ''; }
