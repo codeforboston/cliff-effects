@@ -33,7 +33,7 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
-  let ensureCurrComplex = function ( evnt, inputProps ) {
+  let ensureFutureComplex = function ( evnt, inputProps ) {
     
     let keyOfCurr = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfCurr ] ) {
@@ -43,11 +43,11 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
     // Do the usual thing too
     storeComplex( evnt, inputProps );
 
-  };  // End ensureCurrComplex()
+  };  // End ensureFutureComplex()
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
-  let ensureCurrChecked = function ( evnt, inputProps ) {
+  let ensureFutureChecked = function ( evnt, inputProps ) {
 
   	let keyOfCurr = inputProps.name.replace( 'current', 'future' );
 
@@ -58,12 +58,12 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
     // Do the usual thing too
     storeChecked( evnt, inputProps );
 
-  };  // End ensureCurrChecked()
+  };  // End ensureFutureChecked()
 
 
   let sharedProps   = {
     client: client, type: type, time: time,
-    storeComplex: ensureCurrComplex
+    storeComplex: ensureFutureComplex
   };
 
 
@@ -73,12 +73,12 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } storeChecked={ ensureCurrChecked }
+      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } storeChecked={ ensureFutureChecked }
           label='Are you homeless?' />
       { isHomeless
         ? null
         : <MassiveToggle name={ time + 'Homeowner' } value={ ownsAHome }
-            storeChecked={ ensureCurrChecked } label='Do you own a home?' />
+            storeChecked={ ensureFutureChecked } label='Do you own a home?' />
       }
       { !ownsAHome
         ? null
@@ -114,16 +114,16 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ ensureCurrChecked }
+          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ ensureFutureChecked }
             label='Do you pay utilities seperately from the rent?' />
           { !client[ time + 'PaidUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ ensureCurrChecked }
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ ensureFutureChecked }
                 label='Do you pay for heating or cooling (e.g. A/C during summer), OR did you receive Fuel Assistance in the past 12 months?' />
-              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ ensureCurrChecked }
+              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ ensureFutureChecked }
                 label='Do you pay for electricity for non-heating purposes?' />
-              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ ensureCurrChecked }
+              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ ensureFutureChecked }
                 label='Do you pay for your own telephone service?' />
             </wrapper>
           }
