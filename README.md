@@ -25,8 +25,6 @@ We are working on:
 
 We use GitHub Issues to organize our work.  Here's some quick reading about [how to use issues](https://guides.github.com/features/issues/), and here's the [Cliff Effects issues board](https://github.com/codeforboston/cliff-effects/issues).
 
-Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1).
-
 
 ## Environment Setup
 
@@ -39,4 +37,15 @@ Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git
 7. Type `npm start` to automatically open a browser window and run the app in your browser in dev mode. If you make changes to a file and save it, the page will automatically update and use the new code. Would also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
 8. `Ctrl-C` to stop the app when it's running.
 
+
+## Resources
+
+### React
+
 We're building the project with [React](https://facebook.github.io/react/docs/react-api.html). The app was set up with the [Create React App CLI](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+### Git
+
+Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1). Note that we'd prefer you don't use `-f` or `--force` if possible, especially with pull requests.
+
+More familiar with git, but not as familiar with collaboration? See a possible [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow) that could help.
