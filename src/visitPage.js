@@ -17,9 +17,9 @@ import { clientList } from './clientList';
 import SimpleMenu from './simpleMenu';
 import AlertSidebar from './alertSidebar'
 import ResultsGraph from './resultsGraph';
-import { PreviousIncomeStep } from './forms/previousIncome';
-import { FutureIncomeStep } from './forms/futureIncome';
+import { CurrentIncomeStep } from './forms/currentIncome';
 import { CurrentExpensesStep } from './forms/currentExpenses';
+import { FutureIncomeStep } from './forms/futureIncome';
 import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
@@ -79,7 +79,7 @@ class VisitPage extends Component {
     this.steps = [
       { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
       { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
-      { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
+      { completed: false, active: false, title: 'Previous Income', form: CurrentIncomeStep },
       { completed: false, active: false, title: 'Previous Expenses', form: CurrentExpensesStep },
       { completed: false, active: false, title: 'Current Income', form: FutureIncomeStep },
       { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },

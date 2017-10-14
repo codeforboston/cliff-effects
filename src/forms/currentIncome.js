@@ -41,10 +41,9 @@ import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formH
 * 
 * @returns Component
 */
-const IncomeForm = function ({ storeComplex, client }) {
+const IncomeForm = function ({ client, time, storeComplex }) {
 
-  var time    = 'current',
-      type    = 'income'
+  var type = 'income';
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFuture = function ( evnt, inputProps ) {
@@ -60,8 +59,11 @@ const IncomeForm = function ({ storeComplex, client }) {
   };  // End ensureFuture()
 
 
-  var sharedProps = { client: client, type: type, time: time,
-                      storeComplex: ensureFuture };
+  var sharedProps = {
+    client: client,
+    time: time, type: type,
+    storeComplex: ensureFuture
+  };
 
   return (
     <div className='field-aligner two-column'>
@@ -101,22 +103,22 @@ const IncomeForm = function ({ storeComplex, client }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const PreviousIncomeStep = function ( props ) {
+const CurrentIncomeStep = function ( props ) {
 
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form'>
       <FormPartsContainer
-        title     = 'Previous Household Income'
-        clarifier = 'Income that you expected to collect during the 12 months following the previous assessment'
+        title     = 'Current Household Income'
+        clarifier = 'Income that you collected in the past 12 months.'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm storeComplex={props.storeComplex} client={props.pageState} />
+          <IncomeForm storeComplex={props.storeComplex} client={props.pageState} time={'current'} />
       </FormPartsContainer>
     </Form>
   );
 
-};  // End PreviousIncomeStep()
+};  // End CurrentIncomeStep()
 
 
-export { PreviousIncomeStep };
+export { CurrentIncomeStep };
