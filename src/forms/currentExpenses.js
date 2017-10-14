@@ -22,11 +22,11 @@ import {
 const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 
   // `hasHousing` is actually whether they're in the housing voucher program
-  let ownedAHome  = client[ time + 'Homeowner' ],
-      wasHomeless = client[ time + 'Homeless' ] && !client.hasHousing && !ownedAHome,
-      rented      = !wasHomeless && !ownedAHome;
+  let ownsAHome   = client[ time + 'Homeowner' ],
+      isHomeless  = client[ time + 'Homeless' ] && !client.hasHousing && !ownsAHome,
+      rented      = !isHomeless && !ownsAHome;
 
-  let utils       = client[ time + 'PaidUtilities' ],
+  let utils       = client[ time + 'PaysUtilities' ],
       climate     = client[ time + 'GotClimateControl' ],
       electricity = client[ time + 'NonHeatElectricity' ],
       phone       = client[ time + 'Phone' ];
@@ -35,7 +35,7 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureCurrComplex = function ( evnt, inputProps ) {
     
-    let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
+    let keyOfCurr = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfCurr ] ) {
       storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
@@ -49,7 +49,7 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureCurrChecked = function ( evnt, inputProps ) {
 
-  	let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
+  	let keyOfCurr = inputProps.name.replace( 'current', 'future' );
 
     if ( !client[ keyOfCurr ] ) {
       storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
@@ -73,14 +73,14 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ wasHomeless } storeChecked={ ensureCurrChecked }
-          label='Was the household homeless at the last benefit assessment?' />
-      { wasHomeless
+      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } storeChecked={ ensureCurrChecked }
+          label='Are you homeless?' />
+      { isHomeless
         ? null
-        : <MassiveToggle name={ time + 'Homeowner' } value={ ownedAHome }
-            storeChecked={ ensureCurrChecked } label='Did the household own a home?' />
+        : <MassiveToggle name={ time + 'Homeowner' } value={ ownsAHome }
+            storeChecked={ ensureCurrChecked } label='Do you own a home?' />
       }
-      { !ownedAHome
+      { !ownsAHome
         ? null
         : <wrapper>
 
@@ -115,16 +115,16 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
           <br/>
 
           <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ ensureCurrChecked }
-            label='Did the household pay utilities seperately from the rent?' />
+            label='Do you pay utilities seperately from the rent?' />
           { !client[ time + 'PaidUtilities' ]
             ? null
             : <wrapper>
               <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ ensureCurrChecked }
-                label='Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months prior to the previous benefit assessment?' />
+                label='Do you pay for heating or cooling (e.g. A/C during summer), OR did you receive Fuel Assistance in the past 12 months?' />
               <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ ensureCurrChecked }
-                label='Did the household pay for electricity for non-heating purposes?' />
+                label='Do you pay for electricity for non-heating purposes?' />
               <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ ensureCurrChecked }
-                label='Did the household pay for its own telephone service?' />
+                label='Do you pay for your own telephone service?' />
             </wrapper>
           }
         </wrapper>
@@ -146,10 +146,9 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 * 
 * @returns Component
 */
-const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
+const ExpensesFormContent = function ({ client, time, storeChecked, storeComplex }) {
 
-  let time = 'previous',
-      type = 'expense';
+  let type = 'expense';
 
   let needsDisabledAssistance = client[ time + 'GettingDisabledAssistance' ]
     || client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
@@ -180,8 +179,8 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
         </wrapper>
       }
 
-    {/** Wrapper here or else margins get added here, but not other
-    * places, making spacing hard to manage */}
+      {/** Wrapper here or else margins get added here, but not other
+      * places, making spacing hard to manage */}
       <wrapper>
         <FormHeading>Child Support</FormHeading>
         <IntervalColumnHeadings type={type}/>
@@ -220,7 +219,7 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
         ? null
         : <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
-          <div>If the head and/or spouse is elderly and/or disabled, any household medical expense expected within the 12 months following the relevant assessment is eligible.</div>
+          <div>If the head and/or spouse is elderly and/or disabled, any unreimbursed medical expenses of the last 12 months are eligible.</div>
           <div>Examples of allowable medical expenses:</div>
           <ul>
             <li>The orthodontist expenses for a child’s braces.</li>
@@ -268,17 +267,17 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const PreviousExpensesStep = function ( props ) {
+const CurrentExpensesStep = function ( props ) {
 
   return (
     <Form className = 'expense-form'>
       <FormPartsContainer
-        title     = {'Previous Household Expenses'}
-        clarifier = {'Monthly expenses that were expected to happen during the 12 months following that assessment'}
+        title     = {'Current Household Expenses'}
+        clarifier = {null}
         left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Next', func: props.nextStep}}>
-        <ExpensesFormContent {...props} client={props.pageState}
-      />
+        right     = {{name: 'Next', func: props.nextStep}}
+      >
+        <ExpensesFormContent {...props} client={props.pageState} time={'current'} />
       </FormPartsContainer>
     </Form>
   );
@@ -286,4 +285,4 @@ const PreviousExpensesStep = function ( props ) {
 };  // End PreviousExpensesStep()
 
 
-export { PreviousExpensesStep };
+export { CurrentExpensesStep };
