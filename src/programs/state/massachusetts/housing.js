@@ -42,7 +42,7 @@ const getHousingBenefit = function ( client ) {
   * var new rent share = old rent share + diff;
   * var new subsidy = contract rent - new rent share
   */
-  var prev = 'previous';
+  var prev = 'current';
 
   // Send it right back if it's missing input values
   var missingProps = propsNeeded( client, subsidyRequiredProps );
@@ -89,11 +89,11 @@ const getHousingBenefit = function ( client ) {
 */
 const getTTPs = function ( client ) {
 
-  var oldNet = getNetIncome( client, 'previous' ),
-      newNet = getNetIncome( client, 'current' );
+  var oldNet = getNetIncome( client, 'current' ),
+      newNet = getNetIncome( client, 'future' );
 
-  var oldAdj = getAdjustedIncome( client, 'previous', oldNet ),
-      newAdj = getAdjustedIncome( client, 'current', newNet );
+  var oldAdj = getAdjustedIncome( client, 'current', oldNet ),
+      newAdj = getAdjustedIncome( client, 'future', newNet );
 
   /** @todo A placeholder till we know what to do with negative values */
   oldAdj = Math.max( 0, oldAdj );
@@ -174,7 +174,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   var disAndMed = getDisabledAndMedicalAllowancesSum( client, timeframe, net )
   allowances.push( disAndMed );
   // #14
-  /** @todo Fix 'current' + etc not existing while 'previous' + etc does */
+  /** @todo Fix 'future' + etc not existing while 'current' + etc does */
   if ( client[ time + 'DisabledOrElderlyHeadOrSpouse' ] ) { allowances.push( 400/12 ); }
 
   var total = sum( allowances ),
