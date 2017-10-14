@@ -12,7 +12,7 @@ We currently have a ReactJS frontend prototype.
 
 We are working on:
 
-- *Benefits eligibility rules*: Converting rules into backend logic
+- *Benefit amount calculations*: Converting rules into backend logic
 - *Data visualization*: Experimenting with different ways of portraying "the cliff"
 - *Simplifying user experience*: Making the tool navigable by case workers
 
@@ -20,26 +20,38 @@ We are working on:
 ## How Can I Contribute?
 
 1. Familiarize yourself with the [frontend](https://codeforboston.github.io/cliff-effects/#/).
-2. Decide whether you want to work on benefits eligibility, data visualization, or user experience.
-3. If applicable, [set up your environment](#environment-setup). (Protip: it is always applicable.)
+2. Decide whether you want to work on benefit calculations, code quality, data visualization, user experience, or project management.
+3. If you plan to develop code, [set up your environment](#environment-setup).
 
 We use GitHub Issues to organize our work.  Here's some quick reading about [how to use issues](https://guides.github.com/features/issues/), and here's the [Cliff Effects issues board](https://github.com/codeforboston/cliff-effects/issues).
 
-Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1).
-
-The app was bootstrapped with the Create React App CLI. You can view the [README here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
 
 ## Environment Setup
+If you're just starting out with github, they have a [guide/tutorial](https://help.github.com/articles/fork-a-repo/) about forking and cloning.
 
-1. If you don't already have Node.js, [install it](https://nodejs.org/en/) (v6.11.1 is verified as compatible).  Check if Node is already installed with `node --version` in terminal.  Version 5.0+ are preferred.
-2. Open the node command prompt and change into the directory that you want to clone the app to.
-3. Fork this repo.
-4. Change into the new repository's directory with `cd cliff-effects`.
-5. Change to the master branch with `git checkout dev`.  *We have disabled working off `master`.*
-6. Install all necessary node packages with `npm install`. This might take a few minutes.
-7. Type `npm start` to automatically open a browser window and run the app in your browser in dev mode. If you make changes to a file and save it, the page will automatically update and use the new code. Would also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
-8. `Ctrl-C` to stop the app when it's running.
-9. Type `npm run build` to build a production version of the app.
+1. Fork this repo.
+2. Navigate to the directory where you're going to keep this code.
+3. `git clone` using the forked repo's address.
+4. Navigate into the new repository's directory with `cd cliff-effects` (on OSX you can drag and drop the folder into the terminal window).
+5. Make sure you're on the main branch with `git checkout dev`.  *Do not touch `master`.*
+6. Check your node.js version in your terminal with `node --version`. Versions >=5.0 are preferred. If you don't get a version number (it would look something like 'v6.11.1'), [install node](https://nodejs.org/en/).
+7. Install all necessary node packages with `npm install`. This might take a few minutes.
+8. Now you can try out the current UI or play with the code!
+9. To run a local version of the site so you can play around or debug your changes, type `npm start`. It will automatically open a browser window and run the code locally. If you make changes to a file and save it, the page will automatically update and use the new code. Would also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
+10. `Ctrl-C` in the terminal to stop the app when it's running.
 
-We currently have it set up to deploy automatically to GitHub pages with `npm run deploy`.
+To keep up to date with the latest changes to the `dev` branch, you'll need to use git to add a new remote branch with this repo's address. The page about [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow) includes some notes about that.
+
+If you have questions, feel free to ask.
+
+## Resources
+
+### React
+
+We're building the project with [React](https://facebook.github.io/react/docs/react-api.html). The app was set up with the [Create React App CLI](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+### Git
+
+Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1). Note that we'd prefer you don't use `-f` or `--force` if possible, especially with pull requests.
+
+More familiar with git, but not as familiar with collaboration? See a possible [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow) that could help keep things from getting messy.
