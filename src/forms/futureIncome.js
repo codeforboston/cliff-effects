@@ -30,7 +30,7 @@ const IncomeForm = function ({ client, time, storeComplex }) {
   var type        = 'income',
       monthly     = getSimpleGrossIncomeMonthly( client, time ) || 0,
       grossAnnual = monthly * 12;
-console.log(client.futureEarnedIncomeMonthly)
+
   /** 
   * As per Project Hope input, for the first prototype we're only
   * including the ability to change earned income.
