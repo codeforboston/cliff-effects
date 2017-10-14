@@ -12,7 +12,7 @@ We currently have a ReactJS frontend prototype.
 
 We are working on:
 
-- *Benefits eligibility rules*: Converting rules into backend logic
+- *Benefit amount calculations*: Converting rules into backend logic
 - *Data visualization*: Experimenting with different ways of portraying "the cliff"
 - *Simplifying user experience*: Making the tool navigable by case workers
 
@@ -20,8 +20,8 @@ We are working on:
 ## How Can I Contribute?
 
 1. Familiarize yourself with the [frontend](https://codeforboston.github.io/cliff-effects/#/).
-2. Decide whether you want to work on benefits eligibility, data visualization, or user experience.
-3. If applicable, [set up your environment](#environment-setup). (Protip: it is always applicable.)
+2. Decide whether you want to work on benefit calculations, code quality, data visualization, user experience, or project management.
+3. If applicable, [set up your environment](#environment-setup).
 
 We use GitHub Issues to organize our work.  Here's some quick reading about [how to use issues](https://guides.github.com/features/issues/), and here's the [Cliff Effects issues board](https://github.com/codeforboston/cliff-effects/issues).
 
