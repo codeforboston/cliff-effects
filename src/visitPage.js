@@ -79,9 +79,9 @@ class VisitPage extends Component {
     this.steps = [
       { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
       { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
-      { completed: false, active: false, title: 'Previous Income', form: CurrentIncomeStep },
-      { completed: false, active: false, title: 'Previous Expenses', form: CurrentExpensesStep },
-      { completed: false, active: false, title: 'Current Income', form: FutureIncomeStep },
+      { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
+      { completed: false, active: false, title: 'Current Expenses', form: CurrentExpensesStep },
+      { completed: false, active: false, title: 'Future Income', form: FutureIncomeStep },
       { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },
       { completed: false, active: false, title: 'MassHealth', form: HealthStep },
       { completed: false, active: false, title: 'Confirm Information', form: ConfirmInformation  },
