@@ -35,9 +35,9 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFutureComplex = function ( evnt, inputProps ) {
     
-    let keyOfCurr = inputProps.name.replace( 'current', 'future' );
-    if ( !client[ keyOfCurr ] ) {
-      storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+    let keyOfFuture = inputProps.name.replace( 'current', 'future' );
+    if ( !client[ keyOfFuture ] ) {
+      storeComplex( evnt, { name: keyOfFuture, value: inputProps.value } );
     }
 
     // Do the usual thing too
@@ -49,10 +49,10 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFutureChecked = function ( evnt, inputProps ) {
 
-  	let keyOfCurr = inputProps.name.replace( 'current', 'future' );
+  	let keyOfFuture = inputProps.name.replace( 'current', 'future' );
 
-    if ( !client[ keyOfCurr ] ) {
-      storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
+    if ( !client[ keyOfFuture ] ) {
+      storeChecked( evnt, { name: keyOfFuture, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
@@ -114,9 +114,9 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ ensureFutureChecked }
+          <MassiveToggle name={ time + 'PaysUtilities' } value={ utils } storeChecked={ ensureFutureChecked }
             label='Do you pay utilities seperately from the rent?' />
-          { !client[ time + 'PaidUtilities' ]
+          { !client[ time + 'PaysUtilities' ]
             ? null
             : <wrapper>
               <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ ensureFutureChecked }
