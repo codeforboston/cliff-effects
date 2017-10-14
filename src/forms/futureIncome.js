@@ -87,7 +87,7 @@ const FutureIncomeStep = function ( props ) {
     <Form className = 'income-form'>
       <FormPartsContainer
         title     = 'Future Household Income'
-        clarifier = 'How much money do you think your household could make in the future?'
+        clarifier = 'How much money would your household make in the future?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
           <IncomeForm storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.pageState} time={'future'} />
