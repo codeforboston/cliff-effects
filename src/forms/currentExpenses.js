@@ -282,7 +282,7 @@ const CurrentExpensesStep = function ( props ) {
     </Form>
   );
 
-};  // End PreviousExpensesStep()
+};  // End CurrentExpensesStep()
 
 
 export { CurrentExpensesStep };

@@ -18,7 +18,7 @@ import SimpleMenu from './simpleMenu';
 import AlertSidebar from './alertSidebar'
 import ResultsGraph from './resultsGraph';
 import { PreviousIncomeStep } from './forms/previousIncome';
-import { CurrentIncomeStep } from './forms/currentIncome';
+import { FutureIncomeStep } from './forms/futureIncome';
 import { CurrentExpensesStep } from './forms/currentExpenses';
 import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
@@ -81,7 +81,7 @@ class VisitPage extends Component {
       { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
       { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
       { completed: false, active: false, title: 'Previous Expenses', form: CurrentExpensesStep },
-      { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
+      { completed: false, active: false, title: 'Current Income', form: FutureIncomeStep },
       { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },
       { completed: false, active: false, title: 'MassHealth', form: HealthStep },
       { completed: false, active: false, title: 'Confirm Information', form: ConfirmInformation  },

@@ -25,12 +25,10 @@ import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 * 
 * @returns Component
 */
-const IncomeForm = function ({ storeComplex, client }) {
+const IncomeForm = function ({ client, time, storeComplex }) {
 
-  var time = 'current', 
-	  type = 'income'
-
-  var monthly     = getSimpleGrossIncomeMonthly( client, 'current' ),
+  var type        = 'income',
+      monthly     = getSimpleGrossIncomeMonthly( client, time ),
       grossAnnual = monthly * 12;
 
   /** 
@@ -82,22 +80,22 @@ const IncomeForm = function ({ storeComplex, client }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const CurrentIncomeStep = function ( props ) {
+const FutureIncomeStep = function ( props ) {
 
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form'>
       <FormPartsContainer
-        title     = 'Current Household Income'
-        clarifier = 'How much money does your household make now?'
+        title     = 'Future Household Income'
+        clarifier = 'How much money do you think your household could make in the future?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.pageState} />
+          <IncomeForm storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.pageState} time={'future'} />
       </FormPartsContainer>
     </Form>
   );
 
-};  // End CurrentIncomeStep() Component
+};  // End FutureIncomeStep() Component
 
 
-export { CurrentIncomeStep };
+export { FutureIncomeStep };
