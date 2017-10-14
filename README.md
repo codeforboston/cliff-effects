@@ -27,8 +27,6 @@ We use GitHub Issues to organize our work.  Here's some quick reading about [how
 
 Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1).
 
-The app was bootstrapped with the Create React App CLI. You can view the [README here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
 
 ## Environment Setup
 
@@ -43,3 +41,5 @@ The app was bootstrapped with the Create React App CLI. You can view the [README
 9. Type `npm run build` to build a production version of the app.
 
 We currently have it set up to deploy automatically to GitHub pages with `npm run deploy`.
+
+We're building the project with [React](https://facebook.github.io/react/docs/react-api.html). The app was set up with the [Create React App CLI](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
