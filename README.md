@@ -38,8 +38,5 @@ Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git
 6. Install all necessary node packages with `npm install`. This might take a few minutes.
 7. Type `npm start` to automatically open a browser window and run the app in your browser in dev mode. If you make changes to a file and save it, the page will automatically update and use the new code. Would also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
 8. `Ctrl-C` to stop the app when it's running.
-9. Type `npm run build` to build a production version of the app.
-
-We currently have it set up to deploy automatically to GitHub pages with `npm run deploy`.
 
 We're building the project with [React](https://facebook.github.io/react/docs/react-api.html). The app was set up with the [Create React App CLI](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
