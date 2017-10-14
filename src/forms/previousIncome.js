@@ -43,13 +43,13 @@ import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formH
 */
 const IncomeForm = function ({ storeComplex, client }) {
 
-  var time    = 'previous',
+  var time    = 'current',
       type    = 'income'
 
-  /** Makes sure values are propagated to 'current' properties if needed */
-  var ensureCurrent = function ( evnt, inputProps ) {
+  /** Makes sure values are propagated to 'future' properties if needed */
+  var ensureFuture = function ( evnt, inputProps ) {
     
-    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
+    var keyOfCurr = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfCurr ] ) {
       storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
     }
@@ -57,11 +57,11 @@ const IncomeForm = function ({ storeComplex, client }) {
     // Do the usual thing too
     storeComplex( evnt, inputProps );
 
-  };  // End ensureCurrent()
+  };  // End ensureFuture()
 
 
   var sharedProps = { client: client, type: type, time: time,
-                      storeComplex: ensureCurrent };
+                      storeComplex: ensureFuture };
 
   return (
     <div className='field-aligner two-column'>
