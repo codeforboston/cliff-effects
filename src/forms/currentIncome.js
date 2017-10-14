@@ -9,7 +9,7 @@ import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formH
 * @todo Figure out which programs need to know which types of incomes
 * and categorize/tag them accordingly.
 * 
-* @todo Calc and store `client.previousUnearnedIncomeMonthly`. I think
+* @todo Calc and store `client.currentUnearnedIncomeMonthly`. I think
 * we do still have to keep the other specific income soruces separate
 * as they're possibly used in other calculations.
 */
