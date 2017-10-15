@@ -42,7 +42,7 @@ const getHousingBenefit = function ( client ) {
   * var new rent share = old rent share + diff;
   * var new subsidy = contract rent - new rent share
   */
-  var prev = 'current';
+  var curr = 'current';
 
   // Send it right back if it's missing input values
   var missingProps = propsNeeded( client, subsidyRequiredProps );
@@ -55,8 +55,8 @@ const getHousingBenefit = function ( client ) {
 
   var ttps        = getTTPs( client ),
       diff        = ttps.newTTP - ttps.oldTTP,
-      newShare    = diff + toCashflow( client, prev, 'RentShare' ),
-      contrRent   = toCashflow( client, prev, 'ContractRent' );
+      newShare    = diff + toCashflow( client, curr, 'RentShare' ),
+      contrRent   = toCashflow( client, curr, 'ContractRent' );
 
   // Don't pay more rent than the landlord is asking for
   var maxShare    = Math.min( contrRent, newShare ),
