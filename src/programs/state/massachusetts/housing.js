@@ -1,6 +1,5 @@
 
 // DATA
-// import { FMRS_MA_2018 } from '../../../data/state/massachusetts/2018/FMRS_MA_2018';
 import { UNEARNED_INCOME_SOURCES } from '../../../data/state/massachusetts/name-cores';
 
 // UTILITIES
@@ -12,15 +11,9 @@ import { Result } from '../../../helpers/Result';
 
 
 /**
-* Properties client is required to have to get some kind
-* of value back. I guess none really, since at the very
-* start they won't have any properties...
+* There should be no required properties since we want results from the start
+* and everything at the start is `undefined`.
 */
-var subsidyRequiredProps = [
-// Maybe old rent share and contract rent
-// Maybe some kind of income and expenses?
-];
-
 
 /** Using old and new cash flow data, return new subsidy amount,
 * include new rent share.
@@ -43,15 +36,6 @@ const getHousingBenefit = function ( client ) {
   * var new subsidy = contract rent - new rent share
   */
   var prev = 'previous';
-
-  // Send it right back if it's missing input values
-  var missingProps = propsNeeded( client, subsidyRequiredProps );
-  if ( missingProps.length ) {
-    // Until we have some reliable way of knowing the right names for the fields:
-    var details = 'Some required form fields have\'t been filled in yet.';
-    var result = new Result( { result: 'incomplete', details: 'Form incomplete', data: { missingProps: missingProps } } );
-    return result;
-  }
 
   var ttps        = getTTPs( client ),
       diff        = ttps.newTTP - ttps.oldTTP,
@@ -238,21 +222,6 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
   // #15 contribution ( #11 + #13 )
   return hcapMin + medMin;
 };  // End getDisabledAndMedicalAllowancesSum()
-
-
-const propsNeeded = function ( client, props ) {
-
-  /** @todo Accumulate a string instead */
-  /** @todo Put in helpers/validators */
-	var missingProps = [];
-
-	for ( let propi = 0; propi < props.length; propi++ ) {
-		let key = props[ propi ];
-		if ( client[ key ] === undefined ) { missingProps.push( key ); }
-	}
-
-	return missingProps;
-};  // End propsNeeded()
 
 
 export {
