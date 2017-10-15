@@ -49,8 +49,7 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFutureChecked = function ( evnt, inputProps ) {
 
-  	let keyOfFuture = inputProps.name.replace( 'current', 'future' );
-
+    let keyOfFuture = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfFuture ] ) {
       storeChecked( evnt, { name: keyOfFuture, checked: inputProps.checked } );
     }
@@ -105,7 +104,7 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
               <CashFlowRow {...sharedProps}
                 generic='ContractRent'
                 labeInfo='The full amount the landord would charge without a Section 8 voucher'>
-				          Contract Rent
+                  Contract Rent
               </CashFlowRow>
             </wrapper>
             : <CashFlowRow {...sharedProps} generic='Rent'> Rent </CashFlowRow>

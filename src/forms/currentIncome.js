@@ -61,7 +61,8 @@ const IncomeForm = function ({ client, time, storeComplex }) {
 
   var sharedProps = {
     client: client,
-    time: time, type: type,
+    time: time,
+    type: type,
     storeComplex: ensureFuture
   };
 
