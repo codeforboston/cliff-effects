@@ -9,11 +9,13 @@ import { sum } from '../../../helpers/math';
 // TO RETURN
 import { Result } from '../../../helpers/Result';
 
-
 /**
-* There should be no required properties since we want results from the start
-* and everything at the start is `undefined`.
+* Properties `client` object is required to have to get a valid
+* result. This doesn't mean the user filled in all the data, just
+* that the object passed into here contains everything needed in the
+* form that it's needed.
 */
+var subsidyRequiredProps = [];
 
 /** Using old and new cash flow data, return new subsidy amount,
 * include new rent share.
