@@ -17,9 +17,9 @@ import { clientList } from './clientList';
 import SimpleMenu from './simpleMenu';
 import AlertSidebar from './alertSidebar'
 import ResultsGraph from './resultsGraph';
-import { PreviousIncomeStep } from './forms/previousIncome';
 import { CurrentIncomeStep } from './forms/currentIncome';
-import { PreviousExpensesStep } from './forms/previousExpenses';
+import { CurrentExpensesStep } from './forms/currentExpenses';
+import { FutureIncomeStep } from './forms/futureIncome';
 import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
@@ -55,23 +55,23 @@ class VisitPage extends Component {
         citizenshipStatus:'citizen',
         qualifyingConditions: false,       
         numberOfBedrooms: 0,
-        previousHomeless: false,
-        previousHomeowner: false,
+        currentHomeless: false,
+        currentHomeowner: false,
         areaOfResidence: 'Boston city',
-        previousEarnedIncomeMonthly: 0,
-        previousTAFDCMonthly: 0,
-        previousSSIMonthly: 0,
-        previousSSDIMonthly: 0,
-        previousChildSupportInMonthly: 0,
-        previousUnemploymentMonthly: 0,
-        previousWorkersCompMonthly: 0,
-        previousPensionMonthly: 0,
-        previousSocialSecurityMonthly: 0,
-        previousAlimonyMonthly: 0,
-        previousOtherIncomeMonthly: 0,
-        previousUnearnedIncomeMonthly: 0,
         currentEarnedIncomeMonthly: 0,
+        currentTAFDCMonthly: 0,
+        currentSSIMonthly: 0,
+        currentSSDIMonthly: 0,
+        currentChildSupportInMonthly: 0,
+        currentUnemploymentMonthly: 0,
+        currentWorkersCompMonthly: 0,
+        currentPensionMonthly: 0,
+        currentSocialSecurityMonthly: 0,
+        currentAlimonyMonthly: 0,
+        currentOtherIncomeMonthly: 0,
         currentUnearnedIncomeMonthly: 0,
+        futureEarnedIncomeMonthly: 0,
+        futureUnearnedIncomeMonthly: 0,
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
         visitId: this.props.match.params.visitId
     };  // end this.state {}
@@ -79,9 +79,9 @@ class VisitPage extends Component {
     this.steps = [
       { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
       { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
-      { completed: false, active: false, title: 'Previous Income', form: PreviousIncomeStep },
-      { completed: false, active: false, title: 'Previous Expenses', form: PreviousExpensesStep },
       { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
+      { completed: false, active: false, title: 'Current Expenses', form: CurrentExpensesStep },
+      { completed: false, active: false, title: 'Future Income', form: FutureIncomeStep },
       { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },
       { completed: false, active: false, title: 'MassHealth', form: HealthStep },
       { completed: false, active: false, title: 'Confirm Information', form: ConfirmInformation  },

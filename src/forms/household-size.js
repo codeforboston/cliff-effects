@@ -22,59 +22,44 @@ import { limit } from '../helpers/math';
 * 
 * @returns Component
 */
-const HouseholdSizeContent = ({ storeChecked, storeComplex, client }) => {
+const HouseholdSizeContent = ({ client, time, storeChecked, storeComplex }) => {
 
-  var time   = 'previous';
+  /** Makes sure values are propagated to 'future' properties if needed */
+  var ensureFutureComplex = function ( evnt, inputProps ) {
 
-
-  /** Makes sure values are propagated to 'current' properties if needed */
-  var ensureCurrComplex = function ( evnt, inputProps ) {
-
-    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
-      storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+    var keyOfFuture = inputProps.name.replace( 'current', 'future' );
+    if ( !client[ keyOfFuture ] ) {
+      storeComplex( evnt, { name: keyOfFuture, value: inputProps.value } );
     }
 
     // Do the usual thing too
     storeComplex( evnt, inputProps );
 
-  };  // End ensureCurrComplex()
+  };  // End ensureFutureComplex()
 
 
-  /** Makes sure values are propagated to 'current' properties if needed */
-  var ensureCurrChecked = function ( evnt, inputProps ) {
+  /** Makes sure values are propagated to 'future' properties if needed */
+  var ensureFutureChecked = function ( evnt, inputProps ) {
     
-    var keyOfCurr = inputProps.name.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
-      storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
+    var keyOfFuture = inputProps.name.replace( 'current', 'future' );
+    if ( !client[ keyOfFuture ] ) {
+      storeChecked( evnt, { name: keyOfFuture, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
     storeChecked( evnt, inputProps );
 
-  };  // End ensureCurrChecked()
+  };  // End ensureFutureChecked()
 
 
   var numberChange = function ( evnt, inputProps ) {
     var val = limit( inputProps.value, { min: inputProps.min, max: inputProps.max } );
-    ensureCurrComplex( evnt, {name: inputProps.name, value: val} );
+    ensureFutureComplex( evnt, {name: inputProps.name, value: val} );
   };
 
 
   return (      
     <wrapper className={'field-aligner'}>
-
-      {/*[1,2,3,4,5,6,7,8].map(size =>
-        (<Form.Field key={size.toString()}>
-          <Radio
-            label={size}
-            name='householdSize'
-            value={size}
-            checked={client.householdSize === size}
-            onChange={props.storeComplex}
-          />
-        </Form.Field>)
-      )*/}
 
       <Form.Field inline>
         <Input
@@ -115,13 +100,13 @@ const HouseholdSizeContent = ({ storeChecked, storeComplex, client }) => {
       </Form.Field>
 
       <MassiveToggle name={time + 'DisabledOrElderlyHeadOrSpouse'} value={client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
-        storeChecked={ensureCurrChecked}
-        label={'Was the head of household or their spouse considered disabled, handicapped, or elderly (62 or older)?'} />
+        storeChecked={ensureFutureChecked}
+        label={'Is the head of household or their spouse considered disabled, handicapped, or elderly (62 or older)?'} />
 
       {/** Really should be split into disabled under 12 and other disabled? */}
       <MassiveToggle name={time + 'DisabledOrElderlyMember'} value={client[ time + 'DisabledOrElderlyMember' ]}
-        storeChecked={ensureCurrChecked}
-        label={'Was any other household member, including children, considered disabled, handicapped, or elderly (62 or older)?'} />
+        storeChecked={ensureFutureChecked}
+        label={'Are any other household members, including children, considered disabled, handicapped, or elderly (62 or older)?'} />
 
     </wrapper>
   )
@@ -139,13 +124,13 @@ const HouseholdSizeContent = ({ storeChecked, storeComplex, client }) => {
 const HouseholdSizeStep = function ( props ) {
 
   return (
-    <Form className='previous-household-size-form'>
+    <Form className='current-household-size-form'>
       <FormPartsContainer
         title     = {'Household'}
         clarifier = {'Information about the members of the household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-			<HouseholdSizeContent storeChecked={props.storeChecked} storeComplex={props.storeComplex} client={props.pageState} />
+			<HouseholdSizeContent storeChecked={props.storeChecked} storeComplex={props.storeComplex} client={props.pageState} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

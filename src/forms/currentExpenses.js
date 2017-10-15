@@ -22,81 +22,64 @@ import {
 const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 
   // `hasHousing` is actually whether they're in the housing voucher program
-  let ownedAHome  = client[ time + 'Homeowner' ],
-      wasHomeless = client[ time + 'Homeless' ] && !client.hasHousing && !ownedAHome,
-      rented      = !wasHomeless && !ownedAHome;
+  let ownsAHome   = client[ time + 'Homeowner' ],
+      isHomeless  = client[ time + 'Homeless' ] && !client.hasHousing && !ownsAHome,
+      rented      = !isHomeless && !ownsAHome;
 
-  let utils = client[ time + 'PaidUtilities' ], climate = client[ time + 'GotClimateControl' ],
-      electricity = client[ time + 'NonHeatElectricity' ], phone = client[ time + 'Phone' ];
+  let utils       = client[ time + 'PaysUtilities' ],
+      climate     = client[ time + 'GotClimateControl' ],
+      electricity = client[ time + 'NonHeatElectricity' ],
+      phone       = client[ time + 'Phone' ];
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
-  let ensureCurrComplex = function ( evnt, inputProps ) {
+  let ensureFutureComplex = function ( evnt, inputProps ) {
     
-    let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
-      storeComplex( evnt, { name: keyOfCurr, value: inputProps.value } );
+    let keyOfFuture = inputProps.name.replace( 'current', 'future' );
+    if ( !client[ keyOfFuture ] ) {
+      storeComplex( evnt, { name: keyOfFuture, value: inputProps.value } );
     }
 
     // Do the usual thing too
     storeComplex( evnt, inputProps );
 
-  };  // End ensureCurrComplex()
+  };  // End ensureFutureComplex()
 
 
   /** Makes sure values are propagated to 'current' properties if needed */
-  let ensureCurrChecked = function ( evnt, inputProps ) {
+  let ensureFutureChecked = function ( evnt, inputProps ) {
 
-	let keyOfCurr = inputProps.name.replace( 'previous', 'current' );
-    if ( !client[ keyOfCurr ] ) {
-      storeChecked( evnt, { name: keyOfCurr, checked: inputProps.checked } );
+    let keyOfFuture = inputProps.name.replace( 'current', 'future' );
+    if ( !client[ keyOfFuture ] ) {
+      storeChecked( evnt, { name: keyOfFuture, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
     storeChecked( evnt, inputProps );
 
-  };  // End ensureCurrChecked()
+  };  // End ensureFutureChecked()
 
 
   let sharedProps   = {
-        client: client, type: type, time: time,
-        storeComplex: ensureCurrComplex
-      };
+    client: client, type: type, time: time,
+    storeComplex: ensureFutureComplex
+  };
 
 
   /** @todo Owning a home vs. rented vs. homeless should probably be radio buttons */
   return (
     <wrapper>
-      
-      {/** 
-      - Shelter
-      Was the household homeless?
-      [If not homeless]
-      Did the household own a home?
-      [If owned a home]
-      Mortgage
-      Insurance
-      Property Tax
-      [If didn't own a home]
-      ~~How many bedrooms does the unit have (for a studio apartment, put 0)~~
-      Contract rent (the full amount the landord would charge without a subsidy)
-      Rent share
-      Did the household pay utilities?
-      [If paid utilities]
-      Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months previous to the relevant asseessment?
-      Does the household pay for electricity for non-heating purposes?
-      Does the household pay for its own telephone service?
-      */}
+
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ wasHomeless } storeChecked={ ensureCurrChecked }
-          label='Was the household homeless at the last benefit assessment?' />
-      { wasHomeless
+      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } storeChecked={ ensureFutureChecked }
+          label='Are you homeless?' />
+      { isHomeless
         ? null
-        : <MassiveToggle name={ time + 'Homeowner' } value={ ownedAHome }
-            storeChecked={ ensureCurrChecked } label='Did the household own a home?' />
+        : <MassiveToggle name={ time + 'Homeowner' } value={ ownsAHome }
+            storeChecked={ ensureFutureChecked } label='Do you own a home?' />
       }
-      { !ownedAHome
+      { !ownsAHome
         ? null
         : <wrapper>
 
@@ -121,7 +104,8 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
               <CashFlowRow {...sharedProps}
                 generic='ContractRent'
                 labeInfo='The full amount the landord would charge without a Section 8 voucher'>
-				Contract Rent </CashFlowRow>
+                  Contract Rent
+              </CashFlowRow>
             </wrapper>
             : <CashFlowRow {...sharedProps} generic='Rent'> Rent </CashFlowRow>
           }
@@ -129,17 +113,17 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle name={ time + 'PaidUtilities' } value={ utils } storeChecked={ ensureCurrChecked }
-            label='Did the household pay utilities seperately from the rent?' />
-          { !client[ time + 'PaidUtilities' ]
+          <MassiveToggle name={ time + 'PaysUtilities' } value={ utils } storeChecked={ ensureFutureChecked }
+            label='Do you pay utilities seperately from the rent?' />
+          { !client[ time + 'PaysUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ ensureCurrChecked }
-                label='Did the household pay for heating or cooling (e.g. A/C during summer), OR did they receive Fuel Assistance in the 12 months prior to the previous benefit assessment?' />
-              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ ensureCurrChecked }
-                label='Did the household pay for electricity for non-heating purposes?' />
-              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ ensureCurrChecked }
-                label='Did the household pay for its own telephone service?' />
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } storeChecked={ ensureFutureChecked }
+                label='Do you pay for heating or cooling (e.g. A/C during summer), OR did you receive Fuel Assistance in the past 12 months?' />
+              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } storeChecked={ ensureFutureChecked }
+                label='Do you pay for electricity for non-heating purposes?' />
+              <MassiveToggle name={ time + 'Phone' } value={ phone } storeChecked={ ensureFutureChecked }
+                label='Do you pay for your own telephone service?' />
             </wrapper>
           }
         </wrapper>
@@ -161,11 +145,9 @@ const Housing = function ({ client, type, time, storeComplex, storeChecked }) {
 * 
 * @returns Component
 */
-const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
+const ExpensesFormContent = function ({ client, time, storeChecked, storeComplex }) {
 
-  //let client        = props.client,
-  //    storeChecked  = props.storeChecked,
-  let time          = 'previous', type = 'expense';
+  let type = 'expense';
 
   let needsDisabledAssistance = client[ time + 'GettingDisabledAssistance' ]
     || client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
@@ -182,15 +164,6 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
   return (
     <wrapper className='field-aligner two-column'>
 
-      {/** 
-      - Reasonable Unreimbursed Non-Medical Child(ren) Care
-      A "child" is a person 12 or younger (under 13?). Don't include amounts that are paid for by other benefit programs. Don't include medical or handicapped assistance costs. "Reasonable" is what your housing agency would consider reasonable. This tool doesn't know that amount and will have to use the amount you put in here.
-      Direct Care Costs
-      Before- and After-School Care
-      Transportation Costs (to and from non-medical destinations)
-      Other Care
-      Income made possible by care expenses (income from one individual as determined by the housing agency, usually the one with the lowest income)
-      */}
       { !(client[ time + 'ChildrenUnder12' ] > 0)
         ? null
         : <wrapper>
@@ -205,21 +178,14 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
         </wrapper>
       }
 
-    {/** Wrapper here or else margins get added here, but not other
-    * places, making spacing hard to manage */}
+      {/** Wrapper here or else margins get added here, but not other
+      * places, making spacing hard to manage */}
       <wrapper>
         <FormHeading>Child Support</FormHeading>
         <IntervalColumnHeadings type={type}/>
         <CashFlowRow {...sharedProps} generic={'ChildSupportPaidOut'}> LEGALLY OBLIGATED Child support paid out </CashFlowRow>
       </wrapper>
 
-      {/** 
-      - Unreimbursed Non-Medical Adult Dependent Care
-      A adult dependent is a person older than 12 and either disabled or 62 or older. Don't include medical or handicapped assistance costs.
-      Direct Care Costs
-      Transportation Costs (to and from non-medical destinations)
-      Other Care
-      */}
       { !client[ time + 'DisabledOrElderlyMember' ]
         ? null
         : <wrapper>
@@ -232,15 +198,6 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
         </wrapper>
       }
 
-      {/** 
-      - Unreimbursed Disabled/Handicapped/Elderly Assistance
-      "Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work."
-      "Examples of eligible disability assistance expenses:
-      * The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.
-      * Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance."
-      Disabled/Handicapped assistance expenses
-      Income made possible by assistance expenses (income from one individual as determined by the housing agency, usually the one with the lowest income)
-      */}
       { !client[ time + 'DisabledOrElderlyHeadOrSpouse' ] && !client[ time + 'DisabledOrElderlyMember' ]
         ? null
         : <wrapper>
@@ -257,28 +214,11 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
         </wrapper>
       }
 
-      {/** 
-      - Unreimbursed Medical Expenses (if DisabledOrElderlyHeadOrSpouse)
-      If the head and/or spouse is elderly and/or disabled, any household medical expense expected within the 12 months following the relevant assessment is eligible.
-      "Examples of allowable medical expenses:
-      * The orthodontist expenses for a child’s braces.
-      * Services of doctors and health care professionals.
-      * Services of health care facilities.
-      * Medical insurance premiums. 
-      * Prescription/non-prescription medicines (prescribed by a physician).
-      * Transportation to treatment (cab fare, bus fare, mileage).
-      * Dental expenses, eyeglasses, hearing aids, batteries.
-      * Live-in or periodic medical assistance.
-      * Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred). The allowance may include only the amount expected to be paid in the coming 12 months.
-      "
-      Disabled or elderly members' unreimbursed medical expenses
-      Other members' unreimbursed medical expenses [code: check if there are other members]
-      */}
       { !client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
         ? null
         : <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
-          <div>If the head and/or spouse is elderly and/or disabled, any household medical expense expected within the 12 months following the relevant assessment is eligible.</div>
+          <div>If the head and/or spouse is elderly and/or disabled, any unreimbursed medical expenses of the last 12 months are eligible.</div>
           <div>Examples of allowable medical expenses:</div>
           <ul>
             <li>The orthodontist expenses for a child’s braces.</li>
@@ -307,11 +247,10 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
 
 };  // End ExpensesFormContent()
 
-// 'previous' to 'was'? 'current' to 'is'? Not always
-
 /**
-* @todo Does a medical assistant's payments count as a medical expense?
-* @todo Medical expense only matters if household has elder/disabled, but
+* @todo SNAP: Does a medical assistant's payments count as a medical expense?
+* (Answer: Yes. https://www.mass.gov/service-details/snap-verifications)
+* @todo SNAP: Medical expense only matters if household has elder/disabled, but
 * are they any medical expenses or only those of the disabled person? "Medical
 * Expenses for Disabled or Elderly". Also, do they sometimes need to
 * enter medical expenses even if they don't have an elderly or disabled
@@ -327,21 +266,22 @@ const ExpensesFormContent = function ({ client, storeChecked, storeComplex }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const PreviousExpensesStep = function ( props ) {
+const CurrentExpensesStep = function ( props ) {
 
   return (
     <Form className = 'expense-form'>
       <FormPartsContainer
-        title     = {'Previous Household Expenses'}
-        clarifier = {'Monthly expenses that were expected to happen during the 12 months following that assessment'}
+        title     = {'Current Household Expenses'}
+        clarifier = {null}
         left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Next', func: props.nextStep}}>
-        <ExpensesFormContent {...props} client={props.pageState} />
+        right     = {{name: 'Next', func: props.nextStep}}
+      >
+        <ExpensesFormContent {...props} client={props.pageState} time={'current'} />
       </FormPartsContainer>
     </Form>
   );
 
-};  // End PreviousExpensesStep()
+};  // End CurrentExpensesStep()
 
 
-export { PreviousExpensesStep };
+export { CurrentExpensesStep };

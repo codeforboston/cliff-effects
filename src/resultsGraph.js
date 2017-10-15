@@ -30,20 +30,20 @@ const ResultsGraph = (props) => {
 
   /** Section-8 Housing Choice Voucher */
   /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
-  fakeClient.previousContractRentMonthly = 700;
-  fakeClient.previousEarnedIncomeMonthly = 0;
+  fakeClient.currentContractRentMonthly = 700;
+  fakeClient.currentEarnedIncomeMonthly = 0;
   var housingData = xRange.map(function ( annualIncome ) {
     // New renting data
-    var oldRentShare = fakeClient[ 'previousRentShareMonthly' ];
-    fakeClient.currentEarnedIncomeMonthly = annualIncome/12;
+    var oldRentShare = fakeClient[ 'currentRentShareMonthly' ];
+    fakeClient.futureEarnedIncomeMonthly = annualIncome/12;
 
     var result  = getHousingBenefit(fakeClient),
         subsidy = result.benefitValue * 12;
 
     // Prep for next loop
     var newShare = result.data.newRentShare
-    fakeClient[ 'previousRentShareMonthly' ] = newShare;
-    fakeClient.previousEarnedIncomeMonthly   = annualIncome/12;
+    fakeClient[ 'currentRentShareMonthly' ] = newShare;
+    fakeClient.currentEarnedIncomeMonthly   = annualIncome/12;
 
     return subsidy;
   });

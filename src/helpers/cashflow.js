@@ -76,7 +76,7 @@ deductions.handicappedAssistance = function ( client, timeframe ) {
 /** Just child support. Here for consistency and validation */
 deductions.childSupportPayments = function ( client, timeframe ) {
 	// For now, no checks or anything. Fragile, but gets the job done.
-	return client.currentChildSupportOutMonthly || client.previousChildSupportOutMonthly || 0;
+	return client.futureChildSupportOutMonthly || client.currentChildSupportOutMonthly || 0;
 };  // End deductions.childSupportPayments()
 
 
@@ -147,7 +147,7 @@ const toCashflow = function ( client, timeframe, prop ) {
 * 
 * @function
 * @todo @param
-* `timeframe` can be either 'current' or 'previous'
+* `timeframe` can be either 'current' or 'future'
 * 
 * @todo @returns
 */
@@ -212,7 +212,7 @@ const getAllowancesMonthly = function ( client, timeframe ) {
       eldDisWork             = (client[ timeframe + 'earnedIncomeBecauseOfAdultCare' ] * 12) || 0;
   nonElderlyDisabledCare = Math.min( eldDisWork, nonElderlyDisabledCare );
   /** @todo Only non-reimbursed
-  * @todo Don't include stuff from the previous amount? How are we supposed to collect this data */
+  * @todo Don't include stuff from the current amount? How are we supposed to collect this data */
   var elderlyOrDisabledMedical = (client[ timeframe + 'ElderlyOrDisabledMedicalMonthly' ] * 12) || 0;
 
   var elderlyOrDisabledTotal      = nonElderlyDisabledCare + elderlyOrDisabledMedical,

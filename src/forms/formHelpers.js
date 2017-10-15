@@ -129,7 +129,7 @@ const FormPartsContainer = function(props) {
 /** Toggle with size='massive'
 * 
 * @function
-* @param {object} props - sent from attributes of previous element
+* @param {object} props - sent from attributes of parent element
 * @property {string} props.label - Text displayed next to toggle
 * @property {string} props.value - Should reflect state change and
 * will be displayed as the value. Flow goes:
@@ -371,7 +371,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 
   };  // End handleChange()
 
-  /** @todo Different class for something current that has a previous value that isn't 0 */
+  /** @todo Different class for something 'future' that has a current value that isn't 0 */
 
   return (
     <Input
@@ -401,20 +401,20 @@ const CashFlowRow = function ({ generic, client, storeComplex, children, labelIn
       righter = { width: '7em', marginRight: '.9em' };
 
   /** baseVal
-  * Get the time ('current' or 'previous') monthly value unless there is
-  * none, in which case, get the previous monthly cash flow value (to
-  * prefill current values with previous ones if needed).
+  * Get the time ('future' or 'current') monthly value unless there is
+  * none, in which case, get the 'current' monthly cash flow value (to
+  * prefill future values with 'current' ones if needed).
   * 
   * @var
   * 
-  * @todo Add some kind of UI indication when it's the same as the previous
+  * @todo Add some kind of UI indication when it's the same as the 'current'
   * value. What if some of the row's values are the same and some are
   * different?
   */
   var intervalID  = generic + 'Monthly',
       baseVal     = client[ time + intervalID ];
 
-  if ( !baseVal ) { baseVal = client[ 'previous' + intervalID ] || ''; }
+  if ( !baseVal ) { baseVal = client[ 'current' + intervalID ] || ''; }
 
   // Could use `capitalizeWord()` in CashFlowInput to use `type`
   // to get id, but doesn't seem worth it at the moment.
