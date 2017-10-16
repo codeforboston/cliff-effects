@@ -23,9 +23,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy-dev": "npm run build&&gh-pages -d build",
-    "deploy": "npm run build&&node deploy-personal.js"
+    "deploy-dev": "npm run build && gh-pages -d build",
+    "deploy": "npm run build && node ./scripts/deploy-personal.js"
   },
+  "homepage" : "https://codeforboston.github.io/cliff-effects",
   "devDependencies": {
     "gh-pages": "^1.0.0"
   },
@@ -39,6 +40,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/codeforboston/cliff-effects/issues"
-  },
-  "homepage": "git@github.com:WillMcIntosh/cliff-effects.git"
+  }
 }
