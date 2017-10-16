@@ -15,17 +15,18 @@
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.11",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.71.4"
+    "semantic-ui-react": "^0.71.4",
+    "simple-git": "^1.80.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy-dev": "npm run build && gh-pages -d build",
-    "deploy": "npm run build && node deploy-file.js && gh-pages -d build"
+    "deploy-dev": "npm run build&&gh-pages -d build",
+    "deploy": "npm run build&&node deploy-file.js"
   },
-  "homepage": "new value",
+  "homepage": "remote",
   "devDependencies": {
     "gh-pages": "^1.0.0"
   },
