@@ -80,7 +80,7 @@ const HouseholdSizeContent = ({ client, time, storeChecked, storeComplex }) => {
           onChange  = {numberChange}
           value     = {client[ time + 'Dependents' ] || ''}
           name      = {time + 'Dependents'}
-          type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1} />
+          type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1 || 0} />
         <wrapper>
           <label>Number of dependents</label>
           <InlineLabelInfo>Members that are under 18, disabled, handicapped, and/or a full-time student. Cannot include the head of household, their spouse, or foster children.</InlineLabelInfo>
