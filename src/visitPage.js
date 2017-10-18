@@ -44,36 +44,38 @@ class VisitPage extends Component {
         currentStep: 1,
         isBlocking: true,
         redirect: false,
-        hasSnap: false,
-        hasHousing: false,
-        hasMassHealth: false,
-        snapAlert: 'good',
-        housingAlert: 'good',
-        massHealthAlert: 'good',
-        householdSize: 1,
-        annualIncome: 0,
-        citizenshipStatus:'citizen',
-        qualifyingConditions: false,       
-        numberOfBedrooms: 0,
-        currentHomeless: false,
-        currentHomeowner: false,
-        areaOfResidence: 'Boston city',
-        currentEarnedIncomeMonthly: 0,
-        currentTAFDCMonthly: 0,
-        currentSSIMonthly: 0,
-        currentSSDIMonthly: 0,
-        currentChildSupportInMonthly: 0,
-        currentUnemploymentMonthly: 0,
-        currentWorkersCompMonthly: 0,
-        currentPensionMonthly: 0,
-        currentSocialSecurityMonthly: 0,
-        currentAlimonyMonthly: 0,
-        currentOtherIncomeMonthly: 0,
-        currentUnearnedIncomeMonthly: 0,
-        futureEarnedIncomeMonthly: 0,
-        futureUnearnedIncomeMonthly: 0,
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
-        visitId: this.props.match.params.visitId
+        visitId: this.props.match.params.visitId,
+        client : {
+          hasSnap: false,
+          hasHousing: false,
+          hasMassHealth: false,
+          snapAlert: 'good',
+          housingAlert: 'good',
+          massHealthAlert: 'good',
+          householdSize: 1,
+          annualIncome: 0,
+          citizenshipStatus:'citizen',
+          qualifyingConditions: false,       
+          numberOfBedrooms: 0,
+          currentHomeless: false,
+          currentHomeowner: false,
+          areaOfResidence: 'Boston city',
+          currentEarnedIncomeMonthly: 0,
+          currentTAFDCMonthly: 0,
+          currentSSIMonthly: 0,
+          currentSSDIMonthly: 0,
+          currentChildSupportInMonthly: 0,
+          currentUnemploymentMonthly: 0,
+          currentWorkersCompMonthly: 0,
+          currentPensionMonthly: 0,
+          currentSocialSecurityMonthly: 0,
+          currentAlimonyMonthly: 0,
+          currentOtherIncomeMonthly: 0,
+          currentUnearnedIncomeMonthly: 0,
+          futureEarnedIncomeMonthly: 0,
+          futureUnearnedIncomeMonthly: 0
+        }
     };  // end this.state {}
 
     this.steps = [
@@ -97,28 +99,18 @@ class VisitPage extends Component {
       storeComplex: this.storeComplex, // Maybe put these straight on state
       storeChecked: this.storeChecked, // Maybe put these straight on state
       saveForm:     this.saveForm,
-      pageState:    this.state
+      pageState:    this.state.client
     };
 
   };  // End constructor()
 
   storeChecked = (e, { name, checked }, callback) => {
-    var truth = this;
-    truth.setState({ [name]: checked },
-      function () {
-       // console.log( name, checked, truth );
-       if ( callback ) { callback( truth ); }
-    });
+    this.setState({ [name]: checked }, () => { if ( callback ) { callback( this ); } });
   }
 
   storeComplex = (e, { name, value }, callback) => {
-    var truth = this;
-    truth.setState(
-      { [name]: value },
-      function () {
-        // console.log( truth );
-        if ( callback ) { callback( truth ); }
-      }  // This is given no arguments
+    this.setState({ [name]: value },
+      () => { if ( callback ) { callback( this ); } }  // This is given no arguments
     );
   }
 
@@ -180,9 +172,9 @@ class VisitPage extends Component {
               <AlertSidebar hasSnap={this.state.hasSnap} 
                             hasHousing={this.state.hasHousing} 
                             hasMassHealth={this.state.hasMassHealth}
-                            snapAlert={getSnapEligibility(this.state)}
-                            housingAlert={getHousingBenefit(this.state)}
-                            massHealthAlert={getMassHealthEligibility(this.state)} />
+                            snapAlert={getSnapEligibility(this.state.client)}
+                            housingAlert={getHousingBenefit(this.state.client)}
+                            massHealthAlert={getMassHealthEligibility(this.state.client)} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
