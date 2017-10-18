@@ -416,7 +416,7 @@ const CashFlowRow = function ({ generic, client, storeComplex, children, labelIn
 
   if ( !baseVal ) { baseVal = client[ 'current' + intervalID ] || ''; }
 
-  // Could use `capitalizeWord()` in CashFlowInput to use `type`
+  // Could use `_.capitalize()` in CashFlowInput to use `type`
   // to get id, but doesn't seem worth it at the moment.
   // Maybe put some of these in an object?
   return (
