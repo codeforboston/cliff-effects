@@ -130,7 +130,7 @@ const HouseholdSizeStep = function ( props ) {
         clarifier = {'Information about the members of the household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-			<HouseholdSizeContent storeChecked={props.storeChecked} storeComplex={props.storeComplex} client={props.pageState} time={'current'} />
+			<HouseholdSizeContent storeChecked={props.storeChecked} storeComplex={props.storeComplex} client={props.client} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

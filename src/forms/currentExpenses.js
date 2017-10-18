@@ -276,7 +276,7 @@ const CurrentExpensesStep = function ( props ) {
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}
       >
-        <ExpensesFormContent {...props} client={props.pageState} time={'current'} />
+        <ExpensesFormContent {...props} client={props.client} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

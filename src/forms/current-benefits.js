@@ -61,7 +61,7 @@ const CurrentBenefitsStep = (props) => {
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CurrentBenefitsContent storeChecked={props.storeChecked} client={props.pageState} />
+          <CurrentBenefitsContent storeChecked={props.storeChecked} client={props.client} />
       </FormPartsContainer>
     </Form>
   );

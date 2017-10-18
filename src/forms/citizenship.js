@@ -72,7 +72,7 @@ const CitizenshipStep = function ( props ) {
         clarifier = {'Select your citizenship status.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CitizenshipContent storeComplex={props.storeComplex} client={props.pageState} />
+          <CitizenshipContent storeComplex={props.storeComplex} client={props.client} />
       </FormPartsContainer>
     </Form>
   );

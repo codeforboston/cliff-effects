@@ -114,7 +114,7 @@ const CurrentIncomeStep = function ( props ) {
         clarifier = 'Income that you collected in the past 12 months.'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm storeComplex={props.storeComplex} client={props.pageState} time={'current'} />
+          <IncomeForm storeComplex={props.storeComplex} client={props.client} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

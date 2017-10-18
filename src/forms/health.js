@@ -59,7 +59,7 @@ const HealthStep = function ( props ) {
         clarifier = {'Do you have any of the following MassHealth qualifying conditions?'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-			<HealthContent storeChecked={props.storeChecked} client={props.pageState} />
+			<HealthContent storeChecked={props.storeChecked} client={props.client} />
       </FormPartsContainer>
     </Form>
   );

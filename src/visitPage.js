@@ -98,20 +98,18 @@ class VisitPage extends Component {
       previousStep: this.previousStep,
       storeComplex: this.storeComplex, // Maybe put these straight on state
       storeChecked: this.storeChecked, // Maybe put these straight on state
-      saveForm:     this.saveForm,
-      pageState:    this.state.client
+      saveForm:     this.saveForm
     };
 
   };  // End constructor()
 
   storeChecked = (e, { name, checked }, callback) => {
-    this.setState({ [name]: checked }, () => { if ( callback ) { callback( this ); } });
+    this.setState({ client: {...this.state.client, [name]: true }});
   }
 
   storeComplex = (e, { name, value }, callback) => {
-    this.setState({ [name]: value },
-      () => { if ( callback ) { callback( this ); } }  // This is given no arguments
-    );
+    this.setState({ client: {...this.state.client, [name]: value }});  // This is given no arguments
+
   }
 
   saveForm = (exitAfterSave) => {
@@ -127,7 +125,7 @@ class VisitPage extends Component {
     var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
 
-    return ( <FormSection { ...this.stepProps } currentStep = {this.state.currentStep} pageState={this.state} /> );
+    return ( <FormSection { ...this.stepProps } currentStep = {this.state.currentStep} client={this.state.client} /> );
 
   };  // End getCurrentStep()
 
@@ -169,9 +167,9 @@ class VisitPage extends Component {
               </div>
             </Grid.Column>
             <Grid.Column width={4}>
-              <AlertSidebar hasSnap={this.state.hasSnap} 
-                            hasHousing={this.state.hasHousing} 
-                            hasMassHealth={this.state.hasMassHealth}
+              <AlertSidebar hasSnap={this.state.client.hasSnap} 
+                            hasHousing={this.state.client.hasHousing} 
+                            hasMassHealth={this.state.client.hasMassHealth}
                             snapAlert={getSnapEligibility(this.state.client)}
                             housingAlert={getHousingBenefit(this.state.client)}
                             massHealthAlert={getMassHealthEligibility(this.state.client)} />
