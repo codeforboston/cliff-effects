@@ -130,7 +130,6 @@ class VisitPage extends Component {
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
                    setClientProperty={this.setClientProperty}
-                   setClientProperty={this.setClientProperty} 
                    saveForm={this.saveForm} /> 
     );
   };  // End getCurrentStep()
