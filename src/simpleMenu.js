@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Image, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { BetaWarning } from './BetaWarning';
 import logo from './logo.png'
 
 // const SimpleMenu = (props) => (
@@ -44,14 +45,16 @@ const SimpleMenu = (props) => {
         : (<Link to="/">Go Home</Link>) }         
       </Menu.Item>
       { props.client
-        ? (<Header as='h2' 
-            content={'Visit #' + props.visit + ' for ' + props.client.name}
-            inverted 
-            style={{ fontSize: '2em', marginLeft: '1em', marginBottom: '1em', marginTop: '1em' }} />)
+        ? ( <Menu.Item>
+              <Header as='h2' 
+                content={'Visit #' + props.visit + ' for ' + props.client.name}
+                inverted 
+                style={{ fontSize: '2em', marginLeft: '1em', marginBottom: '1em', marginTop: '1em' }} />
+            </Menu.Item>)
         : false }
+      <BetaWarning/>
     </Menu>
   );
-
 };  // End SimpleMenu()
 
 export default SimpleMenu;
