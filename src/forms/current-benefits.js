@@ -18,26 +18,26 @@ import {
 * 
 * @returns Component
 */
-const CurrentBenefitsContent = ({ client, storeChecked }) => {
+const CurrentBenefitsContent = ({ client, setClientCheckedProperty }) => {
 
   return (
     <wrapper className={'field-aligner'}>
       <MassiveToggle
         label={{ children: client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
         checked={client.hasSnap}
-        onChange={storeChecked}
+        onChange={setClientCheckedProperty}
         name='hasSnap' />
       <br/>
       <MassiveToggle
         label={{ children: client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
         checked={client.hasHousing}
-        onChange={storeChecked}
+        onChange={setClientCheckedProperty}
         name='hasHousing' />
       <br/>
       <MassiveToggle
         label={{ children: client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
         checked={client.hasMassHealth}
-        onChange={storeChecked}
+        onChange={setClientCheckedProperty}
         name='hasMassHealth' />
     </wrapper>
   );  // end return
@@ -61,7 +61,7 @@ const CurrentBenefitsStep = (props) => {
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CurrentBenefitsContent storeChecked={props.storeChecked} client={props.client} />
+          <CurrentBenefitsContent setClientCheckedProperty={props.setClientCheckedProperty} client={props.client} />
       </FormPartsContainer>
     </Form>
   );

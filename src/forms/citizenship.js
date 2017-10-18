@@ -16,7 +16,7 @@ import {
 * 
 * @returns Component
 */
-const CitizenshipContent = ({ storeComplex, client }) => {
+const CitizenshipContent = ({ setClientProperty, client }) => {
 
   return (
     <wrapper className={'field-aligner'}>
@@ -26,7 +26,7 @@ const CitizenshipContent = ({ storeComplex, client }) => {
           name='citizenshipStatus'
           value='citizen'
           checked={client.citizenshipStatus === 'citizen'}
-          onChange={storeComplex}
+          onChange={setClientProperty}
         />
       </Form.Field>
       <br/>
@@ -36,7 +36,7 @@ const CitizenshipContent = ({ storeComplex, client }) => {
           name='citizenshipStatus'
           value='immigrant'
           checked={client.citizenshipStatus === 'immigrant'}
-          onChange={storeComplex}
+          onChange={setClientProperty}
         />
       </Form.Field>
       <br/>
@@ -46,7 +46,7 @@ const CitizenshipContent = ({ storeComplex, client }) => {
           name='citizenshipStatus'
           value='unknown'
           checked={client.citizenshipStatus === 'unknown'}
-          onChange={storeComplex}
+          onChange={setClientProperty}
         />
       </Form.Field>
     </wrapper>
@@ -72,7 +72,7 @@ const CitizenshipStep = function ( props ) {
         clarifier = {'Select your citizenship status.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CitizenshipContent storeComplex={props.storeComplex} client={props.client} />
+          <CitizenshipContent setClientProperty={props.setClientProperty} client={props.client} />
       </FormPartsContainer>
     </Form>
   );

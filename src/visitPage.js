@@ -98,11 +98,11 @@ class VisitPage extends Component {
      this.setState({ client: {...this.state.client, [name]: value }});
   }
 
-  storeChecked = (e, { name, checked }) => {
+  setClientCheckedProperty = (e, { name, checked }) => {
     this.setClientValue(name, checked)
   }
 
-  storeComplex = (e, { name, value }) => {
+  setClientProperty = (e, { name, value }) => {
     this.setClientValue(name, value)
   }
 
@@ -136,8 +136,8 @@ class VisitPage extends Component {
                    client={this.state.client} 
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
-                   storeComplex={this.storeComplex}
-                   storeChecked={this.storeChecked} 
+                   setClientProperty={this.setClientProperty}
+                   setClientCheckedProperty={this.setClientCheckedProperty} 
                    saveForm={this.saveForm} /> 
     );
   };  // End getCurrentStep()

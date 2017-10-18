@@ -25,7 +25,7 @@ import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 * 
 * @returns Component
 */
-const IncomeForm = function ({ client, time, storeComplex }) {
+const IncomeForm = function ({ client, time, setClientProperty }) {
 
   var type        = 'income',
       monthly     = getSimpleGrossIncomeMonthly( client, time ) || 0,
@@ -42,7 +42,7 @@ const IncomeForm = function ({ client, time, storeComplex }) {
       <CashFlowRow client={client}
 				  type={type} 
 				  time={time}
-				  storeComplex={storeComplex}
+				  setClientProperty={setClientProperty}
 				  generic='EarnedIncome' 
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
@@ -90,7 +90,7 @@ const FutureIncomeStep = function ( props ) {
         clarifier = 'How much money would your household make in the future?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm storeComplex={props.storeComplex} storeChecked={props.storeChecked} client={props.client} time={'future'} />
+          <IncomeForm setClientProperty={props.setClientProperty} setClientCheckedProperty={props.setClientCheckedProperty} client={props.client} time={'future'} />
       </FormPartsContainer>
     </Form>
   );
