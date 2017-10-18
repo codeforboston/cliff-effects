@@ -44,6 +44,10 @@ To keep up to date with the latest changes to the `dev` branch, you'll need to u
 
 If you have questions, feel free to ask.
 
+## Testing
+
+Testing the project is pretty straightforward! From the cliff-effects directory, run `npm run test`. That's it.
+
 ## Resources
 
 ### React
