@@ -95,7 +95,7 @@ class VisitPage extends Component {
 
   setClientProperty = (e, data) => {
     let propertyName = data.name
-    let value = data.value || data.checked  //This handles both complex values and checked values
+    let value = (data.checked != null && data.checked != undefined) ? data.checked : data.value  //This handles both complex values and checked values
     this.setState(prevState => ({ client: {...prevState.client, [propertyName]: value }}));
   }
 
