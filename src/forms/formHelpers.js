@@ -134,7 +134,7 @@ const FormPartsContainer = function(props) {
 * @property {string} props.value - Should reflect state change and
 * will be displayed as the value. Flow goes:
 * user input > state > value > visual feedback
-* @property {object} props.setClientCheckedProperty - Function that changes page
+* @property {object} props.setClientProperty - Function that changes page
 * state (changes the "source of truth")
 * @property {string} props.name - The key of the client property that
 * will be saved and will be used to fill in the field's value.
@@ -143,13 +143,13 @@ const FormPartsContainer = function(props) {
 */
 const MassiveToggle = function (props) {
 
-  /** @todo Switch props.setClientCheckedProperty to props.onChange everywhere */
+  /** @todo Switch props.setClientProperty to props.onChange everywhere */
   return (
     <Form.Field className='massive-toggle'
       toggle
       label={ props.label }
       checked={ props.checked || props.value }
-      onChange={ props.onChange || props.setClientCheckedProperty }
+      onChange={ props.onChange || props.setClientProperty }
       name={ props.name || props.name }
       control={ Checkbox }
       size='massive'/>

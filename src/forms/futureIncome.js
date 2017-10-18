@@ -90,7 +90,7 @@ const FutureIncomeStep = function ( props ) {
         clarifier = 'How much money would your household make in the future?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm setClientProperty={props.setClientProperty} setClientCheckedProperty={props.setClientCheckedProperty} client={props.client} time={'future'} />
+          <IncomeForm setClientProperty={props.setClientProperty} client={props.client} time={'future'} />
       </FormPartsContainer>
     </Form>
   );

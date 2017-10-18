@@ -19,7 +19,7 @@ import {
 * 
 * @returns Component
 */
-const Housing = function ({ client, type, time, setClientProperty, setClientCheckedProperty }) {
+const Housing = function ({ client, type, time, setClientProperty }) {
 
   // `hasHousing` is actually whether they're in the housing voucher program
   let ownsAHome   = client[ time + 'Homeowner' ],
@@ -51,11 +51,11 @@ const Housing = function ({ client, type, time, setClientProperty, setClientChec
 
     let keyOfFuture = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfFuture ] ) {
-      setClientCheckedProperty( evnt, { name: keyOfFuture, checked: inputProps.checked } );
+      setClientProperty( evnt, { name: keyOfFuture, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
-    setClientCheckedProperty( evnt, inputProps );
+    setClientProperty( evnt, inputProps );
 
   };  // End ensureFutureChecked()
 
@@ -72,12 +72,12 @@ const Housing = function ({ client, type, time, setClientProperty, setClientChec
 
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } setClientCheckedProperty={ ensureFutureChecked }
+      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } setClientProperty={ ensureFutureChecked }
           label='Are you homeless?' />
       { isHomeless
         ? null
         : <MassiveToggle name={ time + 'Homeowner' } value={ ownsAHome }
-            setClientCheckedProperty={ ensureFutureChecked } label='Do you own a home?' />
+            setClientProperty={ ensureFutureChecked } label='Do you own a home?' />
       }
       { !ownsAHome
         ? null
@@ -113,16 +113,16 @@ const Housing = function ({ client, type, time, setClientProperty, setClientChec
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle name={ time + 'PaysUtilities' } value={ utils } setClientCheckedProperty={ ensureFutureChecked }
+          <MassiveToggle name={ time + 'PaysUtilities' } value={ utils } setClientProperty={ ensureFutureChecked }
             label='Do you pay utilities seperately from the rent?' />
           { !client[ time + 'PaysUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } setClientCheckedProperty={ ensureFutureChecked }
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } setClientProperty={ ensureFutureChecked }
                 label='Do you pay for heating or cooling (e.g. A/C during summer), OR did you receive Fuel Assistance in the past 12 months?' />
-              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } setClientCheckedProperty={ ensureFutureChecked }
+              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } setClientProperty={ ensureFutureChecked }
                 label='Do you pay for electricity for non-heating purposes?' />
-              <MassiveToggle name={ time + 'Phone' } value={ phone } setClientCheckedProperty={ ensureFutureChecked }
+              <MassiveToggle name={ time + 'Phone' } value={ phone } setClientProperty={ ensureFutureChecked }
                 label='Do you pay for your own telephone service?' />
             </wrapper>
           }
@@ -145,7 +145,7 @@ const Housing = function ({ client, type, time, setClientProperty, setClientChec
 * 
 * @returns Component
 */
-const ExpensesFormContent = function ({ client, time, setClientCheckedProperty, setClientProperty }) {
+const ExpensesFormContent = function ({ client, time, setClientProperty }) {
 
   let type = 'expense';
 
@@ -237,7 +237,7 @@ const ExpensesFormContent = function ({ client, time, setClientCheckedProperty, 
         </wrapper>
       }
 
-      <Housing client={client} time={time} type={type} setClientCheckedProperty={setClientCheckedProperty} setClientProperty={setClientProperty} />
+      <Housing client={client} time={time} type={type} setClientProperty={setClientProperty} />
 
       <FormHeading>Other</FormHeading>
       <CashFlowRow {...sharedProps} generic={'OtherExpenses'}> Other Expenses </CashFlowRow>

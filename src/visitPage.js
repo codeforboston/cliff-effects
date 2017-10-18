@@ -98,12 +98,8 @@ class VisitPage extends Component {
      this.setState({ client: {...this.state.client, [name]: value }});
   }
 
-  setClientCheckedProperty = (e, { name, checked }) => {
-    this.setClientValue(name, checked)
-  }
-
-  setClientProperty = (e, { name, value }) => {
-    this.setClientValue(name, value)
+  setClientProperty = (e, data) => {
+    this.setClientValue(data.name, data.value || data.checked) //This handles both complex values and checked values
   }
 
   saveForm = (exitAfterSave) => {
@@ -137,7 +133,7 @@ class VisitPage extends Component {
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
                    setClientProperty={this.setClientProperty}
-                   setClientCheckedProperty={this.setClientCheckedProperty} 
+                   setClientProperty={this.setClientProperty} 
                    saveForm={this.saveForm} /> 
     );
   };  // End getCurrentStep()
