@@ -76,7 +76,6 @@ const IncomeForm = function ({ client, time, storeComplex }) {
           Earned income
 		  </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='TAFDC'> TAFDC </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='TAFDC'> TAFDC </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='SSI'> SSI </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='SSDI'> SSDI </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='ChildSupportIn'> Child support coming in </CashFlowRow>
