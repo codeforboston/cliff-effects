@@ -77,17 +77,17 @@ class VisitPage extends Component {
     };  // end this.state {}
 
     this.steps = [
-      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
-      { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
-      { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
-      { completed: false, active: false, title: 'Current Expenses', form: CurrentExpensesStep },
-      { completed: false, active: false, title: 'Future Income', form: FutureIncomeStep },
-      { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },
-      { completed: false, active: false, title: 'MassHealth', form: HealthStep },
-      { completed: false, active: false, title: 'Confirm Information', form: ConfirmInformation  },
-      // { completed: false, active: false, title: 'SNAP', form: SNAPStep },
-      // { completed: false, active: false, title: 'Housing', form: HousingStep },
-      { completed: false, active: false, title: 'Results', form: ResultsGraph }
+      { title: 'Household Size', form: HouseholdSizeStep },
+      { title: 'Current Income', form: CurrentIncomeStep },
+      { title: 'Current Benefits', form: CurrentBenefitsStep, },
+      { title: 'Current Expenses', form: CurrentExpensesStep },
+      { title: 'Future Income', form: FutureIncomeStep },
+      { title: 'Citizenship', form: CitizenshipStep },
+      { title: 'MassHealth', form: HealthStep },      
+      // { title: 'SNAP', form: SNAPStep },
+      // { title: 'Housing', form: HousingStep },
+      { title: 'Confirm Information', form: ConfirmInformation  },
+      { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
 
     this.stepProps = {
