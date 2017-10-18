@@ -77,9 +77,9 @@ class VisitPage extends Component {
     };  // end this.state {}
 
     this.steps = [
+      { title: 'Current Benefits', form: CurrentBenefitsStep, },
       { title: 'Household Size', form: HouseholdSizeStep },
       { title: 'Current Income', form: CurrentIncomeStep },
-      { title: 'Current Benefits', form: CurrentBenefitsStep, },
       { title: 'Current Expenses', form: CurrentExpensesStep },
       { title: 'Future Income', form: FutureIncomeStep },
       { title: 'Citizenship', form: CitizenshipStep },
