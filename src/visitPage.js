@@ -91,16 +91,6 @@ class VisitPage extends Component {
       // { completed: false, active: false, title: 'Housing', form: HousingStep },
       { completed: false, active: false, title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
-
-    this.stepProps = {
-      currentStep:  this.state.currentStep,
-      nextStep:     this.nextStep,
-      previousStep: this.previousStep,
-      storeComplex: this.storeComplex, // Maybe put these straight on state
-      storeChecked: this.storeChecked, // Maybe put these straight on state
-      saveForm:     this.saveForm
-    };
-
   };  // End constructor()
   
   
@@ -109,7 +99,7 @@ class VisitPage extends Component {
   }
 
   storeChecked = (e, { name, checked }) => {
-    this.setClientValue(name, true)
+    this.setClientValue(name, checked)
   }
 
   storeComplex = (e, { name, value }) => {
@@ -125,14 +115,6 @@ class VisitPage extends Component {
     }
   }
 
-  getCurrentStep = () => {
-    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
-    var FormSection = this.steps[ step ].form;
-
-    return ( <FormSection { ...this.stepProps } currentStep = {this.state.currentStep} client={this.state.client} /> );
-
-  };  // End getCurrentStep()
-
   nextStep = () => {
     this.setState(prevState => ({
       currentStep: prevState.currentStep + 1
@@ -144,7 +126,22 @@ class VisitPage extends Component {
       currentStep: prevState.currentStep - 1
     }));
   };
+  
+  getCurrentStep = () => {
+    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
+    var FormSection = this.steps[ step ].form;
 
+    return ( 
+      <FormSection currentStep={this.state.currentStep} 
+                   client={this.state.client} 
+                   nextStep={this.nextStep}
+                   previousStep={this.previousStep}
+                   storeComplex={this.storeComplex}
+                   storeChecked={this.storeChecked} 
+                   saveForm={this.saveForm} /> 
+    );
+  };  // End getCurrentStep()
+  
   render() {
     return (
       <div className='forms-container'>
