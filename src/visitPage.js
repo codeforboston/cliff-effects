@@ -102,14 +102,18 @@ class VisitPage extends Component {
     };
 
   };  // End constructor()
-
-  storeChecked = (e, { name, checked }, callback) => {
-    this.setState({ client: {...this.state.client, [name]: true }});
+  
+  
+  setClientValue = (name, value) => {
+     this.setState({ client: {...this.state.client, [name]: value }});
   }
 
-  storeComplex = (e, { name, value }, callback) => {
-    this.setState({ client: {...this.state.client, [name]: value }});  // This is given no arguments
+  storeChecked = (e, { name, checked }) => {
+    this.setClientValue(name, true)
+  }
 
+  storeComplex = (e, { name, value }) => {
+    this.setClientValue(name, value)
   }
 
   saveForm = (exitAfterSave) => {
