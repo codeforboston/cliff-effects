@@ -18,7 +18,7 @@ import { FormPartsContainer } from './forms/formHelpers';
 const ResultsGraph = (props) => {
   var xRange = _.range(0, 100000, 1000);
   /** Need a new object so client's data doesn't get changed. */
-  var fakeClient = { ...props.pageState };
+  var fakeClient = { ...props.client };
 
   var massHealthData = xRange.map(x => {
       fakeClient.annualIncome = x;
@@ -59,13 +59,13 @@ const ResultsGraph = (props) => {
     {
       label: "SNAP",
       borderColor: "rgba(101, 47, 138, 1)",
-      data: snapData, //xRange.map(x => ({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
+      data: snapData, //xRange.map(x => ({ annualIncome: x, householdSize: props.client.householdSize }).benefitValue),
       fill: false
     },
     {
       label: "Section 8 Housing",
       borderColor: "rgba(206, 203, 61, 1)",
-      data: housingData, //xRange.map(x => getHousingBenefit({ annualIncome: x, householdSize: props.pageState.householdSize }).benefitValue),
+      data: housingData, //xRange.map(x => getHousingBenefit({ annualIncome: x, householdSize: props.client.householdSize }).benefitValue),
       fill: false
     },
     ]};
@@ -74,7 +74,7 @@ const ResultsGraph = (props) => {
     title: {
       display: true,
         text: 'Benefit Eligibility for Household Size ' + 
-                props.pageState.householdSize
+                props.client.householdSize
     },
     showLines: true,
     scales: {
