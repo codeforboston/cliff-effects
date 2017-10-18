@@ -22,7 +22,7 @@ import { limit } from '../helpers/math';
 * 
 * @returns Component
 */
-const HouseholdSizeContent = ({ client, time, setClientCheckedProperty, setClientProperty }) => {
+const HouseholdSizeContent = ({ client, time, setClientProperty }) => {
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFutureComplex = function ( evnt, inputProps ) {
@@ -43,11 +43,11 @@ const HouseholdSizeContent = ({ client, time, setClientCheckedProperty, setClien
     
     var keyOfFuture = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfFuture ] ) {
-      setClientCheckedProperty( evnt, { name: keyOfFuture, checked: inputProps.checked } );
+      setClientProperty( evnt, { name: keyOfFuture, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
-    setClientCheckedProperty( evnt, inputProps );
+    setClientProperty( evnt, inputProps );
 
   };  // End ensureFutureChecked()
 
@@ -100,12 +100,12 @@ const HouseholdSizeContent = ({ client, time, setClientCheckedProperty, setClien
       </Form.Field>
 
       <MassiveToggle name={time + 'DisabledOrElderlyHeadOrSpouse'} value={client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
-        setClientCheckedProperty={ensureFutureChecked}
+        setClientProperty={ensureFutureChecked}
         label={'Is the head of household or their spouse considered disabled, handicapped, or elderly (62 or older)?'} />
 
       {/** Really should be split into disabled under 12 and other disabled? */}
       <MassiveToggle name={time + 'DisabledOrElderlyMember'} value={client[ time + 'DisabledOrElderlyMember' ]}
-        setClientCheckedProperty={ensureFutureChecked}
+        setClientProperty={ensureFutureChecked}
         label={'Are any other household members, including children, considered disabled, handicapped, or elderly (62 or older)?'} />
 
     </wrapper>
@@ -130,7 +130,7 @@ const HouseholdSizeStep = function ( props ) {
         clarifier = {'Information about the members of the household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-			<HouseholdSizeContent setClientCheckedProperty={props.setClientCheckedProperty} setClientProperty={props.setClientProperty} client={props.client} time={'current'} />
+			<HouseholdSizeContent setClientProperty={props.setClientProperty} client={props.client} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

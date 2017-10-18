@@ -92,18 +92,11 @@ class VisitPage extends Component {
       { completed: false, active: false, title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
   };  // End constructor()
-  
-  
-  setClientValue = (name, value) => {
-     this.setState({ client: {...this.state.client, [name]: value }});
-  }
 
-  setClientCheckedProperty = (e, { name, checked }) => {
-    this.setClientValue(name, checked)
-  }
-
-  setClientProperty = (e, { name, value }) => {
-    this.setClientValue(name, value)
+  setClientProperty = (e, data) => {
+    let propertyName = data.name
+    let value = data.value || data.checked  //This handles both complex values and checked values
+    this.setState({ client: {...this.state.client, [propertyName]: value }});
   }
 
   saveForm = (exitAfterSave) => {
@@ -137,7 +130,7 @@ class VisitPage extends Component {
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
                    setClientProperty={this.setClientProperty}
-                   setClientCheckedProperty={this.setClientCheckedProperty} 
+                   setClientProperty={this.setClientProperty} 
                    saveForm={this.saveForm} /> 
     );
   };  // End getCurrentStep()

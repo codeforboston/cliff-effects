@@ -16,7 +16,7 @@ import {
 * 
 * @returns Component
 */
-const HealthContent = ({ setClientCheckedProperty, client }) => {
+const HealthContent = ({ setClientProperty, client }) => {
 
   return (
     <wrapper>
@@ -24,7 +24,7 @@ const HealthContent = ({ setClientCheckedProperty, client }) => {
       <MassiveToggle
         label={client.qualifyingConditions ? {children: 'Yes'} : {children: 'No'}}
         checked={client.qualifyingConditions}
-        onChange={setClientCheckedProperty}
+        onChange={setClientProperty}
         name='qualifyingConditions'
       />
 
@@ -59,7 +59,7 @@ const HealthStep = function ( props ) {
         clarifier = {'Do you have any of the following MassHealth qualifying conditions?'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-			<HealthContent setClientCheckedProperty={props.setClientCheckedProperty} client={props.client} />
+			<HealthContent setClientProperty={props.setClientProperty} client={props.client} />
       </FormPartsContainer>
     </Form>
   );
