@@ -22,18 +22,18 @@ import { limit } from '../helpers/math';
 * 
 * @returns Component
 */
-const HouseholdSizeContent = ({ client, time, storeChecked, storeComplex }) => {
+const HouseholdSizeContent = ({ client, time, setClientProperty }) => {
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFutureComplex = function ( evnt, inputProps ) {
 
     var keyOfFuture = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfFuture ] ) {
-      storeComplex( evnt, { name: keyOfFuture, value: inputProps.value } );
+      setClientProperty( evnt, { name: keyOfFuture, value: inputProps.value } );
     }
 
     // Do the usual thing too
-    storeComplex( evnt, inputProps );
+    setClientProperty( evnt, inputProps );
 
   };  // End ensureFutureComplex()
 
@@ -43,11 +43,11 @@ const HouseholdSizeContent = ({ client, time, storeChecked, storeComplex }) => {
     
     var keyOfFuture = inputProps.name.replace( 'current', 'future' );
     if ( !client[ keyOfFuture ] ) {
-      storeChecked( evnt, { name: keyOfFuture, checked: inputProps.checked } );
+      setClientProperty( evnt, { name: keyOfFuture, checked: inputProps.checked } );
     }
 
     // Do the usual thing too
-    storeChecked( evnt, inputProps );
+    setClientProperty( evnt, inputProps );
 
   };  // End ensureFutureChecked()
 
@@ -100,12 +100,12 @@ const HouseholdSizeContent = ({ client, time, storeChecked, storeComplex }) => {
       </Form.Field>
 
       <MassiveToggle name={time + 'DisabledOrElderlyHeadOrSpouse'} value={client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
-        storeChecked={ensureFutureChecked}
+        setClientProperty={ensureFutureChecked}
         label={'Is the head of household or their spouse considered disabled, handicapped, or elderly (62 or older)?'} />
 
       {/** Really should be split into disabled under 12 and other disabled? */}
       <MassiveToggle name={time + 'DisabledOrElderlyMember'} value={client[ time + 'DisabledOrElderlyMember' ]}
-        storeChecked={ensureFutureChecked}
+        setClientProperty={ensureFutureChecked}
         label={'Are any other household members, including children, considered disabled, handicapped, or elderly (62 or older)?'} />
 
     </wrapper>
@@ -130,7 +130,7 @@ const HouseholdSizeStep = function ( props ) {
         clarifier = {'Information about the members of the household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-			<HouseholdSizeContent storeChecked={props.storeChecked} storeComplex={props.storeComplex} client={props.pageState} time={'current'} />
+			<HouseholdSizeContent setClientProperty={props.setClientProperty} client={props.client} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

@@ -134,7 +134,7 @@ const FormPartsContainer = function(props) {
 * @property {string} props.value - Should reflect state change and
 * will be displayed as the value. Flow goes:
 * user input > state > value > visual feedback
-* @property {object} props.storeChecked - Function that changes page
+* @property {object} props.setClientProperty - Function that changes page
 * state (changes the "source of truth")
 * @property {string} props.name - The key of the client property that
 * will be saved and will be used to fill in the field's value.
@@ -143,13 +143,13 @@ const FormPartsContainer = function(props) {
 */
 const MassiveToggle = function (props) {
 
-  /** @todo Switch props.storeChecked to props.onChange everywhere */
+  /** @todo Switch props.setClientProperty to props.onChange everywhere */
   return (
     <Form.Field className='massive-toggle'
       toggle
       label={ props.label }
       checked={ props.checked || props.value }
-      onChange={ props.onChange || props.storeChecked }
+      onChange={ props.onChange || props.setClientProperty }
       name={ props.name || props.name }
       control={ Checkbox }
       size='massive'/>
@@ -296,7 +296,7 @@ const InlineLabelInfo = function ( props ) {
 //   </div>
 //   <Input
 //     type='number'
-//     onChange={props.storeComplex}
+//     onChange={props.setClientProperty}
 //     className='right-column'
 //     name='Earned Income' placeholder='Earned Income'
 //   />
@@ -395,7 +395,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 * 
 * @returns Component
 */
-const CashFlowRow = function ({ generic, client, storeComplex, children, labelInfo, type, time }) {
+const CashFlowRow = function ({ generic, client, setClientProperty, children, labelInfo, type, time }) {
 
   var lefter  = { width: '7em', marginRight: '.2em' },
       righter = { width: '7em', marginRight: '.9em' };
@@ -426,7 +426,7 @@ const CashFlowRow = function ({ generic, client, storeComplex, children, labelIn
         time     = { time }
         interval = { 'weekly' }
         value    = { roundMoney( baseVal / 4.33 ) || '' }
-        store    = { storeComplex }
+        store    = { setClientProperty }
         generic  = { generic }
         name     = { time + generic + 'Weekly' }
         style    = { lefter }
@@ -436,7 +436,7 @@ const CashFlowRow = function ({ generic, client, storeComplex, children, labelIn
         time     = { time }
         interval = { 'monthly' }
         value    = { roundMoney( baseVal ) || '' }
-        store    = { storeComplex }
+        store    = { setClientProperty }
         generic  = { generic }
         name     = { time + generic + 'Monthly' }
         style    = { lefter }
@@ -446,7 +446,7 @@ const CashFlowRow = function ({ generic, client, storeComplex, children, labelIn
         time     = { time }
         interval = { 'yearly' }
         value    = { roundMoney( baseVal * 12 ) || '' }
-        store    = { storeComplex }
+        store    = { setClientProperty }
         generic  = { generic }
         name     = { time + generic + 'Yearly' }
         style    = { righter }
