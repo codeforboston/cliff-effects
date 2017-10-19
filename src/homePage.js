@@ -18,6 +18,7 @@ import {
 import { Link, Redirect } from 'react-router-dom';
 import FixedMenu from './fixedMenu';
 import logo from './logo.png';
+import logo_stacked from './logo_stacked.png';
 import { clientList } from './clientList';
 
 
@@ -149,7 +150,7 @@ class HomePage extends Component {
 
             <Container text>
             <br/>
-              <Image src={logo} size='small' inline />
+              <Image src={logo_stacked} size='small' inline />
               <Header
                 as='h1'
                 content='Cliff Effects Tool'
