@@ -6,7 +6,7 @@ const BetaWarning = function ( props ) {
   // this long term might consider a different UI package because that's not great.
   return (
     <Menu.Item>
-      <div style={{ display: 'block' }}><strong>WARNING:</strong>{' '}This tool is a Prototype. It should not be used for official purposes.</div>
+      <div style={{ display: 'block' }}><strong>WARNING:</strong>{' '}This tool is a prototype. It should not be used for official purposes.</div>
     </Menu.Item>
   );
 };  // End BetaWarning(<>)
