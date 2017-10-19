@@ -25,36 +25,13 @@ import { limit } from '../helpers/math';
 const HouseholdSizeContent = ({ client, time, setClientProperty }) => {
 
   /** Makes sure values are propagated to 'future' properties if needed */
-  var ensureFutureComplex = function ( evnt, inputProps ) {
-
-    var keyOfFuture = inputProps.name.replace( 'current', 'future' );
-    if ( !client[ keyOfFuture ] ) {
-      setClientProperty( evnt, { name: keyOfFuture, value: inputProps.value } );
-    }
-
-    // Do the usual thing too
-    setClientProperty( evnt, inputProps );
-
-  };  // End ensureFutureComplex()
-
-
-  /** Makes sure values are propagated to 'future' properties if needed */
-  var ensureFutureChecked = function ( evnt, inputProps ) {
-    
-    var keyOfFuture = inputProps.name.replace( 'current', 'future' );
-    if ( !client[ keyOfFuture ] ) {
-      setClientProperty( evnt, { name: keyOfFuture, checked: inputProps.checked } );
-    }
-
-    // Do the usual thing too
-    setClientProperty( evnt, inputProps );
-
-  };  // End ensureFutureChecked()
-
+  var ensureFuture = function ( evnt, inputProps ) {
+    setClientProperty( evnt, {...inputProps, fillFuture: true})
+  }
 
   var numberChange = function ( evnt, inputProps ) {
     var val = limit( inputProps.value, { min: inputProps.min, max: inputProps.max } );
-    ensureFutureComplex( evnt, {name: inputProps.name, value: val} );
+    ensureFuture(evnt, {name: inputProps.name, value: val})
   };
 
 
@@ -100,12 +77,12 @@ const HouseholdSizeContent = ({ client, time, setClientProperty }) => {
       </Form.Field>
 
       <MassiveToggle name={time + 'DisabledOrElderlyHeadOrSpouse'} value={client[ time + 'DisabledOrElderlyHeadOrSpouse' ]}
-        setClientProperty={ensureFutureChecked}
+        setClientProperty={ensureFuture}
         label={'Is the head of household or their spouse considered disabled, handicapped, or elderly (62 or older)?'} />
 
       {/** Really should be split into disabled under 12 and other disabled? */}
       <MassiveToggle name={time + 'DisabledOrElderlyMember'} value={client[ time + 'DisabledOrElderlyMember' ]}
-        setClientProperty={ensureFutureChecked}
+        setClientProperty={ensureFuture}
         label={'Are any other household members, including children, considered disabled, handicapped, or elderly (62 or older)?'} />
 
     </wrapper>
