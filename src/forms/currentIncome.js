@@ -47,17 +47,8 @@ const IncomeForm = function ({ client, time, setClientProperty }) {
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFuture = function ( evnt, inputProps ) {
-    
-    var keyOfCurr = inputProps.name.replace( 'current', 'future' );
-    if ( !client[ keyOfCurr ] ) {
-      setClientProperty( evnt, { name: keyOfCurr, value: inputProps.value } );
-    }
-
-    // Do the usual thing too
-    setClientProperty( evnt, inputProps );
-
+     setClientProperty( evnt, {...inputProps, fillFuture: true });
   };  // End ensureFuture()
-
 
   var sharedProps = {
     client: client,

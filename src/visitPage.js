@@ -96,7 +96,15 @@ class VisitPage extends Component {
   setClientProperty = (e, data) => {
     let propertyName = data.name
     let value = typeof(data.checked) === "boolean" ? data.checked : data.value  //This handles both complex values and checked values
-    this.setState(prevState => ({ client: {...prevState.client, [propertyName]: value }}));
+
+     //If fillFuture is true, values will be propagated to both 'current' and 'future' versions
+    let newClientValues = {[propertyName]: value}
+    let futurePropertyName = propertyName.replace('current', 'future')
+    if(this.state.client[futurePropertyName] === 'undefined' && data.fillFuture){
+      newClientValues[futurePropertyName] = value 
+    } 
+    
+    this.setState(prevState => ({ client:  {...prevState.client, ...newClientValues }}));
   }
 
   saveForm = (exitAfterSave) => {
