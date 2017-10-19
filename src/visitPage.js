@@ -44,82 +44,59 @@ class VisitPage extends Component {
         currentStep: 1,
         isBlocking: true,
         redirect: false,
-        hasSnap: false,
-        hasHousing: false,
-        hasMassHealth: false,
-        snapAlert: 'good',
-        housingAlert: 'good',
-        massHealthAlert: 'good',
-        householdSize: 1,
-        annualIncome: 0,
-        citizenshipStatus:'citizen',
-        qualifyingConditions: false,       
-        numberOfBedrooms: 0,
-        currentHomeless: false,
-        currentHomeowner: false,
-        areaOfResidence: 'Boston city',
-        currentEarnedIncomeMonthly: 0,
-        currentTAFDCMonthly: 0,
-        currentSSIMonthly: 0,
-        currentSSDIMonthly: 0,
-        currentChildSupportInMonthly: 0,
-        currentUnemploymentMonthly: 0,
-        currentWorkersCompMonthly: 0,
-        currentPensionMonthly: 0,
-        currentSocialSecurityMonthly: 0,
-        currentAlimonyMonthly: 0,
-        currentOtherIncomeMonthly: 0,
-        currentUnearnedIncomeMonthly: 0,
-        futureEarnedIncomeMonthly: 0,
-        futureUnearnedIncomeMonthly: 0,
         clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
-        visitId: this.props.match.params.visitId
+        visitId: this.props.match.params.visitId,
+        client : {
+          hasSnap: false,
+          hasHousing: false,
+          hasMassHealth: false,
+          snapAlert: 'good',
+          housingAlert: 'good',
+          massHealthAlert: 'good',
+          householdSize: 1,
+          annualIncome: 0,
+          citizenshipStatus:'citizen',
+          qualifyingConditions: false,       
+          numberOfBedrooms: 0,
+          currentHomeless: false,
+          currentHomeowner: false,
+          areaOfResidence: 'Boston city',
+          currentEarnedIncomeMonthly: 0,
+          currentTAFDCMonthly: 0,
+          currentSSIMonthly: 0,
+          currentSSDIMonthly: 0,
+          currentChildSupportInMonthly: 0,
+          currentUnemploymentMonthly: 0,
+          currentWorkersCompMonthly: 0,
+          currentPensionMonthly: 0,
+          currentSocialSecurityMonthly: 0,
+          currentAlimonyMonthly: 0,
+          currentOtherIncomeMonthly: 0,
+          currentUnearnedIncomeMonthly: 0,
+          futureEarnedIncomeMonthly: 0,
+          futureUnearnedIncomeMonthly: 0
+        }
     };  // end this.state {}
 
     this.steps = [
-      { completed: false, active: false, title: 'Current Benefits', form: CurrentBenefitsStep, },
-      { completed: false, active: false, title: 'Household Size', form: HouseholdSizeStep },
-      { completed: false, active: false, title: 'Current Income', form: CurrentIncomeStep },
-      { completed: false, active: false, title: 'Current Expenses', form: CurrentExpensesStep },
-      { completed: false, active: false, title: 'Future Income', form: FutureIncomeStep },
-      { completed: false, active: false, title: 'Citizenship', form: CitizenshipStep },
-      { completed: false, active: false, title: 'MassHealth', form: HealthStep },
-      { completed: false, active: false, title: 'Confirm Information', form: ConfirmInformation  },
-      // { completed: false, active: false, title: 'SNAP', form: SNAPStep },
-      // { completed: false, active: false, title: 'Housing', form: HousingStep },
-      { completed: false, active: false, title: 'Results', form: ResultsGraph }
+      { title: 'Current Benefits', form: CurrentBenefitsStep, },
+      { title: 'Household Size', form: HouseholdSizeStep },
+      { title: 'Current Income', form: CurrentIncomeStep },
+      { title: 'Current Expenses', form: CurrentExpensesStep },
+      { title: 'Future Income', form: FutureIncomeStep },
+      { title: 'Citizenship', form: CitizenshipStep },
+      { title: 'MassHealth', form: HealthStep },      
+      // { title: 'SNAP', form: SNAPStep },
+      // { title: 'Housing', form: HousingStep },
+      { title: 'Confirm Information', form: ConfirmInformation  },
+      { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
-
-    this.stepProps = {
-      currentStep:  this.state.currentStep,
-      nextStep:     this.nextStep,
-      previousStep: this.previousStep,
-      storeComplex: this.storeComplex, // Maybe put these straight on state
-      storeChecked: this.storeChecked, // Maybe put these straight on state
-      saveForm:     this.saveForm,
-      pageState:    this.state
-    };
-
   };  // End constructor()
 
-  storeChecked = (e, { name, checked }, callback) => {
-    var truth = this;
-    truth.setState({ [name]: checked },
-      function () {
-       // console.log( name, checked, truth );
-       if ( callback ) { callback( truth ); }
-    });
-  }
-
-  storeComplex = (e, { name, value }, callback) => {
-    var truth = this;
-    truth.setState(
-      { [name]: value },
-      function () {
-        // console.log( truth );
-        if ( callback ) { callback( truth ); }
-      }  // This is given no arguments
-    );
+  setClientProperty = (e, data) => {
+    let propertyName = data.name
+    let value = typeof(data.checked) === "boolean" ? data.checked : data.value  //This handles both complex values and checked values
+    this.setState(prevState => ({ client: {...prevState.client, [propertyName]: value }}));
   }
 
   saveForm = (exitAfterSave) => {
@@ -130,14 +107,6 @@ class VisitPage extends Component {
       this.setState({isBlocking: false});
     }
   }
-
-  getCurrentStep = () => {
-    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
-    var FormSection = this.steps[ step ].form;
-
-    return ( <FormSection { ...this.stepProps } currentStep = {this.state.currentStep} pageState={this.state} /> );
-
-  };  // End getCurrentStep()
 
   nextStep = () => {
     this.setState(prevState => ({
@@ -150,7 +119,21 @@ class VisitPage extends Component {
       currentStep: prevState.currentStep - 1
     }));
   };
+  
+  getCurrentStep = () => {
+    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
+    var FormSection = this.steps[ step ].form;
 
+    return ( 
+      <FormSection currentStep={this.state.currentStep} 
+                   client={this.state.client} 
+                   nextStep={this.nextStep}
+                   previousStep={this.previousStep}
+                   setClientProperty={this.setClientProperty}
+                   saveForm={this.saveForm} /> 
+    );
+  };  // End getCurrentStep()
+  
   render() {
     return (
       <div className='forms-container'>
@@ -177,12 +160,12 @@ class VisitPage extends Component {
               </div>
             </Grid.Column>
             <Grid.Column width={4}>
-              <AlertSidebar hasSnap={this.state.hasSnap} 
-                            hasHousing={this.state.hasHousing} 
-                            hasMassHealth={this.state.hasMassHealth}
-                            snapAlert={getSnapEligibility(this.state)}
-                            housingAlert={getHousingBenefit(this.state)}
-                            massHealthAlert={getMassHealthEligibility(this.state)} />
+              <AlertSidebar hasSnap={this.state.client.hasSnap} 
+                            hasHousing={this.state.client.hasHousing} 
+                            hasMassHealth={this.state.client.hasMassHealth}
+                            snapAlert={getSnapEligibility(this.state.client)}
+                            housingAlert={getHousingBenefit(this.state.client)}
+                            massHealthAlert={getMassHealthEligibility(this.state.client)} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
