@@ -169,7 +169,7 @@ class VisitPage extends Component {
                 {this.getCurrentStep()}
               </div>
             </Grid.Column>
-            <Grid.Column width={4}>
+            <Grid.Column width={4} style={{ height: '100%' }}>
               <AlertSidebar hasSnap={this.state.client.hasSnap} 
                             hasHousing={this.state.client.hasHousing} 
                             hasMassHealth={this.state.client.hasMassHealth}

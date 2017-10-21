@@ -1,9 +1,11 @@
 import React from 'react';
-import { Header, 
-        Segment,
-        Card, 
-        Icon, 
-        Reveal } from 'semantic-ui-react';
+import {
+  Header, 
+  Segment,
+  Card, 
+  Icon, 
+  Reveal
+} from 'semantic-ui-react';
 
 let alertColor = (alert) => {
     let alertColors = {
@@ -56,7 +58,7 @@ const BenefitCard = ({alert, benefit}) => (
      
 const AlertSidebar = (props) => {
   return (
-    <Segment padded='very' style={{ minHeight: '700' }}>
+    <Segment padded='very' style={{ minHeight: '100%' }}>
       <Header as='h1'>Warnings and Alerts</Header>
       <Card.Group>
         {props.hasSnap ? <BenefitCard alert={props.snapAlert} benefit='SNAP' /> : ''}
