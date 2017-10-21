@@ -3,7 +3,7 @@ import {
   HashRouter,
   Route
 } from 'react-router-dom'
-import ReactRedirect from 'react-redirect';
+import ReactRedirect from 'react-side-effect';
 import HomePage from './homePage'
 // import AboutPage from './aboutPage'
 // import LoginPage from './loginPage'
