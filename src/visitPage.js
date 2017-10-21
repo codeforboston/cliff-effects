@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Step } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
-import { Line } from 'react-chartjs-2';
 
 // Logic
-import { percentPovertyLevel, 
-        percentStateMedianIncome } from './helpers/helperFunctions';
 import { getSnapEligibility } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
@@ -40,12 +37,17 @@ const StepBar = ({ steps, currentStep }) => {
 class VisitPage extends Component {
   constructor(props) {
     super(props);
+
+    const clientInfo = clientList.find( client => {
+      return client.clientId === parseInt(this.props.match.params.clientId, 10);
+    });
+
     this.state = {
+        clientInfo: clientInfo,
+        visitId: this.props.match.params.visitId,
         currentStep: 1,
         isBlocking: true,
         redirect: false,
-        clientInfo: clientList.filter(client => client.clientId == this.props.match.params.clientId)[0],
-        visitId: this.props.match.params.visitId,
         client : {
           hasSnap: false,
           hasHousing: false,

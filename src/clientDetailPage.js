@@ -42,7 +42,9 @@ const VisitTable = (props) => (
 class ClientDetailPage extends Component {
   constructor(props) {
     super(props);
-    this.state = clientList.filter(client => client.clientId == this.props.match.params.id)[0];
+    this.state = clientList.find( client => {
+      return client.clientId === parseInt(this.props.match.params.id, 10);
+    });
   }
 
   hideFixedMenu = () => this.setState({ visible: false })

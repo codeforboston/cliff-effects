@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
   HashRouter,
   Route
 } from 'react-router-dom'
 import ReactRedirect from 'react-redirect';
 import HomePage from './homePage'
 // import AboutPage from './aboutPage'
-import LoginPage from './loginPage'
+// import LoginPage from './loginPage'
 import VisitPage from './visitPage'
 import ClientDetailPage from './clientDetailPage'
 import ClientIntakePage from './clientIntakePage'
@@ -30,15 +29,15 @@ import ClientIntakePage from './clientIntakePage'
 * a local development issue? A running-on-a-server issue? Both tests
 * were on Chrome v60.0.3112.113
 */
-var AboutPage = React.createClass({
-  render: function () {
+class AboutPage extends Component {
+  render () {
     // redirect to "www.prohope.org/about" while this component is mounted 
     return (
       <ReactRedirect location='http://www.prohope.org/about/'>
       </ReactRedirect>
     );
   }
-});
+};
 
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 

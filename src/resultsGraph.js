@@ -3,14 +3,9 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { percentPovertyLevel, 
-        percentStateMedianIncome } from './helpers/helperFunctions';
 import { getSnapEligibility } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
-
-// Data
-import { clientList } from './clientList';
 
 // Our Components
 import { FormPartsContainer } from './forms/formHelpers';
@@ -34,10 +29,9 @@ const ResultsGraph = (props) => {
   fakeClient.currentEarnedIncomeMonthly = 0;
   var housingData = xRange.map(function ( annualIncome ) {
     // New renting data
-    var oldRentShare = fakeClient[ 'currentRentShareMonthly' ];
     fakeClient.futureEarnedIncomeMonthly = annualIncome/12;
 
-    var result  = getHousingBenefit(fakeClient),
+    var result  = getHousingBenefit( fakeClient ),
         subsidy = result.benefitValue * 12;
 
     // Prep for next loop

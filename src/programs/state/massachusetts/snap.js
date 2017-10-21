@@ -1,9 +1,8 @@
-import { percentPovertyLevel, 
-    percentStateMedianIncome } from '../../../helpers/helperFunctions';
+import { percentPovertyLevel } from '../../../helpers/helperFunctions';
 
 function getSnapEligibility(client) {
-    let percentPov = percentPovertyLevel(parseInt(client.annualIncome), client.householdSize);
-    if (client.annualIncome == 0 || percentPov < 70) {
+    let percentPov = percentPovertyLevel(parseInt(client.annualIncome, 10), client.householdSize);
+    if (client.annualIncome === 0 || percentPov < 70) {
         return {result: 'good', details: 'All good!', benefitValue: 1000};
     } else if ( percentPov > 70 && percentPov < 80) {
         return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`, benefitValue: 1000};
