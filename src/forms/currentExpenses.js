@@ -122,13 +122,8 @@ const Housing = function ({ client, type, time, setClientProperty }) {
 */
 const ExpensesFormContent = function ({ client, time, setClientProperty }) {
 
-  let type = 'expense';
-
-  let needsDisabledAssistance = client[ time + 'GettingDisabledAssistance' ]
-    || client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
-    || client[ time + 'DisabledOrElderlyHeadOrSpouse' ];
-
-  let sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty };
+  let type        = 'expense',
+      sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty };
 
   /** @todo 1) Can client only enter amounts not covered by other programs
   * for childcare expenses? 2) Does money from those programs count as income?
