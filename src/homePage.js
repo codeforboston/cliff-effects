@@ -8,7 +8,6 @@ import {
   Icon,
   Image,
   List,
-  Menu,
   Segment,
   Visibility,
   // Card,
