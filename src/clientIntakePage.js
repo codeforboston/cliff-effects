@@ -7,16 +7,14 @@ import {
   Header,
   Image,
   List,
-  Menu,
   Segment,
   Visibility,
   Icon,
   Form
 } from 'semantic-ui-react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { MainMenu } from './MainMenu';
 import FixedMenu from './fixedMenu';
-import logo from './logo.png';
 
 class ClientIntakePage extends Component {
 

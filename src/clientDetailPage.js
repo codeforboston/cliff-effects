@@ -7,7 +7,6 @@ import {
   Header,
   Image,
   List,
-  Menu,
   Segment,
   Visibility,
   Icon,
@@ -16,7 +15,6 @@ import {
 import { Link } from 'react-router-dom';
 import { MainMenu } from './MainMenu';
 import FixedMenu from './fixedMenu';
-import logo from './logo.png';
 import { clientList } from './clientList';
 
 
