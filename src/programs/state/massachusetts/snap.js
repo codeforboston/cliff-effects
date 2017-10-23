@@ -2,9 +2,9 @@ import { UNEARNED_INCOME_SOURCES, NET_INCOME_DEDUCTIONS, CHILD_CARE_EXPENSES } f
 import { toCashflow, sumCashflow, getSimpleGrossIncomeMonthly, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
 import { Result } from '../../../helpers/Result';
 import { data } from '../../../helpers/snapData';
-var Big = require('big.js');
+import { Big } from 'big.js';
 
-const getSnapMonthlyAllotment = function (client) {
+const getSNAPBenefits = function (client) {
   var timeframe = 'current';
 
   var missingProps = propsNeeded(client, requiredProps);
@@ -19,7 +19,7 @@ const getSnapMonthlyAllotment = function (client) {
     return result;
   }
   
-}; // End getSnapMonthlyAllotment()
+}; // End getSNAPBenefits()
 
 const requiredProps = [
   'currentDisabledOrElderlyMember',
@@ -411,7 +411,7 @@ const propsNeeded = function (client, props) {
 };
 
 export {
-  getSnapMonthlyAllotment
+  getSNAPBenefits
 };
 
 
