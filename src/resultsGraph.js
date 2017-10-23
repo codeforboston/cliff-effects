@@ -3,7 +3,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { getSnapEligibility } from './programs/state/massachusetts/snap';
+import { getSNAPBenefits } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 
@@ -21,7 +21,7 @@ const ResultsGraph = (props) => {
     
   var snapData = xRange.map(x => {
       fakeClient.annualIncome = x;
-      return getSnapEligibility(fakeClient).benefitValue});
+      return getSNAPBenefits(fakeClient).benefitValue});
 
   /** Section-8 Housing Choice Voucher */
   /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
