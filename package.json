@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "big.js": "^5.0.2",
     "chart.js": ">=2.6.x < 2.7.x",
     "gh-pages": "^1.0.0",
     "lodash": "^4.17.4",
@@ -15,7 +16,8 @@
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.11",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.71.4"
+    "semantic-ui-react": "^0.71.4",
+    "big.js": "^5.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
