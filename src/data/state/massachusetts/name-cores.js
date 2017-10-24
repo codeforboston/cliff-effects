@@ -9,10 +9,11 @@ const UNEARNED_INCOME_SOURCES = [
   'WorkersComp', 'Pension', 'SocialSecurity', 'Alimony', 'OtherIncome'
 ];
 
-const NET_INCOME_DEDUCTIONS = [
-	'Standard', 'EarnedIncome', 'Medical', 'DependentCare',
-	'AllowableChildSupport', 'AllowableHomelessExpenses', 'ExcessShelterExpense'
-];
+// // More needs to be confirmed about this one
+// const NET_INCOME_DEDUCTIONS = [
+// 	'Standard', 'EarnedIncome', 'Medical', 'DependentCare',
+// 	'AllowableChildSupport', 'AllowableHomelessExpenses', 'ExcessShelterExpense'
+// ];
 
 const CHILD_CARE_EXPENSES = [
 	'ChildDirectCareCosts', 'ChildBeforeAndAfterSchoolCareCosts',
@@ -20,6 +21,7 @@ const CHILD_CARE_EXPENSES = [
 ];
 
 export {
-	UNEARNED_INCOME_SOURCES, NET_INCOME_DEDUCTIONS,
+	UNEARNED_INCOME_SOURCES,
+	// NET_INCOME_DEDUCTIONS,
 	CHILD_CARE_EXPENSES
 }

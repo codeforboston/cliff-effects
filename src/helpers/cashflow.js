@@ -1,14 +1,12 @@
-import {
-  UNEARNED_INCOME_SOURCES,
-  NET_INCOME_DEDUCTIONS,
-  CHILD_CARE_EXPENSES
-} from '../data/state/massachusetts/name-cores';
-
 /** For all income and general cash flow getters and calculators
 * 
 * @todo Add checks for properties with messages for mistakes
 * @todo Deal with expiration dates
+* @todo Prune values now understood to be non-standard
 */
+
+// DATA
+import { UNEARNED_INCOME_SOURCES } from '../data/state/massachusetts/name-cores';
 
 // ==================================
 // DEDUCTIONS
@@ -231,9 +229,7 @@ const getAllowancesMonthly = function ( client, timeframe ) {
 * 
 * @returns Component
 */
-const getNetIncomeMonthly = function ( client, timeframe ) {
-
-};  // End getNetIncomeMonthly()
+// const getNetIncomeMonthly = function ( client, timeframe ) {};  // End getNetIncomeMonthly()
 
 
 // Adjusted gross?

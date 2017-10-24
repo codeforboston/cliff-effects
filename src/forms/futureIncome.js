@@ -5,11 +5,11 @@ import { Form, Header, Statistic } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 
-// UTILITIES
-import { roundMoney } from '../helpers/math';
-
 // BENEFIT PROGRAM CALCULATIONS
-import { percentPovertyLevel, percentStateMedianIncome } from '../helpers/helperFunctions';
+import {
+  percentPovertyLevel,
+  // percentStateMedianIncome
+} from '../helpers/helperFunctions';
 import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 
 

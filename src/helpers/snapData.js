@@ -19,9 +19,6 @@ const data = {
   smallHouseholdMinimumGrant: 15
 };
 
-export { data, povertyGrossIncome, overNumberHouseholdRate, standardDeduction, percentOfGrossMonthlyEarnedIncome, standardMedicalDeduction, beginRangeMedicalExpensesThreshold, endRangeMedicalExpensesThreshold, 
-  standardUtilityAllowance, standardShelterDeductionCap,homelessDeduction, maxAllowableMonthlyNetIncome, maxAllowableMonthlyNetIncomeRate, maxFoodStampAllotment, maxFoodStampAllotmentRate, maxFoodStamp, percentOfIncome,
-  minHouseholdSize, smallHouseholdMinimumGrant
-};
+export { data };
 
 // http://www.mass.gov/eohhs/gov/departments/dta/program-eligibility-charts-and-tables.html

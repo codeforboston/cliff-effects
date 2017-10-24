@@ -1,5 +1,5 @@
-import _ from 'lodash'
-import React, { Component } from 'react'
+// import _ from 'lodash';
+import React, { Component } from 'react';
 import {
   Button,
   Container,
@@ -8,19 +8,22 @@ import {
   Icon,
   Image,
   List,
-  Menu,
   Segment,
   Visibility,
-  Card,
-  Search,
-  Tab,
+  // Card,
+  // Search,
+  // Tab,
 } from 'semantic-ui-react';
-import { Link, Redirect } from 'react-router-dom';
+import {
+  Link,
+  // Redirect
+} from 'react-router-dom';
+import { MainMenu } from './MainMenu';
 import FixedMenu from './fixedMenu';
 import logo from './logo.png';
-import { clientList } from './clientList';
+// import { clientList } from './clientList';
 
-
+/* Removed temporarily for MVP
 class SearchExistingClients extends Component {
   componentWillMount() {
     this.resetComponent()
@@ -106,6 +109,7 @@ class SearchExistingClients extends Component {
     )
   }
 }
+*/
 
 class HomePage extends Component {
   state = {}
@@ -132,20 +136,7 @@ class HomePage extends Component {
             vertical
             color='teal'
           >
-            <Container>
-              <Menu inverted secondary size='large'>
-                <Menu.Item>
-                  <Link to="/"><Image src={logo} size='tiny' /></Link>
-                </Menu.Item>
-                <Menu.Item active><Link to="/">Home</Link></Menu.Item>
-                <Menu.Item><Link to="/about">About</Link></Menu.Item>
-                <Menu.Item><Link to="/intake">New Client Intake</Link></Menu.Item>
-                <Menu.Item position='right'>
-                  {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
-                  {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
-                </Menu.Item>
-              </Menu>
-            </Container>
+            <MainMenu/>
 
             <Container text>
             <br/>
@@ -174,10 +165,12 @@ class HomePage extends Component {
           </Segment>
         </Visibility>
 
-        {/*<Segment style={{ padding: '8em 0em' }} vertical textAlign='center'>
+        {/* Removed temporarily for MVP
+        <Segment style={{ padding: '8em 0em' }} vertical textAlign='center'>
           <Header as='h1' style={{ fontSize: '2em' }}>Existing Clients</Header>
           <SearchExistingClients />
-        </Segment>*/}
+        </Segment>
+        */}
 
         <Segment style={{ padding: '8em 0em' }} vertical textAlign='center' className={'spaceholder'}/>
 
