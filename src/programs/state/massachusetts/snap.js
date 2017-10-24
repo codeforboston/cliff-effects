@@ -29,20 +29,17 @@ const getSNAPBenefits = function ( client ) {
     if (Big(maxSnapAllotment).minus(thirtyPercentNetIncome).toString() <= data.smallHouseholdMinimumGrant) {
       if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
         finalResult = data.smallHouseholdMinimumGrant;
-        return finalResult;
       } else {
         finalResult = 0;
-        return finalResult;
       }
     } else {
       finalResult = Math.ceil(Big(maxSnapAllotment).minus(thirtyPercentNetIncome));
-      return finalResult;
     }
   } else {
     finalResult = 0;
-    return finalResult;
   }
   
+  return finalResult;
 }; // End getSNAPBenefits()
 
 // const monthlyAllotment = function(client, timeframe) {
