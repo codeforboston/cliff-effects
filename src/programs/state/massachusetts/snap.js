@@ -42,30 +42,6 @@ const getSNAPBenefits = function ( client ) {
   return finalResult;
 }; // End getSNAPBenefits()
 
-// const monthlyAllotment = function(client, timeframe) {
-//   var finalResult = null;
-//   var grossIncomeTestResult = grossIncomeTestResult(client, timeframe);
-//   var netIncomeTestResult = netIncomeTestResult(client, timeframe);
-//   var maxSnapAllotment = maxSnapAllotment(client, timeframe);
-//   var thirtyPercentNetIncome = thirtyPercentNetIncome(client, timeframe);
-
-//   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
-//     if (Big(maxSnapAllotment).minus(thirtyPercentNetIncome).toString() <= data.smallHouseholdMinimumGrant) {
-//       if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
-//         finalResult = data.smallHouseholdMinimumGrant;
-//       } else {
-//         finalResult = 0;
-//       }
-//     } else {
-//       finalResult = Math.ceil(Big(maxSnapAllotment).minus(thirtyPercentNetIncome));
-//       return finalResult;
-//     }
-//   } else {
-//     finalResult = 0;
-//     return finalResult;
-//   }
-// };
-
 const requiredProps = [
   'currentDisabledOrElderlyMember',
   'futureEarnedIncomeMonthly',
