@@ -21,7 +21,9 @@ import {
 import { MainMenu } from './MainMenu';
 import FixedMenu from './fixedMenu';
 import logo from './logo.png';
-// import { clientList } from './clientList';
+import logo_stacked from './logo_stacked.png';
+import { clientList } from './clientList';
+
 
 /* Removed temporarily for MVP
 class SearchExistingClients extends Component {
@@ -140,7 +142,7 @@ class HomePage extends Component {
 
             <Container text>
             <br/>
-              <Image src={logo} size='small' inline />
+              <Image src={logo_stacked} size='small' inline />
               <Header
                 as='h1'
                 content='Cliff Effects Tool'
