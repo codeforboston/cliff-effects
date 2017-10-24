@@ -7,15 +7,14 @@ import {
   Header,
   Image,
   List,
-  Menu,
   Segment,
   Visibility,
   Icon,
   Table
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { MainMenu } from './MainMenu';
 import FixedMenu from './fixedMenu';
-import logo from './logo.png';
 import { clientList } from './clientList';
 
 
@@ -42,7 +41,9 @@ const VisitTable = (props) => (
 class ClientDetailPage extends Component {
   constructor(props) {
     super(props);
-    this.state = clientList.filter(client => client.clientId == this.props.match.params.id)[0];
+    this.state = clientList.find( client => {
+      return client.clientId === parseInt(this.props.match.params.id, 10);
+    });
   }
 
   hideFixedMenu = () => this.setState({ visible: false })
@@ -67,20 +68,7 @@ class ClientDetailPage extends Component {
             vertical
             color='teal'
           >
-            <Container>
-              <Menu inverted secondary size='large'>
-                <Menu.Item>
-                  <Link to="/"><Image src={logo} size='tiny' /></Link>
-                </Menu.Item>
-                <Menu.Item><Link to="/">Home</Link></Menu.Item>
-                <Menu.Item><Link to="/about">About</Link></Menu.Item>
-                <Menu.Item><Link to="/intake">New Client Intake</Link></Menu.Item>
-                <Menu.Item position='right'>
-                  {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
-                  {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
-                </Menu.Item>
-              </Menu>
-            </Container>
+            <MainMenu/>
           </Segment>
         </Visibility>
 

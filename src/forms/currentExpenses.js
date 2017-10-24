@@ -31,40 +31,15 @@ const Housing = function ({ client, type, time, setClientProperty }) {
       electricity = client[ time + 'NonHeatElectricity' ],
       phone       = client[ time + 'Phone' ];
 
-
   /** Makes sure values are propagated to 'current' properties if needed */
-  let ensureFutureComplex = function ( evnt, inputProps ) {
-    
-    let keyOfFuture = inputProps.name.replace( 'current', 'future' );
-    if ( !client[ keyOfFuture ] ) {
-      setClientProperty( evnt, { name: keyOfFuture, value: inputProps.value } );
-    }
-
-    // Do the usual thing too
-    setClientProperty( evnt, inputProps );
-
-  };  // End ensureFutureComplex()
-
-
-  /** Makes sure values are propagated to 'current' properties if needed */
-  let ensureFutureChecked = function ( evnt, inputProps ) {
-
-    let keyOfFuture = inputProps.name.replace( 'current', 'future' );
-    if ( !client[ keyOfFuture ] ) {
-      setClientProperty( evnt, { name: keyOfFuture, checked: inputProps.checked } );
-    }
-
-    // Do the usual thing too
-    setClientProperty( evnt, inputProps );
-
-  };  // End ensureFutureChecked()
-
-
-  let sharedProps   = {
-    client: client, type: type, time: time,
-    setClientProperty: ensureFutureComplex
+  let ensureFuture = function ( evnt, inputProps ) {
+    setClientProperty( evnt, {...inputProps, fillFuture: true });
   };
 
+  let sharedProps = {
+    client: client, type: type, time: time,
+    setClientProperty: ensureFuture
+  };
 
   /** @todo Owning a home vs. rented vs. homeless should probably be radio buttons */
   return (
@@ -72,12 +47,12 @@ const Housing = function ({ client, type, time, setClientProperty }) {
 
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } setClientProperty={ ensureFutureChecked }
+      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } setClientProperty={ ensureFuture }
           label='Are you homeless?' />
       { isHomeless
         ? null
         : <MassiveToggle name={ time + 'Homeowner' } value={ ownsAHome }
-            setClientProperty={ ensureFutureChecked } label='Do you own a home?' />
+            setClientProperty={ ensureFuture } label='Do you own a home?' />
       }
       { !ownsAHome
         ? null
@@ -113,16 +88,16 @@ const Housing = function ({ client, type, time, setClientProperty }) {
           {/** No padding for an element all on its own */}
           <br/>
 
-          <MassiveToggle name={ time + 'PaysUtilities' } value={ utils } setClientProperty={ ensureFutureChecked }
+          <MassiveToggle name={ time + 'PaysUtilities' } value={ utils } setClientProperty={ ensureFuture }
             label='Do you pay utilities seperately from the rent?' />
           { !client[ time + 'PaysUtilities' ]
             ? null
             : <wrapper>
-              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } setClientProperty={ ensureFutureChecked }
+              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } setClientProperty={ ensureFuture }
                 label='Do you pay for heating or cooling (e.g. A/C during summer), OR did you receive Fuel Assistance in the past 12 months?' />
-              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } setClientProperty={ ensureFutureChecked }
+              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } setClientProperty={ ensureFuture }
                 label='Do you pay for electricity for non-heating purposes?' />
-              <MassiveToggle name={ time + 'Phone' } value={ phone } setClientProperty={ ensureFutureChecked }
+              <MassiveToggle name={ time + 'Phone' } value={ phone } setClientProperty={ ensureFuture }
                 label='Do you pay for your own telephone service?' />
             </wrapper>
           }
@@ -147,13 +122,8 @@ const Housing = function ({ client, type, time, setClientProperty }) {
 */
 const ExpensesFormContent = function ({ client, time, setClientProperty }) {
 
-  let type = 'expense';
-
-  let needsDisabledAssistance = client[ time + 'GettingDisabledAssistance' ]
-    || client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
-    || client[ time + 'DisabledOrElderlyHeadOrSpouse' ];
-
-  let sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty };
+  let type        = 'expense',
+      sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty };
 
   /** @todo 1) Can client only enter amounts not covered by other programs
   * for childcare expenses? 2) Does money from those programs count as income?

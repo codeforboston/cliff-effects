@@ -1,6 +1,6 @@
 
 // DATA
-import { UNEARNED_INCOME_SOURCES } from '../../../data/state/massachusetts/name-cores';
+import { CHILD_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
 
 // UTILITIES
 import { toCashflow, sumCashflow, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
@@ -14,8 +14,11 @@ import { Result } from '../../../helpers/Result';
 * result. This doesn't mean the user filled in all the data, just
 * that the object passed into here contains everything needed in the
 * form that it's needed.
+* 
+* @todo Discuss what should be required, if anything (many of these can
+* just be assumed to be 0 so that no errors will occur).
 */
-var subsidyRequiredProps = [];
+// var subsidyRequiredProps = [ 'RentShare', 'ContractRent' ];
 
 /** Using old and new cash flow data, return new subsidy amount,
 * include new rent share.
@@ -127,12 +130,6 @@ const getNetIncome = function ( client, timeframe ) {
 // =============================
 // ADJUSTED INCOME
 // =============================
-/** Properties for all child care expenses */
-const childcareProps = [
-  'ChildDirectCareCosts', 'ChildBeforeAndAfterSchoolCareCosts',
-  'ChildTransportationCosts', 'ChildOtherCareCosts'
-];
-
 /**
 * @todo Function description
 * 
@@ -151,7 +148,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   var depAllowanceAnnual  = (client[ time + 'NumberOfDependents'] || 0) * 480;
   allowances.push( depAllowanceAnnual/12 );
   // #6
-  var childcare   = sumCashflow( client, time, childcareProps ),
+  var childcare   = sumCashflow( client, time, CHILD_CARE_EXPENSES ),
       ccIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfChildCare' ),
       /** @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
       ccMin       = Math.min( childcare, ccIncome );
