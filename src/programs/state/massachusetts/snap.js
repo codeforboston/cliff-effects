@@ -38,7 +38,7 @@ const getSNAPBenefits = function ( client ) {
   } else {
     finalResult = 0;
   }
-  
+
   return finalResult;
 }; // End getSNAPBenefits()
 
@@ -203,6 +203,12 @@ const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
   var medicalDeduction = getMedicalDeduction(client, timeframe);
   var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
+
+  console.log(totalMonthlyGross);
+  console.log(standardDeduction);
+  console.log(earnedIncomeDeduction);
+  console.log(medicalDeduction);
+  console.log(dependentCareDeduction);
   var totalDeduction = parseFloat( Big(totalMonthlyGross).minus(standardDeduction).minus(earnedIncomeDeduction).minus(medicalDeduction).minus(dependentCareDeduction).toString() );
 
   if ( totalDeduction < 0  ) {
@@ -239,7 +245,7 @@ const utilityStatus = function(client, timeframe) {
   } else if (isPayTelephone) {
     utilityStatus = "Telephone";
   } else {
-    utilityStatus = "Zero Utility Expense";
+    utilityStatus = "Zero Utility Expenses";
   }
   return utilityStatus;
 };
@@ -252,6 +258,7 @@ const getStandardUtilityAllowance = function (client, timeframe) {
 const getTotalshelterCost = function (client, timeframe) {
   var shelterDeduction = getShelterDeduction(client, timeframe);
   var standardUtilityAllowance = getStandardUtilityAllowance(client, timeframe);
+  
   return parseFloat( Big(shelterDeduction).plus(standardUtilityAllowance).toString() );
 };
 
