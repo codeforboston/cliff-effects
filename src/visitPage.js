@@ -60,6 +60,7 @@ class VisitPage extends Component {
           citizenshipStatus:'citizen',
           qualifyingConditions: false,       
           numberOfBedrooms: 0,
+          currentHouseholdSize: 1,
           currentHomeless: false,
           currentHomeowner: false,
           areaOfResidence: 'Boston city',
