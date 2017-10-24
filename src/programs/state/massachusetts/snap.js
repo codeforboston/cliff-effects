@@ -4,22 +4,68 @@ import { Result } from '../../../helpers/Result';
 import { data } from '../../../helpers/snapData';
 import { Big } from 'big.js';
 
-const getSNAPBenefits = function (client) {
+const getSNAPBenefits = function ( client ) {
   var timeframe = 'current';
 
-  var missingProps = propsNeeded(client, requiredProps);
+  // var missingProps = propsNeeded(client, requiredProps);
 
-  if (missingProps.length) {
-    var details = 'Some required form fields have\'t been filled in yet.';
-    var result = new Result({
-      result: 'incomplete',
-      details: 'Form incomplete',
-      data: { missingProps: missingProps }
-    });
-    return result;
+  // if (missingProps.length) {
+  //   var details = 'Some required form fields have\'t been filled in yet.';
+  //   var result = new Result({
+  //     result: 'incomplete',
+  //     details: 'Form incomplete',
+  //     data: { missingProps: missingProps }
+  //   });
+  //   return result;
+  // }
+
+  var finalResult = null;
+  var grossIncomeTestResult   = grossIncomeTestResult(client, timeframe);
+  var netIncomeTestResult     = netIncomeTestResult(client, timeframe);
+  var maxSnapAllotment        = maxSnapAllotment(client, timeframe);
+  var thirtyPercentNetIncome  = thirtyPercentNetIncome(client, timeframe);
+
+  if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
+    if (Big(maxSnapAllotment).minus(thirtyPercentNetIncome).toString() <= data.smallHouseholdMinimumGrant) {
+      if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
+        finalResult = data.smallHouseholdMinimumGrant;
+      } else {
+        finalResult = 0;
+      }
+    } else {
+      finalResult = Math.ceil(Big(maxSnapAllotment).minus(thirtyPercentNetIncome));
+      return finalResult;
+    }
+  } else {
+    finalResult = 0;
+    return finalResult;
   }
   
 }; // End getSNAPBenefits()
+
+// const monthlyAllotment = function(client, timeframe) {
+//   var finalResult = null;
+//   var grossIncomeTestResult = grossIncomeTestResult(client, timeframe);
+//   var netIncomeTestResult = netIncomeTestResult(client, timeframe);
+//   var maxSnapAllotment = maxSnapAllotment(client, timeframe);
+//   var thirtyPercentNetIncome = thirtyPercentNetIncome(client, timeframe);
+
+//   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
+//     if (Big(maxSnapAllotment).minus(thirtyPercentNetIncome).toString() <= data.smallHouseholdMinimumGrant) {
+//       if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
+//         finalResult = data.smallHouseholdMinimumGrant;
+//       } else {
+//         finalResult = 0;
+//       }
+//     } else {
+//       finalResult = Math.ceil(Big(maxSnapAllotment).minus(thirtyPercentNetIncome));
+//       return finalResult;
+//     }
+//   } else {
+//     finalResult = 0;
+//     return finalResult;
+//   }
+// };
 
 const requiredProps = [
   'currentDisabledOrElderlyMember',
@@ -315,30 +361,6 @@ const thirtyPercentNetIncome = function(client, timeframe) {
 
 const maxSnapAllotment = function (client, timeframe) {
   return getAllowance(client, timeframe, data.maxFoodStampAllotment, data.maxFoodStampAllotmentRate);
-};
-
-const monthlyAllotment = function(client, timeframe) {
-  var finalResult = null;
-  var grossIncomeTestResult = grossIncomeTestResult(client, timeframe);
-  var netIncomeTestResult = netIncomeTestResult(client, timeframe);
-  var maxSnapAllotment = maxSnapAllotment(client, timeframe);
-  var thirtyPercentNetIncome = thirtyPercentNetIncome(client, timeframe);
-
-  if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
-    if (Big(maxSnapAllotment).minus(thirtyPercentNetIncome).toString() <= data.smallHouseholdMinimumGrant) {
-      if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
-        finalResult = data.smallHouseholdMinimumGrant;
-      } else {
-        finalResult = 0;
-      }
-    } else {
-      finalResult = Math.ceil(Big(maxSnapAllotment).minus(thirtyPercentNetIncome));
-      return finalResult;
-    }
-  } else {
-    finalResult = 0;
-    return finalResult;
-  }
 };
 
 const bayStateCapCalculation = function (client, timeframe) {
