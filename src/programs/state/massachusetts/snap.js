@@ -357,8 +357,8 @@ const bayStateCapCalculation = function (client, timeframe) {
   var unearnedMonthlyIncome = getGrossUnearnedIncomeMonthly(client, timeframe);
   var standardDeduction = getStandardDeduction(client, timeframe);
   var shelterDeduction = getShelterDeduction(client, timeframe);
-  var income = Big(unearnedMonthlyIncome).minus(standardDeduction).toString();
-  var halfIncome = Big(income).div(2).toString();
+  var income = unearnedMonthlyIncome - standardDeduction;
+  var halfIncome = income/2;
   var maxFoodStamp = data.maxFoodStamp;
   var imputedShelterExpense = null;
   var standardUtilityAllowance = null;
@@ -370,18 +370,18 @@ const bayStateCapCalculation = function (client, timeframe) {
   if ( client[timeframe + 'DisabledOrElderlyMember'] && totalMonthlyEarnedGross === 0  && client[timeframe + 'HouseholdSize']===1 ) {
     (shelterDeduction >= 453)? imputedShelterExpense = 453: imputedShelterExpense = 223;
     standardUtilityAllowance = 634;
-    totalShelterCost = Big(imputedShelterExpense).plus(standardUtilityAllowance).toString();
-    shelterDeduce = Big(totalShelterCost).minus(halfIncome).toString();
-    adjustedIncome = Big(income).minus(shelterDeduce).toString();
+    totalShelterCost = imputedShelterExpense + standardUtilityAllowance;
+    shelterDeduce = totalShelterCost - halfIncome;
+    adjustedIncome = income - shelterDeduce;
 
     if ( adjustedIncome > 0 ) {
-      percentAdjustedIncome = Big(adjustedIncome).times(data.percentOfIncome);
+      percentAdjustedIncome = adjustedIncome * data.percentOfIncome;
     } else {
       percentAdjustedIncome = 0
     }
 
-    if ( Big(maxFoodStamp).minus(percentAdjustedIncome) > 0 ) {
-      return parseFloat(Big(maxFoodStamp).minus(percentAdjustedIncome));
+    if ( (maxFoodStamp - percentAdjustedIncome) > 0 ) {
+      return maxFoodStamp - percentAdjustedIncome;
     } else {
       return 0;
     }
