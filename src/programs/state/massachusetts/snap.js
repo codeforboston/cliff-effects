@@ -230,25 +230,25 @@ const getShelterDeduction = function(client, timeframe) {
 };
 
 const utilityStatus = function(client, timeframe) {
-  var utilityStatus = null;
+  var paidUtilityCategory = null;
   var isPayHeatingCooling = client[timeframe + 'ClimateControl'];
   var isPayElectricity = client[timeframe + 'NonHeatElectricity'];
   var isPayTelephone = client[timeframe + 'Phone'];
   if ( isPayHeatingCooling ) {
-    utilityStatus = "Heating";
+    paidUtilityCategory = "Heating";
   } else if (isPayElectricity) {
-    utilityStatus = "Non-heating";
+    paidUtilityCategory = "Non-heating";
   } else if (isPayTelephone) {
-    utilityStatus = "Telephone";
+    paidUtilityCategory = "Telephone";
   } else {
-    utilityStatus = "Zero Utility Expenses";
+    paidUtilityCategory = "Zero Utility Expenses";
   }
-  return utilityStatus;
+  return paidUtilityCategory;
 };
 
 const getStandardUtilityAllowance = function (client, timeframe) {
-  var status = utilityStatus(client, timeframe);
-  return data.standardUtilityAllowance[status];
+  var paidUtilityCategory = utilityStatus(client, timeframe);
+  return data.standardUtilityAllowance[paidUtilityCategory];
 };
 
 const getTotalshelterCost = function (client, timeframe) {
@@ -260,7 +260,7 @@ const getTotalshelterCost = function (client, timeframe) {
 
 const getHalfAdjustedIncome = function(client, timeframe ) {
   var adjustedIncomeAfterDeduction = getAdjustedIncomeAfterDeduction(client, timeframe);
-    return adjustedIncomeAfterDeduction * 0.50;
+  return adjustedIncomeAfterDeduction * 0.50;
 };
 
 const excessHalfAdjustedIncome = function(client, timeframe ) {
