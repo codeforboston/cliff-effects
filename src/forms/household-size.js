@@ -9,7 +9,6 @@ import {
   FormPartsContainer, MassiveToggle,
   InlineLabelInfo
 } from './formHelpers';
-import { limit } from '../helpers/math';
 
 
 /** @todo description
