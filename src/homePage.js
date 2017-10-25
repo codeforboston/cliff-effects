@@ -20,7 +20,7 @@ import {
 } from 'react-router-dom';
 import { MainMenu } from './MainMenu';
 import FixedMenu from './fixedMenu';
-import logo_stacked from './logo_stacked.png';
+import logo_stacked from './logo_stacked.svg';
 
 
 /* Removed temporarily for MVP
