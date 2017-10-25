@@ -24,16 +24,18 @@ const getSNAPBenefits = function ( client ) {
   var netIncomeTestResult     = getNetIncomeTestResult(client, timeframe);
   var maxSnapAllotment        = getMaxSnapAllotment(client, timeframe);
   var thirtyPercentNetIncome  = getThirtyPercentNetIncome(client, timeframe);
+  var maxClientAllotment      = maxSnapAllotment - thirtyPercentNetIncome;
 
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
-    if (Big(maxSnapAllotment).minus(thirtyPercentNetIncome).toString() <= data.smallHouseholdMinimumGrant) {
+
+    if ( maxClientAllotment <= data.smallHouseholdMinimumGrant ) {
       if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
         finalResult = data.smallHouseholdMinimumGrant;
       } else {
         finalResult = 0;
       }
     } else {
-      finalResult = Math.ceil(Big(maxSnapAllotment).minus(thirtyPercentNetIncome));
+      finalResult = maxClientAllotment;
     }
   } else {
     finalResult = 0;
@@ -100,7 +102,7 @@ const hasDisabledOrElderlyMember = function (client, timeframe) {
 };
 
 const getTotalMonthlyGross = function (client, timeframe) {
-  return parseFloat(Big(getSimpleGrossIncomeMonthly(client, timeframe)).minus(toCashflow(client, timeframe, 'ChildSupportPaidOut')).toString());
+  return getSimpleGrossIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
 };
 
 const getPovertyGrossIncomeLevel = function (client, timeframe ) {
@@ -162,7 +164,7 @@ const getStandardDeduction = function (client, timeframe) {
 
 const getEarnedIncomeDeduction = function (client, timeframe) {
   var totalMonthlyEarnedGross = toCashflow(client, timeframe, 'EarnedIncome');
-  return parseFloat( Big(totalMonthlyEarnedGross).times(data.percentOfGrossMonthlyEarnedIncome).toString() );
+  return totalMonthlyEarnedGross * data.percentOfGrossMonthlyEarnedIncome;
 };
 
 const getMedicalDeduction = function (client, timeframe) {
@@ -177,7 +179,7 @@ const getMedicalDeduction = function (client, timeframe) {
       return medicalDeduce;
     } else {
       if (medicalExpenses >= data.endRangeMedicalExpensesThreshold++) {
-        medicalDeduce = parseFloat( Big(medicalExpenses).minus(data.beginRangeMedicalExpensesThreshold).toString() );
+        medicalDeduce = medicalExpenses - data.beginRangeMedicalExpensesThreshold;
         return medicalDeduce;
       }
     }
