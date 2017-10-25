@@ -106,6 +106,15 @@ class VisitPage extends Component {
       newClientValues[futurePropertyName] = value 
     } 
     
+    //if it's a household size field, check if dependents is larger than it, and if so, force dependents to be smaller
+    //can't think of a better place to put this logic yet
+    if(propertyName.includes("HouseholdSize")){
+        let timeframe = propertyName.replace("HouseholdSize", "");
+        if(this.state.client[timeframe + "Dependents"] >= newClientValues[propertyName]){ //If dependents is lower than the new value for the # of people in the household
+          newClientValues[timeframe + "Dependents"] = data.value - 1;         
+        }
+    }
+    
     this.setState(prevState => ({ client:  {...prevState.client, ...newClientValues }}));
   }
 
