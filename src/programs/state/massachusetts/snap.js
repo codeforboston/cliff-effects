@@ -205,11 +205,6 @@ const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   var medicalDeduction = getMedicalDeduction(client, timeframe);
   var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
 
-  console.log(totalMonthlyGross);
-  console.log(standardDeduction);
-  console.log(earnedIncomeDeduction);
-  console.log(medicalDeduction);
-  console.log(dependentCareDeduction);
   var totalDeduction = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
 
   if ( totalDeduction < 0  ) {
@@ -259,7 +254,7 @@ const getStandardUtilityAllowance = function (client, timeframe) {
 const getTotalshelterCost = function (client, timeframe) {
   var shelterDeduction = getShelterDeduction(client, timeframe);
   var standardUtilityAllowance = getStandardUtilityAllowance(client, timeframe);
-  
+
   return shelterDeduction + standardUtilityAllowance;
 };
 
