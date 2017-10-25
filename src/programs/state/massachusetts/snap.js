@@ -40,7 +40,12 @@ const getSNAPBenefits = function ( client ) {
     finalResult = 0;
   }
 
-  return finalResult;
+  var result = new Result({
+      result: 'good',
+      details: 'IT IS AWESOME!!!',
+      benefitValue: finalResult;
+    });
+  return result;
 }; // End getSNAPBenefits()
 
 const requiredProps = [
