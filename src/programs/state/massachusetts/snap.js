@@ -2,7 +2,6 @@ import { UNEARNED_INCOME_SOURCES, NET_INCOME_DEDUCTIONS, CHILD_CARE_EXPENSES } f
 import { toCashflow, sumCashflow, getSimpleGrossIncomeMonthly, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
 import { Result } from '../../../helpers/Result';
 import { data } from '../../../helpers/snapData';
-import { Big } from 'big.js';
 
 const getSNAPBenefits = function ( client ) {
   var timeframe = 'current';
@@ -24,16 +23,18 @@ const getSNAPBenefits = function ( client ) {
   var netIncomeTestResult     = getNetIncomeTestResult(client, timeframe);
   var maxSnapAllotment        = getMaxSnapAllotment(client, timeframe);
   var thirtyPercentNetIncome  = getThirtyPercentNetIncome(client, timeframe);
+  var maxClientAllotment      = maxSnapAllotment - thirtyPercentNetIncome;
 
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
-    if (Big(maxSnapAllotment).minus(thirtyPercentNetIncome).toString() <= data.smallHouseholdMinimumGrant) {
+
+    if ( maxClientAllotment <= data.smallHouseholdMinimumGrant ) {
       if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
         finalResult = data.smallHouseholdMinimumGrant;
       } else {
         finalResult = 0;
       }
     } else {
-      finalResult = Math.ceil(Big(maxSnapAllotment).minus(thirtyPercentNetIncome));
+      finalResult = maxClientAllotment;
     }
   } else {
     finalResult = 0;
@@ -100,7 +101,7 @@ const hasDisabledOrElderlyMember = function (client, timeframe) {
 };
 
 const getTotalMonthlyGross = function (client, timeframe) {
-  return parseFloat(Big(getSimpleGrossIncomeMonthly(client, timeframe)).minus(toCashflow(client, timeframe, 'ChildSupportPaidOut')).toString());
+  return getSimpleGrossIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
 };
 
 const getPovertyGrossIncomeLevel = function (client, timeframe ) {
@@ -162,7 +163,7 @@ const getStandardDeduction = function (client, timeframe) {
 
 const getEarnedIncomeDeduction = function (client, timeframe) {
   var totalMonthlyEarnedGross = toCashflow(client, timeframe, 'EarnedIncome');
-  return parseFloat( Big(totalMonthlyEarnedGross).times(data.percentOfGrossMonthlyEarnedIncome).toString() );
+  return totalMonthlyEarnedGross * data.percentOfGrossMonthlyEarnedIncome;
 };
 
 const getMedicalDeduction = function (client, timeframe) {
@@ -177,7 +178,7 @@ const getMedicalDeduction = function (client, timeframe) {
       return medicalDeduce;
     } else {
       if (medicalExpenses >= data.endRangeMedicalExpensesThreshold++) {
-        medicalDeduce = parseFloat( Big(medicalExpenses).minus(data.beginRangeMedicalExpensesThreshold).toString() );
+        medicalDeduce = medicalExpenses - data.beginRangeMedicalExpensesThreshold;
         return medicalDeduce;
       }
     }
@@ -188,7 +189,7 @@ const getMedicalDeduction = function (client, timeframe) {
 const getDependentCareDeduction = function (client, timeframe) {
   //add ADULT_CARE_EXPENSES to name-cores.js ???
   const ADULT_CARE_EXPENSES = ['AdultDirectCareCosts', 'AdultTransportationCosts', 'AdultOtherCareCosts'];
-  var totalDependentCare = parseFloat(Big(sumCashflow( client, timeframe, CHILD_CARE_EXPENSES )).plus(Big(sumCashflow( client, timeframe, ADULT_CARE_EXPENSES ))));
+  var totalDependentCare = sumCashflow( client, timeframe, CHILD_CARE_EXPENSES ) + sumCashflow( client, timeframe, ADULT_CARE_EXPENSES );
 
   return totalDependentCare;
 };
@@ -209,7 +210,7 @@ const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   console.log(earnedIncomeDeduction);
   console.log(medicalDeduction);
   console.log(dependentCareDeduction);
-  var totalDeduction = parseFloat( Big(totalMonthlyGross).minus(standardDeduction).minus(earnedIncomeDeduction).minus(medicalDeduction).minus(dependentCareDeduction).toString() );
+  var totalDeduction = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
 
   if ( totalDeduction < 0  ) {
     return 0;
@@ -228,7 +229,7 @@ const getShelterDeduction = function(client, timeframe) {
     shelterCost = 0;
     return shelterCost;
   } else {
-    shelterCost = parseFloat( Big(toCashflow(client, timeframe, 'Mortgage')).plus(toCashflow(client, timeframe, 'HousingInsurance')).plus(toCashflow(client, timeframe, 'PropertyTax')).toString() );
+    shelterCost = toCashflow(client, timeframe, 'Mortgage') + toCashflow(client, timeframe, 'HousingInsurance') + toCashflow(client, timeframe, 'PropertyTax');
     return shelterCost;
   }
 };
@@ -259,22 +260,22 @@ const getTotalshelterCost = function (client, timeframe) {
   var shelterDeduction = getShelterDeduction(client, timeframe);
   var standardUtilityAllowance = getStandardUtilityAllowance(client, timeframe);
   
-  return parseFloat( Big(shelterDeduction).plus(standardUtilityAllowance).toString() );
+  return shelterDeduction + standardUtilityAllowance;
 };
 
 const getHalfAdjustedIncome = function(client, timeframe ) {
   var adjustedIncomeAfterDeduction = getAdjustedIncomeAfterDeduction(client, timeframe);
-    return parseFloat( Big(adjustedIncomeAfterDeduction).times(0.50).toString() );
+    return adjustedIncomeAfterDeduction * 0.50;
 };
 
 const excessHalfAdjustedIncome = function(client, timeframe ) {
   var totalShelterDeduction = null;
   var totalshelterCost = getTotalshelterCost(client, timeframe);
   var halfAdjustedIncome = getHalfAdjustedIncome(client, timeframe);
-  if ( parseFloat(Big(totalshelterCost).minus(halfAdjustedIncome).toString()) < 0   ) {
+  if ( totalshelterCost - halfAdjustedIncome < 0   ) {
     totalShelterDeduction = 0;
   } else {
-    totalShelterDeduction = parseFloat(Big(totalshelterCost).minus(halfAdjustedIncome).toString());
+    totalShelterDeduction = totalshelterCost - halfAdjustedIncome;
   }
   return totalShelterDeduction;
 };
@@ -307,7 +308,12 @@ const monthlyNetIncome = function(client, timeframe ) {
     var hasHomelessDeduction = getHomelessDeduction(client, timeframe);
     var shelterDeductionResult = getShelterDeductionResult(client, timeframe);
 
-    return parseFloat(Big(totalMonthlyEarnedGross).minus(earnedIncomeDeduction).plus(totalMonthlyUnearnedGross).minus(standardDeduction).minus(medicalDeduction).minus(dependentCareDeduction).minus(childPaymentDeduction).minus(hasHomelessDeduction).minus(shelterDeductionResult).toString());
+    var totalIncome     = totalMonthlyEarnedGross + totalMonthlyUnearnedGross;
+    var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
+                        + hasHomelessDeduction + shelterDeductionResult
+                        + dependentCareDeduction + childPaymentDeduction;
+
+    return totalIncome - totalDeductions;
 };
 
 const maxTotalNetMonthlyIncome = function (client, timeframe) {
@@ -335,8 +341,8 @@ const getNetIncomeTestResult = function(client, timeframe ) {
 
 // FINAL DETERMINATION
 const getThirtyPercentNetIncome = function(client, timeframe) {
-  if ( Big(monthlyNetIncome(client, timeframe)).times(data.percentOfIncome) > 0 ) {
-    return parseFloat(Big(monthlyNetIncome(client, timeframe)).times(data.percentOfIncome));
+  if ( monthlyNetIncome(client, timeframe) * data.percentOfIncome > 0 ) {
+    return monthlyNetIncome(client, timeframe) * data.percentOfIncome;
   }
   return 0;
 };
@@ -350,8 +356,8 @@ const bayStateCapCalculation = function (client, timeframe) {
   var unearnedMonthlyIncome = getGrossUnearnedIncomeMonthly(client, timeframe);
   var standardDeduction = getStandardDeduction(client, timeframe);
   var shelterDeduction = getShelterDeduction(client, timeframe);
-  var income = Big(unearnedMonthlyIncome).minus(standardDeduction).toString();
-  var halfIncome = Big(income).div(2).toString();
+  var income = unearnedMonthlyIncome - standardDeduction;
+  var halfIncome = income/2;
   var maxFoodStamp = data.maxFoodStamp;
   var imputedShelterExpense = null;
   var standardUtilityAllowance = null;
@@ -363,18 +369,18 @@ const bayStateCapCalculation = function (client, timeframe) {
   if ( client[timeframe + 'DisabledOrElderlyMember'] && totalMonthlyEarnedGross === 0  && client[timeframe + 'HouseholdSize']===1 ) {
     (shelterDeduction >= 453)? imputedShelterExpense = 453: imputedShelterExpense = 223;
     standardUtilityAllowance = 634;
-    totalShelterCost = Big(imputedShelterExpense).plus(standardUtilityAllowance).toString();
-    shelterDeduce = Big(totalShelterCost).minus(halfIncome).toString();
-    adjustedIncome = Big(income).minus(shelterDeduce).toString();
+    totalShelterCost = imputedShelterExpense + standardUtilityAllowance;
+    shelterDeduce = totalShelterCost - halfIncome;
+    adjustedIncome = income - shelterDeduce;
 
     if ( adjustedIncome > 0 ) {
-      percentAdjustedIncome = Big(adjustedIncome).times(data.percentOfIncome);
+      percentAdjustedIncome = adjustedIncome * data.percentOfIncome;
     } else {
       percentAdjustedIncome = 0
     }
 
-    if ( Big(maxFoodStamp).minus(percentAdjustedIncome) > 0 ) {
-      return parseFloat(Big(maxFoodStamp).minus(percentAdjustedIncome));
+    if ( (maxFoodStamp - percentAdjustedIncome) > 0 ) {
+      return maxFoodStamp - percentAdjustedIncome;
     } else {
       return 0;
     }
