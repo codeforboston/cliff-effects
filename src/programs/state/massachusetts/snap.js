@@ -2,7 +2,6 @@ import { UNEARNED_INCOME_SOURCES, NET_INCOME_DEDUCTIONS, CHILD_CARE_EXPENSES } f
 import { toCashflow, sumCashflow, getSimpleGrossIncomeMonthly, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
 import { Result } from '../../../helpers/Result';
 import { data } from '../../../helpers/snapData';
-import { Big } from 'big.js';
 
 const getSNAPBenefits = function ( client ) {
   var timeframe = 'current';
