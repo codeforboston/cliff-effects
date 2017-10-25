@@ -224,7 +224,8 @@ const getShelterDeduction = function(client, timeframe) {
     shelterCost = 0;
     return shelterCost;
   } else {
-    shelterCost = toCashflow(client, timeframe, 'Mortgage') + toCashflow(client, timeframe, 'HousingInsurance') + toCashflow(client, timeframe, 'PropertyTax');
+    shelterCost = toCashflow(client, timeframe, 'Rent') + toCashflow(client, timeframe, 'Mortgage') +
+    toCashflow(client, timeframe, 'HousingInsurance') + toCashflow(client, timeframe, 'PropertyTax');
     return shelterCost;
   }
 };
