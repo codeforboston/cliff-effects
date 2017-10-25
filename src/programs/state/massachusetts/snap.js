@@ -190,7 +190,7 @@ const getMedicalDeduction = function (client, timeframe) {
 const getDependentCareDeduction = function (client, timeframe) {
   //add ADULT_CARE_EXPENSES to name-cores.js ???
   const ADULT_CARE_EXPENSES = ['AdultDirectCareCosts', 'AdultTransportationCosts', 'AdultOtherCareCosts'];
-  var totalDependentCare = parseFloat(Big(sumCashflow( client, timeframe, CHILD_CARE_EXPENSES )).plus(Big(sumCashflow( client, timeframe, ADULT_CARE_EXPENSES ))));
+  var totalDependentCare = sumCashflow( client, timeframe, CHILD_CARE_EXPENSES ) + sumCashflow( client, timeframe, ADULT_CARE_EXPENSES );
 
   return totalDependentCare;
 };
@@ -211,7 +211,7 @@ const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   console.log(earnedIncomeDeduction);
   console.log(medicalDeduction);
   console.log(dependentCareDeduction);
-  var totalDeduction = parseFloat( Big(totalMonthlyGross).minus(standardDeduction).minus(earnedIncomeDeduction).minus(medicalDeduction).minus(dependentCareDeduction).toString() );
+  var totalDeduction = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
 
   if ( totalDeduction < 0  ) {
     return 0;
@@ -230,7 +230,7 @@ const getShelterDeduction = function(client, timeframe) {
     shelterCost = 0;
     return shelterCost;
   } else {
-    shelterCost = parseFloat( Big(toCashflow(client, timeframe, 'Mortgage')).plus(toCashflow(client, timeframe, 'HousingInsurance')).plus(toCashflow(client, timeframe, 'PropertyTax')).toString() );
+    shelterCost = toCashflow(client, timeframe, 'Mortgage') - toCashflow(client, timeframe, 'HousingInsurance') - toCashflow(client, timeframe, 'PropertyTax');
     return shelterCost;
   }
 };
@@ -261,22 +261,22 @@ const getTotalshelterCost = function (client, timeframe) {
   var shelterDeduction = getShelterDeduction(client, timeframe);
   var standardUtilityAllowance = getStandardUtilityAllowance(client, timeframe);
   
-  return parseFloat( Big(shelterDeduction).plus(standardUtilityAllowance).toString() );
+  return shelterDeduction + standardUtilityAllowance;
 };
 
 const getHalfAdjustedIncome = function(client, timeframe ) {
   var adjustedIncomeAfterDeduction = getAdjustedIncomeAfterDeduction(client, timeframe);
-    return parseFloat( Big(adjustedIncomeAfterDeduction).times(0.50).toString() );
+    return adjustedIncomeAfterDeduction * 0.50;
 };
 
 const excessHalfAdjustedIncome = function(client, timeframe ) {
   var totalShelterDeduction = null;
   var totalshelterCost = getTotalshelterCost(client, timeframe);
   var halfAdjustedIncome = getHalfAdjustedIncome(client, timeframe);
-  if ( parseFloat(Big(totalshelterCost).minus(halfAdjustedIncome).toString()) < 0   ) {
+  if ( totalshelterCost - halfAdjustedIncome < 0   ) {
     totalShelterDeduction = 0;
   } else {
-    totalShelterDeduction = parseFloat(Big(totalshelterCost).minus(halfAdjustedIncome).toString());
+    totalShelterDeduction = totalshelterCost - halfAdjustedIncome;
   }
   return totalShelterDeduction;
 };
@@ -309,7 +309,12 @@ const monthlyNetIncome = function(client, timeframe ) {
     var hasHomelessDeduction = getHomelessDeduction(client, timeframe);
     var shelterDeductionResult = getShelterDeductionResult(client, timeframe);
 
-    return parseFloat(Big(totalMonthlyEarnedGross).minus(earnedIncomeDeduction).plus(totalMonthlyUnearnedGross).minus(standardDeduction).minus(medicalDeduction).minus(dependentCareDeduction).minus(childPaymentDeduction).minus(hasHomelessDeduction).minus(shelterDeductionResult).toString());
+    var totalIncome     = totalMonthlyEarnedGross + totalMonthlyUnearnedGross;
+    var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
+                        + hasHomelessDeduction + shelterDeductionResult
+                        + dependentCareDeduction + childPaymentDeduction;
+
+    return totalIncome - totalDeductions;
 };
 
 const maxTotalNetMonthlyIncome = function (client, timeframe) {
@@ -337,8 +342,8 @@ const getNetIncomeTestResult = function(client, timeframe ) {
 
 // FINAL DETERMINATION
 const getThirtyPercentNetIncome = function(client, timeframe) {
-  if ( Big(monthlyNetIncome(client, timeframe)).times(data.percentOfIncome) > 0 ) {
-    return parseFloat(Big(monthlyNetIncome(client, timeframe)).times(data.percentOfIncome));
+  if ( monthlyNetIncome(client, timeframe) * data.percentOfIncome > 0 ) {
+    return monthlyNetIncome(client, timeframe) * data.percentOfIncome;
   }
   return 0;
 };
