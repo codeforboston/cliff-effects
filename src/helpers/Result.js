@@ -1,23 +1,21 @@
 /**
 * All benefit programs' return value should be an instance of this class.
 *
-* @todo Implement `.expirationDate` to keep track of data that needs updating
-* @todo Figure out how to access this jsdoc definition externally.
-*
 * @external
 *
 * @class
 * @param {object} trial - Data to try out/validate
-* @param {string} trial.result - valid values: 'good', 'information', 'warning'
-* Proposed valid values: 'good', 'warning', 'bad'. Also, clearer name needed.
-* Maybe 'status'.
-* @param {string} trial.details - Explanation of results that will be seen
-* by the user. Example: 'Your income is x% FPL. Your benefit could go down'.
-* Should this be allowed to have a value of `undefined` or `null`?
-* @param {string} trial.benefitValue - Monthly subsidy this benefit will provide.
+* @param {string} trial.result - valid values: 'good', 'information', 'warning'.
+* @param {string} trial.details - Explanation to user of results that will be seen.
+* Example: 'Your income is x% of the FPL. Your benefit could go down.'
+* @param {number} trial.benefitValue - Monthly subsidy this benefit will provide.
 * @param {object} [trial.data] - Any other necessary information.
-* @param {object} [trial.expirationDate] - A `Date` object. In future this
-* class/object may provide a flag to coders.
+*
+* @example
+* const getMyProgramBenefits = function ( client ) {
+*   var myData = { result: 'good', details: 'All good!', benefitValue: 500 };
+*   return new Result( myData );
+* };
 */
 class Result {
 
@@ -35,6 +33,17 @@ class Result {
     }
   };
 
+/**
+* @todo @param {object} [trial.expirationDate] - A `Date` object. If date has
+* passed, provides a flag to app devs.
+* @todo Implement `.expirationDate` to keep track of data that needs updating
+* @todo Figure out how to access this jsdoc definition externally.
+* @todo Change name of `.result` to `.status` or discuss other names.
+* @todo Change valid values of `.result` to 'good', 'warning', and
+* 'bad'/'lost'. Discuss possibility of only the two former values.
+* @todo Should the `.details` value be allowed to have a value of `undefined`
+* or `null`?
+*/
 
   // ========================================
   // (IGNORE) VALIDATION OF RESULT PROPERTIES
