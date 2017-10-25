@@ -247,8 +247,12 @@ const utilityStatus = function(client, timeframe) {
 };
 
 const getStandardUtilityAllowance = function (client, timeframe) {
-  var paidUtilityCategory = utilityStatus(client, timeframe);
-  return data.standardUtilityAllowance[paidUtilityCategory];
+  if(isHomeless(client, timeframe)){
+    return 0;
+  }else{
+    var paidUtilityCategory = utilityStatus(client, timeframe);
+    return data.standardUtilityAllowance[paidUtilityCategory];
+  }
 };
 
 const getTotalshelterCost = function (client, timeframe) {
