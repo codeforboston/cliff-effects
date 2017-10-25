@@ -220,14 +220,18 @@ const isHomeless = function(client, timeframe ) {
 
 const getShelterDeduction = function(client, timeframe) {
   var shelterCost = null;
+  var isHomeowner = client[timeframe + 'Homeowner'];
+
   if ( isHomeless(client, timeframe) ) {
     shelterCost = 0;
-    return shelterCost;
-  } else {
-    shelterCost = toCashflow(client, timeframe, 'Rent') + toCashflow(client, timeframe, 'Mortgage') +
-    toCashflow(client, timeframe, 'HousingInsurance') + toCashflow(client, timeframe, 'PropertyTax');
-    return shelterCost;
+  } else if(isHomeowner) {
+    shelterCost = toCashflow(client, timeframe, 'Mortgage') + toCashflow(client, timeframe, 'HousingInsurance') + toCashflow(client, timeframe, 'PropertyTax');
   }
+  else {
+    shelterCost = toCashflow(client, timeframe, 'Rent');
+  }
+
+  return shelterCost;
 };
 
 const utilityStatus = function(client, timeframe) {
