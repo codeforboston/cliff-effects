@@ -106,7 +106,8 @@ const hasDisabledOrElderlyMember = function (client, timeframe) {
 };
 
 const getTotalMonthlyGross = function (client, timeframe) {
-  return getSimpleGrossIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
+  // return getSimpleGrossIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
+  return toCashflow(client, 'future', 'EarnedIncome') + getGrossUnearnedIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
 };
 
 const getPovertyGrossIncomeLevel = function (client, timeframe ) {
@@ -167,7 +168,7 @@ const getStandardDeduction = function (client, timeframe) {
 };
 
 const getEarnedIncomeDeduction = function (client, timeframe) {
-  var totalMonthlyEarnedGross = toCashflow(client, timeframe, 'EarnedIncome');
+  var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
   return totalMonthlyEarnedGross * data.percentOfGrossMonthlyEarnedIncome;
 };
 
@@ -307,7 +308,7 @@ const getHomelessDeduction = function(client, timeframe ) {
 
 // NET INCOME CALCULATION
 const monthlyNetIncome = function(client, timeframe ) {
-    var totalMonthlyEarnedGross = toCashflow(client, timeframe, 'EarnedIncome');
+    var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
     var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
     var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client, timeframe);
     var standardDeduction = getStandardDeduction(client, timeframe);
@@ -361,7 +362,7 @@ const getMaxSnapAllotment = function (client, timeframe) {
 };
 
 const bayStateCapCalculation = function (client, timeframe) {
-  var totalMonthlyEarnedGross = toCashflow(client, timeframe, 'EarnedIncome');
+  var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
   var unearnedMonthlyIncome = getGrossUnearnedIncomeMonthly(client, timeframe);
   var standardDeduction = getStandardDeduction(client, timeframe);
   var shelterDeduction = getShelterDeduction(client, timeframe);
