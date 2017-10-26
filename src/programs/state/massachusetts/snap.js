@@ -362,58 +362,58 @@ const getMaxSnapAllotment = function (client, timeframe) {
   return getAllowance(client, timeframe, data.maxFoodStampAllotment, data.maxFoodStampAllotmentRate);
 };
 
-const bayStateCapCalculation = function (client, timeframe) {
-  var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
-  var unearnedMonthlyIncome = getGrossUnearnedIncomeMonthly(client, timeframe);
-  var standardDeduction = getStandardDeduction(client, timeframe);
-  var shelterDeduction = getShelterDeduction(client, timeframe);
-  var income = unearnedMonthlyIncome - standardDeduction;
-  var halfIncome = income/2;
-  var maxFoodStamp = data.maxFoodStamp;
-  var imputedShelterExpense = null;
-  var standardUtilityAllowance = null;
-  var totalShelterCost = null;
-  var shelterDeduce = null;
-  var adjustedIncome = null;
-  var percentAdjustedIncome = null;
-
-  if ( client[timeframe + 'DisabledOrElderlyMember'] && totalMonthlyEarnedGross === 0  && client[timeframe + 'HouseholdSize']===1 ) {
-    (shelterDeduction >= 453)? imputedShelterExpense = 453: imputedShelterExpense = 223;
-    standardUtilityAllowance = 634;
-    totalShelterCost = imputedShelterExpense + standardUtilityAllowance;
-    shelterDeduce = totalShelterCost - halfIncome;
-    adjustedIncome = income - shelterDeduce;
-
-    if ( adjustedIncome > 0 ) {
-      percentAdjustedIncome = adjustedIncome * data.percentOfIncome;
-    } else {
-      percentAdjustedIncome = 0
-    }
-
-    if ( (maxFoodStamp - percentAdjustedIncome) > 0 ) {
-      return maxFoodStamp - percentAdjustedIncome;
-    } else {
-      return 0;
-    }
-  } else {
-    return 0;
-  }
-};
-
-
-const propsNeeded = function (client, props) {
-
-  var missingProps = [];
-
-  for (let propi = 0; propi < props.length; propi++) {
-    let key = props[propi];
-    if (client[key] === undefined) {
-      missingProps.push(key);
-    }
-  }
-
-  return missingProps;
-};
+// const bayStateCapCalculation = function (client, timeframe) {
+//   var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
+//   var unearnedMonthlyIncome = getGrossUnearnedIncomeMonthly(client, timeframe);
+//   var standardDeduction = getStandardDeduction(client, timeframe);
+//   var shelterDeduction = getShelterDeduction(client, timeframe);
+//   var income = unearnedMonthlyIncome - standardDeduction;
+//   var halfIncome = income/2;
+//   var maxFoodStamp = data.maxFoodStamp;
+//   var imputedShelterExpense = null;
+//   var standardUtilityAllowance = null;
+//   var totalShelterCost = null;
+//   var shelterDeduce = null;
+//   var adjustedIncome = null;
+//   var percentAdjustedIncome = null;
+//
+//   if ( client[timeframe + 'DisabledOrElderlyMember'] && totalMonthlyEarnedGross === 0  && client[timeframe + 'HouseholdSize']===1 ) {
+//     (shelterDeduction >= 453)? imputedShelterExpense = 453: imputedShelterExpense = 223;
+//     standardUtilityAllowance = 634;
+//     totalShelterCost = imputedShelterExpense + standardUtilityAllowance;
+//     shelterDeduce = totalShelterCost - halfIncome;
+//     adjustedIncome = income - shelterDeduce;
+//
+//     if ( adjustedIncome > 0 ) {
+//       percentAdjustedIncome = adjustedIncome * data.percentOfIncome;
+//     } else {
+//       percentAdjustedIncome = 0
+//     }
+//
+//     if ( (maxFoodStamp - percentAdjustedIncome) > 0 ) {
+//       return maxFoodStamp - percentAdjustedIncome;
+//     } else {
+//       return 0;
+//     }
+//   } else {
+//     return 0;
+//   }
+// };
+//
+//
+// const propsNeeded = function (client, props) {
+//
+//   var missingProps = [];
+//
+//   for (let propi = 0; propi < props.length; propi++) {
+//     let key = props[propi];
+//     if (client[key] === undefined) {
+//       missingProps.push(key);
+//     }
+//   }
+//
+//   return missingProps;
+// };
 
 export { getSNAPBenefits };
 
