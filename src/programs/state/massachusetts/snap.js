@@ -43,7 +43,7 @@ const getSNAPBenefits = function ( client ) {
   var result = new Result({
       result: 'good',
       details: 'IT IS AWESOME!!!',
-      benefitValue: finalResult;
+      benefitValue: finalResult
     });
   return result;
 }; // End getSNAPBenefits()
