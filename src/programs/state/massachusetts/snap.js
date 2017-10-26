@@ -1,5 +1,5 @@
 import { CHILD_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
-import { toCashflow, sumCashflow, getSimpleGrossIncomeMonthly, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
+import { toCashflow, sumCashflow, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
 import { Result } from '../../../helpers/Result';
 import { data } from '../../../helpers/snapData';
 
