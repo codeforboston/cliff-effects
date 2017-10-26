@@ -48,49 +48,50 @@ const getSNAPBenefits = function ( client ) {
   return result;
 }; // End getSNAPBenefits()
 
-const requiredProps = [
-  'currentDisabledOrElderlyMember',
-  'futureEarnedIncomeMonthly',
-  'currentTAFDCMonthly',
-  'currentSSIMonthly',
-  'currentSSDIMonthly',
-  'currentChildSupportInMonthly',
-  'currentUnemploymentMonthly',
-  'currentWorkersCompMonthly',
-  'currentPensionMonthly',
-  'currentSocialSecurityMonthly',
-  'currentAlimonyMonthly',
-  'currentOtherIncomeMonthly',
-  'currentHouseoldSize',
-  'currentChildSupportPaidOutMonthly',
-  'currentChildDirectCareCostsMonthly',
-  'currentChildBeforeAndAfterSchoolCareCostsMonthly',
-  'currentChildTransportationCostsMonthly',
-  'currentChildOtherCareCostsMonthly',
-  'currentAdultDirectCareCostsMonthly',
-  'currentAdultTransportationCostsMonthly',
-  'currentAdultOtherCareCostsMonthly',
-  'currentDisabledMedicalCostsMonthly',
-  'currentHomeless',
-  'currentMortgageMonthly',
-  'currentHousingInsuranceMonthly',
-  'currentPropertyTaxMonthly',
-  'currentPaidUtilities',
-  'currentClimateControl',
-  'currentNonHeatElectricity',
-  'currentPhone',
-
-
-  // 'currentHomeowner',
-  /* All question marks in spreadsheet
-  'currentIncomeExclusionsMonthly',
-  'currentDisabledAssistanceMonthly',
-  'currentOtherMedicalCostsMonthly',
-  'currentRentShareMonthly',
-  'currentContractRentMonthly',
-  'currentRentMonthly'
-  */
-];
+//Still needed, commented out requiredProps[] for removing warning
+// const requiredProps = [
+//   'currentDisabledOrElderlyMember',
+//   'futureEarnedIncomeMonthly',
+//   'currentTAFDCMonthly',
+//   'currentSSIMonthly',
+//   'currentSSDIMonthly',
+//   'currentChildSupportInMonthly',
+//   'currentUnemploymentMonthly',
+//   'currentWorkersCompMonthly',
+//   'currentPensionMonthly',
+//   'currentSocialSecurityMonthly',
+//   'currentAlimonyMonthly',
+//   'currentOtherIncomeMonthly',
+//   'currentHouseoldSize',
+//   'currentChildSupportPaidOutMonthly',
+//   'currentChildDirectCareCostsMonthly',
+//   'currentChildBeforeAndAfterSchoolCareCostsMonthly',
+//   'currentChildTransportationCostsMonthly',
+//   'currentChildOtherCareCostsMonthly',
+//   'currentAdultDirectCareCostsMonthly',
+//   'currentAdultTransportationCostsMonthly',
+//   'currentAdultOtherCareCostsMonthly',
+//   'currentDisabledMedicalCostsMonthly',
+//   'currentHomeless',
+//   'currentMortgageMonthly',
+//   'currentHousingInsuranceMonthly',
+//   'currentPropertyTaxMonthly',
+//   'currentPaidUtilities',
+//   'currentClimateControl',
+//   'currentNonHeatElectricity',
+//   'currentPhone',
+//
+//
+//   // 'currentHomeowner',
+//   /* All question marks in spreadsheet
+//   'currentIncomeExclusionsMonthly',
+//   'currentDisabledAssistanceMonthly',
+//   'currentOtherMedicalCostsMonthly',
+//   'currentRentShareMonthly',
+//   'currentContractRentMonthly',
+//   'currentRentMonthly'
+//   */
+// ];
 
 const getAllowance = function(client, timeframe, data, baseRate ) {
   if ( client[timeframe + 'HouseholdSize'] > 8  ) {
