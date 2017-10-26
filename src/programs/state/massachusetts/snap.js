@@ -126,13 +126,13 @@ const checkIncome = function (client, timeframe) {
   }
 };
 
-const isAssetTest = function(client, timeframe) {
-  if (checkIncome(client, timeframe)) {
-    return true; // Yes, "Yes, assets must be <=$3,250"
-  } else {
-    return false; //No
-  }
-};
+// const isAssetTest = function(client, timeframe) {
+//   if (checkIncome(client, timeframe)) {
+//     return true; // Yes, "Yes, assets must be <=$3,250"
+//   } else {
+//     return false; //No
+//   }
+// };
 
 const isNetIncomeTest = function(client, timeframe) {
   if (checkIncome(client, timeframe)) {
