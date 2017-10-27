@@ -9,7 +9,6 @@ import {
   FormPartsContainer, MassiveToggle,
   InlineLabelInfo
 } from './formHelpers';
-import { limit } from '../helpers/math';
 
 
 /** @todo description
@@ -29,19 +28,13 @@ const HouseholdSizeContent = ({ client, time, setClientProperty }) => {
     setClientProperty( evnt, {...inputProps, fillFuture: true})
   }
 
-  var numberChange = function ( evnt, inputProps ) {
-    var val = limit( inputProps.value, { min: inputProps.min, max: inputProps.max } );
-    ensureFuture(evnt, {name: inputProps.name, value: val})
-  };
-
-
   return (      
     <wrapper className={'field-aligner'}>
 
       <Form.Field inline>
         <Input
           className = {time + 'HouseholdSize'}
-          onChange  = {numberChange}
+          onChange  = {ensureFuture}
           value     = {client[ time + 'HouseholdSize' ] || 1}
           name      = {time + 'HouseholdSize'}
           type={'number'} step={1} min={1} max={8} />
@@ -54,7 +47,7 @@ const HouseholdSizeContent = ({ client, time, setClientProperty }) => {
       <Form.Field inline>
         <Input
           className = {time + 'Dependents'}
-          onChange  = {numberChange}
+          onChange  = {ensureFuture}
           value     = {client[ time + 'Dependents' ] || ''}
           name      = {time + 'Dependents'}
           type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1 || 0} />
@@ -67,7 +60,7 @@ const HouseholdSizeContent = ({ client, time, setClientProperty }) => {
       <Form.Field inline>
         <Input
           className = {time + 'ChildrenUnder12'}
-          onChange  = {numberChange}
+          onChange  = {ensureFuture}
           value     = {client[ time + 'ChildrenUnder12' ] || ''}
           name      = {time + 'ChildrenUnder12'}
           type={'number'} step={1} min={0} max={client[ time + 'HouseholdSize' ] - 1} />

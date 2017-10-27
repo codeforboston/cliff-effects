@@ -21,14 +21,14 @@ import { HealthStep } from './forms/health';
 import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
-import { ConfirmInformation } from './forms/confirmInformation';
 
-const StepBar = ({ steps, currentStep }) => {
+const StepBar = ({ steps, currentStep, goToStep }) => {
 
   for ( let stepi = 0; stepi < steps.length; stepi++ ) {
       let step = steps[ stepi ];
       step.completed = (stepi < currentStep);
       step.active = (stepi === currentStep - 1);
+      step.onClick = (e) => { goToStep(stepi + 1) } //Create unique click handler for each step
   }
 
   return (<Step.Group size='mini' ordered items={steps} />)
@@ -91,7 +91,6 @@ class VisitPage extends Component {
       { title: 'MassHealth', form: HealthStep },      
       // { title: 'SNAP', form: SNAPStep },
       // { title: 'Housing', form: HousingStep },
-      { title: 'Confirm Information', form: ConfirmInformation  },
       { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
   };  // End constructor()
@@ -106,6 +105,15 @@ class VisitPage extends Component {
     if(this.state.client[futurePropertyName] === 'undefined' && data.fillFuture){
       newClientValues[futurePropertyName] = value 
     } 
+    
+    //if it's a household size field, check if dependents is larger than it, and if so, force dependents to be smaller
+    //can't think of a better place to put this logic yet
+    if(propertyName.includes("HouseholdSize")){
+        let timeframe = propertyName.replace("HouseholdSize", "");
+        if(this.state.client[timeframe + "Dependents"] >= newClientValues[propertyName]){ //If dependents is lower than the new value for the # of people in the household
+          newClientValues[timeframe + "Dependents"] = data.value - 1;         
+        }
+    }
     
     this.setState(prevState => ({ client:  {...prevState.client, ...newClientValues }}));
   }
@@ -130,6 +138,10 @@ class VisitPage extends Component {
       currentStep: prevState.currentStep - 1
     }));
   };
+    
+  goToStep = (index) => {
+    this.setState({ currentStep: index });
+  }
   
   getCurrentStep = () => {
     var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
@@ -161,7 +173,7 @@ class VisitPage extends Component {
         >
           <Grid.Row>
             <Grid.Column width = {16}>
-              <StepBar currentStep={this.state.currentStep} steps={this.steps} />
+              <StepBar currentStep={this.state.currentStep} steps={this.steps} goToStep={this.goToStep} />
             </Grid.Column>
           </Grid.Row>         
           <Grid.Row>

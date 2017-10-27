@@ -13,7 +13,7 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FixedMenu from './fixedMenu';
-import logo from './logo.png';
+import logo from './logo.svg';
 
 class AboutPage extends Component {
   state = {}

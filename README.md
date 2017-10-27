@@ -23,7 +23,7 @@ We are working on:
 2. Decide whether you want to work on benefit calculations, code quality, data visualization, user experience, or project management.
 3. If you plan to develop code, [set up your environment](#environment-setup).
 
-We use GitHub Issues to organize our work.  Here's some quick reading about [how to use issues](https://guides.github.com/features/issues/), and here's the [Cliff Effects issues board](https://github.com/codeforboston/cliff-effects/issues).
+We use GitHub Issues to organize our work.  Here's some quick reading about [how to use issues](https://guides.github.com/features/issues/), and here's the [Cliff Effects issues board](https://github.com/codeforboston/cliff-effects/milestone/1).
 
 
 ## Environment Setup
