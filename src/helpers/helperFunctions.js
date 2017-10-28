@@ -1,9 +1,8 @@
-import { getLimitBySize } from './get-gov-data.js';
+import { getYearlyLimitBySize } from './get-gov-data.js';
 import { federalPovertyGuidelines } from '../data/federal/federalPovertyGuidelines.js';
 
 function percentPovertyLevel(annualIncome, householdSize) {
-  var monthlyLimit  = getLimitBySize( federalPovertyGuidelines, householdSize ),
-      annualLimit   = monthlyLimit * 12,
+  var annualLimit   = getYearlyLimitBySize( federalPovertyGuidelines, householdSize ),
       ratio         = annualIncome/annualLimit,
       percent       = 100 * ratio;
 
