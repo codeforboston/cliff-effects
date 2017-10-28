@@ -18,8 +18,9 @@
 * @param {number} data.1 (Or any int key) Value of bracket/limit that
 * matches the number described by the key. For example, data.3 would be
 * the income limit value for a household with three members.
-* @param {number} data.eachAdditional Amount to add for each person or item
-* over the maximum hardcoded limits.
+* @param {number|function} data.eachAdditional Usually an amount to
+* add for each person or item over the maximum hardcoded limits. Can be a
+* function to calculate said amount based on number of extra items.
 * @param {number} Number of items you have (for example, size of household).
 * 
 * @returns Data value calculated for the number of items, numItems, wanted.
@@ -35,16 +36,46 @@ const getLimitBySize = function ( data, numItems ) {
 
   } else {
 
-  	/** @todo Future discussioin - flexibility vs. consistency */
-    var overageRate = data.eachAdditional || 0,
-        numExtra    = numItems - maxGiven,
-        extraAmount = numExtra * overageRate;
+    var numExtra    = numItems - maxGiven,
+        extraAmount = getExtraAmount( data, numExtra );
     limit = data[ maxGiven ] + extraAmount;
 
   }
   
   return limit;
 };  // End getLimitBySize()
+
+
+/** Deals with different value types for data.eachAdditional
+* 
+* @function
+* @param {number} numExtra Number of extra items
+* @param {number|function} eachAdditional Either a number value to add
+* for each extra item or a function that will return that number.
+* 
+* @returns {number} The amount created by those extra items.
+*/
+var getExtraAmount = function ( data, numExtra ) {
+
+  var extraAmount     = 0,
+      eachAdditional  = data.eachAdditional;
+
+  // Either allow additional amount to be calculated
+  // or add a hard-coded amount.
+  if ( typeof eachAdditional === 'function' ) {
+
+    extraAmount = eachAdditional( data, numExtra );
+
+  } else {  // Assumed either number or falsy
+
+    /** @todo Future discussioin - flexibility vs. consistency */
+    var overageRate = eachAdditional || 0;
+    extraAmount = numExtra * overageRate;
+
+  }
+
+  return extraAmount;
+};  // End getExtraAmount()
 
 
 /** 
