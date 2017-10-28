@@ -86,7 +86,7 @@ var getMaxIntKey = function ( data ) {
   var max = 0;
   for ( let key in data ) {
 
-    var asInt = parseInt( key );
+    var asInt = parseInt( key, 10 );
     if ( !isNaN(asInt) && asInt > max ) {
       max = asInt;
     }
