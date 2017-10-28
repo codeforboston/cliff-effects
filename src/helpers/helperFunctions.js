@@ -1,5 +1,6 @@
 import { getLimitBySize } from './get-gov-data.js';
 import { federalPovertyGuidelines } from '../data/federal/federalPovertyGuidelines.js';
+import { stateMedianIncome } from '../data/state/massachusetts/stateIncomeLevels.js';
 
 function percentPovertyLevel(annualIncome, householdSize) {
   var monthlyLimit  = getLimitBySize( federalPovertyGuidelines, householdSize ),
@@ -10,20 +11,13 @@ function percentPovertyLevel(annualIncome, householdSize) {
   return percent; 
 }
 
-function percentStateMedianIncome(annualIncome, householdSize) {
-  var smi = new Map();
-  smi.set(1,56668);
-  smi.set(2,74105);
-  smi.set(3,91542);
-  smi.set(4,108978);
-  smi.set(5,126415);
-  smi.set(6,143852);
-  smi.set(7,147120);
-  smi.set(8,150390);
-
-  return (100*(annualIncome)/(smi.get(householdSize))); 
-}
+// State median income calcs have been removed as they don't seem to be used
+// by anything in here (and from documentation are only used to derive other
+// HUD values). They're also limited to an 8 person household with no ability
+// to calculate other variations. If you want to get info about them, look at
+// https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#
+// and https://www.huduser.gov/portal/datasets/il.html#2017_data
 
 export {
-  percentPovertyLevel, percentStateMedianIncome
+  percentPovertyLevel
 };
