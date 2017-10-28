@@ -1,4 +1,4 @@
-const federalPovertyGuidelines = { 0: 0, 1: 1005, 2: 1353, 3: 1702, 4: 2050, 5: 2398, 6: 2747, 7: 3095, 8: 3443, 'eachAdditional': 697 };
+const federalPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, 'eachAdditional': 4180 };
 
 export { federalPovertyGuidelines };
 
