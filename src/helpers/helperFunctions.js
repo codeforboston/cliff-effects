@@ -1,15 +1,13 @@
-function percentPovertyLevel(annualIncome, householdSize) {
-  var pov = new Map();
-  pov.set(1,12060);
-  pov.set(2,16240);
-  pov.set(3,20420);
-  pov.set(4,24600);
-  pov.set(5,28780);
-  pov.set(6,32960);
-  pov.set(7,37140);
-  pov.set(8,41320);
+import { getLimitBySize } from './get-gov-data.js';
+import { federalPovertyGuidelines } from '../data/federal/federalPovertyGuidelines.js';
 
-  return (100*(annualIncome)/(pov.get(householdSize))); 
+function percentPovertyLevel(annualIncome, householdSize) {
+  var monthlyLimit  = getLimitBySize( federalPovertyGuidelines, householdSize ),
+      annualLimit   = monthlyLimit * 12,
+      ratio         = annualIncome/annualLimit,
+      percent       = 100 * ratio;
+
+  return percent; 
 }
 
 function percentStateMedianIncome(annualIncome, householdSize) {
