@@ -29,7 +29,7 @@ const limit = function ( initialVal, minMax ) {
       max = minMax.max;
 
   var raw   = parseFloat( initialVal ),
-      value = null;
+      value = raw;
   if ( typeof min === 'number' && !isNaN(min) ) { value = Math.max( min, raw ); }
   if ( typeof max === 'number' && !isNaN(max) ) { value = Math.min( max, raw ); }
 
