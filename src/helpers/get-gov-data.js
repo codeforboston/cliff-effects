@@ -5,16 +5,21 @@
 
 
 /** Calculate appropriate MONTHLY bracket/limit value (such as income limit)
-* by number of relevant items (such as number of household members).
+* by number of relevant items (such as number of household members). This
+* function is needed because the math for these calculation needs to be
+* consistent.
+* 
+* @see Math observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
+* @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
 * 
 * IF YOUR DATA HAS MONTHLY VALUES AND WANT A MONTHLY LIMIT VALUE, USE
 * `getYearlyLimitBySize()` INSTEAD.
 * 
 * @example Using household size to get federal poverty income limit:
 * var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
-* getLimitBySize( fedPovertyGuidelines, 1 );  // 1005
-* getLimitBySize( fedPovertyGuidelines, 2 );  // 1354
-* getLimitBySize( fedPovertyGuidelines, 3 );  // 1702
+* getMonthlyLimitBySize( fedPovertyGuidelines, 1 );  // 1005
+* getMonthlyLimitBySize( fedPovertyGuidelines, 2 );  // 1354
+* getMonthlyLimitBySize( fedPovertyGuidelines, 3 );  // 1702
 * 
 * @function
 * @param {object} data Annual data to use to get a bracket/limit value.
@@ -46,11 +51,14 @@ var getMonthlyLimitBySize = function ( data, numItems, percent ) {
 * IF YOUR DATA HAS MONTHLY VALUES AND WANT A MONTHLY LIMIT VALUE, USE
 * THIS FUNCTION WITH YOUR DATA
 * 
+* @see Math observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
+* @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
+* 
 * @example Using household size to get federal poverty income limit:
 * var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
-* getLimitBySize( fedPovertyGuidelines, 1 );  // 12060
-* getLimitBySize( fedPovertyGuidelines, 2 );  // 16240
-* getLimitBySize( fedPovertyGuidelines, 3 );  // 20420
+* getYearlyLimitBySize( fedPovertyGuidelines, 1 );  // 12060
+* getYearlyLimitBySize( fedPovertyGuidelines, 2 );  // 16240
+* getYearlyLimitBySize( fedPovertyGuidelines, 3 );  // 20420
 * 
 * @function
 * @param {object} data Data to use to get a bracket/limit value.
