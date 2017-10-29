@@ -92,7 +92,7 @@ const getYearlyLimitBySize = function ( data, numItems, percent ) {
 
   }
   
-  return Math.ceil( limit/(safePerc/100) );
+  return Math.ceil( limit * (safePerc/100) );
 };  // End getYearlyLimitBySize()
 
 
