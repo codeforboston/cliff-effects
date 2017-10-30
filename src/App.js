@@ -4,7 +4,7 @@ import {
   Route
 } from 'react-router-dom'
 import HomePage from './homePage'
-// import AboutPage from './aboutPage'
+import AboutPage from './aboutPage'
 // import LoginPage from './loginPage'
 import VisitPage from './visitPage'
 import ClientDetailPage from './clientDetailPage'
@@ -19,7 +19,7 @@ class App extends React.Component {
   <HashRouter>
     <div>
       <Route exact path="/" component={HomePage}/>
-      {/*<Route path="/about" component={AboutPage}/>*/}
+      <Route path="/about" component={AboutPage}/>
       {/*<Route path="/login" component={LoginPage}/>*/}
       <Route path="/visit/:clientId/:visitId" component={VisitPage}/>
       <Route path="/detail/:id" component={ClientDetailPage}/>

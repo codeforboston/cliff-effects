@@ -9,13 +9,7 @@ const BetaWarning = function ( props ) {
   );
 };  // End BetaWarning(<>)
 
-const About = function ( props ) {
-  return (
-    <Menu.Item>
-      <a href='https://github.com/codeforboston/cliff-effects#cliff-effects'>About</a>
-    </Menu.Item>
-  );
-};  // End About(<>)
 
-
-export { BetaWarning, About };
+export {
+	BetaWarning
+};

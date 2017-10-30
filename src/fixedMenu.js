@@ -6,7 +6,7 @@ import {
   Image
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { BetaWarning, About } from './Beta';
+import { BetaWarning } from './Beta';
 import logo from './logo.svg';
 
 const FixedMenu = () => (
@@ -18,7 +18,7 @@ const FixedMenu = () => (
         <Menu.Item>
             <Link to="/">Home</Link>
         </Menu.Item>
-        <About/>
+        <Menu.Item><Link to="/about">About</Link></Menu.Item>
         <Menu.Item><Link to="/intake">New Client Intake</Link></Menu.Item>
         <Menu.Menu position='right'>
         {/*<Menu.Item className='item'>

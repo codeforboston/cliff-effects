@@ -6,7 +6,7 @@ import {
   Menu,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { BetaWarning, About } from './Beta';
+import { BetaWarning } from './Beta';
 import logo from './logo.svg';
 
 
@@ -18,7 +18,7 @@ const MainMenu = function ( props ) {
           <Link to="/"><Image src={logo} size='tiny' /></Link>
         </Menu.Item>
         <Menu.Item><Link to="/">Home</Link></Menu.Item>
-        <About/>
+        <Menu.Item><Link to="/about">About</Link></Menu.Item>
         <Menu.Item active><Link to="/intake">New Client Intake</Link></Menu.Item>
         <Menu.Item position='right'>
           {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}

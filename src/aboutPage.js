@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import {
-  Button,
   Container,
   Grid,
   Header,
-  Image,
   List,
-  Menu,
   Segment,
   Visibility,
   Icon
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import FixedMenu from './fixedMenu';
-import logo from './logo.svg';
+import { MainMenu } from './MainMenu';
+import { AboutContent } from './AboutContent';
 
 class AboutPage extends Component {
   state = {}
@@ -40,20 +37,7 @@ class AboutPage extends Component {
             vertical
             color='teal'
           >
-            <Container>
-              <Menu inverted secondary size='large'>
-                <Menu.Item>
-                  <Link to="/"><Image src={logo} size='tiny' /></Link>
-                </Menu.Item>
-                <Menu.Item><Link to="/">Home</Link></Menu.Item>
-                <Menu.Item active><Link to="/about">About</Link></Menu.Item>
-                <Menu.Item><Link to="/intake">New Client Intake</Link></Menu.Item>
-                <Menu.Item position='right'>
-                  <Link to="/login"><Button inverted>Log in</Button></Link>
-                  {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
-                </Menu.Item>
-              </Menu>
-            </Container>
+            <MainMenu/>
           </Segment>
         </Visibility>
 
@@ -61,10 +45,9 @@ class AboutPage extends Component {
           <Grid container stackable verticalAlign='middle'>         
             <Grid.Row>            
               <Grid.Column width={10}>
-                <Header as='h1' style={{ fontSize: '4em' }}>About the Cliff Effects Tool</Header>
-                <p style={{ fontSize: '1.33em' }}>
-                  Fill in about the tool here.
-                </p>
+
+                <AboutContent/>
+
               </Grid.Column>
               <Grid.Column floated='right' width={6}>
               </Grid.Column>
