@@ -20,7 +20,6 @@ import {
 } from 'react-router-dom';
 import { MainMenu } from './MainMenu';
 import FixedMenu from './fixedMenu';
-// import { clientList } from './clientList';
 import logo_stacked from './logo_stacked.svg';
 
 /* Removed temporarily for MVP
@@ -28,7 +27,7 @@ class SearchExistingClients extends Component {
   componentWillMount() {
     this.resetComponent()
   }
-  
+
   resetComponent = () => this.setState({ isLoading: false, results: clientList, value: '' })
 
   handleResultSelect = (e, { result }) => this.setState({ value: result.clientId, redirect: true })
@@ -38,7 +37,7 @@ class SearchExistingClients extends Component {
 
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent()
-      
+
       const re = new RegExp(_.escapeRegExp(this.state.value),'i');
       const isMatch = (result) => re.test(result.name) || re.test(result.clientId);
 
@@ -57,7 +56,7 @@ class SearchExistingClients extends Component {
             <div className='content'>
               <div className='title'>{name}</div>
               <div className='description'>{clientId}</div>
-            </div>           
+            </div>
           </Segment>
           )
       const panes = [
@@ -72,7 +71,7 @@ class SearchExistingClients extends Component {
                   description= {client.clientId}
                 />
               </Link>)
-            )}             
+            )}
           </Card.Group>
         </Tab.Pane> },
         { menuItem: 'List View', render: () => <Tab.Pane attached={false} textAlign='left'>
@@ -87,7 +86,7 @@ class SearchExistingClients extends Component {
                   </List.Content>
                 </Segment>
               </Link>)
-            )}  
+            )}
           </List>
         </Tab.Pane> },
       ];
@@ -160,7 +159,7 @@ class HomePage extends Component {
                 inverted
                 style={{ fontSize: '1.7em', fontWeight: 'normal' }}
               />
-              <Link to="/intake"><Button size='big' inverted>Intake New Client<Icon name='right arrow'/></Button></Link>             
+              <Link to="/intake"><Button size='big' inverted>Intake New Client<Icon name='right arrow'/></Button></Link>
             </Container>
           </Segment>
         </Visibility>
