@@ -46,7 +46,11 @@ If you have questions, feel free to ask.
 
 ## Testing
 
-Testing the project is pretty straightforward! From the cliff-effects directory, run `npm run test`. That's it.
+We use [React-Scripts test command](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests) (which wraps the [Jest](https://facebook.github.io/jest/) test framework) to run our [automated test suite](https://en.wikipedia.org/wiki/Test_automation).
+
+To run our test suite, run `npm run test`. That will run any tests that have changed since the last commit, and boot up an interactive testing session. The interactive session will prompt you with instructions, but the most important commands are `a` to run all tests, and `q` to quit the interactive session.
+
+For information on how to *write* new tests, please refer to the [React-Scripts documentation](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#writing-tests) on the subject.
 
 ## Resources
 

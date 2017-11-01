@@ -1,8 +1,8 @@
 import React from 'react';
 import { Menu, Image, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { BetaWarning } from './Beta';
-import logo from './logo.svg'
+import { BetaWarning } from './BetaWarning';
+import logo from './logo.svg';
 
 // const SimpleMenu = (props) => (
 
