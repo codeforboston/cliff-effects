@@ -10,4 +10,6 @@ const BetaWarning = function ( props ) {
 };  // End BetaWarning(<>)
 
 
-export { BetaWarning };
+export {
+	BetaWarning
+};
