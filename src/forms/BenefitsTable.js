@@ -5,9 +5,14 @@ import {
   Header
 } from 'semantic-ui-react';
 
+// CUSTOM COMPONENTS
 // Both the table and graph should just be added to a results page, but
 // this will do for now
 import ResultsGraph from '../resultsGraph';
+
+// BENEFIT LOGIC
+import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
+import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 
 const getSignSymbol = function ( num ) {
@@ -19,21 +24,27 @@ const getSignSymbol = function ( num ) {
 
 const BenefitsTable = function ( props ) {
 
-  var SNAPBenefitCurrent = 100,
-      SNAPBenefitFuture = 90,
-      SNAPDiff = SNAPBenefitCurrent - SNAPBenefitFuture,
-      sec8BenefitCurrent = 90,
-      sec8BenefitFuture = 100,
-      sec8Diff = sec8BenefitCurrent - sec8BenefitFuture,
+  var client        = props.client,
+      currentClient = { ...client };
+  currentClient.futureEarnedIncomeMonthly = currentClient.currentEarnedIncomeMonthly;
+
+  var SNAPBenefitCurrent  = Math.round( getSNAPBenefits( currentClient ).benefitValue * 12 ),
+      SNAPBenefitFuture   = Math.round( getSNAPBenefits( client ).benefitValue * 12 ),
+      SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
+      sec8BenefitCurrent  = Math.round( getHousingBenefit( currentClient ).benefitValue * 12 ),
+      sec8BenefitFuture   = Math.round( getHousingBenefit( client ).benefitValue * 12 ),
+      sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
-      totalBenefitFuture = SNAPBenefitFuture + sec8BenefitFuture,
-      totalDiff = SNAPDiff + sec8Diff,
-      incomeCurrent = 100,
-      incomeFuture = 200,
-      incomeDiff = incomeCurrent - incomeFuture,
-      netCurrent = totalBenefitCurrent + incomeCurrent,
-      netFuture = totalBenefitFuture + incomeFuture,
-      netDiff = totalDiff + incomeDiff;
+      totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
+      totalDiff           = SNAPDiff + sec8Diff,
+      incomeCurrent       = Math.round( client.currentEarnedIncomeMonthly ),
+      incomeFuture        = Math.round( client.futureEarnedIncomeMonthly ),
+      incomeDiff          = incomeFuture - incomeCurrent,
+      netCurrent          = totalBenefitCurrent + incomeCurrent,
+      netFuture           = totalBenefitFuture + incomeFuture,
+      netDiff             = totalDiff + incomeDiff;
+
+console.log(SNAPDiff);
 
   return (
     <wrapper>
