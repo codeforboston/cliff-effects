@@ -3,7 +3,7 @@ import { Grid, Step } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
 
 // Logic
-import { getSnapEligibility } from './programs/state/massachusetts/snap';
+import { getSNAPBenefits } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 
@@ -60,6 +60,7 @@ class VisitPage extends Component {
           citizenshipStatus:'citizen',
           qualifyingConditions: false,       
           numberOfBedrooms: 0,
+          currentHouseholdSize: 1,
           currentHomeless: false,
           currentHomeowner: false,
           areaOfResidence: 'Boston city',
@@ -185,7 +186,7 @@ class VisitPage extends Component {
               <AlertSidebar hasSnap={this.state.client.hasSnap} 
                             hasHousing={this.state.client.hasHousing} 
                             hasMassHealth={this.state.client.hasMassHealth}
-                            snapAlert={getSnapEligibility(this.state.client)}
+                            snapAlert={getSNAPBenefits(this.state.client)}
                             housingAlert={getHousingBenefit(this.state.client)}
                             massHealthAlert={getMassHealthEligibility(this.state.client)} />
             </Grid.Column>
