@@ -13,7 +13,7 @@ const FixedMenu = () => (
   <Menu fixed='top' size='large' color='teal' inverted >
     <Container>
         <Menu.Item>
-          <Link to="/"><Image src={logo} size='tiny' /></Link>
+          <a href="http://www.codeforboston.org" target="_blank" rel="noopener noreferrer"><Image src={logo} size='tiny' /></a>
         </Menu.Item>
         <Menu.Item>
             <Link to="/">Home</Link>
