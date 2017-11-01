@@ -3,7 +3,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { getSnapEligibility } from './programs/state/massachusetts/snap';
+import { getSNAPBenefits } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
 import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 
@@ -18,10 +18,10 @@ const ResultsGraph = (props) => {
   var massHealthData = xRange.map(x => {
       fakeClient.annualIncome = x;
       return getMassHealthEligibility(fakeClient).benefitValue});
-    
-  var snapData = xRange.map(x => {
-      fakeClient.annualIncome = x;
-      return getSnapEligibility(fakeClient).benefitValue});
+
+  var snapData = xRange.map(annualIncome => {
+      fakeClient.futureEarnedIncomeMonthly = annualIncome/12;
+      return getSNAPBenefits(fakeClient).benefitValue * 12});
 
   /** Section-8 Housing Choice Voucher */
   /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
@@ -67,7 +67,7 @@ const ResultsGraph = (props) => {
   var options = {
     title: {
       display: true,
-        text: 'Benefit Eligibility for Household Size ' + 
+        text: 'Benefit Eligibility for Household Size ' +
                 props.client.householdSize
     },
     showLines: true,
@@ -100,7 +100,7 @@ const ResultsGraph = (props) => {
             }
         }]
     },
-      /*        
+      /*
        * default tooltip for chart.js 2.0+  when unspecified looks like:
        *
        * options: {
@@ -122,13 +122,13 @@ const ResultsGraph = (props) => {
                     {style:"currency",currency:"USD"}).replace('.00','');
             },
             /*
-             * to add number formatting to the tooltips. returns the data label 
-             * + currency format 
+             * to add number formatting to the tooltips. returns the data label
+             * + currency format
              * from https://github.com/chartjs/Chart.js/issues/2386
              */
             label: function(tooltipItem, data) {
-                return data.datasets[tooltipItem.datasetIndex].label + ": " + 
-                    tooltipItem.yLabel.toLocaleString("en-US",{style:"currency", 
+                return data.datasets[tooltipItem.datasetIndex].label + ": " +
+                    tooltipItem.yLabel.toLocaleString("en-US",{style:"currency",
                         currency:"USD"}).replace('.00','');
             }
         }
