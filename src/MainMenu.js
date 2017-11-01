@@ -15,7 +15,7 @@ const MainMenu = function ( props ) {
     <Container>
       <Menu inverted secondary size='large'>
         <Menu.Item>
-          <Link to="/"><Image src={logo} size='tiny' /></Link>
+          <a href="http://www.codeforboston.org" target="_blank" rel="noopener noreferrer"><Image src={logo} size='tiny' /></a>
         </Menu.Item>
         <Menu.Item><Link to="/">Home</Link></Menu.Item>
         <Menu.Item><Link to="/about">About</Link></Menu.Item>
