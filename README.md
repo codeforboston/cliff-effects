@@ -27,23 +27,25 @@ We use GitHub Issues to organize our work.  Here's some quick reading about [how
 
 
 ## Environment Setup
-This assumes you know:
+These instructions assume you know:
 - How to open your terminal or command prompt/terminal
 - How to navigate to different folders in your command prompt/terminal
 - How to install software, like nodejs, for you command prompt/terminal
 
-1. Fork and clone the repo, and create link to our repo. For some guidance, see this [github guide](https://help.github.com/articles/fork-a-repo/). It's worth following all the instructions there.
+Instructions:
+1. If you know how, fork and clone the repo, and create a link to our repo. If not, see this [github guide](https://help.github.com/articles/fork-a-repo/). Go through all the steps.
 2. In your termainal, do `git checkout dev`. *Do not touch the `master` branch.*
 3. If you don't have nodejs, install it (see [install nodejs](https://nodejs.org/en/)). If you're not sure if you have nodejs, do the next step. If you don't get a number, you don't have nodejs.
-4. Check your node.js version in your terminal with `node --version`. Versions 5.0 or greater are preferred.
+4. Check your node.js version in your terminal with `node --version`. Version 5.0 or greater is preferred.
 5. In your command prompt/terminal, do `npm install`. This might take a few minutes.
 6. Now you'll be able to try out the current UI or play with the code!
 7. To see a local version of the site, in your command prompt/terminal type `npm start`. It should open a browser window with the site loaded. It works best in Chrome.
 8. To make changes to the site and see them, just change the code in the files, save the changes, and the browser page will automatically reload. If you don't see the changes, refresh the page. If it's still not looking different, you may have done something incorrectly. Feel free to ask one of us.
-9. If you're interested in more in-depth debugging, we also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
-10. To stop the local version, in your command prompt/terminal press `Ctrl-C`.
+9. To stop the local version, in your command prompt/terminal press `Ctrl-C`.
 
 To get yourself set up to keep up to date with the latest changes to the `dev` branch, make sure you've gone through [Step 3 of the github guide](https://help.github.com/articles/fork-a-repo/#step-3-configure-git-to-sync-your-fork-with-the-original-spoon-knife-repository). To keep your branches from getting tangled as you both make changes and keep up to date with our repo, take a look at our wiki page about a possible [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow).
+
+If you're interested in more in-depth debugging, we also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
 
 If you have questions, feel free to ask.
 
