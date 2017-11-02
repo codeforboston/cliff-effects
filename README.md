@@ -66,6 +66,6 @@ We're building the project with [React](https://facebook.github.io/react/docs/re
 
 ### Git
 
-Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1). Note that we'd prefer you don't use `-f` or `--force` if possible, especially with pull requests.
+Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1). Note that we'd prefer you don't use `-f` or `--force` if possible, especially with a branch that you have used to create a pull request.
 
 More familiar with git, but not as familiar with collaboration? See a possible [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow) that could help keep things from getting messy.
