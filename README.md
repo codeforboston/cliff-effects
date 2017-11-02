@@ -27,20 +27,23 @@ We use GitHub Issues to organize our work.  Here's some quick reading about [how
 
 
 ## Environment Setup
-If you're just starting out with github, they have a [guide/tutorial](https://help.github.com/articles/fork-a-repo/) about forking and cloning.
+This assumes you know:
+- How to open your terminal or command prompt/terminal
+- How to navigate to different folders in your command prompt/terminal
+- How to install software, like nodejs, for you command prompt/terminal
 
-1. Fork this repo.
-2. Navigate to the directory where you're going to keep this code.
-3. `git clone` using the forked repo's address.
-4. Navigate into the new repository's directory with `cd cliff-effects` (on OSX you can drag and drop the folder into the terminal window).
-5. Make sure you're on the main branch with `git checkout dev`.  *Do not touch `master`.*
-6. Check your node.js version in your terminal with `node --version`. Versions >=5.0 are preferred. If you don't get a version number (it would look something like 'v6.11.1'), [install node](https://nodejs.org/en/).
-7. Install all necessary node packages with `npm install`. This might take a few minutes.
-8. Now you can try out the current UI or play with the code!
-9. To run a local version of the site so you can play around or debug your changes, type `npm start`. It will automatically open a browser window and run the code locally. If you make changes to a file and save it, the page will automatically update and use the new code. Would also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
-10. `Ctrl-C` in the terminal to stop the app when it's running.
+1. Fork and clone the repo, and create link to our repo. For some guidance, see this [github guide](https://help.github.com/articles/fork-a-repo/). It's worth following all the instructions there.
+2. In your termainal, do `git checkout dev`. *Do not touch the `master` branch.*
+3. If you don't have nodejs, install it (see [install nodejs](https://nodejs.org/en/)). If you're not sure if you have nodejs, do the next step. If you don't get a number, you don't have nodejs.
+4. Check your node.js version in your terminal with `node --version`. Versions 5.0 or greater are preferred.
+5. In your command prompt/terminal, do `npm install`. This might take a few minutes.
+6. Now you'll be able to try out the current UI or play with the code!
+7. To see a local version of the site, in your command prompt/terminal type `npm start`. It should open a browser window with the site loaded. It works best in Chrome.
+8. To make changes to the site and see them, just change the code in the files, save the changes, and the browser page will automatically reload. If you don't see the changes, refresh the page. If it's still not looking different, you may have done something incorrectly. Feel free to ask one of us.
+9. If you're interested in more in-depth debugging, we also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
+10. To stop the local version, in your command prompt/terminal press `Ctrl-C`.
 
-To keep up to date with the latest changes to the `dev` branch, you'll need to use git to add a new remote branch with this repo's address. The page about [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow) includes some notes about that.
+To get yourself set up to keep up to date with the latest changes to the `dev` branch, make sure you've gone through [Step 3 of the github guide](https://help.github.com/articles/fork-a-repo/#step-3-configure-git-to-sync-your-fork-with-the-original-spoon-knife-repository). To keep your branches from getting tangled as you both make changes and keep up to date with our repo, take a look at our wiki page about a possible [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow).
 
 If you have questions, feel free to ask.
 
