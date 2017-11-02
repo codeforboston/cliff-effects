@@ -13,7 +13,8 @@ import { clientList } from './clientList';
 // Our Components
 import SimpleMenu from './simpleMenu';
 import AlertSidebar from './alertSidebar'
-import ResultsGraph from './resultsGraph';
+// import ResultsGraph from './resultsGraph';
+import { BenefitsTable } from './forms/BenefitsTable';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { CurrentExpensesStep } from './forms/currentExpenses';
 import { FutureIncomeStep } from './forms/futureIncome';
@@ -91,7 +92,7 @@ class VisitPage extends Component {
       { title: 'MassHealth', form: HealthStep },      
       // { title: 'SNAP', form: SNAPStep },
       // { title: 'Housing', form: HousingStep },
-      { title: 'Results', form: ResultsGraph }
+      { title: 'Results', form: BenefitsTable }
     ];  // end this.steps {}
   };  // End constructor()
 
