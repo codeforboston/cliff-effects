@@ -27,13 +27,14 @@ We use GitHub Issues to organize our work.  Here's some quick reading about [how
 
 
 ## Environment Setup
-These instructions assume you know:
-- How to open your terminal or command prompt/terminal
-- How to navigate to different folders in your command prompt/terminal
-- How to install software, like nodejs, for you command prompt/terminal
+To follow these instructions, it'd help if you:
+- have mentally perpared for experimentation and learning and/or
+- know how to open your command prompt/terminal
+- know a bit about how to navigate to different folders in your command prompt/terminal
+- know a bit about installing software for your command prompt/terminal, like nodejs
 
 Instructions:
-1. If you know how, fork and clone the repo, and create a link to our repo. If not, see this [github guide](https://help.github.com/articles/fork-a-repo/). Go through all the steps.
+1. If you know how, fork and clone the repo, and create a link (a remote branch) to our repo. If not, see this [github guide](https://help.github.com/articles/fork-a-repo/). Go through all the steps.
 2. In your termainal, do `git checkout dev`. *Do not touch the `master` branch.*
 3. If you don't have nodejs, install it (see [install nodejs](https://nodejs.org/en/)). If you're not sure if you have nodejs, do the next step. If you don't get a number, you don't have nodejs.
 4. Check your node.js version in your terminal with `node --version`. Version 5.0 or greater is preferred.
