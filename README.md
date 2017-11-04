@@ -37,7 +37,7 @@ Instructions:
 1. If you know how, fork and clone the repo, and create a link (a remote branch) to our repo. If not, see this [github guide](https://help.github.com/articles/fork-a-repo/). Go through all the steps.
 2. In your termainal, do `git checkout dev`. *Do not touch the `master` branch.*
 3. If you don't have nodejs, install it (see [install nodejs](https://nodejs.org/en/)). If you're not sure if you have nodejs, do the next step. If you don't get a number, you don't have nodejs.
-4. Check your node.js version in your terminal with `node --version`. Version 5.0 or greater is preferred.
+4. Check your node.js version in your terminal with `node --version`. It should show a number. Version 5.0 or greater is preferred.
 5. In your command prompt/terminal, do `npm install`. This might take a few minutes.
 6. Now you'll be able to try out the current UI or play with the code!
 7. To see a local version of the site, in your command prompt/terminal type `npm start`. It should open a browser window with the site loaded. It works best in Chrome.
