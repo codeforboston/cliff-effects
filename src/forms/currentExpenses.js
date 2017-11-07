@@ -39,7 +39,6 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
     setClientProperty( evnt, obj );
   };  // End toBool()
 
-console.log( fuelAssist, typeof fuelAssist );
   return (
     <wrapper>
       <Header as='h4'>Which of these utilities do you pay for?</Header>
@@ -171,9 +170,8 @@ const Housing = function ({ client, type, time, setClientProperty }) {
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFuture = function ( evnt, inputProps ) {
-    var obj = { name: inputProps.name, value: inputProps.value };
-    console.log(obj);
-    setClientProperty( evnt, {...obj, fillFuture: true });
+    var obj = { ...inputProps, value: inputProps.value, fillFuture: true };
+    setClientProperty( evnt, obj );
   };
 
   let sharedProps = {
