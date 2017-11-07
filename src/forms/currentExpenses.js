@@ -1,15 +1,170 @@
 // REACT COMPONENTS
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import {
+  Form,
+  Radio,
+  Checkbox,
+  Header
+} from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import {
-  FormPartsContainer, MassiveToggle, FormHeading, IntervalColumnHeadings, CashFlowRow
+  FormPartsContainer,
+  // MassiveToggle,
+  FormHeading,
+  IntervalColumnHeadings,
+  CashFlowRow
 } from './formHelpers';
 
 // ========================================
 // COMPONENTS
 // ========================================
+
+const Utilities = function ({ client, type, time, setClientProperty }) {
+
+  let climate     = client[ time + 'HasClimateControl' ],
+      electricity = client[ time + 'NonHeatElectricity' ],
+      phone       = client[ time + 'Phone' ],
+      fuelAssist  = client[ time + 'HasFuelAssistance' ];
+
+  // New possiblity - don't ask whether they do or don't pay whatever,
+  // just show the expense columns and they can leave them blank
+  // if they want.
+
+  return (
+    <wrapper>
+      {/*
+      <Header as='h4'>Do you have utility expenses?</Header>
+      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
+        <Radio
+          name={time + 'PaysUtilities'}
+          label={'Yes'} value={'Yes'}
+          checked={utils === 'Yes'}
+          onChange={setClientProperty}
+        />
+      </Form.Field>
+      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
+        <Radio
+          name={time + 'PaysUtilities'}
+          label={'No'} value={'No'}
+          checked={utils === 'No'}
+          onChange={setClientProperty}
+        />
+      </Form.Field>
+      */}
+      <Header as='h4'>Which of these utilities do you pay for?</Header>
+
+      <Checkbox
+        label={'Heating or cooling (e.g. A/C during summer)'}
+        name={time + 'HasClimateControl'}
+        checked={climate}
+        onChange={setClientProperty}
+      />
+      <br/>
+      <Checkbox
+        label={'Electricity for non-heating purposes'}
+        name={time + 'NonHeatElectricity'}
+        checked={electricity}
+        onChange={setClientProperty}
+      />
+      <br/>
+      <Checkbox
+        label={'Telephone service'}
+        name={time + 'Phone'}
+        checked={phone}
+        onChange={setClientProperty}
+      />
+
+      <Header as='h4'>Do you get Fuel Assistance?</Header>
+      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
+        <Radio
+          name={time + 'HasFuelAssistance'}
+          label={'Yes'} value={'Yes'}
+          checked={fuelAssist === 'Yes'}
+          onChange={setClientProperty}
+        />
+      </Form.Field>
+      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
+        <Radio
+          name={time + 'HasFuelAssistance'}
+          label={'No'} value={'No'}
+          checked={fuelAssist === 'No'}
+          onChange={setClientProperty}
+        />
+      </Form.Field>
+    </wrapper>
+  );
+};  // End Utilities(<>)
+
+
+const ShelterDetails = function ({ client, type, time, setClientProperty }) {
+
+  let shelter = client[ time + 'Shelter' ],
+      sharedProps = {
+        client: client, type: type, time: time,
+        setClientProperty: setClientProperty
+      };
+
+  if ( client.hasHousing ) {
+    return (
+      <wrapper>
+        <IntervalColumnHeadings type={ type }/>
+        <CashFlowRow {...sharedProps} generic={'RentShare'}> Rent Share </CashFlowRow>
+        <CashFlowRow {...sharedProps}
+          generic={'ContractRent'}
+          labeInfo={'The full amount the landlord would charge without a Section 8 voucher'}>
+            Contract Rent
+        </CashFlowRow>
+        <Utilities {...sharedProps}/>
+      </wrapper>
+    );
+
+  } else if ( shelter === 'homeless' ) {
+    return null;
+
+  } else if ( shelter === 'renter' ) {
+    return (
+      <wrapper>
+        <IntervalColumnHeadings type={ type }/>
+        <CashFlowRow {...sharedProps} generic={'Rent'}> Rent </CashFlowRow>
+        <Utilities {...sharedProps}/>
+      </wrapper>
+    );
+
+  } else if ( shelter === 'homeowner' ) {
+    return (
+      <wrapper>
+        <IntervalColumnHeadings type={ type }/>
+        <CashFlowRow {...sharedProps} generic={'Mortgage'}> Mortgage </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'HousingInsurance'}> Insurance Costs </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'PropertyTax'}> Property Tax </CashFlowRow>
+        <Utilities {...sharedProps}/>
+      </wrapper>
+    );
+
+  }  // end which expenses
+
+};  // End ShelterDetails(<>)
+
+
+const ShelterRadio = function ({ currentValue, label, time, setClientProperty }) {
+
+  var value = label.toLowerCase();
+
+  return (
+    <Form.Field>
+      <Radio
+        name={time + 'Shelter'}
+        label={label}
+        value={value}
+        checked={currentValue === value}
+        onChange={setClientProperty}
+      />
+    </Form.Field>
+  );
+
+};  // End ShelterRadio(<>)
+
 
 /** @todo description
 * 
@@ -21,19 +176,13 @@ import {
 */
 const Housing = function ({ client, type, time, setClientProperty }) {
 
-  // `hasHousing` is actually whether they're in the housing voucher program
-  let ownsAHome   = client[ time + 'Homeowner' ],
-      isHomeless  = client[ time + 'Homeless' ] && !client.hasHousing && !ownsAHome,
-      rented      = !isHomeless && !ownsAHome;
-
-  let utils       = client[ time + 'PaysUtilities' ],
-      climate     = client[ time + 'GotClimateControl' ],
-      electricity = client[ time + 'NonHeatElectricity' ],
-      phone       = client[ time + 'Phone' ];
-
+  // We're using a bunch of radio buttons. Since `checked` is defined
+  // in Radio components, `setClientProperty()` would store it, but we
+  // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFuture = function ( evnt, inputProps ) {
-    setClientProperty( evnt, {...inputProps, fillFuture: true });
+    var obj = { name: inputProps.name, value: inputProps.value };
+    setClientProperty( evnt, {...obj, fillFuture: true });
   };
 
   let sharedProps = {
@@ -41,68 +190,39 @@ const Housing = function ({ client, type, time, setClientProperty }) {
     setClientProperty: ensureFuture
   };
 
-  /** @todo Owning a home vs. rented vs. homeless should probably be radio buttons */
   return (
     <wrapper>
 
       <FormHeading>Shelter</FormHeading>
 
-      <MassiveToggle name={ time + 'Homeless' } value={ isHomeless } setClientProperty={ ensureFuture }
-          label='Are you homeless?' />
-      { isHomeless
-        ? null
-        : <MassiveToggle name={ time + 'Homeowner' } value={ ownsAHome }
-            setClientProperty={ ensureFuture } label='Do you own a home?' />
-      }
-      { !ownsAHome
-        ? null
-        : <wrapper>
+      { client.hasHousing
+      ? null
+      : <wrapper>
 
-          <FormHeading>Homeowner</FormHeading>
+        <Header as='h4'>What is your housing situation?</Header>
+        <ShelterRadio
+          currentValue={client[ time + 'Shelter' ]}
+          label={'Homeless'}
+          time={time}
+          setClientProperty={ensureFuture}
+        />
+        <ShelterRadio
+          currentValue={client[ time + 'Shelter' ]}
+          label={'Renter'}
+          time={time}
+          setClientProperty={ensureFuture}
+        />
+        <ShelterRadio
+          currentValue={client[ time + 'Shelter' ]}
+          label={'Homeowner'}
+          time={time}
+          setClientProperty={ensureFuture}
+        />
 
-          <IntervalColumnHeadings type={ type }/>
-          <CashFlowRow {...sharedProps} generic='Mortgage'> Mortgage </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic='HousingInsurance'> Insurance Costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic='PropertyTax'> Property Tax </CashFlowRow>
-        </wrapper>
-      }
-      { !rented
-        ? null
-        : <wrapper>
+      </wrapper>}
 
-          <FormHeading>Renter</FormHeading>
+      <ShelterDetails {...sharedProps}/>
 
-          <IntervalColumnHeadings type={ type }/>
-          { client.hasHousing
-            ? <wrapper>
-              <CashFlowRow {...sharedProps} generic='RentShare'> Rent Share </CashFlowRow>
-              <CashFlowRow {...sharedProps}
-                generic='ContractRent'
-                labeInfo='The full amount the landord would charge without a Section 8 voucher'>
-                  Contract Rent
-              </CashFlowRow>
-            </wrapper>
-            : <CashFlowRow {...sharedProps} generic='Rent'> Rent </CashFlowRow>
-          }
-          
-          {/** No padding for an element all on its own */}
-          <br/>
-
-          <MassiveToggle name={ time + 'PaysUtilities' } value={ utils } setClientProperty={ ensureFuture }
-            label='Do you pay utilities seperately from the rent?' />
-          { !client[ time + 'PaysUtilities' ]
-            ? null
-            : <wrapper>
-              <MassiveToggle name={ time + 'ClimateControl' } value={ climate } setClientProperty={ ensureFuture }
-                label='Do you pay for heating or cooling (e.g. A/C during summer), OR did you receive Fuel Assistance in the past 12 months?' />
-              <MassiveToggle name={ time + 'NonHeatElectricity' } value={ electricity } setClientProperty={ ensureFuture }
-                label='Do you pay for electricity for non-heating purposes?' />
-              <MassiveToggle name={ time + 'Phone' } value={ phone } setClientProperty={ ensureFuture }
-                label='Do you pay for your own telephone service?' />
-            </wrapper>
-          }
-        </wrapper>
-      }
     </wrapper>
   );
 

@@ -62,8 +62,6 @@ class VisitPage extends Component {
           qualifyingConditions: false,       
           numberOfBedrooms: 0,
           currentHouseholdSize: 1,
-          currentHomeless: false,
-          currentHomeowner: false,
           areaOfResidence: 'Boston city',
           currentEarnedIncomeMonthly: 0,
           currentTAFDCMonthly: 0,
@@ -78,7 +76,13 @@ class VisitPage extends Component {
           currentOtherIncomeMonthly: 0,
           currentUnearnedIncomeMonthly: 0,
           futureEarnedIncomeMonthly: 0,
-          futureUnearnedIncomeMonthly: 0
+          futureUnearnedIncomeMonthly: 0,
+          currentShelter: 'homeless',
+          currentHomeless: false,
+          currentHomeowner: false,
+          // When normalizing, turn these into boolean values?
+          // currentPaysUtilities: 'No',
+          currentHasFuelAssistance: 'No',
         }
     };  // end this.state {}
 
