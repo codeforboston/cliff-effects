@@ -81,8 +81,8 @@ class VisitPage extends Component {
           // currentHomeless: false,
           // currentHomeowner: false,
           // When normalizing, turn these into boolean values?
-          // currentPaysUtilities: 'No',
-          currentHasFuelAssistance: 'No',
+          // currentPaysUtilities: false,
+          currentHasFuelAssistance: false,
         }
     };  // end this.state {}
 

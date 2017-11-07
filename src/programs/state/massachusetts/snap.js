@@ -243,7 +243,7 @@ const getShelterDeduction = function(client, timeframe) {
 
 const utilityStatus = function(client, timeframe) {
   var paidUtilityCategory = null;
-  var isPayHeatingCooling = client[timeframe + 'ClimateControl'] || client[timeframe + 'HasFuelAssistance'] === 'Yes';
+  var isPayHeatingCooling = client[timeframe + 'ClimateControl'] || client[timeframe + 'HasFuelAssistance'];
   var isPayElectricity = client[timeframe + 'NonHeatElectricity'];
   var isPayTelephone = client[timeframe + 'Phone'];
   if ( isPayHeatingCooling ) {

@@ -27,14 +27,19 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
       phone       = client[ time + 'Phone' ],
       fuelAssist  = client[ time + 'HasFuelAssistance' ];
 
-  console.log( climate, electricity, phone );
 
   let setChecked = function ( evnt, inputProps ) {
-    var obj = { name: inputProps.name, value: inputProps.checked };
+    var obj = { ...inputProps, value: inputProps.checked };
     setClientProperty( evnt, obj );
   };  // End setChecked()
 
+  let toBool = function ( evnt, inputProps ) {
+    var val = inputProps.value === 'Yes',
+        obj = { ...inputProps, value: val };
+    setClientProperty( evnt, obj );
+  };  // End toBool()
 
+console.log( fuelAssist, typeof fuelAssist );
   return (
     <wrapper>
       <Header as='h4'>Which of these utilities do you pay for?</Header>
@@ -65,16 +70,16 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
         <Radio
           name={time + 'HasFuelAssistance'}
           label={'Yes'} value={'Yes'}
-          checked={fuelAssist === 'Yes'}
-          onChange={setClientProperty}
+          checked={fuelAssist}
+          onChange={toBool}
         />
       </Form.Field>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
         <Radio
           name={time + 'HasFuelAssistance'}
           label={'No'} value={'No'}
-          checked={fuelAssist === 'No'}
-          onChange={setClientProperty}
+          checked={!fuelAssist}
+          onChange={toBool}
         />
       </Form.Field>
     </wrapper>
