@@ -1,16 +1,9 @@
 // COMPONENTS
 import React from 'react';
-import { Form, Header, Statistic } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
-
-// BENEFIT PROGRAM CALCULATIONS
-import {
-  percentPovertyLevel,
-  // percentStateMedianIncome
-} from '../helpers/helperFunctions';
-import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 
 
 // ========================================
@@ -27,16 +20,14 @@ import { getSimpleGrossIncomeMonthly } from '../helpers/cashflow';
 */
 const IncomeForm = function ({ client, time, setClientProperty }) {
 
-  var type        = 'income',
-      monthly     = getSimpleGrossIncomeMonthly( client, time ) || 0,
-      grossAnnual = monthly * 12;
+  var type        = 'income';
 
   /** 
   * As per Project Hope input, for the first prototype we're only
   * including the ability to change earned income.
   */
   return (
-    <div className='field-aligner two-column'>
+    <wrapper className='field-aligner two-column'>
 
       <IntervalColumnHeadings type={type}/>
       <CashFlowRow client={client}
@@ -48,24 +39,7 @@ const IncomeForm = function ({ client, time, setClientProperty }) {
           Earned income
       </CashFlowRow>
 
-      <br/>
-      <br/>
-
-      <div style={{ textAlign: 'center' }}>
-        <Header as='h4' textAlign='center'>
-          FOR A HOUSEHOLD SIZE OF <strong>{ client.householdSize }</strong>:
-        </Header>
-        <Statistic>
-          <Statistic.Label>Federal Poverty Level Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentPovertyLevel( grossAnnual, client.householdSize ))}%</Statistic.Value>
-        </Statistic>
-        {/*<Statistic>
-          <Statistic.Label>Area Median Income Percentage</Statistic.Label>
-          <Statistic.Value>{Math.round( percentStateMedianIncome( grossAnnual, client.householdSize ))}%</Statistic.Value>
-        </Statistic>*/}
-      </div>
-
-    </div>
+    </wrapper>
   );
 
 };  // End IncomeForm() Component
