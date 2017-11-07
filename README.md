@@ -34,18 +34,18 @@ To follow these instructions, it'd help if you:
 - know a bit about installing software for your terminal, like nodejs
 
 Instructions:
-1. If you know how, fork and clone the repo, and create a link (a remote branch) to our repo. If not, see this [github guide](https://help.github.com/articles/fork-a-repo/). Go through all the steps.
+1. If you're new to github look at [How to: fork a repo](https://help.github.com/articles/fork-a-repo/). Otherwise, fork and clone the repo, creating a link (remote branch) to the Code for Boston repo.
 2. In your termainal/command prompt, do `git checkout dev`. *Do not touch the `master` branch.*
-3. If you don't have nodejs, install it (see [install nodejs](https://nodejs.org/en/)). If you're not sure if you have nodejs, do the next step. If you don't get a number, you don't have nodejs.
-4. Check your node.js version in your terminal with `node --version`. It should show a number. Version 5.0 or greater is preferred.
-5. In your terminal, do `npm install`. This might take a few minutes.
-6. Now you'll be able to try out the current UI or play with the code!
-7. To see a local version of the site, in your terminal type `npm start`. It should open a browser window with the site loaded. It works best in Chrome.
-8. To make changes to the site and see them, just change the code in the files, save the changes, and the browser page will automatically reload. If you don't see the changes, refresh the page. If it's still not looking different, you may have done something incorrectly. Feel free to ask one of us.
-9. To stop the local version, in your terminal press `Ctrl-C`.
+3. If you have [nodejs](https://nodejs.org/en/), version 5.0+ is desired. If you don't, [install it](https://nodejs.org/en/download/). If you don't know, do `node --version` in your terminal/command prompt. If you don't get a number, you don't have it.
+4. In your command prompt/terminal, do `npm install`. This might take a few minutes. Now you'll be able to try out the current UI or play with the code!
+5. Do `npm start` in terminal to automatically open a new browser tab and see a local version of the site. Works best in Chrome.
+6. Saved changes will automatically be reflected in-browser. If you don't see the changes, refresh the page. If nothing has changed, ask for help!
+7. Press cltr+c to stop the local server that you have running.
 
+<!-- Further discussion needed. See outdated comments for merge #154 (near the bottom of them). -->
 To get yourself set up to keep up to date with the latest changes to the `dev` branch, make sure you've gone through [Step 3 of the github guide](https://help.github.com/articles/fork-a-repo/#step-3-configure-git-to-sync-your-fork-with-the-original-spoon-knife-repository). To keep your branches from getting tangled as you both make changes and keep up to date with our repo, take a look at our wiki page about a possible [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow).
 
+<!-- Further discussion needed. See outdated comments for merge #154 (near the bottom of them). -->
 If you're interested in more in-depth debugging, we also recommend getting the [React Developer Tools](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0ahUKEwiZ__6Vg_jVAhWQ14MKHczrDtoQFgg4MAM&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi%3Fhl%3Den&usg=AFQjCNEv0udXgBoaukzJa59I_vufhScUbQ) extension for Chrome.
 
 If you have questions, feel free to ask.
@@ -66,6 +66,6 @@ We're building the project with [React](https://facebook.github.io/react/docs/re
 
 ### Git
 
-Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1). Note that we'd prefer you don't use `-f` or `--force` if possible, especially with a branch that you have used to create a pull request.
+Aren't familiar with Git?  Spend ~15 minutes learning with this [interactive Git tutorial](https://try.github.io/levels/1/challenges/1). Don't use -f or --force with branches that you have used to create a pull request.
 
 More familiar with git, but not as familiar with collaboration? See a possible [git workflow](https://github.com/codeforboston/cliff-effects/wiki/Git-Workflow) that could help keep things from getting messy.
