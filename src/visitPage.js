@@ -78,8 +78,8 @@ class VisitPage extends Component {
           futureEarnedIncomeMonthly: 0,
           futureUnearnedIncomeMonthly: 0,
           currentShelter: 'homeless',
-          currentHomeless: false,
-          currentHomeowner: false,
+          // currentHomeless: false,
+          // currentHomeowner: false,
           // When normalizing, turn these into boolean values?
           // currentPaysUtilities: 'No',
           currentHasFuelAssistance: 'No',

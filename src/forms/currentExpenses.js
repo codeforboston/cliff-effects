@@ -27,52 +27,37 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
       phone       = client[ time + 'Phone' ],
       fuelAssist  = client[ time + 'HasFuelAssistance' ];
 
-  // New possiblity - don't ask whether they do or don't pay whatever,
-  // just show the expense columns and they can leave them blank
-  // if they want.
+  console.log( climate, electricity, phone );
+
+  let setChecked = function ( evnt, inputProps ) {
+    var obj = { name: inputProps.name, value: inputProps.checked };
+    setClientProperty( evnt, obj );
+  };  // End setChecked()
+
 
   return (
     <wrapper>
-      {/*
-      <Header as='h4'>Do you have utility expenses?</Header>
-      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
-        <Radio
-          name={time + 'PaysUtilities'}
-          label={'Yes'} value={'Yes'}
-          checked={utils === 'Yes'}
-          onChange={setClientProperty}
-        />
-      </Form.Field>
-      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
-        <Radio
-          name={time + 'PaysUtilities'}
-          label={'No'} value={'No'}
-          checked={utils === 'No'}
-          onChange={setClientProperty}
-        />
-      </Form.Field>
-      */}
       <Header as='h4'>Which of these utilities do you pay for?</Header>
 
       <Checkbox
-        label={'Heating or cooling (e.g. A/C during summer)'}
         name={time + 'HasClimateControl'}
+        label={'Heating or cooling (e.g. A/C during summer)'}
         checked={climate}
-        onChange={setClientProperty}
+        onChange={setChecked}
       />
       <br/>
       <Checkbox
-        label={'Electricity for non-heating purposes'}
         name={time + 'NonHeatElectricity'}
+        label={'Electricity for non-heating purposes'}
         checked={electricity}
-        onChange={setClientProperty}
+        onChange={setChecked}
       />
       <br/>
       <Checkbox
-        label={'Telephone service'}
         name={time + 'Phone'}
+        label={'Telephone service'}
         checked={phone}
-        onChange={setClientProperty}
+        onChange={setChecked}
       />
 
       <Header as='h4'>Do you get Fuel Assistance?</Header>
@@ -93,6 +78,7 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
         />
       </Form.Field>
     </wrapper>
+
   );
 };  // End Utilities(<>)
 
@@ -143,7 +129,6 @@ const ShelterDetails = function ({ client, type, time, setClientProperty }) {
     );
 
   }  // end which expenses
-
 };  // End ShelterDetails(<>)
 
 
@@ -182,6 +167,7 @@ const Housing = function ({ client, type, time, setClientProperty }) {
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFuture = function ( evnt, inputProps ) {
     var obj = { name: inputProps.name, value: inputProps.value };
+    console.log(obj);
     setClientProperty( evnt, {...obj, fillFuture: true });
   };
 
