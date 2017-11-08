@@ -18,8 +18,8 @@ import { BenefitsTable } from './forms/BenefitsTable';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { CurrentExpensesStep } from './forms/currentExpenses';
 import { FutureIncomeStep } from './forms/futureIncome';
-import { HealthStep } from './forms/health';
-import { CitizenshipStep } from './forms/citizenship';
+//import { HealthStep } from './forms/health';
+//  import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
 
@@ -59,7 +59,7 @@ class VisitPage extends Component {
           householdSize: 1,
           annualIncome: 0,
           citizenshipStatus:'citizen',
-          qualifyingConditions: false,       
+          qualifyingConditions: false,
           numberOfBedrooms: 0,
           currentHouseholdSize: 1,
           currentHomeless: false,
@@ -88,8 +88,8 @@ class VisitPage extends Component {
       { title: 'Current Income', form: CurrentIncomeStep },
       { title: 'Current Expenses', form: CurrentExpensesStep },
       { title: 'Future Income', form: FutureIncomeStep },
-      { title: 'Citizenship', form: CitizenshipStep },
-      { title: 'MassHealth', form: HealthStep },      
+  //    { title: 'Citizenship', form: CitizenshipStep },
+    //  { title: 'MassHealth', form: HealthStep },
       // { title: 'SNAP', form: SNAPStep },
       // { title: 'Housing', form: HousingStep },
       { title: 'Results', form: BenefitsTable }
@@ -104,18 +104,18 @@ class VisitPage extends Component {
     let newClientValues = {[propertyName]: value}
     let futurePropertyName = propertyName.replace('current', 'future')
     if(this.state.client[futurePropertyName] === 'undefined' && data.fillFuture){
-      newClientValues[futurePropertyName] = value 
-    } 
-    
+      newClientValues[futurePropertyName] = value
+    }
+
     //if it's a household size field, check if dependents is larger than it, and if so, force dependents to be smaller
     //can't think of a better place to put this logic yet
     if(propertyName.includes("HouseholdSize")){
         let timeframe = propertyName.replace("HouseholdSize", "");
         if(this.state.client[timeframe + "Dependents"] >= newClientValues[propertyName]){ //If dependents is lower than the new value for the # of people in the household
-          newClientValues[timeframe + "Dependents"] = data.value - 1;         
+          newClientValues[timeframe + "Dependents"] = data.value - 1;
         }
     }
-    
+
     this.setState(prevState => ({ client:  {...prevState.client, ...newClientValues }}));
   }
 
@@ -139,25 +139,25 @@ class VisitPage extends Component {
       currentStep: prevState.currentStep - 1
     }));
   };
-    
+
   goToStep = (index) => {
     this.setState({ currentStep: index });
   }
-  
+
   getCurrentStep = () => {
     var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
 
-    return ( 
-      <FormSection currentStep={this.state.currentStep} 
-                   client={this.state.client} 
+    return (
+      <FormSection currentStep={this.state.currentStep}
+                   client={this.state.client}
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
                    setClientProperty={this.setClientProperty}
-                   saveForm={this.saveForm} /> 
+                   saveForm={this.saveForm} />
     );
   };  // End getCurrentStep()
-  
+
   render() {
     return (
       <div className='forms-container'>
@@ -176,7 +176,7 @@ class VisitPage extends Component {
             <Grid.Column width = {16}>
               <StepBar currentStep={this.state.currentStep} steps={this.steps} goToStep={this.goToStep} />
             </Grid.Column>
-          </Grid.Row>         
+          </Grid.Row>
           <Grid.Row>
             <Grid.Column width={12}>
               <div>
@@ -184,8 +184,8 @@ class VisitPage extends Component {
               </div>
             </Grid.Column>
             <Grid.Column width={4} style={{ height: '100%' }}>
-              <AlertSidebar hasSnap={this.state.client.hasSnap} 
-                            hasHousing={this.state.client.hasHousing} 
+              <AlertSidebar hasSnap={this.state.client.hasSnap}
+                            hasHousing={this.state.client.hasHousing}
                             hasMassHealth={this.state.client.hasMassHealth}
                             snapAlert={getSNAPBenefits(this.state.client)}
                             housingAlert={getHousingBenefit(this.state.client)}

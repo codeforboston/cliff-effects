@@ -9,11 +9,11 @@ import {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const CitizenshipContent = ({ setClientProperty, client }) => {
@@ -55,11 +55,11 @@ const CitizenshipContent = ({ setClientProperty, client }) => {
 };  // End CitizenshipContent()
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
