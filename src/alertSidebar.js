@@ -63,7 +63,6 @@ const AlertSidebar = (props) => {
       <Card.Group>
         {props.hasSnap ? <BenefitCard alert={props.snapAlert} benefit='SNAP' /> : ''}
         {props.hasHousing ? <BenefitCard alert={props.housingAlert} benefit='Section 8 Housing' /> : ''}
-        {props.hasMassHealth ? <BenefitCard alert={props.massHealthAlert} benefit='MassHealth' /> : ''}
       </Card.Group>
     </Segment>
   )
