@@ -5,7 +5,6 @@ import { Line } from 'react-chartjs-2';
 // Logic
 import { getSNAPBenefits } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
-import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 
 // Our Components
 import { FormPartsContainer } from './forms/formHelpers';
@@ -14,10 +13,6 @@ const ResultsGraph = (props) => {
   var xRange = _.range(0, 100000, 1000);
   /** Need a new object so client's data doesn't get changed. */
   var fakeClient = { ...props.client };
-
-  var massHealthData = xRange.map(x => {
-      fakeClient.annualIncome = x;
-      return getMassHealthEligibility(fakeClient).benefitValue});
 
   var snapData = xRange.map(annualIncome => {
       fakeClient.futureEarnedIncomeMonthly = annualIncome/12;
@@ -42,27 +37,25 @@ const ResultsGraph = (props) => {
     return subsidy;
   });
 
+  // TAFDC color? "rgba(206, 125, 61, 1)"
+
   var data = {
     labels: xRange,
-    datasets: [{
-        label: "MassHealth",
-        borderColor: "rgba(206, 125, 61, 1)",
-        data: massHealthData,
-        fill: false,
-    },
-    {
-      label: "SNAP",
-      borderColor: "rgba(101, 47, 138, 1)",
-      data: snapData, //xRange.map(x => ({ annualIncome: x, householdSize: props.client.householdSize }).benefitValue),
-      fill: false
-    },
-    {
-      label: "Section 8 Housing",
-      borderColor: "rgba(206, 203, 61, 1)",
-      data: housingData, //xRange.map(x => getHousingBenefit({ annualIncome: x, householdSize: props.client.householdSize }).benefitValue),
-      fill: false
-    },
-    ]};
+    datasets: [
+      {
+        label: "SNAP",
+        borderColor: "rgba(101, 47, 138, 1)",
+        data: snapData,
+        fill: false
+      },
+      {
+        label: "Section 8 Housing",
+        borderColor: "rgba(206, 203, 61, 1)",
+        data: housingData,
+        fill: false
+      },
+    ]
+  };
 
   var options = {
     title: {

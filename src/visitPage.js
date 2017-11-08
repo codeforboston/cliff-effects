@@ -5,7 +5,6 @@ import { Redirect, Prompt } from 'react-router-dom';
 // Logic
 import { getSNAPBenefits } from './programs/state/massachusetts/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
-import { getMassHealthEligibility } from './programs/state/massachusetts/masshealth';
 
 // Data
 import { clientList } from './clientList';
@@ -13,13 +12,10 @@ import { clientList } from './clientList';
 // Our Components
 import SimpleMenu from './simpleMenu';
 import AlertSidebar from './alertSidebar'
-// import ResultsGraph from './resultsGraph';
 import { BenefitsTable } from './forms/BenefitsTable';
 import { CurrentIncomeStep } from './forms/currentIncome';
 import { CurrentExpensesStep } from './forms/currentExpenses';
 import { FutureIncomeStep } from './forms/futureIncome';
-//import { HealthStep } from './forms/health';
-//  import { CitizenshipStep } from './forms/citizenship';
 import { HouseholdSizeStep } from './forms/household-size';
 import { CurrentBenefitsStep } from './forms/current-benefits';
 
@@ -52,19 +48,11 @@ class VisitPage extends Component {
         client : {
           hasSnap: false,
           hasHousing: false,
-          hasMassHealth: false,
           snapAlert: 'good',
           housingAlert: 'good',
-          massHealthAlert: 'good',
-          householdSize: 1,
-          annualIncome: 0,
-          citizenshipStatus:'citizen',
-          qualifyingConditions: false,
-          numberOfBedrooms: 0,
           currentHouseholdSize: 1,
           currentHomeless: false,
           currentHomeowner: false,
-          areaOfResidence: 'Boston city',
           currentEarnedIncomeMonthly: 0,
           currentTAFDCMonthly: 0,
           currentSSIMonthly: 0,
@@ -88,10 +76,6 @@ class VisitPage extends Component {
       { title: 'Current Income', form: CurrentIncomeStep },
       { title: 'Current Expenses', form: CurrentExpensesStep },
       { title: 'Future Income', form: FutureIncomeStep },
-  //    { title: 'Citizenship', form: CitizenshipStep },
-    //  { title: 'MassHealth', form: HealthStep },
-      // { title: 'SNAP', form: SNAPStep },
-      // { title: 'Housing', form: HousingStep },
       { title: 'Results', form: BenefitsTable }
     ];  // end this.steps {}
   };  // End constructor()
@@ -186,10 +170,8 @@ class VisitPage extends Component {
             <Grid.Column width={4} style={{ height: '100%' }}>
               <AlertSidebar hasSnap={this.state.client.hasSnap}
                             hasHousing={this.state.client.hasHousing}
-                            hasMassHealth={this.state.client.hasMassHealth}
                             snapAlert={getSNAPBenefits(this.state.client)}
-                            housingAlert={getHousingBenefit(this.state.client)}
-                            massHealthAlert={getMassHealthEligibility(this.state.client)} />
+                            housingAlert={getHousingBenefit(this.state.client)} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
