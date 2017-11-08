@@ -62,6 +62,8 @@ class VisitPage extends Component {
           qualifyingConditions: false,       
           numberOfBedrooms: 0,
           currentHouseholdSize: 1,
+          currentHomeless: false,
+          currentHomeowner: false,
           currentEarnedIncomeMonthly: 0,
           currentTAFDCMonthly: 0,
           currentSSIMonthly: 0,
