@@ -2,8 +2,9 @@
  * - Storing both a current and future value
  * - Tracking when the user manipulates a future value
  * - Propagating current values to future values if they
- * haven't been manipulated
+ * haven't been manipulated by the user
  * - Making this instance serializable
+ * - Sending values to be validated
  * 
  * All values stored in a FormValue instance should be valid
  * 
@@ -11,83 +12,83 @@
  * 
  * @class
  * @param {string} name - the name of the client property
- * @param {any} val - the initial value
- * @param {function} [makeValid] - transforms a given value into
- * a valid value
+ * @param {any} [val] - the initial value
+ * @param {function} [validate] - transforms a given value into
+ * a valid value. Will be given the new value, the current value,
+ * the string 'current' or 'future', and the `FormValue` instance.
  * 
  * @returns FormValue
  * @todo Finish description of FormValue return value
  */
 class FormValue {
 
-  constructor ( name, val, makeValid ) {
+  constructor ( name, val = null, validate ) {
 
-    var formVal = this;
-
-    formVal.name = name;
-    // Is there a function to set this, or just `formVal.futureChanged = true;`?
-    formVal.futureChanged = false;
-    // Not sure about providing this default...
-    formVal.makeValid = makeValid || function ( val ) { return val; };
-
-    formVal.setCurrent( val );
+    var fVal = this;
+    
+    fVal.name = name;
+    fVal._futureWasChanged = false;  // Handled internally
+    fVal.validate = validate || function () { return true; };
+    
+    fVal.setCurrent( val );
 
   }  // End FormValue.constructor()
 
 
   setCurrent ( val ) {
 
-    var formVal = this;
+    var fVal = this;
 
-    val = formVal.makeValid( val, 'current', formVal );
-
-    formVal.current = val;
-    if ( !formVal.futureChanged ) {
-      formVal.setFuture( val )
+    // Transformer would be less verbose, but open to devs' complications
+    if ( fVal.validate( val, fVal.current, 'current', fVal ) ) {
+      fVal.current = val;
     }
 
-    return formVal;
+    if ( !fVal._futureWasChanged ) {
+      fVal.setFuture( val, true );
+    }
+
+    return fVal;  // Return valid value instead?
 
   }  // End FormValue.setCurrent()
 
 
-  setFuture ( val ) {
+  setFuture ( val, fromCurrent ) {
     
-    var formVal = this;
+    var fVal = this;
 
-    val = formVal.makeValid( val, 'future', formVal );
-    formVal.future = val;
+    this._futureWasChanged = !fromCurrent;
+    if ( fVal.validate( val, fVal.future, 'future', fVal ) ) {
+      fVal.future = val;
+    }
     
-    return formVal;
+    return fVal;  // Return valid value instead?
 
   }  // End FormValue.setFuture()
 
 
   serialize () {
 
-    var formVal = this;
+    var fVal = this;
 
-    var obj     = {};
-    obj.current = formVal.current;
-    obj.future  = formVal.future;
-    obj.futureChanged = formVal.futureChanged;
+    return {
+      current:  fVal.current,
+      future:   fVal.future,
+      futureWasChanged: fVal._futureWasChanged
+    };
 
-    return obj;
   }  // End FormValue.serialize()
 
 
-  deserialize ( obj, shouldSetFuture ) {
+  // Is this how deserialization works?
+  static deserialize ( obj ) {
 
-    var formVal = new FormValue( obj.name, obj.makeValid );
-
-    formVal.futureChanged = Boolean( obj.futureChanged );
-    formVal.setCurrent( obj.current || null );
-
-    if ( shouldSetFuture ) {
-      formVal.setFuture( obj.future || null );
+    var fVal = new FormValue( obj.name, obj.current, obj.validate );
+    if ( obj.futureWasChanged ) {
+      fVal.setFuture( obj.future );
     }
 
-    return formVal;
+    return fVal;
 
   }  // End FormValue.deserialize()
 
