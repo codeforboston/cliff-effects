@@ -13,8 +13,8 @@
  * @class
  * @param {string} name - the name of the client property
  * @param {any} [val] - the initial value
- * @param {function} [validate] - transforms a given value into
- * a valid value. Will be given the new value, the current value,
+ * @param {function} [validate] - returns whether the new value
+ * is valid. Will be given the new value, the current value,
  * the string 'current' or 'future', and the `FormValue` instance.
  * 
  * @returns FormValue
