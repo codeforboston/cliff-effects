@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 import { MainMenu } from '../MainMenu';
 import FixedMenu from '../fixedMenu';
-import logo_stacked from '../logo_stacked.svg';
+import logo_stacked from '../images/logo_stacked.svg';
 
 class HomePage extends Component {
   state = {}
