@@ -170,7 +170,7 @@ const Housing = function ({ client, type, time, setClientProperty }) {
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFuture = function ( evnt, inputProps ) {
-    var obj = { ...inputProps, value: inputProps.value, fillFuture: true };
+    var obj = { ...inputProps, checked: null, value: inputProps.value, fillFuture: true };
     setClientProperty( evnt, obj );
   };
 
