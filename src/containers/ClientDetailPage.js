@@ -13,9 +13,10 @@ import {
   Table
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { MainMenu } from './MainMenu';
-import FixedMenu from './fixedMenu';
-import { clientList } from './clientList';
+
+import { MainMenu } from '../MainMenu';
+import FixedMenu from '../fixedMenu';
+import { clientList } from '../clientList';
 
 
 const VisitTable = (props) => (
@@ -33,7 +34,7 @@ const VisitTable = (props) => (
           <Table.Cell singleLine>{visit.date}</Table.Cell>
           <Table.Cell singleLine>{visit.benefits}</Table.Cell>
         </Table.Row>)
-      )}     
+      )}
     </Table.Body>
   </Table>
 )
@@ -73,27 +74,27 @@ class ClientDetailPage extends Component {
         </Visibility>
 
         <Segment style={{ padding: '8em 0em' }} vertical>
-          <Grid container stackable verticalAlign='middle'>         
-            <Grid.Row>            
+          <Grid container stackable verticalAlign='middle'>
+            <Grid.Row>
               <Grid.Column width={4}>
                 <Image src={this.state.image} size='medium'/>
               </Grid.Column>
               <Grid.Column floated='right' width={12}>
                 <Header as='h1' style={{ fontSize: '4em' }}>{this.state.name}</Header>
                 <Segment style={{ padding: '1em'}} vertical>
-                  <Header as='h3' style={{ fontSize: '2.5em' }}>Client ID: {this.state.clientId}</Header>              
+                  <Header as='h3' style={{ fontSize: '2.5em' }}>Client ID: {this.state.clientId}</Header>
                   <p style={{ fontSize: '1.33em' }}>Date of Birth: {this.state.dob}</p>
                   <p style={{ fontSize: '1.33em' }}>Zip Code: {this.state.zipCode}</p>
-                </Segment>           
+                </Segment>
               </Grid.Column>
             </Grid.Row>
             <Divider/>
             <Grid.Row style={{ padding: '8em 0em' }} >
-              {this.state.visits.length > 0 ? 
-                (<Container style={{ width: '100%' }}><Header as='h4' style={{ fontSize: '2em' }}>Previous Visits</Header>   
+              {this.state.visits.length > 0 ?
+                (<Container style={{ width: '100%' }}><Header as='h4' style={{ fontSize: '2em' }}>Previous Visits</Header>
                 <VisitTable pageState={this.state}/></Container>) : (<br/>)
               }
-              <Link to={`/visit/${this.state.clientId}/${(this.state.visits.length + 1)}`}><Button color='teal' size='large'>Create New Visit</Button></Link>           
+              <Link to={`/visit/${this.state.clientId}/${(this.state.visits.length + 1)}`}><Button color='teal' size='large'>Create New Visit</Button></Link>
             </Grid.Row>
           </Grid>
         </Segment>

@@ -3,12 +3,13 @@ import {
   HashRouter,
   Route
 } from 'react-router-dom'
-import HomePage from './homePage'
-import AboutPage from './aboutPage'
+
+import HomePage from './containers/HomePage'
+import AboutPage from './containers/AboutPage'
 // import LoginPage from './loginPage'
-import VisitPage from './visitPage'
-import ClientDetailPage from './clientDetailPage'
-import ClientIntakePage from './clientIntakePage'
+import VisitPage from './containers/VisitPage'
+import ClientDetailPage from './containers/ClientDetailPage'
+import ClientIntakePage from './containers/ClientIntakePage'
 
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 

@@ -13,8 +13,9 @@ import {
   Form
 } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
-import { MainMenu } from './MainMenu';
-import FixedMenu from './fixedMenu';
+
+import { MainMenu } from '../MainMenu';
+import FixedMenu from '../fixedMenu';
 
 class ClientIntakePage extends Component {
 
@@ -26,7 +27,7 @@ class ClientIntakePage extends Component {
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg',
     dob: '',
     zipCode: '',
-    visits: [],  
+    visits: [],
   };
 
   hideFixedMenu = () => this.setState({ visible: false })
@@ -66,8 +67,8 @@ class ClientIntakePage extends Component {
 
         <Segment style={{ padding: '4em 0em' }} vertical>
           <Header as='h1' style={{ fontSize: '4em', padding: '1em 1em' }}>New Client Intake</Header>
-          <Grid container stackable verticalAlign='middle'>         
-            <Grid.Row>            
+          <Grid container stackable verticalAlign='middle'>
+            <Grid.Row>
               <Grid.Column width={4}>
                 <Image src={this.state.image} size='medium'/>
               </Grid.Column>
@@ -78,7 +79,7 @@ class ClientIntakePage extends Component {
                   <Form.Input label='Zip Code' placeholder='Zip Code' name='zipCode' value={this.state.zipCode} onChange={this.handleInputChange}  />
                   <Form.Input label='Client Avatar URL' placeholder='Avatar URL' name='image' value={this.state.image} onChange={this.handleInputChange}  />
                   <Form.Button color='teal'>Submit</Form.Button>
-                </Form>          
+                </Form>
               </Grid.Column>
             </Grid.Row>
             <Divider/>

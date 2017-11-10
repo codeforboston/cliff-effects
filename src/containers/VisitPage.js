@@ -3,21 +3,21 @@ import { Grid, Step } from 'semantic-ui-react';
 import { Redirect, Prompt } from 'react-router-dom';
 
 // Logic
-import { getSNAPBenefits } from './programs/state/massachusetts/snap';
-import { getHousingBenefit } from './programs/state/massachusetts/housing';
+import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
+import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 // Data
-import { clientList } from './clientList';
+import { clientList } from '../clientList';
 
 // Our Components
-import SimpleMenu from './simpleMenu';
-import AlertSidebar from './alertSidebar'
-import { BenefitsTable } from './forms/BenefitsTable';
-import { CurrentIncomeStep } from './forms/currentIncome';
-import { CurrentExpensesStep } from './forms/currentExpenses';
-import { FutureIncomeStep } from './forms/futureIncome';
-import { HouseholdSizeStep } from './forms/household-size';
-import { CurrentBenefitsStep } from './forms/current-benefits';
+import SimpleMenu from '../simpleMenu';
+import AlertSidebar from '../alertSidebar'
+import { BenefitsTable } from '../forms/BenefitsTable';
+import { CurrentIncomeStep } from '../forms/currentIncome';
+import { CurrentExpensesStep } from '../forms/currentExpenses';
+import { FutureIncomeStep } from '../forms/futureIncome';
+import { HouseholdSizeStep } from '../forms/household-size';
+import { CurrentBenefitsStep } from '../forms/current-benefits';
 
 const StepBar = ({ steps, currentStep, goToStep }) => {
 

@@ -8,9 +8,10 @@ import {
   Visibility,
   Icon
 } from 'semantic-ui-react';
-import FixedMenu from './fixedMenu';
-import { MainMenu } from './MainMenu';
-import { AboutContent } from './AboutContent';
+
+import FixedMenu from '../fixedMenu';
+import { MainMenu } from '../MainMenu';
+import { AboutContent } from '../AboutContent';
 
 class AboutPage extends Component {
   state = {}
