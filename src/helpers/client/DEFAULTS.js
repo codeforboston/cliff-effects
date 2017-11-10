@@ -2,10 +2,6 @@
  * Client form value defaults
  */
 
-// LOGIC
-import { FormValue } from './FormValue.js';
-
-
 const DEFAULTS = {
   // HOUSEHOLD
   householdSize:  '0',

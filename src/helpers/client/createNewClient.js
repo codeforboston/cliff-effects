@@ -9,19 +9,24 @@ import { DEFAULTS } from './DEFAULTS.js';
 import { FormValue } from './FormValue.js';
 
 
-var defaultClient = {};
+const createNewClient = function () {
 
-// HOUSEHOLD
-client.householdSize  = new FormValue( 'householdSize', DEFAULTS.householdSize, make.positiveNumber );
+  var cli = {};
 
-// INCOMES
-/** 
- * @todo In components, limit input to two digits, but any
- * number of digits is valid for client object
- * `if ( ((num * 100).toFixed(5) % 1) !== 0 )`
- */
-client.earned = new FormValue( 'earned',  DEFAULTS.earned,  make.positiveNumber );
-client.SSI    = new FormValue( 'SSI',     DEFAULTS.SSI,     make.positiveNumber );
+  // HOUSEHOLD
+  cli.householdSize  = new FormValue( 'householdSize', DEFAULTS.householdSize, make.positiveNumber );
+
+  // INCOMES
+  /** 
+   * @todo In components, limit input to two digits, but any
+   * number of digits is valid for client object
+   * `if ( ((num * 100).toFixed(5) % 1) !== 0 )`
+   */
+  cli.earned = new FormValue( 'earned',  DEFAULTS.earned,  make.positiveNumber );
+  cli.SSI    = new FormValue( 'SSI',     DEFAULTS.SSI,     make.positiveNumber );
+
+  return cli;
+};  // End createNewClient({})
 
 
 
@@ -56,4 +61,4 @@ isValid.positiveNumber = function ( str ) {
 
 
 
-export { defaultClient };
+export { createNewClient };
