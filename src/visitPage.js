@@ -66,7 +66,9 @@ class VisitPage extends Component {
           currentOtherIncomeMonthly: 0,
           currentUnearnedIncomeMonthly: 0,
           futureEarnedIncomeMonthly: 0,
-          futureUnearnedIncomeMonthly: 0
+          futureUnearnedIncomeMonthly: 0,
+          currentShelter: 'homeless',
+          currentHasFuelAssistance: false,
         }
     };  // end this.state {}
 

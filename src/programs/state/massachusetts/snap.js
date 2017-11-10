@@ -222,12 +222,12 @@ const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
 
 // EXPENSE DEDUCTIONS
 const isHomeless = function(client, timeframe ) {
-  return client[timeframe + 'Homeless'];
+  return client[timeframe + 'Shelter' === 'homeless'];
 };
 
 const getShelterDeduction = function(client, timeframe) {
   var shelterCost = null;
-  var isHomeowner = client[timeframe + 'Homeowner'];
+  var isHomeowner = client[timeframe + 'Shelter'] === 'homeowner';
 
   if ( isHomeless(client, timeframe) ) {
     shelterCost = 0;
@@ -243,7 +243,7 @@ const getShelterDeduction = function(client, timeframe) {
 
 const utilityStatus = function(client, timeframe) {
   var paidUtilityCategory = null;
-  var isPayHeatingCooling = client[timeframe + 'ClimateControl'];
+  var isPayHeatingCooling = client[timeframe + 'ClimateControl'] || client[timeframe + 'HasFuelAssistance'];
   var isPayElectricity = client[timeframe + 'NonHeatElectricity'];
   var isPayTelephone = client[timeframe + 'Phone'];
   if ( isPayHeatingCooling ) {
