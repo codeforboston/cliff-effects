@@ -9,10 +9,10 @@ import { DEFAULTS } from './DEFAULTS.js';
 import { FormValue } from './FormValue.js';
 
 
-var client = {};
+var defaultClient = {};
 
 // HOUSEHOLD
-client.householdSize  = new FormValue( 'householdSize', DEFAULTS.householdSize, setters.positiveNumber );
+client.householdSize  = new FormValue( 'householdSize', DEFAULTS.householdSize, make.positiveNumber );
 
 // INCOMES
 /** 
@@ -20,17 +20,17 @@ client.householdSize  = new FormValue( 'householdSize', DEFAULTS.householdSize, 
  * number of digits is valid for client object
  * `if ( ((num * 100).toFixed(5) % 1) !== 0 )`
  */
-client.earned = new FormValue( 'earned',  DEFAULTS.earned,  setters.positiveNumber );
-client.SSI    = new FormValue( 'SSI',     DEFAULTS.SSI,     setters.positiveNumber );
+client.earned = new FormValue( 'earned',  DEFAULTS.earned,  make.positiveNumber );
+client.SSI    = new FormValue( 'SSI',     DEFAULTS.SSI,     make.positiveNumber );
 
 
 
 // ========================
 // HELPERS
 // ========================
-var setters = {};
+var make = {};
 
-setters.positiveNumber = function ( newVal, oldVal, timeframe, instance ) {
+make.positiveNumber = function ( newVal, oldVal, timeframe, instance ) {
 
   if ( !isValid.money( newVal ) ) { return oldVal; }
   else { return parseFloat( newVal ); }
@@ -56,4 +56,4 @@ isValid.positiveNumber = function ( str ) {
 
 
 
-export { client };
+export { defaultClient };
