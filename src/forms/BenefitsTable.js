@@ -8,7 +8,7 @@ import {
 // CUSTOM COMPONENTS
 // Both the table and graph should just be added to a results page, but
 // this will do for now
-import ResultsGraph from '../resultsGraph';
+import ResultsGraph from '../ResultsGraph';
 
 // BENEFIT LOGIC
 import { getSNAPBenefits } from '../programs/state/massachusetts/snap';

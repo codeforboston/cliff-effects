@@ -1,4 +1,4 @@
-import { getYearlyLimitBySize } from './get-gov-data.js';
+import { getYearlyLimitBySize } from './getGovData.js';
 import { federalPovertyGuidelines } from '../data/federal/federalPovertyGuidelines.js';
 
 function percentPovertyLevel(annualIncome, householdSize) {
@@ -6,7 +6,7 @@ function percentPovertyLevel(annualIncome, householdSize) {
       ratio         = annualIncome/annualLimit,
       percent       = 100 * ratio;
 
-  return percent; 
+  return percent;
 }
 
 // State median income calcs should been removed as they only seem to be used

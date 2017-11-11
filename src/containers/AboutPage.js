@@ -9,7 +9,7 @@ import {
   Icon
 } from 'semantic-ui-react';
 
-import FixedMenu from '../fixedMenu';
+import FixedMenu from '../FixedMenu';
 import { MainMenu } from '../MainMenu';
 import { AboutContent } from '../AboutContent';
 

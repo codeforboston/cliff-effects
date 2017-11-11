@@ -1,7 +1,11 @@
 import { CHILD_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
-import { toCashflow, sumCashflow, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
-import { Result } from '../../../helpers/Result';
-import { data } from '../../../helpers/snapData';
+import {
+  toCashflow,
+  sumCashflow,
+  getGrossUnearnedIncomeMonthly
+} from '../../../utils/cashflow';
+import { Result } from '../../../utils/Result';
+import { data } from '../../../config/snap';
 
 const getSNAPBenefits = function ( client ) {
   var timeframe = 'current';
@@ -421,13 +425,14 @@ export { getSNAPBenefits };
 
 
 
-
-
-
-
+// REVIEW: Can this dead code be removed?
+// It's the only consumer of helperFunctions.js,
+// which is the only consumer of getGovData.js.
+// If we don't need this dead code, we can cut out
+// two more files for free.
 
 //import { percentPovertyLevel,
-//    percentStateMedianIncome } from '../../../helpers/helperFunctions';
+//    percentStateMedianIncome } from '../../../utils/helperFunctions';
 //
 //function getSnapEligibility(client) {
 //    let percentPov = percentPovertyLevel(parseInt(client.annualIncome), client.householdSize);

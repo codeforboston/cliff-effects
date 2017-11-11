@@ -1,3 +1,4 @@
+// REVIEW: This file appears to be currently unused. Candidate for removal
 const data = {
   povertyGrossIncome: { 0: 0, 1: 2010, 2: 2707, 3: 3403, 4: 4100, 5: 4797, 6: 5493, 7: 6190, 8: 6887 },
   overNumberHouseholdRate: 696,

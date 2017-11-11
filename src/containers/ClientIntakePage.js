@@ -15,7 +15,7 @@ import {
 import { Redirect } from 'react-router-dom';
 
 import { MainMenu } from '../MainMenu';
-import FixedMenu from '../fixedMenu';
+import FixedMenu from '../FixedMenu';
 
 class ClientIntakePage extends Component {
 

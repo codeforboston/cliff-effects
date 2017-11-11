@@ -1,4 +1,4 @@
-const math = require('./math');
+const math = require('../../utils/math');
 
 // These tests are at least temporarily deprecated because javascript floats
 // are known to misbehave such that these will likely fail and we expect the

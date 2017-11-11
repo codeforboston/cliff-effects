@@ -15,8 +15,12 @@ import {
 import { Link } from 'react-router-dom';
 
 import { MainMenu } from '../MainMenu';
-import FixedMenu from '../fixedMenu';
-import { clientList } from '../clientList';
+import FixedMenu from '../FixedMenu';
+
+// REVIEW: As we approach MVP, we probably don't want to be
+// loading fake client data into the production front-end.
+// We should not be using this fixtured client list data.
+import { clientList } from '../config/dummyClients';
 
 
 const VisitTable = (props) => (
