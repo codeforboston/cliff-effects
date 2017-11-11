@@ -66,6 +66,18 @@ class FormValue {
   }  // End FormValue.setFuture()
 
 
+  refresh ( timeframe ) {
+
+    var fVal      = this,
+        timeName  = timeframe.replace(/\b\w/g, function( letter ){ return letter.toUpperCase(); }),
+        opName    = 'set' + timeName;
+
+    fVal[ opName ]( fVal.current, fVal.current, timeframe, fVal );
+
+    return fVal;
+  }
+
+
   serialize () {
 
     var fVal = this;
