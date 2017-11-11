@@ -11,10 +11,31 @@ import { FormValue } from './FormValue.js';
 
 const createNewClient = function () {
 
+  // ========================
+  // TRANSFORMERS (SCOPED)
+  // ========================
+  var lessThanHouseholdSize = function ( newVal, oldVal, timeframe, instance ) {
+
+    var val   = oldVal,
+        size  = cli.householdSize[ timeframe ];
+
+    if ( isValid.positiveInteger( newVal ) && size > newVal ) {
+      val = parseFloat( newVal )
+    }
+
+    return val;
+
+  };
+
+
+  // ========================
+  // DEFAULT CLIENT
+  // ========================
   var cli = {};
 
   // HOUSEHOLD
-  cli.householdSize  = new FormValue( 'householdSize', DEFAULTS.householdSize, make.positiveNumber );
+  cli.householdSize       = new FormValue( 'householdSize',       DEFAULTS.householdSize,       make.integerGreaterThan0 );
+  cli.numberOfDependents  = new FormValue( 'numberOfDependents',  DEFAULTS.numberOfDependents,  lessThanHouseholdSize );
 
   // INCOMES
   /** 
@@ -26,25 +47,42 @@ const createNewClient = function () {
   cli.SSI    = new FormValue( 'SSI',     DEFAULTS.SSI,     make.positiveNumber );
 
   return cli;
+
 };  // End createNewClient({})
 
 
 
+
 // ========================
-// HELPERS
+// TRANSFORMERS (UNSCOPED)
 // ========================
 var make = {};
 
 make.positiveNumber = function ( newVal, oldVal, timeframe, instance ) {
 
-  if ( !isValid.money( newVal ) ) { return oldVal; }
+  if ( !isValid.positiveNumber( newVal ) ) { return oldVal; }
   else { return parseFloat( newVal ); }
 
 };
 
 
+make.integerGreaterThan0 = function ( newVal, oldVal, timeframe, instance ) {
+
+  if ( !isValid.positiveInteger( newVal ) ) { return oldVal; }
+  else if ( newVal < 1 ) { return oldVal; }
+  else { return parseFloat( newVal ); }
+
+};
+
+
+
+
+// ========================
+// VALIDATORS
+// ========================
 var isValid = {};
 isValid.invalidPosNumRegex = /[^\d]/g;
+
 
 isValid.positiveNumber = function ( str ) {
 
@@ -54,6 +92,20 @@ isValid.positiveNumber = function ( str ) {
   if ( str.match( isValid.invalidPosNumRegex ) ) {
     return false;
   }
+  
+  return true;
+
+};  // End isValid.positiveNumber()
+
+
+isValid.positiveInteger = function ( str ) {
+
+  if ( !isValid.positiveNumber( str ) ) {
+    return false;
+  }
+
+  var num = parseFloat( str );
+  if ( (num % 1) !== 0 ) { return false; }
   
   return true;
 
