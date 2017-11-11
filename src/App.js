@@ -6,7 +6,6 @@ import {
 
 import HomePage from './containers/HomePage'
 import AboutPage from './containers/AboutPage'
-// import LoginPage from './loginPage'
 import VisitPage from './containers/VisitPage'
 import ClientDetailPage from './containers/ClientDetailPage'
 import ClientIntakePage from './containers/ClientIntakePage'
