@@ -2,7 +2,7 @@
  * - Storing both a current and future value
  * - Tracking when the user manipulates a future value
  * - Propagating current values to future values if they
- * haven't been manipulated by the user
+ *     haven't been manipulated by the user
  * - Making this instance serializable
  * - Making sure only valid values are saved.
  * 
@@ -10,15 +10,15 @@
  * 
  * There must be a better way to write that.
  * @todo Should `FormValue`s contain a reference to their
- * client object?
+ *     client object?
  * 
- * @class
+ * @constructor
  * @param {string} name - the name of the client property
  * @param {any} [val] - the initial value
  * @param {function(*, *, string, FormValue): *} [makeValid] - 
- * returns a valid value no matter what. Will be given the new
- * value, the current value, the string 'current' or 'future',
- * and the `FormValue` instance.
+ *     returns a valid value no matter what. Will be given the
+ *     new value, the current value, the string 'current' or
+ *    'future', and the `FormValue` instance.
  * 
  * @returns FormValue
  * @todo Finish description of FormValue return value
