@@ -9,13 +9,16 @@
  * All values stored in a FormValue instance should be valid
  * 
  * There must be a better way to write that.
+ * @todo Should `FormValue`s contain a reference to their
+ * client object?
  * 
  * @class
  * @param {string} name - the name of the client property
  * @param {any} [val] - the initial value
- * @param {function} [makeValid] - returns a valid value no
- * matter what. Will be given the new value, the current value,
- * the string 'current' or 'future', and the `FormValue` instance.
+ * @param {function(*, *, string, FormValue): *} [makeValid] - 
+ * returns a valid value no matter what. Will be given the new
+ * value, the current value, the string 'current' or 'future',
+ * and the `FormValue` instance.
  * 
  * @returns FormValue
  * @todo Finish description of FormValue return value
