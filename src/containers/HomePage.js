@@ -65,26 +65,10 @@ class HomePage extends Component {
 
         <Segment style={{ padding: '8em 0em' }} vertical textAlign='center' className={'spaceholder'}/>
 
-        <Segment inverted vertical style={{ padding: '5em 0em' }} color='teal'>
+        <Segment inverted vertical style={{ padding: '2em 0em' }} color='teal'>
           <Container>
             <Grid divided inverted stackable>
               <Grid.Row>
-                <Grid.Column width={3}>
-                  <Header inverted as='h4' content='About' />
-                  <List link inverted>
-                    <List.Item as='a'>Sitemap</List.Item>
-                    <List.Item as='a'>Contact Us</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as='h4' content='Services' />
-                  <List link inverted>
-                    <List.Item as='a'>Choice 1</List.Item>
-                    <List.Item as='a'>Choice 2</List.Item>
-                    <List.Item as='a'>Choice 3</List.Item>
-                    <List.Item as='a'>Choice 4</List.Item>
-                  </List>
-                </Grid.Column>
                 <Grid.Column width={7}>
                   <Header as='h4' inverted>Cliff Effects Tool</Header>
                   <p>Made with <Icon name='heart' size='small' /> by Code for Boston</p>
