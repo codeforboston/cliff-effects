@@ -59,24 +59,29 @@ const totalsRowStyle = {
 const columnHeaderStyle = {
   background: 'teal',
   color: 'white',
-  fontSize: '1.2em',
-  fontStyle: 'bolder',
-  borderRadius:'0.25'
+  fontSize: '1.3em',
+  fontWeight: 900,
+  textAlign: 'center',
+  borderRadius: 'inherit',
+  letterSpacing: '0.02em'
 }
 
 const rowHeaderStyle = {
     fontSize: '1.2em',
-    fontStyle: 'bold',
+    fontWeight: 700,
     textAlign: 'left'
 }
 
 const basicCellStyle = {
+  textAlign: 'right'
+
 }
 
 
 const Cell = function(props){
     let styleCheck = {extensible: true};
 
+    styleCheck = Object.assign(styleCheck, basicCellStyle)
     if (typeof props.value === 'string'){
      styleCheck = Object.assign(styleCheck, rowHeaderStyle);
     }
@@ -101,11 +106,11 @@ const Row = function(props) {
   const cell = numbers.map((D) =>
     <Cell key={D.index}
         value={D}
-        style={props.style}
-        type={props.type}/>
+        style={props.style} />
   );
+
   return (
-    <Table.Row textAlign='center'>
+    <Table.Row>
       {cell}
     </Table.Row>
   );
@@ -123,8 +128,8 @@ const numbers5 = ['Net Total', netCurrent, netFuture, Math.abs(netDiff)];
     <wrapper>
 
 
-      <Table celled>
-        <Table.Body>
+      <Table celled borderRadius='0.25em 0.25em 0 0'>
+        <Table.Body >
             <Row numbers={numbers} style={columnHeaderStyle}/>
             <Row numbers={numbers1} />
             <Row numbers={numbers2} />
