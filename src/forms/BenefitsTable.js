@@ -48,65 +48,55 @@ console.log(SNAPDiff);
 
 
 
+const cellStyle = function(entry) {
+
+  const   basicCellStyle    = {textAlign: 'right'}
+        , columnHeaderStyle = {background: 'rgba(0, 128, 128, 1)',
+                              color: 'white',
+                              fontSize: '1.3em',
+                              fontWeight: 900,
+                              textAlign: 'center',
+                              borderRadius: 'inherit',
+                              letterSpacing: '0.02em'
+                              }
+        , rowHeaderStyle    = {fontSize: '1.2em',
+                              fontWeight: 700,
+                              textAlign: 'left'}
+        , totalsRowStyle    = {borderTop: "2px solid rgba(0, 128, 128, 1)"};
 
 
-
-const totalsRowStyle = {
-  borderTop: "2px solid teal"
-}
-
-
-const columnHeaderStyle = {
-  background: 'teal',
-  color: 'white',
-  fontSize: '1.3em',
-  fontWeight: 900,
-  textAlign: 'center',
-  borderRadius: 'inherit',
-  letterSpacing: '0.02em'
-}
-
-const rowHeaderStyle = {
-    fontSize: '1.2em',
-    fontWeight: 700,
-    textAlign: 'left'
-}
-
-const basicCellStyle = {
-  textAlign: 'right'
-
-}
+    switch(entry) {
+        case 'basicCellStyle': 
+          return basicCellStyle; 
+        case 'columnHeaderStyle':
+          return columnHeaderStyle; 
+        case 'rowHeaderStyle' :
+          return  Object.assign(basicCellStyle, rowHeaderStyle);
+        case 'totalsRowStyle':
+          return {function(){
+                    Object.assign(basicCellStyle, totalsRowStyle);
+                    }
+                  };
+        default: 
+          return basicCellStyle;
+                  }
+  };
 
 
-const Cell = function(props){
-    let styleCheck = {extensible: true};
-
-    styleCheck = Object.assign(styleCheck, basicCellStyle)
-    if (typeof props.value === 'string'){
-     styleCheck = Object.assign(styleCheck, rowHeaderStyle);
-    }
-    if (props.style === totalsRowStyle){
-      styleCheck = Object.assign(styleCheck, totalsRowStyle);
-    }
-
-    if (props.style === columnHeaderStyle){
-      styleCheck = Object.assign(styleCheck, columnHeaderStyle);
-
-    }
-
+const Cell = function(props) {
 
   return (
-    <Table.Cell width={3} style={styleCheck}> {props.value} </Table.Cell>
+    <Table.Cell width={3} style={cellStyle(props.style)}> {props.value} </Table.Cell>
   );
-}
+};
+
 
 
 const Row = function(props) {
   const numbers = props.numbers;
   const cell = numbers.map((D) =>
     <Cell key={D.index}
-        value={D}
-        style={props.style} />
+        value={D} />
   );
 
   return (
@@ -124,18 +114,20 @@ const numbers4 = ['Income', incomeCurrent, incomeFuture, Math.abs(incomeDiff)];
 const numbers5 = ['Net Total', netCurrent, netFuture, Math.abs(netDiff)];
 
 
+
+
   return (
     <wrapper>
 
 
       <Table celled borderRadius='0.25em 0.25em 0 0'>
         <Table.Body >
-            <Row numbers={numbers} style={columnHeaderStyle}/>
+            <Row numbers={numbers} />
             <Row numbers={numbers1} />
             <Row numbers={numbers2} />
-            <Row numbers={numbers3} style={totalsRowStyle}/>
+            <Row numbers={numbers3} />
             <Row numbers={numbers4} />
-            <Row numbers={numbers5} style={totalsRowStyle}/>
+            <Row numbers={numbers5} />
         </Table.Body>
       </Table>
 
