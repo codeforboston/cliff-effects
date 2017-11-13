@@ -79,7 +79,7 @@ class FormValue {
 
   static deserialize ( obj ) {
     var formVal     = new FormValue( obj.name, obj.current, obj.makeValid );
-    formVal.future  = obj.future;
+    formVal._future = obj.future;
     return formVal;
   }  // End FormValue.deserialize()
 
