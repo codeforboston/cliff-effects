@@ -18,92 +18,69 @@
  * @param {function(*, *, string, FormValue): *} [makeValid] - 
  *     returns a valid value no matter what. Will be given the
  *     new value, the current value, the string 'current' or
- *    'future', and the `FormValue` instance.
+ *     'future', and the `FormValue` instance.
  * 
- * @returns FormValue
- * @todo Finish description of FormValue return value
+ * @returns {FormValue} formVal
+ * @todo Finish description of FormValue return value (tbd)
  */
 class FormValue {
 
-  constructor ( name, val = null, makeValid ) {
+  constructor ( name, current, makeValid ) {
 
-    var fVal = this;
+    // Set defaults
+    if ( current === undefined ) { current = null; }
+    this._makeValid = makeValid || function ( newVal ) { return newVal; };
+
+    this.name = name;
     
-    fVal.name = name;
-    fVal._futureWasChanged = false;  // Handled internally
-    fVal.makeValid = makeValid || function ( newVal ) { return newVal; };
-    
-    fVal.setCurrent( val );
+    // Set and 'set' the starting values
+    this._future = current;
+    this._current = current;
 
   }  // End FormValue.constructor()
 
+  
+  set current ( value ) {
+    this._current = this._makeValid( value, this._current, 'current', this );
+    return this._current;
+  }
+  
 
-  setCurrent ( val ) {
+  /** Getter makes sure that if another value affects this
+   *     one, when that value changes this value will update itself. */
+  get current () {
+    this._current = this._makeValid( this._current, this._current, 'current', this );
+    return this._current;
+  }
 
-    var fVal = this;
 
-    // Transformer needed for parseInt and such
-    fVal.current = fVal.makeValid( val, fVal.current, 'current', fVal );
+  set future( value ) {
+    this._future = this._makeValid( value, this._future, 'future', this );
+    return this._future;
+  }
 
-    if ( !fVal._futureWasChanged ) {
-      fVal.setFuture( val, true );
+  
+  get future() {
+    if ( this._future === null ) { return this.current; }
+    else {
+      this._future = this._makeValid( this._future, this._future, 'future', this );
+      return this._future;
     }
-
-    return fVal;  // Return valid value instead?
-
-  }  // End FormValue.setCurrent()
-
-
-  setFuture ( val, propagating ) {
-    
-    var fVal = this;
-    // If it hasn't already been changed by the user...
-    if ( !fVal._futureWasChanged ) {
-      // ...mark it as changed if needed
-      fVal._futureWasChanged = !propagating;
-    }
-    fVal.future = fVal.makeValid( val, fVal.future, 'future', fVal );
-    
-    return fVal;  // Return valid value instead?
-
-  }  // End FormValue.setFuture()
-
-
-  refresh ( timeframe ) {
-
-    var fVal      = this,
-        timeName  = timeframe.replace(/\b\w/g, function( letter ){ return letter.toUpperCase(); }),
-        opName    = 'set' + timeName;
-
-    fVal[ opName ]( fVal.current, fVal.current, timeframe, fVal );
-
-    return fVal;
   }
 
 
   serialize () {
-
-    var fVal = this;
-
     return {
-      current:  fVal.current,
-      future:   fVal.future,
-      futureWasChanged: fVal._futureWasChanged
+      current: this.current,
+      future: this.future,
     };
+  }
 
-  }  // End FormValue.serialize()
 
-
-  // Is this how deserialization works?
   static deserialize ( obj ) {
-
-    var fVal = new FormValue( obj.name, obj.current, obj.makeValid );
-    if ( obj.futureWasChanged ) {
-      fVal.setFuture( obj.future );
-    }
-
-    return fVal;
-
+    var formVal     = new FormValue( obj.name, obj.current, obj.makeValid );
+    formVal.future  = obj.future;
+    return formVal;
   }  // End FormValue.deserialize()
 
 };  // End FormValue{}
