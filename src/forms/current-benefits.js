@@ -33,12 +33,6 @@ const CurrentBenefitsContent = ({ client, setClientProperty }) => {
         checked={client.hasHousing}
         onChange={setClientProperty}
         name='hasHousing' />
-      <br/>
-      <MassiveToggle
-        label={{ children: client.hasMassHealth ? <strong>MassHealth</strong> : 'MassHealth' }}
-        checked={client.hasMassHealth}
-        onChange={setClientProperty}
-        name='hasMassHealth' />
     </wrapper>
   );  // end return
 
