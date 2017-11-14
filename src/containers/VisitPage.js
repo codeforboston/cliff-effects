@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import { Grid, Step } from 'semantic-ui-react';
-import { Redirect, Prompt } from 'react-router-dom';
+import {
+  Grid,
+  Step,
+  Header,
+} from 'semantic-ui-react';
+import {
+  Redirect,
+  Prompt,
+  Link
+} from 'react-router-dom';
 
 // Logic
 import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
@@ -10,7 +18,6 @@ import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 import { clientList } from '../clientList';
 
 // Our Components
-import SimpleMenu from '../simpleMenu';
 import AlertSidebar from '../alertSidebar'
 import { BenefitsTable } from '../forms/BenefitsTable';
 import { CurrentIncomeStep } from '../forms/currentIncome';
@@ -145,19 +152,43 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
+    const { clientInfo, visitId } = this.state
+
     return (
       <div className='forms-container'>
         <Prompt
           when={this.state.isBlocking}
           message='Are you sure you want to leave the page with unsaved changes?'
         />
-        {this.state.redirect ? (<Redirect to={`/detail/${this.state.clientInfo.clientId}`}/>) : false}
-        <SimpleMenu save={this.saveForm} client={this.state.clientInfo} visit={this.state.visitId} />
+
+        {this.state.redirect ?
+          <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
+          false
+        }
+
         <Grid
-          textAlign='center'
-          style={{ height: '100%', padding: '2em 2em' }}
+          style={{ height: '100%', padding: '2em 0' }}
           verticalAlign='middle'
+          container
         >
+          <Grid.Row>
+            <Grid.Column width={10}>
+
+              <Header
+                as='h2'
+                content={'Visit #' + visitId + ' for ' + clientInfo.name}
+              />
+              { clientInfo ?
+                <Link to={`/detail/${clientInfo.clientId}`}>
+                  Back to Client Detail
+                </Link> :
+                <Link to="/">Go Home</Link>
+              }
+
+            </Grid.Column>
+            <Grid.Column floated='right' width={6}>
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Row>
             <Grid.Column width = {16}>
               <StepBar currentStep={this.state.currentStep} steps={this.steps} goToStep={this.goToStep} />
