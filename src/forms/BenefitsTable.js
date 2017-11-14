@@ -48,7 +48,7 @@ console.log(SNAPDiff);
 
 
 
-const   basicCellStyle    = {
+const     basicCellStyle    = {
                             pading: '1em', 
                             textAlign: 'right'
                             }
@@ -63,19 +63,17 @@ const   basicCellStyle    = {
                             letterSpacing: '0.02em',
                             }
 
-      , rowHeaderStyle    = function(){
-                return (
-                  Object.assign(basicCellStyle, {
-                    fontSize: '1.2em',
-                    fontWeight: 700,
-                    textAlign: 'left',
-                    })
-                  );
-                }
       , totalsRowStyle    = {
                             borderTop: "2px solid rgba(0, 128, 128, 1)",
-                            }
-      ;
+                            };
+      
+
+ 
+const rowHeaderStyle  = {
+                    fontSize: '1.2em',
+                    fontWeight: 700,
+                    textAlign: 'left'
+                    };
 
 
 
@@ -83,16 +81,13 @@ const   basicCellStyle    = {
     <wrapper>
       <Table celled>
        <Table.Header>
-          <Table.Row style={rowHeaderStyle}><headerSpan style={columnHeaderStyle}>
-            <Table.Cell width={3}>Benefit</Table.Cell>
-            </headerSpan>
-            <Table.Cell width={3}>Current Benefits</Table.Cell>
-            <Table.Cell width={3}>New Estimate</Table.Cell>
-            <Table.Cell width={3}>Difference</Table.Cell>
+          <Table.Row >
+            <Table.Cell style={columnHeaderStyle} width={3}>Benefit</Table.Cell>
+            <Table.Cell style={columnHeaderStyle} width={3}>Current Benefits</Table.Cell>
+            <Table.Cell style={columnHeaderStyle} width={3}>New Estimate</Table.Cell>
+            <Table.Cell style={columnHeaderStyle} width={3}>Difference</Table.Cell>
           </Table.Row>
-        </Table.Header>
-      <Table.Body>
-      </Table.Body>
+      </Table.Header>
         <Table.Body>
             <Table.Row>
               <Table.Cell textAlign='left'><Header as='h4'>SNAP</Header></Table.Cell>
