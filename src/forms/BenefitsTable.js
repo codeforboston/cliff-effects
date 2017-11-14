@@ -47,126 +47,51 @@ const BenefitsTable = function ( props ) {
 console.log(SNAPDiff);
 
 
-  const   basicCellStyle    = {textAlign: 'right'}
-        , columnHeaderStyle = {background: 'rgba(0, 128, 128, 1)',
-                              color: 'white',
-                              fontSize: '1.3em',
-                              fontWeight: 900,
-                              textAlign: 'center',
-                              borderRadius: 'inherit',
-                              letterSpacing: '0.02em'
-                              }
-        , rowHeaderStyle    = {fontSize: '1.2em',
-                              fontWeight: 700,
-                              textAlign: 'left'}
-        , totalsRowStyle    = function(){
-          return Object.assign(basicCellStyle, {borderTop: "2px solid rgba(0, 128, 128, 1)"});
 
+const   basicCellStyle    = {
+                            pading: '1em', 
+                            textAlign: 'right'
+                            }
 
+      ,  columnHeaderStyle = {
+                            background: 'rgba(0, 128, 128, 1)',
+                            color: 'white',
+                            fontSize: '1.3em',
+                            fontWeight: 900,
+                            textAlign: 'center',
+                            borderRadius: 'inherit',
+                            letterSpacing: '0.02em',
+                            }
 
-const Cell = function(props) {
-
-
-  if (typeof props.value === 'number') {
-
-    return (
-  
-      <Table.Cell width={3}> ${props.value}/year </Table.Cell>
-
-    );
-
-  } else {
-
-    <Table.Cell width={3}> {props.value} </Table.Cell>
-  }
-
-};
-
-
-
-
-const Row = function(props) {
-  const numbers = props.numbers;
-  const cell = numbers.map((D) =>
-    <Cell key={D.index}
-        value={D} 
-        style= index===0 ? rowHeaderStyle : basicCellStyle />
-  );
-
-  return (
-    <Table.Row>
-      {cell}
-    </Table.Row>
-  );
-}
-
-
-
-const TableBody = function(props) {
-
-
-  return (
-
-    <Table.Body >
-      {row}
-    </Table.Body>
-  );
-
-};
-
-
-
-
-const Row = function(props) {
-  const numbers = props.numbers;
-  const cell = numbers.map((D) =>
-    <Cell key={D.index}
-        value={D} />
-  );
-
-  return (
-    <Table.Row>
-      {cell}
-    </Table.Row>
-  );
-}
-
-const numbers = ['Benefit', 'Current Benefits', 'New Estimate', 'Difference'];
-const numbers1 = ['SNAP', SNAPBenefitCurrent, SNAPBenefitFuture, Math.abs(SNAPDiff)];
-const numbers2 = ['Section 8 Housing', sec8BenefitCurrent, sec8BenefitFuture, Math.abs(sec8Diff)];
-const numbers3 = ['Total Benefits', totalBenefitCurrent, totalBenefitFuture, Math.abs(totalDiff)];
-const numbers4 = ['Income', incomeCurrent, incomeFuture, Math.abs(incomeDiff)];
-const numbers5 = ['Net Total', netCurrent, netFuture, Math.abs(netDiff)];
-
+      , rowHeaderStyle    = function(){
+                return (
+                  Object.assign(basicCellStyle, {
+                    fontSize: '1.2em',
+                    fontWeight: 700,
+                    textAlign: 'left',
+                    })
+                  );
+                }
+      , totalsRowStyle    = {
+                            borderTop: "2px solid rgba(0, 128, 128, 1)",
+                            }
+      ;
 
 
 
   return (
     <wrapper>
-
-
-      <Table celled borderRadius='0.25em 0.25em 0 0'>
-        <Table.Body >
-            <Row numbers={numbers} />
-            <Row numbers={numbers1} />
-            <Row numbers={numbers2} />
-            <Row numbers={numbers3} />
-            <Row numbers={numbers4} />
-            <Row numbers={numbers5} />
-        </Table.Body>
-      </Table>
-
-{/*
       <Table celled>
-      <Table.Body>
-       <Table.Header>  Removed for formatting purposes temporarily}
-          <Table.Row textAlign='center' style={columnHeaderStyle}>
+       <Table.Header>
+          <Table.Row style={rowHeaderStyle}><headerSpan style={columnHeaderStyle}>
             <Table.Cell width={3}>Benefit</Table.Cell>
+            </headerSpan>
             <Table.Cell width={3}>Current Benefits</Table.Cell>
             <Table.Cell width={3}>New Estimate</Table.Cell>
             <Table.Cell width={3}>Difference</Table.Cell>
-        </Table.Row>
+          </Table.Row>
         </Table.Header>
+      <Table.Body>
       </Table.Body>
         <Table.Body>
             <Table.Row>
@@ -183,9 +108,9 @@ const numbers5 = ['Net Total', netCurrent, netFuture, Math.abs(netDiff)];
             </Table.Row>
             <Table.Row>
               <Table.Cell width={3} style={rowHeaderStyle} textAlign='left'><Header as='h4'>Total Benefits</Header></Table.Cell>
-              <Table.Cell width={3} style={rowHeaderStyle} textAlign='right'>${totalBenefitCurrent} / year</Table.Cell>
-              <Table.Cell width={3} style={rowHeaderStyle} textAlign='right'>${totalBenefitFuture} / year</Table.Cell>
-              <Table.Cell width={3} style={rowHeaderStyle} textAlign='right'>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${totalBenefitCurrent} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${totalBenefitFuture} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / year</Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell textAlign='left'><Header as='h4'>Income</Header></Table.Cell>
@@ -195,45 +120,17 @@ const numbers5 = ['Net Total', netCurrent, netFuture, Math.abs(netDiff)];
             </Table.Row>
             <Table.Row style={{border: 'none'}}>
               <Table.Cell width={3} style={rowHeaderStyle} textAlign='left'><Header as='h4'>Net Total</Header></Table.Cell>
-              <Table.Cell width={3} style={rowHeaderStyle} textAlign='right'>${netCurrent} / year</Table.Cell>
-              <Table.Cell width={3} style={rowHeaderStyle} textAlign='right'>${netFuture} / year</Table.Cell>
-              <Table.Cell width={3} style={rowHeaderStyle} textAlign='right'>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${netCurrent} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${netFuture} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / year</Table.Cell>
             </Table.Row>
         </Table.Body>
->>>>>>> 66741042843488a6625d5cc6087ff72591c3e38a
-
-
-const numbers = ['Benefit', 'Current Benefits', 'New Estimate', 'Difference'];
-const numbers1 = ['SNAP', SNAPBenefitCurrent, SNAPBenefitFuture, Math.abs(SNAPDiff)];
-const numbers2 = ['Section 8 Housing', sec8BenefitCurrent, sec8BenefitFuture, Math.abs(sec8Diff)];
-const numbers3 = ['Total Benefits', totalBenefitCurrent, totalBenefitFuture, Math.abs(totalDiff)];
-const numbers4 = ['Income', incomeCurrent, incomeFuture, Math.abs(incomeDiff)];
-const numbers5 = ['Net Total', netCurrent, netFuture, Math.abs(netDiff)];
-
-
-
-
-  return (
-    <wrapper>
-
-
-      <Table celled borderRadius='0.25em 0.25em 0 0'>
-        <Table.Body >
-            <Row numbers={numbers} />
-            <Row numbers={numbers1} />
-            <Row numbers={numbers2} />
-            <Row numbers={numbers3} />
-            <Row numbers={numbers4} />
-            <Row numbers={numbers5} />
-        </Table.Body>
       </Table>
-    )*/}
-
 
 
       <ResultsGraph {...props}/>
     </wrapper>
-  );
+  )
 
 };  // End BenefitsTable(<>)
 
