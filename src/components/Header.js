@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 
 import { MainMenu } from '../MainMenu';
-import FixedMenu from '../fixedMenu';
+import FixedMenu from '../FixedMenu';
 
 const Header = ({fix}) => {
   return (

@@ -15,10 +15,10 @@ import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
 import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 // Data
-import { clientList } from '../clientList';
+import { clientList } from '../config/dummyClients';
 
 // Our Components
-import AlertSidebar from '../alertSidebar'
+import AlertSidebar from '../AlertSidebar'
 import { BenefitsTable } from '../forms/BenefitsTable';
 import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';

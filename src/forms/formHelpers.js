@@ -14,7 +14,7 @@ import {
 } from 'semantic-ui-react';
 
 // UTILITIES
-import { roundMoney, toMonthlyAmount } from '../helpers/math';
+import { roundMoney, toMonthlyAmount } from '../utils/math';
 
 
 // ========================================
