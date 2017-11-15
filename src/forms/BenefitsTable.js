@@ -1,8 +1,7 @@
 // REACT COMPONENTS
 import React from 'react';
 import {
-  Table,
-  Header
+  Table
 } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
@@ -48,12 +47,7 @@ console.log(SNAPDiff);
 
 
 
-const     basicCellStyle  = {
-                            pading: '1em', 
-                            textAlign: 'right'
-                            }
-
-      ,  columnHeaderStyle = {
+const   columnHeaderStyle = {
                             background: 'rgba(0, 181, 173, 1)',
                             color: 'white',
                             fontSize: '1.3em',
