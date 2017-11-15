@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import {
-  // Button,
-  Container,
   Divider,
   Grid,
   Header,
   Image,
-  List,
   Segment,
-  Visibility,
-  Icon,
   Form
 } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
-
-import { MainMenu } from '../MainMenu';
-import FixedMenu from '../FixedMenu';
 
 class ClientIntakePage extends Component {
 
@@ -30,9 +22,6 @@ class ClientIntakePage extends Component {
     visits: [],
   };
 
-  hideFixedMenu = () => this.setState({ visible: false })
-  showFixedMenu = () => this.setState({ visible: true })
-
   handleInputChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleFormSubmit = e => {
@@ -42,32 +31,14 @@ class ClientIntakePage extends Component {
   }
 
   render() {
-    const { visible } = this.state
-
     return (
       <div>
-        { visible ? <FixedMenu /> : null }
+        { /* REVIEW: There's got to be a cleaner way to handle this redirect */ }
         {this.state.redirect ? (<Redirect to='/detail/54321'/>) : false}
 
-        <Visibility
-          onBottomPassed={this.showFixedMenu}
-          onBottomVisible={this.hideFixedMenu}
-          once={false}
-        >
-          <Segment
-            inverted
-            textAlign='center'
-            style={{ padding: '1em 0em' }}
-            vertical
-            color='teal'
-          >
-            <MainMenu/>
-          </Segment>
-        </Visibility>
-
         <Segment style={{ padding: '4em 0em' }} vertical>
-          <Header as='h1' style={{ fontSize: '4em', padding: '1em 1em' }}>New Client Intake</Header>
           <Grid container stackable verticalAlign='middle'>
+            <Header as='h1' style={{ fontSize: '4em' }}>New Client Intake</Header>
             <Grid.Row>
               <Grid.Column width={4}>
                 <Image src={this.state.image} size='medium'/>
@@ -84,35 +55,6 @@ class ClientIntakePage extends Component {
             </Grid.Row>
             <Divider/>
           </Grid>
-        </Segment>
-
-        <Segment inverted vertical style={{ padding: '5em 0em' }} color='teal'>
-          <Container>
-            <Grid divided inverted stackable>
-              <Grid.Row>
-                <Grid.Column width={3}>
-                  <Header inverted as='h4' content='About' />
-                  <List link inverted>
-                    <List.Item as='a'>Sitemap</List.Item>
-                    <List.Item as='a'>Contact Us</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as='h4' content='Services' />
-                  <List link inverted>
-                    <List.Item as='a'>Choice 1</List.Item>
-                    <List.Item as='a'>Choice 2</List.Item>
-                    <List.Item as='a'>Choice 3</List.Item>
-                    <List.Item as='a'>Choice 4</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={7}>
-                  <Header as='h4' inverted>Cliff Effects Tool</Header>
-                  <p>Made with <Icon name='heart' size='small' /> by Code for Boston</p>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Container>
         </Segment>
       </div>
     )

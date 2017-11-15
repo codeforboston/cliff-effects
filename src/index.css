@@ -10,6 +10,13 @@ form .field-aligner {
 	max-width: 80%;
 }
 
+#root, #App {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 /* One of these two groups */
 .info-revealer .info-tooltip {
 	display: none;
