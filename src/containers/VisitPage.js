@@ -125,20 +125,20 @@ class VisitPage extends Component {
     this.setState(prevState => ({
       currentStep: prevState.currentStep + 1
     }));
-  };
+  }
 
   previousStep = () => {
     this.setState(prevState => ({
-      currentStep: prevState.currentStep - 1
+      currentStep: prevState.currentStep  //took out the - 1 here and seems to have solved the back tracking upon hitting return
     }));
-  };
+  }
 
   goToStep = (index) => {
-    this.setState({ currentStep: index });
+    this.setState({ currentStep: index});
   }
 
   getCurrentStep = () => {
-    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
+    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   // keep it between 1 and 8 and convert to 0 index <-- this conversion causes the return to prev page bug| 
     var FormSection = this.steps[ step ].form;
 
     return (
@@ -148,7 +148,7 @@ class VisitPage extends Component {
                    previousStep={this.previousStep}
                    setClientProperty={this.setClientProperty}
                    saveForm={this.saveForm} />
-    );
+      )
   };  // End getCurrentStep()
 
   render() {
