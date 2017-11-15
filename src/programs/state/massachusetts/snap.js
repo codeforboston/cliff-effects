@@ -6,6 +6,8 @@ import {
 } from '../../../utils/cashflow';
 import { Result } from '../../../utils/Result';
 import { data } from '../../../config/snap';
+import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../../utils/getGovData';
+import { federalPovertyGuidelines } from '../../../data/federal/federalPovertyGuidelines';
 
 const getSNAPBenefits = function ( client ) {
   var timeframe = 'current';
@@ -97,13 +99,13 @@ const getSNAPBenefits = function ( client ) {
 //   */
 // ];
 
-const getAllowance = function(client, timeframe, data, baseRate ) {
-  if ( client[timeframe + 'HouseholdSize'] > 8  ) {
-    return data[8] + (client[timeframe + 'HouseholdSize'] - 8) * baseRate;
-  } else {
-    return data[client[timeframe + 'HouseholdSize']];
-  }
-};
+// const getAllowance = function(client, timeframe, data, baseRate ) {
+//   if ( client[timeframe + 'HouseholdSize'] > 8  ) {
+//     return data[8] + (client[timeframe + 'HouseholdSize'] - 8) * baseRate;
+//   } else {
+//     return data[client[timeframe + 'HouseholdSize']];
+//   }
+// };
 
 //GROSS INCOME TEST
 const hasDisabledOrElderlyMember = function (client, timeframe) {
@@ -116,7 +118,8 @@ const getTotalMonthlyGross = function (client, timeframe) {
 };
 
 const getPovertyGrossIncomeLevel = function (client, timeframe ) {
-  return getAllowance(client, timeframe, data.povertyGrossIncome, data.overNumberHouseholdRate);
+  return getMonthlyLimitBySize(federalPovertyGuidelines, client[timeframe + 'HouseholdSize'], 200);
+   // return getAllowance(client, timeframe, data.povertyGrossIncome, data.overNumberHouseholdRate);
 };
 
 const checkIncome = function (client, timeframe) {
@@ -166,10 +169,7 @@ const getGrossIncomeTestResult = function (client, timeframe) {
 
 // INCOME DEDUCTIONS
 const getStandardDeduction = function (client, timeframe) {
-  if (client[timeframe + 'HouseholdSize'] >= 6) {
-    return data.standardDeduction[6];
-  }
-  return data.standardDeduction[client[timeframe + 'HouseholdSize']];
+  return getYearlyLimitBySize(data.standardDeduction, client[timeframe + 'HouseholdSize']);
 };
 
 const getEarnedIncomeDeduction = function (client, timeframe) {
@@ -338,7 +338,8 @@ const maxTotalNetMonthlyIncome = function (client, timeframe) {
       maxTotalNetIncome = "no limit";
       return maxTotalNetIncome;
     } else {
-      return getAllowance(client, timeframe, data.maxAllowableMonthlyNetIncome, data.maxAllowableMonthlyNetIncomeRate);
+      return getYearlyLimitBySize(data.maxAllowableMonthlyNetIncome, client[timeframe + 'HouseholdSize']);
+      //return getAllowance(client, timeframe, data.maxAllowableMonthlyNetIncome, data.maxAllowableMonthlyNetIncomeRate);
     }
 };
 
@@ -363,7 +364,8 @@ const getThirtyPercentNetIncome = function(client, timeframe) {
 };
 
 const getMaxSnapAllotment = function (client, timeframe) {
-  return getAllowance(client, timeframe, data.maxFoodStampAllotment, data.maxFoodStampAllotmentRate);
+  return getYearlyLimitBySize(data.maxFoodStampAllotment, client[timeframe + 'HouseholdSize']);
+  // return getAllowance(client, timeframe, data.maxFoodStampAllotment, data.maxFoodStampAllotmentRate);
 };
 
 // const bayStateCapCalculation = function (client, timeframe) {
