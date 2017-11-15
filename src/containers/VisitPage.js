@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   Grid,
-  Step,
   Header,
 } from 'semantic-ui-react';
 import {
@@ -15,28 +14,17 @@ import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
 import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 // Data
-import { clientList } from '../clientList';
+import { clientList } from '../config/dummyClients';
 
 // Our Components
-import AlertSidebar from '../alertSidebar'
+import AlertSidebar from '../AlertSidebar'
 import { BenefitsTable } from '../forms/BenefitsTable';
 import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';
 import { FutureIncomeStep } from '../forms/futureIncome';
 import { HouseholdSizeStep } from '../forms/household-size';
 import { CurrentBenefitsStep } from '../forms/current-benefits';
-
-const StepBar = ({ steps, currentStep, goToStep }) => {
-
-  for ( let stepi = 0; stepi < steps.length; stepi++ ) {
-      let step = steps[ stepi ];
-      step.completed = (stepi < currentStep);
-      step.active = (stepi === currentStep - 1);
-      step.onClick = (e) => { goToStep(stepi + 1) } //Create unique click handler for each step
-  }
-
-  return (<Step.Group size='mini' ordered items={steps} />)
-}
+import StepBar from '../components/StepBar'
 
 class VisitPage extends Component {
   constructor(props) {
@@ -191,7 +179,11 @@ class VisitPage extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width = {16}>
-              <StepBar currentStep={this.state.currentStep} steps={this.steps} goToStep={this.goToStep} />
+              <StepBar
+                currentStepIndex={this.state.currentStep}
+                steps={this.steps}
+                goToStep={this.goToStep}
+              />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -201,10 +193,12 @@ class VisitPage extends Component {
               </div>
             </Grid.Column>
             <Grid.Column width={4} style={{ height: '100%' }}>
-              <AlertSidebar hasSnap={this.state.client.hasSnap}
-                            hasHousing={this.state.client.hasHousing}
-                            snapAlert={getSNAPBenefits(this.state.client)}
-                            housingAlert={getHousingBenefit(this.state.client)} />
+              <AlertSidebar
+                hasSnap={this.state.client.hasSnap}
+                hasHousing={this.state.client.hasHousing}
+                snapAlert={getSNAPBenefits(this.state.client)}
+                housingAlert={getHousingBenefit(this.state.client)}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>

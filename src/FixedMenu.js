@@ -6,7 +6,7 @@ import {
   Image
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { BetaWarning } from './Beta';
+import { BetaWarning } from './BetaWarning';
 import logo from './images/logo.svg';
 
 const FixedMenu = () => (

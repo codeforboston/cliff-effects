@@ -1,14 +1,13 @@
 // REACT COMPONENTS
 import React from 'react';
 import {
-  Table,
-  Header
+  Table
 } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
 // Both the table and graph should just be added to a results page, but
 // this will do for now
-import ResultsGraph from '../resultsGraph';
+import ResultsGraph from '../ResultsGraph';
 
 // BENEFIT LOGIC
 import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
@@ -46,74 +45,89 @@ const BenefitsTable = function ( props ) {
 
 console.log(SNAPDiff);
 
+
+
+const   columnHeaderStyle = {
+                            background: 'rgba(0, 181, 173, 1)',
+                            color: 'white',
+                            fontSize: '1.3em',
+                            fontWeight: 900,
+                            textAlign: 'center',
+                            borderRadius: 'inherit',
+                            letterSpacing: '0.02em',
+                            }
+      , totalsRowStyle    = { 
+                            borderTop: "2px solid rgba(0, 181, 173, 1)",
+                            fontWeight: 700,
+                            fontSize: '1.1em',
+                            padingTop: '0.25em'
+                              }
+      , rowHeaderStyle    = {
+                    fontSize: '1.1em',
+                    fontWeight: 700,
+                    textAlign: 'left'
+                    }
+      , totalsRowHeaderStyle = {
+                    fontSize: '1.2em',
+                    fontWeight: 700,
+                    textAlign: 'left',
+                    borderTop: "2px solid rgba(0, 181, 173, 1)", 
+                    padingTop: '0.25em'
+
+
+      };
+
+
+
   return (
     <wrapper>
-      <Table celled color='black'>
-
-        <Table.Header>
-          <Table.Row textAlign='center'>
-            <Table.HeaderCell width={3}>Program</Table.HeaderCell>
-            <Table.HeaderCell width={3}>Current Benefits</Table.HeaderCell>
-            <Table.HeaderCell width={3}>New Estimate</Table.HeaderCell>
-            <Table.HeaderCell width={3}>Difference</Table.HeaderCell>
+      <Table celled>
+       <Table.Header>
+          <Table.Row >
+            <Table.Cell style={columnHeaderStyle} width={3}>Benefit</Table.Cell>
+            <Table.Cell style={columnHeaderStyle} width={3}>Current Benefits</Table.Cell>
+            <Table.Cell style={columnHeaderStyle} width={3}>New Estimate</Table.Cell>
+            <Table.Cell style={columnHeaderStyle} width={3}>Difference</Table.Cell>
           </Table.Row>
-        </Table.Header>
-
+      </Table.Header>
         <Table.Body>
-          <Table.Row>
-            <Table.Cell textAlign='left'><Header as='h4'>SNAP</Header></Table.Cell>
-            <Table.Cell textAlign='right'>${SNAPBenefitCurrent} / year</Table.Cell>
-            <Table.Cell textAlign='right'>${SNAPBenefitFuture} / year</Table.Cell>
-            <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } ${Math.abs(SNAPDiff)} / year</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell textAlign='left'><Header as='h4'>Section 8 Housing</Header></Table.Cell>
-            <Table.Cell textAlign='right'>${sec8BenefitCurrent} / year</Table.Cell>
-            <Table.Cell textAlign='right'>${sec8BenefitFuture} / year</Table.Cell>
-            <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } ${Math.abs(sec8Diff)} / year</Table.Cell>
-          </Table.Row>
+            <Table.Row>
+              <Table.Cell style={rowHeaderStyle}>SNAP</Table.Cell>
+              <Table.Cell textAlign='right'>${SNAPBenefitCurrent} / year</Table.Cell>
+              <Table.Cell textAlign='right'>${SNAPBenefitFuture} / year</Table.Cell>
+              <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } ${Math.abs(SNAPDiff)} / year</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell style={rowHeaderStyle}>Section 8 Housing</Table.Cell>
+              <Table.Cell textAlign='right'>${sec8BenefitCurrent} / year</Table.Cell>
+              <Table.Cell textAlign='right'>${sec8BenefitFuture} / year</Table.Cell>
+              <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } ${Math.abs(sec8Diff)} / year</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell width={3} style={totalsRowHeaderStyle} >Total Benefits</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${totalBenefitCurrent} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${totalBenefitFuture} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / year</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell style={rowHeaderStyle}>Income</Table.Cell>
+              <Table.Cell textAlign='right'>${incomeCurrent} / year</Table.Cell>
+              <Table.Cell textAlign='right'>${incomeFuture} / year</Table.Cell>
+              <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } ${Math.abs(incomeDiff)} / year</Table.Cell>
+            </Table.Row>
+            <Table.Row style={{border: 'none'}}>
+              <Table.Cell width={3} style={totalsRowHeaderStyle}>Net Total</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${netCurrent} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${netFuture} / year</Table.Cell>
+              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / year</Table.Cell>
+            </Table.Row>
         </Table.Body>
-
       </Table>
 
-      <Table celled color='black'>
-
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell width={3} textAlign='left'><Header as='h4'>Total Benefits</Header></Table.Cell>
-            <Table.Cell width={3} textAlign='right'><Header as='h4'>${totalBenefitCurrent} / year</Header></Table.Cell>
-            <Table.Cell width={3} textAlign='right'><Header as='h4'>${totalBenefitFuture} / year</Header></Table.Cell>
-            <Table.Cell width={3} textAlign='right'><Header as='h4'>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / year</Header></Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell textAlign='left'>Income</Table.Cell>
-            <Table.Cell textAlign='right'>${incomeCurrent} / year</Table.Cell>
-            <Table.Cell textAlign='right'>${incomeFuture} / year</Table.Cell>
-            <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } ${Math.abs(incomeDiff)} / year</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-
-      </Table>
-
-      <Table celled color='black'>
-
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell width={3} textAlign='left'><Header as='h4'>Net Total</Header></Table.Cell>
-            <Table.Cell width={3} textAlign='right'><Header as='h4'>${netCurrent} / year</Header></Table.Cell>
-            <Table.Cell width={3} textAlign='right'><Header as='h4'>${netFuture} / year</Header></Table.Cell>
-            <Table.Cell width={3} textAlign='right'><Header as='h4'>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / year</Header></Table.Cell>
-          </Table.Row>
-        </Table.Body>
-
-      </Table>
-
-      <br/>
-      <br/>
 
       <ResultsGraph {...props}/>
     </wrapper>
-  );
+  )
 
 };  // End BenefitsTable(<>)
 

@@ -3,11 +3,14 @@
 import { CHILD_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
 
 // UTILITIES
-import { toCashflow, sumCashflow, getGrossUnearnedIncomeMonthly } from '../../../helpers/cashflow';
-import { sum } from '../../../helpers/math';
+import { sum } from '../../../utils/math';
+import { Result } from '../../../utils/Result';
+import {
+  toCashflow,
+  sumCashflow,
+  getGrossUnearnedIncomeMonthly
+} from '../../../utils/cashflow';
 
-// TO RETURN
-import { Result } from '../../../helpers/Result';
 
 /**
 * Properties `client` object is required to have to get a valid

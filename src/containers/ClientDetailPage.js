@@ -11,8 +11,7 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import { clientList } from '../clientList';
-
+import { clientList } from '../config/dummyClients';
 
 const VisitTable = (props) => (
   <Table celled padded>
