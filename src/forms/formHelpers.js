@@ -23,14 +23,14 @@ import { roundMoney, toMonthlyAmount } from '../utils/math';
 
 /** Returns a Grid Column containing a button of the style used
 * to navigate backwards and forwards through steps of the form.
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.func - A function that is run when the
 * button is clicked.
 * @property {string} props.name - The text to be displayed on
 * the button.
-* 
+*
 * @returns Component
 */
 const BottomButton = function(props){
@@ -46,7 +46,7 @@ const BottomButton = function(props){
 
 /** The row containing the 'Previous' and 'Next' buttons at the
 * bottom of each form page.
-* 
+*
 * @function
 * @param {object} propsContainer - Containing the `props` object in
 * another object seemed to be the only way to pass on `props`.
@@ -57,11 +57,11 @@ const BottomButton = function(props){
 * that goes back to the previous form element.
 * @property {object} propsContainer.props.nextStep() - Function
 * that goes forward to the next form element.
-* 
+*
 * @todo Use this somehow for the first page and last page too,
 * but then hide the 'previous' and the 'next' respectively? Or
 * split those into their own Components?
-* 
+*
 * @returns Component
 */
 const BottomButtons = function(props){
@@ -76,7 +76,7 @@ const BottomButtons = function(props){
         { !props.right
           ? <Grid.Column className='large-bottom-button' width={3}/>
           : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
-          
+
         }
       </Grid.Row>
     </Grid>
@@ -88,7 +88,7 @@ const BottomButtons = function(props){
 * the Form Component. Does not include the `<Form>` Component
 * as a container because it looks like that needs to be unique
 * (the 'CurrentBenefitsStep' gives it `size='massive'`).
-* 
+*
 * @function
 * @param {object} props
 * @property {string} props.title - Text to go in the `h1` element.
@@ -98,7 +98,7 @@ const BottomButtons = function(props){
 * into the middle - a custom form section containing inputs, etc.
 * @property {Object} props.next - the 'next form section' function
 * @property {Object} props.prev - the 'previous form section' function
-* 
+*
 * @returns Component
 */
 const FormPartsContainer = function(props) {
@@ -120,14 +120,14 @@ const FormPartsContainer = function(props) {
       </Segment>
       <Divider />
       <BottomButtons left={props.left} right={props.right} next={props.next} prev={props.prev} />
-      
+
     </Segment>
   );
 };  // End FormPartsContainer() Component
 
 
 /** Toggle with size='massive'
-* 
+*
 * @function
 * @param {object} props - sent from attributes of parent element
 * @property {string} props.label - Text displayed next to toggle
@@ -138,7 +138,7 @@ const FormPartsContainer = function(props) {
 * state (changes the "source of truth")
 * @property {string} props.name - The key of the client property that
 * will be saved and will be used to fill in the field's value.
-* 
+*
 * @returns Component
 */
 const MassiveToggle = function (props) {
@@ -160,11 +160,11 @@ const MassiveToggle = function (props) {
 
 /** A clearer way than a ternary operator to have a possible
 * subheader. Also, clearer for separate styling
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.children - Contents of this element
-* 
+*
 * @returns Component
 */
 const FormSubheading = function ( props ) {
@@ -182,11 +182,11 @@ const FormSubheading = function ( props ) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const FormHeading = function ({ subheading, children }) {
@@ -208,11 +208,11 @@ const FormHeading = function ({ subheading, children }) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const InlineLabelInfo = function ( props ) {
@@ -303,11 +303,11 @@ const InlineLabelInfo = function ( props ) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const ColumnHeading = function ({ type, colName, style, children }) {
@@ -319,11 +319,11 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const IntervalColumnHeadings = function ({ type }) {
@@ -349,14 +349,14 @@ const IntervalColumnHeadings = function ({ type }) {
 
 
 /** @todo description
-* 
+*
 * @todo Make this more generic and make the caller
 * handle more of the specifics.
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const CashFlowInput = function ({ interval, generic, time, type, store, value, style, id, name }) {
@@ -380,7 +380,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
       value     = { value }
       style     = { style }
       name      = { name }
-      type      = { 'number' } step = { '0.01' } min = { '0' }
+      type      = { 'text' }
     />
   );
 
@@ -388,11 +388,11 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const CashFlowRow = function ({ generic, client, setClientProperty, children, labelInfo, type, time }) {
@@ -404,9 +404,9 @@ const CashFlowRow = function ({ generic, client, setClientProperty, children, la
   * Get the time ('future' or 'current') monthly value unless there is
   * none, in which case, get the 'current' monthly cash flow value (to
   * prefill future values with 'current' ones if needed).
-  * 
+  *
   * @var
-  * 
+  *
   * @todo Add some kind of UI indication when it's the same as the 'current'
   * value. What if some of the row's values are the same and some are
   * different?
