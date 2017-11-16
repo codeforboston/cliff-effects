@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 
 // Logic
-import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
+import { getSNAPBenefits } from '../programs/federal/massachusetts/snap';
 import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 // Data

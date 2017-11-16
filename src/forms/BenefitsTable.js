@@ -10,7 +10,7 @@ import {
 import ResultsGraph from '../ResultsGraph';
 
 // BENEFIT LOGIC
-import { getSNAPBenefits } from '../programs/state/massachusetts/snap';
+import { getSNAPBenefits } from '../programs/federal/massachusetts/snap';
 import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 
@@ -56,7 +56,7 @@ const   columnHeaderStyle = {
                             borderRadius: 'inherit',
                             letterSpacing: '0.02em',
                             }
-      , totalsRowStyle    = { 
+      , totalsRowStyle    = {
                             borderTop: "2px solid rgba(0, 181, 173, 1)",
                             fontWeight: 700,
                             fontSize: '1.1em',
@@ -71,7 +71,7 @@ const   columnHeaderStyle = {
                     fontSize: '1.2em',
                     fontWeight: 700,
                     textAlign: 'left',
-                    borderTop: "2px solid rgba(0, 181, 173, 1)", 
+                    borderTop: "2px solid rgba(0, 181, 173, 1)",
                     padingTop: '0.25em'
 
 
