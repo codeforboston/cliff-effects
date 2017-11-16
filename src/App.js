@@ -33,8 +33,8 @@ class App extends React.Component {
 
     return(
       <div id='App'>
-        <HashRouter>
-          <div>
+        <HashRouter >
+          <div id='HashRouter'>
             <Visibility
               onTopPassed={ () => { this.setState({fixHeader: true}) } }
               onTopPassedReverse={ () => { this.setState({fixHeader: false}) } }
