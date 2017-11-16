@@ -3,7 +3,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { getSNAPBenefits } from './programs/state/massachusetts/snap';
+import { getSNAPBenefits } from './programs/federal/2017/snap';
 import { getHousingBenefit } from './programs/state/massachusetts/housing';
 
 // Our Components
