@@ -13,7 +13,7 @@
 // REACT COMPONENTS
 import React, { Component } from 'react';
 import {
-  // Button,
+  Button,
   Form,
   // Header,
   // Checkbox,
@@ -29,6 +29,64 @@ import {
 } from './formHelpers';
 
 
+
+const MemberButton = function ({ className, setClientProperty, children }) {
+  return (
+    <Button circular
+      style={{ fontSize: '2rem', padding: '0', height: '1.25em', width: '1.25em' }}
+      className={className}
+      onChange={setClientProperty}
+    >
+        {children}
+    </Button>
+  );
+};
+
+
+
+// To be able to adjust sizes easily
+const Columns = {};
+
+Columns.One = function ({ style, children }) {
+  return (
+    <ColumnHeading
+      type={'household'} colName={''}
+      style={{...style, width: '5em'}}>
+              {children}
+    </ColumnHeading>
+  );
+}
+
+Columns.Two = function ({ style, children }) {
+  return (
+    <ColumnHeading
+      type={'household'} colName={''}
+      style={{...style, width: '20em'}}>
+              {children}
+    </ColumnHeading>
+  );
+}
+
+Columns.Three = function ({ style, children }) {
+  return (
+    <ColumnHeading
+      type={'household'} colName={''}
+      style={{...style, width: '8em'}}>
+              {children}
+    </ColumnHeading>
+  );
+}
+
+Columns.Four = function ({ style, children }) {
+  return (
+    <ColumnHeading
+      type={'household'} colName={''}
+      style={{...style, width: '5em'}}>
+              {children}
+    </ColumnHeading>
+  );
+}
+
 /** @todo description
 * 
 * @todo Could this be a number field? If not, then a dropdown?
@@ -41,16 +99,19 @@ import {
 */
 const HouseholdContent = ({ client, time, setClientProperty }) => {
 
-  var style = { display: 'inline-block' };
+  var style = { display: 'inline-block', textAlign: 'center' };
 
   return (
     <wrapper className='field-aligner two-column'>
       <wrapper>
-        <ColumnHeading type={'household'} colName={''} style={{...style, width: '5em'}}>Add</ColumnHeading>
-        <ColumnHeading type={'household'} colName={''} style={{...style, width: '20em'}}>Role</ColumnHeading>
-        <ColumnHeading type={'household'} colName={''} style={{...style, width: '8em'}}>Age</ColumnHeading>
-        <ColumnHeading type={'household'} colName={''} style={{...style, width: '5em'}}>Disabled</ColumnHeading>
+        <Columns.One style={style}>Add</Columns.One>
+        <Columns.Two style={style}>Role</Columns.Two>
+        <Columns.Three style={style}>Age</Columns.Three>
+        <Columns.Four style={style}>Disabled</Columns.Four>
       </wrapper>
+      <Columns.One style={style}>
+        <MemberButton circular className={'add'} onChange={null}>+</MemberButton>
+      </Columns.One>
     </wrapper>
   );
 };  // End HouseholdContent()
