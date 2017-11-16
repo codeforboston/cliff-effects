@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   HashRouter,
-  Route
+  Route,
 } from 'react-router-dom'
 
 import {
@@ -33,7 +33,7 @@ class App extends React.Component {
 
     return(
       <div id='App'>
-        <HashRouter >
+        <HashRouter>
           <div id='HashRouter'>
             <Visibility
               onTopPassed={ () => { this.setState({fixHeader: true}) } }

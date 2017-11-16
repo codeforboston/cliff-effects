@@ -17,17 +17,21 @@ form .field-aligner {
   justify-content: space-between;
 }
 
-#root, #HashRouter {
-  height: 100%;
+#root {
+  height:  100%;
+}
+
+#HashRouter {
+  flex: 1 0;
 }
 
 #HomePage {
   background-image: url(./images/splash.svg);
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 #HomeContent {

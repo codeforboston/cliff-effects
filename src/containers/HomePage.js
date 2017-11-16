@@ -50,7 +50,6 @@ class HomePage extends Component {
               <Button style={{
                 backgroundColor: '#ffffffc8',
                 textColor: '#00b5ad',
-                // fontWeight: 'bold',
                 marginLeft: '1.5em'}}>
                 Learn More
               </Button>
@@ -60,7 +59,8 @@ class HomePage extends Component {
           </div>
 
           <p style={{
-            color: '#efefef'}}>*
+            color: '#efefef',
+            textAlign: 'center'}}>*
             This is a prototype and should not be used to make financial decisions.
           </p>
 
