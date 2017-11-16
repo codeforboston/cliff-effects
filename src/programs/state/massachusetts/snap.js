@@ -9,20 +9,10 @@ import { data } from '../../../config/snap';
 import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../../utils/getGovData';
 import { federalPovertyGuidelines } from '../../../data/federal/federalPovertyGuidelines';
 
+
+/** Based on https://www.masslegalservices.org/SNAPCalculator */
 const getSNAPBenefits = function ( client ) {
   var timeframe = 'current';
-
-  // var missingProps = propsNeeded(client, requiredProps);
-
-  // if (missingProps.length) {
-  //   var details = 'Some required form fields have\'t been filled in yet.';
-  //   var result = new Result({
-  //     result: 'incomplete',
-  //     details: 'Form incomplete',
-  //     data: { missingProps: missingProps }
-  //   });
-  //   return result;
-  // }
 
   var finalResult = null;
   var grossIncomeTestResult   = getGrossIncomeTestResult(client, timeframe);
@@ -54,72 +44,17 @@ const getSNAPBenefits = function ( client ) {
   return result;
 }; // End getSNAPBenefits()
 
-//Still needed, commented out requiredProps[] for removing warning
-// const requiredProps = [
-//   'currentDisabledOrElderlyMember',
-//   'futureEarnedIncomeMonthly',
-//   'currentTAFDCMonthly',
-//   'currentSSIMonthly',
-//   'currentSSDIMonthly',
-//   'currentChildSupportInMonthly',
-//   'currentUnemploymentMonthly',
-//   'currentWorkersCompMonthly',
-//   'currentPensionMonthly',
-//   'currentSocialSecurityMonthly',
-//   'currentAlimonyMonthly',
-//   'currentOtherIncomeMonthly',
-//   'currentHouseoldSize',
-//   'currentChildSupportPaidOutMonthly',
-//   'currentChildDirectCareCostsMonthly',
-//   'currentChildBeforeAndAfterSchoolCareCostsMonthly',
-//   'currentChildTransportationCostsMonthly',
-//   'currentChildOtherCareCostsMonthly',
-//   'currentAdultDirectCareCostsMonthly',
-//   'currentAdultTransportationCostsMonthly',
-//   'currentAdultOtherCareCostsMonthly',
-//   'currentDisabledMedicalCostsMonthly',
-//   'currentHomeless',
-//   'currentMortgageMonthly',
-//   'currentHousingInsuranceMonthly',
-//   'currentPropertyTaxMonthly',
-//   'currentPaidUtilities',
-//   'currentClimateControl',
-//   'currentNonHeatElectricity',
-//   'currentPhone',
-//
-//
-//   // 'currentHomeowner',
-//   /* All question marks in spreadsheet
-//   'currentIncomeExclusionsMonthly',
-//   'currentDisabledAssistanceMonthly',
-//   'currentOtherMedicalCostsMonthly',
-//   'currentRentShareMonthly',
-//   'currentContractRentMonthly',
-//   'currentRentMonthly'
-//   */
-// ];
-
-// const getAllowance = function(client, timeframe, data, baseRate ) {
-//   if ( client[timeframe + 'HouseholdSize'] > 8  ) {
-//     return data[8] + (client[timeframe + 'HouseholdSize'] - 8) * baseRate;
-//   } else {
-//     return data[client[timeframe + 'HouseholdSize']];
-//   }
-// };
-
 //GROSS INCOME TEST
 const hasDisabledOrElderlyMember = function (client, timeframe) {
   return client[timeframe + 'DisabledOrElderlyMember'];
 };
 
 const getTotalMonthlyGross = function (client, timeframe) {
-  // return getSimpleGrossIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
   return toCashflow(client, 'future', 'EarnedIncome') + getGrossUnearnedIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
 };
 
 const getPovertyGrossIncomeLevel = function (client, timeframe ) {
   return getMonthlyLimitBySize(federalPovertyGuidelines, client[timeframe + 'HouseholdSize'], 200);
-   // return getAllowance(client, timeframe, data.povertyGrossIncome, data.overNumberHouseholdRate);
 };
 
 const checkIncome = function (client, timeframe) {
@@ -132,14 +67,6 @@ const checkIncome = function (client, timeframe) {
     return false;
   }
 };
-
-// const isAssetTest = function(client, timeframe) {
-//   if (checkIncome(client, timeframe)) {
-//     return true; // Yes, "Yes, assets must be <=$3,250"
-//   } else {
-//     return false; //No
-//   }
-// };
 
 const isNetIncomeTest = function(client, timeframe) {
   if (checkIncome(client, timeframe)) {
@@ -339,7 +266,6 @@ const maxTotalNetMonthlyIncome = function (client, timeframe) {
       return maxTotalNetIncome;
     } else {
       return getYearlyLimitBySize(data.maxAllowableMonthlyNetIncome, client[timeframe + 'HouseholdSize']);
-      //return getAllowance(client, timeframe, data.maxAllowableMonthlyNetIncome, data.maxAllowableMonthlyNetIncomeRate);
     }
 };
 
@@ -365,86 +291,10 @@ const getThirtyPercentNetIncome = function(client, timeframe) {
 
 const getMaxSnapAllotment = function (client, timeframe) {
   return getYearlyLimitBySize(data.maxFoodStampAllotment, client[timeframe + 'HouseholdSize']);
-  // return getAllowance(client, timeframe, data.maxFoodStampAllotment, data.maxFoodStampAllotmentRate);
 };
 
-// const bayStateCapCalculation = function (client, timeframe) {
-//   var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
-//   var unearnedMonthlyIncome = getGrossUnearnedIncomeMonthly(client, timeframe);
-//   var standardDeduction = getStandardDeduction(client, timeframe);
-//   var shelterDeduction = getShelterDeduction(client, timeframe);
-//   var income = unearnedMonthlyIncome - standardDeduction;
-//   var halfIncome = income/2;
-//   var maxFoodStamp = data.maxFoodStamp;
-//   var imputedShelterExpense = null;
-//   var standardUtilityAllowance = null;
-//   var totalShelterCost = null;
-//   var shelterDeduce = null;
-//   var adjustedIncome = null;
-//   var percentAdjustedIncome = null;
-//
-//   if ( client[timeframe + 'DisabledOrElderlyMember'] && totalMonthlyEarnedGross === 0  && client[timeframe + 'HouseholdSize']===1 ) {
-//     (shelterDeduction >= 453)? imputedShelterExpense = 453: imputedShelterExpense = 223;
-//     standardUtilityAllowance = 634;
-//     totalShelterCost = imputedShelterExpense + standardUtilityAllowance;
-//     shelterDeduce = totalShelterCost - halfIncome;
-//     adjustedIncome = income - shelterDeduce;
-//
-//     if ( adjustedIncome > 0 ) {
-//       percentAdjustedIncome = adjustedIncome * data.percentOfIncome;
-//     } else {
-//       percentAdjustedIncome = 0
-//     }
-//
-//     if ( (maxFoodStamp - percentAdjustedIncome) > 0 ) {
-//       return maxFoodStamp - percentAdjustedIncome;
-//     } else {
-//       return 0;
-//     }
-//   } else {
-//     return 0;
-//   }
-// };
-//
-//
-// const propsNeeded = function (client, props) {
-//
-//   var missingProps = [];
-//
-//   for (let propi = 0; propi < props.length; propi++) {
-//     let key = props[propi];
-//     if (client[key] === undefined) {
-//       missingProps.push(key);
-//     }
-//   }
-//
-//   return missingProps;
-// };
+// Bay State CAP not included as this prototype only deals with
+// changes in earned income
+
 
 export { getSNAPBenefits };
-
-// https://www.masslegalservices.org/SNAPCalculator
-
-
-
-// REVIEW: Can this dead code be removed?
-// It's the only consumer of helperFunctions.js,
-// which is the only consumer of getGovData.js.
-// If we don't need this dead code, we can cut out
-// two more files for free.
-
-//import { percentPovertyLevel,
-//    percentStateMedianIncome } from '../../../utils/helperFunctions';
-//
-//function getSnapEligibility(client) {
-//    let percentPov = percentPovertyLevel(parseInt(client.annualIncome), client.householdSize);
-//    if (client.annualIncome == 0 || percentPov < 70) {
-//        return {result: 'good', details: 'All good!', benefitValue: 1000};
-//    } else if ( percentPov > 70 && percentPov < 80) {
-//        return {result: 'information', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is close to the 80% limit.`, benefitValue: 1000};
-//    } else {
-//        return {result: 'warning', details: `Your income puts you at ${percentPov.toFixed()}% of the federal poverty level, which is above the 80% limit.`, benefitValue: 0};
-//    }
-//}
-//
-//export {getSnapEligibility};
