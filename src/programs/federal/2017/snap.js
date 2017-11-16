@@ -1,11 +1,11 @@
-import { CHILD_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
+import { CHILD_CARE_EXPENSES, ADULT_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
 import {
   toCashflow,
   sumCashflow,
   getGrossUnearnedIncomeMonthly
 } from '../../../utils/cashflow';
 import { Result } from '../../../utils/Result';
-import { data } from '../../../config/snap';
+import { data } from '../../../data/federal/2017/snap';
 import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../../utils/getGovData';
 import { federalPovertyGuidelines } from '../../../data/federal/federalPovertyGuidelines';
 
@@ -125,8 +125,6 @@ const getMedicalDeduction = function (client, timeframe) {
 };
 
 const getDependentCareDeduction = function (client, timeframe) {
-  //add ADULT_CARE_EXPENSES to name-cores.js ???
-  const ADULT_CARE_EXPENSES = ['AdultDirectCareCosts', 'AdultTransportationCosts', 'AdultOtherCareCosts'];
   var totalDependentCare = sumCashflow( client, timeframe, CHILD_CARE_EXPENSES ) + sumCashflow( client, timeframe, ADULT_CARE_EXPENSES );
 
   return totalDependentCare;
