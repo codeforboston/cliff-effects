@@ -11,9 +11,8 @@
 // // } from './formHelpers';
 
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Icon,
   Button,
   Form,
   // Header,
@@ -25,7 +24,6 @@ import {
 // PROJECT COMPONENTS
 import {
   FormPartsContainer,
-  FormHeading,
   ColumnHeading
 } from './formHelpers';
 
@@ -38,19 +36,19 @@ import {
 const columnStyle = { display: 'inline-block', textAlign: 'center' };
 const Columns = {};
 
-Columns.One = function ({ style, children }) {
+Columns.One = function ({ children }) {
   return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
 }
 
-Columns.Two = function ({ style, children }) {
+Columns.Two = function ({ children }) {
   return ( <div style={{...columnStyle, width: '20em'}}> {children} </div> );
 }
 
-Columns.Three = function ({ style, children }) {
+Columns.Three = function ({ children }) {
   return ( <div style={{...columnStyle, width: '8em'}}> {children} </div> );
 }
 
-Columns.Four = function ({ style, children }) {
+Columns.Four = function ({ children }) {
   return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
 }
 
@@ -104,9 +102,7 @@ const MemberButton = function ({ className, onChange, iconName }) {
 * 
 * @returns Component
 */
-const MemberField = function ({ household, time, setClientProperty, columnStyles }, indx ) {
-  
-  console.log( columnStyles );
+const MemberField = function ({ household, time, setClientProperty }, indx ) {
 
   var member = household[ indx ];
 
@@ -116,15 +112,13 @@ const MemberField = function ({ household, time, setClientProperty, columnStyles
   return (
     <Form.Field key={member.key}>
 
-      <Columns.One style={columnStyles}>
+      <Columns.One>
         <MemberButton className={'remove'} onChange={removeMember} iconName={'remove'}/>
       </Columns.One>
 
-      <Columns.Two style={columnStyles}>Role</Columns.Two>
-
-      <Columns.Three style={columnStyles}>Age</Columns.Three>
-
-      <Columns.Four style={columnStyles}>Disabled</Columns.Four>
+      <Columns.Two>Role</Columns.Two>
+      <Columns.Three>Age</Columns.Three>
+      <Columns.Four>Disabled</Columns.Four>
 
     </Form.Field>
   );
@@ -139,14 +133,13 @@ const MemberField = function ({ household, time, setClientProperty, columnStyles
 * 
 * @returns Component
 */
-const getMembers = function ( client, time, setClientProperty, columnStyles ) {
+const getMembers = function ( client, time, setClientProperty ) {
 
   var household = client[ time + 'Household' ],
       props     = {
         household:          household,
         time:               time,
-        setClientProperty:  setClientProperty,
-        columnStyles:       columnStyles
+        setClientProperty:  setClientProperty
       },
       mems      = [];
 
@@ -170,22 +163,20 @@ const getMembers = function ( client, time, setClientProperty, columnStyles ) {
 */
 const HouseholdContent = function ({ client, time, setClientProperty }) {
 
-  var style = { display: 'inline-block', textAlign: 'center' };
-
   var addMember = function ( evnt, inputProps ) {};  // End addMember()
 
   return (
     <wrapper className='field-aligner two-column'>
       <wrapper>
-        <ColumnHeader columnNum='One' style={style}>Add</ColumnHeader>
-        <ColumnHeader columnNum='Two' style={style}>Role</ColumnHeader>
-        <ColumnHeader columnNum='Three' style={style}>Age</ColumnHeader>
-        <ColumnHeader columnNum='Four' style={style}>Disabled</ColumnHeader>
+        <ColumnHeader columnNum='One'>Add</ColumnHeader>
+        <ColumnHeader columnNum='Two'>Role</ColumnHeader>
+        <ColumnHeader columnNum='Three'>Age</ColumnHeader>
+        <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
       </wrapper>
 
-      { getMembers( client, time, setClientProperty, style ) }
+      { getMembers( client, time, setClientProperty ) }
 
-      <Columns.One style={style}>
+      <Columns.One>
         <MemberButton circular className={'add'} onChange={addMember} iconName={'plus'} />
       </Columns.One>
     </wrapper>
