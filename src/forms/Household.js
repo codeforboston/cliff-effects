@@ -17,7 +17,7 @@ import {
   Form,
   Dropdown,
   // Header,
-  // Checkbox,
+  Checkbox,
   // Divider,
   Input
 } from 'semantic-ui-react';
@@ -165,7 +165,6 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
   var member    = household[ indx ];
   member.index  = indx;
 
-
   var onMemberChange = function ( evnt, inputProps ) {
     member[ inputProps.name ] = inputProps.value;
     setHousehold( evnt, household );
@@ -198,14 +197,16 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
 
       <Columns.Three>
         <Input
-          className = { time + '-member-age ' + time }
-          onChange  = { onMemberChange }
-          value     = { member.age }
-          name      = { 'age' }
-          type = { 'number' } step = { '1' } min = { '0' } />
+          className = {time + '-member-age ' + time}
+          onChange  = {onMemberChange}
+          value     = {member.age}
+          name      = {'age'}
+          type      = {'number'} step = {'1'} min = {'0'} />
       </Columns.Three>
 
-      <Columns.Four>Disabled</Columns.Four>
+      <Columns.Four>
+        <Checkbox name={'disabled'} checked={member.disabled} onChange={onMemberChecked} />
+      </Columns.Four>
 
     </Form.Field>
   );
