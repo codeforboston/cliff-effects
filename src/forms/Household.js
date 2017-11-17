@@ -15,6 +15,7 @@ import React from 'react';
 import {
   Button,
   Form,
+  Dropdown,
   // Header,
   // Checkbox,
   // Divider,
@@ -29,6 +30,9 @@ import {
 
 
 
+// ======================
+// GENERICS
+// ======================
 // To be able to adjust sizes easily
 // Very specific to household size. May be worth creating
 // a constructor for columns in general.
@@ -100,6 +104,10 @@ const MemberButton = function ({ className, onClick, iconName }) {
 };
 
 
+// ======================
+// UNIQUE
+// ======================
+
 /** @todo description
 * 
 * @function
@@ -108,14 +116,69 @@ const MemberButton = function ({ className, onClick, iconName }) {
 * 
 * @returns Component
 */
-const MemberField = function ({ household, time, setClientProperty }, indx ) {
+const Role = function ({ member, setMember }) {
 
-  var member = household[ indx ];
+  var ThisRole = null;
+
+  if ( member.index === 0 ) {
+
+    ThisRole = <span>Head of Household</span>;
+
+  } else if ( member.index === 1 ) {
+
+    var options = [
+      { text: 'Spouse of Head of Household', value: 'spouse' },
+      { text: 'Household Member', value: 'member' }
+    ];
+
+    ThisRole = <Dropdown selection
+                  name={'role'}
+                  value={member.role}
+                  options={options}
+                  onChange={setMember}/>
+
+  } else {
+
+    ThisRole = <span>Household Member</span>;
+
+  }
+
+  return ThisRole;
+};  // End Role(<>)
+
+
+
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
+const MemberField = function ({ household, time, setHousehold }, indx ) {
+
+  var member    = household[ indx ];
+  member.index  = indx;
+
+
+  var onMemberChange = function ( evnt, inputProps ) {
+    member[ inputProps.name ] = inputProps.value;
+    setHousehold( evnt, household );
+  };
+
+
+  var onMemberChecked = function ( evnt, inputProps ) {
+    member[ inputProps.name ] = inputProps.checked;
+    setHousehold( evnt, household );
+  };
+
 
   var removeMember = function ( evnt, inputProps ) {
     household.splice( indx, 1 );
-    setClientProperty( evnt, household );
+    setHousehold( evnt, household );
   };  // End removeMember()
+
 
   // The font size thing is a bit weird, but... later
   return (
@@ -125,7 +188,10 @@ const MemberField = function ({ household, time, setClientProperty }, indx ) {
         <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'}/>
       </Columns.One>
 
-      <Columns.Two>Role</Columns.Two>
+      <Columns.Two>
+        <Role member={member} setMember={onMemberChange} />
+      </Columns.Two>
+
       <Columns.Three>Age</Columns.Three>
       <Columns.Four>Disabled</Columns.Four>
 
@@ -142,13 +208,13 @@ const MemberField = function ({ household, time, setClientProperty }, indx ) {
 * 
 * @returns Component
 */
-const getMembers = function ( client, time, setClientProperty ) {
+const getMembers = function ( client, time, setHousehold ) {
 
   var household = client[ time + 'Household' ],
       props     = {
-        household:          household,
-        time:               time,
-        setClientProperty:  setClientProperty
+        household:              household,
+        time:                   time,
+        setHousehold:   setHousehold
       }
 
   var mems = [];
@@ -175,7 +241,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
   var household = client[ time + 'Household' ];
 
 
-  var ensureFuture = function ( evnt, newHousehold ) {
+  var setHousehold = function ( evnt, newHousehold ) {
 
     var obj = {
       name: time + 'Household',
@@ -185,11 +251,19 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
 
     setClientProperty( evnt, obj );
 
-  };  // End ensureFuture()
+  };  // End setHousehold()
+
 
   var addMember = function ( evnt, inputProps ) {
-    household.push( { age: 30, role: 'Member', isDisabled: false, required: false } );
-    ensureFuture( evnt, household );
+
+    var member = { age: 30, role: 'member', isDisabled: false, required: false };
+    if ( household.length === 1 ) {
+      member.role = 'spouse';
+    }
+
+    household.push( member );
+    setHousehold( evnt, household );
+
   };  // End addMember()
 
 
@@ -202,7 +276,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
         <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
       </wrapper>
 
-      { getMembers( client, time, ensureFuture ) }
+      { getMembers( client, time, setHousehold ) }
 
       <Columns.One>
         <MemberButton circular className={'add'} onClick={addMember} iconName={'plus'} />
