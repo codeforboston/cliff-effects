@@ -148,7 +148,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
       allowances = [];
 
   // #4 & #5
-  var depAllowanceAnnual  = (client[ time + 'NumberOfDependents'] || 0) * 480;
+  var depAllowanceAnnual = getNumberOfDependents( client, timeframe ) * 480;
   allowances.push( depAllowanceAnnual/12 );
   // #6
   var childcare   = sumCashflow( client, time, CHILD_CARE_EXPENSES ),
@@ -159,14 +159,14 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   // #7 - 13
   var disAndMed = getDisabledAndMedicalAllowancesSum( client, timeframe, net )
   allowances.push( disAndMed );
-  // #14
-  /** @todo Fix 'future' + etc not existing while 'current' + etc does */
-  if ( client[ time + 'DisabledOrElderlyHeadOrSpouse' ] ) { allowances.push( 400/12 ); }
+  // #14 (yes, they mean head or spouse here)
+  if ( hasDsbOrEldHeadOrSpouse( client, timeframe ) ) { allowances.push( 400/12 ); }
 
   var total = sum( allowances ),
       adj   = net - total;
+  /** @todo Implement probable solution for bug */
+  // adj = Math.max( 0, adj );
 
-  /** @todo What do we do if this is negative, e.g. dependent allowances are greater than income? */
   return adj;
 };  // End getAdjustedIncome()
 
@@ -183,6 +183,8 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
       netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
+  if ( !hasDsbOrEldMember( client, timeframe ) ) { return 0; }
+
   // pg 5-30 to 5-31
   var handcpExpense  = toCashflow( client, time, 'DisabledAssistance' ),  // #7
       asstSubtracted = handcpExpense - netSubtractor,  // #9
@@ -192,7 +194,7 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
   // ----- Maybe Stop #D ----- \\
   /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
-  if ( !client[ time + 'DisabledOrElderlyHeadOrSpouse' ] ) { return hcapMin; }
+  if ( !hasDsbOrEldHeadOrSpouse( client, timeframe ) ) { return hcapMin; }
 
 
   // ----- Medical Allowance #12 - 13 ----- \\
@@ -224,6 +226,64 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
   // #15 contribution ( #11 + #13 )
   return hcapMin + medMin;
 };  // End getDisabledAndMedicalAllowancesSum()
+
+
+const numMembersPass = function ( client, timeframe, memberTest ) {
+
+  var num       = 0,
+      household = client[ timeframe + 'Household' ];
+
+  for ( let memi = 0; memi < household.length; memi++ ) {
+
+    let member = household[ memi ];
+    if ( memberTest( member ) ) {
+      num++;
+    }
+
+  }
+
+  return num;
+};  // End numMembersPass()
+
+
+const isDependent = function ( member ) {
+  return member.age <= 18 || member.disabled;
+};  // End isDependent()
+
+
+const isDisabledOrElderly = function ( member ) {
+  return member.age >= 62 || member.disabled;
+};  // End isDependent()
+
+
+const isHeadOrSpouse = function ( member ) {
+  return member.role === 'head' || member.role === 'spouse';
+};  // End isHeadOrSpouse()
+
+
+const getNumberOfDependents = function ( client, timeframe ) {
+  var deps = numMembersPass( client, timeframe, isDependent )
+  return deps;
+};  // End getNumberOfDependents()
+
+
+// Sure, we could combine these last two, but is it worth it?
+const hasDsbOrEldMember = function ( client, timeframe ) {
+  var numMatches = numMembersPass( client, timeframe, isDisabledOrElderly );
+  return numMatches > 0;
+};  // End hasDsbOrEldMember()
+
+
+const hasDsbOrEldHeadOrSpouse = function ( client, timeframe ) {
+
+  var comboTest = function ( member ) {
+    return isDisabledOrElderly( member ) && isHeadOrSpouse( member );
+  };
+  var numMatches = numMembersPass( client, timeframe, comboTest );
+
+  return numMatches > 0;
+
+};  // End hasDsbOrEldHeadOrSpouse()
 
 
 export {
