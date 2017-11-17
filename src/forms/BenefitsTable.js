@@ -10,7 +10,7 @@ import {
 import ResultsGraph from '../ResultsGraph';
 
 // BENEFIT LOGIC
-import { getSNAPBenefits } from '../programs/federal/2017/snap';
+import { getSNAPBenefits } from '../programs/federal/snap';
 import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 
