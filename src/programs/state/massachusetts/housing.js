@@ -10,6 +10,12 @@ import {
   sumCashflow,
   getGrossUnearnedIncomeMonthly
 } from '../../../utils/cashflow';
+import {
+  getPassingOfHousehold,
+  isHeadOrSpouse,
+  getDependentsOfHousehold,
+  isDisabled
+} from '../../../utils/getMembers';
 
 
 /**
@@ -21,7 +27,6 @@ import {
 * @todo Discuss what should be required, if anything (many of these can
 * just be assumed to be 0 so that no errors will occur).
 */
-// var subsidyRequiredProps = [ 'RentShare', 'ContractRent' ];
 
 /** Using old and new cash flow data, return new subsidy amount,
 * include new rent share.
@@ -148,7 +153,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
       allowances = [];
 
   // #4 & #5
-  var depAllowanceAnnual = getNumberOfDependents( client, timeframe ) * 480;
+  var depAllowanceAnnual = getDependentsOfHousehold( client, timeframe ).length * 480;
   allowances.push( depAllowanceAnnual/12 );
   // #6
   var childcare   = sumCashflow( client, time, CHILD_CARE_EXPENSES ),
@@ -183,7 +188,7 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
       netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
-  if ( !hasDsbOrEldMember( client, timeframe ) ) { return 0; }
+  if ( !hasAnyDsbOrElderly( client, timeframe ) ) { return 0; }
 
   // pg 5-30 to 5-31
   var handcpExpense  = toCashflow( client, time, 'DisabledAssistance' ),  // #7
@@ -228,50 +233,21 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 };  // End getDisabledAndMedicalAllowancesSum()
 
 
-const numMembersPass = function ( client, timeframe, memberTest ) {
-
-  var num       = 0,
-      household = client[ timeframe + 'Household' ];
-
-  for ( let memi = 0; memi < household.length; memi++ ) {
-
-    let member = household[ memi ];
-    if ( memberTest( member ) ) {
-      num++;
-    }
-
-  }
-
-  return num;
-};  // End numMembersPass()
-
-
-const isDependent = function ( member ) {
-  return member.age <= 18 || member.disabled;
-};  // End isDependent()
+const isElderly = function ( member ) {
+  return member.age >= 62;
+};  // End isElderly()
 
 
 const isDisabledOrElderly = function ( member ) {
-  return member.age >= 62 || member.disabled;
-};  // End isDependent()
-
-
-const isHeadOrSpouse = function ( member ) {
-  return member.role === 'head' || member.role === 'spouse';
-};  // End isHeadOrSpouse()
-
-
-const getNumberOfDependents = function ( client, timeframe ) {
-  var deps = numMembersPass( client, timeframe, isDependent )
-  return deps;
-};  // End getNumberOfDependents()
+  return isElderly( member ) || isDisabled( member );
+};  // End isDisabledOrElderly()
 
 
 // Sure, we could combine these last two, but is it worth it?
-const hasDsbOrEldMember = function ( client, timeframe ) {
-  var numMatches = numMembersPass( client, timeframe, isDisabledOrElderly );
+const hasAnyDsbOrElderly = function ( client, timeframe ) {
+  var numMatches = getPassingOfHousehold( client, timeframe, isDisabledOrElderly ).length;
   return numMatches > 0;
-};  // End hasDsbOrEldMember()
+};  // End hasAnyDsbOrElderly()
 
 
 const hasDsbOrEldHeadOrSpouse = function ( client, timeframe ) {
@@ -279,7 +255,7 @@ const hasDsbOrEldHeadOrSpouse = function ( client, timeframe ) {
   var comboTest = function ( member ) {
     return isDisabledOrElderly( member ) && isHeadOrSpouse( member );
   };
-  var numMatches = numMembersPass( client, timeframe, comboTest );
+  var numMatches = getPassingOfHousehold( client, timeframe, comboTest ).length;
 
   return numMatches > 0;
 
