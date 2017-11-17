@@ -14,18 +14,18 @@ class HomePage extends Component {
           display:'inline-block'}}>
 
             <h1 style={{
-            fontSize: '4.5em',
+            fontSize: '5em',
             color: '#efefef',
             marginBottom: '-15px'}}>
               Cliff Effects Tool
             </h1>
 
             <h2 style={{
-            fontSize: '1.5em',
+            fontSize: '2em',
             color: '#efefef',
             textAlign: 'right',
             marginTop: '-15px',
-            marginRight: '15px'}}>
+            marginRight: '45px'}}>
               GUIDANCE PROTOTYPE*
             </h2>
 
@@ -40,7 +40,7 @@ class HomePage extends Component {
               <Button style={{
                 backgroundColor: '#ffffffc8',
                 textColor: '#00b5ad',
-                // fontWeight: 'bold',
+                fontSize: '1.5em',
                 marginRight: '1.5em'}}>
                 Get Started
               </Button>
@@ -50,6 +50,7 @@ class HomePage extends Component {
               <Button style={{
                 backgroundColor: '#ffffffc8',
                 textColor: '#00b5ad',
+                fontSize: '1.5em',
                 marginLeft: '1.5em'}}>
                 Learn More
               </Button>
@@ -60,7 +61,8 @@ class HomePage extends Component {
 
           <p style={{
             color: '#efefef',
-            textAlign: 'center'}}>*
+            textAlign: 'center',
+            fontSize: '1em'}}>*
             This is a prototype and should not be used to make financial decisions.
           </p>
 
