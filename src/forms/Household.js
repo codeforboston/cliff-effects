@@ -16,7 +16,7 @@ import {
   Button,
   Form,
   Dropdown,
-  // Header,
+  Header,
   Checkbox,
   // Divider,
   Input
@@ -77,7 +77,7 @@ const ColumnHeader = function ({ children, columnNum }) {
   return (
     <Container>
       <ColumnHeading type={'household'} colName={''}>
-          { children }
+        { children }
       </ColumnHeading>
     </Container>
   );
@@ -93,13 +93,19 @@ const ColumnHeader = function ({ children, columnNum }) {
 * 
 * @returns Component
 */
-const MemberButton = function ({ className, onClick, iconName }) {
+const MemberButton = function ({ className, onClick, iconName, color, basic }) {
+
+  color = color || null;
+
   return (
-    <Button circular
+    <Button
+      basic={!!basic}
+      color={color}
       icon={iconName}
-      style={{ padding: '0', height: '2.2em', width: '2.2em' }}
       className={className}
-      onClick={onClick} />
+      onClick={onClick}
+      style={{  padding: '0', height: '2.2em', width: '2.2em' }}
+      circular />
   );
 };
 
@@ -118,11 +124,13 @@ const MemberButton = function ({ className, onClick, iconName }) {
 */
 const Role = function ({ member, setMember }) {
 
-  var ThisRole = null;
+  var ThisRole  = null,
+      padding   = '0';
 
   if ( member.index === 0 ) {
 
-    ThisRole = <span>Head of Household</span>;
+    padding   = '1em';
+    ThisRole  = <span>Head of Household</span>;
 
   } else if ( member.index === 1 ) {
 
@@ -139,13 +147,14 @@ const Role = function ({ member, setMember }) {
 
   } else {
 
-    ThisRole = <span>Household Member</span>;
+    padding   = '1em';
+    ThisRole  = <span>Household Member</span>;
 
   }
 
   // Styles will have to be adjusted.
   return (
-    <div style={{ display: 'inline-block', width: '100%', textAlign: 'left' }}>
+    <div style={{ display: 'inline-block', width: '100%', textAlign: 'left', paddingLeft: padding }}>
       { ThisRole }
     </div>
   );
@@ -164,6 +173,7 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
 
   var member    = household[ indx ];
   member.index  = indx;
+
 
   var onMemberChange = function ( evnt, inputProps ) {
     member[ inputProps.name ] = inputProps.value;
@@ -188,7 +198,7 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
     <Form.Field key={indx}>
 
       <Columns.One>
-        <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'}/>
+        <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'} style={{}} />
       </Columns.One>
 
       <Columns.Two>
@@ -283,7 +293,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
   return (
     <wrapper className='field-aligner two-column'>
       <wrapper>
-        <ColumnHeader columnNum='One'>Add</ColumnHeader>
+        <ColumnHeader columnNum='One'></ColumnHeader>
         <ColumnHeader columnNum='Two'>Role</ColumnHeader>
         <ColumnHeader columnNum='Three'>Age</ColumnHeader>
         <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
@@ -291,9 +301,25 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
 
       { getMembers( client, time, setHousehold ) }
 
-      <Columns.One>
-        <MemberButton circular className={'add'} onClick={addMember} iconName={'plus'} />
-      </Columns.One>
+      <wrapper>
+        <Columns.One>
+          <MemberButton
+            basic color={'teal'}
+            className={'add'}
+            onClick={addMember}
+            iconName={'plus'} />
+        </Columns.One>
+
+        <Columns.Two>
+          <Header
+            as='h4'
+            color={'teal'}
+            textAlign={'left'}
+            style={{ paddingLeft: '1em' }}>
+                Add a member
+          </Header>
+        </Columns.Two>
+      </wrapper>
     </wrapper>
   );
 };  // End HouseholdContent()
