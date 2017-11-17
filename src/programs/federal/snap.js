@@ -3,8 +3,8 @@ import {
   toCashflow,
   sumCashflow,
   getGrossUnearnedIncomeMonthly
-} from '../../../utils/cashflow';
-import { Result } from '../../../utils/Result';
+} from '../../utils/cashflow';
+import { Result } from '../../utils/Result';
 import { data } from '../../../data/federal/2017/snap';
 import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../../utils/getGovData';
 import { federalPovertyGuidelines } from '../../../data/federal/federalPovertyGuidelines';
