@@ -36,7 +36,7 @@ class HomePage extends Component {
           marginBottom: '3em'}}>
 
             <div>
-              <Link to='/intake'>
+              <Link to='/visit/54321/1'>
               <Button style={{
                 backgroundColor: '#ffffffc8',
                 textColor: '#00b5ad',

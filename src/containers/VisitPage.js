@@ -162,17 +162,6 @@ class VisitPage extends Component {
           <Grid.Row>
             <Grid.Column width={10}>
 
-              <Header
-                as='h2'
-                content={'Visit #' + visitId + ' for ' + clientInfo.name}
-              />
-              { clientInfo ?
-                <Link to={`/detail/${clientInfo.clientId}`}>
-                  Back to Client Detail
-                </Link> :
-                <Link to="/">Go Home</Link>
-              }
-
             </Grid.Column>
             <Grid.Column floated='right' width={6}>
             </Grid.Column>
