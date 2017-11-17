@@ -380,7 +380,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
       value     = { value }
       style     = { style }
       name      = { name }
-      type      = { 'text' }
+      type      = { 'number' }
     />
   );
 
