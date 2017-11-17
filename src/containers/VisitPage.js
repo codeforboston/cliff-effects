@@ -46,7 +46,7 @@ class VisitPage extends Component {
           snapAlert: 'good',
           housingAlert: 'good',
           currentHousehold: [
-            { key: 1, age: 30, role: 'No spouse', disabled: false, required: true }
+            { key: 0, age: 30, role: 'No spouse', disabled: false, required: true }
           ],
           currentHouseholdSize: 1,
           currentHomeless: false,
