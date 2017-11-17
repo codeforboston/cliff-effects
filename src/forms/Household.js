@@ -19,7 +19,7 @@ import {
   // Header,
   // Checkbox,
   // Divider,
-  // Input
+  Input
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -54,11 +54,11 @@ Columns.Two = function ({ children }) {
 }
 
 Columns.Three = function ({ children }) {
-  return ( <div style={{...columnStyle, width: '8em'}}> {children} </div> );
+  return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
 }
 
 Columns.Four = function ({ children }) {
-  return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
+  return ( <div style={{...columnStyle, width: '10em'}}> {children} </div> );
 }
 
 
@@ -196,7 +196,15 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
         <Role member={member} setMember={onMemberChange} />
       </Columns.Two>
 
-      <Columns.Three>Age</Columns.Three>
+      <Columns.Three>
+        <Input
+          className = { time + '-member-age ' + time }
+          onChange  = { onMemberChange }
+          value     = { member.age }
+          name      = { 'age' }
+          type = { 'number' } step = { '1' } min = { '0' } />
+      </Columns.Three>
+
       <Columns.Four>Disabled</Columns.Four>
 
     </Form.Field>
