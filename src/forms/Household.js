@@ -13,6 +13,7 @@
 // REACT COMPONENTS
 import React, { Component } from 'react';
 import {
+  Icon,
   Button,
   Form,
   // Header,
@@ -30,62 +31,132 @@ import {
 
 
 
-const MemberButton = function ({ className, setClientProperty, children }) {
+// To be able to adjust sizes easily
+// Very specific to household size. May be worth creating
+// a constructor for columns in general.
+
+const columnStyle = { display: 'inline-block', textAlign: 'center' };
+const Columns = {};
+
+Columns.One = function ({ style, children }) {
+  return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
+}
+
+Columns.Two = function ({ style, children }) {
+  return ( <div style={{...columnStyle, width: '20em'}}> {children} </div> );
+}
+
+Columns.Three = function ({ style, children }) {
+  return ( <div style={{...columnStyle, width: '8em'}}> {children} </div> );
+}
+
+Columns.Four = function ({ style, children }) {
+  return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
+}
+
+
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
+const ColumnHeader = function ({ style, children, columnNum }) {
+  var Container = Columns[ columnNum ];
+
   return (
-    <Button circular
-      style={{ fontSize: '2rem', padding: '0', height: '1.25em', width: '1.25em' }}
-      className={className}
-      onChange={setClientProperty}
-    >
-        {children}
-    </Button>
+    <Container>
+      <ColumnHeading type={'household'} colName={''}
+        style={style}>
+            { children }
+      </ColumnHeading>
+    </Container>
   );
 };
 
 
-
-// To be able to adjust sizes easily
-const Columns = {};
-
-Columns.One = function ({ style, children }) {
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
+const MemberButton = function ({ className, onChange, iconName }) {
   return (
-    <ColumnHeading
-      type={'household'} colName={''}
-      style={{...style, width: '5em'}}>
-              {children}
-    </ColumnHeading>
+    <Button circular
+      icon={iconName}
+      style={{ padding: '0', height: '2.2em', width: '2.2em' }}
+      className={className}
+      onChange={onChange} />
   );
-}
+};
 
-Columns.Two = function ({ style, children }) {
-  return (
-    <ColumnHeading
-      type={'household'} colName={''}
-      style={{...style, width: '20em'}}>
-              {children}
-    </ColumnHeading>
-  );
-}
 
-Columns.Three = function ({ style, children }) {
-  return (
-    <ColumnHeading
-      type={'household'} colName={''}
-      style={{...style, width: '8em'}}>
-              {children}
-    </ColumnHeading>
-  );
-}
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
+const MemberField = function ({ household, time, setClientProperty, columnStyles }, indx ) {
+  
+  console.log( columnStyles );
 
-Columns.Four = function ({ style, children }) {
+  var member = household[ indx ];
+
+  var removeMember = function ( evnt, inputProps ) {};  // End removeMember()
+
+  // The font size thing is a bit weird, but... later
   return (
-    <ColumnHeading
-      type={'household'} colName={''}
-      style={{...style, width: '5em'}}>
-              {children}
-    </ColumnHeading>
+    <Form.Field key={member.key}>
+
+      <Columns.One style={columnStyles}>
+        <MemberButton className={'remove'} onChange={removeMember} iconName={'remove'}/>
+      </Columns.One>
+
+      <Columns.Two style={columnStyles}>Role</Columns.Two>
+
+      <Columns.Three style={columnStyles}>Age</Columns.Three>
+
+      <Columns.Four style={columnStyles}>Disabled</Columns.Four>
+
+    </Form.Field>
   );
-}
+};  // End MemberField()
+
+
+/** @todo description
+* 
+* @function
+* @param {object} props
+* @property {object} props.__ - explanation
+* 
+* @returns Component
+*/
+const getMembers = function ( client, time, setClientProperty, columnStyles ) {
+
+  var household = client[ time + 'Household' ],
+      props     = {
+        household:          household,
+        time:               time,
+        setClientProperty:  setClientProperty,
+        columnStyles:       columnStyles
+      },
+      mems      = [];
+
+  for (let memi = 0; memi < household.length; memi++) {
+    mems.push( MemberField( props, memi ) );
+  };
+
+  return mems;
+};  // End getMembers()
+
 
 /** @todo description
 * 
@@ -97,24 +168,30 @@ Columns.Four = function ({ style, children }) {
 * 
 * @returns Component
 */
-const HouseholdContent = ({ client, time, setClientProperty }) => {
+const HouseholdContent = function ({ client, time, setClientProperty }) {
 
   var style = { display: 'inline-block', textAlign: 'center' };
+
+  var addMember = function ( evnt, inputProps ) {};  // End addMember()
 
   return (
     <wrapper className='field-aligner two-column'>
       <wrapper>
-        <Columns.One style={style}>Add</Columns.One>
-        <Columns.Two style={style}>Role</Columns.Two>
-        <Columns.Three style={style}>Age</Columns.Three>
-        <Columns.Four style={style}>Disabled</Columns.Four>
+        <ColumnHeader columnNum='One' style={style}>Add</ColumnHeader>
+        <ColumnHeader columnNum='Two' style={style}>Role</ColumnHeader>
+        <ColumnHeader columnNum='Three' style={style}>Age</ColumnHeader>
+        <ColumnHeader columnNum='Four' style={style}>Disabled</ColumnHeader>
       </wrapper>
+
+      { getMembers( client, time, setClientProperty, style ) }
+
       <Columns.One style={style}>
-        <MemberButton circular className={'add'} onChange={null}>+</MemberButton>
+        <MemberButton circular className={'add'} onChange={addMember} iconName={'plus'} />
       </Columns.One>
     </wrapper>
   );
 };  // End HouseholdContent()
+
 
 /** @todo description
 * 
