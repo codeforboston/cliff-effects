@@ -32,7 +32,6 @@ import {
 // To be able to adjust sizes easily
 // Very specific to household size. May be worth creating
 // a constructor for columns in general.
-
 const columnStyle = { display: 'inline-block', textAlign: 'center' };
 const Columns = {};
 
@@ -61,17 +60,18 @@ Columns.Four = function ({ children }) {
 * 
 * @returns Component
 */
-const ColumnHeader = function ({ style, children, columnNum }) {
+const ColumnHeader = function ({ children, columnNum }) {
+
   var Container = Columns[ columnNum ];
 
   return (
     <Container>
-      <ColumnHeading type={'household'} colName={''}
-        style={style}>
-            { children }
+      <ColumnHeading type={'household'} colName={''}>
+          { children }
       </ColumnHeading>
     </Container>
   );
+
 };
 
 
@@ -83,13 +83,13 @@ const ColumnHeader = function ({ style, children, columnNum }) {
 * 
 * @returns Component
 */
-const MemberButton = function ({ className, onChange, iconName }) {
+const MemberButton = function ({ className, onClick, iconName }) {
   return (
     <Button circular
       icon={iconName}
       style={{ padding: '0', height: '2.2em', width: '2.2em' }}
       className={className}
-      onChange={onChange} />
+      onClick={onClick} />
   );
 };
 
@@ -113,7 +113,7 @@ const MemberField = function ({ household, time, setClientProperty }, indx ) {
     <Form.Field key={member.key}>
 
       <Columns.One>
-        <MemberButton className={'remove'} onChange={removeMember} iconName={'remove'}/>
+        <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'}/>
       </Columns.One>
 
       <Columns.Two>Role</Columns.Two>
@@ -140,9 +140,9 @@ const getMembers = function ( client, time, setClientProperty ) {
         household:          household,
         time:               time,
         setClientProperty:  setClientProperty
-      },
-      mems      = [];
+      }
 
+  var mems = [];
   for (let memi = 0; memi < household.length; memi++) {
     mems.push( MemberField( props, memi ) );
   };
@@ -163,7 +163,12 @@ const getMembers = function ( client, time, setClientProperty ) {
 */
 const HouseholdContent = function ({ client, time, setClientProperty }) {
 
-  var addMember = function ( evnt, inputProps ) {};  // End addMember()
+  var household = client[ time + 'Household' ];
+
+  var addMember = function ( evnt, inputProps ) {
+    household.push( { key: household.length, age: 30, role: 'Member', isDisabled: false, required: false } );
+    setClientProperty( evnt, { ...inputProps, name: time + 'Household', value: household, fillFuture: true } );
+  };  // End addMember()
 
   return (
     <wrapper className='field-aligner two-column'>
@@ -177,7 +182,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
       { getMembers( client, time, setClientProperty ) }
 
       <Columns.One>
-        <MemberButton circular className={'add'} onChange={addMember} iconName={'plus'} />
+        <MemberButton circular className={'add'} onClick={addMember} iconName={'plus'} />
       </Columns.One>
     </wrapper>
   );
