@@ -32,7 +32,13 @@ import {
 // To be able to adjust sizes easily
 // Very specific to household size. May be worth creating
 // a constructor for columns in general.
-const columnStyle = { display: 'inline-block', textAlign: 'center' };
+const columnStyle = {
+  display: 'inline-block',
+  textAlign: 'center',
+  marginTop: '0.7em',
+  marginBottom: '0.7em'
+};
+
 const Columns = {};
 
 Columns.One = function ({ children }) {
