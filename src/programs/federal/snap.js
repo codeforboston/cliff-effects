@@ -1,13 +1,13 @@
-import { CHILD_CARE_EXPENSES, ADULT_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
+import { CHILD_CARE_EXPENSES, ADULT_CARE_EXPENSES } from '../../data/state/massachusetts/name-cores';
 import {
   toCashflow,
   sumCashflow,
   getGrossUnearnedIncomeMonthly
-} from '../../../utils/cashflow';
-import { Result } from '../../../utils/Result';
-import { data } from '../../../data/federal/2017/snap';
-import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../../utils/getGovData';
-import { federalPovertyGuidelines } from '../../../data/federal/federalPovertyGuidelines';
+} from '../../utils/cashflow';
+import { Result } from '../../utils/Result';
+import { data } from '../../data/federal/2017/snap';
+import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../utils/getGovData';
+import { federalPovertyGuidelines } from '../../data/federal/federalPovertyGuidelines';
 
 
 /** Based on https://www.masslegalservices.org/SNAPCalculator */
