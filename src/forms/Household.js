@@ -143,9 +143,13 @@ const Role = function ({ member, setMember }) {
 
   }
 
-  return ThisRole;
+  // Styles will have to be adjusted.
+  return (
+    <div style={{ display: 'inline-block', width: '100%', textAlign: 'left' }}>
+      { ThisRole }
+    </div>
+  );
 };  // End Role(<>)
-
 
 
 /** @todo description
