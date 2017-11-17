@@ -112,11 +112,14 @@ const MemberField = function ({ household, time, setClientProperty }, indx ) {
 
   var member = household[ indx ];
 
-  var removeMember = function ( evnt, inputProps ) {};  // End removeMember()
+  var removeMember = function ( evnt, inputProps ) {
+    household.splice( indx, 1 );
+    setClientProperty( evnt, household );
+  };  // End removeMember()
 
   // The font size thing is a bit weird, but... later
   return (
-    <Form.Field key={member.key}>
+    <Form.Field key={indx}>
 
       <Columns.One>
         <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'}/>
@@ -185,7 +188,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
   };  // End ensureFuture()
 
   var addMember = function ( evnt, inputProps ) {
-    household.push( { key: household.length, age: 30, role: 'Member', isDisabled: false, required: false } );
+    household.push( { age: 30, role: 'Member', isDisabled: false, required: false } );
     ensureFuture( evnt, household );
   };  // End addMember()
 
