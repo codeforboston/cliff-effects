@@ -243,9 +243,8 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
   return (
     <wrapper className='field-aligner two-column'>
 
-      { !(client[ time + 'ChildrenUnder12' ] > 0)
-        ? null
-        : <wrapper>
+      { (client[ time + 'ChildrenUnder12' ] > 0)
+        ? <wrapper>
           <FormHeading subheading = {'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Reasonable Unreimbursed Non-Medical Child(ren) Care</FormHeading>
           <IntervalColumnHeadings type={type}/>
@@ -255,6 +254,7 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
           <CashFlowRow {...sharedProps} generic={'ChildOtherCareCosts'}> Other care </CashFlowRow>
           <CashFlowRow {...sharedProps} type={'income'} generic={'EarnedIncomeBecauseOfChildCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
         </wrapper>
+        : null
       }
 
       {/** Wrapper here or else margins get added here, but not other
@@ -265,23 +265,27 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
         <CashFlowRow {...sharedProps} generic={'ChildSupportPaidOut'}> LEGALLY OBLIGATED Child support paid out </CashFlowRow>
       </wrapper>
 
-      { !client[ time + 'DisabledOrElderlyMember' ]
-        ? null
-        : <wrapper>
-          <FormHeading subheading = {'A adult dependent is a person older than 12 and either disabled or 62 or older. Don\'t include amounts that are paid for by other benefit programs.\n'}>
-            Disabled or Elderly Care</FormHeading>
+      {/* Head or spouse can't be a dependent, so they don't count */}
+      {/* With future version of form, don't show if there are only elderly,
+        but not disabled, members. Also, show if there are people between
+        > 12, but <= 18 */}
+      { client[ time + 'DisabledOrElderlyMember' ]
+        ? <wrapper>
+          <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
+            Dependent Care of Persons Over 12 Years of Age</FormHeading>
           <IntervalColumnHeadings type={type}/>
           <CashFlowRow {...sharedProps} generic={'AdultDirectCareCosts'}> Direct care costs </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'AdultTransportationCosts'}> Transportation costs </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'AdultOtherCareCosts'}> Other care </CashFlowRow>
         </wrapper>
+        : null
       }
 
       { !client[ time + 'DisabledOrElderlyHeadOrSpouse' ] && !client[ time + 'DisabledOrElderlyMember' ]
         ? null
         : <wrapper>
           <FormHeading>Unreimbursed Disabled/Handicapped/Elderly Assistance</FormHeading>
-          <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
+          <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
           <div>Examples of eligible disability assistance expenses:</div>
           <ul>
             <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
@@ -293,12 +297,14 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
         </wrapper>
       }
 
-      { !client[ time + 'DisabledOrElderlyHeadOrSpouse' ]
-        ? null
-        : <wrapper>
+        {/* These medical expenses don't count for Section 8 unless
+          the disabled person is the head or spouse. From 
+          http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf 
+          Appendix B, item (D) */}
+        { client[ time + 'DisabledOrElderlyHeadOrSpouse' ] || (client.hasSnap && client[ time + 'DisabledOrElderlyMember' ])
+          ? <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
-          <div>If the head and/or spouse is elderly and/or disabled, any unreimbursed medical expenses of the last 12 months are eligible.</div>
-          <div>Examples of allowable medical expenses:</div>
+          <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
           <ul>
             <li>The orthodontist expenses for a child’s braces.</li>
             <li>Services of doctors and health care professionals.</li>
@@ -306,14 +312,15 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
             <li>Medical insurance premiums. </li>
             <li>Prescription/non-prescription medicines (prescribed by a physician).</li>
             <li>Transportation to treatment (cab fare, bus fare, mileage).</li>
-            <li>Dental expenses, eyeglasses, hearing aids, batteries (but not if they enable someone to work, that was the section above).</li>
-            <li>Live-in or periodic medical assistance (but not the kind that enables someone to work, that was the section above).</li>
-            <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred). The allowance may include only the amount expected to be paid in the coming 12 months.</li>
+            <li>Dental expenses, eyeglasses, hearing aids, batteries.</li>
+            <li>Live-in or periodic medical assistance.</li>
+            <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
           <CashFlowRow {...sharedProps} generic='DisabledOrElderlyMedicalCosts'> Disabled/Elderly medical expenses </CashFlowRow>
           <CashFlowRow {...sharedProps} generic='MembersMedicalCosts'> Medical expenses of other members </CashFlowRow>
         </wrapper>
+        : null
       }
 
       <Housing client={client} time={time} type={type} setClientProperty={setClientProperty} />
