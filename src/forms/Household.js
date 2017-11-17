@@ -171,10 +171,24 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
 
   var household = client[ time + 'Household' ];
 
+
+  var ensureFuture = function ( evnt, newHousehold ) {
+
+    var obj = {
+      name: time + 'Household',
+      value: newHousehold,
+      fillFuture: true
+    };
+
+    setClientProperty( evnt, obj );
+
+  };  // End ensureFuture()
+
   var addMember = function ( evnt, inputProps ) {
     household.push( { key: household.length, age: 30, role: 'Member', isDisabled: false, required: false } );
-    setClientProperty( evnt, { ...inputProps, name: time + 'Household', value: household, fillFuture: true } );
+    ensureFuture( evnt, household );
   };  // End addMember()
+
 
   return (
     <wrapper className='field-aligner two-column'>
@@ -185,7 +199,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
         <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
       </wrapper>
 
-      { getMembers( client, time, setClientProperty ) }
+      { getMembers( client, time, ensureFuture ) }
 
       <Columns.One>
         <MemberButton circular className={'add'} onClick={addMember} iconName={'plus'} />
