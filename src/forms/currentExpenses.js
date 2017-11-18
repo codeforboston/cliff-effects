@@ -16,6 +16,16 @@ import {
   CashFlowRow
 } from './formHelpers';
 
+// LOGIC
+import {
+  getEveryMember,
+  isHeadOrSpouse,
+  getDependentMembers,
+  isDisabled,
+  isUnder13,
+} from '../utils/getMembers';
+
+
 // ========================================
 // COMPONENTS
 // ========================================
@@ -232,18 +242,32 @@ const Housing = function ({ client, type, time, setClientProperty }) {
 const ExpensesFormContent = function ({ client, time, setClientProperty }) {
 
   let type        = 'expense',
-      sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty };
+      sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty },
+      household   = client[ time + 'Household' ];
 
-  /** @todo 1) Can client only enter amounts not covered by other programs
-  * for childcare expenses? 2) Does money from those programs count as income?
-  * Answers: 1) Yes. 2) Unkown.
-  * 
-  * @todo Only show questions that are relevant to the client's slected programs
+  var isOver12 = function ( member ) { return member.age > 12; };
+
+  // Won't include head or spouse
+  var allDependents = getDependentMembers( household ),
+      under13       = getEveryMember( allDependents, isUnder13 ),
+      // or under13 = getUnder13Members( allDependents ),
+      over12        = getEveryMember( allDependents, isOver12 );
+
+  // 'Elderly' here is using the lowest common denominator - SNAP standards
+  var isElderlyOrDisabled = function ( member ) {
+    return isDisabled( member ) || member.age >= 60;
+  };
+  var elderlyOrDisabled = getEveryMember( household, isElderlyOrDisabled ),
+      elderlyOrDisabledHeadAndSpouse = getEveryMember( elderlyOrDisabled, isHeadOrSpouse );
+
+  /**
+  * @todo Does money from any programs count as income?
+  * @todo Complete only show questions that are relevant to the client's slected programs
   */
   return (
     <wrapper className='field-aligner two-column'>
 
-      { (client[ time + 'ChildrenUnder12' ] > 0)
+      { under13.length > 0
         ? <wrapper>
           <FormHeading subheading = {'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Reasonable Unreimbursed Non-Medical Child(ren) Care</FormHeading>
@@ -269,7 +293,7 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
       {/* With future version of form, don't show if there are only elderly,
         but not disabled, members. Also, show if there are people between
         > 12, but <= 18 */}
-      { client[ time + 'DisabledOrElderlyMember' ]
+      { over12.length > 0
         ? <wrapper>
           <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Dependent Care of Persons Over 12 Years of Age</FormHeading>
@@ -281,9 +305,8 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
         : null
       }
 
-      { !client[ time + 'DisabledOrElderlyHeadOrSpouse' ] && !client[ time + 'DisabledOrElderlyMember' ]
-        ? null
-        : <wrapper>
+      { elderlyOrDisabled.length > 0
+        ? <wrapper>
           <FormHeading>Unreimbursed Disabled/Handicapped/Elderly Assistance</FormHeading>
           <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
           <div>Examples of eligible disability assistance expenses:</div>
@@ -295,13 +318,14 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
           <CashFlowRow {...sharedProps} generic={'DisabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'EarnedIncomeBecauseOfAdultCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses </CashFlowRow>
         </wrapper>
+        : null
       }
 
         {/* These medical expenses don't count for Section 8 unless
           the disabled person is the head or spouse. From 
           http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf 
           Appendix B, item (D) */}
-        { client[ time + 'DisabledOrElderlyHeadOrSpouse' ] || (client.hasSnap && client[ time + 'DisabledOrElderlyMember' ])
+        { elderlyOrDisabledHeadAndSpouse.length > 0 || (client.hasSnap && elderlyOrDisabled.length > 0)
           ? <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
           <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
