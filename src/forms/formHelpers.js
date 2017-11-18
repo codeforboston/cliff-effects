@@ -36,7 +36,7 @@ import { roundMoney, toMonthlyAmount } from '../utils/math';
 const BottomButton = function(props){
   return (
     <Grid.Column className='large-bottom-button' width={3}>
-      <Button color='teal' fluid size='large' onClick={props.func}>
+      <Button type='button' color='teal' fluid size='large' onClick={props.func}>
         { props.children }
       </Button>
     </Grid.Column>
