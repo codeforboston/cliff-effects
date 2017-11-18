@@ -11,7 +11,6 @@ import { MainMenu } from '../MainMenu';
 import FixedMenu from '../FixedMenu';
 
 const Header = ({fix, location: location}) => {
-  console.log(location)
   if (location.pathname === '/') return (<div></div>)
   return (
     <div>
