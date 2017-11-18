@@ -11,7 +11,7 @@ import {
   getGrossUnearnedIncomeMonthly
 } from '../../../utils/cashflow';
 import {
-  getPassingOfHousehold,
+  getEveryMemberOfHousehold,
   isHeadOrSpouse,
   getDependentsOfHousehold,
   isDisabled
@@ -245,7 +245,7 @@ const isDisabledOrElderly = function ( member ) {
 
 // Sure, we could combine these last two, but is it worth it?
 const hasAnyDsbOrElderly = function ( client, timeframe ) {
-  var numMatches = getPassingOfHousehold( client, timeframe, isDisabledOrElderly ).length;
+  var numMatches = getEveryMemberOfHousehold( client, timeframe, isDisabledOrElderly ).length;
   return numMatches > 0;
 };  // End hasAnyDsbOrElderly()
 
@@ -255,7 +255,7 @@ const hasDsbOrEldHeadOrSpouse = function ( client, timeframe ) {
   var comboTest = function ( member ) {
     return isDisabledOrElderly( member ) && isHeadOrSpouse( member );
   };
-  var numMatches = getPassingOfHousehold( client, timeframe, comboTest ).length;
+  var numMatches = getEveryMemberOfHousehold( client, timeframe, comboTest ).length;
 
   return numMatches > 0;
 
