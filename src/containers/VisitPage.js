@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import {
   Grid,
-  Header,
 } from 'semantic-ui-react';
 import {
   Redirect,
   Prompt,
-  Link
 } from 'react-router-dom';
 
 // Logic
@@ -140,7 +138,6 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
-    const { clientInfo, visitId } = this.state
 
     return (
       <div className='forms-container'>
