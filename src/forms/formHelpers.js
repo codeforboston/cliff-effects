@@ -327,6 +327,7 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 * @returns Component
 */
 const IntervalColumnHeadings = function ({ type }) {
+  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase()) + " Type"; 
 
   var baseStyles  = {
         marginTop: '0.7em', marginBottom: '0.7em',
@@ -341,11 +342,12 @@ const IntervalColumnHeadings = function ({ type }) {
       <ColumnHeading type={type} colName='weekly'  style={lefterStyles}>Weekly</ColumnHeading>
       <ColumnHeading type={type} colName='monthly' style={lefterStyles}>Monthly</ColumnHeading>
       <ColumnHeading type={type} colName='yearly'  style={rightStyles}>Yearly</ColumnHeading>
-      <ColumnHeading type={type} colName={type} style={baseStyles}>Expense Type</ColumnHeading>
+      <ColumnHeading type={type} colName={type} style={baseStyles} columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
     </wrapper>
   );
 
 };  // End IntervalColumnHeadings{} Component
+
 
 
 /** @todo description
