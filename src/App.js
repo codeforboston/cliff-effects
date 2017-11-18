@@ -11,8 +11,6 @@ import {
 import HomePage from './containers/HomePage'
 import AboutPage from './containers/AboutPage'
 import VisitPage from './containers/VisitPage'
-import ClientDetailPage from './containers/ClientDetailPage'
-import ClientIntakePage from './containers/ClientIntakePage'
 
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -46,8 +44,6 @@ class App extends React.Component {
             <Route exact path="/" component={HomePage}/>
             <Route path="/about" component={AboutPage}/>
             <Route path="/visit/:clientId/:visitId" component={VisitPage}/>
-            <Route path="/detail/:id" component={ClientDetailPage}/>
-            <Route path="/intake" component={ClientIntakePage}/>
 
           </div>
         </HashRouter>
