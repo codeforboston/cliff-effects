@@ -7,7 +7,7 @@
 * Creates an array containing the members in
 *     `memberList` that pass `memberTest()`
 */
-const getPassingMembers = function ( memberList, memberTest ) {
+const getEveryMember = function ( memberList, memberTest ) {
 
   var members   = [];
 
@@ -22,7 +22,7 @@ const getPassingMembers = function ( memberList, memberTest ) {
 
   return members;
 
-};  // End getPassingMembers()
+};  // End getEveryMember()
 
 
 /**
@@ -30,10 +30,10 @@ const getPassingMembers = function ( memberList, memberTest ) {
 *     a `client`s household at that `timeframe`,
 *     'current' or 'future', that pass `memberTest()`
 */
-const getPassingOfHousehold = function ( client, timeframe, memberTest ) {
+const getEveryMemberOfHousehold = function ( client, timeframe, memberTest ) {
   var household = client[ timeframe + 'Household' ];
-  return getPassingMembers( household, memberTest );
-};  // End getPassingMembers()
+  return getEveryMember( household, memberTest );
+};  // End getEveryMemberOfHousehold()
 
 
 // ===================
@@ -53,12 +53,12 @@ const isNotHeadOrSpouse = function ( member ) {
 
 
 const getHeadOrSpouseMembers = function ( memberList ) {
-  return getPassingMembers( memberList, isHeadOrSpouse );
+  return getEveryMember( memberList, isHeadOrSpouse );
 };  // End getHeadOrSpouseMembers()
 
 
 const getHeadOrSpouseOfHousehold = function ( client, timeframe ) {
-  return getPassingOfHousehold( client, timeframe, isHeadOrSpouse );
+  return getEveryMemberOfHousehold( client, timeframe, isHeadOrSpouse );
 };  // End getHeadOrSpouseOfHousehold()
 
 
@@ -74,12 +74,12 @@ const isDependent = function ( member ) {
 
 
 const getDependentMembers = function ( memberList ) {
-  return getPassingMembers( memberList, isDependent );
+  return getEveryMember( memberList, isDependent );
 };  // End getDependentMembers()
 
 
 const getDependentsOfHousehold = function ( client, timeframe ) {
-  return getPassingOfHousehold( client, timeframe, isDependent );
+  return getEveryMemberOfHousehold( client, timeframe, isDependent );
 };  // End getDependentsOfHousehold()
 
 
@@ -91,18 +91,36 @@ const isDisabled = function ( member ) {
 
 
 const getDisabledMembers = function ( memberList ) {
-  return getPassingMembers( memberList, isDisabled );
+  return getEveryMember( memberList, isDisabled );
 };  // End getDisabledMembers()
 
 
 const getDisabledOfHousehold = function ( client, timeframe ) {
-  return getPassingOfHousehold( client, timeframe, isDisabled );
+  return getEveryMemberOfHousehold( client, timeframe, isDisabled );
 };  // End getDisabledOfHousehold()
 
 
+// --- 12 OR UNDER --- \\
+// Yes, this is a thing because we had to split stuff up
+// strangely to accommodate mutliple programs more easily
+const isUnder13 = function ( member ) {
+  return member.age <= 12;
+};  // End isUnder13()
+
+
+const getUnder13Members = function ( memberList ) {
+  return getEveryMember( memberList, isUnder13 );
+};  // End getUnder13Members()
+
+
+const getUnder13OfHousehold = function ( client, timeframe ) {
+  return getEveryMemberOfHousehold( client, timeframe, isUnder13 );
+};  // End getUnder13OfHousehold()
+
+
 export {
-  getPassingMembers,
-  getPassingOfHousehold,
+  getEveryMember,
+  getEveryMemberOfHousehold,
   
   isHeadOrSpouse,
   isNotHeadOrSpouse,
@@ -116,4 +134,8 @@ export {
   isDisabled,
   getDisabledMembers,
   getDisabledOfHousehold,
+
+  isUnder13,
+  getUnder13Members,
+  getUnder13OfHousehold,
 };
