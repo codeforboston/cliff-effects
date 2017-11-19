@@ -136,12 +136,12 @@ const getChildPaymentDeduction = function (client, timeframe) {
 
 const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   var totalMonthlyGross = getTotalMonthlyGross(client, timeframe)
-  var STANDARD_DEDUCTIONS = getStandardDeduction(client, timeframe);
+  var standardDeductions = getStandardDeduction(client, timeframe);
   var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
   var medicalDeduction = getMedicalDeduction(client, timeframe);
   var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
 
-  var totalDeduction = totalMonthlyGross - STANDARD_DEDUCTIONS - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  var totalDeduction = totalMonthlyGross - standardDeductions - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
 
   if ( totalDeduction < 0  ) {
     return 0;
@@ -241,7 +241,7 @@ const monthlyNetIncome = function(client, timeframe ) {
     var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
     var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
     var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client, timeframe);
-    var STANDARD_DEDUCTIONS = getStandardDeduction(client, timeframe);
+    var standardDeductions = getStandardDeduction(client, timeframe);
     var medicalDeduction = getMedicalDeduction(client, timeframe);
     var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
     var childPaymentDeduction = getChildPaymentDeduction(client, timeframe);
@@ -249,7 +249,7 @@ const monthlyNetIncome = function(client, timeframe ) {
     var shelterDeductionResult = getShelterDeductionResult(client, timeframe);
 
     var totalIncome     = totalMonthlyEarnedGross + totalMonthlyUnearnedGross;
-    var totalDeductions = earnedIncomeDeduction + STANDARD_DEDUCTIONS + medicalDeduction
+    var totalDeductions = earnedIncomeDeduction + standardDeductions + medicalDeduction
                         + hasHomelessDeduction + shelterDeductionResult
                         + dependentCareDeduction + childPaymentDeduction;
 
