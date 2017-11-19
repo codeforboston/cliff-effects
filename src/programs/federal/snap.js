@@ -141,12 +141,8 @@ const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   var medicalDeduction = getMedicalDeduction(client, timeframe);
   var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
 
-  var totalDeduction = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
-
-  if ( totalDeduction < 0  ) {
-    return 0;
-  }
-  return  totalDeduction;
+  var adjustedIncome = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  return Math.max( 0, adjustedIncome );
 };
 
 // EXPENSE DEDUCTIONS
@@ -252,8 +248,9 @@ const monthlyNetIncome = function(client, timeframe ) {
     var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
                         + hasHomelessDeduction + shelterDeductionResult
                         + dependentCareDeduction + childPaymentDeduction;
+    var afterDeductions = totalIncome - totalDeductions;
 
-    return totalIncome - totalDeductions;
+    return Math.max( 0, afterDeductions );
 };
 
 const maxTotalNetMonthlyIncome = function (client, timeframe) {
