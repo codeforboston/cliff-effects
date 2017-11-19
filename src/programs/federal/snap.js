@@ -5,7 +5,7 @@ import {
   getGrossUnearnedIncomeMonthly
 } from '../../utils/cashflow';
 import { Result } from '../../utils/Result';
-import { data } from '../../data/federal/2017/snap';
+import { SNAPData } from '../../data/federal/2017/SNAPData';
 import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../utils/getGovData';
 import { federalPovertyGuidelines } from '../../data/federal/federalPovertyGuidelines';
 
@@ -23,9 +23,9 @@ const getSNAPBenefits = function ( client ) {
 
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
 
-    if ( maxClientAllotment <= data.smallHouseholdMinimumGrant ) {
-      if (client[timeframe + 'HouseholdSize'] <= data.minHouseholdSize) {
-        finalResult = data.smallHouseholdMinimumGrant;
+    if ( maxClientAllotment <= SNAPData.SMALL_HOUSEHOLD_MIN_GRANT ) {
+      if (client[timeframe + 'HouseholdSize'] <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
+        finalResult = SNAPData.SMALL_HOUSEHOLD_MIN_GRANT;
       } else {
         finalResult = 0;
       }
@@ -96,12 +96,12 @@ const getGrossIncomeTestResult = function (client, timeframe) {
 
 // INCOME DEDUCTIONS
 const getStandardDeduction = function (client, timeframe) {
-  return getYearlyLimitBySize(data.standardDeduction, client[timeframe + 'HouseholdSize']);
+  return getYearlyLimitBySize(SNAPData.STANDARD_DEDUCTIONS, client[timeframe + 'HouseholdSize']);
 };
 
 const getEarnedIncomeDeduction = function (client, timeframe) {
   var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
-  return totalMonthlyEarnedGross * data.percentOfGrossMonthlyEarnedIncome;
+  return totalMonthlyEarnedGross * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
 const getMedicalDeduction = function (client, timeframe) {
@@ -111,12 +111,12 @@ const getMedicalDeduction = function (client, timeframe) {
   } else {
     // include currentDisabledMedicalCostsMonthly,  currentOtherMedicalCostsMonthly ??
     var medicalExpenses = client[timeframe + 'DisabledAssistanceMonthly'];
-    if ((medicalExpenses >= data.beginRangeMedicalExpensesThreshold) && (medicalExpenses <= data.endRangeMedicalExpensesThreshold)) {
-      medicalDeduce = data.standardMedicalDeduction;
+    if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) && (medicalExpenses <= SNAPData.MAX_MEDICAL_EXPENSES)) {
+      medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
       return medicalDeduce;
     } else {
-      if (medicalExpenses >= data.endRangeMedicalExpensesThreshold++) {
-        medicalDeduce = medicalExpenses - data.beginRangeMedicalExpensesThreshold;
+      if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES++) {
+        medicalDeduce = medicalExpenses - SNAPData.MIN_MEDICAL_EXPENSES;
         return medicalDeduce;
       }
     }
@@ -136,12 +136,12 @@ const getChildPaymentDeduction = function (client, timeframe) {
 
 const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   var totalMonthlyGross = getTotalMonthlyGross(client, timeframe)
-  var standardDeduction = getStandardDeduction(client, timeframe);
+  var STANDARD_DEDUCTIONS = getStandardDeduction(client, timeframe);
   var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
   var medicalDeduction = getMedicalDeduction(client, timeframe);
   var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
 
-  var totalDeduction = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  var totalDeduction = totalMonthlyGross - STANDARD_DEDUCTIONS - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
 
   if ( totalDeduction < 0  ) {
     return 0;
@@ -192,15 +192,15 @@ const getStandardUtilityAllowance = function (client, timeframe) {
     return 0;
   }else{
     var paidUtilityCategory = utilityStatus(client, timeframe);
-    return data.standardUtilityAllowance[paidUtilityCategory];
+    return SNAPData.UTILITY_DEDUCTIONS[paidUtilityCategory];
   }
 };
 
 const getTotalshelterCost = function (client, timeframe) {
   var shelterDeduction = getShelterDeduction(client, timeframe);
-  var standardUtilityAllowance = getStandardUtilityAllowance(client, timeframe);
+  var UTILITY_DEDUCTIONS = getStandardUtilityAllowance(client, timeframe);
 
-  return shelterDeduction + standardUtilityAllowance;
+  return shelterDeduction + UTILITY_DEDUCTIONS;
 };
 
 const getHalfAdjustedIncome = function(client, timeframe ) {
@@ -224,13 +224,13 @@ const getShelterDeductionResult = function(client, timeframe ) {
     if ( hasDisabledOrElderlyMember(client, timeframe) ) {
       return excessHalfAdjustedIncome(client, timeframe);
     } else {
-      return Math.min(excessHalfAdjustedIncome(client, timeframe), data.standardShelterDeductionCap);
+      return Math.min(excessHalfAdjustedIncome(client, timeframe), SNAPData.SHELTER_DEDUCTION_CAP);
     }
 };
 
 const getHomelessDeduction = function(client, timeframe ) {
     if ( isHomeless(client, timeframe) ) {
-      return data.homelessDeduction;
+      return SNAPData.HOMELESS_DEDUCTION;
     } else {
       return 0;
     }
@@ -241,7 +241,7 @@ const monthlyNetIncome = function(client, timeframe ) {
     var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
     var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
     var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client, timeframe);
-    var standardDeduction = getStandardDeduction(client, timeframe);
+    var STANDARD_DEDUCTIONS = getStandardDeduction(client, timeframe);
     var medicalDeduction = getMedicalDeduction(client, timeframe);
     var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
     var childPaymentDeduction = getChildPaymentDeduction(client, timeframe);
@@ -249,7 +249,7 @@ const monthlyNetIncome = function(client, timeframe ) {
     var shelterDeductionResult = getShelterDeductionResult(client, timeframe);
 
     var totalIncome     = totalMonthlyEarnedGross + totalMonthlyUnearnedGross;
-    var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
+    var totalDeductions = earnedIncomeDeduction + STANDARD_DEDUCTIONS + medicalDeduction
                         + hasHomelessDeduction + shelterDeductionResult
                         + dependentCareDeduction + childPaymentDeduction;
 
@@ -263,7 +263,7 @@ const maxTotalNetMonthlyIncome = function (client, timeframe) {
       maxTotalNetIncome = "no limit";
       return maxTotalNetIncome;
     } else {
-      return getYearlyLimitBySize(data.maxAllowableMonthlyNetIncome, client[timeframe + 'HouseholdSize']);
+      return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, client[timeframe + 'HouseholdSize']);
     }
 };
 
@@ -281,14 +281,14 @@ const getNetIncomeTestResult = function(client, timeframe ) {
 
 // FINAL DETERMINATION
 const getThirtyPercentNetIncome = function(client, timeframe) {
-  if ( monthlyNetIncome(client, timeframe) * data.percentOfIncome > 0 ) {
-    return monthlyNetIncome(client, timeframe) * data.percentOfIncome;
+  if ( monthlyNetIncome(client, timeframe) * SNAPData.PERCENT_OF_NET > 0 ) {
+    return monthlyNetIncome(client, timeframe) * SNAPData.PERCENT_OF_NET;
   }
   return 0;
 };
 
 const getMaxSnapAllotment = function (client, timeframe) {
-  return getYearlyLimitBySize(data.maxFoodStampAllotment, client[timeframe + 'HouseholdSize']);
+  return getYearlyLimitBySize(SNAPData.SNAP_LIMITS, client[timeframe + 'HouseholdSize']);
 };
 
 // Bay State CAP not included as this prototype only deals with
