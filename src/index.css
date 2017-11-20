@@ -26,7 +26,8 @@ form .field-aligner {
 }
 
 #HomePage {
-  background-image: url(./images/splash.svg);
+  background-image: url(./images/splash.svg) !important;
+  background-size: cover !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
