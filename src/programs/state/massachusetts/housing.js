@@ -167,7 +167,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
       adj   = net - total;
 
   /** @todo What do we do if this is negative, e.g. dependent allowances are greater than income? */
-  return adj;
+  return Math.max( 0, adj );
 };  // End getAdjustedIncome()
 
 
