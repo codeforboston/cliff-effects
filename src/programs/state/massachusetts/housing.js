@@ -170,7 +170,6 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   var total = sum( allowances ),
       adj   = net - total;
 
-  /** @todo Implement probable solution for bug */
   return Math.max( 0, adj );
 };  // End getAdjustedIncome()
 
