@@ -262,7 +262,7 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
       <wrapper>
         <FormHeading>Child Support</FormHeading>
         <IntervalColumnHeadings type={type}/>
-        <CashFlowRow {...sharedProps} generic={'ChildSupportPaidOut'}> LEGALLY OBLIGATED Child support paid out </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'ChildSupportPaidOut'}> <strong>Legally obligated</strong> child support </CashFlowRow>
       </wrapper>
 
       {/* Head or spouse can't be a dependent, so they don't count */}
