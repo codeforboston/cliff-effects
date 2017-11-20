@@ -136,7 +136,7 @@ const getChildPaymentDeduction = function (client, timeframe) {
 
 const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
   var totalMonthlyGross = getTotalMonthlyGross(client, timeframe)
-  var standardDeductions = getStandardDeduction(client, timeframe);
+  var standardDeduction = getStandardDeduction(client, timeframe);
   var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
   var medicalDeduction = getMedicalDeduction(client, timeframe);
   var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
@@ -237,7 +237,7 @@ const monthlyNetIncome = function(client, timeframe ) {
     var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
     var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
     var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client, timeframe);
-    var standardDeductions = getStandardDeduction(client, timeframe);
+    var standardDeduction = getStandardDeduction(client, timeframe);
     var medicalDeduction = getMedicalDeduction(client, timeframe);
     var dependentCareDeduction = getDependentCareDeduction(client,timeframe);
     var childPaymentDeduction = getChildPaymentDeduction(client, timeframe);
@@ -245,7 +245,7 @@ const monthlyNetIncome = function(client, timeframe ) {
     var shelterDeductionResult = getShelterDeductionResult(client, timeframe);
 
     var totalIncome     = totalMonthlyEarnedGross + totalMonthlyUnearnedGross;
-    var totalDeductions = earnedIncomeDeduction + standardDeductions + medicalDeduction
+    var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
                         + hasHomelessDeduction + shelterDeductionResult
                         + dependentCareDeduction + childPaymentDeduction;
     var afterDeductions = totalIncome - totalDeductions;
