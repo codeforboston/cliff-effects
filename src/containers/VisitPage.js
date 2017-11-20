@@ -51,7 +51,6 @@ class VisitPage extends Component {
           futureHousehold: [
             { age: 30, role: 'head', disabled: false, required: true }
           ],
-          currentHouseholdSize: 1,
           currentHomeless: false,
           currentHomeowner: false,
           currentEarnedIncomeMonthly: 0,
