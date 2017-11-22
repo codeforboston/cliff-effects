@@ -1,15 +1,3 @@
-// // REACT COMPONENTS
-// import React from 'react';
-// import {
-//   Form, Input, // Radio
-// } from 'semantic-ui-react';
-
-// // // PROJECT COMPONENTS
-// // import {
-// //   FormPartsContainer, MassiveToggle,
-// //   InlineLabelInfo
-// // } from './formHelpers';
-
 // REACT COMPONENTS
 import React from 'react';
 import {
@@ -18,7 +6,6 @@ import {
   Dropdown,
   Header,
   Checkbox,
-  // Divider,
   Icon,
   Input
 } from 'semantic-ui-react';
@@ -36,7 +23,7 @@ import {
 // ======================
 // To be able to adjust sizes easily
 // Very specific to household size. May be worth creating
-// a constructor for columns in general.
+// a constructor for columns in general, or maybe use a Grid.
 const columnStyle = {
   display: 'inline-block',
   textAlign: 'center',
@@ -94,7 +81,7 @@ const ColumnHeader = function ({ children, columnNum }) {
 * 
 * @returns Component
 */
-const MemberButton = function ({ className, onClick, iconName, color, basic }) {
+const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 
   color = color || null;
 
@@ -105,7 +92,7 @@ const MemberButton = function ({ className, onClick, iconName, color, basic }) {
       icon={iconName}
       className={className}
       onClick={onClick}
-      style={{  padding: '0', height: '2.2em', width: '2.2em' }}
+      style={{ padding: '0', height: '2.2em', width: '2.2em' }}
       circular />
   );
 
@@ -226,6 +213,7 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
 
     </Form.Field>
   );
+
 };  // End MemberField()
 
 
@@ -252,6 +240,7 @@ const getMembers = function ( client, time, setHousehold ) {
   };
 
   return mems;
+
 };  // End getMembers()
 
 
@@ -328,6 +317,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
       </wrapper>
     </wrapper>
   );
+
 };  // End HouseholdContent()
 
 
