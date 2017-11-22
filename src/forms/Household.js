@@ -33,20 +33,29 @@ const columnStyle = {
 
 const Columns = {};
 
-Columns.One = function ({ children }) {
-  return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
+// `noMargin` is a bit hacky, but it'll do for now
+Columns.One = function ({ noMargin, children }) {
+  var marginTop = columnStyle.marginTop;
+  if ( noMargin ) { marginTop = 0; }
+  return ( <div style={{...columnStyle, marginTop: marginTop, width: '5em'}}> {children} </div> );
 }
 
-Columns.Two = function ({ children }) {
-  return ( <div style={{...columnStyle, width: '20em', textAlign: 'left', paddingLeft: '1em'}}> {children} </div> );
+Columns.Two = function ({ noMargin, children }) {
+  var marginTop = columnStyle.marginTop;
+  if ( noMargin ) { marginTop = 0; }
+  return ( <div style={{...columnStyle, marginTop: marginTop, width: '20em', textAlign: 'left', paddingLeft: '1em'}}> {children} </div> );
 }
 
-Columns.Three = function ({ children }) {
-  return ( <div style={{...columnStyle, width: '5em'}}> {children} </div> );
+Columns.Three = function ({ noMargin, children }) {
+  var marginTop = columnStyle.marginTop;
+  if ( noMargin ) { marginTop = 0; }
+  return ( <div style={{...columnStyle, marginTop: marginTop, width: '5em'}}> {children} </div> );
 }
 
-Columns.Four = function ({ children }) {
-  return ( <div style={{...columnStyle, width: '10em'}}> {children} </div> );
+Columns.Four = function ({ noMargin, children }) {
+  var marginTop = columnStyle.marginTop;
+  if ( noMargin ) { marginTop = 0; }
+  return ( <div style={{...columnStyle, marginTop: marginTop, width: '10em'}}> {children} </div> );
 }
 
 
@@ -299,19 +308,22 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
 
       { getMembers( client, time, setHousehold ) }
 
-      <div>
-        <Columns.One>
+      <Button id={'addMember'} basic onClick={addMember}>
+        <Columns.One noMargin={true}>
           <MemberButton
             basic color={'teal'}
             className={'add'}
-            onClick={addMember}
             iconName={'plus'} />
         </Columns.One>
 
-        <Columns.Two>
+        <Columns.Two noMargin={true}>
           <Header as='h4' color={'teal'}> Add a member </Header>
         </Columns.Two>
-      </div>
+
+        <Columns.Three noMargin={true} />
+        <Columns.Four noMargin={true} />
+      </Button>
+
     </wrapper>
   );
 
