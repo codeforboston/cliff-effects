@@ -190,7 +190,10 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
       <Columns.One>
         { indx > 0
           ? <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'} />
-          : <Icon fitten name={'ban'} style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+          : <span>{ household.length > 1
+            ? <Icon fitten name={'ban'} style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+            : null
+          }</span>
         }
       </Columns.One>
 
