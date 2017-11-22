@@ -28,7 +28,7 @@ const columnStyle = {
   display: 'inline-block',
   textAlign: 'center',
   marginTop: '0.7em',
-  marginBottom: '0.7em'
+  // marginBottom: '0.7em'
 };
 
 const Columns = {};
@@ -38,7 +38,7 @@ Columns.One = function ({ children }) {
 }
 
 Columns.Two = function ({ children }) {
-  return ( <div style={{...columnStyle, width: '20em'}}> {children} </div> );
+  return ( <div style={{...columnStyle, width: '20em', textAlign: 'left', paddingLeft: '1em'}}> {children} </div> );
 }
 
 Columns.Three = function ({ children }) {
@@ -114,14 +114,15 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 const Role = function ({ member, setMember }) {
 
   var ThisRole  = null,
-      padding   = '0';
+      margin   = '0';
 
   if ( member.index === 0 ) {
 
-    padding   = '1em';
     ThisRole  = <span>Head of Household</span>;
 
   } else if ( member.index === 1 ) {
+
+    margin = '-1em';
 
     var options = [
       { text: 'Spouse of Head of Household', value: 'spouse' },
@@ -136,14 +137,13 @@ const Role = function ({ member, setMember }) {
 
   } else {
 
-    padding   = '1em';
     ThisRole  = <span>Household Member</span>;
 
   }
 
   // Styles will have to be adjusted.
   return (
-    <div style={{ display: 'inline-block', width: '100%', textAlign: 'left', paddingLeft: padding }}>
+    <div style={{ display: 'inline-block', width: '100%', textAlign: 'left', marginLeft: margin }}>
       { ThisRole }
     </div>
   );
@@ -287,16 +287,16 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
 
   return (
     <wrapper className='field-aligner two-column'>
-      <wrapper>
+      <div style={{marginBottom: '.5em'}}>
         <ColumnHeader columnNum='One'></ColumnHeader>
         <ColumnHeader columnNum='Two'>Role</ColumnHeader>
         <ColumnHeader columnNum='Three'>Age</ColumnHeader>
         <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
-      </wrapper>
+      </div>
 
       { getMembers( client, time, setHousehold ) }
 
-      <wrapper>
+      <div>
         <Columns.One>
           <MemberButton
             basic color={'teal'}
@@ -306,15 +306,9 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
         </Columns.One>
 
         <Columns.Two>
-          <Header
-            as='h4'
-            color={'teal'}
-            textAlign={'left'}
-            style={{ paddingLeft: '1em' }}>
-                Add a member
-          </Header>
+          <Header as='h4' color={'teal'}> Add a member </Header>
         </Columns.Two>
-      </wrapper>
+      </div>
     </wrapper>
   );
 
