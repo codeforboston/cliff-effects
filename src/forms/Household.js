@@ -19,6 +19,7 @@ import {
   Header,
   Checkbox,
   // Divider,
+  Icon,
   Input
 } from 'semantic-ui-react';
 
@@ -107,6 +108,7 @@ const MemberButton = function ({ className, onClick, iconName, color, basic }) {
       style={{  padding: '0', height: '2.2em', width: '2.2em' }}
       circular />
   );
+
 };
 
 
@@ -158,6 +160,7 @@ const Role = function ({ member, setMember }) {
       { ThisRole }
     </div>
   );
+
 };  // End Role(<>)
 
 
@@ -198,7 +201,10 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
     <Form.Field key={indx}>
 
       <Columns.One>
-        <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'} style={{}} />
+        { indx > 0
+          ? <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'} />
+          : <Icon fitten name={'ban'} style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+        }
       </Columns.One>
 
       <Columns.Two>
