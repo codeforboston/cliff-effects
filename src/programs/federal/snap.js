@@ -1,13 +1,25 @@
+// DATA
 import { CHILD_CARE_EXPENSES, ADULT_CARE_EXPENSES } from '../../data/state/massachusetts/name-cores';
+import { SNAPData } from '../../data/federal/2017/SNAPData';
+import { federalPovertyGuidelines } from '../../data/federal/federalPovertyGuidelines';
+
+// LOGIC/UTILITIES
+import { Result } from '../../utils/Result';
 import {
   toCashflow,
   sumCashflow,
   getGrossUnearnedIncomeMonthly
 } from '../../utils/cashflow';
-import { Result } from '../../utils/Result';
-import { SNAPData } from '../../data/federal/2017/SNAPData';
-import { getYearlyLimitBySize, getMonthlyLimitBySize } from '../../utils/getGovData';
-import { federalPovertyGuidelines } from '../../data/federal/federalPovertyGuidelines';
+import {
+  getYearlyLimitBySize,
+  getMonthlyLimitBySize
+} from '../../utils/getGovData';
+import {
+  getEveryMemberOfHousehold,
+  isDisabled,
+  isUnder13,
+  getUnder13OfHousehold
+} from '../../utils/getMembers';
 
 
 /** Based on https://www.masslegalservices.org/SNAPCalculator */
@@ -24,11 +36,12 @@ const getSNAPBenefits = function ( client ) {
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
 
     if ( maxClientAllotment <= SNAPData.SMALL_HOUSEHOLD_MIN_GRANT ) {
-      if (client[timeframe + 'HouseholdSize'] <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
+      if ( householdSize( client, timeframe ) <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
         finalResult = SNAPData.SMALL_HOUSEHOLD_MIN_GRANT;
       } else {
         finalResult = 0;
       }
+
     } else {
       finalResult = maxClientAllotment;
     }
@@ -45,8 +58,12 @@ const getSNAPBenefits = function ( client ) {
 }; // End getSNAPBenefits()
 
 //GROSS INCOME TEST
+const isElderlyOrDisabled = function ( member ) {
+  return member.age >= 60 || isDisabled( member );
+};
+
 const hasDisabledOrElderlyMember = function (client, timeframe) {
-  return client[timeframe + 'DisabledOrElderlyMember'];
+  return getEveryMemberOfHousehold( client, timeframe, isElderlyOrDisabled ).length > 0;
 };
 
 const getTotalMonthlyGross = function (client, timeframe) {
@@ -54,7 +71,7 @@ const getTotalMonthlyGross = function (client, timeframe) {
 };
 
 const getPovertyGrossIncomeLevel = function (client, timeframe ) {
-  return getMonthlyLimitBySize(federalPovertyGuidelines, client[timeframe + 'HouseholdSize'], 200);
+  return getMonthlyLimitBySize(federalPovertyGuidelines, householdSize( client, timeframe ), 200);
 };
 
 const checkIncome = function (client, timeframe) {
@@ -96,7 +113,7 @@ const getGrossIncomeTestResult = function (client, timeframe) {
 
 // INCOME DEDUCTIONS
 const getStandardDeduction = function (client, timeframe) {
-  return getYearlyLimitBySize(SNAPData.STANDARD_DEDUCTIONS, client[timeframe + 'HouseholdSize']);
+  return getYearlyLimitBySize(SNAPData.STANDARD_DEDUCTIONS, householdSize( client, timeframe ));
 };
 
 const getEarnedIncomeDeduction = function (client, timeframe) {
@@ -106,11 +123,11 @@ const getEarnedIncomeDeduction = function (client, timeframe) {
 
 const getMedicalDeduction = function (client, timeframe) {
   var medicalDeduce = null;
-  if (client[timeframe + 'DisabledOrElderlyMember'] === false) {
+  if ( hasDisabledOrElderlyMember(client, timeframe) === false ) {
     return 0;
   } else {
     // include currentDisabledMedicalCostsMonthly,  currentOtherMedicalCostsMonthly ??
-    var medicalExpenses = client[timeframe + 'DisabledAssistanceMonthly'];
+    var medicalExpenses = client[timeframe + 'DisabledMedicalCostsMonthly'];
     if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) && (medicalExpenses <= SNAPData.MAX_MEDICAL_EXPENSES)) {
       medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
       return medicalDeduce;
@@ -124,14 +141,29 @@ const getMedicalDeduction = function (client, timeframe) {
   return 0;
 };
 
+const isDependentOver12 = function ( member ) {
+  return (!isUnder13( member ) && member.age <= 18) || isDisabled( member );
+};
+
 const getDependentCareDeduction = function (client, timeframe) {
-  var totalDependentCare = sumCashflow( client, timeframe, CHILD_CARE_EXPENSES ) + sumCashflow( client, timeframe, ADULT_CARE_EXPENSES );
+
+  var childCare = 0, adultCare = 0;
+
+  if ( getUnder13OfHousehold( client, timeframe ).length > 0 ) {
+    childCare = sumCashflow( client, timeframe, CHILD_CARE_EXPENSES );
+  }
+
+  if ( getEveryMemberOfHousehold( client, timeframe, isDependentOver12 ).length > 0 ) {
+    adultCare = sumCashflow( client, timeframe, ADULT_CARE_EXPENSES );
+  }
+
+  var totalDependentCare = childCare + adultCare;
 
   return totalDependentCare;
 };
 
 const getChildPaymentDeduction = function (client, timeframe) {
-    return toCashflow(client, timeframe, 'ChildSupportPaidOut');
+  return toCashflow(client, timeframe, 'ChildSupportPaidOut');
 };
 
 const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
@@ -194,9 +226,9 @@ const getStandardUtilityAllowance = function (client, timeframe) {
 
 const getTotalshelterCost = function (client, timeframe) {
   var shelterDeduction = getShelterDeduction(client, timeframe);
-  var UTILITY_DEDUCTIONS = getStandardUtilityAllowance(client, timeframe);
+  var utilityDeductions = getStandardUtilityAllowance(client, timeframe);
 
-  return shelterDeduction + UTILITY_DEDUCTIONS;
+  return shelterDeduction + utilityDeductions;
 };
 
 const getHalfAdjustedIncome = function(client, timeframe ) {
@@ -260,7 +292,7 @@ const maxTotalNetMonthlyIncome = function (client, timeframe) {
       maxTotalNetIncome = "no limit";
       return maxTotalNetIncome;
     } else {
-      return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, client[timeframe + 'HouseholdSize']);
+      return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, householdSize( client, timeframe ));
     }
 };
 
@@ -285,7 +317,11 @@ const getThirtyPercentNetIncome = function(client, timeframe) {
 };
 
 const getMaxSnapAllotment = function (client, timeframe) {
-  return getYearlyLimitBySize(SNAPData.SNAP_LIMITS, client[timeframe + 'HouseholdSize']);
+  return getYearlyLimitBySize( SNAPData.SNAP_LIMITS, householdSize( client, timeframe ) );
+};
+
+const householdSize = function ( client, timeframe ) {
+  return client[ timeframe + 'Household' ].length;
 };
 
 // Bay State CAP not included as this prototype only deals with

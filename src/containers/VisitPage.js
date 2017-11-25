@@ -22,7 +22,7 @@ import { BenefitsTable } from '../forms/BenefitsTable';
 import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';
 import { FutureIncomeStep } from '../forms/futureIncome';
-import { HouseholdSizeStep } from '../forms/household-size';
+import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/current-benefits';
 import StepBar from '../components/StepBar'
 
@@ -45,7 +45,12 @@ class VisitPage extends Component {
           hasHousing: false,
           snapAlert: 'good',
           housingAlert: 'good',
-          currentHouseholdSize: 1,
+          currentHousehold: [
+            { age: 30, role: 'head', disabled: false, required: true }
+          ],
+          futureHousehold: [
+            { age: 30, role: 'head', disabled: false, required: true }
+          ],
           currentHomeless: false,
           currentHomeowner: false,
           currentEarnedIncomeMonthly: 0,
@@ -69,7 +74,7 @@ class VisitPage extends Component {
 
     this.steps = [
       { title: 'Current Benefits', form: CurrentBenefitsStep, },
-      { title: 'Household Size', form: HouseholdSizeStep },
+      { title: 'Household', form: HouseholdStep },
       { title: 'Current Income', form: CurrentIncomeStep },
       { title: 'Current Expenses', form: CurrentExpensesStep },
       { title: 'Future Income', form: FutureIncomeStep },
