@@ -10,10 +10,9 @@ const CLIENT_DEFAULTS = {
     hasHousing: false,
     household:  [
       {
-        age:      30,  // INT
-        role:     'head',  // 'head', 'spouse', 'member'
-        disabled: false,
-        required: true
+        m_age:      30,  // INT
+        m_role:     'head',  // 'head', 'spouse', 'member'
+        m_disabled: false
       }
     ],
     // MONEY AMOUNTS
