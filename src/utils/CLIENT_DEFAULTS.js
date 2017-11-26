@@ -1,13 +1,15 @@
 import cloneDeep from 'lodash';
 
 /**
-* Default client values.
-* MUST ALWAYS BE VALID
-*/
+ * Default client values.
+ * MUST ALWAYS BE VALID
+ */
 const CLIENT_DEFAULTS = {
 	current: {
+    // Current programs
     hasSnap:    false,
     hasHousing: false,
+    // Household
     household:  [
       {
         m_age:      30,  // INT
@@ -16,7 +18,7 @@ const CLIENT_DEFAULTS = {
       }
     ],
     // MONEY AMOUNTS
-    // Income questions
+    // Income
     earnedIncome:     0,
     TAFDC:            0,
     SSI:              0,
@@ -29,7 +31,7 @@ const CLIENT_DEFAULTS = {
     alimony:          0,
     otherIncome:      0,
     incomeExclusions: 0,
-    // Expenses questions
+    // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
     childTransportation:            0,
@@ -61,7 +63,8 @@ const CLIENT_DEFAULTS = {
   // userChanged: {}  // In state instead?
 };
 
-CLIENT_DEFAULTS.future = cloneDeep( CLIENT_DEFAULTS.current );
+// I do not get lodash...
+CLIENT_DEFAULTS.future = cloneDeep( CLIENT_DEFAULTS.current ).__wrapped__;
 
 
 export { CLIENT_DEFAULTS };
