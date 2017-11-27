@@ -93,8 +93,7 @@ class VisitPage extends Component {
 
 
 
-  onClientChange = (e, { route, name, value, checked, time }) => {
-
+  changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
     time  = time || 'future';
@@ -185,6 +184,7 @@ class VisitPage extends Component {
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
                    setClientProperty={this.setClientProperty}
+                   changeClient={this.changeClient}
                    saveForm={this.saveForm} />
     );
   };  // End getCurrentStep()

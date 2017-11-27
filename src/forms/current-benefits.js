@@ -20,6 +20,8 @@ import {
 */
 const CurrentBenefitsContent = ({ client, setClientProperty }) => {
 
+  client = client.current;
+
   return (
     <wrapper className={'field-aligner'}>
       <MassiveToggle
@@ -49,13 +51,20 @@ const CurrentBenefitsContent = ({ client, setClientProperty }) => {
 // `props` is a cloned version of the original props. References broken.
 const CurrentBenefitsStep = (props) => {
 
+  const changeCurrent = function ( evnt, data ) {
+    data.time = 'current';
+    props.changeClient( evnt, data );
+  }
+
   return (
     <Form size='massive' className='household-size-form'>
       <FormPartsContainer
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CurrentBenefitsContent setClientProperty={props.setClientProperty} client={props.client} />
+          <CurrentBenefitsContent
+          setClientProperty={props.changeCurrent}
+          client={props.client} />
       </FormPartsContainer>
     </Form>
   );
