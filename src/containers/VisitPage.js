@@ -47,8 +47,8 @@ class VisitPage extends Component {
         redirect: false,
         client : {
           ...CLIENT_DEFAULTS,
-          hasSnap: false,
-          hasHousing: false,
+          // hasSnap: false,
+          // hasHousing: false,
           snapAlert: 'good',
           housingAlert: 'good',
           currentHousehold: [
@@ -114,17 +114,12 @@ class VisitPage extends Component {
     // Also, userChanged should be only one step deep
     if ( time === 'future' ) { userChanged[ id ] = true; }
 
-    console.log( userChanged, client );
-    // this.setState( prevState => ({ client: client, userChanged: userChanged }) );
-
+    console.log( userChanged, client !== this.state.client, client );
+    this.setState( prevState => ({ client: client, userChanged: userChanged }) );
   }  // End onClientChange()
 
 
-
-
   setClientProperty = (e, data) => {
-
-    this.onClientChange( e, data );
 
     let propertyName = data.name
     let value = typeof(data.checked) === "boolean" ? data.checked : data.value  //This handles both complex values and checked values
@@ -243,8 +238,8 @@ class VisitPage extends Component {
             </Grid.Column>
             <Grid.Column width={4} style={{ height: '100%' }}>
               <AlertSidebar
-                hasSnap={this.state.client.hasSnap}
-                hasHousing={this.state.client.hasHousing}
+                hasSnap={this.state.client.current.hasSnap}
+                hasHousing={this.state.client.current.hasHousing}
                 snapAlert={getSNAPBenefits(this.state.client)}
                 housingAlert={getHousingBenefit(this.state.client)}
               />

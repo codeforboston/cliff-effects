@@ -105,7 +105,7 @@ const ShelterDetails = function ({ client, type, time, setClientProperty }) {
         setClientProperty: setClientProperty
       };
 
-  if ( client.hasHousing ) {
+  if ( client.current.hasHousing ) {
     return (
       <wrapper>
         <IntervalColumnHeadings type={ type }/>
@@ -194,7 +194,7 @@ const Housing = function ({ client, type, time, setClientProperty }) {
 
       <FormHeading>Shelter</FormHeading>
 
-      { client.hasHousing
+      { client.current.hasHousing
       ? null
       : <wrapper>
 
@@ -325,7 +325,7 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
           the disabled person is the head or spouse. From 
           http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf 
           Appendix B, item (D) */}
-        { elderlyOrDisabledHeadAndSpouse.length > 0 || (client.hasSnap && elderlyOrDisabled.length > 0)
+        { elderlyOrDisabledHeadAndSpouse.length > 0 || (client.current.hasSnap && elderlyOrDisabled.length > 0)
           ? <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
           <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
