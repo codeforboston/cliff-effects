@@ -63,7 +63,7 @@ const CurrentBenefitsStep = (props) => {
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
           <CurrentBenefitsContent
-          setClientProperty={props.changeCurrent}
+          setClientProperty={changeCurrent}
           client={props.client} />
       </FormPartsContainer>
     </Form>
