@@ -15,8 +15,7 @@ import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 // Object Manipulation
 import { setNestedProperty } from '../utils/setNestedProperty';
-// import cloneDeep from 'lodash';
-import { cloneDeep } from '../utils/objectManipulation';
+import { cloneDeep } from 'lodash';
 
 // Data
 import { clientList } from '../config/dummyClients';

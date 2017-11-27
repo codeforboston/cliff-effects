@@ -1,5 +1,4 @@
-// import cloneDeep from 'lodash';
-import { cloneDeep } from '../utils/objectManipulation';
+import { cloneDeep } from 'lodash';
 
 /**
  * Default client values.
