@@ -7,6 +7,9 @@ import {
   FormPartsContainer, MassiveToggle
 } from './formHelpers';
 
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter'
+
 
 /** @todo description
 * 
@@ -49,10 +52,7 @@ const CurrentBenefitsContent = ({ current, setClientProperty }) => {
 // `props` is a cloned version of the original props. References broken.
 const CurrentBenefitsStep = (props) => {
 
-  const changeCurrent = function ( evnt, data ) {
-    data.time = 'current';
-    props.changeClient( evnt, data );
-  }
+  const setTimeProp = getTimeSetter( 'current', props.changeClient );
 
   return (
     <Form size='massive' className='household-size-form'>
@@ -61,7 +61,7 @@ const CurrentBenefitsStep = (props) => {
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
           <CurrentBenefitsContent
-          setClientProperty={changeCurrent}
+          setClientProperty={setTimeProp}
           current={props.client.current} />
       </FormPartsContainer>
     </Form>

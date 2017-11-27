@@ -95,7 +95,6 @@ class VisitPage extends Component {
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
-    time  = time || 'future';
 
     var val = value;
     if ( typeof checked === 'boolean' ) { val = checked; }
