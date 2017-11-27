@@ -13,6 +13,7 @@ const CLIENT_DEFAULTS = {
     // Household
     household:  [
       {
+        // 'm' for member for easier transformation
         m_age:      30,  // INT
         m_role:     'head',  // 'head', 'spouse', 'member'
         m_disabled: false
@@ -57,7 +58,7 @@ const CLIENT_DEFAULTS = {
     climateControl:     false,
     nonHeatElectricity: false,
     phone:              false,
-    fuelAssistance:     false,
+    fuelAssistance:     false,  // Input is 'yes', 'no'
     otherExpenses:      0
   },
   future: {},
