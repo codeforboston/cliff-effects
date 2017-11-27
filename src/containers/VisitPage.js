@@ -15,7 +15,8 @@ import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 // Object Manipulation
 import { setNestedProperty } from '../utils/setNestedProperty';
-import cloneDeep from 'lodash';
+// import cloneDeep from 'lodash';
+import { cloneDeep } from '../utils/objectManipulation';
 
 // Data
 import { clientList } from '../config/dummyClients';
@@ -92,26 +93,30 @@ class VisitPage extends Component {
 
 
 
-  onClientChange = (e, { route, name, value, time }) => {
+  onClientChange = (e, { route, name, value, checked, time }) => {
+
 
     route = route || name;
     time  = time || 'future';
 
+    var val = value;
+    if ( typeof checked === 'boolean' ) { val = checked; }
+
     // GOAL 1. Clone, not reference
-    var client      = cloneDeep( this.state.client ).__wrapped__,
-        userChanged = {...this.state.userChanged},
+    var client      = cloneDeep( this.state.client ),
+        userChanged = {...this.state.userChanged},  // only 1 deep
         current     = client.current,
         future      = client.future,
         routeList   = route.split('/'),
         id          = routeList[0],  // `routeList` gets mutated
-        newEvent    = { time: time, route: routeList, value: value };
+        newEvent    = { time: time, route: routeList, value: val };
 
-    setNestedProperty(newEvent, {current, future}, this.state.userChanged[ route ]);  
+    setNestedProperty(newEvent, {current, future}, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
     if ( time === 'future' ) { userChanged[ id ] = true; }
 
-    // console.log( client, userChanged );
+    console.log( userChanged, client );
     // this.setState( prevState => ({ client: client, userChanged: userChanged }) );
 
   }  // End onClientChange()

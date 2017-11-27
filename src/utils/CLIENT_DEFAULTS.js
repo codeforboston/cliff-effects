@@ -1,4 +1,5 @@
-import cloneDeep from 'lodash';
+// import cloneDeep from 'lodash';
+import { cloneDeep } from '../utils/objectManipulation';
 
 /**
  * Default client values.
@@ -64,7 +65,7 @@ const CLIENT_DEFAULTS = {
 };
 
 // I do not get lodash...
-CLIENT_DEFAULTS.future = cloneDeep( CLIENT_DEFAULTS.current ).__wrapped__;
+CLIENT_DEFAULTS.future = cloneDeep( CLIENT_DEFAULTS.current );
 
 
 export { CLIENT_DEFAULTS };
