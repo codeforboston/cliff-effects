@@ -23,13 +23,13 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 import AlertSidebar from '../AlertSidebar'
-import { BenefitsTable } from '../forms/BenefitsTable';
 import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';
-import { FutureIncomeStep } from '../forms/futureIncome';
+import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/current-benefits';
-import StepBar from '../components/StepBar'
+import StepBar from '../components/StepBar';
+import ResultsGraph from '../ResultsGraph';
 
 class VisitPage extends Component {
   constructor(props) {
@@ -84,8 +84,8 @@ class VisitPage extends Component {
       { title: 'Household', form: HouseholdStep },
       { title: 'Current Income', form: CurrentIncomeStep },
       { title: 'Current Expenses', form: CurrentExpensesStep },
-      { title: 'Future Income', form: FutureIncomeStep },
-      { title: 'Results', form: BenefitsTable }
+      { title: 'Predictions', form: PredictionsStep },
+      { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
   };  // End constructor()
 
