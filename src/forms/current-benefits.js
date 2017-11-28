@@ -7,6 +7,9 @@ import {
   FormPartsContainer, MassiveToggle
 } from './formHelpers';
 
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter'
+
 
 /** @todo description
 * 
@@ -18,19 +21,19 @@ import {
 * 
 * @returns Component
 */
-const CurrentBenefitsContent = ({ client, setClientProperty }) => {
+const CurrentBenefitsContent = ({ current, setClientProperty }) => {
 
   return (
     <wrapper className={'field-aligner'}>
       <MassiveToggle
-        label={{ children: client.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
-        checked={client.hasSnap}
+        label={{ children: current.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
+        checked={current.hasSnap}
         onChange={setClientProperty}
         name='hasSnap' />
       <br/>
       <MassiveToggle
-        label={{ children: client.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
-        checked={client.hasHousing}
+        label={{ children: current.hasHousing ? <strong>Section 8 Housing</strong> : 'Section 8 Housing' }}
+        checked={current.hasHousing}
         onChange={setClientProperty}
         name='hasHousing' />
     </wrapper>
@@ -49,13 +52,17 @@ const CurrentBenefitsContent = ({ client, setClientProperty }) => {
 // `props` is a cloned version of the original props. References broken.
 const CurrentBenefitsStep = (props) => {
 
+  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+
   return (
     <Form size='massive' className='household-size-form'>
       <FormPartsContainer
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <CurrentBenefitsContent setClientProperty={props.setClientProperty} client={props.client} />
+          <CurrentBenefitsContent
+          setClientProperty={setTimeProp}
+          current={props.client.current} />
       </FormPartsContainer>
     </Form>
   );
