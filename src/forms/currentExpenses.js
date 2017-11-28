@@ -42,13 +42,13 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
 
 
   let setChecked = function ( evnt, inputProps ) {
-    var obj = { ...inputProps, route: inputProps.name, value: inputProps.checked };
+    var obj = { ...inputProps, value: inputProps.checked };
     setClientProperty( evnt, obj );
   };  // End setChecked()
 
   let toBool = function ( evnt, inputProps ) {
     var val = inputProps.value === 'Yes',
-        obj = { ...inputProps, route: inputProps.name, value: val };
+        obj = { ...inputProps, value: val };
     setClientProperty( evnt, obj );
   };  // End toBool()
 
@@ -104,7 +104,7 @@ const ShelterDetails = function ({ current, type, time, setClientProperty }) {
 
   let shelter = current.shelter,
       sharedProps = {
-        current: current, type: type, time: time,
+        timeState: current, current: current, type: type, time: time,
         setClientProperty: setClientProperty
       };
 
@@ -182,14 +182,14 @@ const Housing = function ({ current, type, time, setClientProperty }) {
   // in Radio components, `setClientProperty()` would store it, but we
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed */
-  let ensureFuture = function ( evnt, inputProps ) {
-    var obj = { ...inputProps, route: inputProps.name, value: inputProps.value, checked: null };
+  let ensureRouteAndValue = function ( evnt, inputProps ) {
+    var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
     setClientProperty( evnt, obj );
   };
 
   let sharedProps = {
     current: current, type: type, time: time,
-    setClientProperty: ensureFuture
+    setClientProperty: ensureRouteAndValue
   };
 
   return (
@@ -206,19 +206,19 @@ const Housing = function ({ current, type, time, setClientProperty }) {
           currentValue={current.shelter}
           label={'Homeless'}
           time={time}
-          setClientProperty={ensureFuture}
+          setClientProperty={ensureRouteAndValue}
         />
         <ShelterRadio
           currentValue={current.shelter}
           label={'Renter'}
           time={time}
-          setClientProperty={ensureFuture}
+          setClientProperty={ensureRouteAndValue}
         />
         <ShelterRadio
           currentValue={current.shelter}
           label={'Homeowner'}
           time={time}
-          setClientProperty={ensureFuture}
+          setClientProperty={ensureRouteAndValue}
         />
 
       </wrapper>}
@@ -245,7 +245,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 const ExpensesFormContent = function ({ client, current, time, setClientProperty }) {
 
   let type        = 'expense',
-      sharedProps = { current: current, type: type, time: time, setClientProperty: setClientProperty },
+      sharedProps = { timeState: current, type: type, time: time, setClientProperty: setClientProperty },
       household   = client[ time + 'Household' ];
 
   var isOver12 = function ( member ) { return member.age > 12; };
@@ -275,11 +275,11 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
           <FormHeading subheading = {'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Reasonable Unreimbursed Non-Medical Child(ren) Care</FormHeading>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic={'ChildDirectCareCosts'}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'ChildBeforeAndAfterSchoolCareCosts'}> Before- and after-school care </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'ChildTransportationCosts'}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'ChildOtherCareCosts'}> Other care </CashFlowRow>
-          <CashFlowRow {...sharedProps} type={'income'} generic={'EarnedIncomeBecauseOfChildCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childDirectCareCosts'}> Direct care costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childBeforeAndAfterSchoolCareCosts'}> Before- and after-school care </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childTransportationCosts'}> Transportation costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childOtherCareCosts'}> Other care </CashFlowRow>
+          <CashFlowRow {...sharedProps} type={'income'} generic={'earnedBecauseOfChildCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
         </wrapper>
         : null
       }
@@ -289,7 +289,7 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
       <wrapper>
         <FormHeading>Child Support</FormHeading>
         <IntervalColumnHeadings type={type}/>
-        <CashFlowRow {...sharedProps} generic={'ChildSupportPaidOut'}> <strong>Legally obligated</strong> child support </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'childSupportPaidOut'}> <strong>Legally obligated</strong> child support </CashFlowRow>
       </wrapper>
 
       {/* Head or spouse can't be a dependent, so they don't count */}
@@ -301,9 +301,9 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
           <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Dependent Care of Persons Over 12 Years of Age</FormHeading>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic={'AdultDirectCareCosts'}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'AdultTransportationCosts'}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'AdultOtherCareCosts'}> Other care </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'adultDirectCareCosts'}> Direct care costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'adultTransportationCosts'}> Transportation costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'adultOtherCareCosts'}> Other care </CashFlowRow>
         </wrapper>
         : null
       }
@@ -318,8 +318,8 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
             <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic={'DisabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'EarnedIncomeBecauseOfAdultCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'disabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'earnedBecauseOfAdultCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses </CashFlowRow>
         </wrapper>
         : null
       }
@@ -344,8 +344,8 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic='DisabledOrElderlyMedicalCosts'> Disabled/Elderly medical expenses </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic='MembersMedicalCosts'> Medical expenses of other members </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='disabledOrElderlyMedicalCosts'> Disabled/Elderly medical expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='membersMedicalCosts'> Medical expenses of other members </CashFlowRow>
         </wrapper>
         : null
       }
@@ -353,7 +353,7 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
       <Housing current={current} time={time} type={type} setClientProperty={setClientProperty} />
 
       <FormHeading>Other</FormHeading>
-      <CashFlowRow {...sharedProps} generic={'OtherExpenses'}> Other Expenses </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic={'otherExpenses'}> Other Expenses </CashFlowRow>
 
     </wrapper>
   );
@@ -392,7 +392,7 @@ const CurrentExpensesStep = function ( props ) {
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}
       >
-        <ExpensesFormContent {...props} client={props.client} current={props.client.current} time={'current'} />
+        <ExpensesFormContent setClientProperty={setTimeProp} client={props.client} current={props.client.current} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

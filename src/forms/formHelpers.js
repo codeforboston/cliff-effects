@@ -367,7 +367,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 
     var name    = generic,
         monthly = toMonthlyAmount[ interval ]( evnt, evnt.target.value ),
-        obj     = { route: name , value: monthly };
+        obj     = { name: name , value: monthly };
 
     store( evnt, obj );
 

@@ -61,10 +61,10 @@ const valueFixers = {
   mortgage: returnSame,  // to money
   housingInsurance: returnSame,  // to money
   propertyTax: returnSame,  // to money
-  climateControl: returnSame,
+  hasClimateControl: returnSame,
   nonHeatElectricity: returnSame,
   phone: returnSame,
-  fuelAssistance: returnSame,  // to bool
+  hasFuelAssistance: returnSame,  // to bool
   otherExpenses: returnSame,  // money
 
 };  // end valueFixers
