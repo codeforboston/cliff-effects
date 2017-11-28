@@ -46,13 +46,13 @@ const valueFixers = {
   childOtherCare: returnSame,  // to money
   incomeEarnedBecauseOfChildCare: returnSame,  // to money
   childSupportPaidOut: returnSame,  // to money
-  adultDirectCareCosts: returnSame,  // to money
-  adultTransportationCosts: returnSame,  // to money
-  adultOtherCareCosts: returnSame,  // to money
+  adultDirectCare: returnSame,  // to money
+  adultTransportation: returnSame,  // to money
+  adultOtherCare: returnSame,  // to money
   disabledAssistance: returnSame,  // to money
-  earnedIncomeBecauseOfAdultCare: returnSame,  // to money
-  disabledMedicalCosts: returnSame,  // to money
-  otherMedicalCosts: returnSame,  // to money
+  earnedBecauseOfAdultCare: returnSame,  // to money
+  disabledMedical: returnSame,  // to money
+  otherMedical: returnSame,  // to money
   /** @todo When client has section 8, switch this to 'housingVoucher' */
   shelter: returnSame,
   contractRent: returnSame,  // money

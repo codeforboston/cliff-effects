@@ -275,10 +275,10 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
           <FormHeading subheading = {'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Reasonable Unreimbursed Non-Medical Child(ren) Care</FormHeading>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic={'childDirectCareCosts'}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'childBeforeAndAfterSchoolCareCosts'}> Before- and after-school care </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'childTransportationCosts'}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'childOtherCareCosts'}> Other care </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childDirectCare'}> Direct care costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childBeforeAndAfterSchoolCare'}> Before- and after-school care </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childTransportation'}> Transportation costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'childOtherCare'}> Other care </CashFlowRow>
           <CashFlowRow {...sharedProps} type={'income'} generic={'earnedBecauseOfChildCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
         </wrapper>
         : null
@@ -301,9 +301,9 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
           <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Dependent Care of Persons Over 12 Years of Age</FormHeading>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic={'adultDirectCareCosts'}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'adultTransportationCosts'}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'adultOtherCareCosts'}> Other care </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'adultDirectCare'}> Direct care costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'adultTransportation'}> Transportation costs </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic={'adultOtherCare'}> Other care </CashFlowRow>
         </wrapper>
         : null
       }
@@ -344,8 +344,8 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic='disabledOrElderlyMedicalCosts'> Disabled/Elderly medical expenses </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic='membersMedicalCosts'> Medical expenses of other members </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='disabledOrElderlyMedical'> Disabled/Elderly medical expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='membersMedical'> Medical expenses of other members </CashFlowRow>
         </wrapper>
         : null
       }
