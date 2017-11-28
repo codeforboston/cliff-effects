@@ -243,9 +243,13 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
 
   let type        = 'expense',
       sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty },
-      household   = client[ time + 'Household' ];
+      household   = client[ time ].household;
 
-  var isOver12 = function ( member ) { return member.age > 12; };
+  /* @todo Make an age-checking function to
+   *     keep household data structure under 
+   *     control in one place.
+   */
+  var isOver12 = function ( member ) { return member.m_age > 12; };
 
   // Won't include head or spouse
   var allDependents = getDependentMembers( household ),
@@ -255,7 +259,7 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
 
   // 'Elderly' here is using the lowest common denominator - SNAP standards
   var isElderlyOrDisabled = function ( member ) {
-    return isDisabled( member ) || member.age >= 60;
+    return isDisabled( member ) || member.m_age >= 60;
   };
   var elderlyOrDisabled = getEveryMember( household, isElderlyOrDisabled ),
       elderlyOrDisabledHeadAndSpouse = getEveryMember( elderlyOrDisabled, isHeadOrSpouse );
