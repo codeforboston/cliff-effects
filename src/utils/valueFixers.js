@@ -27,7 +27,7 @@ const valueFixers = {
   // MONEY AMOUNTS
   // Income
   /** @todo All incomes need transformation */
-  earnedIncome: returnSame,  // to money
+  earned: returnSame,  // to money
   TAFDC: returnSame,  // to money
   SSI: returnSame,  // to money
   SSDI: returnSame,  // to money

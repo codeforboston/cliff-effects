@@ -365,9 +365,9 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 
   var handleChange = function ( evnt, inputProps ) {
 
-    var name    = time + generic + 'Monthly',
+    var name    = generic,
         monthly = toMonthlyAmount[ interval ]( evnt, evnt.target.value ),
-        obj     = { name: name , value: monthly };
+        obj     = { route: name , value: monthly };
 
     store( evnt, obj );
 
@@ -397,7 +397,7 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 *
 * @returns Component
 */
-const CashFlowRow = function ({ generic, client, setClientProperty, children, labelInfo, type, time }) {
+const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
 
   var lefter  = { width: '7em', marginRight: '.2em' },
       righter = { width: '7em', marginRight: '.9em' };
@@ -413,10 +413,7 @@ const CashFlowRow = function ({ generic, client, setClientProperty, children, la
   * value. What if some of the row's values are the same and some are
   * different?
   */
-  var intervalID  = generic + 'Monthly',
-      baseVal     = client[ time + intervalID ];
-
-  if ( !baseVal ) { baseVal = client[ 'current' + intervalID ] || ''; }
+  var baseVal = timeState[ generic ];
 
   // Could use `_.capitalize()` in CashFlowInput to use `type`
   // to get id, but doesn't seem worth it at the moment.
@@ -430,7 +427,7 @@ const CashFlowRow = function ({ generic, client, setClientProperty, children, la
         value    = { roundMoney( baseVal / 4.33 ) || '' }
         store    = { setClientProperty }
         generic  = { generic }
-        name     = { time + generic + 'Weekly' }
+        name     = { generic + 'Weekly' }
         style    = { lefter }
       />
       <CashFlowInput
@@ -440,7 +437,7 @@ const CashFlowRow = function ({ generic, client, setClientProperty, children, la
         value    = { roundMoney( baseVal ) || '' }
         store    = { setClientProperty }
         generic  = { generic }
-        name     = { time + generic + 'Monthly' }
+        name     = { generic }
         style    = { lefter }
       />
       <CashFlowInput
@@ -450,7 +447,7 @@ const CashFlowRow = function ({ generic, client, setClientProperty, children, la
         value    = { roundMoney( baseVal * 12 ) || '' }
         store    = { setClientProperty }
         generic  = { generic }
-        name     = { time + generic + 'Yearly' }
+        name     = { generic + 'Yearly' }
         style    = { righter }
       />
       <wrapper>

@@ -5,6 +5,9 @@ import { Form } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter';
+
 
 // ========================================
 // COMPONENTS
@@ -18,9 +21,9 @@ import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formH
 * 
 * @returns Component
 */
-const IncomeForm = function ({ client, time, setClientProperty }) {
+const IncomeForm = function ({ future, time, setClientProperty }) {
 
-  var type        = 'income';
+  var type = 'income';
 
   /** 
   * As per Project Hope input, for the first prototype we're only
@@ -30,11 +33,12 @@ const IncomeForm = function ({ client, time, setClientProperty }) {
     <wrapper className='field-aligner two-column'>
 
       <IntervalColumnHeadings type={type}/>
-      <CashFlowRow client={client}
+      <CashFlowRow
+          timeState={future}
 				  type={type} 
 				  time={time}
 				  setClientProperty={setClientProperty}
-				  generic='EarnedIncome' 
+				  generic='earned' 
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
       </CashFlowRow>
@@ -56,6 +60,8 @@ const IncomeForm = function ({ client, time, setClientProperty }) {
 // `props` is a cloned version of the original props. References broken.
 const FutureIncomeStep = function ( props ) {
 
+  const setTimeProp = getTimeSetter( 'future', props.changeClient );
+
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form'>
@@ -64,7 +70,7 @@ const FutureIncomeStep = function ( props ) {
         clarifier = 'How much money would your household make in the future?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm setClientProperty={props.setClientProperty} client={props.client} time={'future'} />
+          <IncomeForm setClientProperty={setTimeProp} future={props.client.future} time={'future'} />
       </FormPartsContainer>
     </Form>
   );

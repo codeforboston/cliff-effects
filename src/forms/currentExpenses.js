@@ -16,6 +16,9 @@ import {
   CashFlowRow
 } from './formHelpers';
 
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter';
+
 // LOGIC
 import {
   getEveryMember,
@@ -30,22 +33,22 @@ import {
 // COMPONENTS
 // ========================================
 
-const Utilities = function ({ client, type, time, setClientProperty }) {
+const Utilities = function ({ current, type, time, setClientProperty }) {
 
-  let climate     = client[ time + 'HasClimateControl' ],
-      electricity = client[ time + 'NonHeatElectricity' ],
-      phone       = client[ time + 'Phone' ],
-      fuelAssist  = client[ time + 'HasFuelAssistance' ];
+  let climate     = current.hasClimateControl,
+      electricity = current.nonHeatElectricity,
+      phone       = current.phone,
+      fuelAssist  = current.hasFuelAssistance;
 
 
   let setChecked = function ( evnt, inputProps ) {
-    var obj = { ...inputProps, value: inputProps.checked };
+    var obj = { ...inputProps, route: inputProps.name, value: inputProps.checked };
     setClientProperty( evnt, obj );
   };  // End setChecked()
 
   let toBool = function ( evnt, inputProps ) {
     var val = inputProps.value === 'Yes',
-        obj = { ...inputProps, value: val };
+        obj = { ...inputProps, route: inputProps.name, value: val };
     setClientProperty( evnt, obj );
   };  // End toBool()
 
@@ -54,21 +57,21 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
       <Header as='h4'>Which of these utilities do you pay for?</Header>
 
       <Checkbox
-        name={time + 'HasClimateControl'}
+        name={'hasClimateControl'}
         label={'Heating or cooling (e.g. A/C during summer)'}
         checked={climate}
         onChange={setChecked}
       />
       <br/>
       <Checkbox
-        name={time + 'NonHeatElectricity'}
+        name={'nonHeatElectricity'}
         label={'Electricity for non-heating purposes'}
         checked={electricity}
         onChange={setChecked}
       />
       <br/>
       <Checkbox
-        name={time + 'Phone'}
+        name={'phone'}
         label={'Telephone service'}
         checked={phone}
         onChange={setChecked}
@@ -77,7 +80,7 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
       <Header as='h4'>Do you get Fuel Assistance?</Header>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
         <Radio
-          name={time + 'HasFuelAssistance'}
+          name={'hasFuelAssistance'}
           label={'Yes'} value={'Yes'}
           checked={fuelAssist}
           onChange={toBool}
@@ -85,7 +88,7 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
       </Form.Field>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
         <Radio
-          name={time + 'HasFuelAssistance'}
+          name={'hasFuelAssistance'}
           label={'No'} value={'No'}
           checked={!fuelAssist}
           onChange={toBool}
@@ -97,21 +100,21 @@ const Utilities = function ({ client, type, time, setClientProperty }) {
 };  // End Utilities(<>)
 
 
-const ShelterDetails = function ({ client, type, time, setClientProperty }) {
+const ShelterDetails = function ({ current, type, time, setClientProperty }) {
 
-  let shelter = client[ time + 'Shelter' ],
+  let shelter = current.shelter,
       sharedProps = {
-        client: client, type: type, time: time,
+        current: current, type: type, time: time,
         setClientProperty: setClientProperty
       };
 
-  if ( client.current.hasHousing ) {
+  if ( current.hasHousing ) {
     return (
       <wrapper>
         <IntervalColumnHeadings type={ type }/>
-        <CashFlowRow {...sharedProps} generic={'RentShare'}> Rent Share </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'rentShare'}> Rent Share </CashFlowRow>
         <CashFlowRow {...sharedProps}
-          generic={'ContractRent'}
+          generic={'contractRent'}
           labeInfo={'The full amount the landlord would charge without a Section 8 voucher'}>
             Contract Rent
         </CashFlowRow>
@@ -126,7 +129,7 @@ const ShelterDetails = function ({ client, type, time, setClientProperty }) {
     return (
       <wrapper>
         <IntervalColumnHeadings type={ type }/>
-        <CashFlowRow {...sharedProps} generic={'Rent'}> Rent </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'rent'}> Rent </CashFlowRow>
         <Utilities {...sharedProps}/>
       </wrapper>
     );
@@ -135,9 +138,9 @@ const ShelterDetails = function ({ client, type, time, setClientProperty }) {
     return (
       <wrapper>
         <IntervalColumnHeadings type={ type }/>
-        <CashFlowRow {...sharedProps} generic={'Mortgage'}> Mortgage </CashFlowRow>
-        <CashFlowRow {...sharedProps} generic={'HousingInsurance'}> Insurance Costs </CashFlowRow>
-        <CashFlowRow {...sharedProps} generic={'PropertyTax'}> Property Tax </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'mortgage'}> Mortgage </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'housingInsurance'}> Insurance Costs </CashFlowRow>
+        <CashFlowRow {...sharedProps} generic={'propertyTax'}> Property Tax </CashFlowRow>
         <Utilities {...sharedProps}/>
       </wrapper>
     );
@@ -153,7 +156,7 @@ const ShelterRadio = function ({ currentValue, label, time, setClientProperty })
   return (
     <Form.Field>
       <Radio
-        name={time + 'Shelter'}
+        name={'shelter'}
         label={label}
         value={value}
         checked={currentValue === value}
@@ -173,19 +176,19 @@ const ShelterRadio = function ({ currentValue, label, time, setClientProperty })
 * 
 * @returns Component
 */
-const Housing = function ({ client, type, time, setClientProperty }) {
+const Housing = function ({ current, type, time, setClientProperty }) {
 
   // We're using a bunch of radio buttons. Since `checked` is defined
   // in Radio components, `setClientProperty()` would store it, but we
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed */
   let ensureFuture = function ( evnt, inputProps ) {
-    var obj = { ...inputProps, checked: null, value: inputProps.value, fillFuture: true };
+    var obj = { ...inputProps, route: inputProps.name, value: inputProps.value, checked: null };
     setClientProperty( evnt, obj );
   };
 
   let sharedProps = {
-    client: client, type: type, time: time,
+    current: current, type: type, time: time,
     setClientProperty: ensureFuture
   };
 
@@ -194,25 +197,25 @@ const Housing = function ({ client, type, time, setClientProperty }) {
 
       <FormHeading>Shelter</FormHeading>
 
-      { client.current.hasHousing
+      { current.hasHousing
       ? null
       : <wrapper>
 
         <Header as='h4'>What is your housing situation?</Header>
         <ShelterRadio
-          currentValue={client[ time + 'Shelter' ]}
+          currentValue={current.shelter}
           label={'Homeless'}
           time={time}
           setClientProperty={ensureFuture}
         />
         <ShelterRadio
-          currentValue={client[ time + 'Shelter' ]}
+          currentValue={current.shelter}
           label={'Renter'}
           time={time}
           setClientProperty={ensureFuture}
         />
         <ShelterRadio
-          currentValue={client[ time + 'Shelter' ]}
+          currentValue={current.shelter}
           label={'Homeowner'}
           time={time}
           setClientProperty={ensureFuture}
@@ -239,10 +242,10 @@ const Housing = function ({ client, type, time, setClientProperty }) {
 * 
 * @returns Component
 */
-const ExpensesFormContent = function ({ client, time, setClientProperty }) {
+const ExpensesFormContent = function ({ client, current, time, setClientProperty }) {
 
   let type        = 'expense',
-      sharedProps = { client: client, type: type, time: time, setClientProperty: setClientProperty },
+      sharedProps = { current: current, type: type, time: time, setClientProperty: setClientProperty },
       household   = client[ time + 'Household' ];
 
   var isOver12 = function ( member ) { return member.age > 12; };
@@ -325,7 +328,7 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
           the disabled person is the head or spouse. From 
           http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf 
           Appendix B, item (D) */}
-        { elderlyOrDisabledHeadAndSpouse.length > 0 || (client.current.hasSnap && elderlyOrDisabled.length > 0)
+        { elderlyOrDisabledHeadAndSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
           ? <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
           <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
@@ -347,7 +350,7 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
         : null
       }
 
-      <Housing client={client} time={time} type={type} setClientProperty={setClientProperty} />
+      <Housing current={current} time={time} type={type} setClientProperty={setClientProperty} />
 
       <FormHeading>Other</FormHeading>
       <CashFlowRow {...sharedProps} generic={'OtherExpenses'}> Other Expenses </CashFlowRow>
@@ -378,6 +381,9 @@ const ExpensesFormContent = function ({ client, time, setClientProperty }) {
 // `props` is a cloned version of the original props. References broken.
 const CurrentExpensesStep = function ( props ) {
 
+  /** @todo Maybe getTimeSetter can actually convert to 'route' too? */
+  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+
   return (
     <Form className = 'expense-form'>
       <FormPartsContainer
@@ -386,7 +392,7 @@ const CurrentExpensesStep = function ( props ) {
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}
       >
-        <ExpensesFormContent {...props} client={props.client} time={'current'} />
+        <ExpensesFormContent {...props} client={props.client} current={props.client.current} time={'current'} />
       </FormPartsContainer>
     </Form>
   );
