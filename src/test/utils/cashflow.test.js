@@ -55,12 +55,6 @@ test('Current SSDI cashflow 2', () => {
 // Use toCashFlow to fetch each current property on the test client, confirming that 
 // it's the value we expect. 
 
-// Use toCashFlow to fetch an invalid current property on the test client, confirming that 
-// it's invalid. 
-
 // Use toCashFlow to fetch each future property on the test client, confirming that 
 // it's the value we expect. 
-
-// Use toCashFlow to fetch an invalid future property on the test client, confirming that 
-// it's invalid. 
 
