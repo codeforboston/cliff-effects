@@ -48,4 +48,17 @@ test('Current SSDI cashflow 2', () => {
 	expect(cashflow.toCashflow(testClientList[0], 'current', 'SSDI')).toBe(99);
 });
 
+/** 
+* Test toCashFlow method.
+* For now, there are just test descriptions. 
+* These cannot be implemented until the client object is ready. 
+*/
+
+// Create a test client, setting new values for every prop for current values. 
+
+// Use toCashFlow to fetch each current property on the test client, confirming that 
+// it's the value we expect. 
+
+// Use toCashFlow to fetch each future property on the test client, confirming that 
+// it's the value we expect. 
 
