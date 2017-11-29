@@ -5,18 +5,18 @@
 */
 
 const UNEARNED_INCOME_SOURCES = [
-  'TAFDC', 'SSI', 'SSDI', 'ChildSupportIn', 'Unemployment',
-  'WorkersComp', 'Pension', 'SocialSecurity', 'Alimony', 'OtherIncome'
+  'TAFDC', 'SSI', 'SSDI', 'childSupportIn', 'unemployment',
+  'workersComp', 'pension', 'socialSecurity', 'alimony', 'otherIncome'
 ];
 
 const CHILD_CARE_EXPENSES = [
-	'ChildDirectCareCosts', 'ChildBeforeAndAfterSchoolCareCosts',
-	'ChildTransportationCosts', 'ChildOtherCareCosts'
+	'childDirectCare', 'childBeforeAndAfterSchoolCare',
+	'childTransportation', 'childOtherCare'
 ];
 
 const ADULT_CARE_EXPENSES = [
-	'AdultDirectCareCosts', 'AdultTransportationCosts',
-	'AdultOtherCareCosts'
+	'adultDirectCare', 'adultTransportation',
+	'adultOtherCare'
 ];
 
 export {

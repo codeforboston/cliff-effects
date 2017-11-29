@@ -20,7 +20,7 @@ const CLIENT_DEFAULTS = {
     ],
     // MONEY AMOUNTS
     // Income
-    earnedIncome:     0,
+    earned:           0,
     TAFDC:            0,
     SSI:              0,
     SSDI:             0,
@@ -37,15 +37,15 @@ const CLIENT_DEFAULTS = {
     childBeforeAndAfterSchoolCare:  0,
     childTransportation:            0,
     childOtherCare:                 0,
-    earnedBecauseOfChildCare: 0,  // Negative?
-    childSupportPaidOut:            0,
-    adultDirectCare:           0,
-    adultTransportation:       0,
-    adultOtherCare:            0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare: 0,
-    disabledMedical:           0,
-    otherMedical:              0,
+    earnedBecauseOfChildCare:   0,  // Negative?
+    childSupportPaidOut:        0,
+    adultDirectCare:            0,
+    adultTransportation:        0,
+    adultOtherCare:             0,
+    disabledAssistance:         0,
+    earnedBecauseOfAdultCare:   0,
+    disabledMedical:            0,
+    otherMedical:               0,
     /** @todo When client has section 8, switch this to 'housingVoucher' */
     shelter:            'homeless',  // 'homeless', 'homeowner', 'renter', 'housingVoucher'
     contractRent:       0,

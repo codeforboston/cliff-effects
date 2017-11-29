@@ -43,6 +43,8 @@ import {
 * order for the client to be warned.
 */
 const getHousingBenefit = function ( client ) {
+  /** @todo if time 'current', return contractRent - rentShare */
+
   /*
   * var diff = new min ttp - old min ttp;
   * var new rent share = old rent share + diff;
@@ -52,8 +54,8 @@ const getHousingBenefit = function ( client ) {
 
   var ttps        = getTTPs( client ),
       diff        = ttps.newTTP - ttps.oldTTP,
-      newShare    = diff + toCashflow( client, curr, 'RentShare' ),
-      contrRent   = toCashflow( client, curr, 'ContractRent' );
+      newShare    = diff + toCashflow( client, curr, 'rentShare' ),
+      contrRent   = toCashflow( client, curr, 'contractRent' );
 
   // Don't pay more rent than the landlord is asking for
   var maxShare    = Math.min( contrRent, newShare ),
@@ -129,8 +131,8 @@ const getTTPs = function ( client ) {
 */
 const getNetIncome = function ( client, timeframe ) {
   var unearned = getGrossUnearnedIncomeMonthly( client, timeframe ),
-      gross    = unearned + toCashflow( client, timeframe, 'EarnedIncome' ),
-      net      = gross - toCashflow( client, timeframe, 'IncomeExclusions' );
+      gross    = unearned + toCashflow( client, timeframe, 'earned' ),
+      net      = gross - toCashflow( client, timeframe, 'incomeExclusions' );
   return net;
 };  // End getNetIncome()
 
@@ -157,7 +159,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
   allowances.push( depAllowanceAnnual/12 );
   // #6
   var childcare   = sumCashflow( client, time, CHILD_CARE_EXPENSES ),
-      ccIncome    = toCashflow( client, time, 'EarnedIncomeBecauseOfChildCare' ),
+      ccIncome    = toCashflow( client, time, 'earnedBecauseOfChildCare' ),
       /** @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
       ccMin       = Math.min( childcare, ccIncome );
   allowances.push( ccMin );
@@ -189,9 +191,9 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
   if ( !hasAnyDsbOrElderly( client, timeframe ) ) { return 0; }
 
   // pg 5-30 to 5-31
-  var handcpExpense  = toCashflow( client, time, 'DisabledAssistance' ),  // #7
+  var handcpExpense  = toCashflow( client, time, 'disabledAssistance' ),  // #7
       asstSubtracted = handcpExpense - netSubtractor,  // #9
-      asstIncome     = toCashflow( client, time, 'EarnedIncomeBecauseOfAdultCare' ), // #10
+      asstIncome     = toCashflow( client, time, 'earnedBecauseOfAdultCare' ), // #10
       hcapAllowance  = Math.min( asstSubtracted, asstIncome ),  // #11
       hcapMin        = Math.max( 0, hcapAllowance );  // Don't get negative
 
@@ -202,9 +204,9 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
   // ----- Medical Allowance #12 - 13 ----- \\
   // #12, pg 5-31 to 5-32
-  var disOrElderlyMedical = toCashflow( client, time, 'DisabledOrElderlyMedical' ),
+  var disOrElderlyMedical = toCashflow( client, time, 'disabledMedical' ),
       // pg 5-31 says all medical expenses count for this household
-      otherMedical        = toCashflow( client, time, 'RegularMedical' ),
+      otherMedical        = toCashflow( client, time, 'otherMedical' ),
       medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
 
   // Read all of pg 5-32 and 5-34 for the following conditional.

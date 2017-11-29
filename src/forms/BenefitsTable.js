@@ -12,6 +12,9 @@ import {
 import { getSNAPBenefits } from '../programs/federal/snap';
 import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
+// OBJECT MANIPULATION
+import { cloneDeep } from 'lodash';
+
 
 const getSignSymbol = function ( num ) {
   if ( num > 0 ) { return '+'; }
@@ -22,28 +25,27 @@ const getSignSymbol = function ( num ) {
 
 const BenefitsTable = function ( props ) {
 
-  var client        = props.client,
-      currentClient = { ...client };
-  currentClient.futureEarnedIncomeMonthly = currentClient.currentEarnedIncomeMonthly;
+  var currentClient = cloneDeep( props.client ),
+      futureClient  = cloneDeep( currentClient );
+  // Hack because everything's using future value instead
+  // of just using current value.
+  currentClient.future.earned = currentClient.current.earned;
 
   var SNAPBenefitCurrent  = Math.round( getSNAPBenefits( currentClient ).benefitValue * 12 ),
-      SNAPBenefitFuture   = Math.round( getSNAPBenefits( client ).benefitValue * 12 ),
+      SNAPBenefitFuture   = Math.round( getSNAPBenefits( futureClient ).benefitValue * 12 ),
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
       sec8BenefitCurrent  = Math.round( getHousingBenefit( currentClient ).benefitValue * 12 ),
-      sec8BenefitFuture   = Math.round( getHousingBenefit( client ).benefitValue * 12 ),
+      sec8BenefitFuture   = Math.round( getHousingBenefit( futureClient ).benefitValue * 12 ),
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
       totalDiff           = SNAPDiff + sec8Diff,
-      incomeCurrent       = Math.round( client.currentEarnedIncomeMonthly * 12 ),
-      incomeFuture        = Math.round( client.futureEarnedIncomeMonthly * 12 ),
+      incomeCurrent       = Math.round( currentClient.current.earned * 12 ),
+      incomeFuture        = Math.round( futureClient.future.earned * 12 ),
       incomeDiff          = incomeFuture - incomeCurrent,
       netCurrent          = totalBenefitCurrent + incomeCurrent,
       netFuture           = totalBenefitFuture + incomeFuture,
       netDiff             = totalDiff + incomeDiff;
-
-console.log(SNAPDiff);
-
 
 
 const   columnHeaderStyle = {
