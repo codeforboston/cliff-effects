@@ -10,7 +10,7 @@
 
 const isPositiveDecimal = function ( str ) {
 
-	return !/[^0-9.]*|\..*\./.test(str);
+	return !/[^0-9.]|\..*\./.test(str);
 
 };
 
