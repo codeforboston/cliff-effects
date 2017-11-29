@@ -12,27 +12,27 @@ import { FormPartsContainer } from './forms/formHelpers';
 const ResultsGraph = (props) => {
   var xRange = _.range(0, 100000, 1000);
   /** Need a new object so client's data doesn't get changed. */
-  var fakeClient = { ...props.client };
+  var fakeClient = _.cloneDeep( props.client );
 
   var snapData = xRange.map(annualIncome => {
-      fakeClient.futureEarnedIncomeMonthly = annualIncome/12;
+      fakeClient.future.earned = annualIncome/12;
       return getSNAPBenefits(fakeClient).benefitValue * 12});
 
   /** Section-8 Housing Choice Voucher */
   /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
-  fakeClient.currentContractRentMonthly = 700;
-  fakeClient.currentEarnedIncomeMonthly = 0;
+  fakeClient.current.contractRent = 700;
+  fakeClient.current.earned = 0;
   var housingData = xRange.map(function ( annualIncome ) {
     // New renting data
-    fakeClient.futureEarnedIncomeMonthly = annualIncome/12;
+    fakeClient.future.earned = annualIncome/12;
 
     var result  = getHousingBenefit( fakeClient ),
         subsidy = result.benefitValue * 12;
 
     // Prep for next loop
     var newShare = result.data.newRentShare
-    fakeClient[ 'currentRentShareMonthly' ] = newShare;
-    fakeClient.currentEarnedIncomeMonthly   = annualIncome/12;
+    fakeClient.current.rentShare  = newShare;
+    fakeClient.current.earned     = annualIncome/12;
 
     return subsidy;
   });

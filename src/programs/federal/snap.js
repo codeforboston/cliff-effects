@@ -67,7 +67,7 @@ const hasDisabledOrElderlyMember = function (client, timeframe) {
 };
 
 const getTotalMonthlyGross = function (client, timeframe) {
-  return toCashflow(client, 'future', 'EarnedIncome') + getGrossUnearnedIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'ChildSupportPaidOut');
+  return toCashflow(client, 'future', 'earned') + getGrossUnearnedIncomeMonthly(client, timeframe) - toCashflow(client, timeframe, 'childSupportPaidOut');
 };
 
 const getPovertyGrossIncomeLevel = function (client, timeframe ) {
@@ -117,7 +117,7 @@ const getStandardDeduction = function (client, timeframe) {
 };
 
 const getEarnedIncomeDeduction = function (client, timeframe) {
-  var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
+  var totalMonthlyEarnedGross = toCashflow(client, 'future', 'earned');
   return totalMonthlyEarnedGross * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
@@ -126,8 +126,9 @@ const getMedicalDeduction = function (client, timeframe) {
   if ( hasDisabledOrElderlyMember(client, timeframe) === false ) {
     return 0;
   } else {
-    // include currentDisabledMedicalCostsMonthly,  currentOtherMedicalCostsMonthly ??
-    var medicalExpenses = client[timeframe + 'DisabledMedicalCostsMonthly'];
+    // include disabledMedical, otherMedical, disabledAssistance ?? 
+    var medicalExpenses = client[ timeframe ].disabledMedical;
+    /** @todo: Add disabled assistance too */
     if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) && (medicalExpenses <= SNAPData.MAX_MEDICAL_EXPENSES)) {
       medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
       return medicalDeduce;
@@ -163,7 +164,7 @@ const getDependentCareDeduction = function (client, timeframe) {
 };
 
 const getChildPaymentDeduction = function (client, timeframe) {
-  return toCashflow(client, timeframe, 'ChildSupportPaidOut');
+  return toCashflow(client, timeframe, 'childSupportPaidOut');
 };
 
 const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
@@ -179,20 +180,21 @@ const getAdjustedIncomeAfterDeduction = function (client, timeframe) {
 
 // EXPENSE DEDUCTIONS
 const isHomeless = function(client, timeframe ) {
-  return client[timeframe + 'Shelter' === 'homeless'];
+  return client[ timeframe ].shelter === 'homeless';
 };
 
+/** @todo: What about housing voucer? */
 const getShelterDeduction = function(client, timeframe) {
   var shelterCost = null;
-  var isHomeowner = client[timeframe + 'Shelter'] === 'homeowner';
+  var isHomeowner = client[ timeframe ].shelter === 'homeowner';
 
   if ( isHomeless(client, timeframe) ) {
     shelterCost = 0;
   } else if(isHomeowner) {
-    shelterCost = toCashflow(client, timeframe, 'Mortgage') + toCashflow(client, timeframe, 'HousingInsurance') + toCashflow(client, timeframe, 'PropertyTax');
+    shelterCost = toCashflow(client, timeframe, 'mortgage') + toCashflow(client, timeframe, 'housingInsurance') + toCashflow(client, timeframe, 'propertyTax');
   }
   else {
-    shelterCost = toCashflow(client, timeframe, 'Rent');
+    shelterCost = toCashflow(client, timeframe, 'rent');
   }
 
   return shelterCost;
@@ -200,9 +202,9 @@ const getShelterDeduction = function(client, timeframe) {
 
 const utilityStatus = function(client, timeframe) {
   var paidUtilityCategory = null;
-  var isPayHeatingCooling = client[timeframe + 'ClimateControl'] || client[timeframe + 'HasFuelAssistance'];
-  var isPayElectricity = client[timeframe + 'NonHeatElectricity'];
-  var isPayTelephone = client[timeframe + 'Phone'];
+  var isPayHeatingCooling = client[ timeframe ].climateControl || client[ timeframe ].hasFuelAssistance;
+  var isPayElectricity = client[ timeframe ].nonHeatElectricity;
+  var isPayTelephone = client[ timeframe ].phone;
   if ( isPayHeatingCooling ) {
     paidUtilityCategory = "Heating";
   } else if (isPayElectricity) {
@@ -266,7 +268,7 @@ const getHomelessDeduction = function(client, timeframe ) {
 
 // NET INCOME CALCULATION
 const monthlyNetIncome = function(client, timeframe ) {
-    var totalMonthlyEarnedGross = toCashflow(client, 'future', 'EarnedIncome');
+    var totalMonthlyEarnedGross = toCashflow(client, 'future', 'earned');
     var earnedIncomeDeduction = getEarnedIncomeDeduction(client, timeframe);
     var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client, timeframe);
     var standardDeduction = getStandardDeduction(client, timeframe);

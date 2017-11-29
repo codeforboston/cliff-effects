@@ -59,22 +59,22 @@ class VisitPage extends Component {
           ],
           currentHomeless: false,
           currentHomeowner: false,
-          currentEarnedIncomeMonthly: 0,
-          currentTAFDCMonthly: 0,
-          currentSSIMonthly: 0,
-          currentSSDIMonthly: 0,
-          currentChildSupportInMonthly: 0,
-          currentUnemploymentMonthly: 0,
-          currentWorkersCompMonthly: 0,
-          currentPensionMonthly: 0,
-          currentSocialSecurityMonthly: 0,
-          currentAlimonyMonthly: 0,
-          currentOtherIncomeMonthly: 0,
-          currentUnearnedIncomeMonthly: 0,
-          futureEarnedIncomeMonthly: 0,
-          futureUnearnedIncomeMonthly: 0,
-          currentShelter: 'homeless',
-          currentHasFuelAssistance: false,
+          // currentEarnedIncomeMonthly: 0,
+          // currentTAFDCMonthly: 0,
+          // currentSSIMonthly: 0,
+          // currentSSDIMonthly: 0,
+          // currentChildSupportInMonthly: 0,
+          // currentUnemploymentMonthly: 0,
+          // currentWorkersCompMonthly: 0,
+          // currentPensionMonthly: 0,
+          // currentSocialSecurityMonthly: 0,
+          // currentAlimonyMonthly: 0,
+          // currentOtherIncomeMonthly: 0,
+          // currentUnearnedIncomeMonthly: 0,
+          // futureEarnedIncomeMonthly: 0,
+          // futureUnearnedIncomeMonthly: 0,
+          // currentShelter: 'homeless',
+          // currentHasFuelAssistance: false,
         },
         userChanged: {}
     };  // end this.state {}
@@ -95,7 +95,6 @@ class VisitPage extends Component {
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
-    console.log(route);
 
     var val = value;
     if ( typeof checked === 'boolean' ) { val = checked; }
@@ -114,7 +113,7 @@ class VisitPage extends Component {
     // Also, userChanged should be only one step deep
     if ( time === 'future' ) { userChanged[ id ] = true; }
 
-    console.log( userChanged, client !== this.state.client, client );
+    // console.log( userChanged, client !== this.state.client, client );
     this.setState( prevState => ({ client: client, userChanged: userChanged }) );
   }  // End onClientChange()
 
