@@ -8,7 +8,7 @@ import {
 } from './formHelpers';
 
 // COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter'
+import { getTimeSetter } from '../utils/getTimeSetter';
 
 
 /** @todo description

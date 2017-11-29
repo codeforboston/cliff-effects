@@ -51,12 +51,12 @@ class VisitPage extends Component {
           // hasHousing: false,
           snapAlert: 'good',
           housingAlert: 'good',
-          currentHousehold: [
-            { age: 30, role: 'head', disabled: false, required: true }
-          ],
-          futureHousehold: [
-            { age: 30, role: 'head', disabled: false, required: true }
-          ],
+          // currentHousehold: [
+          //   { age: 30, role: 'head', disabled: false, required: true }
+          // ],
+          // futureHousehold: [
+          //   { age: 30, role: 'head', disabled: false, required: true }
+          // ],
           currentHomeless: false,
           currentHomeowner: false,
           currentEarnedIncomeMonthly: 0,

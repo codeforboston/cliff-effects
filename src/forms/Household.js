@@ -16,6 +16,11 @@ import {
   ColumnHeading
 } from './formHelpers';
 
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter';
+
+// OBJECT MANIPULATION
+import { cloneDeep } from 'lodash';
 
 
 // ======================
@@ -124,7 +129,7 @@ const Role = function ({ member, setMember }) {
 
   var ThisRole  = null,
       margin   = '0';
-
+  console.log( 'member', member );
   if ( member.index === 0 ) {
 
     ThisRole  = <span>Head of Household</span>;
@@ -139,8 +144,8 @@ const Role = function ({ member, setMember }) {
     ];
 
     ThisRole = <Dropdown selection
-                  name={'role'}
-                  value={member.role}
+                  name={'m_role'}
+                  value={member.m_role}
                   options={options}
                   onChange={setMember}/>
 
@@ -168,21 +173,24 @@ const Role = function ({ member, setMember }) {
 * 
 * @returns Component
 */
-const MemberField = function ({ household, time, setHousehold }, indx ) {
+const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx ) {
 
-  var member    = household[ indx ];
-  member.index  = indx;
+  var member      = household[ indx ],
+      routeStart  = 'household/' + indx + '/';
+  member.index    = indx;  // Just needed as member prop in this file
 
 
   var onMemberChange = function ( evnt, inputProps ) {
-    member[ inputProps.name ] = inputProps.value;
-    setHousehold( evnt, household );
+    var route = routeStart + inputProps.name;
+    var data  = { route: route, value: inputProps.value };
+    setClientProperty( evnt, data );
   };
 
 
   var onMemberChecked = function ( evnt, inputProps ) {
-    member[ inputProps.name ] = inputProps.checked;
-    setHousehold( evnt, household );
+    var route = routeStart + inputProps.name;
+    var data  = { route: route, value: inputProps.checked };
+    setClientProperty( evnt, data );
   };
 
 
@@ -200,7 +208,7 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
         { indx > 0
           ? <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'} />
           : <span>{ household.length > 1
-            ? <Icon fitten name={'ban'} style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+            ? <Icon fitted name={'ban'} style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
             : null
           }</span>
         }
@@ -214,13 +222,13 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
         <Input
           className = {time + '-member-age ' + time}
           onChange  = {onMemberChange}
-          value     = {member.age}
-          name      = {'age'}
+          value     = {member.m_age}
+          name      = {'m_age'}
           type      = {'number'} step = {'1'} min = {'0'} />
       </Columns.Three>
 
       <Columns.Four>
-        <Checkbox name={'disabled'} checked={member.disabled} onChange={onMemberChecked} />
+        <Checkbox name={'m_disabled'} checked={member.m_disabled} onChange={onMemberChecked} />
       </Columns.Four>
 
     </Form.Field>
@@ -237,13 +245,14 @@ const MemberField = function ({ household, time, setHousehold }, indx ) {
 * 
 * @returns Component
 */
-const getMembers = function ( client, time, setHousehold ) {
+const getMembers = function ( current, time, setHousehold, setClientProperty ) {
 
-  var household = client[ time + 'Household' ],
+  var household = current.household,
       props     = {
-        household:              household,
-        time:                   time,
-        setHousehold:   setHousehold
+        household:          household,
+        time:               time,
+        setHousehold:       setHousehold,
+        setClientProperty:  setClientProperty
       }
 
   var mems = [];
@@ -266,17 +275,17 @@ const getMembers = function ( client, time, setHousehold ) {
 * 
 * @returns Component
 */
-const HouseholdContent = function ({ client, time, setClientProperty }) {
+const HouseholdContent = function ({ current, time, setClientProperty }) {
 
-  var household = client[ time + 'Household' ];
+  // Don't mutate state properties
+  var household = cloneDeep( current.household );
 
 
   var setHousehold = function ( evnt, newHousehold ) {
 
     var obj = {
-      name: time + 'Household',
-      value: newHousehold,
-      fillFuture: true
+      route: 'household',
+      value: newHousehold
     };
 
     setClientProperty( evnt, obj );
@@ -286,9 +295,10 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
 
   var addMember = function ( evnt, inputProps ) {
 
-    var member = { age: 30, role: 'member', isDisabled: false, required: false };
+    console.log( household.length, household );
+    var member = { m_age: 30, m_role: 'member', m_disabled: false };
     if ( household.length === 1 ) {
-      member.role = 'spouse';
+      member.m_role = 'spouse';
     }
 
     household.push( member );
@@ -306,7 +316,7 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
         <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
       </div>
 
-      { getMembers( client, time, setHousehold ) }
+      { getMembers( current, time, setHousehold, setClientProperty ) }
 
       <Button id={'addMember'} basic onClick={addMember}>
         <Columns.One noMargin={true}>
@@ -341,6 +351,8 @@ const HouseholdContent = function ({ client, time, setClientProperty }) {
 // `props` is a cloned version of the original props. References broken.
 const HouseholdStep = function ( props ) {
 
+  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+
   return (
     <Form className='current-household-size-form'>
       <FormPartsContainer
@@ -348,7 +360,7 @@ const HouseholdStep = function ( props ) {
         clarifier = {'Information about the members of your household.'}
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-			<HouseholdContent setClientProperty={props.setClientProperty} client={props.client} time={'current'} />
+			<HouseholdContent setClientProperty={setTimeProp} current={props.client.current} time={'current'} />
       </FormPartsContainer>
     </Form>
   );
