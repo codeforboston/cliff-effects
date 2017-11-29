@@ -4,6 +4,10 @@ import { Form, Divider, Header } from 'semantic-ui-react';
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 import { BenefitsTable } from './BenefitsTable';
 
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter';
+
+
 // ========================================
 // COMPONENTS
 // ========================================
@@ -15,21 +19,24 @@ import { BenefitsTable } from './BenefitsTable';
 *
 * @returns Component
 */
-const IncomeForm = function ({ client, time, setClientProperty }) {
-  var type        = 'income';
-  /**
+const IncomeForm = function ({ future, time, setClientProperty }) {
+
+  var type = 'income';
+
+  /** 
   * As per Project Hope input, for the first prototype we're only
   * including the ability to change earned income.
   */
   return (
     <wrapper className='field-aligner two-column'>
       <IntervalColumnHeadings type={type}/>
-      <CashFlowRow client={client}
-          type={type}
-          time={time}
-          setClientProperty={setClientProperty}
-          generic='EarnedIncome'
-          labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+      <CashFlowRow
+          timeState={future}
+				  type={type} 
+				  time={time}
+				  setClientProperty={setClientProperty}
+				  generic='earned' 
+				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
       </CashFlowRow>
     </wrapper>
@@ -55,6 +62,9 @@ const Table = function ({ client }) {
 */
 // `props` is a cloned version of the original props. References broken.
 const PredictionsStep = function ( props ) {
+
+  const setTimeProp = getTimeSetter( 'future', props.changeClient );
+
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form'>
@@ -63,7 +73,7 @@ const PredictionsStep = function ( props ) {
         clarifier = 'How much money would your household make in the future?'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm setClientProperty={props.setClientProperty} client={props.client} time={'future'} />
+          <IncomeForm setClientProperty={setTimeProp} future={props.client.future} time={'future'} />
           <Divider className='ui section divider hidden' />
           <Table client={props.client}/>
       </FormPartsContainer>

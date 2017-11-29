@@ -5,6 +5,9 @@ import { Form, Divider } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter';
+
 /**
 * @todo Figure out which programs need to know which types of incomes
 * and categorize/tag them accordingly.
@@ -41,7 +44,7 @@ import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formH
 * 
 * @returns Component
 */
-const IncomeForm = function ({ client, time, setClientProperty }) {
+const IncomeForm = function ({ current, time, setClientProperty }) {
 
   var type = 'income';
 
@@ -51,7 +54,7 @@ const IncomeForm = function ({ client, time, setClientProperty }) {
   };  // End ensureFuture()
 
   var sharedProps = {
-    client: client,
+    timeState: current,
     time: time,
     type: type,
     setClientProperty: ensureFuture
@@ -63,21 +66,22 @@ const IncomeForm = function ({ client, time, setClientProperty }) {
       <IntervalColumnHeadings type={type}/>
 
       {/* All kinds of things need to be explained. */}
-	  <CashFlowRow  {...sharedProps} generic='EarnedIncome' labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+      {/* @todo Change 'labelInfo' to visible blurb at top */}
+  	  <CashFlowRow  {...sharedProps} generic='earned' labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
 		  </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='TAFDC'> TAFDC </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='SSI'> SSI </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='SSDI'> SSDI </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='ChildSupportIn'> Child support received </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='Unemployment'> Unemployment </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='WorkersComp'> Worker’s comp </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='Pension'> Pension </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='SocialSecurity'> Social security </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='Alimony'> Alimony </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='OtherIncome'> Other income </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='childSupportIn'> Child support received </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='unemployment'> Unemployment </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='workersComp'> Worker’s comp </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='pension'> Pension </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='socialSecurity'> Social security </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='alimony'> Alimony </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='otherIncome'> Other income </CashFlowRow>
       <Divider/>
-      <CashFlowRow {...sharedProps} generic='IncomeExclusions'> Income exclusions </CashFlowRow>
+      <CashFlowRow {...sharedProps} generic='incomeExclusions'> Income exclusions </CashFlowRow>
 
     </div>
   );  // end return
@@ -96,6 +100,8 @@ const IncomeForm = function ({ client, time, setClientProperty }) {
 // `props` is a cloned version of the original props. References broken.
 const CurrentIncomeStep = function ( props ) {
 
+  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form'>
@@ -104,7 +110,7 @@ const CurrentIncomeStep = function ( props ) {
         clarifier = 'Income that you collected in the past 12 months.'
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm setClientProperty={props.setClientProperty} client={props.client} time={'current'} />
+          <IncomeForm setClientProperty={setTimeProp} current={props.client.current} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

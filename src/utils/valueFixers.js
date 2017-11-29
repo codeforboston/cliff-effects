@@ -27,7 +27,7 @@ const valueFixers = {
   // MONEY AMOUNTS
   // Income
   /** @todo All incomes need transformation */
-  earnedIncome: returnSame,  // to money
+  earned: returnSame,  // to money
   TAFDC: returnSame,  // to money
   SSI: returnSame,  // to money
   SSDI: returnSame,  // to money
@@ -46,13 +46,13 @@ const valueFixers = {
   childOtherCare: returnSame,  // to money
   incomeEarnedBecauseOfChildCare: returnSame,  // to money
   childSupportPaidOut: returnSame,  // to money
-  adultDirectCareCosts: returnSame,  // to money
-  adultTransportationCosts: returnSame,  // to money
-  adultOtherCareCosts: returnSame,  // to money
+  adultDirectCare: returnSame,  // to money
+  adultTransportation: returnSame,  // to money
+  adultOtherCare: returnSame,  // to money
   disabledAssistance: returnSame,  // to money
-  earnedIncomeBecauseOfAdultCare: returnSame,  // to money
-  disabledMedicalCosts: returnSame,  // to money
-  otherMedicalCosts: returnSame,  // to money
+  earnedBecauseOfAdultCare: returnSame,  // to money
+  disabledMedical: returnSame,  // to money
+  otherMedical: returnSame,  // to money
   /** @todo When client has section 8, switch this to 'housingVoucher' */
   shelter: returnSame,
   contractRent: returnSame,  // money
@@ -61,10 +61,10 @@ const valueFixers = {
   mortgage: returnSame,  // to money
   housingInsurance: returnSame,  // to money
   propertyTax: returnSame,  // to money
-  climateControl: returnSame,
+  hasClimateControl: returnSame,
   nonHeatElectricity: returnSame,
   phone: returnSame,
-  fuelAssistance: returnSame,  // to bool
+  hasFuelAssistance: returnSame,  // to bool
   otherExpenses: returnSame,  // money
 
 };  // end valueFixers
