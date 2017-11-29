@@ -323,7 +323,7 @@ const getMaxSnapAllotment = function (client, timeframe) {
 };
 
 const householdSize = function ( client, timeframe ) {
-  return client[ timeframe + 'Household' ].length;
+  return client[ timeframe ].household.length;
 };
 
 // Bay State CAP not included as this prototype only deals with

@@ -234,7 +234,7 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
 
 const isElderly = function ( member ) {
-  return member.age >= 62;
+  return member.m_age >= 62;
 };  // End isElderly()
 
 

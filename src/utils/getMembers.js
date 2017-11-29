@@ -31,7 +31,7 @@ const getEveryMember = function ( memberList, memberTest ) {
 *     'current' or 'future', that pass `memberTest()`
 */
 const getEveryMemberOfHousehold = function ( client, timeframe, memberTest ) {
-  var household = client[ timeframe + 'Household' ];
+  var household = client[ timeframe ].household;
   return getEveryMember( household, memberTest );
 };  // End getEveryMemberOfHousehold()
 
@@ -43,12 +43,12 @@ const getEveryMemberOfHousehold = function ( client, timeframe, memberTest ) {
 // --- HEAD OR SPOUSE --- \\
 
 const isHeadOrSpouse = function ( member ) {
-  return member.role === 'head' || member.role === 'spouse';
+  return member.m_role === 'head' || member.m_role === 'spouse';
 };  // End isHeadOrSpouse()
 
 
 const isNotHeadOrSpouse = function ( member ) {
-  return member.role !== 'head' && member.role !== 'spouse';
+  return member.m_role !== 'head' && member.m_role !== 'spouse';
 };  // End isNotHeadOrSpouse()
 
 
@@ -69,7 +69,7 @@ const getHeadOrSpouseOfHousehold = function ( client, timeframe ) {
  *     dependents until age 26. */
 
 const isDependent = function ( member ) {
-  return (member.age <= 18 || member.disabled) && isNotHeadOrSpouse( member );
+  return (member.m_age <= 18 || member.m_disabled) && isNotHeadOrSpouse( member );
 };  // End isDependent()
 
 
@@ -86,7 +86,7 @@ const getDependentsOfHousehold = function ( client, timeframe ) {
 // --- DISABLED --- \\
 
 const isDisabled = function ( member ) {
-  return member.disabled;
+  return member.m_disable;
 };  // End isDisabled()
 
 
@@ -104,7 +104,7 @@ const getDisabledOfHousehold = function ( client, timeframe ) {
 // Yes, this is a thing because we had to split stuff up
 // strangely to accommodate mutliple programs more easily
 const isUnder13 = function ( member ) {
-  return member.age <= 12;
+  return member.m_age <= 12;
 };  // End isUnder13()
 
 

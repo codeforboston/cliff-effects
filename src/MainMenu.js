@@ -19,7 +19,6 @@ const MainMenu = function ( props ) {
         </Menu.Item>
         <Menu.Item><Link to="/">Home</Link></Menu.Item>
         <Menu.Item><Link to="/about">About</Link></Menu.Item>
-        <Menu.Item active><Link to="/intake">New Client Intake</Link></Menu.Item>
         <Menu.Item position='right'>
           {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
           {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}

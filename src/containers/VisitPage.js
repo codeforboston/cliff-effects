@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import {
   Grid,
-  Header,
 } from 'semantic-ui-react';
 import {
   Redirect,
   Prompt,
-  Link
 } from 'react-router-dom';
 
 // Logic
@@ -23,13 +21,13 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 import AlertSidebar from '../AlertSidebar'
-import { BenefitsTable } from '../forms/BenefitsTable';
 import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';
-import { FutureIncomeStep } from '../forms/futureIncome';
+import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/current-benefits';
-import StepBar from '../components/StepBar'
+import StepBar from '../components/StepBar';
+import ResultsGraph from '../ResultsGraph';
 
 class VisitPage extends Component {
   constructor(props) {
@@ -51,12 +49,12 @@ class VisitPage extends Component {
           // hasHousing: false,
           snapAlert: 'good',
           housingAlert: 'good',
-          currentHousehold: [
-            { age: 30, role: 'head', disabled: false, required: true }
-          ],
-          futureHousehold: [
-            { age: 30, role: 'head', disabled: false, required: true }
-          ],
+          // currentHousehold: [
+          //   { age: 30, role: 'head', disabled: false, required: true }
+          // ],
+          // futureHousehold: [
+          //   { age: 30, role: 'head', disabled: false, required: true }
+          // ],
           currentHomeless: false,
           currentHomeowner: false,
           // currentEarnedIncomeMonthly: 0,
@@ -84,8 +82,8 @@ class VisitPage extends Component {
       { title: 'Household', form: HouseholdStep },
       { title: 'Current Income', form: CurrentIncomeStep },
       { title: 'Current Expenses', form: CurrentExpensesStep },
-      { title: 'Future Income', form: FutureIncomeStep },
-      { title: 'Results', form: BenefitsTable }
+      { title: 'Predictions', form: PredictionsStep },
+      { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
   };  // End constructor()
 
@@ -183,7 +181,6 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
-    const { clientInfo, visitId } = this.state
 
     return (
       <div className='forms-container'>
@@ -204,17 +201,6 @@ class VisitPage extends Component {
         >
           <Grid.Row>
             <Grid.Column width={10}>
-
-              <Header
-                as='h2'
-                content={'Visit #' + visitId + ' for ' + clientInfo.name}
-              />
-              { clientInfo ?
-                <Link to={`/detail/${clientInfo.clientId}`}>
-                  Back to Client Detail
-                </Link> :
-                <Link to="/">Go Home</Link>
-              }
 
             </Grid.Column>
             <Grid.Column floated='right' width={6}>

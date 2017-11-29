@@ -1,9 +1,8 @@
-// COMPONENTS
 import React from 'react';
-import { Form } from 'semantic-ui-react';
-
+import { Form, Divider, Header } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
+import { BenefitsTable } from './BenefitsTable';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -12,13 +11,12 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 // ========================================
 // COMPONENTS
 // ========================================
-
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const IncomeForm = function ({ future, time, setClientProperty }) {
@@ -31,7 +29,6 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
   */
   return (
     <wrapper className='field-aligner two-column'>
-
       <IntervalColumnHeadings type={type}/>
       <CashFlowRow
           timeState={future}
@@ -42,23 +39,29 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
       </CashFlowRow>
-
     </wrapper>
   );
-
 };  // End IncomeForm() Component
 
-
+const Table = function ({ client }) {
+  return(
+    <wrapper>
+    <Header as='h1' className='ui Header teal align centered'>Results</Header>
+    <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
+    <BenefitsTable client={client} />
+    </wrapper>
+  );
+};
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const FutureIncomeStep = function ( props ) {
+const PredictionsStep = function ( props ) {
 
   const setTimeProp = getTimeSetter( 'future', props.changeClient );
 
@@ -71,11 +74,11 @@ const FutureIncomeStep = function ( props ) {
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}>
           <IncomeForm setClientProperty={setTimeProp} future={props.client.future} time={'future'} />
+          <Divider className='ui section divider hidden' />
+          <Table client={props.client}/>
       </FormPartsContainer>
     </Form>
   );
-
 };  // End FutureIncomeStep() Component
 
-
-export { FutureIncomeStep };
+export { PredictionsStep };
