@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import {
   Grid,
-  Header,
 } from 'semantic-ui-react';
 import {
   Redirect,
   Prompt,
-  Link
 } from 'react-router-dom';
 
 // Logic
@@ -183,7 +181,6 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
-    const { clientInfo, visitId } = this.state
 
     return (
       <div className='forms-container'>
@@ -204,17 +201,6 @@ class VisitPage extends Component {
         >
           <Grid.Row>
             <Grid.Column width={10}>
-
-              <Header
-                as='h2'
-                content={'Visit #' + visitId + ' for ' + clientInfo.name}
-              />
-              { clientInfo ?
-                <Link to={`/detail/${clientInfo.clientId}`}>
-                  Back to Client Detail
-                </Link> :
-                <Link to="/">Go Home</Link>
-              }
 
             </Grid.Column>
             <Grid.Column floated='right' width={6}>

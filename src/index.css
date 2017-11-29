@@ -10,11 +10,41 @@ form .field-aligner {
 	max-width: 80%;
 }
 
-#root, #App {
+#App {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+#root {
+  height:  100%;
+}
+
+#HashRouter {
+  flex: 1 0;
+}
+
+#HomePage {
+  background-image: url(./images/splash.svg) !important;
+  background-size: cover !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#HomeContent {
+  /*display: inline-block;*/
+  display: flex;,
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.center-contents {
+  display: flex;
+  justify-content: center;
 }
 
 /* One of these two groups */

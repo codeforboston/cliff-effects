@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+  withRouter
+} from 'react-router-dom'
 
 import {
   Segment,
@@ -7,7 +10,8 @@ import {
 import { MainMenu } from '../MainMenu';
 import FixedMenu from '../FixedMenu';
 
-const Header = ({fix}) => {
+const Header = ({fix, location}) => {
+  if (location.pathname === '/') return (<div></div>)
   return (
     <div>
       <Segment
@@ -26,4 +30,4 @@ const Header = ({fix}) => {
   )
 }
 
-export default Header;
+export default withRouter(Header);
