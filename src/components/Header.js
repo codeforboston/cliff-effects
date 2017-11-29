@@ -10,7 +10,7 @@ import {
 import { MainMenu } from '../MainMenu';
 import FixedMenu from '../FixedMenu';
 
-const Header = ({fix, location: location}) => {
+const Header = ({fix, location}) => {
   if (location.pathname === '/') return (<div></div>)
   return (
     <div>
