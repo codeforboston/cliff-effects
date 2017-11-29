@@ -10,7 +10,9 @@ const testClientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/matthew.png',
     dob: '1/1/1997',
     zipCode: '02210',
-    currentSSDIMonthly: 99, 
+    current: {
+      SSDI: 99
+    },
     visits: [
         {
             date: '7/14/16',
@@ -29,7 +31,9 @@ const testClientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    currentSSDIMonthly: 151, 
+    current: {
+      SSDI: 151
+    }, 
     visits:[],
   }
 ]
