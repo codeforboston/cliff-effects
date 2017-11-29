@@ -37,15 +37,15 @@ const CLIENT_DEFAULTS = {
     childBeforeAndAfterSchoolCare:  0,
     childTransportation:            0,
     childOtherCare:                 0,
-    incomeEarnedBecauseOfChildCare: 0,  // Negative?
+    earnedBecauseOfChildCare: 0,  // Negative?
     childSupportPaidOut:            0,
-    adultDirectCareCosts:           0,
-    adultTransportationCosts:       0,
-    adultOtherCareCosts:            0,
+    adultDirectCare:           0,
+    adultTransportation:       0,
+    adultOtherCare:            0,
     disabledAssistance:             0,
-    earnedIncomeBecauseOfAdultCare: 0,
-    disabledMedicalCosts:           0,
-    otherMedicalCosts:              0,
+    earnedBecauseOfAdultCare: 0,
+    disabledMedical:           0,
+    otherMedical:              0,
     /** @todo When client has section 8, switch this to 'housingVoucher' */
     shelter:            'homeless',  // 'homeless', 'homeowner', 'renter', 'housingVoucher'
     contractRent:       0,
