@@ -10,7 +10,19 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
-
+const toBoolean = function( value ){
+  if( value==='yes' ){
+    return true;
+  }
+  else if( value==='no' ){
+    return false;
+  }
+  else if( typeof(value)==='boolean' ){
+    return value;
+  }else{
+    return null;
+  }
+}
 /**
  * For every client property and
  * nested property.
