@@ -87,31 +87,6 @@ class VisitPage extends Component {
     this.setState( prevState => ({ client: client, userChanged: userChanged }) );
   }  // End onClientChange()
 
-
-  setClientProperty = (e, data) => {
-
-    let propertyName = data.name
-    let value = typeof(data.checked) === "boolean" ? data.checked : data.value  //This handles both complex values and checked values
-
-     //If fillFuture is true, values will be propagated to both 'current' and 'future' versions
-    let newClientValues = {[propertyName]: value}
-    let futurePropertyName = propertyName.replace('current', 'future')
-    if(this.state.client[futurePropertyName] === 'undefined' && data.fillFuture){
-      newClientValues[futurePropertyName] = value
-    }
-
-    //if it's a household size field, check if dependents is larger than it, and if so, force dependents to be smaller
-    //can't think of a better place to put this logic yet
-    if(propertyName.includes("HouseholdSize")){
-        let timeframe = propertyName.replace("HouseholdSize", "");
-        if(this.state.client[timeframe + "Dependents"] >= newClientValues[propertyName]){ //If dependents is lower than the new value for the # of people in the household
-          newClientValues[timeframe + "Dependents"] = data.value - 1;
-        }
-    }
-
-    this.setState(prevState => ({ client:  {...prevState.client, ...newClientValues }}));
-  }
-
   saveForm = (exitAfterSave) => {
     alert('Form saved (not really, this is a placeholder).');
     if (exitAfterSave) {
@@ -146,7 +121,6 @@ class VisitPage extends Component {
                    client={this.state.client}
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
-                   setClientProperty={this.setClientProperty}
                    changeClient={this.changeClient}
                    saveForm={this.saveForm} />
     );
