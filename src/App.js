@@ -1,45 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter,
   Route,
-} from 'react-router-dom'
+} from 'react-router-dom';
 
-import {
-  Visibility,
-} from 'semantic-ui-react';
+import HomePage from './containers/HomePage';
+import AboutPage from './containers/AboutPage';
+import VisitPage from './containers/VisitPage';
 
-import HomePage from './containers/HomePage'
-import AboutPage from './containers/AboutPage'
-import VisitPage from './containers/VisitPage'
-
-import Footer from './components/Footer'
-import Header from './components/Header'
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 
-class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      fixHeader: false,
-    }
-  }
-
+class App extends Component {
   render() {
-    const { fixHeader } = this.state
-
-    return(
+    return (
       <div id='App'>
         <HashRouter>
           <div id='HashRouter'>
-            <Visibility
-              onTopPassed={ () => { this.setState({fixHeader: true}) } }
-              onTopPassedReverse={ () => { this.setState({fixHeader: false}) } }
-              once={ false }
-            >
-              <Header fix={ fixHeader } />
-            </Visibility>
+            <Header />
 
             <Route exact path="/" component={HomePage}/>
             <Route path="/about" component={AboutPage}/>
@@ -49,7 +30,7 @@ class App extends React.Component {
         </HashRouter>
         <Footer />
       </div>
-    )
+    );
   }
 }
 
