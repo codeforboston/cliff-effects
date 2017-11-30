@@ -3,10 +3,9 @@ import {
   HashRouter,
   Route,
 } from 'react-router-dom'
-
 import {
-  Visibility,
-} from 'semantic-ui-react';
+  Switch,
+} from 'react-router';
 
 import HomePage from './containers/HomePage'
 import AboutPage from './containers/AboutPage'
@@ -16,34 +15,37 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 
 
-// Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
+// COMPONENT HELPERS
+const PathHeader = function ({ path }) {
+  return (
+    <Route path={ path } children={ function ({ location }) {
+        return <Header path={ location.pathname } />;
+    }}/>
+  );
+};
 
+
+// Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      fixHeader: false,
-    }
-  }
 
   render() {
-    const { fixHeader } = this.state
+
+    var paths = { home: '/', about: '/about', visit: '/visit/:clientId/:visitId' }
 
     return(
       <div id='App'>
         <HashRouter>
           <div id='HashRouter'>
-            <Visibility
-              onTopPassed={ () => { this.setState({fixHeader: true}) } }
-              onTopPassedReverse={ () => { this.setState({fixHeader: false}) } }
-              once={ false }
-            >
-              <Header fix={ fixHeader } />
-            </Visibility>
 
-            <Route exact path="/" component={HomePage}/>
-            <Route path="/about" component={AboutPage}/>
-            <Route path="/visit/:clientId/:visitId" component={VisitPage}/>
+            <Switch>
+              <PathHeader path={ paths.home } />
+              <PathHeader path={ paths.about } />
+              <PathHeader path={ paths.visit } />
+            </Switch>
+
+            <Route exact path={paths.home}  component={HomePage}/>
+            <Route       path={paths.about} component={AboutPage}/>
+            <Route       path={paths.visit} component={VisitPage}/>
 
           </div>
         </HashRouter>
