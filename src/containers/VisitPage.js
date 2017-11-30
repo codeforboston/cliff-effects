@@ -45,34 +45,8 @@ class VisitPage extends Component {
         redirect: false,
         client : {
           ...CLIENT_DEFAULTS,
-          // hasSnap: false,
-          // hasHousing: false,
           snapAlert: 'good',
           housingAlert: 'good',
-          // currentHousehold: [
-          //   { age: 30, role: 'head', disabled: false, required: true }
-          // ],
-          // futureHousehold: [
-          //   { age: 30, role: 'head', disabled: false, required: true }
-          // ],
-          currentHomeless: false,
-          currentHomeowner: false,
-          // currentEarnedIncomeMonthly: 0,
-          // currentTAFDCMonthly: 0,
-          // currentSSIMonthly: 0,
-          // currentSSDIMonthly: 0,
-          // currentChildSupportInMonthly: 0,
-          // currentUnemploymentMonthly: 0,
-          // currentWorkersCompMonthly: 0,
-          // currentPensionMonthly: 0,
-          // currentSocialSecurityMonthly: 0,
-          // currentAlimonyMonthly: 0,
-          // currentOtherIncomeMonthly: 0,
-          // currentUnearnedIncomeMonthly: 0,
-          // futureEarnedIncomeMonthly: 0,
-          // futureUnearnedIncomeMonthly: 0,
-          // currentShelter: 'homeless',
-          // currentHasFuelAssistance: false,
         },
         userChanged: {}
     };  // end this.state {}
@@ -97,7 +71,6 @@ class VisitPage extends Component {
     var val = value;
     if ( typeof checked === 'boolean' ) { val = checked; }
 
-    // GOAL 1. Clone, not reference
     var client      = cloneDeep( this.state.client ),
         userChanged = {...this.state.userChanged},  // only 1 deep
         current     = client.current,
@@ -111,7 +84,6 @@ class VisitPage extends Component {
     // Also, userChanged should be only one step deep
     if ( time === 'future' ) { userChanged[ id ] = true; }
 
-    // console.log( userChanged, client !== this.state.client, client );
     this.setState( prevState => ({ client: client, userChanged: userChanged }) );
   }  // End onClientChange()
 

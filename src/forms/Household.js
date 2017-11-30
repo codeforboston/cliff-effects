@@ -129,7 +129,7 @@ const Role = function ({ member, setMember }) {
 
   var ThisRole  = null,
       margin   = '0';
-  console.log( 'member', member );
+
   if ( member.index === 0 ) {
 
     ThisRole  = <span>Head of Household</span>;
@@ -295,7 +295,6 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
   var addMember = function ( evnt, inputProps ) {
 
-    console.log( household.length, household );
     var member = { m_age: 30, m_role: 'member', m_disabled: false };
     if ( household.length === 1 ) {
       member.m_role = 'spouse';
