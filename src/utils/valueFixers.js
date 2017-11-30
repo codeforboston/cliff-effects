@@ -22,7 +22,12 @@ const toBoolean = function( value ){
   }else{
     return null;
   }
-}
+};
+
+const stringToNumber = function( str ){
+  return Number( str );
+};
+
 /**
  * For every client property and
  * nested property.
