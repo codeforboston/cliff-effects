@@ -44,7 +44,7 @@ const valueFixers = {
   childBeforeAndAfterSchoolCare: returnSame,  // to money
   childTransportation: returnSame,  // to money
   childOtherCare: returnSame,  // to money
-  incomeEarnedBecauseOfChildCare: returnSame,  // to money
+  earnedBecauseOfChildCare: returnSame,  // to money
   childSupportPaidOut: returnSame,  // to money
   adultDirectCare: returnSame,  // to money
   adultTransportation: returnSame,  // to money
