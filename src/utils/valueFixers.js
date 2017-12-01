@@ -1,5 +1,3 @@
-import { toBooleanValue } from '../utils/toBoolean';
-import { stringToNumber } from '../utils/stringToNumber';
 /**
  * Transformers for transforming client
  * values into valid values.
@@ -12,7 +10,7 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
-// const toBooleanValue = function(value) {
+// const toBoolean = function(value) {
 //   if (value === 'yes') {
 //     return true;
 //   } else if (value === 'no') {
@@ -23,7 +21,7 @@ const returnSame = function ( newVal, state ) {
 //     return null;
 //   }
 // };
-//
+
 // const stringToNumber = function(str) {
 //   return Number(str);
 // };
