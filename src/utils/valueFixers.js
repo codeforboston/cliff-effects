@@ -24,8 +24,8 @@ const toBoolean = function( value ){
   }
 };
 
-const stringToNumber = function( str ){
-  return Number( str );
+const stringToNumber = function( string ){
+  return Number( string );
 };
 
 /**
