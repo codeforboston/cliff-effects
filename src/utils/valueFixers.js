@@ -10,6 +10,12 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
+const toBoolean = function ( value ) {
+  if( value === 'yes'){
+    return true;
+  }
+  return value;
+};
 // const toBoolean = function( value ){
 //   if( value==='yes' ){
 //     return true;
@@ -24,9 +30,9 @@ const returnSame = function ( newVal, state ) {
 //   }
 // };
 
-const stringToNumber = function( string ){
-  return Number( string );
-};
+// const stringToNumber = function( string ){
+//   return Number( string );
+// };
 
 /**
  * For every client property and
