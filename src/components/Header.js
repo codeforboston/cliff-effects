@@ -1,33 +1,45 @@
 import React from 'react';
-import {
-  withRouter
-} from 'react-router-dom'
 
 import {
   Segment,
+  Visibility,
 } from 'semantic-ui-react';
 
 import { MainMenu } from '../MainMenu';
 import FixedMenu from '../FixedMenu';
 
-const Header = ({fix, location}) => {
-  if (location.pathname === '/') return (<div></div>)
-  return (
-    <div>
-      <Segment
-        inverted
-        textAlign='center'
-        style={{ padding: '1em 0em' }}
-        vertical
-        color='teal'
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fix: false
+    };
+  }
+
+  render() {
+    const { fix } = this.state;
+
+    return (
+      <Visibility
+        onTopPassed={ () => { this.setState({fix: true}) } }
+        onTopPassedReverse={ () => { this.setState({fix: false}) } }
+        once={ false }
       >
-        { fix ?
-          <FixedMenu /> :
-          <MainMenu/>
-        }
-      </Segment>
-    </div>
-  )
+        <Segment
+          inverted
+          textAlign='center'
+          style={{ padding: '1em 0em' }}
+          vertical
+          color='teal'
+        >
+          { fix ?
+            <FixedMenu /> :
+            <MainMenu />
+          }
+        </Segment>
+      </Visibility>
+    );
+  }
 }
 
-export default withRouter(Header);
+export default Header;
