@@ -23,7 +23,7 @@ const toBoolean = function ( value ) {
 };
 
 const stringToNumber = function ( str ) {
-  return Number( str );
+//   return Number( str );
 };
 
 /**
