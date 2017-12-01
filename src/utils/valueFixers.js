@@ -13,6 +13,8 @@ const returnSame = function ( newVal, state ) {
 const returnSame2 = function ( newVal, state ) {
   return newVal;
 };
+
+
 /**
  * For every client property and
  * nested property.
