@@ -1,5 +1,5 @@
-import { toBooleanValue } from './toBoolean';
-import { stringToNumber } from './stringToNumber';
+import { toBooleanValue } from '../utils/toBoolean';
+import { stringToNumber } from '../utils/stringToNumber';
 /**
  * Transformers for transforming client
  * values into valid values.
