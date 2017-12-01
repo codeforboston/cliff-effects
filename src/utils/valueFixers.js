@@ -10,11 +10,11 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
-const toBoolean = function ( value ) {
-  if( value === 'yes'){
+const toBooleanValue = function ( value ) {
+  if(value==='yes'){
     return true;
   }
-  return value;
+  return null;
 };
 // const toBoolean = function( value ){
 //   if( value==='yes' ){
