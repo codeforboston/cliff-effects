@@ -10,7 +10,7 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
-const toBooleanIfNeeded = function ( value ) {
+const toBoolean = function ( value ) {
   if ( value === 'yes' ) {
     return true;
   } else if ( value === 'no' ) {
@@ -42,7 +42,7 @@ const valueFixers = {
   // MONEY AMOUNTS
   // Income
   /** @todo All incomes need transformation */
-  earned: returnSame,  // to money
+  earned: stringToNumber,  // to money
   TAFDC: returnSame,  // to money
   SSI: returnSame,  // to money
   SSDI: returnSame,  // to money
@@ -79,10 +79,10 @@ const valueFixers = {
   hasClimateControl: returnSame,
   nonHeatElectricity: returnSame,
   phone: returnSame,
-  hasFuelAssistance: returnSame,  // to bool
+  hasFuelAssistance: toBoolean,  // to bool
   otherExpenses: returnSame,  // money
 
 };  // end valueFixers
 
 
-export { valueFixers };
+export { valueFixers, returnSame, stringToNumber, toBoolean };
