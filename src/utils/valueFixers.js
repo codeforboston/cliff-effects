@@ -10,7 +10,7 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
-const toBoolean = function ( value ) {
+// const toBoolean = function ( value ) {
 //   if ( value === 'yes' ) {
 //     return true;
 //   } else if ( value === 'no' ) {
@@ -20,7 +20,7 @@ const toBoolean = function ( value ) {
 //   } else {
 //     return null;
 //   }
-};
+// };
 
 // const stringToNumber = function ( str ) {
 //   return Number( str );
