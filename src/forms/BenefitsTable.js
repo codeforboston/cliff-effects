@@ -31,6 +31,9 @@ const BenefitsTable = function ( props ) {
   // of just using current value.
   currentClient.future.earned = currentClient.current.earned;
 
+
+
+
   var SNAPBenefitCurrent  = Math.round( getSNAPBenefits( currentClient ).benefitValue * 12 ),
       SNAPBenefitFuture   = Math.round( getSNAPBenefits( futureClient ).benefitValue * 12 ),
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
@@ -80,6 +83,68 @@ const   columnHeaderStyle = {
 
 
 
+
+
+
+const SNAPBenefitRow = function( props ){
+  if(!currentClient.current.hasSnap ) return (null)
+    return (
+      <Table.Row>
+        <Table.Cell style={rowHeaderStyle}>SNAP</Table.Cell>
+        <Table.Cell textAlign='right'>${SNAPBenefitCurrent} / year</Table.Cell>
+        <Table.Cell textAlign='right'>${SNAPBenefitFuture} / year</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } ${Math.abs(SNAPDiff)} / year</Table.Cell>
+      </Table.Row>
+    )
+  };
+
+const Sec8BenefitRow  = function( props ){  
+  if(!currentClient.current.hasHousing) return (null)
+    return (
+      <Table.Row>
+        <Table.Cell style={rowHeaderStyle}>Section 8 Housing</Table.Cell>
+        <Table.Cell textAlign='right'>${sec8BenefitCurrent} / year</Table.Cell>
+        <Table.Cell textAlign='right'>${sec8BenefitFuture} / year</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } ${Math.abs(sec8Diff)} / year</Table.Cell>
+      </Table.Row>
+    ) 
+};
+
+const TotalBenefitsRow = function( props ){
+  if(!currentClient.current.hasSnap || !currentClient.current.hasHousing) return (null)
+    return(
+      <Table.Row>
+        <Table.Cell textAlign='right' width={3} style={totalsRowHeaderStyle}>Benefits Subtotal</Table.Cell>
+        <Table.Cell textAlign='right' width={3} style={totalsRowStyle}>${totalBenefitCurrent} / year</Table.Cell>
+        <Table.Cell textAlign='right' width={3} style={totalsRowStyle}>${totalBenefitFuture} / year</Table.Cell>
+        <Table.Cell textAlign='right' width={3} style={totalsRowStyle}>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / year</Table.Cell>
+      </Table.Row>
+    )
+};
+
+const IncomeRow = function ( props ) { 
+    return (
+      <Table.Row>
+        <Table.Cell style={rowHeaderStyle}>Income</Table.Cell>
+        <Table.Cell textAlign='right'>${incomeCurrent} / year</Table.Cell>
+        <Table.Cell textAlign='right'>${incomeFuture} / year</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } ${Math.abs(incomeDiff)} / year</Table.Cell>
+      </Table.Row>
+    )
+};
+
+const TotalsRow = function ( props ) {
+    return (
+      <Table.Row style={{border: 'none'}}>
+        <Table.Cell textAlign='right' width={3} style={totalsRowHeaderStyle}>Total</Table.Cell>
+        <Table.Cell textAlign='right' width={3} style={totalsRowStyle}>${netCurrent} / year</Table.Cell>
+        <Table.Cell textAlign='right' width={3} style={totalsRowStyle}>${netFuture} / year</Table.Cell>
+        <Table.Cell textAlign='right' width={3} style={totalsRowStyle}>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / year</Table.Cell>
+      </Table.Row>
+    )
+  };
+
+
   return (
     <wrapper>
       <Table celled>
@@ -92,40 +157,13 @@ const   columnHeaderStyle = {
           </Table.Row>
       </Table.Header>
         <Table.Body>
-            <Table.Row>
-              <Table.Cell style={rowHeaderStyle}>SNAP</Table.Cell>
-              <Table.Cell textAlign='right'>${SNAPBenefitCurrent} / year</Table.Cell>
-              <Table.Cell textAlign='right'>${SNAPBenefitFuture} / year</Table.Cell>
-              <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } ${Math.abs(SNAPDiff)} / year</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell style={rowHeaderStyle}>Section 8 Housing</Table.Cell>
-              <Table.Cell textAlign='right'>${sec8BenefitCurrent} / year</Table.Cell>
-              <Table.Cell textAlign='right'>${sec8BenefitFuture} / year</Table.Cell>
-              <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } ${Math.abs(sec8Diff)} / year</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell width={3} style={totalsRowHeaderStyle} >Total Benefits</Table.Cell>
-              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${totalBenefitCurrent} / year</Table.Cell>
-              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${totalBenefitFuture} / year</Table.Cell>
-              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / year</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell style={rowHeaderStyle}>Income</Table.Cell>
-              <Table.Cell textAlign='right'>${incomeCurrent} / year</Table.Cell>
-              <Table.Cell textAlign='right'>${incomeFuture} / year</Table.Cell>
-              <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } ${Math.abs(incomeDiff)} / year</Table.Cell>
-            </Table.Row>
-            <Table.Row style={{border: 'none'}}>
-              <Table.Cell width={3} style={totalsRowHeaderStyle}>Net Total</Table.Cell>
-              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${netCurrent} / year</Table.Cell>
-              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>${netFuture} / year</Table.Cell>
-              <Table.Cell width={3} style={totalsRowStyle} textAlign='right'>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / year</Table.Cell>
-            </Table.Row>
+          <SNAPBenefitRow client={currentClient} />
+          <Sec8BenefitRow client={currentClient} />
+          <TotalBenefitsRow client={currentClient} />
+          <IncomeRow />
+          <TotalsRow />
         </Table.Body>
       </Table>
-
-
     </wrapper>
   )
 
