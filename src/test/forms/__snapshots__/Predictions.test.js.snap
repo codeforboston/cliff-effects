@@ -1,0 +1,430 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Prediction component renders as snapshot correctly 1`] = `
+<form
+  action={undefined}
+  className="ui form income-form"
+  onSubmit={[Function]}
+>
+  <div
+    className="ui very padded segment"
+    style={
+      Object {
+        "minHeight": "600px",
+      }
+    }
+  >
+    <div
+      className="ui basic segment"
+      style={
+        Object {
+          "minHeight": "500px",
+        }
+      }
+    >
+      <h1
+        className="ui teal center aligned header"
+      >
+        Future Household Income
+      </h1>
+      <h3
+        className="ui center aligned header"
+      >
+        How much money would your household make in the future?
+      </h3>
+      <wrapper
+        className="field-aligner two-column"
+      >
+        <wrapper
+          style={
+            Object {
+              "display": "inline-block",
+            }
+          }
+        >
+          <h4
+            className="ui teal header income-column header weekly"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontSize": "14px",
+                "marginBottom": "0.7em",
+                "marginRight": "0.2em",
+                "marginTop": "0.7em",
+                "textAlign": "center",
+                "width": "7em",
+              }
+            }
+          >
+            Weekly
+          </h4>
+          <h4
+            className="ui teal header income-column header monthly"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontSize": "14px",
+                "marginBottom": "0.7em",
+                "marginRight": "0.2em",
+                "marginTop": "0.7em",
+                "textAlign": "center",
+                "width": "7em",
+              }
+            }
+          >
+            Monthly
+          </h4>
+          <h4
+            className="ui teal header income-column header yearly"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontSize": "14px",
+                "marginBottom": "0.7em",
+                "marginRight": "0.9em",
+                "marginTop": "0.7em",
+                "textAlign": "center",
+                "width": "7em",
+              }
+            }
+          >
+            Yearly
+          </h4>
+          <h4
+            className="ui teal header income-column header income"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontSize": "14px",
+                "marginBottom": "0.7em",
+                "marginTop": "0.7em",
+              }
+            }
+          >
+            Income Type
+          </h4>
+        </wrapper>
+        <div
+          className="inline field"
+        >
+          <div
+            className="ui input income cashflow-column weekly"
+            style={
+              Object {
+                "marginRight": ".2em",
+                "width": "7em",
+              }
+            }
+          >
+            <input
+              disabled={undefined}
+              name="earnedWeekly"
+              onChange={[Function]}
+              tabIndex={undefined}
+              type="number"
+              value=""
+            />
+          </div>
+          <div
+            className="ui input income cashflow-column monthly"
+            style={
+              Object {
+                "marginRight": ".2em",
+                "width": "7em",
+              }
+            }
+          >
+            <input
+              disabled={undefined}
+              name="earned"
+              onChange={[Function]}
+              tabIndex={undefined}
+              type="number"
+              value=""
+            />
+          </div>
+          <div
+            className="ui input income cashflow-column yearly"
+            style={
+              Object {
+                "marginRight": ".9em",
+                "width": "7em",
+              }
+            }
+          >
+            <input
+              disabled={undefined}
+              name="earnedYearly"
+              onChange={[Function]}
+              tabIndex={undefined}
+              type="number"
+              value=""
+            />
+          </div>
+          <wrapper>
+            <label>
+              Earned income
+            </label>
+            <wrapper
+              className="label-info hidden"
+              style={
+                Object {
+                  "marginLeft": "1em",
+                }
+              }
+            >
+              (Weekly income = hourly wage times average number of work hours per week)
+            </wrapper>
+          </wrapper>
+        </div>
+      </wrapper>
+      <div
+        className="ui divider ui section divider hidden"
+      />
+      <wrapper>
+        <h1
+          className="ui header ui Header teal align centered"
+        >
+          Results
+        </h1>
+        <h3
+          className="ui header ui Header align centered"
+        >
+          How will your income affect your future benefits?
+        </h3>
+        <wrapper>
+          <table
+            className="ui celled table"
+          >
+            <thead
+              className=""
+            >
+              <tr
+                className=""
+              >
+                <td
+                  className="three wide"
+                  style={
+                    Object {
+                      "background": "rgba(0, 181, 173, 1)",
+                      "borderRadius": "inherit",
+                      "color": "white",
+                      "fontSize": "1.3em",
+                      "fontWeight": 900,
+                      "letterSpacing": "0.02em",
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Benefit
+                </td>
+                <td
+                  className="three wide"
+                  style={
+                    Object {
+                      "background": "rgba(0, 181, 173, 1)",
+                      "borderRadius": "inherit",
+                      "color": "white",
+                      "fontSize": "1.3em",
+                      "fontWeight": 900,
+                      "letterSpacing": "0.02em",
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Current Benefits
+                </td>
+                <td
+                  className="three wide"
+                  style={
+                    Object {
+                      "background": "rgba(0, 181, 173, 1)",
+                      "borderRadius": "inherit",
+                      "color": "white",
+                      "fontSize": "1.3em",
+                      "fontWeight": 900,
+                      "letterSpacing": "0.02em",
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  New Estimate
+                </td>
+                <td
+                  className="three wide"
+                  style={
+                    Object {
+                      "background": "rgba(0, 181, 173, 1)",
+                      "borderRadius": "inherit",
+                      "color": "white",
+                      "fontSize": "1.3em",
+                      "fontWeight": 900,
+                      "letterSpacing": "0.02em",
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Difference
+                </td>
+              </tr>
+            </thead>
+            <tbody
+              className=""
+            >
+              <tr
+                className=""
+              >
+                <td
+                  className=""
+                  style={
+                    Object {
+                      "fontSize": "1.1em",
+                      "fontWeight": 700,
+                      "textAlign": "left",
+                    }
+                  }
+                >
+                  Income
+                </td>
+                <td
+                  className="right aligned"
+                >
+                  $
+                  0
+                   / year
+                </td>
+                <td
+                  className="right aligned"
+                >
+                  $
+                  0
+                   / year
+                </td>
+                <td
+                  className="right aligned"
+                >
+                  
+                   $
+                  0
+                   / year
+                </td>
+              </tr>
+              <tr
+                className=""
+                style={
+                  Object {
+                    "border": "none",
+                  }
+                }
+              >
+                <td
+                  className="right aligned three wide"
+                  style={
+                    Object {
+                      "borderTop": "2px solid rgba(0, 181, 173, 1)",
+                      "fontSize": "1.2em",
+                      "fontWeight": 700,
+                      "padingTop": "0.25em",
+                      "textAlign": "left",
+                    }
+                  }
+                >
+                  Total
+                </td>
+                <td
+                  className="right aligned three wide"
+                  style={
+                    Object {
+                      "borderTop": "2px solid rgba(0, 181, 173, 1)",
+                      "fontSize": "1.1em",
+                      "fontWeight": 700,
+                      "padingTop": "0.25em",
+                    }
+                  }
+                >
+                  $
+                  2304
+                   / year
+                </td>
+                <td
+                  className="right aligned three wide"
+                  style={
+                    Object {
+                      "borderTop": "2px solid rgba(0, 181, 173, 1)",
+                      "fontSize": "1.1em",
+                      "fontWeight": 700,
+                      "padingTop": "0.25em",
+                    }
+                  }
+                >
+                  $
+                  2304
+                   / year
+                </td>
+                <td
+                  className="right aligned three wide"
+                  style={
+                    Object {
+                      "borderTop": "2px solid rgba(0, 181, 173, 1)",
+                      "fontSize": "1.1em",
+                      "fontWeight": 700,
+                      "padingTop": "0.25em",
+                    }
+                  }
+                >
+                  
+                   $
+                  0
+                   / year
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </wrapper>
+      </wrapper>
+    </div>
+    <div
+      className="ui divider"
+    />
+    <div
+      className="ui center aligned middle aligned grid"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="three wide column large-bottom-button"
+        >
+          <button
+            className="ui teal large fluid button"
+            disabled={undefined}
+            onClick={[Function]}
+            role="button"
+            tabIndex={undefined}
+            type="button"
+          >
+            Previous
+          </button>
+        </div>
+        <div
+          className="ten wide column"
+        />
+        <div
+          className="three wide column large-bottom-button"
+        >
+          <button
+            className="ui teal large fluid button"
+            disabled={undefined}
+            onClick={[Function]}
+            role="button"
+            tabIndex={undefined}
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
