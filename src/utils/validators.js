@@ -4,21 +4,20 @@
  * numbers right now.
  */
 
-/** @todo Put code from #227 & #230 in here and export them */
 
-/** Tests if a string represents a positive integer */
-const isPositiveInteger = function ( str ) {
-
+/** Returns true if a string represents a positve number (integer or float) */
+const isPositiveNumber = function ( str ) {
+  return !/[^0-9.]|\..*\./.test(str);
 };
 
 
-/** Tests if a string represents a positive float */
-const isPositiveFloat = function ( str ) {
-
+/** Returns true if a string represents a positive integer */
+const isPositiveWholeNumber = function ( str ) {
+  return /^[0-9]*$/.test(str);
 };
 
 
 export {
-  isPositiveInteger,
-  isPositiveFloat
+  isPositiveNumber,
+  isPositiveWholeNumber
 }
