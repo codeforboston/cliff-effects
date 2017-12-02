@@ -5,39 +5,19 @@
  */
 
 
-
-/** Tests if a string represents a positve decimal : #277 */
-
-const isPositiveDecimal = function ( str ) {
-
-	return !/[^0-9.]|\..*\./.test(str);
-
+/** Returns true if a string represents a positve number (integer or float) */
+const isPositiveNumber = function ( str ) {
+  return !/[^0-9.]|\..*\./.test(str);
 };
 
 
-
-/** Tests if a string represents a positive integer : #230*/
-
-const isPositiveInteger = function ( str ) {
-
-	return /^[0-9]*$/.test(str);
-
-
-};
-
-
-/** Tests if a string represents a positive float */
-
-const isPositiveFloat = function ( str ) {
-
-	return /^[0-9]*\.[0-9]*$/.test(str);
-
-
+/** Returns true if a string represents a positive integer */
+const isPositiveWholeNumber = function ( str ) {
+  return /^[0-9]*$/.test(str);
 };
 
 
 export {
-  isPositiveInteger,
-  isPositiveFloat,
-  isPositiveDecimal
+  isPositiveNumber,
+  isPositiveWholeNumber
 }
