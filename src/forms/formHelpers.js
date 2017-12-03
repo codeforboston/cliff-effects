@@ -15,6 +15,8 @@ import {
 
 // UTILITIES
 import { roundMoney, toMonthlyAmount } from '../utils/math';
+import { isPositiveNumber } from '../utils/validators';
+import { toMoneyStr } from '../utils/prettifiers';
 
 
 // ========================================
@@ -366,69 +368,77 @@ class CashFlowInput extends Component {
     super( props );
 
     // { value, generic, name, type, style, interval, store, time, id } = props;
-    var { value, generic, name, type, style, interval, store } = props;
+    var { value, generic, name, type, interval, store } = props;
 
     // Need updating
-    this.focused    = false;
-    this.className  = 'blue';
-    this.value      = value;
+    this.state = {
+      focused:    false,
+      valid:      true,
+      value:      value,
+      focusedVal: value,
+    };
 
     // Don't need updating
     this.generic  = generic;
     this.name     = name;
     this.type     = type;
-    this.style    = style;
     this.interval = interval;
     this.store    = store;
 
   }
   
   handleFocus = ( evnt, inputProps ) => {
-    this.focused = true;
-    this.forceUpdate();
+    var newState = {
+      focused:    true,
+      focusedVal: toMoneyStr( this.state.value )
+    }
+    this.setState(function ( prevState ) { return newState; });
   }
   
   handleBlur = ( evnt ) => {
-    this.focused = false;
-    this.forceUpdate();
+    this.setState(function ( prevState ) { return { focused: false, valid: true }; });
   }
 
   handleChange = ( evnt, inputProps ) => {
-    var monthly = toMonthlyAmount[ this.interval ]( evnt, evnt.target.value ),
-        obj     = { name: this.generic , value: monthly };
-    this.store( evnt, obj );
+    var value = inputProps.value,
+        valid = isPositiveNumber( value );
+
+    if ( valid ) {
+      var monthly = toMonthlyAmount[ this.interval ]( evnt, value ),
+          obj     = { name: this.generic , value: monthly };
+      this.store( evnt, obj );
+    }
+
+    this.setState(function ( prevState ) { return {...prevState, valid: valid, focusedVal: value}; });
   }  // End handleChange()
 
-  componentWillReceiveProps ({ value, currentInput }) {
-    this.value        = value;
-    this.currentInput = currentInput;
+  componentWillReceiveProps ({ value }) {
+    this.setState(function ( prevState ) { return { value: value }; });
   }
 
   render() {
 
-    var special = true;
-    if ( this.focused ) { special = true; }
-    else { special = false; }
-    // console.log(extraClass);
-    console.log( special );
+    var { value, valid, focused, focusedVal } = this.state;
+
+    if ( !focused ) { value = toMoneyStr( value ) }
+    else { value = focusedVal; }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */
     return (
       <Form.Input
-        error={special}
+        error     = { !valid }
+        value     = { value }
+        name      = { this.name }
         className = { this.type + ' cashflow-column ' + this.interval + ' ' + this.className }
+        style     = {{ width: '7em', display: 'inline-block' }}
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
         onBlur    = { this.handleBlur }
-        value     = { this.value }
-        style     = {{ ...this.style, display: 'inline-block' }}
-        name      = { this.name }
         type      = { 'number' } />
     );
 
   }
-
-};  // CashFlowInput
+};  // End CashFlowInput
 
 
 /** @todo description
@@ -440,9 +450,6 @@ class CashFlowInput extends Component {
 * @returns Component
 */
 const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
-
-  var lefter  = { width: '7em', marginRight: '.2em' },
-      righter = { width: '7em', marginRight: '.9em' };
 
   /** baseVal
   * Get the time ('future' or 'current') monthly value unless there is
@@ -466,31 +473,28 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
         type     = { type }
         time     = { time }
         interval = { 'weekly' }
-        value    = { roundMoney( baseVal / 4.33 ) || '' }
+        value    = { baseVal / 4.33 }
         store    = { setClientProperty }
         generic  = { generic }
         name     = { generic + 'Weekly' }
-        style    = { lefter }
       />
       <CashFlowInput
         type     = { type }
         time     = { time }
         interval = { 'monthly' }
-        value    = { roundMoney( baseVal ) || '' }
+        value    = { baseVal }
         store    = { setClientProperty }
         generic  = { generic }
         name     = { generic }
-        style    = { lefter }
       />
       <CashFlowInput
         type     = { type }
         time     = { time }
         interval = { 'yearly' }
-        value    = { roundMoney( baseVal * 12 ) || '' }
+        value    = { baseVal * 12 }
         store    = { setClientProperty }
         generic  = { generic }
         name     = { generic + 'Yearly' }
-        style    = { righter }
       />
       <wrapper className={'cashflow-column'}>
         <label>{ children }</label>
