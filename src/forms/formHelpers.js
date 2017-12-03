@@ -14,7 +14,7 @@ import {
 } from 'semantic-ui-react';
 
 // UTILITIES
-import { roundMoney, toMonthlyAmount } from '../utils/math';
+import { toMonthlyAmount } from '../utils/math';
 import { isPositiveNumber } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
 
@@ -329,22 +329,16 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 * @returns Component
 */
 const IntervalColumnHeadings = function ({ type }) {
-  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase()) + " Type"; 
 
-  var baseStyles  = {
-        // marginTop: '0.7em', marginBottom: '0.7em',
-        display: 'inline-block', fontSize: '14px'
-      },
-      inputStyles  = { ...baseStyles, width: '7em', textAlign: 'center' },
-      lefterStyles = { ...inputStyles },//, marginRight: '0.2em' },
-      rightStyles  = { ...inputStyles };//, marginRight: '0.9em' };
+  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase()) + " Type",
+      styles      = { fontSize: '14px' };
 
   return (
     <wrapper style={{ display: 'inline-block' }}>
-      <ColumnHeading type={type} colName='weekly'  style={lefterStyles}>Weekly</ColumnHeading>
-      <ColumnHeading type={type} colName='monthly' style={lefterStyles}>Monthly</ColumnHeading>
-      <ColumnHeading type={type} colName='yearly'  style={rightStyles}>Yearly</ColumnHeading>
-      <ColumnHeading type={type} colName={type} style={baseStyles} columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
+      <ColumnHeading type={type} colName='weekly'  style={styles}>Weekly</ColumnHeading>
+      <ColumnHeading type={type} colName='monthly' style={styles}>Monthly</ColumnHeading>
+      <ColumnHeading type={type} colName='yearly'  style={styles}>Yearly</ColumnHeading>
+      <ColumnHeading type={type} colName={type} style={styles} columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
     </wrapper>
   );
 
@@ -367,8 +361,7 @@ class CashFlowInput extends Component {
   constructor ( props ) {
     super( props );
 
-    // { value, generic, name, type, style, interval, store, time, id } = props;
-    var { value, generic, name, type, interval, store } = props;
+    var { value, generic, name, time, type, interval, store } = props;
 
     // Need updating
     this.state = {
@@ -381,11 +374,10 @@ class CashFlowInput extends Component {
     // Don't need updating
     this.generic  = generic;
     this.name     = name;
-    this.type     = type;
+    this.className= time + ' ' + type + ' cashflow-column ' + interval;
     this.interval = interval;
     this.store    = store;
-
-  }
+  }  // End constructor()
   
   handleFocus = ( evnt, inputProps ) => {
     var newState = {
@@ -429,7 +421,7 @@ class CashFlowInput extends Component {
         error     = { !valid }
         value     = { value }
         name      = { this.name }
-        className = { this.type + ' cashflow-column ' + this.interval + ' ' + this.className }
+        className = { this.className }
         style     = {{ width: '7em', display: 'inline-block' }}
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
@@ -470,31 +462,31 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
   return (
     <Form.Field inline className={'cashflow'}>
       <CashFlowInput
-        type     = { type }
-        time     = { time }
-        interval = { 'weekly' }
         value    = { baseVal / 4.33 }
-        store    = { setClientProperty }
         generic  = { generic }
         name     = { generic + 'Weekly' }
+        time     = { time }
+        type     = { type }
+        interval = { 'weekly' }
+        store    = { setClientProperty }
       />
       <CashFlowInput
-        type     = { type }
-        time     = { time }
-        interval = { 'monthly' }
         value    = { baseVal }
-        store    = { setClientProperty }
         generic  = { generic }
         name     = { generic }
+        time     = { time }
+        type     = { type }
+        interval = { 'monthly' }
+        store    = { setClientProperty }
       />
       <CashFlowInput
-        type     = { type }
-        time     = { time }
-        interval = { 'yearly' }
         value    = { baseVal * 12 }
-        store    = { setClientProperty }
         generic  = { generic }
         name     = { generic + 'Yearly' }
+        time     = { time }
+        type     = { type }
+        interval = { 'yearly' }
+        store    = { setClientProperty }
       />
       <wrapper className={'cashflow-column'}>
         <label>{ children }</label>
