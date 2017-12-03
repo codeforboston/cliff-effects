@@ -7,7 +7,7 @@
 
 /** Returns true if a string represents a positve number (integer or float) */
 const isPositiveNumber = function ( str ) {
-  return !/[^0-9.]|\..*\./.test(str);
+  return str !== '' && !/[^0-9.]|\..*\./.test(str);
 };
 
 
