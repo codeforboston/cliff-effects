@@ -1,14 +1,14 @@
 // REACT COMPONENTS
-import React from 'react';
+import React, { Component } from 'react';
 import {
   // Generic Form stuff
-	Button,
+    Button,
   Grid,
   Header,
   Segment,
   Divider,
   Form,
-  Input,
+  // Input,
   Checkbox
   // Money columns
 } from 'semantic-ui-react';
@@ -311,7 +311,7 @@ const InlineLabelInfo = function ( props ) {
 * @returns Component
 */
 const ColumnHeading = function ({ type, colName, style, children }) {
-  var classes = type + '-column header ' + colName;
+  var classes = type + '-column cashflow-column header ' + colName;
   return (
     <Header as='h4' className={classes} style={style} color='teal'>{children}</Header>
   );
@@ -330,12 +330,12 @@ const IntervalColumnHeadings = function ({ type }) {
   var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase()) + " Type"; 
 
   var baseStyles  = {
-        marginTop: '0.7em', marginBottom: '0.7em',
+        // marginTop: '0.7em', marginBottom: '0.7em',
         display: 'inline-block', fontSize: '14px'
       },
       inputStyles  = { ...baseStyles, width: '7em', textAlign: 'center' },
-      lefterStyles = { ...inputStyles, marginRight: '0.2em' },
-      rightStyles  = { ...inputStyles, marginRight: '0.9em' };
+      lefterStyles = { ...inputStyles },//, marginRight: '0.2em' },
+      rightStyles  = { ...inputStyles };//, marginRight: '0.9em' };
 
   return (
     <wrapper style={{ display: 'inline-block' }}>
@@ -361,32 +361,74 @@ const IntervalColumnHeadings = function ({ type }) {
 *
 * @returns Component
 */
-const CashFlowInput = function ({ interval, generic, time, type, store, value, style, id, name }) {
+class CashFlowInput extends Component {
+  constructor ( props ) {
+    super( props );
 
-  var handleChange = function ( evnt, inputProps ) {
+    // { value, generic, name, type, style, interval, store, time, id } = props;
+    var { value, generic, name, type, style, interval, store } = props;
 
-    var name    = generic,
-        monthly = toMonthlyAmount[ interval ]( evnt, evnt.target.value ),
-        obj     = { name: name , value: monthly };
+    // Need updating
+    this.focused    = false;
+    this.className  = 'blue';
+    this.value      = value;
 
-    store( evnt, obj );
+    // Don't need updating
+    this.generic  = generic;
+    this.name     = name;
+    this.type     = type;
+    this.style    = style;
+    this.interval = interval;
+    this.store    = store;
 
-  };  // End handleChange()
+  }
+  
+  handleFocus = ( evnt, inputProps ) => {
+    this.focused = true;
+    this.forceUpdate();
+  }
+  
+  handleBlur = ( evnt ) => {
+    this.focused = false;
+    this.forceUpdate();
+  }
 
-  /** @todo Different class for something 'future' that has a current value that isn't 0 */
+  handleChange = ( evnt, inputProps ) => {
+    var monthly = toMonthlyAmount[ this.interval ]( evnt, evnt.target.value ),
+        obj     = { name: this.generic , value: monthly };
+    this.store( evnt, obj );
+  }  // End handleChange()
 
-  return (
-    <Input
-      className = { type + ' cashflow-column ' + interval }
-      onChange  = { handleChange }
-      value     = { value }
-      style     = { style }
-      name      = { name }
-      type      = { 'number' }
-    />
-  );
+  componentWillReceiveProps ({ value, currentInput }) {
+    this.value        = value;
+    this.currentInput = currentInput;
+  }
 
-};  // End CashFlowInput{} Component
+  render() {
+
+    var special = true;
+    if ( this.focused ) { special = true; }
+    else { special = false; }
+    // console.log(extraClass);
+    console.log( special );
+
+    /** @todo Different class for something 'future' that has a current value that isn't 0 */
+    return (
+      <Form.Input
+        error={special}
+        className = { this.type + ' cashflow-column ' + this.interval + ' ' + this.className }
+        onChange  = { this.handleChange }
+        onFocus   = { this.handleFocus }
+        onBlur    = { this.handleBlur }
+        value     = { this.value }
+        style     = {{ ...this.style, display: 'inline-block' }}
+        name      = { this.name }
+        type      = { 'number' } />
+    );
+
+  }
+
+};  // CashFlowInput
 
 
 /** @todo description
@@ -419,7 +461,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
   // to get id, but doesn't seem worth it at the moment.
   // Maybe put some of these in an object?
   return (
-    <Form.Field inline>
+    <Form.Field inline className={'cashflow'}>
       <CashFlowInput
         type     = { type }
         time     = { time }
@@ -450,7 +492,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
         name     = { generic + 'Yearly' }
         style    = { righter }
       />
-      <wrapper>
+      <wrapper className={'cashflow-column'}>
         <label>{ children }</label>
         <InlineLabelInfo>{ labelInfo }</InlineLabelInfo>
       </wrapper>
