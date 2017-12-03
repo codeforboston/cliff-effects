@@ -62,6 +62,10 @@ form .field-aligner {
   padding-left: 1em !important;
 }
 
+.ui.form .cashflow .cashflow-column input {
+  text-align: right;
+}
+
 /* One of these two groups */
 .info-revealer .info-tooltip {
     display: none;
