@@ -80,8 +80,6 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
       <CashFlowRow {...sharedProps} generic='socialSecurity'> Social security </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='alimony'> Alimony </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='otherIncome'> Other income </CashFlowRow>
-      <Divider/>
-      <CashFlowRow {...sharedProps} generic='incomeExclusions'> Income exclusions </CashFlowRow>
 
     </div>
   );  // end return
