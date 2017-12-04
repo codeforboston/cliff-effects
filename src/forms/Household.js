@@ -319,10 +319,7 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
       <Button id={'addMember'} basic onClick={addMember}>
         <Columns.One noMargin={true}>
-          <MemberButton
-            basic color={'teal'}
-            className={'add'}
-            iconName={'plus'} />
+          <Icon name={'plus'} circular inverted color={'teal'} />
         </Columns.One>
 
         <Columns.Two noMargin={true}>
