@@ -43,61 +43,40 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           }
         >
           <h4
-            className="ui teal header income-column header weekly"
+            className="ui teal header income-column cashflow-column header weekly"
             style={
               Object {
-                "display": "inline-block",
                 "fontSize": "14px",
-                "marginBottom": "0.7em",
-                "marginRight": "0.2em",
-                "marginTop": "0.7em",
-                "textAlign": "center",
-                "width": "7em",
               }
             }
           >
             Weekly
           </h4>
           <h4
-            className="ui teal header income-column header monthly"
+            className="ui teal header income-column cashflow-column header monthly"
             style={
               Object {
-                "display": "inline-block",
                 "fontSize": "14px",
-                "marginBottom": "0.7em",
-                "marginRight": "0.2em",
-                "marginTop": "0.7em",
-                "textAlign": "center",
-                "width": "7em",
               }
             }
           >
             Monthly
           </h4>
           <h4
-            className="ui teal header income-column header yearly"
+            className="ui teal header income-column cashflow-column header yearly"
             style={
               Object {
-                "display": "inline-block",
                 "fontSize": "14px",
-                "marginBottom": "0.7em",
-                "marginRight": "0.9em",
-                "marginTop": "0.7em",
-                "textAlign": "center",
-                "width": "7em",
               }
             }
           >
             Yearly
           </h4>
           <h4
-            className="ui teal header income-column header income"
+            className="ui teal header income-column cashflow-column header income"
             style={
               Object {
-                "display": "inline-block",
                 "fontSize": "14px",
-                "marginBottom": "0.7em",
-                "marginTop": "0.7em",
               }
             }
           >
@@ -105,63 +84,89 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           </h4>
         </wrapper>
         <div
-          className="inline field"
+          className="inline field cashflow"
         >
           <div
-            className="ui input income cashflow-column weekly"
-            style={
-              Object {
-                "marginRight": ".2em",
-                "width": "7em",
-              }
-            }
+            className="field future income cashflow-column weekly"
           >
-            <input
-              disabled={undefined}
-              name="earnedWeekly"
-              onChange={[Function]}
-              tabIndex={undefined}
-              type="number"
-              value=""
-            />
+            <div
+              className="ui input"
+              content={undefined}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "width": "7em",
+                }
+              }
+            >
+              <input
+                disabled={undefined}
+                name="earnedWeekly"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={undefined}
+                tabIndex={undefined}
+                type="number"
+                value="0.00"
+              />
+            </div>
           </div>
           <div
-            className="ui input income cashflow-column monthly"
-            style={
-              Object {
-                "marginRight": ".2em",
-                "width": "7em",
-              }
-            }
+            className="field future income cashflow-column monthly"
           >
-            <input
-              disabled={undefined}
-              name="earned"
-              onChange={[Function]}
-              tabIndex={undefined}
-              type="number"
-              value=""
-            />
+            <div
+              className="ui input"
+              content={undefined}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "width": "7em",
+                }
+              }
+            >
+              <input
+                disabled={undefined}
+                name="earned"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={undefined}
+                tabIndex={undefined}
+                type="number"
+                value="0.00"
+              />
+            </div>
           </div>
           <div
-            className="ui input income cashflow-column yearly"
-            style={
-              Object {
-                "marginRight": ".9em",
-                "width": "7em",
-              }
-            }
+            className="field future income cashflow-column yearly"
           >
-            <input
-              disabled={undefined}
-              name="earnedYearly"
-              onChange={[Function]}
-              tabIndex={undefined}
-              type="number"
-              value=""
-            />
+            <div
+              className="ui input"
+              content={undefined}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "width": "7em",
+                }
+              }
+            >
+              <input
+                disabled={undefined}
+                name="earnedYearly"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={undefined}
+                tabIndex={undefined}
+                type="number"
+                value="0.00"
+              />
+            </div>
           </div>
-          <wrapper>
+          <wrapper
+            className="cashflow-column"
+          >
             <label>
               Earned income
             </label>

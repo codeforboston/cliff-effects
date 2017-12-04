@@ -1,20 +1,22 @@
 // REACT COMPONENTS
-import React from 'react';
+import React, { Component } from 'react';
 import {
   // Generic Form stuff
-	Button,
+    Button,
   Grid,
   Header,
   Segment,
   Divider,
   Form,
-  Input,
+  // Input,
   Checkbox
   // Money columns
 } from 'semantic-ui-react';
 
 // UTILITIES
-import { roundMoney, toMonthlyAmount } from '../utils/math';
+import { toMonthlyAmount } from '../utils/math';
+import { isPositiveNumber } from '../utils/validators';
+import { toMoneyStr } from '../utils/prettifiers';
 
 
 // ========================================
@@ -311,7 +313,7 @@ const InlineLabelInfo = function ( props ) {
 * @returns Component
 */
 const ColumnHeading = function ({ type, colName, style, children }) {
-  var classes = type + '-column header ' + colName;
+  var classes = type + '-column cashflow-column header ' + colName;
   return (
     <Header as='h4' className={classes} style={style} color='teal'>{children}</Header>
   );
@@ -327,22 +329,16 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 * @returns Component
 */
 const IntervalColumnHeadings = function ({ type }) {
-  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase()) + " Type"; 
 
-  var baseStyles  = {
-        marginTop: '0.7em', marginBottom: '0.7em',
-        display: 'inline-block', fontSize: '14px'
-      },
-      inputStyles  = { ...baseStyles, width: '7em', textAlign: 'center' },
-      lefterStyles = { ...inputStyles, marginRight: '0.2em' },
-      rightStyles  = { ...inputStyles, marginRight: '0.9em' };
+  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase()) + " Type",
+      styles      = { fontSize: '14px' };
 
   return (
     <wrapper style={{ display: 'inline-block' }}>
-      <ColumnHeading type={type} colName='weekly'  style={lefterStyles}>Weekly</ColumnHeading>
-      <ColumnHeading type={type} colName='monthly' style={lefterStyles}>Monthly</ColumnHeading>
-      <ColumnHeading type={type} colName='yearly'  style={rightStyles}>Yearly</ColumnHeading>
-      <ColumnHeading type={type} colName={type} style={baseStyles} columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
+      <ColumnHeading type={type} colName='weekly'  style={styles}>Weekly</ColumnHeading>
+      <ColumnHeading type={type} colName='monthly' style={styles}>Monthly</ColumnHeading>
+      <ColumnHeading type={type} colName='yearly'  style={styles}>Yearly</ColumnHeading>
+      <ColumnHeading type={type} colName={type} style={styles} columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
     </wrapper>
   );
 
@@ -361,32 +357,80 @@ const IntervalColumnHeadings = function ({ type }) {
 *
 * @returns Component
 */
-const CashFlowInput = function ({ interval, generic, time, type, store, value, style, id, name }) {
+class CashFlowInput extends Component {
+  constructor ( props ) {
+    super( props );
 
-  var handleChange = function ( evnt, inputProps ) {
+    var { value, generic, name, time, type, interval, store } = props;
 
-    var name    = generic,
-        monthly = toMonthlyAmount[ interval ]( evnt, evnt.target.value ),
-        obj     = { name: name , value: monthly };
+    // Need updating
+    this.state = {
+      focused:    false,
+      valid:      true,
+      value:      value,
+      focusedVal: value,
+    };
 
-    store( evnt, obj );
+    // Don't need updating
+    this.generic  = generic;
+    this.name     = name;
+    this.className= time + ' ' + type + ' cashflow-column ' + interval;
+    this.interval = interval;
+    this.store    = store;
+  }  // End constructor()
+  
+  handleFocus = ( evnt, inputProps ) => {
+    var newState = {
+      focused:    true,
+      focusedVal: toMoneyStr( this.state.value )
+    }
+    this.setState(function ( prevState ) { return newState; });
+  }
+  
+  handleBlur = ( evnt ) => {
+    this.setState(function ( prevState ) { return { focused: false, valid: true }; });
+  }
 
-  };  // End handleChange()
+  handleChange = ( evnt, inputProps ) => {
+    var value = inputProps.value,
+        valid = isPositiveNumber( value );
 
-  /** @todo Different class for something 'future' that has a current value that isn't 0 */
+    if ( valid ) {
+      var monthly = toMonthlyAmount[ this.interval ]( evnt, value ),
+          obj     = { name: this.generic , value: monthly };
+      this.store( evnt, obj );
+    }
 
-  return (
-    <Input
-      className = { type + ' cashflow-column ' + interval }
-      onChange  = { handleChange }
-      value     = { value }
-      style     = { style }
-      name      = { name }
-      type      = { 'number' }
-    />
-  );
+    this.setState(function ( prevState ) { return {...prevState, valid: valid, focusedVal: value}; });
+  }  // End handleChange()
 
-};  // End CashFlowInput{} Component
+  componentWillReceiveProps ({ value }) {
+    this.setState(function ( prevState ) { return { value: value }; });
+  }
+
+  render() {
+
+    var { value, valid, focused, focusedVal } = this.state;
+
+    if ( !focused ) { value = toMoneyStr( value ) }
+    else { value = focusedVal; }
+
+    /** @todo Different class for something 'future' that has a current value that isn't 0 */
+    return (
+      <Form.Input
+        error     = { !valid }
+        value     = { value }
+        name      = { this.name }
+        className = { this.className }
+        style     = {{ width: '7em', display: 'inline-block' }}
+        onChange  = { this.handleChange }
+        onFocus   = { this.handleFocus }
+        onBlur    = { this.handleBlur }
+        type      = { 'number' } />
+    );
+
+  }
+};  // End CashFlowInput
 
 
 /** @todo description
@@ -398,9 +442,6 @@ const CashFlowInput = function ({ interval, generic, time, type, store, value, s
 * @returns Component
 */
 const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
-
-  var lefter  = { width: '7em', marginRight: '.2em' },
-      righter = { width: '7em', marginRight: '.9em' };
 
   /** baseVal
   * Get the time ('future' or 'current') monthly value unless there is
@@ -419,38 +460,35 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
   // to get id, but doesn't seem worth it at the moment.
   // Maybe put some of these in an object?
   return (
-    <Form.Field inline>
+    <Form.Field inline className={'cashflow'}>
       <CashFlowInput
-        type     = { type }
-        time     = { time }
-        interval = { 'weekly' }
-        value    = { roundMoney( baseVal / 4.33 ) || '' }
-        store    = { setClientProperty }
+        value    = { baseVal / 4.33 }
         generic  = { generic }
         name     = { generic + 'Weekly' }
-        style    = { lefter }
+        time     = { time }
+        type     = { type }
+        interval = { 'weekly' }
+        store    = { setClientProperty }
       />
       <CashFlowInput
-        type     = { type }
-        time     = { time }
-        interval = { 'monthly' }
-        value    = { roundMoney( baseVal ) || '' }
-        store    = { setClientProperty }
+        value    = { baseVal }
         generic  = { generic }
         name     = { generic }
-        style    = { lefter }
+        time     = { time }
+        type     = { type }
+        interval = { 'monthly' }
+        store    = { setClientProperty }
       />
       <CashFlowInput
-        type     = { type }
-        time     = { time }
-        interval = { 'yearly' }
-        value    = { roundMoney( baseVal * 12 ) || '' }
-        store    = { setClientProperty }
+        value    = { baseVal * 12 }
         generic  = { generic }
         name     = { generic + 'Yearly' }
-        style    = { righter }
+        time     = { time }
+        type     = { type }
+        interval = { 'yearly' }
+        store    = { setClientProperty }
       />
-      <wrapper>
+      <wrapper className={'cashflow-column'}>
         <label>{ children }</label>
         <InlineLabelInfo>{ labelInfo }</InlineLabelInfo>
       </wrapper>

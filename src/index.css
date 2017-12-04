@@ -5,9 +5,9 @@ body {
 }
 
 form .field-aligner {
-	display: inline-block;
-	text-align: left;
-	max-width: 80%;
+    display: inline-block;
+    text-align: left;
+    max-width: 80%;
 }
 
 #App {
@@ -47,17 +47,36 @@ form .field-aligner {
   justify-content: center;
 }
 
+.ui.form h4.ui.header.cashflow-column,
+.ui.form .cashflow .cashflow-column {
+  display: inline-block;
+  margin-right: .2em !important;
+  width: 7em;
+  text-align: center;
+}
+
+.ui.form h4.ui.header.cashflow-column:last-child,
+.ui.form .cashflow .cashflow-column:last-child {
+  text-align: left;
+  width: auto;
+  padding-left: 1em !important;
+}
+
+.ui.form .cashflow .cashflow-column input {
+  text-align: right;
+}
+
 /* One of these two groups */
 .info-revealer .info-tooltip {
-	display: none;
+    display: none;
 }
 .info-revealer:hover .info-tooltip,
 .info-revealer:active .info-tooltip {
-	display: inline-block;
+    display: inline-block;
 }
 .info-revealer:hover .info-indicator,
 .info-revealer:active .info-indicator {
-	display: none;
+    display: none;
 }
 
 .label-info { display: inline; }
@@ -65,20 +84,20 @@ form .field-aligner {
 
 
 .massive-toggle .ui.toggle.checkbox input~label:before {
-	background-color: rgba(0, 0, 0, 0.23);
+    background-color: rgba(0, 0, 0, 0.23);
 }
 .massive-toggle .ui.toggle.checkbox input~label:after {
-	transform: scale(0.85) translate(10%, 0);
+    transform: scale(0.85) translate(10%, 0);
 }
 .massive-toggle .ui.toggle.checkbox input:focus~label:before {
-	background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .massive-toggle .ui.toggle.checkbox input:checked~label:after {
-	transform: scale(0.85) translate(-10%, 0);
+    transform: scale(0.85) translate(-10%, 0);
 }
 
 #addMember {
-	padding: 0;
+    padding: 0;
     padding-top: .5rem;
     padding-bottom: .5rem;
     margin-top: 0.7rem;
@@ -105,7 +124,7 @@ ol.ui.list li:before,
 .ui.menu .item,
 .ui.sortable.table thead th.sorted,
 .ui.sortable.table thead th.sorted:hover {
-	user-select: all;
+    user-select: all;
 }
 
 /* Remove controls from Firefox */
