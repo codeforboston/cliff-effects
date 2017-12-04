@@ -32,55 +32,55 @@ const stringToNumber = function ( str ) {
  */
 const valueFixers = {
   // Current programs
-  hasSnap: returnSame,
-  hasHousing: returnSame,
+  hasSnap:                        returnSame,
+  hasHousing:                     returnSame,
   // Household
-  household: returnSame,
-  m_age: returnSame,  // to positive int
-  m_role: returnSame,
-  m_disabled: returnSame,
+  household:                      returnSame,
+  m_age:                          returnSame,  // to positive int (validate in component?)
+  m_role:                         returnSame,
+  m_disabled:                     returnSame,
   // MONEY AMOUNTS
   // Income
   /** @todo All incomes need transformation */
-  earned: stringToNumber,  // to money
-  TAFDC: returnSame,  // to money
-  SSI: returnSame,  // to money
-  SSDI: returnSame,  // to money
-  childSupportIn: returnSame,  // to money
-  unemployment: returnSame,  // to money
-  workersComp: returnSame,  // to money
-  pension: returnSame,  // to money
-  socialSecurity: returnSame,  // to money
-  alimony: returnSame,  // to money
-  otherIncome: returnSame,  // to money
-  incomeExclusions: returnSame,  // to money
+  earned:                         stringToNumber,
+  TAFDC:                          stringToNumber,
+  SSI:                            stringToNumber,
+  SSDI:                           stringToNumber,
+  childSupportIn:                 stringToNumber,
+  unemployment:                   stringToNumber,
+  workersComp:                    stringToNumber,
+  pension:                        stringToNumber,
+  socialSecurity:                 stringToNumber,
+  alimony:                        stringToNumber,
+  otherIncome:                    stringToNumber,
+  incomeExclusions:               stringToNumber,
   // Expenses
-  childDirectCare: returnSame,  // to money
-  childBeforeAndAfterSchoolCare: returnSame,  // to money
-  childTransportation: returnSame,  // to money
-  childOtherCare: returnSame,  // to money
-  earnedBecauseOfChildCare: returnSame,  // to money
-  childSupportPaidOut: returnSame,  // to money
-  adultDirectCare: returnSame,  // to money
-  adultTransportation: returnSame,  // to money
-  adultOtherCare: returnSame,  // to money
-  disabledAssistance: returnSame,  // to money
-  earnedBecauseOfAdultCare: returnSame,  // to money
-  disabledMedical: returnSame,  // to money
-  otherMedical: returnSame,  // to money
+  childDirectCare:                stringToNumber,
+  childBeforeAndAfterSchoolCare:  stringToNumber,
+  childTransportation:            stringToNumber,
+  childOtherCare:                 stringToNumber,
+  earnedBecauseOfChildCare:       stringToNumber,
+  childSupportPaidOut:            stringToNumber,
+  adultDirectCare:                stringToNumber,
+  adultTransportation:            stringToNumber,
+  adultOtherCare:                 stringToNumber,
+  disabledAssistance:             stringToNumber,
+  earnedBecauseOfAdultCare:       stringToNumber,
+  disabledMedical:                stringToNumber,
+  otherMedical:                   stringToNumber,
   /** @todo When client has section 8, switch this to 'housingVoucher' */
-  shelter: returnSame,
-  contractRent: returnSame,  // money
-  rentShare: returnSame,  // money
-  rent: returnSame,  // to money
-  mortgage: returnSame,  // to money
-  housingInsurance: returnSame,  // to money
-  propertyTax: returnSame,  // to money
-  hasClimateControl: returnSame,
-  nonHeatElectricity: returnSame,
-  phone: returnSame,
-  hasFuelAssistance: toBoolean,  // to bool
-  otherExpenses: returnSame,  // money
+  shelter:                        returnSame,
+  contractRent:                   stringToNumber,
+  rentShare:                      stringToNumber,
+  rent:                           stringToNumber,
+  mortgage:                       stringToNumber,
+  housingInsurance:               stringToNumber,
+  propertyTax:                    stringToNumber,
+  hasClimateControl:              returnSame,
+  nonHeatElectricity:             returnSame,
+  phone:                          returnSame,
+  hasFuelAssistance:              toBoolean,
+  otherExpenses:                  stringToNumber,
 
 };  // end valueFixers
 
