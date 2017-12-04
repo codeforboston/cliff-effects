@@ -1,6 +1,6 @@
 // REACT COMPONENTS
 import React from 'react';
-import { Form, Divider } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
