@@ -347,72 +347,55 @@ const IntervalColumnHeadings = function ({ type }) {
 
 
 /** @todo description
-*
-* @todo Make this more generic and make the caller
-* handle more of the specifics.
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-class CashFlowInput extends Component {
+ *
+ * @function
+ * @param {object} props
+ * @property {object} props.__ - explanation
+ *
+ * @returns Component
+ */
+class ManagedInput extends Component {
   constructor ( props ) {
     super( props );
-
-    var { value, generic, name, time, type, interval, store } = props;
-
     // Need updating
     this.state = {
       focused:    false,
       valid:      true,
-      value:      value,
-      focusedVal: value,
+      focusedVal: this.props.value,
     };
-
-    // Don't need updating
-    this.generic  = generic;
-    this.name     = name;
-    this.className= time + ' ' + type + ' cashflow-column ' + interval;
-    this.interval = interval;
-    this.store    = store;
   }  // End constructor()
   
   handleFocus = ( evnt, inputProps ) => {
     var newState = {
       focused:    true,
-      focusedVal: toMoneyStr( this.state.value )
+      // `value` here is probably a long decimal
+      focusedVal: this.props.format( this.props.value )
     }
-    this.setState(function ( prevState ) { return newState; });
+    this.setState( newState );
   }
   
   handleBlur = ( evnt ) => {
-    this.setState(function ( prevState ) { return { focused: false, valid: true }; });
+    this.setState({ focused: false, valid: true });
   }
 
   handleChange = ( evnt, inputProps ) => {
     var value = inputProps.value,
-        valid = isPositiveNumber( value );
+        valid = this.props.validate( value );
 
     if ( valid ) {
-      var monthly = toMonthlyAmount[ this.interval ]( evnt, value ),
-          obj     = { name: this.generic , value: monthly };
-      this.store( evnt, obj );
+      this.props.store( evnt, value, this.props.interval );
     }
 
-    this.setState(function ( prevState ) { return {...prevState, valid: valid, focusedVal: value}; });
+    this.setState({ valid: valid, focusedVal: value });
   }  // End handleChange()
-
-  componentWillReceiveProps ({ value }) {
-    this.setState(function ( prevState ) { return { value: value }; });
-  }
 
   render() {
 
-    var { value, valid, focused, focusedVal } = this.state;
+    var { valid, focused, focusedVal }  = this.state;
+    var { value, name, className }      = this.props;
 
-    if ( !focused ) { value = toMoneyStr( value ) }
+    // Format correctly when neighbors are updated, if needed
+    if ( !focused ) { value = this.props.format( value ) }
     else { value = focusedVal; }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */
@@ -420,16 +403,104 @@ class CashFlowInput extends Component {
       <Form.Input
         error     = { !valid }
         value     = { value }
-        name      = { this.name }
-        className = { this.className }
-        style     = {{ width: '7em', display: 'inline-block' }}
+        name      = { name }
+        className = { className }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
         onBlur    = { this.handleBlur }
         type      = { 'number' } />
     );
 
-  }
+  }  // End render()
+
+};  // End ManagedInput
+
+
+
+// /** @todo description
+// *
+// * @todo Make this more generic and make the caller
+// * handle more of the specifics.
+// *
+// * @function
+// * @param {object} props
+// * @property {object} props.__ - explanation
+// *
+// * @returns Component
+// */
+class CashFlowInput extends Component {
+//   constructor ( props ) {
+//     super( props );
+
+//     var { value, generic, name, time, type, interval, store } = props;
+
+//     // Need updating
+//     this.state = {
+//       focused:    false,
+//       valid:      true,
+//       value:      value,
+//       focusedVal: value,
+//     };
+
+//     // Don't need updating
+//     this.generic  = generic;
+//     this.name     = name;
+//     this.className= time + ' ' + type + ' cashflow-column ' + interval;
+//     this.interval = interval;
+//     this.store    = store;
+//   }  // End constructor()
+  
+//   handleFocus = ( evnt, inputProps ) => {
+//     var newState = {
+//       focused:    true,
+//       focusedVal: toMoneyStr( this.state.value )
+//     }
+//     this.setState(function ( prevState ) { return newState; });
+//   }
+  
+//   handleBlur = ( evnt ) => {
+//     this.setState(function ( prevState ) { return { focused: false, valid: true }; });
+//   }
+
+//   handleChange = ( evnt, inputProps ) => {
+//     var value = inputProps.value,
+//         valid = isPositiveNumber( value );
+
+//     if ( valid ) {
+//       var monthly = toMonthlyAmount[ this.interval ]( evnt, value ),
+//           obj     = { name: this.generic , value: monthly };
+//       this.store( evnt, obj );
+//     }
+
+//     this.setState(function ( prevState ) { return {...prevState, valid: valid, focusedVal: value}; });
+//   }  // End handleChange()
+
+//   componentWillReceiveProps ({ value }) {
+//     this.setState(function ( prevState ) { return { value: value }; });
+//   }
+
+//   render() {
+
+//     var { value, valid, focused, focusedVal } = this.state;
+
+//     if ( !focused ) { value = toMoneyStr( value ) }
+//     else { value = focusedVal; }
+
+//     /** @todo Different class for something 'future' that has a current value that isn't 0 */
+//     return (
+//       <Form.Input
+//         error     = { !valid }
+//         value     = { value }
+//         name      = { this.name }
+//         className = { this.className }
+//         style     = {{ width: '7em', display: 'inline-block' }}
+//         onChange  = { this.handleChange }
+//         onFocus   = { this.handleFocus }
+//         onBlur    = { this.handleBlur }
+//         type      = { 'number' } />
+//     );
+
+//   }
 };  // End CashFlowInput
 
 
@@ -443,50 +514,54 @@ class CashFlowInput extends Component {
 */
 const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
 
-  /** baseVal
-  * Get the time ('future' or 'current') monthly value unless there is
-  * none, in which case, get the 'current' monthly cash flow value (to
-  * prefill future values with 'current' ones if needed).
-  *
-  * @var
-  *
-  * @todo Add some kind of UI indication when it's the same as the 'current'
-  * value. What if some of the row's values are the same and some are
-  * different?
-  */
-  var baseVal = timeState[ generic ];
+  var updateClient = function ( evnt, value, interval ) {
+    var monthly = toMonthlyAmount[ interval ]( evnt, value ),
+        obj     = { name: generic, value: monthly };
+    setClientProperty( evnt, obj );
+  };
 
-  // Could use `_.capitalize()` in CashFlowInput to use `type`
-  // to get id, but doesn't seem worth it at the moment.
-  // Maybe put some of these in an object?
+  /** baseVal
+   * Get the time ('future' or 'current') monthly value unless there is
+   *     none, in which case, get the 'current' monthly cash flow value
+   *     (to prefill future values with 'current' ones if needed).
+   *
+   * @var
+   *
+   * @todo Add some kind of UI indication when it's the same as the 'current'
+   *     value. What if some of the row's values are the same and some are
+   *     different?
+   */
+  var baseVal   = timeState[ generic ],
+      classes   = [ time, type, 'cashflow-column' ],
+      baseProps = {
+        generic:  generic,
+        store:    updateClient,
+        validate: isPositiveNumber,
+        format:   toMoneyStr
+      };
+
   return (
     <Form.Field inline className={'cashflow'}>
-      <CashFlowInput
+      <ManagedInput
+        {...baseProps}
         value    = { baseVal / 4.33 }
-        generic  = { generic }
         name     = { generic + 'Weekly' }
-        time     = { time }
-        type     = { type }
+        className= { classes.concat( 'weekly' ).join(' ') }
         interval = { 'weekly' }
-        store    = { setClientProperty }
       />
-      <CashFlowInput
+      <ManagedInput
+        {...baseProps}
         value    = { baseVal }
-        generic  = { generic }
         name     = { generic }
-        time     = { time }
-        type     = { type }
+        className= { classes.concat( 'monthly' ).join(' ') }
         interval = { 'monthly' }
-        store    = { setClientProperty }
       />
-      <CashFlowInput
+      <ManagedInput
+        {...baseProps}
         value    = { baseVal * 12 }
-        generic  = { generic }
         name     = { generic + 'Yearly' }
-        time     = { time }
-        type     = { type }
+        className= { classes.concat( 'yearly' ).join(' ') }
         interval = { 'yearly' }
-        store    = { setClientProperty }
       />
       <wrapper className={'cashflow-column'}>
         <label>{ children }</label>

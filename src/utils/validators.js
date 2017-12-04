@@ -6,6 +6,7 @@
 
 
 /** Returns true if a string represents a positve number (integer or float) */
+// Should this only be valid if it has <= 2 decimal places?
 const isPositiveNumber = function ( str ) {
   return str !== '' && !/[^0-9.]|\..*\./.test(str);
 };
