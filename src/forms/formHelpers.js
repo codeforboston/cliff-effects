@@ -345,16 +345,10 @@ const IntervalColumnHeadings = function ({ type }) {
 };  // End IntervalColumnHeadings{} Component
 
 
-
-/** @todo description
- *
- * @function
- * @param {object} props
- * @property {object} props.__ - explanation
- *
- * @returns Component
+/** 
+ * @todo description
  */
-class ManagedInput extends Component {
+class ManagedNumberField extends Component {
   constructor ( props ) {
     super( props );
     // Need updating
@@ -413,95 +407,7 @@ class ManagedInput extends Component {
 
   }  // End render()
 
-};  // End ManagedInput
-
-
-
-// /** @todo description
-// *
-// * @todo Make this more generic and make the caller
-// * handle more of the specifics.
-// *
-// * @function
-// * @param {object} props
-// * @property {object} props.__ - explanation
-// *
-// * @returns Component
-// */
-class CashFlowInput extends Component {
-//   constructor ( props ) {
-//     super( props );
-
-//     var { value, generic, name, time, type, interval, store } = props;
-
-//     // Need updating
-//     this.state = {
-//       focused:    false,
-//       valid:      true,
-//       value:      value,
-//       focusedVal: value,
-//     };
-
-//     // Don't need updating
-//     this.generic  = generic;
-//     this.name     = name;
-//     this.className= time + ' ' + type + ' cashflow-column ' + interval;
-//     this.interval = interval;
-//     this.store    = store;
-//   }  // End constructor()
-  
-//   handleFocus = ( evnt, inputProps ) => {
-//     var newState = {
-//       focused:    true,
-//       focusedVal: toMoneyStr( this.state.value )
-//     }
-//     this.setState(function ( prevState ) { return newState; });
-//   }
-  
-//   handleBlur = ( evnt ) => {
-//     this.setState(function ( prevState ) { return { focused: false, valid: true }; });
-//   }
-
-//   handleChange = ( evnt, inputProps ) => {
-//     var value = inputProps.value,
-//         valid = isPositiveNumber( value );
-
-//     if ( valid ) {
-//       var monthly = toMonthlyAmount[ this.interval ]( evnt, value ),
-//           obj     = { name: this.generic , value: monthly };
-//       this.store( evnt, obj );
-//     }
-
-//     this.setState(function ( prevState ) { return {...prevState, valid: valid, focusedVal: value}; });
-//   }  // End handleChange()
-
-//   componentWillReceiveProps ({ value }) {
-//     this.setState(function ( prevState ) { return { value: value }; });
-//   }
-
-//   render() {
-
-//     var { value, valid, focused, focusedVal } = this.state;
-
-//     if ( !focused ) { value = toMoneyStr( value ) }
-//     else { value = focusedVal; }
-
-//     /** @todo Different class for something 'future' that has a current value that isn't 0 */
-//     return (
-//       <Form.Input
-//         error     = { !valid }
-//         value     = { value }
-//         name      = { this.name }
-//         className = { this.className }
-//         style     = {{ width: '7em', display: 'inline-block' }}
-//         onChange  = { this.handleChange }
-//         onFocus   = { this.handleFocus }
-//         onBlur    = { this.handleBlur }
-//         type      = { 'number' } />
-//     );
-
-//   }
-};  // End CashFlowInput
+};  // End ManagedNumberField
 
 
 /** @todo description
@@ -534,7 +440,6 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
   var baseVal   = timeState[ generic ],
       classes   = [ time, type, 'cashflow-column' ],
       baseProps = {
-        generic:  generic,
         store:    updateClient,
         validate: isPositiveNumber,
         format:   toMoneyStr
@@ -542,21 +447,21 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
   return (
     <Form.Field inline className={'cashflow'}>
-      <ManagedInput
+      <ManagedNumberField
         {...baseProps}
         value    = { baseVal / 4.33 }
         name     = { generic + 'Weekly' }
         className= { classes.concat( 'weekly' ).join(' ') }
         interval = { 'weekly' }
       />
-      <ManagedInput
+      <ManagedNumberField
         {...baseProps}
         value    = { baseVal }
         name     = { generic }
         className= { classes.concat( 'monthly' ).join(' ') }
         interval = { 'monthly' }
       />
-      <ManagedInput
+      <ManagedNumberField
         {...baseProps}
         value    = { baseVal * 12 }
         name     = { generic + 'Yearly' }
@@ -578,6 +483,6 @@ export {
   BottomButtons, FormPartsContainer, BottomButton,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
-  IntervalColumnHeadings, ColumnHeading, CashFlowInput,
+  IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
   CashFlowRow
 };
