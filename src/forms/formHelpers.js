@@ -347,6 +347,15 @@ const IntervalColumnHeadings = function ({ type }) {
 
 /** 
  * @todo description
+ * 
+ * @param {Object} props
+ * @param {number || string} props.value - Valid client value
+ * @param {string} props.name - For HTML name property
+ * @param {string} props.className - HTML class names
+ * @param {*} [props.otherData] - Sent back to `store()`
+ * @param {function} props.format - Given `value`. Must return what you want shown in the number field. Not sure how to jsdoc this.
+ * @param {function} props.validate - Given `value`. Must return boolean.
+ * @param {function} props.store - Given an event, `value`, [`otherData`]
  */
 class ManagedNumberField extends Component {
   constructor ( props ) {
@@ -377,7 +386,7 @@ class ManagedNumberField extends Component {
         valid = this.props.validate( value );
 
     if ( valid ) {
-      this.props.store( evnt, value, this.props.interval );
+      this.props.store( evnt, inputProps, this.props.otherData );
     }
 
     this.setState({ valid: valid, focusedVal: value });
@@ -420,8 +429,8 @@ class ManagedNumberField extends Component {
 */
 const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
 
-  var updateClient = function ( evnt, value, interval ) {
-    var monthly = toMonthlyAmount[ interval ]( evnt, value ),
+  var updateClient = function ( evnt, inputProps, interval ) {
+    var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
         obj     = { name: generic, value: monthly };
     setClientProperty( evnt, obj );
   };
@@ -449,24 +458,24 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
     <Form.Field inline className={'cashflow'}>
       <ManagedNumberField
         {...baseProps}
-        value    = { baseVal / 4.33 }
-        name     = { generic + 'Weekly' }
-        className= { classes.concat( 'weekly' ).join(' ') }
-        interval = { 'weekly' }
+        value     = { baseVal / 4.33 }
+        name      = { generic + 'Weekly' }
+        className = { classes.concat( 'weekly' ).join(' ') }
+        otherData = { 'weekly' }
       />
       <ManagedNumberField
         {...baseProps}
-        value    = { baseVal }
-        name     = { generic }
-        className= { classes.concat( 'monthly' ).join(' ') }
-        interval = { 'monthly' }
+        value     = { baseVal }
+        name      = { generic }
+        className = { classes.concat( 'monthly' ).join(' ') }
+        otherData = { 'monthly' }
       />
       <ManagedNumberField
         {...baseProps}
-        value    = { baseVal * 12 }
-        name     = { generic + 'Yearly' }
-        className= { classes.concat( 'yearly' ).join(' ') }
-        interval = { 'yearly' }
+        value     = { baseVal * 12 }
+        name      = { generic + 'Yearly' }
+        className = { classes.concat( 'yearly' ).join(' ') }
+        otherData = { 'yearly' }
       />
       <wrapper className={'cashflow-column'}>
         <label>{ children }</label>
