@@ -7,10 +7,6 @@ import {
   Prompt,
 } from 'react-router-dom';
 
-// Logic
-import { getSNAPBenefits } from '../programs/federal/snap';
-import { getHousingBenefit } from '../programs/state/massachusetts/housing';
-
 // Object Manipulation
 import { setNestedProperty } from '../utils/setNestedProperty';
 import { cloneDeep } from 'lodash';
@@ -20,7 +16,7 @@ import { clientList } from '../config/dummyClients';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
-import AlertSidebar from '../AlertSidebar'
+// import AlertSidebar from '../AlertSidebar'
 import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
@@ -166,14 +162,6 @@ class VisitPage extends Component {
               <div>
                 {this.getCurrentStep()}
               </div>
-            </Grid.Column>
-            <Grid.Column width={4} style={{ height: '100%' }}>
-              <AlertSidebar
-                hasSnap={this.state.client.current.hasSnap}
-                hasHousing={this.state.client.current.hasHousing}
-                snapAlert={getSNAPBenefits(this.state.client)}
-                housingAlert={getHousingBenefit(this.state.client)}
-              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
