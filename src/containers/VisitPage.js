@@ -7,10 +7,6 @@ import {
   Prompt,
 } from 'react-router-dom';
 
-// Logic
-import { getSNAPBenefits } from '../programs/federal/snap';
-import { getHousingBenefit } from '../programs/state/massachusetts/housing';
-
 // Object Manipulation
 import { setNestedProperty } from '../utils/setNestedProperty';
 import { cloneDeep } from 'lodash';
