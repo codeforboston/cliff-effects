@@ -92,12 +92,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             <div
               className="ui input"
               content={undefined}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "width": "7em",
-                }
-              }
             >
               <input
                 disabled={undefined}
@@ -118,12 +112,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             <div
               className="ui input"
               content={undefined}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "width": "7em",
-                }
-              }
             >
               <input
                 disabled={undefined}
@@ -144,12 +132,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             <div
               className="ui input"
               content={undefined}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "width": "7em",
-                }
-              }
             >
               <input
                 disabled={undefined}
