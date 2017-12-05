@@ -23,6 +23,21 @@ import { toMoneyStr } from '../utils/prettifiers';
 // GENERIC COMPONENTS
 // ========================================
 
+/** Returns a component with a massive teal button
+ * 
+ */
+const MassiveButton = function ({ className, func, children }) {
+
+  var className = (className || '') + ' massive-button';
+  return (
+    <Button fluid type='button' color='teal' size='large' className={className} onClick={func}>
+      { children }
+    </Button>
+  );
+
+};  // End MassiveButton(<>)
+
+
 /** Returns a Grid Column containing a button of the style used
 * to navigate backwards and forwards through steps of the form.
 *
@@ -37,10 +52,8 @@ import { toMoneyStr } from '../utils/prettifiers';
 */
 const BottomButton = function(props){
   return (
-    <Grid.Column className='large-bottom-button' width={3}>
-      <Button type='button' color='teal' fluid size='large' onClick={props.func}>
-        { props.children }
-      </Button>
+    <Grid.Column className={'large-bottom-button'} width={3}>
+      <MassiveButton {...props} />
     </Grid.Column>
   );
 };  // End BottomButton() Component
@@ -480,7 +493,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 /** @todo Separate into different files? */
 export {
-  BottomButtons, FormPartsContainer, BottomButton,
+  BottomButtons, MassiveButton, BottomButton, FormPartsContainer,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
