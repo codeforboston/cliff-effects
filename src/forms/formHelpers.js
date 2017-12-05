@@ -2,8 +2,7 @@
 import React, { Component } from 'react';
 import {
   // Generic Form stuff
-    Button,
-  Grid,
+  Button,
   Header,
   Segment,
   Divider,
@@ -22,29 +21,6 @@ import { toMoneyStr } from '../utils/prettifiers';
 // ========================================
 // GENERIC COMPONENTS
 // ========================================
-
-/** Returns a Grid Column containing a button of the style used
-* to navigate backwards and forwards through steps of the form.
-*
-* @function
-* @param {object} props
-* @property {object} props.func - A function that is run when the
-* button is clicked.
-* @property {string} props.name - The text to be displayed on
-* the button.
-*
-* @returns Component
-*/
-const BottomButton = function(props){
-  return (
-    <Grid.Column className='large-bottom-button' width={3}>
-      <Button type='button' color='teal' fluid size='large' onClick={props.func}>
-        { props.children }
-      </Button>
-    </Grid.Column>
-  );
-};  // End BottomButton() Component
-
 
 /** The row containing the 'Previous' and 'Next' buttons at the
 * bottom of each form page.
@@ -66,22 +42,26 @@ const BottomButton = function(props){
 *
 * @returns Component
 */
-const BottomButtons = function(props){
+const BottomButtons = function({ left, right }) {
+  const flexItemStyle = { flexBasis: '118.3px' };
+  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' }; 
   return (
-    <Grid textAlign='center' verticalAlign='middle'>
-      <Grid.Row>
-        { !props.left
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.left.func}>{ props.left.name }</BottomButton>
-        }
-        <Grid.Column width={10} />
-        { !props.right
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
-
-        }
-      </Grid.Row>
-    </Grid>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      { left ?
+        <Button {...buttonProps} onClick={left.func}>
+          { left.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+      { right ?
+        <Button {...buttonProps} onClick={right.func}>
+          { right.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+    </div>
   );
 };  // End BottomButtons() Component
 
@@ -500,7 +480,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 /** @todo Separate into different files? */
 export {
-  BottomButtons, FormPartsContainer, BottomButton,
+  BottomButtons, FormPartsContainer,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
   IntervalColumnHeadings, ColumnHeading, CashFlowInput,
