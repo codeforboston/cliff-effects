@@ -13,8 +13,9 @@ const isPositiveNumber = function ( str ) {
 
 
 /** Returns true if a string represents a positive integer */
+/** @todo Change name to 'isWholeNumber'. */
 const isPositiveWholeNumber = function ( str ) {
-  return /^[0-9]*$/.test(str);
+  return str !== '' && /^[0-9]*$/.test(str);
 };
 
 

@@ -6,18 +6,19 @@ import {
   Dropdown,
   Header,
   Checkbox,
-  Icon,
-  Input
+  Icon
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import {
   FormPartsContainer,
-  ColumnHeading
+  ColumnHeading,
+  ManagedNumberField
 } from './formHelpers';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
+import { isPositiveWholeNumber } from '../utils/validators';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';
@@ -219,12 +220,13 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
       </Columns.Two>
 
       <Columns.Three>
-        <Input
-          className = {time + '-member-age ' + time}
-          onChange  = {onMemberChange}
+        <ManagedNumberField
           value     = {member.m_age}
           name      = {'m_age'}
-          type      = {'number'} step = {'1'} min = {'0'} />
+          className = {time + ' member-age ' + time}
+          validate  = {isPositiveWholeNumber}
+          format    = {function ( value ) { return value; }}
+          store     = {onMemberChange} />
       </Columns.Three>
 
       <Columns.Four>
