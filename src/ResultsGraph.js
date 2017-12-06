@@ -145,14 +145,10 @@ const ResultsGraph = (props) => {
       <FormPartsContainer
         title     = {'Results'}
         left      = {{ name: 'Go Back', func: props.previousStep }}
-        right      = {{ name: 'Reset', func: props.reset  }}
+        right      = {{ name: 'Reset', func: function(){ document.location.reload() } }}
       >
          <div> <Line data={data} options={options} /> </div>
       </FormPartsContainer>
-
-      <button class="ui positive button" onClick={function(){ setTimeout(
-        function(){document.location.reload()}, 1000)}}> Reset
-      </button>
     </wrapper>
   )
 
