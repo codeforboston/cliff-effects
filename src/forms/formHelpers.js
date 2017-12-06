@@ -347,13 +347,14 @@ const IntervalColumnHeadings = function ({ type }) {
 
 /** 
  * @todo description
+ * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
  * 
  * @param {Object} props
  * @param {number || string} props.value - Valid client value
  * @param {string} props.name - For HTML name property
  * @param {string} props.className - HTML class names
  * @param {*} [props.otherData] - Sent back to `store()`
- * @param {function} props.format - Given `value`. Must return what you want shown in the number field. Not sure how to jsdoc this.
+ * @param {function} props.format - Given `value`. Must return what you want shown in the number field.
  * @param {function} props.validate - Given `value`. Must return boolean.
  * @param {function} props.store - Given an event, `value`, [`otherData`]
  */
