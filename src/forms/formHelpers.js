@@ -23,6 +23,14 @@ import { toMoneyStr } from '../utils/prettifiers';
 // GENERIC COMPONENTS
 // ========================================
 
+/**
+ * Link that opens new tab
+ */
+const ExternalLink = function ({ href, children }) {
+  return (<a href={href} target='_blank'>children</a>);
+};
+
+
 /** Returns a Grid Column containing a button of the style used
 * to navigate backwards and forwards through steps of the form.
 *
@@ -480,6 +488,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 /** @todo Separate into different files? */
 export {
+  ExternalLink,
   BottomButtons, FormPartsContainer, BottomButton,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
