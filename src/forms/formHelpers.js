@@ -23,6 +23,20 @@ import { toMoneyStr } from '../utils/prettifiers';
 // GENERIC COMPONENTS
 // ========================================
 
+/** Returns a component with a massive teal button
+ * 
+ */
+const MassiveButton = function ({ className, func, children }) {
+
+  className = (className || '') + ' massive-button';
+  return (
+    <Button fluid type='button' color='teal' size='large' className={className} onClick={func}>
+      { children }
+    </Button>
+  );
+
+};  // End MassiveButton(<>)
+
 /**
  * Link that opens new tab
  */
@@ -45,10 +59,8 @@ const ExternalLink = function ({ href, children }) {
 */
 const BottomButton = function(props){
   return (
-    <Grid.Column className='large-bottom-button' width={3}>
-      <Button type='button' color='teal' fluid size='large' onClick={props.func}>
-        { props.children }
-      </Button>
+    <Grid.Column className={'large-bottom-button'} width={3}>
+      <MassiveButton {...props} />
     </Grid.Column>
   );
 };  // End BottomButton() Component
