@@ -2,14 +2,14 @@
 import React, { Component } from 'react';
 import {
   // Generic Form stuff
-    Button,
-  Grid,
+  Button,
   Header,
   Segment,
   Divider,
   Form,
+  Grid,
   // Input,
-  Checkbox
+  Checkbox,
   // Money columns
 } from 'semantic-ui-react';
 
@@ -65,7 +65,6 @@ const BottomButton = function(props){
   );
 };  // End BottomButton() Component
 
-
 /** The row containing the 'Previous' and 'Next' buttons at the
 * bottom of each form page.
 *
@@ -86,22 +85,26 @@ const BottomButton = function(props){
 *
 * @returns Component
 */
-const BottomButtons = function(props){
+const BottomButtons = function({ left, right }) {
+  const flexItemStyle = { flexBasis: '118.3px' };
+  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' }; 
   return (
-    <Grid textAlign='center' verticalAlign='middle'>
-      <Grid.Row>
-        { !props.left
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.left.func}>{ props.left.name }</BottomButton>
-        }
-        <Grid.Column width={10} />
-        { !props.right
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
-
-        }
-      </Grid.Row>
-    </Grid>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      { left ?
+        <Button {...buttonProps} onClick={left.func}>
+          { left.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+      { right ?
+        <Button {...buttonProps} onClick={right.func}>
+          { right.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+    </div>
   );
 };  // End BottomButtons() Component
 
