@@ -383,7 +383,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           className="three wide column large-bottom-button"
         >
           <button
-            className="ui teal large fluid button"
+            className="ui teal large fluid button  massive-button"
             disabled={undefined}
             onClick={[Function]}
             role="button"
@@ -400,7 +400,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           className="three wide column large-bottom-button"
         >
           <button
-            className="ui teal large fluid button"
+            className="ui teal large fluid button  massive-button"
             disabled={undefined}
             onClick={[Function]}
             role="button"
