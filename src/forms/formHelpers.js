@@ -22,6 +22,48 @@ import { toMoneyStr } from '../utils/prettifiers';
 // GENERIC COMPONENTS
 // ========================================
 
+/** Returns a component with a massive teal button
+ * 
+ */
+const MassiveButton = function ({ className, func, children }) {
+
+  className = (className || '') + ' massive-button';
+  return (
+    <Button fluid type='button' color='teal' size='large' className={className} onClick={func}>
+      { children }
+    </Button>
+  );
+
+};  // End MassiveButton(<>)
+
+/**
+ * Link that opens new tab
+ */
+const ExternalLink = function ({ href, children }) {
+  return (<a href={href} target='_blank'>children</a>);
+};
+
+
+/** Returns a Grid Column containing a button of the style used
+* to navigate backwards and forwards through steps of the form.
+*
+* @function
+* @param {object} props
+* @property {object} props.func - A function that is run when the
+* button is clicked.
+* @property {string} props.name - The text to be displayed on
+* the button.
+*
+* @returns Component
+*/
+const BottomButton = function(props){
+  return (
+    <Grid.Column className={'large-bottom-button'} width={3}>
+      <MassiveButton {...props} />
+    </Grid.Column>
+  );
+};  // End BottomButton() Component
+
 /** The row containing the 'Previous' and 'Next' buttons at the
 * bottom of each form page.
 *
@@ -325,74 +367,51 @@ const IntervalColumnHeadings = function ({ type }) {
 };  // End IntervalColumnHeadings{} Component
 
 
-
-/** @todo description
-*
-* @todo Make this more generic and make the caller
-* handle more of the specifics.
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-class CashFlowInput extends Component {
+/** 
+ * @todo description
+ */
+class ManagedNumberField extends Component {
   constructor ( props ) {
     super( props );
-
-    var { value, generic, name, time, type, interval, store } = props;
-
     // Need updating
     this.state = {
       focused:    false,
       valid:      true,
-      value:      value,
-      focusedVal: value,
+      focusedVal: this.props.value,
     };
-
-    // Don't need updating
-    this.generic  = generic;
-    this.name     = name;
-    this.className= time + ' ' + type + ' cashflow-column ' + interval;
-    this.interval = interval;
-    this.store    = store;
   }  // End constructor()
   
   handleFocus = ( evnt, inputProps ) => {
     var newState = {
       focused:    true,
-      focusedVal: toMoneyStr( this.state.value )
+      // `value` here is probably a long decimal
+      focusedVal: this.props.format( this.props.value )
     }
-    this.setState(function ( prevState ) { return newState; });
+    this.setState( newState );
   }
   
   handleBlur = ( evnt ) => {
-    this.setState(function ( prevState ) { return { focused: false, valid: true }; });
+    this.setState({ focused: false, valid: true });
   }
 
   handleChange = ( evnt, inputProps ) => {
     var value = inputProps.value,
-        valid = isPositiveNumber( value );
+        valid = this.props.validate( value );
 
     if ( valid ) {
-      var monthly = toMonthlyAmount[ this.interval ]( evnt, value ),
-          obj     = { name: this.generic , value: monthly };
-      this.store( evnt, obj );
+      this.props.store( evnt, value, this.props.interval );
     }
 
-    this.setState(function ( prevState ) { return {...prevState, valid: valid, focusedVal: value}; });
+    this.setState({ valid: valid, focusedVal: value });
   }  // End handleChange()
-
-  componentWillReceiveProps ({ value }) {
-    this.setState(function ( prevState ) { return { value: value }; });
-  }
 
   render() {
 
-    var { value, valid, focused, focusedVal } = this.state;
+    var { valid, focused, focusedVal }  = this.state;
+    var { value, name, className }      = this.props;
 
-    if ( !focused ) { value = toMoneyStr( value ) }
+    // Format correctly when neighbors are updated, if needed
+    if ( !focused ) { value = this.props.format( value ) }
     else { value = focusedVal; }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */
@@ -400,17 +419,17 @@ class CashFlowInput extends Component {
       <Form.Input
         error     = { !valid }
         value     = { value }
-        name      = { this.name }
-        className = { this.className }
-        style     = {{ width: '7em', display: 'inline-block' }}
+        name      = { name }
+        className = { className }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
         onBlur    = { this.handleBlur }
         type      = { 'number' } />
     );
 
-  }
-};  // End CashFlowInput
+  }  // End render()
+
+};  // End ManagedNumberField
 
 
 /** @todo description
@@ -423,50 +442,53 @@ class CashFlowInput extends Component {
 */
 const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
 
-  /** baseVal
-  * Get the time ('future' or 'current') monthly value unless there is
-  * none, in which case, get the 'current' monthly cash flow value (to
-  * prefill future values with 'current' ones if needed).
-  *
-  * @var
-  *
-  * @todo Add some kind of UI indication when it's the same as the 'current'
-  * value. What if some of the row's values are the same and some are
-  * different?
-  */
-  var baseVal = timeState[ generic ];
+  var updateClient = function ( evnt, value, interval ) {
+    var monthly = toMonthlyAmount[ interval ]( evnt, value ),
+        obj     = { name: generic, value: monthly };
+    setClientProperty( evnt, obj );
+  };
 
-  // Could use `_.capitalize()` in CashFlowInput to use `type`
-  // to get id, but doesn't seem worth it at the moment.
-  // Maybe put some of these in an object?
+  /** baseVal
+   * Get the time ('future' or 'current') monthly value unless there is
+   *     none, in which case, get the 'current' monthly cash flow value
+   *     (to prefill future values with 'current' ones if needed).
+   *
+   * @var
+   *
+   * @todo Add some kind of UI indication when it's the same as the 'current'
+   *     value. What if some of the row's values are the same and some are
+   *     different?
+   */
+  var baseVal   = timeState[ generic ],
+      classes   = [ time, type, 'cashflow-column' ],
+      baseProps = {
+        store:    updateClient,
+        validate: isPositiveNumber,
+        format:   toMoneyStr
+      };
+
   return (
     <Form.Field inline className={'cashflow'}>
-      <CashFlowInput
+      <ManagedNumberField
+        {...baseProps}
         value    = { baseVal / 4.33 }
-        generic  = { generic }
         name     = { generic + 'Weekly' }
-        time     = { time }
-        type     = { type }
+        className= { classes.concat( 'weekly' ).join(' ') }
         interval = { 'weekly' }
-        store    = { setClientProperty }
       />
-      <CashFlowInput
+      <ManagedNumberField
+        {...baseProps}
         value    = { baseVal }
-        generic  = { generic }
         name     = { generic }
-        time     = { time }
-        type     = { type }
+        className= { classes.concat( 'monthly' ).join(' ') }
         interval = { 'monthly' }
-        store    = { setClientProperty }
       />
-      <CashFlowInput
+      <ManagedNumberField
+        {...baseProps}
         value    = { baseVal * 12 }
-        generic  = { generic }
         name     = { generic + 'Yearly' }
-        time     = { time }
-        type     = { type }
+        className= { classes.concat( 'yearly' ).join(' ') }
         interval = { 'yearly' }
-        store    = { setClientProperty }
       />
       <wrapper className={'cashflow-column'}>
         <label>{ children }</label>
@@ -480,9 +502,10 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 /** @todo Separate into different files? */
 export {
-  BottomButtons, FormPartsContainer,
+  ExternalLink,
+  BottomButtons, FormPartsContainer, BottomButton,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
-  IntervalColumnHeadings, ColumnHeading, CashFlowInput,
+  IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
   CashFlowRow
 };
