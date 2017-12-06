@@ -28,7 +28,7 @@ import { toMoneyStr } from '../utils/prettifiers';
  */
 const MassiveButton = function ({ className, func, children }) {
 
-  var className = (className || '') + ' massive-button';
+  className = (className || '') + ' massive-button';
   return (
     <Button fluid type='button' color='teal' size='large' className={className} onClick={func}>
       { children }
