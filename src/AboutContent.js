@@ -14,6 +14,8 @@ const AboutContent = function ( props ) {
       <Header as='h1' style={{ fontSize: '4em' }}>About the Cliff Effects Tool</Header>
 
       <Header as='h3'>What is this tool for?</Header>
+      <Message><strong>Important note:</strong> This application is a minimum viable product. It should not be used as the sole tool to understand a client's eligibility for SNAP and Section 8, or for any other public assistance program.</Message>
+      
       <p>This tool can help show how a change in income affects how much someone receives in public assistance from SNAP and Section 8 Housing Voucher benefits. It was designed for the case managers at <ExternalLink href='http://www.prohope.org/'>Project Hope</ExternalLink> with the aim of helping to predict changes in their client's benefits.</p>
 
       <Header as='h3'>Why is this tool important?</Header>
@@ -38,7 +40,6 @@ const AboutContent = function ( props ) {
       </ul>
 
       <br/>
-      <Message><strong>Important note:</strong> This application is a minimum viable product. It should not be used as the sole tool to understand a client's eligibility for SNAP and Section 8, or for any other public assistance program.</Message>
 
     </wrapper>
   );
