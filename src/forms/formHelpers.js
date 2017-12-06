@@ -27,7 +27,7 @@ import { toMoneyStr } from '../utils/prettifiers';
  * Link that opens new tab
  */
 const ExternalLink = function ({ href, children }) {
-  return (<a href={href} target='_blank'>children</a>);
+  return (<a href={href} target='_blank'>{children}</a>);
 };
 
 
