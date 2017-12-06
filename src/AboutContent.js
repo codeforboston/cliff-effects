@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Message } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
 import { ExternalLink } from './forms/formHelpers';
@@ -23,7 +23,7 @@ const AboutContent = function ( props ) {
 
       <Header as='h3'>How do I use this tool?</Header>
       <p>Go step-by-step to add information about a client's current benefits, household, income, and other relevant information. This information will be used to predict the client's approximate benefit amount. When you reach the end, change the 'Future Income' amount to see how a change in earned income will cause a change in benefit amount. Currently, the SNAP and Section 8 Housing Voucher programs are both available. Note that predictions may not directly match up with a client’s current benefit amount. The app’s focus is the amount of change that occurs in benefits when there are changes in earned income.</p>
-      <p>Please note that this app does not store user data, so <strong>if you refresh the page the data you've entered will be lost</strong>. Each time you go through the app, it's a clean slate.</p>
+      <Message>Please note that this app does not store user data, so <strong>if you refresh the page the data you've entered will be lost</strong>. Each time you go through the app, it's a clean slate.</Message>
 
       <Header as='h3'>Who's doing this?</Header>
       <p>This application is part of a project made possible by a Boston Foundation Open Door Grant to the University of Massachusetts Boston's <ExternalLink href='https://www.umb.edu/csp'>Center for Social Policy</ExternalLink>, in close partnership with <ExternalLink href='http://www.prohope.org/'>Project Hope</ExternalLink> and <ExternalLink href='http://www.codeforboston.org/'>Code for Boston</ExternalLink>. The Center for Social Policy is the lead partner for the <ExternalLink href='https://onsolidgroundma.org/'>On Solid Ground Coalition</ExternalLink>.</p>
@@ -41,7 +41,7 @@ const AboutContent = function ( props ) {
       </ul>
 
       <br/>
-      <p><strong>Important note:</strong> This application is a minimum viable product. It should not be used as the sole tool to understand a client's eligibility for SNAP and Section 8, or for any other public assistance program.</p>
+      <Message><strong>Important note:</strong> This application is a minimum viable product. It should not be used as the sole tool to understand a client's eligibility for SNAP and Section 8, or for any other public assistance program.</Message>
 
     </wrapper>
   );
