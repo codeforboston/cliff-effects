@@ -51,8 +51,8 @@ class VisitPage extends Component {
     this.steps = [
       { title: 'Current Benefits', form: CurrentBenefitsStep, },
       { title: 'Household', form: HouseholdStep },
-      { title: 'Current Income', form: CurrentIncomeStep },
-      { title: 'Current Expenses', form: CurrentExpensesStep },
+      { title: 'Income', form: CurrentIncomeStep },
+      { title: 'Expenses', form: CurrentExpensesStep },
       { title: 'Predictions', form: PredictionsStep },
       { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
