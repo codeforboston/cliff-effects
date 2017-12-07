@@ -3,68 +3,73 @@ import { cloneDeep } from 'lodash';
 /**
  * Default client values.
  * MUST ALWAYS BE VALID
+ * 
+ * Note: A 'positive number' money value can have more than
+ *     two decimal places.
  */
 const CLIENT_DEFAULTS = {
-	current: {
+
+  // Property Name                | Default Value   | Valid Value Description
+
+  current: {
     // Current programs
-    hasSnap:    false,
-    hasHousing: false,
+    hasSnap:                        false,            // boolean
+    hasHousing:                     false,            // boolean
     // Household
-    household:  [
-      {
-        // 'm' for member for easier transformation
-        m_age:      30,  // INT
-        m_role:     'head',  // 'head', 'spouse', 'member'
-        m_disabled: false
-      }
-    ],
-    // MONEY AMOUNTS
+    // 'm_' for 'member'
+    household:  [{                  // 'head' member  // one or more member objects
+        m_age:                      30,               // whole number
+        m_role:                     'head',           // 'head', 'spouse', 'member'
+        m_disabled:                 false             // boolean
+    }],
     // Income
-    earned:           0,
-    TAFDC:            0,
-    SSI:              0,
-    SSDI:             0,
-    childSupportIn:   0,
-    unemployment:     0,
-    workersComp:      0,
-    pension:          0,
-    socialSecurity:   0,
-    alimony:          0,
-    otherIncome:      0,
-    incomeExclusions: 0,
+    earned:                         0,                // positive number (can have more than two decimal places)
+    TAFDC:                          0,                // positive number
+    SSI:                            0,                // positive number
+    SSDI:                           0,                // positive number
+    childSupportIn:                 0,                // positive number
+    unemployment:                   0,                // positive number
+    workersComp:                    0,                // positive number
+    pension:                        0,                // positive number
+    socialSecurity:                 0,                // positive number
+    alimony:                        0,                // positive number
+    otherIncome:                    0,                // positive number
+    incomeExclusions:               0,                // positive number
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:   0,  // Negative?
-    childSupportPaidOut:        0,
-    adultDirectCare:            0,
-    adultTransportation:        0,
-    adultOtherCare:             0,
-    disabledAssistance:         0,
-    earnedBecauseOfAdultCare:   0,
-    disabledMedical:            0,
-    otherMedical:               0,
+    childDirectCare:                0,                // positive number
+    childBeforeAndAfterSchoolCare:  0,                // positive number
+    childTransportation:            0,                // positive number
+    childOtherCare:                 0,                // positive number
+    earnedBecauseOfChildCare:       0,                // positive number
+    childSupportPaidOut:            0,                // positive number
+    adultDirectCare:                0,                // positive number
+    adultTransportation:            0,                // positive number
+    adultOtherCare:                 0,                // positive number
+    disabledAssistance:             0,                // positive number
+    earnedBecauseOfAdultCare:       0,                // positive number
+    disabledMedical:                0,                // positive number
+    otherMedical:                   0,                // positive number
     /** @todo When client has section 8, switch this to 'housingVoucher' */
-    shelter:            'homeless',  // 'homeless', 'homeowner', 'renter', 'housingVoucher'
-    contractRent:       0,
-    rentShare:          0,
-    rent:               0,
-    mortgage:           0,
-    housingInsurance:   0,
-    propertyTax:        0,
-    climateControl:     false,
-    nonHeatElectricity: false,
-    phone:              false,
-    fuelAssistance:     false,  // Input is 'yes', 'no'
-    otherExpenses:      0
+    /** @todo Make shelter expense values more robust. */
+    shelter:                        'homeless',       // 'homeless', 'homeowner', 'renter', 'housingVoucher'
+    contractRent:                   0,                // positive number
+    rentShare:                      0,                // positive number
+    rent:                           0,                // positive number
+    mortgage:                       0,                // positive number
+    housingInsurance:               0,                // positive number
+    propertyTax:                    0,                // positive number
+    climateControl:                 false,            // boolean
+    nonHeatElectricity:             false,            // boolean
+    phone:                          false,            // boolean
+    fuelAssistance:                 false,            // boolean  Note: Input is 'yes', 'no', but should be being converted
+    otherExpenses:                  0                 // positive number
   },
-  future: {},
-  // userChanged: {}  // In state instead?
+
+  // Note: A `future` value will default to the client's `current` value until a user changes it explicitly
+  future: {},                       // same structure // same
+
 };
 
-// I do not get lodash...
 CLIENT_DEFAULTS.future = cloneDeep( CLIENT_DEFAULTS.current );
 
 

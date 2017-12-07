@@ -374,43 +374,43 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       className="ui divider"
     />
     <div
-      className="ui center aligned middle aligned grid"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+        }
+      }
     >
-      <div
-        className="row"
+      <button
+        className="ui teal large button"
+        disabled={undefined}
+        onClick={[Function]}
+        role="button"
+        style={
+          Object {
+            "flexBasis": "118.3px",
+          }
+        }
+        tabIndex={undefined}
+        type="button"
       >
-        <div
-          className="three wide column large-bottom-button"
-        >
-          <button
-            className="ui teal large fluid button"
-            disabled={undefined}
-            onClick={[Function]}
-            role="button"
-            tabIndex={undefined}
-            type="button"
-          >
-            Previous
-          </button>
-        </div>
-        <div
-          className="ten wide column"
-        />
-        <div
-          className="three wide column large-bottom-button"
-        >
-          <button
-            className="ui teal large fluid button"
-            disabled={undefined}
-            onClick={[Function]}
-            role="button"
-            tabIndex={undefined}
-            type="button"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+        Previous
+      </button>
+      <button
+        className="ui teal large button"
+        disabled={undefined}
+        onClick={[Function]}
+        role="button"
+        style={
+          Object {
+            "flexBasis": "118.3px",
+          }
+        }
+        tabIndex={undefined}
+        type="button"
+      >
+        Next
+      </button>
     </div>
   </div>
 </form>

@@ -2,14 +2,14 @@
 import React, { Component } from 'react';
 import {
   // Generic Form stuff
-    Button,
-  Grid,
+  Button,
   Header,
   Segment,
   Divider,
   Form,
+  Grid,
   // Input,
-  Checkbox
+  Checkbox,
   // Money columns
 } from 'semantic-ui-react';
 
@@ -22,6 +22,28 @@ import { toMoneyStr } from '../utils/prettifiers';
 // ========================================
 // GENERIC COMPONENTS
 // ========================================
+
+/** Returns a component with a massive teal button
+ * 
+ */
+const MassiveButton = function ({ className, func, children }) {
+
+  className = (className || '') + ' massive-button';
+  return (
+    <Button fluid type='button' color='teal' size='large' className={className} onClick={func}>
+      { children }
+    </Button>
+  );
+
+};  // End MassiveButton(<>)
+
+/**
+ * Link that opens new tab
+ */
+const ExternalLink = function ({ href, children }) {
+  return (<a href={href} target='_blank'>{children}</a>);
+};
+
 
 /** Returns a Grid Column containing a button of the style used
 * to navigate backwards and forwards through steps of the form.
@@ -37,14 +59,11 @@ import { toMoneyStr } from '../utils/prettifiers';
 */
 const BottomButton = function(props){
   return (
-    <Grid.Column className='large-bottom-button' width={3}>
-      <Button type='button' color='teal' fluid size='large' onClick={props.func}>
-        { props.children }
-      </Button>
+    <Grid.Column className={'large-bottom-button'} width={3}>
+      <MassiveButton {...props} />
     </Grid.Column>
   );
 };  // End BottomButton() Component
-
 
 /** The row containing the 'Previous' and 'Next' buttons at the
 * bottom of each form page.
@@ -66,22 +85,26 @@ const BottomButton = function(props){
 *
 * @returns Component
 */
-const BottomButtons = function(props){
+const BottomButtons = function({ left, right }) {
+  const flexItemStyle = { flexBasis: '118.3px' };
+  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' }; 
   return (
-    <Grid textAlign='center' verticalAlign='middle'>
-      <Grid.Row>
-        { !props.left
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.left.func}>{ props.left.name }</BottomButton>
-        }
-        <Grid.Column width={10} />
-        { !props.right
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
-
-        }
-      </Grid.Row>
-    </Grid>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      { left ?
+        <Button {...buttonProps} onClick={left.func}>
+          { left.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+      { right ?
+        <Button {...buttonProps} onClick={right.func}>
+          { right.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+    </div>
   );
 };  // End BottomButtons() Component
 
@@ -347,13 +370,14 @@ const IntervalColumnHeadings = function ({ type }) {
 
 /** 
  * @todo description
+ * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
  * 
  * @param {Object} props
  * @param {number || string} props.value - Valid client value
  * @param {string} props.name - For HTML name property
  * @param {string} props.className - HTML class names
  * @param {*} [props.otherData] - Sent back to `store()`
- * @param {function} props.format - Given `value`. Must return what you want shown in the number field. Not sure how to jsdoc this.
+ * @param {function} props.format - Given `value`. Must return what you want shown in the number field.
  * @param {function} props.validate - Given `value`. Must return boolean.
  * @param {function} props.store - Given an event, `value`, [`otherData`]
  */
@@ -489,6 +513,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 /** @todo Separate into different files? */
 export {
+  ExternalLink,
   BottomButtons, FormPartsContainer, BottomButton,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,

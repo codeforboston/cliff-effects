@@ -148,7 +148,7 @@ class VisitPage extends Component {
             <Grid.Column floated='right' width={6}>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row only='computer'>
             <Grid.Column width = {16}>
               <StepBar
                 currentStepIndex={this.state.currentStep}
