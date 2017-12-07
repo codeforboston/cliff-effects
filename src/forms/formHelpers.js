@@ -2,14 +2,14 @@
 import React, { Component } from 'react';
 import {
   // Generic Form stuff
-    Button,
-  Grid,
+  Button,
   Header,
   Segment,
   Divider,
   Form,
+  Grid,
   // Input,
-  Checkbox
+  Checkbox,
   // Money columns
 } from 'semantic-ui-react';
 
@@ -22,6 +22,20 @@ import { toMoneyStr } from '../utils/prettifiers';
 // ========================================
 // GENERIC COMPONENTS
 // ========================================
+
+/** Returns a component with a massive teal button
+ * 
+ */
+const MassiveButton = function ({ className, func, children }) {
+
+  className = (className || '') + ' massive-button';
+  return (
+    <Button fluid type='button' color='teal' size='large' className={className} onClick={func}>
+      { children }
+    </Button>
+  );
+
+};  // End MassiveButton(<>)
 
 /**
  * Link that opens new tab
@@ -45,14 +59,11 @@ const ExternalLink = function ({ href, children }) {
 */
 const BottomButton = function(props){
   return (
-    <Grid.Column className='large-bottom-button' width={3}>
-      <Button type='button' color='teal' fluid size='large' onClick={props.func}>
-        { props.children }
-      </Button>
+    <Grid.Column className={'large-bottom-button'} width={3}>
+      <MassiveButton {...props} />
     </Grid.Column>
   );
 };  // End BottomButton() Component
-
 
 /** The row containing the 'Previous' and 'Next' buttons at the
 * bottom of each form page.
@@ -74,22 +85,26 @@ const BottomButton = function(props){
 *
 * @returns Component
 */
-const BottomButtons = function(props){
+const BottomButtons = function({ left, right }) {
+  const flexItemStyle = { flexBasis: '118.3px' };
+  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' }; 
   return (
-    <Grid textAlign='center' verticalAlign='middle'>
-      <Grid.Row>
-        { !props.left
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.left.func}>{ props.left.name }</BottomButton>
-        }
-        <Grid.Column width={10} />
-        { !props.right
-          ? <Grid.Column className='large-bottom-button' width={3}/>
-          : <BottomButton func={props.right.func}>{ props.right.name }</BottomButton>
-
-        }
-      </Grid.Row>
-    </Grid>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      { left ?
+        <Button {...buttonProps} onClick={left.func}>
+          { left.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+      { right ?
+        <Button {...buttonProps} onClick={right.func}>
+          { right.name }
+        </Button>
+        :
+        <div style={flexItemStyle} />
+      }
+    </div>
   );
 };  // End BottomButtons() Component
 
@@ -355,6 +370,16 @@ const IntervalColumnHeadings = function ({ type }) {
 
 /** 
  * @todo description
+ * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
+ * 
+ * @param {Object} props
+ * @param {number || string} props.value - Valid client value
+ * @param {string} props.name - For HTML name property
+ * @param {string} props.className - HTML class names
+ * @param {*} [props.otherData] - Sent back to `store()`
+ * @param {function} props.format - Given `value`. Must return what you want shown in the number field.
+ * @param {function} props.validate - Given `value`. Must return boolean.
+ * @param {function} props.store - Given an event, `value`, [`otherData`]
  */
 class ManagedNumberField extends Component {
   constructor ( props ) {
@@ -385,7 +410,7 @@ class ManagedNumberField extends Component {
         valid = this.props.validate( value );
 
     if ( valid ) {
-      this.props.store( evnt, value, this.props.interval );
+      this.props.store( evnt, inputProps, this.props.otherData );
     }
 
     this.setState({ valid: valid, focusedVal: value });
@@ -428,8 +453,8 @@ class ManagedNumberField extends Component {
 */
 const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
 
-  var updateClient = function ( evnt, value, interval ) {
-    var monthly = toMonthlyAmount[ interval ]( evnt, value ),
+  var updateClient = function ( evnt, inputProps, interval ) {
+    var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
         obj     = { name: generic, value: monthly };
     setClientProperty( evnt, obj );
   };
@@ -457,24 +482,24 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
     <Form.Field inline className={'cashflow'}>
       <ManagedNumberField
         {...baseProps}
-        value    = { baseVal / 4.33 }
-        name     = { generic + 'Weekly' }
-        className= { classes.concat( 'weekly' ).join(' ') }
-        interval = { 'weekly' }
+        value     = { baseVal / 4.33 }
+        name      = { generic + 'Weekly' }
+        className = { classes.concat( 'weekly' ).join(' ') }
+        otherData = { 'weekly' }
       />
       <ManagedNumberField
         {...baseProps}
-        value    = { baseVal }
-        name     = { generic }
-        className= { classes.concat( 'monthly' ).join(' ') }
-        interval = { 'monthly' }
+        value     = { baseVal }
+        name      = { generic }
+        className = { classes.concat( 'monthly' ).join(' ') }
+        otherData = { 'monthly' }
       />
       <ManagedNumberField
         {...baseProps}
-        value    = { baseVal * 12 }
-        name     = { generic + 'Yearly' }
-        className= { classes.concat( 'yearly' ).join(' ') }
-        interval = { 'yearly' }
+        value     = { baseVal * 12 }
+        name      = { generic + 'Yearly' }
+        className = { classes.concat( 'yearly' ).join(' ') }
+        otherData = { 'yearly' }
       />
       <wrapper className={'cashflow-column'}>
         <label>{ children }</label>

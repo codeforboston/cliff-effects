@@ -1,6 +1,6 @@
 // REACT COMPONENTS
 import React from 'react';
-import { Form, Divider } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
@@ -80,8 +80,6 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
       <CashFlowRow {...sharedProps} generic='socialSecurity'> Social security </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='alimony'> Alimony </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='otherIncome'> Other income </CashFlowRow>
-      <Divider/>
-      <CashFlowRow {...sharedProps} generic='incomeExclusions'> Income exclusions </CashFlowRow>
 
     </div>
   );  // end return
