@@ -3,24 +3,14 @@
 exports[`Prediction component renders as snapshot correctly 1`] = `
 <form
   action={undefined}
-  className="ui form income-form"
+  className="ui form income-form flex-item flex-column"
   onSubmit={[Function]}
 >
   <div
-    className="ui very padded segment"
-    style={
-      Object {
-        "minHeight": "600px",
-      }
-    }
+    className="ui very padded segment flex-item flex-column"
   >
     <div
-      className="ui basic segment"
-      style={
-        Object {
-          "minHeight": "500px",
-        }
-      }
+      className="ui basic segment flex-item"
     >
       <h1
         className="ui teal center aligned header"

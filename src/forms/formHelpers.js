@@ -128,8 +128,8 @@ const BottomButtons = function({ left, right }) {
 */
 const FormPartsContainer = function(props) {
   return (
-    <Segment padded='very' style={{ minHeight: '600px' }}>
-      <Segment style={{ minHeight: '500px' }} basic={true}>
+    <Segment padded='very' className="flex-item flex-column">
+      <Segment basic={true} className="flex-item">
         <Header as='h1' color='teal' textAlign='center'>
           { props.title }
         </Header>

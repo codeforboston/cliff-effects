@@ -11,7 +11,7 @@ form .field-aligner {
 }
 
 #App {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,23 +23,37 @@ form .field-aligner {
 
 #HashRouter {
   flex: 1 0;
+  display: flex;
+  flex-direction: column;
 }
 
 #HomePage {
   background-image: url(./images/splash.svg) !important;
   background-size: cover !important;
+  flex: 1 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
 #HomeContent {
-  /*display: inline-block;*/
-  display: flex;,
-  justify-content: space-between;
+  flex: 1 0;
+  display: flex;
+  justify-content: center;
   flex-direction: column;
+}
+
+/*
+Used to fill vertical space.
+`height: 100%` doesn't work with Flexbox on Mobile Safari.
+*/
+.flex-column {
+  display: flex!important;
+  flex-direction: column;
+}
+.flex-item {
+  flex: 1 0;
 }
 
 .center-contents {

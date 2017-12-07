@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
-  Grid,
+  Container,
+  Responsive
 } from 'semantic-ui-react';
 import {
   Redirect,
@@ -125,7 +126,7 @@ class VisitPage extends Component {
   render() {
 
     return (
-      <div className='forms-container'>
+      <div className='forms-container flex-item flex-column'>
         <Prompt
           when={this.state.isBlocking}
           message='Are you sure you want to leave the page with unsaved changes?'
@@ -136,35 +137,22 @@ class VisitPage extends Component {
           false
         }
 
-        <Grid
-          style={{ height: '100%', padding: '2em 0' }}
-          verticalAlign='middle'
-          container
+        {/* `padding` here duplicates previous `<Grid>` styleing */}
+        <Container
+          className='flex-item flex-column'
+          style={{ padding: '42px 0' }}
         >
-          <Grid.Row>
-            <Grid.Column width={10}>
-
-            </Grid.Column>
-            <Grid.Column floated='right' width={6}>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row only='computer'>
-            <Grid.Column width = {16}>
-              <StepBar
-                currentStepIndex={this.state.currentStep}
-                steps={this.steps}
-                goToStep={this.goToStep}
-              />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={12}>
-              <div>
-                {this.getCurrentStep()}
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+          <Responsive minWidth='874.5' style={{ padding: '14px 0' }}>
+            <StepBar
+              currentStepIndex={this.state.currentStep}
+              steps={this.steps}
+              goToStep={this.goToStep}
+            />
+          </Responsive>
+          <div className="flex-item flex-column" style={{ padding: '14px 0' }}>
+            {this.getCurrentStep()}
+          </div>
+        </Container>
       </div>
     )
   }

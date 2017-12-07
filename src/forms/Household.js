@@ -202,7 +202,7 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 
   // The font size thing is a bit weird, but... later
   return (
-    <Form.Field key={indx}>
+    <Form.Field className='flex-item' key={indx}>
 
       <Columns.One>
         { indx > 0
@@ -350,7 +350,7 @@ const HouseholdStep = function ( props ) {
   const setTimeProp = getTimeSetter( 'current', props.changeClient );
 
   return (
-    <Form className='current-household-size-form'>
+    <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
         title     = {'Household'}
         clarifier = {'Information about the members of your household.'}
