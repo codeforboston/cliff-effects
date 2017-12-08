@@ -120,7 +120,7 @@ const CLIENT_ROW_N = {
 //     nonHeatElectricity:             false,
 //     phone:                          false,
 //     fuelAssistance:                 false,
-//     otherExpenses:                  0
+//     otherExpenses:                  0,
 //     // Values to test, to 'expect'
 //     expectedSNAP:                  1062,
 //     expectedSection8:              null  // null (yes, public housing)
@@ -281,7 +281,7 @@ const CLIENT_ROW_4 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0
+    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   117,
     expectedSection8:               null  // null (yes, public housing)
@@ -407,7 +407,7 @@ const CLIENT_ROW_6 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0
+    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   192,
     expectedSection8:               null  // "Yes - Public Housing"
@@ -475,7 +475,7 @@ const CLIENT_ROW_7 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0
+    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   20,
     expectedSection8:               null  // "Yes - Public Housing"
@@ -548,9 +548,73 @@ const CLIENT_ROW_8 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0
+    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   null,
+    expectedSection8:               null  // None given
+  },
+};
+
+const CLIENT_ROW_9 = {
+  current: {
+    // Current programs
+    hasSnap:                        true,
+    hasHousing:                     true,
+    // Household
+    // 'm_' for 'member'
+    household:  [
+    {
+        m_age:                      27,
+        m_role:                     'head',  // deduced from age distribution
+        m_disabled:                 true             // COL-AM boolean 
+    },
+    {
+        m_age:                      3,
+        m_role:                     'member',
+        m_disabled:                 false
+    }
+  ],
+    // Income
+    earned:                         0,
+    TAFDC:                          0,
+    SSI:                            1152,
+    SSDI:                           0,
+    childSupportIn:                 0,
+    unemployment:                   0,
+    workersComp:                    0,
+    pension:                        0,
+    socialSecurity:                 0,
+    alimony:                        0,
+    otherIncome:                    0,
+    incomeExclusions:               0,
+    // Expenses
+    childDirectCare:                0,
+    childBeforeAndAfterSchoolCare:  0,
+    childTransportation:            0,
+    childOtherCare:                 0,
+    earnedBecauseOfChildCare:       0,
+    childSupportPaidOut:            0,
+    adultDirectCare:                0,
+    adultTransportation:            0,
+    adultOtherCare:                 0,
+    disabledAssistance:             0,
+    earnedBecauseOfAdultCare:       0,
+    disabledMedical:                0,
+    otherMedical:                   0,
+    shelter:                        'housingVoucher',
+    contractRent:                   0,
+    rentShare:                      0,
+    rent:                           240,
+    mortgage:                       0,
+    housingInsurance:               0,
+    propertyTax:                    0,
+    climateControl:                 false,
+    nonHeatElectricity:             false,
+    phone:                          false,
+    fuelAssistance:                 false,
+    otherExpenses:                  0,
+    // Values to test, to 'expect'
+    expectedSNAP:                   150,
     expectedSection8:               null  // None given
   },
 };
@@ -616,7 +680,7 @@ const CLIENT_ROW_10 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0
+    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   8,
     expectedSection8:               null  // None given
@@ -685,7 +749,7 @@ const CLIENT_ROW_10 = {
 //     nonHeatElectricity:             false,
 //     phone:                          false,
 //     fuelAssistance:                 false,
-//     otherExpenses:                  0
+//     otherExpenses:                  0,
 //    // Values to test, to 'expect'
 //     expectedSNAP:                  null,
 //     expectedSection8:              null  // "Yes - Public Housing"
@@ -701,6 +765,7 @@ export default sampleClients = [
   CLIENT_ROW_6,
   CLIENT_ROW_7,
   CLIENT_ROW_8,
+  CLIENT_ROW_9,
   CLIENT_ROW_10,
   // CLIENT_ROW_11  // No SNAP or Section 8
 ];
