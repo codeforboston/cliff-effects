@@ -9,59 +9,59 @@ const CLIENT_ROW_N = {
 
   current: {
     // Current programs
-    hasSnap:                        // COL-T      boolean
-    hasHousing:                     // COL-Y      boolean             For now, 'Public Housing' or 'MRVP' counts
+    hasSnap:                        COL-T         boolean
+    hasHousing:                     COL-Y         boolean             For now, 'Public Housing' or 'MRVP' counts
     // Household
-    household:  [                   // COL-G      one or more         Distribution unclear
-      {                             // -----                          'head' of household should always be first
-        m_age:                      // -----      whole number
-        m_role:                     // -----      'head', 'spouse', 'member'
-        m_disabled:                 // COL-AM     boolean
+    household:  [                   COL-G         one or more         Distribution unclear
+      {                             -----                             'head' of household should always be first
+        m_age:                      -----         whole number
+        m_role:                     -----         'head', 'spouse', 'member'
+        m_disabled:                 COL-AM        boolean
       },
     ],
     // Income
-    earned:                         // COL-I      positive number
-    TAFDC:                          // COL-J      positive number
-    SSI:                            // COL-K      positive number
-    SSDI:                           // COL-L      positive number
-    childSupportIn:                 // COL-N      positive number
-    unemployment:                   // -----      positive number
-    workersComp:                    // COL-O      positive number
-    pension:                        // -----      positive number
-    socialSecurity:                 // COL-P      positive number
-    alimony:                        // -----      positive number
-    otherIncome:                    // COL-Q      positive number
-    incomeExclusions:               // -----      positive number
+    earned:                         COL-I         positive number
+    TAFDC:                          COL-J         positive number
+    SSI:                            COL-K         positive number
+    SSDI:                           COL-L         positive number
+    childSupportIn:                 COL-N         positive number
+    unemployment:                   -----         positive number
+    workersComp:                    COL-O         positive number
+    pension:                        -----         positive number
+    socialSecurity:                 COL-P         positive number
+    alimony:                        -----         positive number
+    otherIncome:                    COL-Q         positive number
+    incomeExclusions:               -----         positive number
     // Expenses
-    childDirectCare:                // -----      positive number
-    childBeforeAndAfterSchoolCare:  // -----      positive number
-    childTransportation:            // -----      positive number
-    childOtherCare:                 // -----      positive number
-    earnedBecauseOfChildCare:       // -----      positive number
-    childSupportPaidOut:            // -----      positive number
-    adultDirectCare:                // -----      positive number
-    adultTransportation:            // -----      positive number
-    adultOtherCare:                 // -----      positive number
-    disabledAssistance:             // -----      positive number
-    earnedBecauseOfAdultCare:       // -----      positive number
-    disabledMedical:                // -----      positive number
-    otherMedical:                   // -----      positive number
-    shelter:                        // COL-X      'homeless', 'homeowner', 'renter', 'housingVoucher'
-    contractRent:                   // -----      positive number
-    rentShare:                      // -----      positive number
-    rent:                           // COL-AA     positive number
-    mortgage:                       // -----      positive number
-    housingInsurance:               // -----      positive number
-    propertyTax:                    // -----      positive number
-    climateControl:                 // -----      boolean
-    nonHeatElectricity:             // -----      boolean
-    phone:                          // -----      boolean
-    fuelAssistance:                 // -----      boolean
-    otherExpenses:                  // -----      positive number
+    childDirectCare:                -----         positive number
+    childBeforeAndAfterSchoolCare:  -----         positive number
+    childTransportation:            -----         positive number
+    childOtherCare:                 -----         positive number
+    earnedBecauseOfChildCare:       -----         positive number
+    childSupportPaidOut:            -----         positive number
+    adultDirectCare:                -----         positive number
+    adultTransportation:            -----         positive number
+    adultOtherCare:                 -----         positive number
+    disabledAssistance:             -----         positive number
+    earnedBecauseOfAdultCare:       -----         positive number
+    disabledMedical:                -----         positive number
+    otherMedical:                   -----         positive number
+    shelter:                        COL-X         'homeless', 'homeowner', 'renter', 'housingVoucher'
+    contractRent:                   -----         positive number
+    rentShare:                      -----         positive number
+    rent:                           COL-AA        positive number
+    mortgage:                       -----         positive number
+    housingInsurance:               -----         positive number
+    propertyTax:                    -----         positive number
+    climateControl:                 -----         boolean
+    nonHeatElectricity:             -----         boolean
+    phone:                          -----         boolean
+    fuelAssistance:                 -----         boolean
+    otherExpenses:                  -----         positive number
     // Values to test, to 'expect'
-    expectedSNAP:                               // COL-U      number or null
+    expectedSNAP:                   COL-U         number or null
     // This should always be given a value of null for now
-    expectedSection8:                           // -----      number or null      no category/column, nummber or null (not sure what 'public housing' means)
+    expectedSection8:               -----         number or null      no category/column, nummber or null (not sure what 'public housing' means)
   },
 };
 */
