@@ -145,6 +145,7 @@ const ResultsGraph = (props) => {
       <FormPartsContainer
         title     = {'Results'}
         left      = {{ name: 'Go Back', func: props.previousStep }}
+        right      = {{ name: 'Reset', func: function(){ document.location.reload() } }}
       >
          <div> <Line data={data} options={options} /> </div>
       </FormPartsContainer>
