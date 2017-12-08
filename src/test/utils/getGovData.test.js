@@ -1,48 +1,46 @@
 const getgovdata = require('../../utils/getGovData');
 /** Test set up
 */
+const undefinedString = "undefined";
+const numberTypeString = "number";
+const stringString = "string";
+
+/* Function used for testing yearlylimit function based on passed parameters
+** Parameters:
+**    testname - test name
+**    pguidelines, ptestname, pitems, ppercent - parameters for yearly function being tested.
+**      if ppercent equals string "undefined", no value will be pssed for percent to yeqrlylimit function
+**    expected - expected return value from yearly function.  
+*/
+const testYearlyLimit = function ( testname, pguidelines, pitems, ppercent, expected ) {
+  test (testname +" items: "+pitems+" / percent: "+ppercent+" / expected: "+expected, () => 
+    {
+       if ( typeof(ppercent) == stringString && ppercent == undefinedString){ 
+         expect(getgovdata.getYearlyLimitBySize( pguidelines, pitems )).toBe(expected);
+       }
+       else {
+         expect(getgovdata.getYearlyLimitBySize( pguidelines, pitems, ppercent )).toBe(expected);   
+       }
+    }); 
+ };  
+/** End testYearlyLimit **/
+
+/* Test function for testing use of functions by yearlylimit function */
+const testAdditionalFunction = function ( data, extraAmount ) {
+  return 100*extraAmount;
+}
+
+// ************** Main body ************** /
 var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
 
-/** Test name: Percent defaults to 100 for getYearlyLimitBySize (Items=1)
-** Expected result = 12060 (corresponds to guideline for 1)
-*/
-test('1. Percent defaults to 100 for getYearlyLimitBySize (Items=1)', () => {
-     expect(getgovdata.getYearlyLimitBySize( fedPovertyGuidelines, 1 )).toBe(12060);
- });
+testYearlyLimit ('1. Default percent test',         fedPovertyGuidelines, 1, undefinedString,12060);
+testYearlyLimit ('2. Default percent test',         fedPovertyGuidelines, 2, undefinedString,16240);
+testYearlyLimit ('3. Test when percent=200 doubles',fedPovertyGuidelines, 2, 200,        32480);
+testYearlyLimit ('4. Test when percent=50 halves',  fedPovertyGuidelines, 2, 50,         8120);
+testYearlyLimit ('5. Test with items out of range', fedPovertyGuidelines, 5, undefinedString,16240 + 3*4180);
 
-
-/** Test name: When items=2 and percent=100, getYearlyLimt returns guideline for 2
-* Expected result = 16240 (corresponds to guideline for 2)
-*/
-test('2. When items=2 and percent=100, getYearlyLimt returns guideline for 2', () => {
-     expect(getgovdata.getYearlyLimitBySize( fedPovertyGuidelines, 2 )).toBe(16240);
- });
-
-
-/**
-** Test name: When Items=2, percent=200, getYearlyLimit returns double value of guideline for 2
-* Expected result = 16240*200% = 32480 (corresponds to twice guideline for 2)
-*/
-test('3. When Items=2, percent=200, getYearlyLimit returns double value of guideline for 2', () => {
-     expect(getgovdata.getYearlyLimitBySize( fedPovertyGuidelines, 2, 200 )).toBe(32480);
- });
-
-
-/**
-** Test name: When Items=2, percent=50, getYearlyLimit returns half value of guideline for 2
-* Expected result = 16240 * 50% =8120 (corresponds to 1/2 guideline for 2)
-/
-test('4. Get Yearly Limit, Items=2, percent=50', () => {
-     expect(getgovdata.getYearlyLimitBySize( fedPovertyGuidelines, 1,50 )).toBe(8120);
- });
-
-/**
-** Test name: When items=5 (max+3), percent=default, returns guideline for 2 plus 3*additional amoun t
-* getYearlyLimitBySize( fedPovertyGuidelines, 5 );  // 16240+3*4180 = 16240+12540 = 28780
-*/
-test('Get Yearly Limit, Items=2, percent=default', () => {
-     expect(getgovdata.getYearlyLimitBySize( fedPovertyGuidelines, 5 )).toBe(28780);
- });
+fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 20000, eachAdditional: testAdditionalFunction };
+testYearlyLimit ('6. Test of function for each additional',fedPovertyGuidelines, 5, undefinedString,20000 + 3*100);
 
 /** ******** ERROR CONDITIONS THAT DO NOT NEED TO BE CHECKED ********
 * Negative numbers for int key
