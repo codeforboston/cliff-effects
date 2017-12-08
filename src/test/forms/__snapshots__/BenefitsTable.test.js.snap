@@ -152,7 +152,7 @@ exports[`Benefits table renders correctly 1`] = `
           }
         >
           $
-          2304
+          0
            / year
         </td>
         <td
@@ -167,7 +167,7 @@ exports[`Benefits table renders correctly 1`] = `
           }
         >
           $
-          2304
+          0
            / year
         </td>
         <td
