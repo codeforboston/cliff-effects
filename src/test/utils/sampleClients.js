@@ -1,5 +1,6 @@
 /*
  * Sample client data for testing
+ * https://docs.google.com/spreadsheets/d/1iFBM6LUQGfKp7a3jjTuHDl3JjHgVUNy1LrS-jkyxHHI/edit?usp=sharing
  */
 
 /** Which columns represent which properties
