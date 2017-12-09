@@ -26,16 +26,11 @@ const getEveryMember = function ( memberList, memberTest ) {
 
 
 /**
-* Creates an array containing the members in
-*     a `client`s household at that `timeframe`,
-*     'current' or 'future', that pass `memberTest()`
-*/
-const getEveryMemberOfHousehold = function ( client, timeframe, memberTest ) {
-  // Temporary measure till converted to just passing already timeframe'd object
-  var timeClient = client;
-  if ( typeof timeframe === 'string' ) { timeClient = client[ timeframe ]; }
-  // Real logic
-  var household = timeClient.household;
+ * Creates an array containing the members in
+ *     a `client`s household that pass `memberTest()`
+ */
+const getEveryMemberOfHousehold = function ( client, memberTest ) {
+  var household = client.household;
   return getEveryMember( household, memberTest );
 };  // End getEveryMemberOfHousehold()
 
@@ -61,8 +56,8 @@ const getHeadOrSpouseMembers = function ( memberList ) {
 };  // End getHeadOrSpouseMembers()
 
 
-const getHeadOrSpouseOfHousehold = function ( client, timeframe ) {
-  return getEveryMemberOfHousehold( client, timeframe, isHeadOrSpouse );
+const getHeadOrSpouseOfHousehold = function ( client ) {
+  return getEveryMemberOfHousehold( client, isHeadOrSpouse );
 };  // End getHeadOrSpouseOfHousehold()
 
 
@@ -82,8 +77,8 @@ const getDependentMembers = function ( memberList ) {
 };  // End getDependentMembers()
 
 
-const getDependentsOfHousehold = function ( client, timeframe ) {
-  return getEveryMemberOfHousehold( client, timeframe, isDependent );
+const getDependentsOfHousehold = function ( client ) {
+  return getEveryMemberOfHousehold( client, isDependent );
 };  // End getDependentsOfHousehold()
 
 
@@ -99,8 +94,8 @@ const getDisabledMembers = function ( memberList ) {
 };  // End getDisabledMembers()
 
 
-const getDisabledOfHousehold = function ( client, timeframe ) {
-  return getEveryMemberOfHousehold( client, timeframe, isDisabled );
+const getDisabledOfHousehold = function ( client ) {
+  return getEveryMemberOfHousehold( client, isDisabled );
 };  // End getDisabledOfHousehold()
 
 
@@ -117,8 +112,8 @@ const getUnder13Members = function ( memberList ) {
 };  // End getUnder13Members()
 
 
-const getUnder13OfHousehold = function ( client, timeframe ) {
-  return getEveryMemberOfHousehold( client, timeframe, isUnder13 );
+const getUnder13OfHousehold = function ( client ) {
+  return getEveryMemberOfHousehold( client, isUnder13 );
 };  // End getUnder13OfHousehold()
 
 

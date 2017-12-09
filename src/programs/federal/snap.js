@@ -64,7 +64,7 @@ const isElderlyOrDisabled = function ( member ) {
 };
 
 const hasDisabledOrElderlyMember = function (client) {
-  return getEveryMemberOfHousehold( client, null, isElderlyOrDisabled ).length > 0;
+  return getEveryMemberOfHousehold( client, isElderlyOrDisabled ).length > 0;
 };
 
 const getTotalMonthlyGross = function (client) {
@@ -155,7 +155,7 @@ const getDependentCareDeduction = function (client) {
     childCare = sumCashflow( client, null, CHILD_CARE_EXPENSES );
   }
 
-  if ( getEveryMemberOfHousehold( client, null, isDependentOver12 ).length > 0 ) {
+  if ( getEveryMemberOfHousehold( client, isDependentOver12 ).length > 0 ) {
     adultCare = sumCashflow( client, null, ADULT_CARE_EXPENSES );
   }
 
