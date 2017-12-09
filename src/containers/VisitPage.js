@@ -40,11 +40,7 @@ class VisitPage extends Component {
         currentStep: 1,
         isBlocking: true,
         redirect: false,
-        client : {
-          ...CLIENT_DEFAULTS,
-          snapAlert: 'good',
-          housingAlert: 'good',
-        },
+        client : { ...CLIENT_DEFAULTS },
         userChanged: {}
     };  // end this.state {}
 
@@ -57,9 +53,6 @@ class VisitPage extends Component {
       { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
   };  // End constructor()
-
-
-
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
