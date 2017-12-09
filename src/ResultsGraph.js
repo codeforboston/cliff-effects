@@ -16,7 +16,7 @@ const ResultsGraph = (props) => {
 
   var snapData = xRange.map(annualIncome => {
       fakeClient.future.earned = annualIncome/12;
-      return getSNAPBenefits(fakeClient).benefitValue * 12});
+      return getSNAPBenefits(fakeClient, 'future').benefitValue * 12});
 
   /** Section-8 Housing Choice Voucher */
   /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
