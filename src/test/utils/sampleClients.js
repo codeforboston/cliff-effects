@@ -131,7 +131,7 @@ const CLIENT_ROW_3 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     true,  // Public Housing (Section 8?)
+    hasHousing:                     false,  // Public Housing (but NOT Section 8)
     // Household
     household:  [
       {
@@ -418,7 +418,7 @@ const CLIENT_ROW_7 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     true,
+    hasHousing:                     false, // Public Housing (but NOT Section 8)
     // Household
     household:  [
       {
@@ -478,7 +478,7 @@ const CLIENT_ROW_7 = {
     otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   20,
-    expectedSection8:               null  // "Yes - Public Housing"
+    expectedSection8:               null  // "Yes - Public Housing but NOT Section 8"
   },
 };
 
