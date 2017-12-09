@@ -25,20 +25,18 @@ const getSignSymbol = function ( num ) {
 
 const BenefitsTable = function ( props ) {
 
-  var currentClient = cloneDeep( props.client ),
+  var client        = props.client,
+      currentClient = cloneDeep( client ),
       futureClient  = cloneDeep( currentClient );
   // Hack because everything's using future value instead
   // of just using current value.
   currentClient.future.earned = currentClient.current.earned;
 
-
-
-
-  var SNAPBenefitCurrent  = props.client.current.hasSnap ? Math.round( getSNAPBenefits( props.client, 'current' ).benefitValue * 12 ) : 0,
-      SNAPBenefitFuture   = props.client.future.hasSnap ? Math.round( getSNAPBenefits( props.client, 'future' ).benefitValue * 12 ) : 0,
+  var SNAPBenefitCurrent  = client.current.hasSnap ? Math.round( getSNAPBenefits( client, 'current' ).benefitValue * 12 ) : 0,
+      SNAPBenefitFuture   = client.current.hasSnap ? Math.round( getSNAPBenefits( client, 'future' ).benefitValue * 12 ) : 0,
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8BenefitCurrent  = currentClient.future.hasHousing ? Math.round( getHousingBenefit( currentClient ).benefitValue * 12 ) : 0,
-      sec8BenefitFuture   = futureClient.future.hasHousing ? Math.round( getHousingBenefit( futureClient ).benefitValue * 12 ) : 0,
+      sec8BenefitCurrent  = client.current.hasHousing ? Math.round( getHousingBenefit( client ).benefitValue * 12 ) : 0,
+      sec8BenefitFuture   = client.current.hasHousing ? Math.round( getHousingBenefit( client ).benefitValue * 12 ) : 0,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
@@ -49,7 +47,6 @@ const BenefitsTable = function ( props ) {
       netCurrent          = totalBenefitCurrent + incomeCurrent,
       netFuture           = totalBenefitFuture + incomeFuture,
       netDiff             = totalDiff + incomeDiff;
-
 
 const   columnHeaderStyle = {
                             background: 'rgba(0, 181, 173, 1)',
