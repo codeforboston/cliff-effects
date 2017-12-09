@@ -25,17 +25,18 @@ const getSignSymbol = function ( num ) {
 
 const BenefitsTable = function ( props ) {
 
-  var currentClient = cloneDeep( props.client ),
+  var client        = props.client,
+      currentClient = cloneDeep( client ),
       futureClient  = cloneDeep( currentClient );
   // Hack because everything's using future value instead
   // of just using current value.
   currentClient.future.earned = currentClient.current.earned;
 
-  var SNAPBenefitCurrent  = currentClient.current.hasSnap ? Math.round( getSNAPBenefits( props.client, 'current' ).benefitValue * 12 ) : 0,
-      SNAPBenefitFuture   = futureClient.future.hasSnap ? Math.round( getSNAPBenefits( props.client, 'future' ).benefitValue * 12 ) : 0,
+  var SNAPBenefitCurrent  = client.current.hasSnap ? Math.round( getSNAPBenefits( client, 'current' ).benefitValue * 12 ) : 0,
+      SNAPBenefitFuture   = client.current.hasSnap ? Math.round( getSNAPBenefits( client, 'future' ).benefitValue * 12 ) : 0,
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8BenefitCurrent  = Math.round( getHousingBenefit( props.client, 'current' ).benefitValue * 12 ),
-      sec8BenefitFuture   = Math.round( getHousingBenefit( props.client, 'future' ).benefitValue * 12 ),
+      sec8BenefitCurrent  = client.current.hasHousing ? Math.round( getHousingBenefit( client ).benefitValue * 12 ) : 0,
+      sec8BenefitFuture   = client.current.hasHousing ? Math.round( getHousingBenefit( client ).benefitValue * 12 ) : 0,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
