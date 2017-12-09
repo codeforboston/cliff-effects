@@ -27,9 +27,7 @@ const getEveryMember = function ( memberList, memberTest ) {
 
 /**
  * Creates an array containing the members in
- *     a `client`s household at that `timeframe`,
- *     'current' or 'future', that pass `memberTest()`
- * Phasing out `timeframe`
+ *     a `client`s household that pass `memberTest()`
  */
 const getEveryMemberOfHousehold = function ( client, memberTest ) {
   var household = client.household;
