@@ -64,8 +64,12 @@ const getGrossUnearnedIncomeMonthly = function ( client, timeframe ) {
 * income with no deductions or exclusions.
 */
 const getSimpleGrossIncomeMonthly = function ( client, timeframe ) {
-  var earned    = client[ timeframe ].earned,
-      unearned  = getGrossUnearnedIncomeMonthly( client, timeframe );
+  // Temporary measure till converted to just passing already timeframe'd object
+  var timeClient = client;
+  if ( typeof timeframe === 'string' ) { timeClient = client[ timeframe ]; }
+  // Real logic
+  var earned    = timeClient.earned,
+      unearned  = getGrossUnearnedIncomeMonthly( timeClient, timeframe );
 	return earned + unearned;
 };  // End getSimpleGrossIncomeMonthly()
 
@@ -104,7 +108,11 @@ const sumCashflow = function ( client, timeframe, props ) {
 * @returns Component
 */
 const toCashflow = function ( client, timeframe, prop ) {
-  return client[ timeframe ][ prop ] || 0;
+  // Temporary measure till converted to just passing already timeframe'd object
+  var timeClient = client;
+  if ( typeof timeframe === 'string' ) { timeClient = client[ timeframe ]; }
+  // Real logic
+  return timeClient[ prop ] || 0;
 };  // End toCashflow()
 
 

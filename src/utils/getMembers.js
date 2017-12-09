@@ -31,7 +31,11 @@ const getEveryMember = function ( memberList, memberTest ) {
 *     'current' or 'future', that pass `memberTest()`
 */
 const getEveryMemberOfHousehold = function ( client, timeframe, memberTest ) {
-  var household = client[ timeframe ].household;
+  // Temporary measure till converted to just passing already timeframe'd object
+  var timeClient = client;
+  if ( typeof timeframe === 'string' ) { timeClient = client[ timeframe ]; }
+  // Real logic
+  var household = timeClient.household;
   return getEveryMember( household, memberTest );
 };  // End getEveryMemberOfHousehold()
 
