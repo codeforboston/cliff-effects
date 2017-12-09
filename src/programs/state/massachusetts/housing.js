@@ -28,8 +28,14 @@ import {
 * just be assumed to be 0 so that no errors will occur).
 */
 
-/** Using old and new cash flow data, return new subsidy amount,
-* include new rent share.
+/** Can only be useful in predicting future subisdy amounts.
+* 
+* Uses old and new cash flow data, return new subsidy amount,
+*     include new rent share.
+*
+* var diff = new min ttp - old min ttp;
+* var new rent share = old rent share + diff;
+* var new subsidy = contract rent - new rent share
 * 
 * @function
 * @since 09/2017
@@ -42,31 +48,30 @@ import {
 * @todo Find out how close to 0/change the benefit amount needs to be in
 * order for the client to be warned.
 */
-const getHousingBenefit = function ( client ) {
-  /** @todo if time 'current', return contractRent - rentShare */
+const getHousingBenefit = function ( client, timeframe ) {
+  /** @todo Just return number values */
 
-  /*
-  * var diff = new min ttp - old min ttp;
-  * var new rent share = old rent share + diff;
-  * var new subsidy = contract rent - new rent share
-  */
-  var curr = 'current';
+  var result = new Result({
+    result: 'good',
+    details: 'All good!',
+    benefitValue: 0,
+    data: {}
+  });
+  
+  // Current subsidy MUST already be known
+  if ( timeframe === 'current' ) {
+    result.benefitValue = client.current.contractRent - client.current.rentShare;
+    return result;
+  }
 
   var ttps        = getTTPs( client ),
       diff        = ttps.newTTP - ttps.oldTTP,
-      newShare    = diff + toCashflow( client, curr, 'rentShare' ),
-      contrRent   = toCashflow( client, curr, 'contractRent' );
+      newShare    = diff + client.current.rentShare,
+      contrRent   = client.current.contractRent;
 
   // Don't pay more rent than the landlord is asking for
   var maxShare    = Math.min( contrRent, newShare ),
       newSubsidy  = contrRent - maxShare;
-
-  var result = {
-    result: 'good',
-    details: 'All good!',
-    benefitValue: newSubsidy,
-    data: { newRentShare: maxShare }
-  };
 
   /** @todo When to give a warning for Section 8? */
   if ( newSubsidy <= 500 ) {
@@ -74,9 +79,10 @@ const getHousingBenefit = function ( client ) {
     result.details  = 'Your housing subsidy is getting low.';
   }
 
-  var officialResult = new Result( result );
+  result.benefitValue       = newSubsidy;
+  result.data.newRentShare  = maxShare ;
 
-  return officialResult;
+  return result;
 };  // End getHousingBenefit
 
 
@@ -130,10 +136,10 @@ const getTTPs = function ( client ) {
 * @todo Function description
 */
 const getNetIncome = function ( client, timeframe ) {
-  var unearned = getGrossUnearnedIncomeMonthly( client, timeframe ),
-      gross    = unearned + toCashflow( client, timeframe, 'earned' ),
-      net      = gross - toCashflow( client, timeframe, 'incomeExclusions' );
-  return net;
+  var unearned = getGrossUnearnedIncomeMonthly( client[ timeframe ] ),
+      gross    = unearned + client[ timeframe ].earned;
+  // net = gross - incomeExclusions, but income exclusions not accounted for for MVP
+  return gross;
 };  // End getNetIncome()
 
 
@@ -155,7 +161,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
       allowances = [];
 
   // #4 & #5
-  var depAllowanceAnnual = getDependentsOfHousehold( client, timeframe ).length * 480;
+  var depAllowanceAnnual = getDependentsOfHousehold( client, time ).length * 480;
   allowances.push( depAllowanceAnnual/12 );
   // #6
   var childcare   = sumCashflow( client, time, CHILD_CARE_EXPENSES ),
