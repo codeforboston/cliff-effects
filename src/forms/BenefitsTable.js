@@ -34,11 +34,11 @@ const BenefitsTable = function ( props ) {
 
 
 
-  var SNAPBenefitCurrent  = currentClient.current.hasSnap ? Math.round( getSNAPBenefits( props.client, 'current' ).benefitValue * 12 ) : 0,
-      SNAPBenefitFuture   = futureClient.future.hasSnap ? Math.round( getSNAPBenefits( props.client, 'future' ).benefitValue * 12 ) : 0,
+  var SNAPBenefitCurrent  = props.client.current.hasSnap ? Math.round( getSNAPBenefits( props.client, 'current' ).benefitValue * 12 ) : 0,
+      SNAPBenefitFuture   = props.client.future.hasSnap ? Math.round( getSNAPBenefits( props.client, 'future' ).benefitValue * 12 ) : 0,
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8BenefitCurrent  = Math.round( getHousingBenefit( currentClient ).benefitValue * 12 ),
-      sec8BenefitFuture   = Math.round( getHousingBenefit( futureClient ).benefitValue * 12 ),
+      sec8BenefitCurrent  = currentClient.future.hasHousing ? Math.round( getHousingBenefit( currentClient ).benefitValue * 12 ) : 0,
+      sec8BenefitFuture   = futureClient.future.hasHousing ? Math.round( getHousingBenefit( futureClient ).benefitValue * 12 ) : 0,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
