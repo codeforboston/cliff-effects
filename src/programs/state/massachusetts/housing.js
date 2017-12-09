@@ -161,7 +161,7 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
       allowances = [];
 
   // #4 & #5
-  var depAllowanceAnnual = getDependentsOfHousehold( client, time ).length * 480;
+  var depAllowanceAnnual = getDependentsOfHousehold( client[ time ] ).length * 480;
   allowances.push( depAllowanceAnnual/12 );
   // #6
   var childcare   = sumCashflow( client, time, CHILD_CARE_EXPENSES ),
@@ -251,7 +251,7 @@ const isDisabledOrElderly = function ( member ) {
 
 // Sure, we could combine these last two, but is it worth it?
 const hasAnyDsbOrElderly = function ( client, timeframe ) {
-  var numMatches = getEveryMemberOfHousehold( client, timeframe, isDisabledOrElderly ).length;
+  var numMatches = getEveryMemberOfHousehold( client[ timeframe ], isDisabledOrElderly ).length;
   return numMatches > 0;
 };  // End hasAnyDsbOrElderly()
 
@@ -261,7 +261,7 @@ const hasDsbOrEldHeadOrSpouse = function ( client, timeframe ) {
   var comboTest = function ( member ) {
     return isDisabledOrElderly( member ) && isHeadOrSpouse( member );
   };
-  var numMatches = getEveryMemberOfHousehold( client, timeframe, comboTest ).length;
+  var numMatches = getEveryMemberOfHousehold( client[ timeframe ], comboTest ).length;
 
   return numMatches > 0;
 
