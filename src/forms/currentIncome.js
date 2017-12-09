@@ -102,7 +102,7 @@ const CurrentIncomeStep = function ( props ) {
 
   /** @todo Are these titles accurate now? */
   return (
-    <Form className = 'income-form'>
+    <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'Current Household Income'
         clarifier = 'Income that you collected in the past 12 months.'

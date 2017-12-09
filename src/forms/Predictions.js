@@ -67,7 +67,7 @@ const PredictionsStep = function ( props ) {
 
   /** @todo Are these titles accurate now? */
   return (
-    <Form className = 'income-form'>
+    <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'Future Household Income'
         clarifier = 'How much money would your household make in the future?'

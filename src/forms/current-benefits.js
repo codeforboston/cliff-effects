@@ -55,7 +55,7 @@ const CurrentBenefitsStep = (props) => {
   const setTimeProp = getTimeSetter( 'current', props.changeClient );
 
   return (
-    <Form size='massive' className='household-size-form'>
+    <Form size='massive' className='household-size-form flex-item flex-column'>
       <FormPartsContainer
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}

@@ -389,7 +389,7 @@ const CurrentExpensesStep = function ( props ) {
   const setTimeProp = getTimeSetter( 'current', props.changeClient );
 
   return (
-    <Form className = 'expense-form'>
+    <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
         title     = {'Current Household Expenses'}
         clarifier = {null}

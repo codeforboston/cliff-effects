@@ -141,7 +141,7 @@ const ResultsGraph = (props) => {
 
   // Non-saving version for first prototype testing
   return (
-    <wrapper className = 'result-page'>
+    <wrapper className = 'result-page flex-item flex-column'>
       <FormPartsContainer
         title     = {'Results'}
         left      = {{ name: 'Go Back', func: props.previousStep }}

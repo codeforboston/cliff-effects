@@ -9,7 +9,7 @@ const StepBar = ({ steps, currentStepIndex, goToStep }) => {
     step.key = index
   })
 
-  return (<Step.Group size='mini' ordered items={steps} />)
+  return (<Step.Group className='six' size='mini' ordered items={steps} />)
 }
 
 export default StepBar
