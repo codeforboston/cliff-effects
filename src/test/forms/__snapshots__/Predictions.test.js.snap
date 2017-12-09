@@ -320,7 +320,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
                   }
                 >
                   $
-                  2304
+                  0
                    / year
                 </td>
                 <td
@@ -335,7 +335,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
                   }
                 >
                   $
-                  2304
+                  0
                    / year
                 </td>
                 <td
