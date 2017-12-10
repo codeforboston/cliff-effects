@@ -757,15 +757,17 @@ const CLIENT_ROW_10 = {
 // };
 
 
-export default sampleClients = [
+const sampleClients = {
   // CLIENT_ROW_2,  // No SNAP or Section 8
-  CLIENT_ROW_3,
-  CLIENT_ROW_4,
-  CLIENT_ROW_5,
-  CLIENT_ROW_6,
-  CLIENT_ROW_7,
-  CLIENT_ROW_8,
-  CLIENT_ROW_9,
-  CLIENT_ROW_10,
+  row3: CLIENT_ROW_3,
+  row4: CLIENT_ROW_4,
+  row5: CLIENT_ROW_5,
+  row6: CLIENT_ROW_6,
+  row7: CLIENT_ROW_7,
+  row8: CLIENT_ROW_8,
+  row9: CLIENT_ROW_9,
+  row10: CLIENT_ROW_10,
   // CLIENT_ROW_11  // No SNAP or Section 8
-];
+};
+
+export { sampleClients };

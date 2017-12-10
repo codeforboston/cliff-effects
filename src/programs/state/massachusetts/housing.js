@@ -1,13 +1,12 @@
 
 // DATA
-import { CHILD_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
+import { UNDER13_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
 
 // UTILITIES
 import { sum } from '../../../utils/math';
 import { Result } from '../../../utils/Result';
 import {
-  toCashflow,
-  sumCashflow,
+  sumProps,
   getGrossUnearnedIncomeMonthly
 } from '../../../utils/cashflow';
 import {
@@ -157,23 +156,23 @@ const getNetIncome = function ( client, timeframe ) {
 */
 const getAdjustedIncome = function ( client, timeframe, net ) {
 
-  var time       = timeframe,
+  var time       = timeframe,  // shorter
       allowances = [];
 
   // #4 & #5
   var depAllowanceAnnual = getDependentsOfHousehold( client[ time ] ).length * 480;
   allowances.push( depAllowanceAnnual/12 );
   // #6
-  var childcare   = sumCashflow( client, time, CHILD_CARE_EXPENSES ),
-      ccIncome    = toCashflow( client, time, 'earnedBecauseOfChildCare' ),
+  var childcare   = sumProps( client[ time ], UNDER13_CARE_EXPENSES ),
+      ccIncome    = client[ time ].earnedBecauseOfChildCare,
       /** @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
       ccMin       = Math.min( childcare, ccIncome );
   allowances.push( ccMin );
   // #7 - 13
-  var disAndMed = getDisabledAndMedicalAllowancesSum( client, timeframe, net )
+  var disAndMed = getDisabledAndMedicalAllowancesSum( client, time, net )
   allowances.push( disAndMed );
   // #14 (yes, they mean head or spouse here)
-  if ( hasDsbOrEldHeadOrSpouse( client, timeframe ) ) { allowances.push( 400/12 ); }
+  if ( hasDsbOrEldHeadOrSpouse( client, time ) ) { allowances.push( 400/12 ); }
 
   var total = sum( allowances ),
       adj   = net - total;
@@ -190,29 +189,29 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
 */
 const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
-  var time          = timeframe,
+  var time          = timeframe,  // shorter
       netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
-  if ( !hasAnyDsbOrElderly( client, timeframe ) ) { return 0; }
+  if ( !hasAnyDsbOrElderly( client, time ) ) { return 0; }
 
   // pg 5-30 to 5-31
-  var handcpExpense  = toCashflow( client, time, 'disabledAssistance' ),  // #7
+  var handcpExpense  = client[ time ].disabledAssistance,  // #7
       asstSubtracted = handcpExpense - netSubtractor,  // #9
-      asstIncome     = toCashflow( client, time, 'earnedBecauseOfAdultCare' ), // #10
+      asstIncome     = client[ time ].earnedBecauseOfAdultCare, // #10
       hcapAllowance  = Math.min( asstSubtracted, asstIncome ),  // #11
       hcapMin        = Math.max( 0, hcapAllowance );  // Don't get negative
 
   // ----- Maybe Stop #D ----- \\
   /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
-  if ( !hasDsbOrEldHeadOrSpouse( client, timeframe ) ) { return hcapMin; }
+  if ( !hasDsbOrEldHeadOrSpouse( client, time ) ) { return hcapMin; }
 
 
   // ----- Medical Allowance #12 - 13 ----- \\
   // #12, pg 5-31 to 5-32
-  var disOrElderlyMedical = toCashflow( client, time, 'disabledMedical' ),
+  var disOrElderlyMedical = client[ time ].disabledMedical,
       // pg 5-31 says all medical expenses count for this household
-      otherMedical        = toCashflow( client, time, 'otherMedical' ),
+      otherMedical        = client[ time ].otherMedical,
       medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
 
   // Read all of pg 5-32 and 5-34 for the following conditional.
