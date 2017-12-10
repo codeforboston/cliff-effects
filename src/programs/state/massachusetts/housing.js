@@ -4,7 +4,6 @@ import { UNDER13_CARE_EXPENSES } from '../../../data/state/massachusetts/name-co
 
 // UTILITIES
 import { sum } from '../../../utils/math';
-import { Result } from '../../../utils/Result';
 import {
   sumProps,
   getGrossUnearnedIncomeMonthly
@@ -49,18 +48,10 @@ import {
 */
 const getHousingBenefit = function ( client, timeframe ) {
   /** @todo Just return number values */
-
-  var result = new Result({
-    result: 'good',
-    details: 'All good!',
-    benefitValue: 0,
-    data: {}
-  });
   
-  // Current subsidy MUST already be known
+  // Current subsidy MUST already be known in every case
   if ( timeframe === 'current' ) {
-    result.benefitValue = client.current.contractRent - client.current.rentShare;
-    return result;
+    return client.current.contractRent - client.current.rentShare;
   }
 
   var ttps        = getTTPs( client ),
@@ -72,16 +63,7 @@ const getHousingBenefit = function ( client, timeframe ) {
   var maxShare    = Math.min( contrRent, newShare ),
       newSubsidy  = contrRent - maxShare;
 
-  /** @todo When to give a warning for Section 8? */
-  if ( newSubsidy <= 500 ) {
-    result.result   = 'information';
-    result.details  = 'Your housing subsidy is getting low.';
-  }
-
-  result.benefitValue       = newSubsidy;
-  result.data.newRentShare  = maxShare ;
-
-  return result;
+  return newSubsidy;
 };  // End getHousingBenefit
 
 
