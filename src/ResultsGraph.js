@@ -16,7 +16,7 @@ const ResultsGraph = (props) => {
 
   var snapData = xRange.map(annualIncome => {
       fakeClient.future.earned = annualIncome/12;
-      return getSNAPBenefits(fakeClient, 'future').benefitValue * 12});
+      return getSNAPBenefits(fakeClient, 'future') * 12});
 
   /** Section-8 Housing Choice Voucher */
   /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
@@ -26,15 +26,15 @@ const ResultsGraph = (props) => {
     // New renting data
     fakeClient.future.earned = annualIncome/12;
 
-    var result  = getHousingBenefit( fakeClient, 'future' ),
-        subsidy = result.benefitValue * 12;
+    var monthlySubsidy  = getHousingBenefit( fakeClient, 'future' ),
+        yearlySubsidy   = monthlySubsidy * 12;
 
     // Prep for next loop
-    var newShare = result.data.newRentShare
+    var newShare = fakeClient.current.contractRent - monthlySubsidy;
     fakeClient.current.rentShare  = newShare;
     fakeClient.current.earned     = annualIncome/12;
 
-    return subsidy;
+    return yearlySubsidy;
   });
 
   // TAFDC color? "rgba(206, 125, 61, 1)"

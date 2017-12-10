@@ -4,7 +4,6 @@ import { SNAPData } from '../../data/federal/2017/SNAPData';
 import { federalPovertyGuidelines } from '../../data/federal/federalPovertyGuidelines';
 
 // LOGIC/UTILITIES
-import { Result } from '../../utils/Result';
 import {
   sumProps,
   getGrossUnearnedIncomeMonthly
@@ -26,7 +25,7 @@ const getSNAPBenefits = function ( client, timeframe ) {
 
   client = client[ timeframe ];
 
-  var finalResult = null;
+  var finalResult = 0;
   var grossIncomeTestResult   = getGrossIncomeTestResult( client );
   var netIncomeTestResult     = getNetIncomeTestResult( client );
   var maxSnapAllotment        = getMaxSnapAllotment( client );
@@ -45,16 +44,10 @@ const getSNAPBenefits = function ( client, timeframe ) {
     } else {
       finalResult = maxClientAllotment;
     }
-  } else {
-    finalResult = 0;
+
   }
 
-  var result = new Result({
-      result: 'good',
-      details: 'IT IS AWESOME!!!',
-      benefitValue: finalResult
-    });
-  return result;
+  return finalResult;
 }; // End getSNAPBenefits()
 
 //GROSS INCOME TEST
