@@ -123,11 +123,11 @@ class VisitPage extends Component {
       <div className='forms-container flex-item flex-column'>
         <ConfirmLeave
           when={this.state.isBlocking}
-          message='Are you sure you want to leave the page with unsaved changes?'
+          message='This action will erase all current data. Are you sure you want to do this?'
         />
         <Prompt
           when={this.state.isBlocking}
-          message='Are you sure you want to leave the page with unsaved changes?'
+          message='This action will erase all current data. Are you sure you want to do this?'
         />
 
         {this.state.redirect ?
