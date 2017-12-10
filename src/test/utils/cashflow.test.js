@@ -7,7 +7,7 @@ import {
   sumProps
 } from '../../utils/cashflow';
 
-// Array of sample clients to use in these tests.
+// Object of sample clients to use in these tests.
 import { sampleClients } from './sampleClients';
 
 // getDependentCostsMonthly tests
@@ -15,5 +15,8 @@ import { sampleClients } from './sampleClients';
 // getSimpleGrossIncomeMonthly tests
 
 // getGrossUnearnedIncomeMonthly tests
+test('Sample client row 3 unearned income to be 997', () => {
+  expect(getGrossUnearnedIncomeMonthly( sampleClients.row3.current )).toBe(997);
+});
 
 // sumProps tests

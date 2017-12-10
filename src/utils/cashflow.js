@@ -5,7 +5,7 @@
 */
 
 // LOGIC
-import { sum, pick } from 'lodash';
+import { sum, pick, values } from 'lodash';
 
 // DATA
 import {
@@ -81,7 +81,7 @@ const getSimpleGrossIncomeMonthly = function ( client ) {
  * @returns {number}
  */
 const sumProps = function ( obj, props ) {
-  return sum(pick( obj, props ));
+  return sum( values(pick( obj, props )) );
 };  // End sumProps()
 
 
