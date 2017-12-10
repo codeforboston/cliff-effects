@@ -2,74 +2,67 @@
 * 
 * @todo Add checks for properties with messages for mistakes
 * @todo Deal with expiration dates
-* @todo Prune values now understood to be non-standard
 */
 
+// LOGIC
+import { sum, pick } from 'lodash';
+
 // DATA
-import { UNEARNED_INCOME_SOURCES, CHILD_CARE_EXPENSES } from '../data/state/massachusetts/name-cores';
+import {
+  UNEARNED_INCOME_SOURCES,
+  UNDER13_CARE_EXPENSES,
+  OVER12_CARE_EXPENSES
+} from '../data/state/massachusetts/name-cores';
 
 // ==================================
 // DEDUCTIONS
 // ==================================
-/**
-* Calculates various expenses based on form input
-* Everything is monthly
-*/
-var expenses = {};
-
-/** Total child and adult dependent costs (does not include child
-* support paid out). Dependent = child or disabled adult
-* 
-* @function
-* @param {object} client
-* @param {string} timeframe - can be either 'current' or 'future'.
-* 
-* @returns {number} Total dependent care expenses
-*/
-expenses.dependentCare = function ( client, timeframe ) {
-  var child = sumCashflow( client, timeframe, CHILD_CARE_EXPENSES ),
-      /** @todo ADULT_CARE_EXPENSES */
-      adult = 0; 
-  return child + adult;
-};  // End expenses.dependentCare()
+/** 
+ * Total MONTHLY dependent costs, including for those under and over
+ *     the age of 13 (does not include child support paid out).
+ *     Dependent = child or disabled adult
+ * 
+ * @function
+ * @param {object} client - `current` or `future` property of client data
+ * 
+ * @returns {number} - Total dependent care expenses
+ */
+const getDependentCostsMonthly = function ( client ) {
+  var props = UNDER13_CARE_EXPENSES.concat( OVER12_CARE_EXPENSES );
+  return sumProps( client, props );
+};  // End getDependentCostsMonthly()
 
 
 // ==================================
 // STRAIGHT UP INCOME
 // ==================================
 
-/** @todo description
-* Monthly
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
-const getGrossUnearnedIncomeMonthly = function ( client, timeframe ) {
-  return sumCashflow( client, timeframe, UNEARNED_INCOME_SOURCES );
+/** 
+ * Gets sum of all unearned monthly income of given client.
+ * 
+ * @function
+ * @param {object} client - `current` or `future` property of client data
+ * 
+ * @returns {number}
+ */
+const getGrossUnearnedIncomeMonthly = function ( client ) {
+  return sumProps( client, UNEARNED_INCOME_SOURCES );
 };  // End getGrossUnearnedIncomeMonthly()
 
 
 /**
-* Total monthly earned and unearned income with no deductions or
-* exclusions.
-* 
-* @function
-* @param {object} client
-* @param {string} timeframe - can be either 'current' or 'future'.
-* 
-* @returns {number} total earned and unearned monthly
-* income with no deductions or exclusions.
-*/
-const getSimpleGrossIncomeMonthly = function ( client, timeframe ) {
-  // Temporary measure till converted to just passing already timeframe'd object
-  var timeClient = client;
-  if ( typeof timeframe === 'string' ) { timeClient = client[ timeframe ]; }
-  // Real logic
-  var earned    = timeClient.earned,
-      unearned  = getGrossUnearnedIncomeMonthly( timeClient, timeframe );
+ * Total monthly earned and unearned income with no deductions or
+ *     exclusions.
+ * 
+ * @function
+ * @param {object} client - `current` or `future` property of client data
+ * 
+ * @returns {number} - Total earned and unearned monthly
+ *     income with no deductions or exclusions.
+ */
+const getSimpleGrossIncomeMonthly = function ( client ) {
+  var earned    = client.earned,
+      unearned  = getGrossUnearnedIncomeMonthly( client );
 	return earned + unearned;
 };  // End getSimpleGrossIncomeMonthly()
 
@@ -78,46 +71,23 @@ const getSimpleGrossIncomeMonthly = function ( client, timeframe ) {
 // INCOME HELPERS
 // ==================================
 
-/** @todo description
-* Monthly
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
-const sumCashflow = function ( client, timeframe, props ) {
-  var sum = 0;
-  for (let namei = 0; namei < props.length; namei++) {
-    sum += toCashflow( client, timeframe, props[ namei ] );  // if that prop exists, add it
-  };
-  return sum;
-};  // End sumCashflow()
-
-
-/** @todo description
-* Monthly
-* 
-* @todo Create and normalize client object instead.
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
-const toCashflow = function ( client, timeframe, prop ) {
-  // Temporary measure till converted to just passing already timeframe'd object
-  var timeClient = client;
-  if ( typeof timeframe === 'string' ) { timeClient = client[ timeframe ]; }
-  // Real logic
-  return timeClient[ prop ] || 0;
-};  // End toCashflow()
+/** 
+ * Returns the sum of the requested properties of of a given object
+ * 
+ * @function
+ * @param {object} obj - Has the properties named in `props` with number values.
+ * @param {array} props - The names of some properties in `obj` with number values.
+ * 
+ * @returns {number}
+ */
+const sumProps = function ( obj, props ) {
+  return sum(pick( obj, props ));
+};  // End sumProps()
 
 
 export {
-  expenses,
-  getSimpleGrossIncomeMonthly, getGrossUnearnedIncomeMonthly,
-  toCashflow, sumCashflow
+  getDependentCostsMonthly,
+  getSimpleGrossIncomeMonthly,
+  getGrossUnearnedIncomeMonthly,
+  sumProps
 };
