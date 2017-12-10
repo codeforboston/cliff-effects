@@ -13,10 +13,10 @@ class ConfirmLeave extends React.Component {
     when: true
   };
 
-  addListener = (message = '') =>
+  addListener = () =>
     (this.listener = window.addEventListener(
       'beforeunload',
-      event => (event.returnValue = message)
+      event => (event.returnValue = this.props.message || '')
     ));
 
   removeListener = () => {
@@ -26,17 +26,16 @@ class ConfirmLeave extends React.Component {
 
   componentDidMount() {
     if (this.props.when) {
-      this.addListener(this.props.message);
+      this.addListener();
     }
   }
 
   componentWillUpdate(nextProps) {
     if (nextProps.when && !this.props.when) {
-      this.addListener(nextProps.message);
+      this.addListener();
     }
-    if (nextProps.message !== this.props.message) {
+    if (!nextProps.when && this.props.when) {
       this.removeListener();
-      this.addListener(nextProps.message);
     }
   }
 
