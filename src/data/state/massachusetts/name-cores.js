@@ -9,18 +9,18 @@ const UNEARNED_INCOME_SOURCES = [
   'workersComp', 'pension', 'socialSecurity', 'alimony', 'otherIncome'
 ];
 
-const CHILD_CARE_EXPENSES = [
+const UNDER13_CARE_EXPENSES = [
 	'childDirectCare', 'childBeforeAndAfterSchoolCare',
 	'childTransportation', 'childOtherCare'
 ];
 
-const ADULT_CARE_EXPENSES = [
+const OVER12_CARE_EXPENSES = [
 	'adultDirectCare', 'adultTransportation',
 	'adultOtherCare'
 ];
 
 export {
 	UNEARNED_INCOME_SOURCES,
-	CHILD_CARE_EXPENSES,
-	ADULT_CARE_EXPENSES
+	UNDER13_CARE_EXPENSES,
+	OVER12_CARE_EXPENSES
 }

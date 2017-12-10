@@ -1,13 +1,12 @@
 // DATA
-import { CHILD_CARE_EXPENSES, ADULT_CARE_EXPENSES } from '../../data/state/massachusetts/name-cores';
+import { UNDER13_CARE_EXPENSES, OVER12_CARE_EXPENSES } from '../../data/state/massachusetts/name-cores';
 import { SNAPData } from '../../data/federal/2017/SNAPData';
 import { federalPovertyGuidelines } from '../../data/federal/federalPovertyGuidelines';
 
 // LOGIC/UTILITIES
 import { Result } from '../../utils/Result';
 import {
-  toCashflow,
-  sumCashflow,
+  sumProps,
   getGrossUnearnedIncomeMonthly
 } from '../../utils/cashflow';
 import {
@@ -68,7 +67,7 @@ const hasDisabledOrElderlyMember = function (client) {
 };
 
 const getTotalMonthlyGross = function (client) {
-  return toCashflow(client, null, 'earned') + getGrossUnearnedIncomeMonthly(client) - toCashflow(client, null, 'childSupportPaidOut');
+  return client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
 };
 
 const getPovertyGrossIncomeLevel = function (client ) {
@@ -118,7 +117,7 @@ const getStandardDeduction = function (client) {
 };
 
 const getEarnedIncomeDeduction = function (client) {
-  var totalMonthlyEarnedGross = toCashflow(client, null, 'earned');
+  var totalMonthlyEarnedGross = client.earned;
   return totalMonthlyEarnedGross * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
@@ -151,12 +150,14 @@ const getDependentCareDeduction = function (client) {
 
   var childCare = 0, adultCare = 0;
 
+  /** @todo Adopt https://github.com/codeforboston/cliff-effects/issues/264
+   *     model for all these 'kinds' of 'if' situations. If possible. */
   if ( getUnder13OfHousehold( client ).length > 0 ) {
-    childCare = sumCashflow( client, null, CHILD_CARE_EXPENSES );
+    childCare = sumProps( client, UNDER13_CARE_EXPENSES );
   }
 
   if ( getEveryMemberOfHousehold( client, isDependentOver12 ).length > 0 ) {
-    adultCare = sumCashflow( client, null, ADULT_CARE_EXPENSES );
+    adultCare = sumProps( client, OVER12_CARE_EXPENSES );
   }
 
   var totalDependentCare = childCare + adultCare;
@@ -165,7 +166,7 @@ const getDependentCareDeduction = function (client) {
 };
 
 const getChildPaymentDeduction = function (client) {
-  return toCashflow(client, null, 'childSupportPaidOut');
+  return client.childSupportPaidOut;
 };
 
 const getAdjustedIncomeAfterDeduction = function (client) {
@@ -192,10 +193,10 @@ const getShelterDeduction = function(client) {
   if ( isHomeless(client) ) {
     shelterCost = 0;
   } else if(isHomeowner) {
-    shelterCost = toCashflow(client, null, 'mortgage') + toCashflow(client, null, 'housingInsurance') + toCashflow(client, null, 'propertyTax');
+    shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
   }
   else {
-    shelterCost = toCashflow(client, null, 'rent');
+    shelterCost = client.rent;
   }
 
   return shelterCost;
@@ -269,7 +270,7 @@ const getHomelessDeduction = function(client) {
 
 // NET INCOME CALCULATION
 const monthlyNetIncome = function(client) {
-    var totalMonthlyEarnedGross = toCashflow(client, null, 'earned');
+    var totalMonthlyEarnedGross = client.earned;
     var earnedIncomeDeduction = getEarnedIncomeDeduction(client);
     var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client);
     var standardDeduction = getStandardDeduction(client);
