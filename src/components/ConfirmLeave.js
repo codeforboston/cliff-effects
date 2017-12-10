@@ -13,21 +13,13 @@ class ConfirmLeave extends React.Component {
     when: true
   };
 
-  handleBeforeUnload = event => (event.returnValue = this.props.message || '');
+  handleBeforeUnload = event => {
+    if (!this.props.when) return; // do not block unload
+    return (event.returnValue = this.props.message || '');
+  };
 
   componentDidMount() {
-    if (this.props.when) {
-      window.addEventListener('beforeunload', this.handleBeforeUnload);
-    }
-  }
-
-  componentWillUpdate(nextProps) {
-    if (nextProps.when && !this.props.when) {
-      window.addEventListener('beforeunload', this.handleBeforeUnload);
-    }
-    if (!nextProps.when && this.props.when) {
-      window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    }
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
   }
 
   componentWillUnmount() {
