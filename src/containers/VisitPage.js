@@ -19,11 +19,11 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/ConfirmLeave'
-import { CurrentIncomeStep } from '../forms/currentIncome';
-import { CurrentExpensesStep } from '../forms/currentExpenses';
+import { CurrentIncomeStep } from '../forms/CurrentIncome';
+import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
-import { CurrentBenefitsStep } from '../forms/current-benefits';
+import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import ResultsGraph from '../forms/ResultsGraph';
 
