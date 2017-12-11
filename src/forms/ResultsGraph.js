@@ -3,11 +3,11 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { getSNAPBenefits } from './programs/federal/snap';
-import { getHousingBenefit } from './programs/state/massachusetts/housing';
+import { getSNAPBenefits } from '../programs/federal/snap';
+import { getHousingBenefit } from '../programs/state/massachusetts/housing';
 
 // Our Components
-import { FormPartsContainer } from './forms/formHelpers';
+import { FormPartsContainer } from './formHelpers';
 
 const ResultsGraph = (props) => {
   var xRange = _.range(0, 100000, 1000);

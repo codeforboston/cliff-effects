@@ -25,7 +25,7 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/current-benefits';
 import StepBar from '../components/StepBar';
-import ResultsGraph from '../ResultsGraph';
+import ResultsGraph from '../forms/ResultsGraph';
 
 class VisitPage extends Component {
   constructor(props) {
