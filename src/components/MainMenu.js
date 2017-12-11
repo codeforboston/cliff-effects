@@ -6,8 +6,8 @@ import {
   Menu,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { BetaWarning } from './components/BetaWarning';
-import logo from './images/logo.svg';
+import { BetaWarning } from './BetaWarning';
+import logo from '../images/logo.svg';
 
 
 const MainMenu = function ( props ) {
