@@ -12,7 +12,7 @@ import {
   UNEARNED_INCOME_SOURCES,
   UNDER13_CARE_EXPENSES,
   OVER12_CARE_EXPENSES
-} from '../data/state/massachusetts/name-cores';
+} from '../data/massachusetts/name-cores';
 
 // ==================================
 // DEDUCTIONS

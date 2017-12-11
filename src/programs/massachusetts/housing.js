@@ -1,19 +1,19 @@
 
 // DATA
-import { UNDER13_CARE_EXPENSES } from '../../../data/state/massachusetts/name-cores';
+import { UNDER13_CARE_EXPENSES } from '../../data/massachusetts/name-cores';
 
 // UTILITIES
-import { sum } from '../../../utils/math';
+import { sum } from '../../utils/math';
 import {
   sumProps,
   getGrossUnearnedIncomeMonthly
-} from '../../../utils/cashflow';
+} from '../../utils/cashflow';
 import {
   getEveryMemberOfHousehold,
   isHeadOrSpouse,
   getDependentsOfHousehold,
   isDisabled
-} from '../../../utils/getMembers';
+} from '../../utils/getMembers';
 
 
 /**
