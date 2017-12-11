@@ -35,9 +35,9 @@ const AboutContent = function ( props ) {
 
       <Header as='h3' name={'learn-more'}>Learn more about cliff effects:</Header>
       <ul>
-        <li><a rel="noopener" href="https://www.youtube.com/watch?v=BveX_rID4_E">Two-minute video describing cliff effects</a></li>
-        <li><a rel="noopener" href="http://www.nccp.org/projects/files/NCCP_CO_presentation07.pdf">Quantitative scenarios demonstrating cliff effects</a></li>
-        <li><a rel="noopener" href="https://www.umb.edu/editor_uploads/images/centers_institutes/center_social_policy/The_Road_to_the_Cliff_Edge_08.16.17.pdf">Breakdown of different benefits offered in MA</a></li>
+        <li><ExternalLink href="https://www.youtube.com/watch?v=BveX_rID4_E">Two-minute video describing cliff effects</ExternalLink></li>
+        <li><ExternalLink href="http://www.nccp.org/projects/files/NCCP_CO_presentation07.pdf">Quantitative scenarios demonstrating cliff effects</ExternalLink></li>
+        <li><ExternalLink href="https://www.umb.edu/editor_uploads/images/centers_institutes/center_social_policy/The_Road_to_the_Cliff_Edge_08.16.17.pdf">Breakdown of different benefits offered in MA</ExternalLink></li>
       </ul>
 
       <br/>
