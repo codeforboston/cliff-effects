@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 
 // Logic
 import { getSNAPBenefits } from './programs/federal/snap';
-import { getHousingBenefit } from './programs/state/massachusetts/housing';
+import { getHousingBenefit } from './programs/massachusetts/housing';
 
 // Our Components
 import { FormPartsContainer } from './forms/formHelpers';

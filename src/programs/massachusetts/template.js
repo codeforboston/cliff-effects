@@ -1,5 +1,5 @@
 /** 
-* TEMPLATE FOR A FILE IN './src/programs/state/statename/this-script.js'
+* TEMPLATE FOR A FILE IN './src/programs/statename/this-script.js'
 * This template should help you understand how to create a benefit or
 * eligibility function that returns the correct values to provide feedback
 * to the user.
@@ -14,7 +14,7 @@
 */
 
 // DATA
-// import { SOME_DATA } from '../../../data/state/massachusetts/2018/SOME_DATA.js';
+// import { SOME_DATA } from '../../../data/massachusetts/2018/SOME_DATA.js';
 
 // UTILITIES
 // import { roundMoney } from '../../../utils/math';

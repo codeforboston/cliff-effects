@@ -10,7 +10,7 @@ import {
 
 // BENEFIT LOGIC
 import { getSNAPBenefits } from '../programs/federal/snap';
-import { getHousingBenefit } from '../programs/state/massachusetts/housing';
+import { getHousingBenefit } from '../programs/massachusetts/housing';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';
