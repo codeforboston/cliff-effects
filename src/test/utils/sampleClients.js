@@ -32,7 +32,6 @@ const CLIENT_ROW_N = {
     socialSecurity:                 COL-P         positive number
     alimony:                        -----         positive number
     otherIncome:                    COL-Q         positive number
-    incomeExclusions:               -----         positive number
     // Expenses
     childDirectCare:                -----         positive number
     childBeforeAndAfterSchoolCare:  -----         positive number
@@ -92,7 +91,6 @@ const CLIENT_ROW_N = {
 //     socialSecurity:                 0,
 //     alimony:                        0,
 //     otherIncome:                    0,
-//     incomeExclusions:               0,
 //     // Expenses
 //     childDirectCare:                0,
 //     childBeforeAndAfterSchoolCare:  0,
@@ -192,7 +190,6 @@ const CLIENT_ROW_3 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -255,7 +252,6 @@ const CLIENT_ROW_4 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -318,7 +314,6 @@ const CLIENT_ROW_5 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -381,7 +376,6 @@ const CLIENT_ROW_6 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -449,7 +443,6 @@ const CLIENT_ROW_7 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -522,7 +515,6 @@ const CLIENT_ROW_8 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -586,7 +578,6 @@ const CLIENT_ROW_9 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -654,7 +645,6 @@ const CLIENT_ROW_10 = {
     socialSecurity:                 0,
     alimony:                        0,
     otherIncome:                    0,
-    incomeExclusions:               0,
     // Expenses
     childDirectCare:                0,
     childBeforeAndAfterSchoolCare:  0,
@@ -723,7 +713,6 @@ const CLIENT_ROW_10 = {
 //     socialSecurity:                 0,
 //     alimony:                        0,
 //     otherIncome:                    0,
-//     incomeExclusions:               0,
 //     // Expenses
 //     childDirectCare:                0,
 //     childBeforeAndAfterSchoolCare:  0,
