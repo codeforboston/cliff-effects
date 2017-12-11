@@ -6,7 +6,7 @@ import {
 } from 'semantic-ui-react';
 
 import { MainMenu } from './MainMenu';
-import FixedMenu from '../FixedMenu';
+import FixedMenu from './FixedMenu';
 
 class Header extends React.Component {
   constructor(props) {
