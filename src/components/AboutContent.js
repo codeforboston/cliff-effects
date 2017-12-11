@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Message } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
-import { ExternalLink } from './forms/formHelpers';
+import { ExternalLink } from '../forms/formHelpers';
 
 /** Too simplify the process of creating content for the 'About' page */
 

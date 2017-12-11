@@ -4,7 +4,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-import { AboutContent } from '../AboutContent';
+import { AboutContent } from '../components/AboutContent';
 
 const AboutPage = () => {
   return (

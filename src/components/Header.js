@@ -5,8 +5,8 @@ import {
   Visibility,
 } from 'semantic-ui-react';
 
-import { MainMenu } from '../MainMenu';
-import FixedMenu from '../FixedMenu';
+import { MainMenu } from './MainMenu';
+import FixedMenu from './FixedMenu';
 
 class Header extends React.Component {
   constructor(props) {
