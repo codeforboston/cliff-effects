@@ -23,7 +23,7 @@ import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
-import { CurrentBenefitsStep } from '../forms/current-benefits';
+import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import ResultsGraph from '../ResultsGraph';
 
