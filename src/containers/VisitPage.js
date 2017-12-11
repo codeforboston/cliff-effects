@@ -18,6 +18,7 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
+import ConfirmLeave from '../components/ConfirmLeave'
 import { CurrentIncomeStep } from '../forms/currentIncome';
 import { CurrentExpensesStep } from '../forms/currentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
@@ -120,9 +121,13 @@ class VisitPage extends Component {
 
     return (
       <div className='forms-container flex-item flex-column'>
+        <ConfirmLeave
+          when={this.state.isBlocking}
+          message='This action will erase all current data. Are you sure you want to do this?'
+        />
         <Prompt
           when={this.state.isBlocking}
-          message='Are you sure you want to leave the page with unsaved changes?'
+          message='This action will erase all current data. Are you sure you want to do this?'
         />
 
         {this.state.redirect ?
