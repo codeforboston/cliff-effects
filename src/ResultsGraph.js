@@ -145,7 +145,7 @@ const ResultsGraph = (props) => {
       <FormPartsContainer
         title     = {'Results'}
         left      = {{ name: 'Go Back', func: props.previousStep }}
-        right      = {{ name: 'Reset', func: function(){ document.location.reload() } }}
+        right      = {{ name: 'Reset', func: reloadPage }}
       >
          <div> <Line data={data} options={options} /> </div>
       </FormPartsContainer>
@@ -153,5 +153,13 @@ const ResultsGraph = (props) => {
   )
 
 };  // End Results()
+
+const reloadConfirmationMessage = 'This action will erase all current data. Are you sure you want to do this?';
+function reloadPage() {
+  if (window.confirm(reloadConfirmationMessage)) {
+    window.onbeforeunload = null;
+    window.location.reload();
+  }
+}
 
 export default ResultsGraph
