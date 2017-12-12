@@ -8,7 +8,7 @@ import {
 } from '../../utils/cashflow';
 
 // Object of sample clients to use in these tests.
-import { sampleClients } from './sampleClients';
+import { sampleClients } from '../sampleClients';
 
 // getDependentCostsMonthly tests
 
