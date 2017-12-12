@@ -141,7 +141,6 @@ const TotalsRow = function ( props ) {
     )
   };
 
-
   return (
     <wrapper>
       <Table celled>
