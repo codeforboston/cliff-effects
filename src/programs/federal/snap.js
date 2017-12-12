@@ -324,5 +324,4 @@ const householdSize = function ( client ) {
 // Bay State CAP not included as this prototype only deals with
 // changes in earned income
 
-
 export { getSNAPBenefits };

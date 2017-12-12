@@ -118,7 +118,6 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
-
     return (
       <div className='forms-container flex-item flex-column'>
         <ConfirmLeave
