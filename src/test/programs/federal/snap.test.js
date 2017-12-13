@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash';
 const defaultClient       = cloneDeep( CLIENT_DEFAULTS );
 const variant1            = cloneDeep( CLIENT_DEFAULTS );
 variant1.current.hasSnap  = true;
-variant1.current.household.push( {"m_age":30,"m_role":"head","m_disabled":false} );
+// Head of household member is already there
 variant1.current.household.push( {"m_age":30,"m_role":"spouse","m_disabled":false} );
 variant1.current.household.push( {"m_age":12,"m_role":"member","m_disabled":false} );
 variant1.current.earned   = 2165;
