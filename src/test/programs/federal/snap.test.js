@@ -13,6 +13,8 @@ variant1.current.household.push( {"m_age":12,"m_role":"member","m_disabled":fals
 variant1.current.earned   = 2165;
 variant1.current.shelter  = "renter";
 variant1.current.rent     = 600;
+// SNAP never needs to test future
+// Housing only changes earned income in future
 variant1.future           = cloneDeep( variant1.current );
 
 describe('getSNAPBenefits', () => {
