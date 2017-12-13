@@ -14,26 +14,17 @@ variant1.current.earned   = 2165;
 variant1.current.shelter  = "renter";
 variant1.current.rent     = 600;
 // SNAP never needs to test future
-// Housing only changes earned income in future
-variant1.future           = cloneDeep( variant1.current );
 
 describe('getSNAPBenefits', () => {
   describe('default client', () => {
     it('Should calculate the correct current benefits', () => {
       expect(getSNAPBenefits(defaultClient, 'current')).toEqual(192);
     });
-    
-    it('Should calculate the correct future benefits', () => {
-      expect(getSNAPBenefits(defaultClient, 'future')).toEqual(192);
-    });
   });
+
   describe('variant 1', () => {
     it('Should calculate the correct current benefits', () => {
       expect(getSNAPBenefits(variant1, 'current')).toBeCloseTo(32.4, 4);
-    });
-    
-    it('Should calculate the correct future benefits', () => {
-      expect(getSNAPBenefits(variant1, 'future')).toBeCloseTo(32.4, 4);
     });
   });
 });
