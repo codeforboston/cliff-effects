@@ -44,9 +44,8 @@ describe('getSNAPBenefits', () => {
   describe('row6', () => {
     it('Should calculate the correct current benefits', () => {
       let client = sampleClients.row6;
-      // Sample data result didn't match. Missing data?
       // expect(getSNAPBenefits(client, 'current')).toBeCloseTo(client.current.expectedSNAP, 4);
-      // Current result
+      // Project Hope: 192, Excel: 352, Ours: 352
       expect(getSNAPBenefits(client, 'current')).toBeCloseTo(352, 4);
     });
   });
@@ -54,9 +53,8 @@ describe('getSNAPBenefits', () => {
   describe('row7', () => {
     it('Should calculate the correct current benefits', () => {
       let client = sampleClients.row7;
-      // Sample data result didn't match. Missing data?
       // expect(getSNAPBenefits(client, 'current')).toBeCloseTo(client.current.expectedSNAP, 4);
-      // Current result
+      // Project Hope: 20, Excel: 0, Ours: 0
       expect(getSNAPBenefits(client, 'current')).toBeCloseTo(0, 4);
     });
   });
