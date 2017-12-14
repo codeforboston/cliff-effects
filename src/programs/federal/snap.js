@@ -28,8 +28,8 @@ const getSNAPBenefits = function ( client, timeframe ) {
   var finalResult = 0;
   var grossIncomeTestResult   = hlp.getGrossIncomeTestResult( client );
   var netIncomeTestResult     = hlp.getNetIncomeTestResult( client );
-  var maxSnapAllotment        = hlp.getMaxSnapAllotment( client );
-  var thirtyPercentNetIncome  = hlp.getThirtyPercentNetIncome( client );
+  var maxSnapAllotment        = getYearlyLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) );
+  var thirtyPercentNetIncome  = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET;
   var maxClientAllotment      = maxSnapAllotment - thirtyPercentNetIncome;
 
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
@@ -70,25 +70,6 @@ hlp.getTotalMonthlyGross = function (client) {
 
 hlp.getPovertyGrossIncomeLevel = function (client ) {
   return getMonthlyLimitBySize(federalPovertyGuidelines, hlp.householdSize( client ), 200);
-};
-
-hlp.checkIncome = function (client) {
-  var totalMonthlyGross = hlp.getTotalMonthlyGross(client);
-  var povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client);
-  var isDisabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
-  if ((totalMonthlyGross > povertyGrossIncomeLevel) && isDisabledOrElderlyMember) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-hlp.isNetIncomeTest = function(client) {
-  if (hlp.checkIncome(client)) {
-    return true;
-  } else {
-    return false;
-  }
 };
 
 hlp.getGrossIncomeTestResult = function (client) {
@@ -167,7 +148,7 @@ hlp.getChildPaymentDeduction = function (client) {
   return client.childSupportPaidOut;
 };
 
-hlp.getAdjustedIncomeAfterDeduction = function (client) {
+hlp.getAdjustedIncome = function (client) {
   var totalMonthlyGross = hlp.getTotalMonthlyGross(client)
   var standardDeduction = hlp.getStandardDeduction(client);
   var earnedIncomeDeduction = hlp.getEarnedIncomeDeduction(client);
@@ -180,6 +161,7 @@ hlp.getAdjustedIncomeAfterDeduction = function (client) {
 
 // EXPENSE DEDUCTIONS
 hlp.isHomeless = function(client ) {
+  // Worth abstracting, used a few places and may change
   return client.shelter === 'homeless';
 };
 
@@ -200,29 +182,26 @@ hlp.getShelterDeduction = function(client) {
   return shelterCost;
 };
 
-hlp.utilityStatus = function(client) {
-  var paidUtilityCategory = null;
-  var isPayHeatingCooling = client.climateControl || client.hasFuelAssistance;
-  var isPayElectricity = client.nonHeatElectricity;
-  var isPayTelephone = client.phone;
-  if ( isPayHeatingCooling ) {
-    paidUtilityCategory = "Heating";
-  } else if (isPayElectricity) {
-    paidUtilityCategory = "Non-heating";
-  } else if (isPayTelephone) {
-    paidUtilityCategory = "Telephone";
-  } else {
-    paidUtilityCategory = "Zero Utility Expenses";
-  }
-  return paidUtilityCategory;
-};
-
 hlp.getStandardUtilityAllowance = function (client) {
-  if(hlp.isHomeless(client)){
+
+  if( hlp.isHomeless(client) ){
     return 0;
-  }else{
-    var paidUtilityCategory = hlp.utilityStatus(client);
-    return SNAPData.UTILITY_DEDUCTIONS[paidUtilityCategory];
+
+  } else {
+    
+    var utilityCategory = null;
+
+    if ( client.climateControl || client.hasFuelAssistance ) {
+      utilityCategory = "Heating";
+    } else if ( client.nonHeatElectricity ) {
+      utilityCategory = "Non-heating";
+    } else if ( client.phone ) {
+      utilityCategory = "Telephone";
+    } else {
+      utilityCategory = "Zero Utility Expenses";
+    }
+
+    return SNAPData.UTILITY_DEDUCTIONS[ utilityCategory ];
   }
 };
 
@@ -234,8 +213,7 @@ hlp.getTotalshelterCost = function (client) {
 };
 
 hlp.getHalfAdjustedIncome = function(client) {
-  var adjustedIncomeAfterDeduction = hlp.getAdjustedIncomeAfterDeduction(client);
-  return adjustedIncomeAfterDeduction * 0.50;
+  return hlp.getAdjustedIncome(client) * 0.50;
 };
 
 hlp.excessHalfAdjustedIncome = function(client) {
@@ -251,19 +229,20 @@ hlp.excessHalfAdjustedIncome = function(client) {
 };
 
 hlp.getShelterDeductionResult = function(client) {
-    if ( hlp.hasDisabledOrElderlyMember(client) ) {
-      return hlp.excessHalfAdjustedIncome(client);
-    } else {
-      return Math.min(hlp.excessHalfAdjustedIncome(client), SNAPData.SHELTER_DEDUCTION_CAP);
-    }
+
+  var adjustedIncome = hlp.excessHalfAdjustedIncome(client)
+
+  if ( hlp.hasDisabledOrElderlyMember(client) ) {
+    return adjustedIncome;
+  } else {
+    return Math.min( adjustedIncome, SNAPData.SHELTER_DEDUCTION_CAP );
+  }
+
 };
 
 hlp.getHomelessDeduction = function(client) {
-    if ( hlp.isHomeless(client) ) {
-      return SNAPData.HOMELESS_DEDUCTION;
-    } else {
-      return 0;
-    }
+    if ( hlp.isHomeless(client) ) { return SNAPData.HOMELESS_DEDUCTION; }
+    else { return 0; }
 };
 
 // NET INCOME CALCULATION
@@ -288,39 +267,32 @@ hlp.monthlyNetIncome = function(client) {
     return Math.max( 0, afterDeductions );
 };
 
-hlp.maxTotalNetMonthlyIncome = function (client) {
-    var maxTotalNetIncome = null;
-    //TODO: Logic different in website calculate; when (hlp.monthlyNetIncome < 0 ) = 0 while excel return a number
-    if ( hlp.isNetIncomeTest(client)===false ) {
-      maxTotalNetIncome = "no limit";
-      return maxTotalNetIncome;
-    } else {
-      return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize( client ));
-    }
+hlp.getMaxNetIncome = function (client) {
+  //TODO: Logic different in website calculate; when (hlp.monthlyNetIncome < 0 ) = 0 while excel return a number
+  var totalMonthlyGross       = hlp.getTotalMonthlyGross(client),
+      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
+      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
+  
+  if ( (totalMonthlyGross <= povertyGrossIncomeLevel) || !disabledOrElderlyMember ) {
+    return "no limit";
+  } else {
+    return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize( client ));
+  }
 };
 
 // NET INCOME TEST RESULT
 hlp.getNetIncomeTestResult = function(client ) {
-  if ( hlp.maxTotalNetMonthlyIncome(client) === "no limit" ) {
-      return true;
-    } else if ( hlp.monthlyNetIncome(client) < hlp.maxTotalNetMonthlyIncome(client) ) {
-      return true;
-    }
-    else {
-      return false;
-    }
-};
 
-// FINAL DETERMINATION
-hlp.getThirtyPercentNetIncome = function(client) {
-  if ( hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET > 0 ) {
-    return hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET;
+  var maxNetIncome = hlp.getMaxNetIncome(client)
+
+  if ( maxNetIncome === "no limit" ) {
+    return true;
+  } else if ( hlp.monthlyNetIncome(client) < maxNetIncome ) {
+    return true;
+  } else {
+    return false;
   }
-  return 0;
-};
 
-hlp.getMaxSnapAllotment = function (client) {
-  return getYearlyLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) );
 };
 
 hlp.householdSize = function ( client ) {
