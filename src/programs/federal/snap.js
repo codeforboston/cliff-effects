@@ -213,7 +213,7 @@ hlp.getDependentCareDeduction = function (client) {
 };
 
 hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedIncome(client) * 0.50;
+  return hlp.getAdjustedNotGrossIncome(client) * 0.50;
 };
 
 hlp.getRawShelterDeduction = function(client) {
@@ -244,7 +244,7 @@ hlp.getHomelessDeduction = function(client) {
 
 // ======================
 // NET INCOME
-hlp.getAdjustedIncome = function (client) {
+hlp.getAdjustedNotGrossIncome = function (client) {
   var adjustedGross           = hlp.getAdjustedGross(client),
       standardDeduction       = hlp.getStandardDeduction(client),
       earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
@@ -255,27 +255,13 @@ hlp.getAdjustedIncome = function (client) {
   return Math.max( 0, adjustedIncome );
 };
 
-// EXPENSE DEDUCTIONS
-
-
-// NET INCOME CALCULATION
 hlp.monthlyNetIncome = function(client) {
-  // May be able to leverage 'getAdjusted...'
-  var totalMonthlyEarned        = client.earned,
-      earnedIncomeDeduction     = hlp.getEarnedIncomeDeduction(client),
-      totalMonthlyUnearnedGross = getGrossUnearnedIncomeMonthly(client),
-      standardDeduction         = hlp.getStandardDeduction(client),
-      medicalDeduction          = hlp.getMedicalDeduction(client),
-      dependentCareDeduction    = hlp.getDependentCareDeduction(client),
-      childSupportPaid          = hlp.getChildSupportPaid(client),
-      hasHomelessDeduction      = hlp.getHomelessDeduction(client),
-      shelterDeduction          = hlp.getShelterDeduction(client);
+  var adjustedIncome        = hlp.getAdjustedNotGrossIncome( client ),
+      hasHomelessDeduction  = hlp.getHomelessDeduction(client),
+      shelterDeduction      = hlp.getShelterDeduction(client),
+      extraDeductions       = hasHomelessDeduction + shelterDeduction;
 
-  var totalIncome     = totalMonthlyEarned      + totalMonthlyUnearnedGross,
-      totalDeductions = earnedIncomeDeduction   + standardDeduction + medicalDeduction
-                      + hasHomelessDeduction    + shelterDeduction
-                      + dependentCareDeduction  + childSupportPaid;
-  var afterDeductions = totalIncome - totalDeductions;
+  var afterDeductions = adjustedIncome - extraDeductions;
 
   return Math.max( 0, afterDeductions );
 };
