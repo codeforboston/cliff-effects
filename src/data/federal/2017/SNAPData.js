@@ -12,7 +12,7 @@ const SNAPData = {
   MIN_MEDICAL_EXPENSES: 35,
   MAX_MEDICAL_EXPENSES: 190,
   // in monthly values, original source: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-945.pdf
-  UTILITY_DEDUCTIONS: { 'Heating': 636, 'Non-heating': 392, 'Zero Utility Expenses': 0, 'Telephone': 45 },
+  UTILITY_COST_BRACKETS: { 'Heating': 636, 'Non-heating': 392, 'Zero Utility Expenses': 0, 'Telephone': 45 },
   SHELTER_DEDUCTION_CAP: 535,
   HOMELESS_DEDUCTION: 143,
   // in monthly values, original source: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-970.pdf
