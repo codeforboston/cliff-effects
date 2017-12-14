@@ -5,6 +5,10 @@ import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 import { sampleClients } from '../../sampleClients';
 import { cloneDeep } from 'lodash';
 
+// TESTING HELPER EVERYONE WILL HATE
+import expectedSNAPValues from './expectedSNAPValues';
+
+
 const defaultClient       = cloneDeep( CLIENT_DEFAULTS );
 
 describe('getSNAPBenefits', () => {
@@ -117,35 +121,36 @@ significant.disableds           = bool;
 // Monthly income and expense values
 significant.monies              = [ 0, 100, 1000, 5000, 10000, 30000 ];  // One more needed for large values, etc?
 // Shelter
-significant.shelter             = [ 'homeless', 'homeowner', 'renter', 'housingVoucher' ];
-significant.climateControl      = [ false, true ];
-significant.nonHeatElectricity  = bool;
-significant.phone               = bool;
-significant.fuelAssistance      = bool;
+significant.shelters            = [ 'homeless', 'homeowner', 'renter', 'housingVoucher' ];
+significant.climateControls     = [ false, true ];
+significant.nonHeatElectricities= bool;
+significant.phones              = bool;
+significant.fuelAssistances     = bool;
+
 
 // ------------------
 // LOOPING
 // ------------------
-
-
 var iterMoney = function ( client, testID, finalFunc, next ) {
+
   var monies = significant.monies;
   for ( let moneyi = 0; moneyi < monies.length; moneyi++ ) {
     let amount = monies[ moneyi ];
     next( client, testID, finalFunc, amount );
   }
+
 };  // End iterMoney()
 
 
 var iterEarned = function ( client, testID, finalFunc ) {
 
-  var cloned = cloneDeep( client );
-  testID += ', current earnings of ';
+  var cloned  = cloneDeep( client );
+  testID      += ', current earnings of ';
 
   var afterMoney = function ( client, testID2, finalFunc, amount ) {
 
-    testID2 += amount;
-    let cloned = cloneDeep( client );
+    testID2               += amount;
+    let cloned            = cloneDeep( client );
     cloned.current.earned = amount;
     finalFunc( cloned, testID2 );
 
@@ -161,9 +166,9 @@ describe('getSNAPBenefits loop', () => {
     let testThisCase = ( client, testID, finalFunc ) => {
       it( testID, () => {
         let currentValue = getSNAPBenefits( client, 'current' );
-        console.log( testID + ':', currentValue );
-        expect( currentValue ).toBeDefined()
-        // expect(getSNAPBenefits(cloned, 'current')).toBeCloseTo(54.4, 4);
+        // console.log( testID + ':', currentValue );
+        expect( currentValue ).toBeDefined();
+        expect( getSNAPBenefits(client, 'current') ).toBeCloseTo(expectedSNAPValues[ testID ], 4);
       });
     };  // End testThisCase()
 
