@@ -264,20 +264,18 @@ hlp.getHalfAdjustedIncome = function(client) {
 // NET INCOME CALCULATION
 hlp.monthlyNetIncome = function(client) {
   // May be able to leverage 'getAdjusted...'
-  var totalMonthlyEarned        = client.earned,
+  var totalMonthlyEarned        = hlp.getAdjustedGross(client),
       earnedIncomeDeduction     = hlp.getEarnedIncomeDeduction(client),
-      totalMonthlyUnearnedGross = getGrossUnearnedIncomeMonthly(client),
       standardDeduction         = hlp.getStandardDeduction(client),
       medicalDeduction          = hlp.getMedicalDeduction(client),
       dependentCareDeduction    = hlp.getDependentCareDeduction(client),
-      childSupportPaid          = hlp.getChildSupportPaid(client),
       hasHomelessDeduction      = hlp.getHomelessDeduction(client),
       shelterDeduction          = hlp.getShelterDeduction(client);
 
-  var totalIncome     = totalMonthlyEarned      + totalMonthlyUnearnedGross,
+  var totalIncome     = totalMonthlyEarned,
       totalDeductions = earnedIncomeDeduction   + standardDeduction + medicalDeduction
                       + hasHomelessDeduction    + shelterDeduction
-                      + dependentCareDeduction  + childSupportPaid;
+                      + dependentCareDeduction;
   var afterDeductions = totalIncome - totalDeductions;
 
   return Math.max( 0, afterDeductions );
