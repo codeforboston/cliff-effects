@@ -91,9 +91,9 @@ hlp.getPovertyGrossIncomeLevel = function (client ) {
 };
 
 hlp.getGrossIncomeTestResult = function (client) {
-  var adjustedGross = hlp.getAdjustedGross(client),
+  var adjustedGross           = hlp.getAdjustedGross(client),
       povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
-      isPassGrossIncomeTest = null;
+      isPassGrossIncomeTest   = null;
   if ( hlp.hasDisabledOrElderlyMember(client) ) {
     isPassGrossIncomeTest = true;
   } else {
@@ -134,7 +134,7 @@ hlp.getNonUtilityCosts = function(client) {
   return shelterCost;
 };
 
-hlp.getStandardUtilityAllowance = function (client) {
+hlp.getUtilityCostByBracket = function (client) {
 
   if( hlp.isHomeless(client) ){
     return 0;
@@ -153,16 +153,16 @@ hlp.getStandardUtilityAllowance = function (client) {
       utilityCategory = "Zero Utility Expenses";
     }
 
-    return SNAPData.UTILITY_DEDUCTIONS[ utilityCategory ];
+    return SNAPData.UTILITY_COST_BRACKETS[ utilityCategory ];
   }
 };
 
 hlp.getTotalshelterCost = function (client) {
 
-  var shelterDeduction  = hlp.getNonUtilityCosts(client),
-      utilityDeductions = hlp.getStandardUtilityAllowance(client);
+  var shelterCosts = hlp.getNonUtilityCosts(client),
+      utilityCosts = hlp.getUtilityCostByBracket(client);
 
-  return shelterDeduction + utilityDeductions;
+  return shelterCosts + utilityCosts;
 };
 
 
@@ -212,16 +212,16 @@ hlp.getDependentCareDeduction = function (client) {
   return dependentCare;
 };
 
+hlp.getHalfAdjustedIncome = function(client) {
+  return hlp.getAdjustedNotGrossIncome(client) * 0.50;
+};
+
 hlp.getRawShelterDeduction = function(client) {
-  var totalShelterDeduction = null,
-      totalshelterCost      = hlp.getTotalshelterCost(client),
-      halfAdjustedIncome    = hlp.getHalfAdjustedIncome(client);
-  if ( totalshelterCost - halfAdjustedIncome < 0   ) {
-    totalShelterDeduction = 0;
-  } else {
-    totalShelterDeduction = totalshelterCost - halfAdjustedIncome;
-  }
-  return totalShelterDeduction;
+  var totalShelterCost    = hlp.getTotalshelterCost(client),
+      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
+      rawShelterDeduction = totalShelterCost - halfAdjustedIncome;
+
+  return Math.max( 0, rawShelterDeduction );
 };
 
 hlp.getShelterDeduction = function(client) {
@@ -253,10 +253,6 @@ hlp.getAdjustedNotGrossIncome = function (client) {
 
   var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
   return Math.max( 0, adjustedIncome );
-};
-
-hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedNotGrossIncome(client) * 0.50;
 };
 
 hlp.monthlyNetIncome = function(client) {

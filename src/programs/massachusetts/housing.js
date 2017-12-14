@@ -54,7 +54,7 @@ const getHousingBenefit = function ( client, timeframe ) {
     return client.current.contractRent - client.current.rentShare;
   }
 
-  var ttps        = getTTPs( client ),
+  var ttps        = hlp.getTTPs( client ),
       diff        = ttps.newTTP - ttps.oldTTP,
       newShare    = diff + client.current.rentShare,
       contrRent   = client.current.contractRent;
@@ -67,19 +67,22 @@ const getHousingBenefit = function ( client, timeframe ) {
 };  // End getHousingBenefit
 
 
+var section8Helpers = {},
+    hlp             = section8Helpers;
+
 /**
 * @todo Function description
 * 
 * '#' refers to # item on form at Appendix B of http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf
 * Is using raw monthly values or converting values to monthly amounts
 */
-const getTTPs = function ( client ) {
+hlp.getTTPs = function ( client ) {
 
-  var oldNet = getNetIncome( client, 'current' ),
-      newNet = getNetIncome( client, 'future' );
+  var oldNet = hlp.getNetIncome( client, 'current' ),
+      newNet = hlp.getNetIncome( client, 'future' );
 
-  var oldAdj = getAdjustedIncome( client, 'current', oldNet ),
-      newAdj = getAdjustedIncome( client, 'future', newNet );
+  var oldAdj = hlp.getAdjustedIncome( client, 'current', oldNet ),
+      newAdj = hlp.getAdjustedIncome( client, 'future', newNet );
 
   /** @todo A placeholder till we know what to do with negative values */
   oldAdj = Math.max( 0, oldAdj );
@@ -106,7 +109,7 @@ const getTTPs = function ( client ) {
       ttps      = { oldTTP: oldMaxTTP, newTTP: newMaxTTP };
 
   return ttps;
-};  // End getTTPs()
+};  // End hlp.getTTPs()
 
 
 // =============================
@@ -116,12 +119,12 @@ const getTTPs = function ( client ) {
 /**
 * @todo Function description
 */
-const getNetIncome = function ( client, timeframe ) {
+hlp.getNetIncome = function ( client, timeframe ) {
   var unearned = getGrossUnearnedIncomeMonthly( client[ timeframe ] ),
       gross    = unearned + client[ timeframe ].earned;
   // net = gross - incomeExclusions, but income exclusions not accounted for for MVP
   return gross;
-};  // End getNetIncome()
+};  // End hlp.getNetIncome()
 
 
 // =============================
@@ -136,7 +139,7 @@ const getNetIncome = function ( client, timeframe ) {
 * 
 * Is using raw monthly values or converting values to monthly amounts
 */
-const getAdjustedIncome = function ( client, timeframe, net ) {
+hlp.getAdjustedIncome = function ( client, timeframe, net ) {
 
   var time       = timeframe,  // shorter
       allowances = [];
@@ -151,16 +154,16 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
       ccMin       = Math.min( childcare, ccIncome );
   allowances.push( ccMin );
   // #7 - 13
-  var disAndMed = getDisabledAndMedicalAllowancesSum( client, time, net )
+  var disAndMed = hlp.getDisabledAndMedicalAllowancesSum( client, time, net )
   allowances.push( disAndMed );
   // #14 (yes, they mean head or spouse here)
-  if ( hasDsbOrEldHeadOrSpouse( client, time ) ) { allowances.push( 400/12 ); }
+  if ( hlp.hasDsbOrEldHeadOrSpouse( client, time ) ) { allowances.push( 400/12 ); }
 
   var total = sum( allowances ),
       adj   = net - total;
 
   return Math.max( 0, adj );
-};  // End getAdjustedIncome()
+};  // End hlp.getAdjustedIncome()
 
 
 /**
@@ -169,13 +172,13 @@ const getAdjustedIncome = function ( client, timeframe, net ) {
 * 'pg' refers to the written page number of https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf (gone)
 * Is using raw monthly values
 */
-const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
+hlp.getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
   var time          = timeframe,  // shorter
       netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
-  if ( !hasAnyDsbOrElderly( client, time ) ) { return 0; }
+  if ( !hlp.hasAnyDsbOrElderly( client, time ) ) { return 0; }
 
   // pg 5-30 to 5-31
   var handcpExpense  = client[ time ].disabledAssistance,  // #7
@@ -186,7 +189,7 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
   // ----- Maybe Stop #D ----- \\
   /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
-  if ( !hasDsbOrEldHeadOrSpouse( client, time ) ) { return hcapMin; }
+  if ( !hlp.hasDsbOrEldHeadOrSpouse( client, time ) ) { return hcapMin; }
 
 
   // ----- Medical Allowance #12 - 13 ----- \\
@@ -217,38 +220,34 @@ const getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
   // #15 contribution ( #11 + #13 )
   return hcapMin + medMin;
-};  // End getDisabledAndMedicalAllowancesSum()
+};  // End hlp.getDisabledAndMedicalAllowancesSum()
 
 
-const isElderly = function ( member ) {
-  return member.m_age >= 62;
-};  // End isElderly()
-
-
-const isDisabledOrElderly = function ( member ) {
-  return isElderly( member ) || isDisabled( member );
-};  // End isDisabledOrElderly()
+hlp.isDisabledOrElderly = function ( member ) {
+  return member.m_age >= 62 || isDisabled( member );
+};  // End hlp.isDisabledOrElderly()
 
 
 // Sure, we could combine these last two, but is it worth it?
-const hasAnyDsbOrElderly = function ( client, timeframe ) {
-  var numMatches = getEveryMemberOfHousehold( client[ timeframe ], isDisabledOrElderly ).length;
+hlp.hasAnyDsbOrElderly = function ( client, timeframe ) {
+  var numMatches = getEveryMemberOfHousehold( client[ timeframe ], hlp.isDisabledOrElderly ).length;
   return numMatches > 0;
-};  // End hasAnyDsbOrElderly()
+};  // End hlp.hasAnyDsbOrElderly()
 
 
-const hasDsbOrEldHeadOrSpouse = function ( client, timeframe ) {
+hlp.hasDsbOrEldHeadOrSpouse = function ( client, timeframe ) {
 
   var comboTest = function ( member ) {
-    return isDisabledOrElderly( member ) && isHeadOrSpouse( member );
+    return hlp.isDisabledOrElderly( member ) && isHeadOrSpouse( member );
   };
   var numMatches = getEveryMemberOfHousehold( client[ timeframe ], comboTest ).length;
 
   return numMatches > 0;
 
-};  // End hasDsbOrEldHeadOrSpouse()
+};  // End hlp.hasDsbOrEldHeadOrSpouse()
 
 
 export {
-  getHousingBenefit
+  getHousingBenefit,
+  section8Helpers
 };
