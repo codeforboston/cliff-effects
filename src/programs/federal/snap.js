@@ -91,9 +91,9 @@ hlp.getPovertyGrossIncomeLevel = function (client ) {
 };
 
 hlp.getGrossIncomeTestResult = function (client) {
-  var adjustedGross = hlp.getAdjustedGross(client),
+  var adjustedGross           = hlp.getAdjustedGross(client),
       povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
-      isPassGrossIncomeTest = null;
+      isPassGrossIncomeTest   = null;
   if ( hlp.hasDisabledOrElderlyMember(client) ) {
     isPassGrossIncomeTest = true;
   } else {
