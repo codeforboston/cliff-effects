@@ -65,19 +65,18 @@ describe('getSNAPBenefits', () => {
   describe('row8', () => {
     it('Should calculate the correct current benefits', () => {
       let client = sampleClients.row8;
-      // Sample data result didn't match. Missing data?
       // expect(getSNAPBenefits(client, 'current')).toBeCloseTo(client.current.expectedSNAP, 4);
-      // Todo - Current result - returning undefined
-      // expect(getSNAPBenefits(client, 'current')).toBeCloseTo(0, 4);
+      // TODO: - Current result - returning undefined
+      // Project Hope: null, Excel: 0, Ours: 0
+      expect(getSNAPBenefits(client, 'current')).toBeCloseTo(0, 4);
     });
   });
 
   describe('row9', () => {
     it('Should calculate the correct current benefits', () => {
       let client = sampleClients.row9;
-      // Sample data result didn't match. Missing data?
       // expect(getSNAPBenefits(client, 'current')).toBeCloseTo(client.current.expectedSNAP, 4);
-      // Current result
+      // Project Hope: 150, Excel: 54, Ours: 54.4
       expect(getSNAPBenefits(client, 'current')).toBeCloseTo(54.4, 4);
     });
   });
