@@ -212,6 +212,10 @@ hlp.getDependentCareDeduction = function (client) {
   return dependentCare;
 };
 
+hlp.getHalfAdjustedIncome = function(client) {
+  return hlp.getAdjustedIncome(client) * 0.50;
+};
+
 hlp.getRawShelterDeduction = function(client) {
   var totalShelterDeduction = null,
       totalshelterCost      = hlp.getTotalshelterCost(client),
@@ -257,9 +261,6 @@ hlp.getAdjustedIncome = function (client) {
 
 // EXPENSE DEDUCTIONS
 
-hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedIncome(client) * 0.50;
-};
 
 // NET INCOME CALCULATION
 hlp.monthlyNetIncome = function(client) {
