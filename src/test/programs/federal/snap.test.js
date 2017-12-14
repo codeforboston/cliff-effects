@@ -95,3 +95,84 @@ describe('getSNAPBenefits', () => {
   });
 
 });
+
+
+// ==================
+// 'RAKE' TESTS (looping)
+// ==================
+
+// ------------------
+// SIGNIFICANT VALUES
+// ------------------
+// Edge cases, basically.
+// CAN ONLY BE VALID VALUES.
+// See 'src/utils/CLIENT_DEFAULTS' for what constitutes a valid value.
+var bool = [ true, false ];
+var significant = {};
+// Member data
+significant.numMembers          = [ 1, 2, 3, 6, 8, 12 ]; // 6 and 8 are specific to benefit calculation limits
+significant.ages                = [ 0, 11, 12, 13, 14, 30, 60, 61, 62, 63 ];
+significant.roles               = [ 'head', 'spouse', 'member' ];
+significant.disableds           = bool;
+// Monthly income and expense values
+significant.monies              = [ 0, 100, 1000, 5000, 10000, 30000 ];  // One more needed for large values, etc?
+// Shelter
+significant.shelter             = [ 'homeless', 'homeowner', 'renter', 'housingVoucher' ];
+significant.climateControl      = [ false, true ];
+significant.nonHeatElectricity  = bool;
+significant.phone               = bool;
+significant.fuelAssistance      = bool;
+
+// ------------------
+// LOOPING
+// ------------------
+
+
+var iterMoney = function ( client, testID, finalFunc, next ) {
+  var monies = significant.monies;
+  for ( let moneyi = 0; moneyi < monies.length; moneyi++ ) {
+    let amount = monies[ moneyi ];
+    next( client, testID, finalFunc, amount );
+  }
+};  // End iterMoney()
+
+
+var iterEarned = function ( client, testID, finalFunc ) {
+
+  var cloned = cloneDeep( client );
+  testID += ', current earnings of ';
+
+  var afterMoney = function ( client, testID2, finalFunc, amount ) {
+
+    testID2 += amount;
+    let cloned = cloneDeep( client );
+    cloned.current.earned = amount;
+    finalFunc( cloned, testID2 );
+
+  };  // End afterMoney()
+
+  iterMoney( cloned, testID, finalFunc, afterMoney );
+
+};  // End iterEarned()
+
+
+describe('getSNAPBenefits loop', () => {
+  describe('', () => {
+    let testThisCase = ( client, testID, finalFunc ) => {
+      it( testID, () => {
+        let currentValue = getSNAPBenefits( client, 'current' );
+        console.log( testID + ':', currentValue );
+        expect( currentValue ).toBeDefined()
+        // expect(getSNAPBenefits(cloned, 'current')).toBeCloseTo(54.4, 4);
+      });
+    };  // End testThisCase()
+
+    iterEarned( CLIENT_DEFAULTS, 'with household of __', testThisCase );
+
+  });  // End describe
+});
+
+
+// ==================
+// UNIT TESTS FOR HELPERS /** @todo Import helpers */
+// ==================
