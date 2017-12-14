@@ -134,7 +134,7 @@ hlp.getNonUtilityCosts = function(client) {
   return shelterCost;
 };
 
-hlp.getStandardUtilityAllowance = function (client) {
+hlp.getUtilityCostByBracket = function (client) {
 
   if( hlp.isHomeless(client) ){
     return 0;
@@ -153,16 +153,16 @@ hlp.getStandardUtilityAllowance = function (client) {
       utilityCategory = "Zero Utility Expenses";
     }
 
-    return SNAPData.UTILITY_DEDUCTIONS[ utilityCategory ];
+    return SNAPData.UTILITY_COST_BRACKETS[ utilityCategory ];
   }
 };
 
 hlp.getTotalshelterCost = function (client) {
 
-  var shelterDeduction  = hlp.getNonUtilityCosts(client),
-      utilityDeductions = hlp.getStandardUtilityAllowance(client);
+  var shelterCosts = hlp.getNonUtilityCosts(client),
+      utilityCosts = hlp.getUtilityCostByBracket(client);
 
-  return shelterDeduction + utilityDeductions;
+  return shelterCosts + utilityCosts;
 };
 
 
@@ -217,12 +217,11 @@ hlp.getHalfAdjustedIncome = function(client) {
 };
 
 hlp.getRawShelterDeduction = function(client) {
-  var totalShelterDeduction = null,
+  var totalShelterDeduction = 0,
       totalshelterCost      = hlp.getTotalshelterCost(client),
       halfAdjustedIncome    = hlp.getHalfAdjustedIncome(client);
-  if ( totalshelterCost - halfAdjustedIncome < 0   ) {
-    totalShelterDeduction = 0;
-  } else {
+
+  if ( totalshelterCost - halfAdjustedIncome >= 0   ) {
     totalShelterDeduction = totalshelterCost - halfAdjustedIncome;
   }
   return totalShelterDeduction;
