@@ -64,7 +64,7 @@ hlp.hasDisabledOrElderlyMember = function (client) {
   return getEveryMemberOfHousehold( client, hlp.isElderlyOrDisabled ).length > 0;
 };
 
-hlp.getTotalMonthlyGross = function (client) {
+hlp.getAdjustedGross = function (client) {
   return client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
 };
 
@@ -73,7 +73,7 @@ hlp.getPovertyGrossIncomeLevel = function (client ) {
 };
 
 hlp.getGrossIncomeTestResult = function (client) {
-  var totalMonthlyGross = hlp.getTotalMonthlyGross(client);
+  var adjustedGross = hlp.getAdjustedGross(client);
   var povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client);
   var isPassGrossIncomeTest = null;
   if ( hlp.hasDisabledOrElderlyMember(client) ) {
@@ -81,7 +81,7 @@ hlp.getGrossIncomeTestResult = function (client) {
   } else {
     // TODO: must double checked in the documentation. Two different results in both excel calculator and website calculator
     // minor difference "<" in website calculator logic on line 469.
-    if ( totalMonthlyGross <= povertyGrossIncomeLevel ) {
+    if ( adjustedGross <= povertyGrossIncomeLevel ) {
       isPassGrossIncomeTest = true;
     } else {
       isPassGrossIncomeTest = false;
@@ -96,8 +96,8 @@ hlp.getStandardDeduction = function (client) {
 };
 
 hlp.getEarnedIncomeDeduction = function (client) {
-  var totalMonthlyEarnedGross = client.earned;
-  return totalMonthlyEarnedGross * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
+  var totalMonthlyEarned = client.earned;
+  return totalMonthlyEarned * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
 hlp.getMedicalDeduction = function (client) {
@@ -144,18 +144,18 @@ hlp.getDependentCareDeduction = function (client) {
   return totalDependentCare;
 };
 
-hlp.getChildPaymentDeduction = function (client) {
+hlp.getChildSupportPaid = function (client) {
   return client.childSupportPaidOut;
 };
 
 hlp.getAdjustedIncome = function (client) {
-  var totalMonthlyGross = hlp.getTotalMonthlyGross(client)
+  var adjustedGross = hlp.getAdjustedGross(client)
   var standardDeduction = hlp.getStandardDeduction(client);
   var earnedIncomeDeduction = hlp.getEarnedIncomeDeduction(client);
   var medicalDeduction = hlp.getMedicalDeduction(client);
   var dependentCareDeduction = hlp.getDependentCareDeduction(client);
 
-  var adjustedIncome = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
   return Math.max( 0, adjustedIncome );
 };
 
@@ -166,7 +166,7 @@ hlp.isHomeless = function(client ) {
 };
 
 /** @todo: What about housing voucer? */
-hlp.getShelterDeduction = function(client) {
+hlp.getNonUtilityCosts = function(client) {
   var shelterCost = null;
   var isHomeowner = client.shelter === 'homeowner';
 
@@ -206,7 +206,8 @@ hlp.getStandardUtilityAllowance = function (client) {
 };
 
 hlp.getTotalshelterCost = function (client) {
-  var shelterDeduction = hlp.getShelterDeduction(client);
+
+  var shelterDeduction = hlp.getNonUtilityCosts(client);
   var utilityDeductions = hlp.getStandardUtilityAllowance(client);
 
   return shelterDeduction + utilityDeductions;
@@ -216,7 +217,7 @@ hlp.getHalfAdjustedIncome = function(client) {
   return hlp.getAdjustedIncome(client) * 0.50;
 };
 
-hlp.excessHalfAdjustedIncome = function(client) {
+hlp.getRawShelterDeduction = function(client) {
   var totalShelterDeduction = null;
   var totalshelterCost = hlp.getTotalshelterCost(client);
   var halfAdjustedIncome = hlp.getHalfAdjustedIncome(client);
@@ -228,14 +229,14 @@ hlp.excessHalfAdjustedIncome = function(client) {
   return totalShelterDeduction;
 };
 
-hlp.getShelterDeductionResult = function(client) {
+hlp.getShelterDeduction = function(client) {
 
-  var adjustedIncome = hlp.excessHalfAdjustedIncome(client)
+  var rawDeduction = hlp.getRawShelterDeduction(client)
 
   if ( hlp.hasDisabledOrElderlyMember(client) ) {
-    return adjustedIncome;
+    return rawDeduction;
   } else {
-    return Math.min( adjustedIncome, SNAPData.SHELTER_DEDUCTION_CAP );
+    return Math.min( rawDeduction, SNAPData.SHELTER_DEDUCTION_CAP );
   }
 
 };
@@ -248,20 +249,20 @@ hlp.getHomelessDeduction = function(client) {
 // NET INCOME CALCULATION
 hlp.monthlyNetIncome = function(client) {
   // May be able to leverage 'getAdjusted...'
-    var totalMonthlyEarnedGross = client.earned;
+    var totalMonthlyEarned = client.earned;
     var earnedIncomeDeduction = hlp.getEarnedIncomeDeduction(client);
-    var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client);
+    var totalMonthlyUnearnedGross = getGrossUnearnedIncomeMonthly(client);
     var standardDeduction = hlp.getStandardDeduction(client);
     var medicalDeduction = hlp.getMedicalDeduction(client);
     var dependentCareDeduction = hlp.getDependentCareDeduction(client);
-    var childPaymentDeduction = hlp.getChildPaymentDeduction(client);
+    var childSupportPaid = hlp.getChildSupportPaid(client);
     var hasHomelessDeduction = hlp.getHomelessDeduction(client);
-    var shelterDeductionResult = hlp.getShelterDeductionResult(client);
+    var shelterDeduction = hlp.getShelterDeduction(client);
 
-    var totalIncome     = totalMonthlyEarnedGross + totalMonthlyUnearnedGross;
+    var totalIncome     = totalMonthlyEarned + totalMonthlyUnearnedGross;
     var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
-                        + hasHomelessDeduction + shelterDeductionResult
-                        + dependentCareDeduction + childPaymentDeduction;
+                        + hasHomelessDeduction + shelterDeduction
+                        + dependentCareDeduction + childSupportPaid;
     var afterDeductions = totalIncome - totalDeductions;
 
     return Math.max( 0, afterDeductions );
@@ -269,11 +270,11 @@ hlp.monthlyNetIncome = function(client) {
 
 hlp.getMaxNetIncome = function (client) {
   //TODO: Logic different in website calculate; when (hlp.monthlyNetIncome < 0 ) = 0 while excel return a number
-  var totalMonthlyGross       = hlp.getTotalMonthlyGross(client),
+  var adjustedGross           = hlp.getAdjustedGross(client),
       povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
       disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
   
-  if ( (totalMonthlyGross <= povertyGrossIncomeLevel) || !disabledOrElderlyMember ) {
+  if ( (adjustedGross <= povertyGrossIncomeLevel) || !disabledOrElderlyMember ) {
     return "no limit";
   } else {
     return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize( client ));
