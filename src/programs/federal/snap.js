@@ -79,7 +79,9 @@ hlp.getGrossIncomeTestResult = function (client) {
   if ( hlp.hasDisabledOrElderlyMember(client) ) {
     isPassGrossIncomeTest = true;
   } else {
-    // TODO: must double checked in the documentation. Two different results in both excel calculator and website calculator
+    /** @todo must double checked in the documentation.
+     *     Two different results in both excel calculator
+     *     and website calculator */
     // minor difference "<" in website calculator logic on line 469.
     if ( adjustedGross <= povertyGrossIncomeLevel ) {
       isPassGrossIncomeTest = true;
@@ -104,9 +106,8 @@ hlp.getMedicalDeduction = function (client) {
   var medicalDeduce = 0;
 
   if ( hlp.hasDisabledOrElderlyMember(client) === true ) {
-    // include disabledMedical, otherMedical, disabledAssistance ?? 
+    /** @todo Add disabledAssistance too. Also, otherMedical? */
     var medicalExpenses = client.disabledMedical;
-    /** @todo: Add disabled assistance too */
     if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) && (medicalExpenses <= SNAPData.MAX_MEDICAL_EXPENSES)) {
       medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
 
@@ -161,7 +162,7 @@ hlp.isHomeless = function(client ) {
   return client.shelter === 'homeless';
 };
 
-/** @todo: What about housing voucer? */
+/** @todo: What about housing voucher? */
 hlp.getNonUtilityCosts = function(client) {
   var shelterCost = null,
       isHomeowner = client.shelter === 'homeowner';
@@ -295,7 +296,7 @@ hlp.householdSize = function ( client ) {
   return client.household.length;
 };
 
-// Bay State CAP not included as this prototype only deals with
-// changes in earned income
+/** NOTE: Bay State CAP not included as this prototype only deals with
+ *     changes in earned income */
 
 export { getSNAPBenefits, SNAPhelpers };
