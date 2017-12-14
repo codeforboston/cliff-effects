@@ -25,12 +25,12 @@ const getSNAPBenefits = function ( client, timeframe ) {
 
   client = client[ timeframe ];
 
-  var finalResult = 0;
-  var grossIncomeTestResult   = hlp.getGrossIncomeTestResult( client );
-  var netIncomeTestResult     = hlp.getNetIncomeTestResult( client );
-  var maxSnapAllotment        = getYearlyLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) );
-  var thirtyPercentNetIncome  = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET;
-  var maxClientAllotment      = maxSnapAllotment - thirtyPercentNetIncome;
+  var finalResult = 0,
+      grossIncomeTestResult   = hlp.getGrossIncomeTestResult( client ),
+      netIncomeTestResult     = hlp.getNetIncomeTestResult( client ),
+      maxSnapAllotment        = getYearlyLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) ),
+      thirtyPercentNetIncome  = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
+      maxClientAllotment      = maxSnapAllotment - thirtyPercentNetIncome;
 
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
 
@@ -73,9 +73,9 @@ hlp.getPovertyGrossIncomeLevel = function (client ) {
 };
 
 hlp.getGrossIncomeTestResult = function (client) {
-  var adjustedGross = hlp.getAdjustedGross(client);
-  var povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client);
-  var isPassGrossIncomeTest = null;
+  var adjustedGross = hlp.getAdjustedGross(client),
+      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
+      isPassGrossIncomeTest = null;
   if ( hlp.hasDisabledOrElderlyMember(client) ) {
     isPassGrossIncomeTest = true;
   } else {
@@ -149,11 +149,11 @@ hlp.getChildSupportPaid = function (client) {
 };
 
 hlp.getAdjustedIncome = function (client) {
-  var adjustedGross = hlp.getAdjustedGross(client)
-  var standardDeduction = hlp.getStandardDeduction(client);
-  var earnedIncomeDeduction = hlp.getEarnedIncomeDeduction(client);
-  var medicalDeduction = hlp.getMedicalDeduction(client);
-  var dependentCareDeduction = hlp.getDependentCareDeduction(client);
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      standardDeduction       = hlp.getStandardDeduction(client),
+      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
+      medicalDeduction        = hlp.getMedicalDeduction(client),
+      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
 
   var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
   return Math.max( 0, adjustedIncome );
@@ -167,15 +167,14 @@ hlp.isHomeless = function(client ) {
 
 /** @todo: What about housing voucer? */
 hlp.getNonUtilityCosts = function(client) {
-  var shelterCost = null;
-  var isHomeowner = client.shelter === 'homeowner';
+  var shelterCost = null,
+      isHomeowner = client.shelter === 'homeowner';
 
   if ( hlp.isHomeless(client) ) {
     shelterCost = 0;
   } else if(isHomeowner) {
     shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
-  }
-  else {
+  } else {
     shelterCost = client.rent;
   }
 
@@ -207,8 +206,8 @@ hlp.getStandardUtilityAllowance = function (client) {
 
 hlp.getTotalshelterCost = function (client) {
 
-  var shelterDeduction = hlp.getNonUtilityCosts(client);
-  var utilityDeductions = hlp.getStandardUtilityAllowance(client);
+  var shelterDeduction  = hlp.getNonUtilityCosts(client),
+      utilityDeductions = hlp.getStandardUtilityAllowance(client);
 
   return shelterDeduction + utilityDeductions;
 };
@@ -218,9 +217,9 @@ hlp.getHalfAdjustedIncome = function(client) {
 };
 
 hlp.getRawShelterDeduction = function(client) {
-  var totalShelterDeduction = null;
-  var totalshelterCost = hlp.getTotalshelterCost(client);
-  var halfAdjustedIncome = hlp.getHalfAdjustedIncome(client);
+  var totalShelterDeduction = null,
+      totalshelterCost      = hlp.getTotalshelterCost(client),
+      halfAdjustedIncome    = hlp.getHalfAdjustedIncome(client);
   if ( totalshelterCost - halfAdjustedIncome < 0   ) {
     totalShelterDeduction = 0;
   } else {
@@ -242,30 +241,30 @@ hlp.getShelterDeduction = function(client) {
 };
 
 hlp.getHomelessDeduction = function(client) {
-    if ( hlp.isHomeless(client) ) { return SNAPData.HOMELESS_DEDUCTION; }
-    else { return 0; }
+  if ( hlp.isHomeless(client) ) { return SNAPData.HOMELESS_DEDUCTION; }
+  else { return 0; }
 };
 
 // NET INCOME CALCULATION
 hlp.monthlyNetIncome = function(client) {
   // May be able to leverage 'getAdjusted...'
-    var totalMonthlyEarned = client.earned;
-    var earnedIncomeDeduction = hlp.getEarnedIncomeDeduction(client);
-    var totalMonthlyUnearnedGross = getGrossUnearnedIncomeMonthly(client);
-    var standardDeduction = hlp.getStandardDeduction(client);
-    var medicalDeduction = hlp.getMedicalDeduction(client);
-    var dependentCareDeduction = hlp.getDependentCareDeduction(client);
-    var childSupportPaid = hlp.getChildSupportPaid(client);
-    var hasHomelessDeduction = hlp.getHomelessDeduction(client);
-    var shelterDeduction = hlp.getShelterDeduction(client);
+  var totalMonthlyEarned        = client.earned,
+      earnedIncomeDeduction     = hlp.getEarnedIncomeDeduction(client),
+      totalMonthlyUnearnedGross = getGrossUnearnedIncomeMonthly(client),
+      standardDeduction         = hlp.getStandardDeduction(client),
+      medicalDeduction          = hlp.getMedicalDeduction(client),
+      dependentCareDeduction    = hlp.getDependentCareDeduction(client),
+      childSupportPaid          = hlp.getChildSupportPaid(client),
+      hasHomelessDeduction      = hlp.getHomelessDeduction(client),
+      shelterDeduction          = hlp.getShelterDeduction(client);
 
-    var totalIncome     = totalMonthlyEarned + totalMonthlyUnearnedGross;
-    var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
-                        + hasHomelessDeduction + shelterDeduction
-                        + dependentCareDeduction + childSupportPaid;
-    var afterDeductions = totalIncome - totalDeductions;
+  var totalIncome     = totalMonthlyEarned      + totalMonthlyUnearnedGross,
+      totalDeductions = earnedIncomeDeduction   + standardDeduction + medicalDeduction
+                      + hasHomelessDeduction    + shelterDeduction
+                      + dependentCareDeduction  + childSupportPaid;
+  var afterDeductions = totalIncome - totalDeductions;
 
-    return Math.max( 0, afterDeductions );
+  return Math.max( 0, afterDeductions );
 };
 
 hlp.getMaxNetIncome = function (client) {
