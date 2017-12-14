@@ -244,7 +244,7 @@ hlp.getHomelessDeduction = function(client) {
 
 // ======================
 // NET INCOME
-hlp.getAdjustedIncome = function (client) {
+hlp.getAdjustedNotGrossIncome = function (client) {
   var adjustedGross           = hlp.getAdjustedGross(client),
       standardDeduction       = hlp.getStandardDeduction(client),
       earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
@@ -255,28 +255,17 @@ hlp.getAdjustedIncome = function (client) {
   return Math.max( 0, adjustedIncome );
 };
 
-// EXPENSE DEDUCTIONS
-
 hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedIncome(client) * 0.50;
+  return hlp.getAdjustedNotGrossIncome(client) * 0.50;
 };
 
-// NET INCOME CALCULATION
 hlp.monthlyNetIncome = function(client) {
-  // May be able to leverage 'getAdjusted...'
-  var totalMonthlyEarned        = hlp.getAdjustedGross(client),
-      earnedIncomeDeduction     = hlp.getEarnedIncomeDeduction(client),
-      standardDeduction         = hlp.getStandardDeduction(client),
-      medicalDeduction          = hlp.getMedicalDeduction(client),
-      dependentCareDeduction    = hlp.getDependentCareDeduction(client),
-      hasHomelessDeduction      = hlp.getHomelessDeduction(client),
-      shelterDeduction          = hlp.getShelterDeduction(client);
+  var adjustedIncome        = hlp.getAdjustedNotGrossIncome( client ),
+      hasHomelessDeduction  = hlp.getHomelessDeduction(client),
+      shelterDeduction      = hlp.getShelterDeduction(client),
+      extraDeductions       = hasHomelessDeduction + shelterDeduction;
 
-  var totalIncome     = totalMonthlyEarned,
-      totalDeductions = earnedIncomeDeduction   + standardDeduction + medicalDeduction
-                      + hasHomelessDeduction    + shelterDeduction
-                      + dependentCareDeduction;
-  var afterDeductions = totalIncome - totalDeductions;
+  var afterDeductions = adjustedIncome - extraDeductions;
 
   return Math.max( 0, afterDeductions );
 };
