@@ -26,16 +26,16 @@ const getSNAPBenefits = function ( client, timeframe ) {
   client = client[ timeframe ];
 
   var finalResult = 0;
-  var grossIncomeTestResult   = getGrossIncomeTestResult( client );
-  var netIncomeTestResult     = getNetIncomeTestResult( client );
-  var maxSnapAllotment        = getMaxSnapAllotment( client );
-  var thirtyPercentNetIncome  = getThirtyPercentNetIncome( client );
+  var grossIncomeTestResult   = hlp.getGrossIncomeTestResult( client );
+  var netIncomeTestResult     = hlp.getNetIncomeTestResult( client );
+  var maxSnapAllotment        = hlp.getMaxSnapAllotment( client );
+  var thirtyPercentNetIncome  = hlp.getThirtyPercentNetIncome( client );
   var maxClientAllotment      = maxSnapAllotment - thirtyPercentNetIncome;
 
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
 
     if ( maxClientAllotment <= SNAPData.SMALL_HOUSEHOLD_MIN_GRANT ) {
-      if ( householdSize( client ) <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
+      if ( hlp.householdSize( client ) <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
         finalResult = SNAPData.SMALL_HOUSEHOLD_MIN_GRANT;
       } else {
         finalResult = 0;
@@ -50,27 +50,32 @@ const getSNAPBenefits = function ( client, timeframe ) {
   return finalResult;
 }; // End getSNAPBenefits()
 
+
+
+var SNAPhelpers = {},
+    hlp         = SNAPhelpers;
+
 //GROSS INCOME TEST
-const isElderlyOrDisabled = function ( member ) {
+hlp.isElderlyOrDisabled = function ( member ) {
   return member.age >= 60 || isDisabled( member );
 };
 
-const hasDisabledOrElderlyMember = function (client) {
-  return getEveryMemberOfHousehold( client, isElderlyOrDisabled ).length > 0;
+hlp.hasDisabledOrElderlyMember = function (client) {
+  return getEveryMemberOfHousehold( client, hlp.isElderlyOrDisabled ).length > 0;
 };
 
-const getTotalMonthlyGross = function (client) {
+hlp.getTotalMonthlyGross = function (client) {
   return client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
 };
 
-const getPovertyGrossIncomeLevel = function (client ) {
-  return getMonthlyLimitBySize(federalPovertyGuidelines, householdSize( client ), 200);
+hlp.getPovertyGrossIncomeLevel = function (client ) {
+  return getMonthlyLimitBySize(federalPovertyGuidelines, hlp.householdSize( client ), 200);
 };
 
-const checkIncome = function (client) {
-  var totalMonthlyGross = getTotalMonthlyGross(client);
-  var povertyGrossIncomeLevel = getPovertyGrossIncomeLevel(client);
-  var isDisabledOrElderlyMember = hasDisabledOrElderlyMember(client);
+hlp.checkIncome = function (client) {
+  var totalMonthlyGross = hlp.getTotalMonthlyGross(client);
+  var povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client);
+  var isDisabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
   if ((totalMonthlyGross > povertyGrossIncomeLevel) && isDisabledOrElderlyMember) {
     return true;
   } else {
@@ -78,19 +83,19 @@ const checkIncome = function (client) {
   }
 };
 
-const isNetIncomeTest = function(client) {
-  if (checkIncome(client)) {
+hlp.isNetIncomeTest = function(client) {
+  if (hlp.checkIncome(client)) {
     return true;
   } else {
     return false;
   }
 };
 
-const getGrossIncomeTestResult = function (client) {
-  var totalMonthlyGross = getTotalMonthlyGross(client);
-  var povertyGrossIncomeLevel = getPovertyGrossIncomeLevel(client);
+hlp.getGrossIncomeTestResult = function (client) {
+  var totalMonthlyGross = hlp.getTotalMonthlyGross(client);
+  var povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client);
   var isPassGrossIncomeTest = null;
-  if ( hasDisabledOrElderlyMember(client) ) {
+  if ( hlp.hasDisabledOrElderlyMember(client) ) {
     isPassGrossIncomeTest = true;
   } else {
     // TODO: must double checked in the documentation. Two different results in both excel calculator and website calculator
@@ -105,18 +110,18 @@ const getGrossIncomeTestResult = function (client) {
 };
 
 // INCOME DEDUCTIONS
-const getStandardDeduction = function (client) {
-  return getYearlyLimitBySize(SNAPData.STANDARD_DEDUCTIONS, householdSize( client ));
+hlp.getStandardDeduction = function (client) {
+  return getYearlyLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.householdSize( client ));
 };
 
-const getEarnedIncomeDeduction = function (client) {
+hlp.getEarnedIncomeDeduction = function (client) {
   var totalMonthlyEarnedGross = client.earned;
   return totalMonthlyEarnedGross * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
-const getMedicalDeduction = function (client) {
+hlp.getMedicalDeduction = function (client) {
   var medicalDeduce = null;
-  if ( hasDisabledOrElderlyMember(client) === false ) {
+  if ( hlp.hasDisabledOrElderlyMember(client) === false ) {
     return 0;
   } else {
     // include disabledMedical, otherMedical, disabledAssistance ?? 
@@ -135,11 +140,11 @@ const getMedicalDeduction = function (client) {
   return 0;
 };
 
-const isDependentOver12 = function ( member ) {
+hlp.isDependentOver12 = function ( member ) {
   return (!isUnder13( member ) && member.age <= 18) || isDisabled( member );
 };
 
-const getDependentCareDeduction = function (client) {
+hlp.getDependentCareDeduction = function (client) {
 
   var childCare = 0, adultCare = 0;
 
@@ -149,7 +154,7 @@ const getDependentCareDeduction = function (client) {
     childCare = sumProps( client, UNDER13_CARE_EXPENSES );
   }
 
-  if ( getEveryMemberOfHousehold( client, isDependentOver12 ).length > 0 ) {
+  if ( getEveryMemberOfHousehold( client, hlp.isDependentOver12 ).length > 0 ) {
     adultCare = sumProps( client, OVER12_CARE_EXPENSES );
   }
 
@@ -158,32 +163,32 @@ const getDependentCareDeduction = function (client) {
   return totalDependentCare;
 };
 
-const getChildPaymentDeduction = function (client) {
+hlp.getChildPaymentDeduction = function (client) {
   return client.childSupportPaidOut;
 };
 
-const getAdjustedIncomeAfterDeduction = function (client) {
-  var totalMonthlyGross = getTotalMonthlyGross(client)
-  var standardDeduction = getStandardDeduction(client);
-  var earnedIncomeDeduction = getEarnedIncomeDeduction(client);
-  var medicalDeduction = getMedicalDeduction(client);
-  var dependentCareDeduction = getDependentCareDeduction(client);
+hlp.getAdjustedIncomeAfterDeduction = function (client) {
+  var totalMonthlyGross = hlp.getTotalMonthlyGross(client)
+  var standardDeduction = hlp.getStandardDeduction(client);
+  var earnedIncomeDeduction = hlp.getEarnedIncomeDeduction(client);
+  var medicalDeduction = hlp.getMedicalDeduction(client);
+  var dependentCareDeduction = hlp.getDependentCareDeduction(client);
 
   var adjustedIncome = totalMonthlyGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
   return Math.max( 0, adjustedIncome );
 };
 
 // EXPENSE DEDUCTIONS
-const isHomeless = function(client ) {
+hlp.isHomeless = function(client ) {
   return client.shelter === 'homeless';
 };
 
 /** @todo: What about housing voucer? */
-const getShelterDeduction = function(client) {
+hlp.getShelterDeduction = function(client) {
   var shelterCost = null;
   var isHomeowner = client.shelter === 'homeowner';
 
-  if ( isHomeless(client) ) {
+  if ( hlp.isHomeless(client) ) {
     shelterCost = 0;
   } else if(isHomeowner) {
     shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
@@ -195,7 +200,7 @@ const getShelterDeduction = function(client) {
   return shelterCost;
 };
 
-const utilityStatus = function(client) {
+hlp.utilityStatus = function(client) {
   var paidUtilityCategory = null;
   var isPayHeatingCooling = client.climateControl || client.hasFuelAssistance;
   var isPayElectricity = client.nonHeatElectricity;
@@ -212,31 +217,31 @@ const utilityStatus = function(client) {
   return paidUtilityCategory;
 };
 
-const getStandardUtilityAllowance = function (client) {
-  if(isHomeless(client)){
+hlp.getStandardUtilityAllowance = function (client) {
+  if(hlp.isHomeless(client)){
     return 0;
   }else{
-    var paidUtilityCategory = utilityStatus(client);
+    var paidUtilityCategory = hlp.utilityStatus(client);
     return SNAPData.UTILITY_DEDUCTIONS[paidUtilityCategory];
   }
 };
 
-const getTotalshelterCost = function (client) {
-  var shelterDeduction = getShelterDeduction(client);
-  var utilityDeductions = getStandardUtilityAllowance(client);
+hlp.getTotalshelterCost = function (client) {
+  var shelterDeduction = hlp.getShelterDeduction(client);
+  var utilityDeductions = hlp.getStandardUtilityAllowance(client);
 
   return shelterDeduction + utilityDeductions;
 };
 
-const getHalfAdjustedIncome = function(client) {
-  var adjustedIncomeAfterDeduction = getAdjustedIncomeAfterDeduction(client);
+hlp.getHalfAdjustedIncome = function(client) {
+  var adjustedIncomeAfterDeduction = hlp.getAdjustedIncomeAfterDeduction(client);
   return adjustedIncomeAfterDeduction * 0.50;
 };
 
-const excessHalfAdjustedIncome = function(client) {
+hlp.excessHalfAdjustedIncome = function(client) {
   var totalShelterDeduction = null;
-  var totalshelterCost = getTotalshelterCost(client);
-  var halfAdjustedIncome = getHalfAdjustedIncome(client);
+  var totalshelterCost = hlp.getTotalshelterCost(client);
+  var halfAdjustedIncome = hlp.getHalfAdjustedIncome(client);
   if ( totalshelterCost - halfAdjustedIncome < 0   ) {
     totalShelterDeduction = 0;
   } else {
@@ -245,16 +250,16 @@ const excessHalfAdjustedIncome = function(client) {
   return totalShelterDeduction;
 };
 
-const getShelterDeductionResult = function(client) {
-    if ( hasDisabledOrElderlyMember(client) ) {
-      return excessHalfAdjustedIncome(client);
+hlp.getShelterDeductionResult = function(client) {
+    if ( hlp.hasDisabledOrElderlyMember(client) ) {
+      return hlp.excessHalfAdjustedIncome(client);
     } else {
-      return Math.min(excessHalfAdjustedIncome(client), SNAPData.SHELTER_DEDUCTION_CAP);
+      return Math.min(hlp.excessHalfAdjustedIncome(client), SNAPData.SHELTER_DEDUCTION_CAP);
     }
 };
 
-const getHomelessDeduction = function(client) {
-    if ( isHomeless(client) ) {
+hlp.getHomelessDeduction = function(client) {
+    if ( hlp.isHomeless(client) ) {
       return SNAPData.HOMELESS_DEDUCTION;
     } else {
       return 0;
@@ -262,16 +267,17 @@ const getHomelessDeduction = function(client) {
 };
 
 // NET INCOME CALCULATION
-const monthlyNetIncome = function(client) {
+hlp.monthlyNetIncome = function(client) {
+  // May be able to leverage 'getAdjusted...'
     var totalMonthlyEarnedGross = client.earned;
-    var earnedIncomeDeduction = getEarnedIncomeDeduction(client);
+    var earnedIncomeDeduction = hlp.getEarnedIncomeDeduction(client);
     var totalMonthlyUnearnedGross =  getGrossUnearnedIncomeMonthly(client);
-    var standardDeduction = getStandardDeduction(client);
-    var medicalDeduction = getMedicalDeduction(client);
-    var dependentCareDeduction = getDependentCareDeduction(client);
-    var childPaymentDeduction = getChildPaymentDeduction(client);
-    var hasHomelessDeduction = getHomelessDeduction(client);
-    var shelterDeductionResult = getShelterDeductionResult(client);
+    var standardDeduction = hlp.getStandardDeduction(client);
+    var medicalDeduction = hlp.getMedicalDeduction(client);
+    var dependentCareDeduction = hlp.getDependentCareDeduction(client);
+    var childPaymentDeduction = hlp.getChildPaymentDeduction(client);
+    var hasHomelessDeduction = hlp.getHomelessDeduction(client);
+    var shelterDeductionResult = hlp.getShelterDeductionResult(client);
 
     var totalIncome     = totalMonthlyEarnedGross + totalMonthlyUnearnedGross;
     var totalDeductions = earnedIncomeDeduction + standardDeduction + medicalDeduction
@@ -282,22 +288,22 @@ const monthlyNetIncome = function(client) {
     return Math.max( 0, afterDeductions );
 };
 
-const maxTotalNetMonthlyIncome = function (client) {
+hlp.maxTotalNetMonthlyIncome = function (client) {
     var maxTotalNetIncome = null;
-    //TODO: Logic different in website calculate; when (monthlyNetIncome < 0 ) = 0 while excel return a number
-    if ( isNetIncomeTest(client)===false ) {
+    //TODO: Logic different in website calculate; when (hlp.monthlyNetIncome < 0 ) = 0 while excel return a number
+    if ( hlp.isNetIncomeTest(client)===false ) {
       maxTotalNetIncome = "no limit";
       return maxTotalNetIncome;
     } else {
-      return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, householdSize( client ));
+      return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize( client ));
     }
 };
 
 // NET INCOME TEST RESULT
-const getNetIncomeTestResult = function(client ) {
-  if ( maxTotalNetMonthlyIncome(client) === "no limit" ) {
+hlp.getNetIncomeTestResult = function(client ) {
+  if ( hlp.maxTotalNetMonthlyIncome(client) === "no limit" ) {
       return true;
-    } else if ( monthlyNetIncome(client) < maxTotalNetMonthlyIncome(client) ) {
+    } else if ( hlp.monthlyNetIncome(client) < hlp.maxTotalNetMonthlyIncome(client) ) {
       return true;
     }
     else {
@@ -306,22 +312,22 @@ const getNetIncomeTestResult = function(client ) {
 };
 
 // FINAL DETERMINATION
-const getThirtyPercentNetIncome = function(client) {
-  if ( monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET > 0 ) {
-    return monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET;
+hlp.getThirtyPercentNetIncome = function(client) {
+  if ( hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET > 0 ) {
+    return hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET;
   }
   return 0;
 };
 
-const getMaxSnapAllotment = function (client) {
-  return getYearlyLimitBySize( SNAPData.SNAP_LIMITS, householdSize( client ) );
+hlp.getMaxSnapAllotment = function (client) {
+  return getYearlyLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) );
 };
 
-const householdSize = function ( client ) {
+hlp.householdSize = function ( client ) {
   return client.household.length;
 };
 
 // Bay State CAP not included as this prototype only deals with
 // changes in earned income
 
-export { getSNAPBenefits };
+export { getSNAPBenefits, SNAPhelpers };
