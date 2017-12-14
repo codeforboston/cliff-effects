@@ -217,14 +217,11 @@ hlp.getHalfAdjustedIncome = function(client) {
 };
 
 hlp.getRawShelterDeduction = function(client) {
-  var totalShelterDeduction = 0,
-      totalshelterCost      = hlp.getTotalshelterCost(client),
-      halfAdjustedIncome    = hlp.getHalfAdjustedIncome(client);
+  var totalShelterCost    = hlp.getTotalshelterCost(client),
+      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
+      rawShelterDeduction = totalShelterCost - halfAdjustedIncome;
 
-  if ( totalshelterCost - halfAdjustedIncome >= 0   ) {
-    totalShelterDeduction = totalshelterCost - halfAdjustedIncome;
-  }
-  return totalShelterDeduction;
+  return Math.max( 0, rawShelterDeduction );
 };
 
 hlp.getShelterDeduction = function(client) {
