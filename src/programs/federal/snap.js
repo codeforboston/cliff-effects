@@ -101,24 +101,22 @@ hlp.getEarnedIncomeDeduction = function (client) {
 };
 
 hlp.getMedicalDeduction = function (client) {
-  var medicalDeduce = null;
-  if ( hlp.hasDisabledOrElderlyMember(client) === false ) {
-    return 0;
-  } else {
+  var medicalDeduce = 0;
+
+  if ( hlp.hasDisabledOrElderlyMember(client) === true ) {
     // include disabledMedical, otherMedical, disabledAssistance ?? 
     var medicalExpenses = client.disabledMedical;
     /** @todo: Add disabled assistance too */
     if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) && (medicalExpenses <= SNAPData.MAX_MEDICAL_EXPENSES)) {
       medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
-      return medicalDeduce;
-    } else {
-      if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES++) {
-        medicalDeduce = medicalExpenses - SNAPData.MIN_MEDICAL_EXPENSES;
-        return medicalDeduce;
-      }
+
+    } else if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES++) {
+      medicalDeduce = medicalExpenses - SNAPData.MIN_MEDICAL_EXPENSES;
+
     }
-  }
-  return 0;
+  }  // end if has disabled or elderly
+
+  return medicalDeduce;
 };
 
 hlp.isDependentOver12 = function ( member ) {
@@ -127,21 +125,19 @@ hlp.isDependentOver12 = function ( member ) {
 
 hlp.getDependentCareDeduction = function (client) {
 
-  var childCare = 0, adultCare = 0;
+  var dependentCare = 0;
 
   /** @todo Adopt https://github.com/codeforboston/cliff-effects/issues/264
    *     model for all these 'kinds' of 'if' situations. If possible. */
   if ( getUnder13OfHousehold( client ).length > 0 ) {
-    childCare = sumProps( client, UNDER13_CARE_EXPENSES );
+    dependentCare += sumProps( client, UNDER13_CARE_EXPENSES );
   }
 
   if ( getEveryMemberOfHousehold( client, hlp.isDependentOver12 ).length > 0 ) {
-    adultCare = sumProps( client, OVER12_CARE_EXPENSES );
+    dependentCare += sumProps( client, OVER12_CARE_EXPENSES );
   }
 
-  var totalDependentCare = childCare + adultCare;
-
-  return totalDependentCare;
+  return dependentCare;
 };
 
 hlp.getChildSupportPaid = function (client) {
