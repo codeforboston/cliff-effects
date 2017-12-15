@@ -141,8 +141,9 @@ var iterMoney = function ( client, testID, finalFunc, next ) {
 
   var monies = significant.monies;
   for ( let moneyi = 0; moneyi < monies.length; moneyi++ ) {
-    let amount = monies[ moneyi ];
-    next( client, testID, finalFunc, amount );
+    let clone  = cloneDeep( client ),
+        amount = monies[ moneyi ];
+    next( clone, testID, finalFunc, amount );
   }
 
 };  // End iterMoney()
@@ -203,19 +204,15 @@ var iterShelter = function ( client, testID, finalFunc ) {
 
 var iterEarned = function ( client, testID, finalFunc ) {
 
-  var cloned  = cloneDeep( client );
-  testID      += ', current earnings of ';
+  var afterMoney = function ( clone, testID2, finalFunc, amount ) {
 
-  var afterMoney = function ( client, testID2, finalFunc, amount ) {
-
-    testID2               += amount;
-    let cloned            = cloneDeep( client );
-    cloned.current.earned = amount;
-    iterShelter( cloned, testID2, finalFunc );
+    testID2              += ', current earnings of ' +amount;
+    clone.current.earned = amount;
+    iterShelter( clone, testID2, finalFunc );
 
   };  // End afterMoney()
 
-  iterMoney( cloned, testID, finalFunc, afterMoney );
+  iterMoney( client, testID, finalFunc, afterMoney );
 
 };  // End iterEarned()
 
