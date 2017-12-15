@@ -121,16 +121,22 @@ significant.disableds           = bool;
 // Monthly income and expense values
 significant.monies              = [ 0, 100, 1000, 5000, 10000, 30000 ];  // One more needed for large values, etc?
 // Shelter
-significant.shelters            = [ 'homeless', 'homeowner', 'renter', 'housingVoucher' ];
+significant.shelters            = [ 'homeless', 'homeowner', ];  // 'renter', 'housingVoucher' ];
 significant.climateControls     = [ false, true ];
 significant.nonHeatElectricities= bool;
 significant.phones              = bool;
 significant.fuelAssistances     = bool;
+significant.housingExpenses     = [ 0, 100, 1000, 2000 ];
 
 
 // ------------------
 // LOOPING
 // ------------------
+
+// For now, pretend there's only earned income and limited shetler values
+
+// Clone client before every mutation
+
 var iterMoney = function ( client, testID, finalFunc, next ) {
 
   var monies = significant.monies;
@@ -140,6 +146,59 @@ var iterMoney = function ( client, testID, finalFunc, next ) {
   }
 
 };  // End iterMoney()
+
+var climateControl = function ( client, testID, finalFunc, next ) {
+  var controls = significant.climateControls;
+  
+  for ( let climi = 0; climi < controls.length; climi++ ) {
+    let clone                     = cloneDeep( client ),
+        hasControl                = controls[ climi ],
+        testID2                   = testID + ', heating ' + hasControl;
+
+    clone.current.climateControl  = hasControl;
+    next( clone, testID2, finalFunc, next );
+  }
+
+};  // End iterClimate()
+
+
+var iterUtils = function ( client, testID, finalFunc, next ) {
+  // Just a name that makes more sense than just calling `climateControl()`
+  // Really leads through all the utilities
+  climateControl( client, testID, finalFunc, next );
+};  // End iterUtils()
+
+
+var shelterIters = {};
+
+shelterIters.homeowner = function ( client, testID, finalFunc ) {
+  
+  testID += ', shelter homeowner';
+  var afterUtils = finalFunc;  // For now
+  iterUtils( client, testID, finalFunc, afterUtils );
+
+};  // End shelterIters.homeowner()
+
+shelterIters.homeless = function ( client, testID, finalFunc ) {
+
+  testID += ', shelter homeless';
+  finalFunc( client, testID );
+
+};  // End shelterIters.homeowner()
+
+
+var iterShelter = function ( client, testID, finalFunc ) {
+
+  let shelters = significant.shelters;
+  for ( let shelteri = 0; shelteri < shelters.length; shelteri++ ) {
+    let clone              = cloneDeep( client ),
+        shelter            = shelters[ shelteri ];
+
+    clone.current.shelter  = shelter;
+    shelterIters[ shelter ]( clone, testID, finalFunc );
+  }
+
+};  // End iterShelter()
 
 
 var iterEarned = function ( client, testID, finalFunc ) {
@@ -152,7 +211,7 @@ var iterEarned = function ( client, testID, finalFunc ) {
     testID2               += amount;
     let cloned            = cloneDeep( client );
     cloned.current.earned = amount;
-    finalFunc( cloned, testID2 );
+    iterShelter( cloned, testID2, finalFunc );
 
   };  // End afterMoney()
 
