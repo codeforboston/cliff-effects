@@ -1,9 +1,11 @@
-import { getSNAPBenefits } from '../../../programs/federal/snap';
+import { cloneDeep, extend } from 'lodash';
+import fs from 'fs';
+import readline from 'readline';
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 import { sampleClients } from '../../sampleClients';
-import { cloneDeep } from 'lodash';
+import { getSNAPBenefits } from '../../../programs/federal/snap';
 
 const defaultClient       = cloneDeep( CLIENT_DEFAULTS );
 
@@ -87,5 +89,18 @@ describe('getSNAPBenefits', () => {
       expect(getSNAPBenefits(client, 'current')).toBeCloseTo(0, 4);
     });
   });
+  it('passes regression tests', (done) => {
+    const rl = readline.createInterface({
+      input: fs.createReadStream('src/test/programs/federal/test-cases.txt')
+    });
 
+    rl.on('line', line => {
+      const [setupStr, expectedStr] = line.split(';');
+      const client = cloneDeep(CLIENT_DEFAULTS);
+      extend(client.current, JSON.parse(setupStr));
+      expect(getSNAPBenefits(client, 'current')).toBeCloseTo(+expectedStr, 4);
+    });
+
+    rl.on('close', done);
+  })
 });
