@@ -102,5 +102,5 @@ describe('getSNAPBenefits', () => {
     });
 
     rl.on('close', done);
-  })
+  }, 10000)
 });
