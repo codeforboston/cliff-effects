@@ -183,7 +183,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
   // We're using a bunch of radio buttons. Since `checked` is defined
   // in Radio components, `setClientProperty()` would store it, but we
   // want the value, so get rid of checked.
-  /** Makes sure values are propagated to 'current' properties if needed */
+  /** Makes sure values are propagated to 'current' properties if needed. */
   let ensureRouteAndValue = function ( evnt, inputProps ) {
     var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
     setClientProperty( evnt, obj );
@@ -250,26 +250,21 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
   /** @todo Make an age-checking function to
    *     keep household data structure under 
-   *     control in one place.
-   */
+   *     control in one place. */
   var isOver12 = function ( member ) { return member.m_age > 12; };
 
   // Won't include head or spouse
   var allDependents = getDependentMembers( household ),
       under13       = getEveryMember( allDependents, isUnder13 ),
-      // or under13 = getUnder13Members( allDependents ),
       over12        = getEveryMember( allDependents, isOver12 );
 
-  // 'Elderly' here is using the lowest common denominator - SNAP standards
+  // 'Elderly' here is using the lowest common denominator - SNAP standards.
   var isElderlyOrDisabled = function ( member ) {
     return isDisabled( member ) || member.m_age >= 60;
   };
   var elderlyOrDisabled = getEveryMember( household, isElderlyOrDisabled ),
       elderlyOrDisabledHeadOrSpouse = getEveryMember( elderlyOrDisabled, isHeadOrSpouse );
 
-  /**
-  * @todo Complete only show questions that are relevant to the client's slected programs
-  */
   return (
     <wrapper className='field-aligner two-column'>
 
@@ -288,14 +283,14 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       }
 
       {/** Wrapper needed for spacing. Without, margins get added here,
-        *     but not other places, making spacing hard to manage */}
+        *     but not other places, making spacing hard to manage. */}
       <wrapper>
         <FormHeading>Child Support</FormHeading>
         <IntervalColumnHeadings type={type}/>
         <CashFlowRow {...sharedProps} generic={'childSupportPaidOut'}> <strong>Legally obligated</strong> child support </CashFlowRow>
       </wrapper>
 
-      {/* Head or spouse can't be a dependent, so they don't count */}
+      {/* Head or spouse can't be a dependent, so they don't count. */}
       { over12.length > 0
         ? <wrapper>
           <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
@@ -383,7 +378,6 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 // `props` is a cloned version of the original props. References broken.
 const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client }) {
 
-  /** @todo Maybe getTimeSetter can actually convert to 'route' too? */
   const setTimeProp = getTimeSetter( 'current', changeClient );
 
   return (
