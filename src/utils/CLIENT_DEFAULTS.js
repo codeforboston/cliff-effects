@@ -49,9 +49,9 @@ const CLIENT_DEFAULTS = {
     earnedBecauseOfAdultCare:       0,                // positive number
     disabledMedical:                0,                // positive number
     otherMedical:                   0,                // positive number
-    /** @todo When client has section 8, switch this to 'housingVoucher' */
+    /** @todo When client has section 8, switch this to 'voucher' */
     /** @todo Make shelter expense values more robust. */
-    shelter:                        'homeless',       // 'homeless', 'homeowner', 'renter', 'housingVoucher'
+    shelter:                        'homeless',       // 'homeless', 'homeowner', 'renter', 'voucher'
     contractRent:                   0,                // positive number
     rentShare:                      0,                // positive number
     rent:                           0,                // positive number

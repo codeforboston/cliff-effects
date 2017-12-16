@@ -119,15 +119,17 @@ hlp.isHomeless = function(client ) {
 
 /** @todo: What about housing voucher? */
 hlp.getNonUtilityCosts = function(client) {
-  var shelterCost = null,
+  var shelterCost = 0,
       isHomeowner = client.shelter === 'homeowner';
 
   if ( hlp.isHomeless(client) ) {
     shelterCost = 0;
-  } else if(isHomeowner) {
+  } else if( isHomeowner ) {
     shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
-  } else {
+  } else if ( client.shelter === 'renter' ) {
     shelterCost = client.rent;
+  } else if ( client.shelter === 'voucher ') {
+    shelterCost = client.rentShare;
   }
 
   return shelterCost;
