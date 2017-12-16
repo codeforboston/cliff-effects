@@ -85,7 +85,7 @@ const getDependentsOfHousehold = function ( client ) {
 // --- DISABLED --- \\
 
 const isDisabled = function ( member ) {
-  return member.m_disable;
+  return member.m_disabled;
 };  // End isDisabled()
 
 
