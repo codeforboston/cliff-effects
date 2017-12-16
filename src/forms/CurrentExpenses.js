@@ -265,7 +265,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
     return isDisabled( member ) || member.m_age >= 60;
   };
   var elderlyOrDisabled = getEveryMember( household, isElderlyOrDisabled ),
-      elderlyOrDisabledHeadAndSpouse = getEveryMember( elderlyOrDisabled, isHeadOrSpouse );
+      elderlyOrDisabledHeadOrSpouse = getEveryMember( elderlyOrDisabled, isHeadOrSpouse );
 
   /**
   * @todo Complete only show questions that are relevant to the client's slected programs
@@ -324,12 +324,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         : null
       }
 
-        {/* These medical expenses don't count for Section 8 unless
-          *     the disabled person is the head or spouse. From 
-          *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
-          *     Appendix B, item (D) */}
-        { elderlyOrDisabledHeadAndSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
-          ? <wrapper>
+      {/** These medical expenses don't count for Section 8 unless
+        *     the disabled person is the head or spouse. From 
+        *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
+        *     Appendix B, item (D) */}
+      { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
+        ? <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
           <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
           <ul>
@@ -344,8 +344,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
           </ul>
           <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps} generic='disabledOrElderlyMedical'> Disabled/Elderly medical expenses </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic='membersMedical'> Medical expenses of other members </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='disabledMedical'> Disabled/Elderly medical expenses </CashFlowRow>
+          <CashFlowRow {...sharedProps} generic='otherMedical'> Medical expenses of other members </CashFlowRow>
         </wrapper>
         : null
       }
