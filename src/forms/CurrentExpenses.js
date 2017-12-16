@@ -168,14 +168,16 @@ const ShelterRadio = function ({ currentValue, label, time, setClientProperty })
 };  // End ShelterRadio(<>)
 
 
-/** @todo description
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
+/** 
+ * @function
+ * @param {object} props
+ * @property {object} props.current - Client data of current user circumstances
+ * @property {string} props.type - 'expense' or 'income', etc., for classes
+ * @property {string} props.time - 'current' or 'future'
+ * @property {function} props.setClientProperty - Sets state values
+ * 
+ * @returns Component
+ */
 const Housing = function ({ current, type, time, setClientProperty }) {
 
   // We're using a bunch of radio buttons. Since `checked` is defined
@@ -231,22 +233,22 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 };  // End Housing()
 
 
-/** @todo description
-* 
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
+/** 
+ * @function
+ * @param {object} props
+ * @property {object} props.current - Client data of current user circumstances
+ * @property {object} props.time - 'current' or 'future'
+ * @property {object} props.setClientProperty - Sets state values
+ * 
+ * @returns Component
+ */
 const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
   let type        = 'expense',
       household   = current.household,
       sharedProps = { timeState: current, type: type, time: time, setClientProperty: setClientProperty };
 
-  /* @todo Make an age-checking function to
+  /** @todo Make an age-checking function to
    *     keep household data structure under 
    *     control in one place.
    */
@@ -266,7 +268,6 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       elderlyOrDisabledHeadAndSpouse = getEveryMember( elderlyOrDisabled, isHeadOrSpouse );
 
   /**
-  * @todo Does money from any programs count as income?
   * @todo Complete only show questions that are relevant to the client's slected programs
   */
   return (
@@ -286,8 +287,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         : null
       }
 
-      {/** Wrapper here or else margins get added here, but not other
-      * places, making spacing hard to manage */}
+      {/** Wrapper needed for spacing. Without, margins get added here,
+        *     but not other places, making spacing hard to manage */}
       <wrapper>
         <FormHeading>Child Support</FormHeading>
         <IntervalColumnHeadings type={type}/>
@@ -295,9 +296,6 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       </wrapper>
 
       {/* Head or spouse can't be a dependent, so they don't count */}
-      {/* With future version of form, don't show if there are only elderly,
-        but not disabled, members. Also, show if there are people between
-        > 12, but <= 18 */}
       { over12.length > 0
         ? <wrapper>
           <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
@@ -327,9 +325,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       }
 
         {/* These medical expenses don't count for Section 8 unless
-          the disabled person is the head or spouse. From 
-          http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf 
-          Appendix B, item (D) */}
+          *     the disabled person is the head or spouse. From 
+          *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
+          *     Appendix B, item (D) */}
         { elderlyOrDisabledHeadAndSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
           ? <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
@@ -363,23 +361,25 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 };  // End ExpensesFormContent()
 
 /**
-* @todo SNAP: Does a medical assistant's payments count as a medical expense?
-* (Answer: Yes. https://www.mass.gov/service-details/snap-verifications)
-* @todo SNAP: Medical expense only matters if household has elder/disabled, but
-* are they any medical expenses or only those of the disabled person? "Medical
-* Expenses for Disabled or Elderly". Also, do they sometimes need to
-* enter medical expenses even if they don't have an elderly or disabled
-* household member?
-*/
+ * @todo SNAP: Does a medical assistant's payments count as a medical expense?
+ *     (Answer: Yes. @see {@link https://www.mass.gov/service-details/snap-verifications})
+ * @todo SNAP: Medical expense only matters if household has elder/disabled, but
+ *     are they any medical expenses or only those of the disabled person? "Medical
+ *     Expenses for Disabled or Elderly". Also, do they sometimes need to
+ *     enter medical expenses even if they don't have an elderly or disabled
+ *     household member?
+ */
 
-/** @todo description
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
+/** 
+  * @function
+  * @param {object} props
+  * @property {function} props.changeClient - Setting client state
+  * @property {function} props.previousStep - Go to previous form step
+  * @property {function} props.nextStep - Go to next form step
+  * @property {object} props.client - Object will all the data for calculating benefits
+  * 
+  * @returns Component
+  */
 // `props` is a cloned version of the original props. References broken.
 const CurrentExpensesStep = function ( props ) {
 
