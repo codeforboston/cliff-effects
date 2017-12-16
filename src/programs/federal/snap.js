@@ -119,7 +119,7 @@ hlp.isHomeless = function(client ) {
 
 /** @todo: What about housing voucher? */
 hlp.getNonUtilityCosts = function(client) {
-  var shelterCost = 0,
+  var shelterCost = null,
       isHomeowner = client.shelter === 'homeowner';
 
   if ( hlp.isHomeless(client) ) {
