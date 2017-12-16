@@ -381,20 +381,20 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
   * @returns Component
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ( props ) {
+const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client }) {
 
   /** @todo Maybe getTimeSetter can actually convert to 'route' too? */
-  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+  const setTimeProp = getTimeSetter( 'current', changeClient );
 
   return (
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
         title     = {'Current Household Expenses'}
         clarifier = {null}
-        left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Next', func: props.nextStep}}
+        left      = {{name: 'Previous', func: previousStep}}
+        right     = {{name: 'Next', func: nextStep}}
       >
-        <ExpensesFormContent setClientProperty={setTimeProp} current={props.client.current} time={'current'} />
+        <ExpensesFormContent setClientProperty={setTimeProp} current={client.current} time={'current'} />
       </FormPartsContainer>
     </Form>
   );
