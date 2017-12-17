@@ -233,8 +233,6 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 
 /** @todo description
 * 
-* @todo Discuss splitting into a sub-progress bar and breaking it up
-* into individual form pages.
 * 
 * @function
 * @param {object} props
@@ -242,10 +240,10 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 * 
 * @returns Component
 */
-const ExpensesFormContent = function ({ client, current, time, setClientProperty }) {
+const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
   let type        = 'expense',
-      household   = client[ time ].household,
+      household   = current.household,
       sharedProps = { timeState: current, type: type, time: time, setClientProperty: setClientProperty };
 
   /* @todo Make an age-checking function to
@@ -397,7 +395,7 @@ const CurrentExpensesStep = function ( props ) {
         left      = {{name: 'Previous', func: props.previousStep}}
         right     = {{name: 'Next', func: props.nextStep}}
       >
-        <ExpensesFormContent setClientProperty={setTimeProp} client={props.client} current={props.client.current} time={'current'} />
+        <ExpensesFormContent setClientProperty={setTimeProp} current={props.client.current} time={'current'} />
       </FormPartsContainer>
     </Form>
   );
