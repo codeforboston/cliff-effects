@@ -35,29 +35,22 @@ import {
 
 const Utilities = function ({ current, type, time, setClientProperty }) {
 
-  let climate     = current.hasClimateControl,
+  let climate     = current.climateControl,
       electricity = current.nonHeatElectricity,
       phone       = current.phone,
-      fuelAssist  = current.hasFuelAssistance;
-
+      fuelAssist  = current.fuelAssistance;
 
   let setChecked = function ( evnt, inputProps ) {
     var obj = { ...inputProps, value: inputProps.checked };
     setClientProperty( evnt, obj );
   };  // End setChecked()
 
-  let toBool = function ( evnt, inputProps ) {
-    var val = inputProps.value === 'Yes',
-        obj = { ...inputProps, value: val };
-    setClientProperty( evnt, obj );
-  };  // End toBool()
-
   return (
     <wrapper>
       <Header as='h4'>Which of these utilities do you pay for?</Header>
 
       <Checkbox
-        name={'hasClimateControl'}
+        name={'climateControl'}
         label={'Heating or cooling (e.g. A/C during summer)'}
         checked={climate}
         onChange={setChecked}
@@ -80,18 +73,18 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
       <Header as='h4'>Do you get Fuel Assistance?</Header>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
         <Radio
-          name={'hasFuelAssistance'}
+          name={'fuelAssistance'}
           label={'Yes'} value={'Yes'}
           checked={fuelAssist}
-          onChange={toBool}
+          onChange={setClientProperty}
         />
       </Form.Field>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
         <Radio
-          name={'hasFuelAssistance'}
+          name={'fuelAssistance'}
           label={'No'} value={'No'}
           checked={!fuelAssist}
-          onChange={toBool}
+          onChange={setClientProperty}
         />
       </Form.Field>
     </wrapper>
@@ -168,20 +161,22 @@ const ShelterRadio = function ({ currentValue, label, time, setClientProperty })
 };  // End ShelterRadio(<>)
 
 
-/** @todo description
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
+/** 
+ * @function
+ * @param {object} props
+ * @param {object} props.current - Client data of current user circumstances
+ * @param {string} props.type - 'expense' or 'income', etc., for classes
+ * @param {string} props.time - 'current' or 'future'
+ * @param {function} props.setClientProperty - Sets state values
+ * 
+ * @returns React element
+ */
 const Housing = function ({ current, type, time, setClientProperty }) {
 
   // We're using a bunch of radio buttons. Since `checked` is defined
   // in Radio components, `setClientProperty()` would store it, but we
   // want the value, so get rid of checked.
-  /** Makes sure values are propagated to 'current' properties if needed */
+  /** Makes sure values are propagated to 'current' properties if needed. */
   let ensureRouteAndValue = function ( evnt, inputProps ) {
     var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
     setClientProperty( evnt, obj );
@@ -231,46 +226,38 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 };  // End Housing()
 
 
-/** @todo description
-* 
-* @todo Discuss splitting into a sub-progress bar and breaking it up
-* into individual form pages.
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
-const ExpensesFormContent = function ({ client, current, time, setClientProperty }) {
+/** 
+ * @function
+ * @param {object} props
+ * @param {object} props.current - Client data of current user circumstances
+ * @param {object} props.time - 'current' or 'future'
+ * @param {object} props.setClientProperty - Sets state values
+ * 
+ * @returns React element
+ */
+const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
   let type        = 'expense',
-      household   = client[ time ].household,
+      household   = current.household,
       sharedProps = { timeState: current, type: type, time: time, setClientProperty: setClientProperty };
 
-  /* @todo Make an age-checking function to
+  /** @todo Make an age-checking function to
    *     keep household data structure under 
-   *     control in one place.
-   */
+   *     control in one place. */
   var isOver12 = function ( member ) { return member.m_age > 12; };
 
   // Won't include head or spouse
   var allDependents = getDependentMembers( household ),
       under13       = getEveryMember( allDependents, isUnder13 ),
-      // or under13 = getUnder13Members( allDependents ),
       over12        = getEveryMember( allDependents, isOver12 );
 
-  // 'Elderly' here is using the lowest common denominator - SNAP standards
+  // 'Elderly' here is using the lowest common denominator - SNAP standards.
   var isElderlyOrDisabled = function ( member ) {
     return isDisabled( member ) || member.m_age >= 60;
   };
   var elderlyOrDisabled = getEveryMember( household, isElderlyOrDisabled ),
       elderlyOrDisabledHeadOrSpouse = getEveryMember( elderlyOrDisabled, isHeadOrSpouse );
 
-  /**
-  * @todo Does money from any programs count as income?
-  * @todo Complete only show questions that are relevant to the client's slected programs
-  */
   return (
     <wrapper className='field-aligner two-column'>
 
@@ -297,10 +284,7 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
         : null
       }
 
-      {/* Head or spouse can't be a dependent, so they don't count */}
-      {/* With future version of form, don't show if there are only elderly,
-        but not disabled, members. Also, show if there are people between
-        > 12, but <= 18 */}
+      {/* Head or spouse can't be a dependent, so they don't count. */}
       { over12.length > 0
         ? <wrapper>
           <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
@@ -329,10 +313,10 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
         : null
       }
 
-      {/* These medical expenses don't count for Section 8 unless
-        the disabled person is the head or spouse. From 
-        http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf 
-        Appendix B, item (D) */}
+      {/** These medical expenses don't count for Section 8 unless
+        *     the disabled person is the head or spouse. From 
+        *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
+        *     Appendix B, item (D) */}
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
         ? <wrapper>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
@@ -366,38 +350,39 @@ const ExpensesFormContent = function ({ client, current, time, setClientProperty
 };  // End ExpensesFormContent()
 
 /**
-* @todo SNAP: Does a medical assistant's payments count as a medical expense?
-* (Answer: Yes. https://www.mass.gov/service-details/snap-verifications)
-* @todo SNAP: Medical expense only matters if household has elder/disabled, but
-* are they any medical expenses or only those of the disabled person? "Medical
-* Expenses for Disabled or Elderly". Also, do they sometimes need to
-* enter medical expenses even if they don't have an elderly or disabled
-* household member?
-*/
+ * @todo SNAP: Does a medical assistant's payments count as a medical expense?
+ *     (Answer: Yes. @see {@link https://www.mass.gov/service-details/snap-verifications})
+ * @todo SNAP: Medical expense only matters if household has elder/disabled, but
+ *     are they any medical expenses or only those of the disabled person? "Medical
+ *     Expenses for Disabled or Elderly". Also, do they sometimes need to
+ *     enter medical expenses even if they don't have an elderly or disabled
+ *     household member?
+ */
 
-/** @todo description
-* 
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-* 
-* @returns Component
-*/
+/** 
+  * @function
+  * @param {object} props
+  * @param {function} props.changeClient - Setting client state
+  * @param {function} props.previousStep - Go to previous form step
+  * @param {function} props.nextStep - Go to next form step
+  * @param {object} props.client - Object will all the data for calculating benefits
+  * 
+  * @returns React element
+  */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ( props ) {
+const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client }) {
 
-  /** @todo Maybe getTimeSetter can actually convert to 'route' too? */
-  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+  const setTimeProp = getTimeSetter( 'current', changeClient );
 
   return (
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
         title     = {'Current Household Expenses'}
         clarifier = {null}
-        left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Next', func: props.nextStep}}
+        left      = {{name: 'Previous', func: previousStep}}
+        right     = {{name: 'Next', func: nextStep}}
       >
-        <ExpensesFormContent setClientProperty={setTimeProp} client={props.client} current={props.client.current} time={'current'} />
+        <ExpensesFormContent setClientProperty={setTimeProp} current={client.current} time={'current'} />
       </FormPartsContainer>
     </Form>
   );

@@ -10,10 +10,11 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
+/** @todo Take regular bools out of here. */
 const toBoolean = function ( value ) {
-  if ( value === 'yes' ) {
+  if ( value === 'Yes' ) {
     return true;
-  } else if ( value === 'no' ) {
+  } else if ( value === 'No' ) {
     return false;
   } else if ( typeof( value ) === 'boolean' ) {
     return value;
@@ -76,10 +77,10 @@ const valueFixers = {
   mortgage:                       stringToNumber,
   housingInsurance:               stringToNumber,
   propertyTax:                    stringToNumber,
-  hasClimateControl:              returnSame,
+  climateControl:                 returnSame,
   nonHeatElectricity:             returnSame,
   phone:                          returnSame,
-  hasFuelAssistance:              toBoolean,
+  fuelAssistance:                 toBoolean,
   otherExpenses:                  stringToNumber,
 
 };  // end valueFixers
