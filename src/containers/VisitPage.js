@@ -42,6 +42,8 @@ class VisitPage extends Component {
         isBlocking: true,
         redirect: false,
         client : { ...CLIENT_DEFAULTS },
+        // Hack for MVP
+        oldShelter: CLIENT_DEFAULTS.current.shelter,
         userChanged: {}
     };  // end this.state {}
 
@@ -75,7 +77,14 @@ class VisitPage extends Component {
     // Also, userChanged should be only one step deep
     if ( time === 'future' ) { userChanged[ id ] = true; }
 
-    this.setState( prevState => ({ client: client, userChanged: userChanged }) );
+    // Hack for MVP (otherwise need dependency + history system)
+    let oldShelter = this.state.oldShelter;
+    if ( route === 'shelter' ) { oldShelter = client.current.shelter; }  // client shelter should be right now
+    if ( client.current.hasHousing ) { client.current.shelter = 'voucher'; }
+    // Restore shelter to previous value
+    else { client.current.shelter = oldShelter; }
+
+    this.setState( prevState => ({ client: client, userChanged: userChanged, oldShelter: oldShelter }) );
   }  // End onClientChange()
 
   saveForm = (exitAfterSave) => {

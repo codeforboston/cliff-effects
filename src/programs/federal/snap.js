@@ -124,10 +124,12 @@ hlp.getNonUtilityCosts = function(client) {
 
   if ( hlp.isHomeless(client) ) {
     shelterCost = 0;
-  } else if(isHomeowner) {
+  } else if( isHomeowner ) {
     shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
-  } else {
+  } else if ( client.shelter === 'renter' ) {
     shelterCost = client.rent;
+  } else if ( client.shelter === 'voucher ') {
+    shelterCost = client.rentShare;
   }
 
   return shelterCost;

@@ -101,7 +101,7 @@ const ShelterDetails = function ({ current, type, time, setClientProperty }) {
         setClientProperty: setClientProperty
       };
 
-  if ( current.hasHousing ) {
+  if ( current.shelter === 'voucher' ) {
     return (
       <wrapper>
         <IntervalColumnHeadings type={ type }/>
@@ -192,7 +192,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 
       <FormHeading>Shelter</FormHeading>
 
-      { current.hasHousing
+      { current.shelter === 'voucher'
       ? null
       : <wrapper>
 
