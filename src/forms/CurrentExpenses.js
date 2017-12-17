@@ -35,11 +35,10 @@ import {
 
 const Utilities = function ({ current, type, time, setClientProperty }) {
 
-  let climate     = current.hasClimateControl,
+  let climate     = current.climateControl,
       electricity = current.nonHeatElectricity,
       phone       = current.phone,
-      fuelAssist  = current.hasFuelAssistance;
-
+      fuelAssist  = current.fuelAssistance;
 
   let setChecked = function ( evnt, inputProps ) {
     var obj = { ...inputProps, value: inputProps.checked };
@@ -57,7 +56,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
       <Header as='h4'>Which of these utilities do you pay for?</Header>
 
       <Checkbox
-        name={'hasClimateControl'}
+        name={'climateControl'}
         label={'Heating or cooling (e.g. A/C during summer)'}
         checked={climate}
         onChange={setChecked}
@@ -80,7 +79,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
       <Header as='h4'>Do you get Fuel Assistance?</Header>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
         <Radio
-          name={'hasFuelAssistance'}
+          name={'fuelAssistance'}
           label={'Yes'} value={'Yes'}
           checked={fuelAssist}
           onChange={toBool}
@@ -88,7 +87,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
       </Form.Field>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
         <Radio
-          name={'hasFuelAssistance'}
+          name={'fuelAssistance'}
           label={'No'} value={'No'}
           checked={!fuelAssist}
           onChange={toBool}

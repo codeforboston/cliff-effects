@@ -76,10 +76,10 @@ const valueFixers = {
   mortgage:                       stringToNumber,
   housingInsurance:               stringToNumber,
   propertyTax:                    stringToNumber,
-  hasClimateControl:              returnSame,
+  climateControl:                 returnSame,
   nonHeatElectricity:             returnSame,
   phone:                          returnSame,
-  hasFuelAssistance:              toBoolean,
+  fuelAssistance:                 toBoolean,
   otherExpenses:                  stringToNumber,
 
 };  // end valueFixers

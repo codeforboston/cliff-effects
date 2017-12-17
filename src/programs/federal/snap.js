@@ -142,7 +142,7 @@ hlp.getUtilityCostByBracket = function (client) {
     
     var utilityCategory = null;
 
-    if ( client.climateControl || client.hasFuelAssistance ) {
+    if ( client.climateControl || client.fuelAssistance ) {
       utilityCategory = "Heating";
     } else if ( client.nonHeatElectricity ) {
       utilityCategory = "Non-heating";
