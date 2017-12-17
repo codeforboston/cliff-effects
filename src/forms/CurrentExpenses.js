@@ -164,12 +164,12 @@ const ShelterRadio = function ({ currentValue, label, time, setClientProperty })
 /** 
  * @function
  * @param {object} props
- * @property {object} props.current - Client data of current user circumstances
- * @property {string} props.type - 'expense' or 'income', etc., for classes
- * @property {string} props.time - 'current' or 'future'
- * @property {function} props.setClientProperty - Sets state values
+ * @param {object} props.current - Client data of current user circumstances
+ * @param {string} props.type - 'expense' or 'income', etc., for classes
+ * @param {string} props.time - 'current' or 'future'
+ * @param {function} props.setClientProperty - Sets state values
  * 
- * @returns Component
+ * @returns React element
  */
 const Housing = function ({ current, type, time, setClientProperty }) {
 
@@ -229,11 +229,11 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 /** 
  * @function
  * @param {object} props
- * @property {object} props.current - Client data of current user circumstances
- * @property {object} props.time - 'current' or 'future'
- * @property {object} props.setClientProperty - Sets state values
+ * @param {object} props.current - Client data of current user circumstances
+ * @param {object} props.time - 'current' or 'future'
+ * @param {object} props.setClientProperty - Sets state values
  * 
- * @returns Component
+ * @returns React element
  */
 const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
@@ -361,12 +361,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 /** 
   * @function
   * @param {object} props
-  * @property {function} props.changeClient - Setting client state
-  * @property {function} props.previousStep - Go to previous form step
-  * @property {function} props.nextStep - Go to next form step
-  * @property {object} props.client - Object will all the data for calculating benefits
+  * @param {function} props.changeClient - Setting client state
+  * @param {function} props.previousStep - Go to previous form step
+  * @param {function} props.nextStep - Go to next form step
+  * @param {object} props.client - Object will all the data for calculating benefits
   * 
-  * @returns Component
+  * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
 const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client }) {
