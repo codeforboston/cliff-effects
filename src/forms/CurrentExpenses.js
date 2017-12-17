@@ -45,12 +45,6 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
     setClientProperty( evnt, obj );
   };  // End setChecked()
 
-  let toBool = function ( evnt, inputProps ) {
-    var val = inputProps.value === 'Yes',
-        obj = { ...inputProps, value: val };
-    setClientProperty( evnt, obj );
-  };  // End toBool()
-
   return (
     <wrapper>
       <Header as='h4'>Which of these utilities do you pay for?</Header>
@@ -82,7 +76,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
           name={'fuelAssistance'}
           label={'Yes'} value={'Yes'}
           checked={fuelAssist}
-          onChange={toBool}
+          onChange={setClientProperty}
         />
       </Form.Field>
       <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
@@ -90,7 +84,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
           name={'fuelAssistance'}
           label={'No'} value={'No'}
           checked={!fuelAssist}
-          onChange={toBool}
+          onChange={setClientProperty}
         />
       </Form.Field>
     </wrapper>

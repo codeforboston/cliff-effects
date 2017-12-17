@@ -11,9 +11,9 @@ const returnSame = function ( newVal, state ) {
 };
 
 const toBoolean = function ( value ) {
-  if ( value === 'yes' ) {
+  if ( value === 'Yes' ) {
     return true;
-  } else if ( value === 'no' ) {
+  } else if ( value === 'No' ) {
     return false;
   } else if ( typeof( value ) === 'boolean' ) {
     return value;
