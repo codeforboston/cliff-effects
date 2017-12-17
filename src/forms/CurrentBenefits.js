@@ -24,7 +24,7 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 const CurrentBenefitsContent = ({ current, setClientProperty }) => {
 
   return (
-    <wrapper className={'field-aligner'}>
+    <div className={'field-aligner'}>
       <MassiveToggle
         label={{ children: current.hasSnap ? <strong>SNAP</strong> : 'SNAP' }}
         checked={current.hasSnap}
@@ -36,7 +36,7 @@ const CurrentBenefitsContent = ({ current, setClientProperty }) => {
         checked={current.hasHousing}
         onChange={setClientProperty}
         name='hasHousing' />
-    </wrapper>
+    </div>
   );  // end return
 
 };  // End CurrentBenefitsContent()

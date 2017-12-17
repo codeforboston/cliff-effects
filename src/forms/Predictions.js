@@ -28,7 +28,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
   * including the ability to change earned income.
   */
   return (
-    <wrapper className='field-aligner two-column'>
+    <div className='field-aligner two-column'>
       <IntervalColumnHeadings type={type}/>
       <CashFlowRow
           timeState={future}
@@ -39,17 +39,17 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
       </CashFlowRow>
-    </wrapper>
+    </div>
   );
 };  // End IncomeForm() Component
 
 const Table = function ({ client }) {
   return(
-    <wrapper>
+    <div>
     <Header as='h1' className='ui Header teal align centered'>Results</Header>
     <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
     <BenefitsTable client={client} />
-    </wrapper>
+    </div>
   );
 };
 /** @todo description

@@ -142,7 +142,7 @@ const TotalsRow = function ( props ) {
   };
 
   return (
-    <wrapper>
+    <div>
       <Table celled>
        <Table.Header>
           <Table.Row >
@@ -160,7 +160,7 @@ const TotalsRow = function ( props ) {
           <TotalsRow />
         </Table.Body>
       </Table>
-    </wrapper>
+    </div>
   )
 
 };  // End BenefitsTable(<>)

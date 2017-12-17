@@ -9,7 +9,7 @@ import { ExternalLink } from '../forms/formHelpers';
 const AboutContent = function ( props ) {
 
   return (
-    <wrapper>
+    <div>
 
       <Header as='h1' style={{ fontSize: '4em' }}>About the Cliff Effects Tool</Header>
 
@@ -36,7 +36,7 @@ const AboutContent = function ( props ) {
       <p>The code base is being maintained <ExternalLink href='https://github.com/codeforboston/cliff-effects'>on GitHub</ExternalLink> by <ExternalLink href='http://www.codeforboston.org/'>Code for Boston</ExternalLink> volunteers. For more information or to report a bug, please contact <a href="mailto:andrew@codeforboston.org">andrew@codeforboston.org</a>.</p>
       <p>Here's a special thank you to all the Code for Boston volunteers who brought you this application, especially Annie LaCourt, Isaac Chansky, Michelle Bernstein, Alec Danaher, Sasha Goldberg, Drew Love, Liani Lye, Liam Morley, Nick Francisci, Stephen Chin, Shameek Poddar, Will McIntosh, Don Blair, Ethan Strominger, Nick Lee, Jonathan Marcus, and Emily Wasserman.</p>
 
-    </wrapper>
+    </div>
   );
 
 };  // End AboutContent(<>)

@@ -197,10 +197,10 @@ const FormSubheading = function ( props ) {
   if ( !props.children ) { return null; }
 
   return (
-    <wrapper className = { 'form-subheading' }
+    <div className = { 'form-subheading' }
       style={{ display: 'block', textAlign: 'left' }}>
         { props.children }
-    </wrapper>
+    </div>
   );
 
 };  // End FormSubheading{} Component
@@ -219,14 +219,14 @@ const FormHeading = function ({ subheading, children }) {
   if ( !children ) { return null; }
 
   return (
-    <wrapper className={'form-heading'} >
+    <div className={'form-heading'} >
       <div></div> {/** div here to make sure header margin doesn\'t collapse */}
       <Header as='h3' style={{ display: 'inline-block' }}>
         { children }
       </Header>
       <FormSubheading>{subheading}</FormSubheading>
       <br/>
-    </wrapper>
+    </div>
   );
 
 };  // End FormHeading{} Component
@@ -245,22 +245,22 @@ const InlineLabelInfo = function ( props ) {
   var labelInfoDisplay = ' hidden'; // Will be '' in future
 
   // return (
-  //   <wrapper className = { 'label-info info-revealer' + labelInfoDisplay } style = {{
+  //   <div className = { 'label-info info-revealer' + labelInfoDisplay } style = {{
   //     position: 'relative', top: '-0.5em',
   //     marginLeft: '1em', padding: '0.1em 0.2em',
   //     textAlign: 'left', verticalAlign: 'middle',
   //     border: '1px solid black'
   //   }}>
-  //     <wrapper className='info-indicator'>i</wrapper>
-  //     <wrapper className='info-tooltip'>{props.children}</wrapper>
-  //   </wrapper>
+  //     <div className='info-indicator'>i</div>
+  //     <div className='info-tooltip'>{props.children}</div>
+  //   </div>
   // );
 
   return (
-    <wrapper className = { 'label-info' + labelInfoDisplay }
+    <div className = { 'label-info' + labelInfoDisplay }
       style = {{ marginLeft: '1em' }}>
         { props.children }
-    </wrapper>
+    </div>
   );
 
 };  // End InlineLabelInfo{} Component
@@ -357,12 +357,12 @@ const IntervalColumnHeadings = function ({ type }) {
       styles      = { fontSize: '14px' };
 
   return (
-    <wrapper style={{ display: 'inline-block' }}>
+    <div style={{ display: 'inline-block' }}>
       <ColumnHeading type={type} colName='weekly'  style={styles}>Weekly</ColumnHeading>
       <ColumnHeading type={type} colName='monthly' style={styles}>Monthly</ColumnHeading>
       <ColumnHeading type={type} colName='yearly'  style={styles}>Yearly</ColumnHeading>
       <ColumnHeading type={type} colName={type} style={styles} columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
-    </wrapper>
+    </div>
   );
 
 };  // End IntervalColumnHeadings{} Component
@@ -501,10 +501,10 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
         className = { classes.concat( 'yearly' ).join(' ') }
         otherData = { 'yearly' }
       />
-      <wrapper className={'cashflow-column'}>
+      <div className={'cashflow-column'}>
         <label>{ children }</label>
         <InlineLabelInfo>{ labelInfo }</InlineLabelInfo>
-      </wrapper>
+      </div>
     </Form.Field>
   );
 
