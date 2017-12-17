@@ -10,6 +10,7 @@ const returnSame = function ( newVal, state ) {
   return newVal;
 };
 
+/** @todo Take regular bools out of here. */
 const toBoolean = function ( value ) {
   if ( value === 'Yes' ) {
     return true;
