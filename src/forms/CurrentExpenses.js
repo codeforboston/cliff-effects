@@ -275,13 +275,14 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         : null
       }
 
-      {/** Wrapper needed for spacing. Without, margins get added here,
-        *     but not other places, making spacing hard to manage. */}
-      <wrapper>
-        <FormHeading>Child Support</FormHeading>
-        <IntervalColumnHeadings type={type}/>
-        <CashFlowRow {...sharedProps} generic={'childSupportPaidOut'}> <strong>Legally obligated</strong> child support </CashFlowRow>
-      </wrapper>
+      { current.hasSnap
+        ? <wrapper>
+          <FormHeading>Child Support</FormHeading>
+          <IntervalColumnHeadings type={type}/>
+          <CashFlowRow {...sharedProps} generic={'childSupportPaidOut'}> <strong>Legally obligated</strong> child support </CashFlowRow>
+        </wrapper>
+        : null
+      }
 
       {/* Head or spouse can't be a dependent, so they don't count. */}
       { over12.length > 0
