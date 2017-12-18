@@ -4,6 +4,9 @@ import { SNAPhelpers } from '../../../../programs/federal/snap';
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import { cloneDeep } from 'lodash';
 
+// HELPERS
+import { SNAPData } from '../../../../data/federal/2017/SNAPData';
+
 
 // ==================
 // HELPERS
@@ -283,6 +286,65 @@ describe('SNAPhelpers', () => {
 
 
   // `SNAPhelpers.getUtilityCostByBracket()`
+  describe('`.getUtilityCostByBracket( timeClient )` given a time-restricted client object', () => {
+
+    let climate = SNAPData.UTILITY_COST_BRACKETS[ "Heating" ],
+        fuel    = SNAPData.UTILITY_COST_BRACKETS[ "Heating" ],
+        electric= SNAPData.UTILITY_COST_BRACKETS[ "Non-heating" ],
+        phone   = SNAPData.UTILITY_COST_BRACKETS[ "Telephone" ],
+        none    = SNAPData.UTILITY_COST_BRACKETS[ "Zero Utility Expenses" ];
+
+    let current;
+    beforeEach(() => {
+      current         = cloneDeep( defaultCurrent );
+      current.shelter = 'renter';
+    });
+
+    it('that is "homeless", shoud return 0', () => {
+      let special = cloneDeep( defaultCurrent );  // Already homeless
+      special.climateControl      = true;
+      special.fuelAssistance      = true;
+      special.nonHeatElectricity  = true;
+      special.phone               = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(0);
+    });
+    it('that has just climate control it should return the climate control amount', () => {
+      current.climateControl      = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(climate);
+    });
+    it('that has just fuel assistance it should return the climate control amount', () => {
+      current.fuelAssistance      = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(climate);
+    });
+    it('that has just electricity it should return the electricity amount', () => {
+      current.nonHeatElectricity  = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(electric);
+    });
+    it('that has just phone it should return the phone amount', () => {
+      current.phone               = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(phone);
+    });
+    it('that has all types of utilities it should return the climate control amount', () => {
+      current.climateControl      = true;
+      current.fuelAssistance      = true;
+      current.nonHeatElectricity  = true;
+      current.phone               = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(climate);
+    });
+    it('that has fuel assistance and other non-climate utiliites it should return the climate control amount', () => {
+      current.fuelAssistance      = true;
+      current.nonHeatElectricity  = true;
+      current.phone               = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(climate);
+    });
+    it('that has electricity and phone it should return the electricity amount', () => {
+      current.nonHeatElectricity  = true;
+      current.phone               = true;
+      expect(SNAPhelpers.getUtilityCostByBracket( current )).toEqual(electric);
+    });
+  });
+
+
   // `SNAPhelpers.getTotalshelterCost()`
   // `SNAPhelpers.getStandardDeduction()`
   // `SNAPhelpers.getEarnedIncomeDeduction()`
