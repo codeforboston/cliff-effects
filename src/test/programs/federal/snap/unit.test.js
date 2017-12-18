@@ -214,8 +214,6 @@ describe('SNAPhelpers', () => {
     });
   });
 
-
-  // `SNAPhelpers.getChildSupportPaid()`
   // `SNAPhelpers.getAdjustedGross()`
   // `SNAPhelpers.getPovertyGrossIncomeLevel()`
   // `SNAPhelpers.getGrossIncomeTestResult()`

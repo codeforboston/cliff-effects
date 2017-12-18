@@ -80,10 +80,6 @@ hlp.hasDependentsOver12 = function ( client ) {
 
 // ======================
 //GROSS INCOME
-hlp.getChildSupportPaid = function (client) {
-  return client.childSupportPaidOut;
-};
-
 hlp.getAdjustedGross = function (client) {
   var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut
   return Math.max( 0, raw );
