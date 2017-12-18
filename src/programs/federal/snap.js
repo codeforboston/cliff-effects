@@ -62,7 +62,7 @@ hlp.householdSize = function ( client ) {
 };
 
 hlp.isElderlyOrDisabled = function ( member ) {
-  return member.age >= 60 || isDisabled( member );
+  return member.m_age >= 60 || isDisabled( member );
 };
 
 hlp.hasDisabledOrElderlyMember = function (client) {
