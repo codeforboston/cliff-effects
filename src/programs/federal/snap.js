@@ -14,6 +14,7 @@ import {
 } from '../../utils/getGovData';
 import {
   getEveryMemberOfHousehold,
+  getDependentMembers,
   isDisabled,
   isUnder13,
   getUnder13OfHousehold
@@ -69,8 +70,8 @@ hlp.hasDisabledOrElderlyMember = function (client) {
   return getEveryMemberOfHousehold( client, hlp.isElderlyOrDisabled ).length > 0;
 };
 
-hlp.isDependentOver12 = function ( member ) {
-  return (!isUnder13( member ) && member.age <= 18) || isDisabled( member );
+hlp.isOver12 = function ( member ) {
+  return !isUnder13( member );
 };
 
 
@@ -206,7 +207,7 @@ hlp.getDependentCareDeduction = function (client) {
     dependentCare += sumProps( client, UNDER13_CARE_EXPENSES );
   }
 
-  if ( getEveryMemberOfHousehold( client, hlp.isDependentOver12 ).length > 0 ) {
+  if ( getDependentMembers( client, hlp.isOver12 ).length > 0 ) {
     dependentCare += sumProps( client, OVER12_CARE_EXPENSES );
   }
 
