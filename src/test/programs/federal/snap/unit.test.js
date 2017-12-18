@@ -99,7 +99,7 @@ describe('SNAPhelpers', () => {
 
 
   // `SNAPhelpers.hasDisabledOrElderlyMember()`
-  describe('`.isElderlyOrDisabled( household )` given a client with a household containing', () => {
+  describe('`.isElderlyOrDisabled( household )` given a time-constrained client with a household containing', () => {
     let current;
     beforeEach(() => { current = cloneDeep( defaultCurrent ); });
 
@@ -144,51 +144,72 @@ describe('SNAPhelpers', () => {
         expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
       });
     });
-
   });
 
 
-  // `SNAPhelpers.isOver12()`
-  describe('`.isOver12( member )` given', () => {
-    describe('a head of household', () => {
-      let head;
-      beforeEach(() => { head = { m_age: 30, m_role: 'head', m_disabled: false } });
+  // `SNAPhelpers.hasDependentsOver12()`
+  describe('`.hasDependentsOver12( client )` given a time-constrained client with a household containing', () => {
+    let current;
+    beforeEach(() => { current = cloneDeep( defaultCurrent ); });
 
-      it('that is 13 should return true', () => {
-        head.m_age = 13;
-        expect(SNAPhelpers.isOver12( head )).toBe(true);
+    describe('a head of household', () => {
+
+      it('that is not disabled or under 18 should return false', () => {
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
       });
-      it('that is 12 should return false', () => {
-        head.m_age = 12;
-        expect(SNAPhelpers.isOver12( head )).toBe(false);
+      it('that is under 13 should return false', () => {
+        current.household[0].m_age = 12;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
+      });
+      it('that is under 18 should return false', () => {
+        current.household[0].m_age = 13;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
+      });
+      it('that is disabled should return false', () => {
+        current.household[0].m_disabled = true;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
       });
     });
 
     describe('a spouse', () => {
-      let spouse;
-      beforeEach(() => { spouse = { m_age: 30, m_role: 'spouse', m_disabled: false } });
 
-      it('that is 13 should return true', () => {
-        spouse.m_age = 13;
-        expect(SNAPhelpers.isOver12( spouse )).toBe(true);
+      beforeEach(() => { current.household[1] = { m_age: 30, m_role: 'spouse', m_disabled: false }; });
+
+      it('that is not disabled or under 18 should return false', () => {
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
       });
-      it('that is 12 should return false', () => {
-        spouse.m_age = 12;
-        expect(SNAPhelpers.isOver12( spouse )).toBe(false);
+      it('that is under 13 should return false', () => {
+        current.household[1].m_age = 12;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
+      });
+      it('that is under 18 should return false', () => {
+        current.household[1].m_age = 13;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
+      });
+      it('that is disabled should return false', () => {
+        current.household[1].m_disabled = true;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
       });
     });
 
     describe('a regular member', () => {
-      let member;
-      beforeEach(() => { member = { m_age: 30, m_role: 'member', m_disabled: false }; });
 
-      it('that is 13 should return true', () => {
-        member.m_age = 13;
-        expect(SNAPhelpers.isOver12( member )).toBe(true);
+      beforeEach(() => { current.household[1] = { m_age: 30, m_role: 'member', m_disabled: false }; });
+
+      it('that is not disabled or under 18 should return false', () => {
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
       });
-      it('that is 12 should return false', () => {
-        member.m_age = 12;
-        expect(SNAPhelpers.isOver12( member )).toBe(false);
+      it('that is under 13 should return false', () => {
+        current.household[1].m_age = 12;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(false);
+      });
+      it('that is under 18 should return true', () => {
+        current.household[1].m_age = 13;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(true);
+      });
+      it('that is disabled should return true', () => {
+        current.household[1].m_disabled = true;
+        expect(SNAPhelpers.hasDependentsOver12( current )).toBe(true);
       });
     });
   });
