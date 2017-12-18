@@ -70,6 +70,8 @@ describe('dependents', () => {
   const notDependents = [
     { m_age: 18, m_role: 'head' },
     { m_age: 18, m_role: 'spouse' },
+    { m_age: 19, m_disabled: true, m_role: 'head' },
+    { m_age: 19, m_disabled: true, m_role: 'spouse' },
     { m_age: 19, m_disabled: false, m_role: 'member' },
     { m_age: 26, m_disabled: false, m_role: 'member' }
   ];
