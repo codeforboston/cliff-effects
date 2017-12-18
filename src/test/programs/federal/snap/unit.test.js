@@ -7,30 +7,6 @@ import { cloneDeep } from 'lodash';
 const defaultClient   = cloneDeep( CLIENT_DEFAULTS );
 const defaultCurrent  = defaultClient.current;
 
-// isElderlyOrDisabled
-// hasDisabledOrElderlyMember
-// isDependentOver12
-// getChildSupportPaid
-// getAdjustedGross
-// getPovertyGrossIncomeLevel
-// getGrossIncomeTestResult
-// isHomeless
-// getNonUtilityCosts
-// getUtilityCostByBracket
-// getTotalshelterCost
-// getStandardDeduction
-// getEarnedIncomeDeduction
-// getMedicalDeduction
-// getDependentCareDeduction
-// getHalfAdjustedIncome
-// getRawShelterDeduction
-// getShelterDeduction
-// getHomelessDeduction
-// getAdjustedNotGrossIncome
-// monthlyNetIncome
-// getMaxNetIncome
-// getNetIncomeTestResult
-
 var addNumMembers = function ( num, household ) {
   while ( num > 0 ) {
     household.push({ age: 30, role: "member", disabled: false });
@@ -41,7 +17,7 @@ var addNumMembers = function ( num, household ) {
 
 describe('SNAPhelpers given a timed client object', () => {
 
-  // `SNAPhelpers.householdSize`
+  // `SNAPhelpers.householdSize()`
   describe('should get household size of', () => {
     it('1', () => {
       expect(SNAPhelpers.householdSize( defaultCurrent, 'current' )).toEqual(1);
@@ -57,5 +33,29 @@ describe('SNAPhelpers given a timed client object', () => {
       expect(SNAPhelpers.householdSize( current, 'current' )).toEqual(15);
     });
   });
+
+  // `SNAPhelpers.isElderlyOrDisabled()`
+  // `SNAPhelpers.hasDisabledOrElderlyMember()`
+  // `SNAPhelpers.isDependentOver12()`
+  // `SNAPhelpers.getChildSupportPaid()`
+  // `SNAPhelpers.getAdjustedGross()`
+  // `SNAPhelpers.getPovertyGrossIncomeLevel()`
+  // `SNAPhelpers.getGrossIncomeTestResult()`
+  // `SNAPhelpers.isHomeless()`
+  // `SNAPhelpers.getNonUtilityCosts()`
+  // `SNAPhelpers.getUtilityCostByBracket()`
+  // `SNAPhelpers.getTotalshelterCost()`
+  // `SNAPhelpers.getStandardDeduction()`
+  // `SNAPhelpers.getEarnedIncomeDeduction()`
+  // `SNAPhelpers.getMedicalDeduction()`
+  // `SNAPhelpers.getDependentCareDeduction()`
+  // `SNAPhelpers.getHalfAdjustedIncome()`
+  // `SNAPhelpers.getRawShelterDeduction()`
+  // `SNAPhelpers.getShelterDeduction()`
+  // `SNAPhelpers.getHomelessDeduction()`
+  // `SNAPhelpers.getAdjustedNotGrossIncome()`
+  // `SNAPhelpers.monthlyNetIncome()`
+  // `SNAPhelpers.getMaxNetIncome()`
+  // `SNAPhelpers.getNetIncomeTestResult()`
 
 });
