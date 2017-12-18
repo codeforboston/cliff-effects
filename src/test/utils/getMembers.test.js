@@ -21,6 +21,10 @@ test('getEveryMember()', () => {
   expect(getEveryMember([0, 1, 0], val => val === 0)).toHaveLength(2);
 });
 
+test('getEveryMember() empty result', () => {
+  expect(getEveryMember([1, 1, 1], value => value === 0)).toEqual([]);
+})
+
 // getEveryMemberOfHousehold(obj, fn) = obj.household.filter(fn)
 test('getEveryMemberOfHousehold()', () => {
   const client = { household: [0, 1, 0] };
