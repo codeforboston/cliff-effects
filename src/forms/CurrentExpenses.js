@@ -244,7 +244,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
   /** @todo Make an age-checking function to
    *     keep household data structure under 
    *     control in one place. */
-  var isOver12 = function ( member ) { return member.m_age > 12; };
+  var isOver12 = function ( member ) { return !isUnder13( member ); };
 
   // Won't include head or spouse
   var allDependents = getDependentMembers( household ),
