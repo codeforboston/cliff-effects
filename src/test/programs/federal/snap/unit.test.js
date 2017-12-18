@@ -269,6 +269,7 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getGrossIncomeTestResult()`
 
 
+  /** @todo `.isHomeless()` should probably be an abstracted shelter getter.  */
   // `SNAPhelpers.isHomeless()`
   describe('`.isHomeless( timeClient )` given a time-restricted client object', () => {
     let current;
@@ -280,20 +281,56 @@ describe('SNAPhelpers', () => {
     });
     it('that is a "renter", should return false', () => {
       current.shelter = 'renter';
-      expect(SNAPhelpers.isHomeless( current )).toEqual(false);
+      expect(SNAPhelpers.isHomeless( current )).toBe(false);
     });
     it('that is a "voucher", should return false', () => {
       current.shelter = 'voucher';
-      expect(SNAPhelpers.isHomeless( current )).toEqual(false);
+      expect(SNAPhelpers.isHomeless( current )).toBe(false);
     });
     it('that is a "homeowner", should return false', () => {
       current.shelter = 'homeowner';
-      expect(SNAPhelpers.isHomeless( current )).toEqual(false);
+      expect(SNAPhelpers.isHomeless( current )).toBe(false);
     });
   });
 
 
   // `SNAPhelpers.getNonUtilityCosts()`
+  describe('`.getNonUtilityCosts( timeClient )` given a time-restricted client object', () => {
+    let current;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      current.mortgage          = 1;
+      current.housingInsurance  = 10;
+      current.propertyTax       = 100;
+      current.rent              = 1000;
+      current.contractRent      = 10000;
+      current.rentShare         = 100000;
+    });
+
+    it('that is "homeless", shoud return 0', () => {
+      current.shelter = "homeless";
+      expect(SNAPhelpers.getNonUtilityCosts( current )).toEqual(0);
+    });
+    it('that is a "homeowner", should return only the sum of mortgage, housing insurance, and property taxes', () => {
+      current.shelter = 'homeowner';
+      expect(SNAPhelpers.getNonUtilityCosts( current )).toEqual(111);
+    });
+    it('that is a "renter", should return only the rent amount', () => {
+      current.shelter = 'renter';
+      expect(SNAPhelpers.getNonUtilityCosts( current )).toEqual(1000);
+    });
+    it('that is a "voucher", should return only the rent share (esp. not contract rent)', () => {
+      current.shelter = 'voucher';
+      expect(SNAPhelpers.getNonUtilityCosts( current )).toEqual(100000);
+    });
+    /** @todo Should a wrong shelter value to `.getNonUtilityCosts()` throw an error? */
+    it('that is not an allowed value, should return null', () => {
+      current.shelter = 'wrong';
+      expect(SNAPhelpers.getNonUtilityCosts( current )).toBe(null);
+    });
+  });
+
+
   // `SNAPhelpers.getUtilityCostByBracket()`
   // `SNAPhelpers.getTotalshelterCost()`
   // `SNAPhelpers.getStandardDeduction()`
