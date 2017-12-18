@@ -81,7 +81,6 @@ const valueFixers = {
   nonHeatElectricity:             returnSame,
   phone:                          returnSame,
   fuelAssistance:                 toBoolean,
-  otherExpenses:                  stringToNumber,
 
 };  // end valueFixers
 
