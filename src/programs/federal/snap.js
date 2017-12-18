@@ -210,6 +210,7 @@ hlp.getDependentCareDeduction = function (client) {
     dependentCare += sumProps( client, UNDER13_CARE_EXPENSES );
   }
 
+  /** May want to test this the same way as Expenses step does. More consistent? */
   if ( hlp.hasDependentsOver12( client ) ) {
     dependentCare += sumProps( client, OVER12_CARE_EXPENSES );
   }
