@@ -46,55 +46,115 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.isElderlyOrDisabled()`
   describe('`.isElderlyOrDisabled( member )` given', () => {
 
-    let current;
-    beforeEach(() => { current = cloneDeep( defaultCurrent ); });
-
     describe('a head of household', () => {
+      let head;
+      beforeEach(() => { head = { m_age: 30, m_role: 'head', m_disabled: false } });
+
       it('that is not disabled and under 60 should return false', () => {
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[0] )).toBe(false);
+        expect(SNAPhelpers.isElderlyOrDisabled( head )).toBe(false);
       });
       it('that is disabled should return true', () => {
-        current.household[0].m_disabled = true;
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[0] )).toBe(true);
+        head.m_disabled = true;
+        expect(SNAPhelpers.isElderlyOrDisabled( head )).toBe(true);
       });
       it('that is 60 should return true', () => {
-        current.household[0].m_age = 60;
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[0] )).toBe(true);
+        head.m_age = 60;
+        expect(SNAPhelpers.isElderlyOrDisabled( head )).toBe(true);
       });
     });
+
     describe('a spouse', () => {
+      let spouse;
+      beforeEach(() => { spouse = { m_age: 30, m_role: 'spouse', m_disabled: false } });
+
       it('that is not disabled and under 60 should return false', () => {
-        current.household.push({ m_age: 30, m_role: 'spouse', m_disabled: false });
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[1] )).toBe(false);
+        expect(SNAPhelpers.isElderlyOrDisabled( spouse )).toBe(false);
       });
       it('that is disabled should return true', () => {
-        current.household.push({ m_age: 30, m_role: 'spouse', m_disabled: true });
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[1] )).toBe(true);
+        spouse.m_disabled = true;
+        expect(SNAPhelpers.isElderlyOrDisabled( spouse )).toBe(true);
       });
       it('that is 60 should return true', () => {
-        current.household.push({ m_age: 60, m_role: 'spouse', m_disabled: false });
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[1] )).toBe(true);
+        spouse.m_age = 60;
+        expect(SNAPhelpers.isElderlyOrDisabled( spouse )).toBe(true);
       });
     });
+
     describe('a member', () => {
+      let member;
+      beforeEach(() => { member = { m_age: 30, m_role: 'member', m_disabled: false }; });
+
       it('that is not disabled and under 60 should return false', () => {
-        current.household.push({ m_age: 30, m_role: 'member', m_disabled: false });
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[1] )).toBe(false);
+        expect(SNAPhelpers.isElderlyOrDisabled( member )).toBe(false);
       });
       it('that is disabled should return true', () => {
-        current.household.push({ m_age: 30, m_role: 'member', m_disabled: true });
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[1] )).toBe(true);
+        member.m_disabled = true;
+        expect(SNAPhelpers.isElderlyOrDisabled( member )).toBe(true);
       });
       it('that is 60 should return true', () => {
-        current.household.push({ m_age: 60, m_role: 'member', m_disabled: false });
-        expect(SNAPhelpers.isElderlyOrDisabled( current.household[1] )).toBe(true);
+        member.m_age = 60;
+        expect(SNAPhelpers.isElderlyOrDisabled( member )).toBe(true);
       });
     });
   });
 
 
   // `SNAPhelpers.hasDisabledOrElderlyMember()`
+  describe('`.isElderlyOrDisabled( household )` given a client with a household containing', () => {
+
+    let current;
+    beforeEach(() => { current = cloneDeep( defaultCurrent ); });
+
+    describe('a head of household', () => {
+      it('that is not disabled and under 60 should return false', () => {
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
+      });
+      it('that is disabled should return true', () => {
+        current.household[0].m_disabled = true;
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
+      });
+      it('that is 60 should return true', () => {
+        current.household[0].m_age = 60;
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
+      });
+    });
+    describe('a spouse', () => {
+      it('that is not disabled and under 60 should return false', () => {
+        current.household.push({ m_age: 30, m_role: 'spouse', m_disabled: false });
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
+      });
+      it('that is disabled should return true', () => {
+        current.household.push({ m_age: 30, m_role: 'spouse', m_disabled: true });
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
+      });
+      it('that is 60 should return true', () => {
+        current.household.push({ m_age: 60, m_role: 'spouse', m_disabled: false });
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
+      });
+    });
+    describe('a member', () => {
+      it('that is not disabled and under 60 should return false', () => {
+        current.household.push({ m_age: 30, m_role: 'member', m_disabled: false });
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
+      });
+      it('that is disabled should return true', () => {
+        current.household.push({ m_age: 30, m_role: 'member', m_disabled: true });
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
+      });
+      it('that is 60 should return true', () => {
+        current.household.push({ m_age: 60, m_role: 'member', m_disabled: false });
+        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
+      });
+    });
+  });
+
+
   // `SNAPhelpers.isDependentOver12()`
+  describe('`.isDependentOver12( member )` given', () => {
+
+  });
+
+
   // `SNAPhelpers.getChildSupportPaid()`
   // `SNAPhelpers.getAdjustedGross()`
   // `SNAPhelpers.getPovertyGrossIncomeLevel()`
