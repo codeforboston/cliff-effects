@@ -275,6 +275,7 @@ describe('SNAPhelpers', () => {
     beforeEach(() => { current = cloneDeep( defaultCurrent ); });
 
     it('that is "homeless", shoud return true', () => {
+      current.shelter = "homeless";
       expect(SNAPhelpers.isHomeless( current )).toBe(true);
     });
     it('that is a "renter", should return false', () => {
