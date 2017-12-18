@@ -83,12 +83,12 @@ describe('dependents', () => {
   });
 
   test('getDependentMembers()', () => {
-    expect(getDependentMembers(allMembers)).toHaveLength(3);
+    expect(getDependentMembers(allMembers)).toHaveLength(dependents.length);
   });
 
   test('getDependentsOfHousehold()', () => {
     const client = { household: allMembers };
-    expect(getDependentsOfHousehold(client)).toHaveLength(3);
+    expect(getDependentsOfHousehold(client)).toHaveLength(dependents.length);
   });
 });
 
@@ -123,11 +123,11 @@ describe('under 13', () => {
   });
 
   test('getUnder13Members()', () => {
-    expect(getUnder13Members(allMembers)).toHaveLength(2);
+    expect(getUnder13Members(allMembers)).toHaveLength(under13.length);
   });
 
   test('getUnder13OfHousehold()', () => {
     const client = { household: allMembers };
-    expect(getUnder13OfHousehold(client)).toHaveLength(2);
+    expect(getUnder13OfHousehold(client)).toHaveLength(under13.length);
   });
 });
