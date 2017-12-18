@@ -215,55 +215,6 @@ describe('SNAPhelpers', () => {
   });
 
 
-  // `SNAPhelpers.getChildSupportPaid()`
-  describe('`.getChildSupportPaid( timeClient )` given a time-constrained client paying', () => {
-    let current;
-    beforeEach(() => { current = cloneDeep( defaultCurrent ); });
-
-    describe('no ', () => {
-      it('that is not disabled and under 60 should return false', () => {
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
-      });
-      it('that is disabled should return true', () => {
-        current.household[0].m_disabled = true;
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
-      });
-      it('that is 60 should return true', () => {
-        current.household[0].m_age = 60;
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
-      });
-    });
-    describe('a spouse', () => {
-      it('that is not disabled and under 60 should return false', () => {
-        current.household.push({ m_age: 30, m_role: 'spouse', m_disabled: false });
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
-      });
-      it('that is disabled should return true', () => {
-        current.household.push({ m_age: 30, m_role: 'spouse', m_disabled: true });
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
-      });
-      it('that is 60 should return true', () => {
-        current.household.push({ m_age: 60, m_role: 'spouse', m_disabled: false });
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
-      });
-    });
-    describe('a regular member', () => {
-      it('that is not disabled and under 60 should return false', () => {
-        current.household.push({ m_age: 30, m_role: 'member', m_disabled: false });
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
-      });
-      it('that is disabled should return true', () => {
-        current.household.push({ m_age: 30, m_role: 'member', m_disabled: true });
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
-      });
-      it('that is 60 should return true', () => {
-        current.household.push({ m_age: 60, m_role: 'member', m_disabled: false });
-        expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
-      });
-    });
-  });
-
-
   // `SNAPhelpers.getAdjustedGross()`
   // `SNAPhelpers.getPovertyGrossIncomeLevel()`
   // `SNAPhelpers.getGrossIncomeTestResult()`
