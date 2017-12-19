@@ -264,14 +264,18 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getPovertyGrossIncomeLevel()`
   test('`getPovertyGrossIncomeLevel( timeClient )', () => {
     const current = cloneDeep( defaultCurrent );
-    const mock = jest.spyOn(getGovData, 'getMonthlyLimitBySize');
+    
+    const getMonthlyLimitBySize = jest.spyOn(getGovData, 'getMonthlyLimitBySize');
+    const monthlyLimit = 12;
+    getMonthlyLimitBySize.mockImplementation(() => monthlyLimit);
 
     const federalPovertyGuidelines = expect.any(Object);
     const numMembers = current.household.length;
 
-    SNAPhelpers.getPovertyGrossIncomeLevel( current );
-    expect(mock).toBeCalledWith(federalPovertyGuidelines, numMembers, 200);
-    mock.mockRestore();
+    expect(SNAPhelpers.getPovertyGrossIncomeLevel( current )).toEqual(monthlyLimit);
+    expect(getMonthlyLimitBySize).toBeCalledWith(federalPovertyGuidelines, numMembers, 200);
+
+    getMonthlyLimitBySize.mockRestore();
   });
 
 
