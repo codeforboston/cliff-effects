@@ -2,6 +2,7 @@ import { SNAPhelpers } from '../../../../programs/federal/snap';
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
+import * as cashflow from '../../../../utils/cashflow';
 import { UNEARNED_INCOME_SOURCES } from '../../../../data/massachusetts/name-cores';
 import { cloneDeep } from 'lodash';
 
@@ -230,23 +231,29 @@ describe('SNAPhelpers', () => {
 
   // `SNAPhelpers.getAdjustedGross()`
   describe('`.getAdjustedGross( timeClient )` given a time-restricted client object', () => {
-    let current;
+    const grossUnearnedIncome = 1;
+    let current, mock;
+
     beforeEach(() => {
       current = cloneDeep( defaultCurrent );
-      UNEARNED_INCOME_SOURCES.forEach(name => current[name] = 1);
       current.childSupportPaidOut = 100;
+      mock = jest.spyOn(cashflow, 'getGrossUnearnedIncomeMonthly');
+      mock.mockImplementation(() => grossUnearnedIncome);
+    });
+    afterEach(() => {
+      mock.mockRestore();
     });
 
     it('with positive raw adjusted gross income, should return that income', () => {
       current.earned = 1000;
-      const income = current.earned + UNEARNED_INCOME_SOURCES.length - current.childSupportPaidOut;
+      const income = current.earned + grossUnearnedIncome - current.childSupportPaidOut;
       expect(income).toBeGreaterThan(0);
       expect(SNAPhelpers.getAdjustedGross( current )).toEqual(income);
     });
 
     it('with negative raw adjusted gross income, should return zero', () => {
       current.earned = 0;
-      const income = current.earned + UNEARNED_INCOME_SOURCES.length - current.childSupportPaidOut;
+      const income = current.earned + grossUnearnedIncome - current.childSupportPaidOut;
       expect(income).toBeLessThan(0);
       expect(SNAPhelpers.getAdjustedGross( current )).toEqual(0);
     });
