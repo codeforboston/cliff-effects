@@ -264,7 +264,7 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getPovertyGrossIncomeLevel()`
   test('`getPovertyGrossIncomeLevel( timeClient )', () => {
     const current = cloneDeep( defaultCurrent );
-    
+
     const getMonthlyLimitBySize = jest.spyOn(getGovData, 'getMonthlyLimitBySize');
     const monthlyLimit = 12;
     getMonthlyLimitBySize.mockImplementation(() => monthlyLimit);
@@ -544,7 +544,48 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getShelterDeduction()`
   // `SNAPhelpers.getHomelessDeduction()`
   // `SNAPhelpers.getAdjustedNotGrossIncome()`
+
+
   // `SNAPhelpers.monthlyNetIncome()`
+  describe('`.monthlyNetIncome( timeClient )` given a time-restricted client object with', () => {
+    let current, mocks, income, homelessDeduction, shelterDeduction;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      mocks = [];
+    });
+    afterEach(() => {
+      mocks.forEach(mock => mock.mockRestore());
+    });
+
+    const mockHelpers = () => {
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
+        jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
+        jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction)
+      ];
+    };
+
+    it('returns a adjusted income less certain deductions', () => {
+      income = 1000;
+      homelessDeduction = 100;
+      shelterDeduction = 1;
+      mockHelpers()
+      
+      const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
+      expect(SNAPhelpers.monthlyNetIncome( current )).toEqual(monthlyNetIncome);
+    });
+
+    it('that has a negative income after deductions, it should return 0', () => {
+      income = 0;
+      homelessDeduction = 100;
+      shelterDeduction = 1;
+      mockHelpers()
+      
+      const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
+      expect(monthlyNetIncome).toBeLessThan(0);
+      expect(SNAPhelpers.monthlyNetIncome( current )).toEqual(0);
+    });
+  })
 
 
   // `SNAPhelpers.getMaxNetIncome()`
