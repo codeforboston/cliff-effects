@@ -271,7 +271,29 @@ describe('SNAPhelpers', () => {
     mock.mockRestore();
   });
 
+
   // `SNAPhelpers.getGrossIncomeTestResult()`
+  describe('`.getGrossIncomeTestResult( timeClient )` given a time-restricted client object', () => {
+    let current;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+    });
+
+    it('that has an elderly or disabled dependent, should return true', () => {
+      current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
+      expect(SNAPhelpers.getGrossIncomeTestResult( current )).toBe(true);
+    });
+
+    it('that has adjusted gross income under the poverty level, should return true', () => {
+      current.earned = 0;
+      expect(SNAPhelpers.getGrossIncomeTestResult( current )).toBe(true);
+    });
+
+    it('that has adjusted gross income above the poverty level, should return false', () => {
+      current.earned = 100000;
+      expect(SNAPhelpers.getGrossIncomeTestResult( current )).toBe(false);
+    });
+  });
 
 
   /** @todo `.isHomeless()` should probably be an abstracted
