@@ -2,6 +2,9 @@ import { SNAPhelpers } from '../../../../programs/federal/snap';
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
+import * as cashflow from '../../../../utils/cashflow';
+import * as getGovData from '../../../../utils/getGovData';
+import { UNEARNED_INCOME_SOURCES } from '../../../../data/massachusetts/name-cores';
 import { cloneDeep } from 'lodash';
 
 // HELPERS
@@ -228,8 +231,72 @@ describe('SNAPhelpers', () => {
 
 
   // `SNAPhelpers.getAdjustedGross()`
+  describe('`.getAdjustedGross( timeClient )` given a time-restricted client object', () => {
+    const grossUnearnedIncome = 1;
+    let current, mock;
+
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      current.childSupportPaidOut = 100;
+      mock = jest.spyOn(cashflow, 'getGrossUnearnedIncomeMonthly');
+      mock.mockImplementation(() => grossUnearnedIncome);
+    });
+    afterEach(() => {
+      mock.mockRestore();
+    });
+
+    it('with positive raw adjusted gross income, should return that income', () => {
+      current.earned = 1000;
+      const income = current.earned + grossUnearnedIncome - current.childSupportPaidOut;
+      expect(income).toBeGreaterThan(0);
+      expect(SNAPhelpers.getAdjustedGross( current )).toEqual(income);
+    });
+
+    it('with negative raw adjusted gross income, should return zero', () => {
+      current.earned = 0;
+      const income = current.earned + grossUnearnedIncome - current.childSupportPaidOut;
+      expect(income).toBeLessThan(0);
+      expect(SNAPhelpers.getAdjustedGross( current )).toEqual(0);
+    });
+  });
+
+
   // `SNAPhelpers.getPovertyGrossIncomeLevel()`
+  test('`getPovertyGrossIncomeLevel( timeClient )', () => {
+    const current = cloneDeep( defaultCurrent );
+    const mock = jest.spyOn(getGovData, 'getMonthlyLimitBySize');
+
+    const federalPovertyGuidelines = expect.any(Object);
+    const numMembers = current.household.length;
+
+    SNAPhelpers.getPovertyGrossIncomeLevel( current );
+    expect(mock).toBeCalledWith(federalPovertyGuidelines, numMembers, 200);
+    mock.mockRestore();
+  });
+
+
   // `SNAPhelpers.getGrossIncomeTestResult()`
+  describe('`.getGrossIncomeTestResult( timeClient )` given a time-restricted client object', () => {
+    let current;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+    });
+
+    it('that has an elderly or disabled dependent, should return true', () => {
+      current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
+      expect(SNAPhelpers.getGrossIncomeTestResult( current )).toBe(true);
+    });
+
+    it('that has adjusted gross income under the poverty level, should return true', () => {
+      current.earned = 0;
+      expect(SNAPhelpers.getGrossIncomeTestResult( current )).toBe(true);
+    });
+
+    it('that has adjusted gross income above the poverty level, should return false', () => {
+      current.earned = 100000;
+      expect(SNAPhelpers.getGrossIncomeTestResult( current )).toBe(false);
+    });
+  });
 
 
   /** @todo `.isHomeless()` should probably be an abstracted
@@ -475,6 +542,33 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getAdjustedNotGrossIncome()`
   // `SNAPhelpers.monthlyNetIncome()`
   // `SNAPhelpers.getMaxNetIncome()`
+
+
   // `SNAPhelpers.getNetIncomeTestResult()`
+  describe('`.getNetIncomeTestResult( timeClient )` given a time-restricted client object with', () => {
+    let current, getMaxNetIncome;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      getMaxNetIncome = jest.spyOn(SNAPhelpers, 'getMaxNetIncome');
+    });
+    afterEach(() => {
+      getMaxNetIncome.mockRestore();
+    });
+
+    it('that has no limit on net income, should return true', () => {
+      getMaxNetIncome.mockImplementation(() => 'no limit');
+      expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
+    });
+
+    it('that has net income below monthly limit, should return true', () => {
+      getMaxNetIncome.mockImplementation(() => Number.POSITIVE_INFINITY);
+      expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
+    });
+
+    it('that has net income above monthly limit, should return false', () => {
+      getMaxNetIncome.mockImplementation(() => Number.NEGATIVE_INFINITY);
+      expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(false);
+    });
+  });
 
 });
