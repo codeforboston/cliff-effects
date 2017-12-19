@@ -61,7 +61,6 @@ const CLIENT_DEFAULTS = {
     nonHeatElectricity:             false,            // boolean
     phone:                          false,            // boolean
     fuelAssistance:                 false,            // boolean  Note: Input is 'yes', 'no', but should be being converted
-    otherExpenses:                  0                 // positive number
   },
 
   // Note: A `future` value will default to the client's `current` value until a user changes it explicitly

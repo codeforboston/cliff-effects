@@ -57,7 +57,6 @@ const CLIENT_ROW_N = {
     nonHeatElectricity:             -----         boolean
     phone:                          -----         boolean
     fuelAssistance:                 -----         boolean
-    otherExpenses:                  -----         positive number
     // Values to test, to 'expect'
     expectedSNAP:                   COL-U         number or null
     // This should always be given a value of null for now
@@ -118,7 +117,6 @@ const CLIENT_ROW_N = {
 //     nonHeatElectricity:             false,
 //     phone:                          false,
 //     fuelAssistance:                 false,
-//     otherExpenses:                  0,
 //     // Values to test, to 'expect'
 //     expectedSNAP:                  1062,
 //     expectedSection8:              null  // null (yes, public housing)
@@ -215,7 +213,6 @@ const CLIENT_ROW_3 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   1062,
     expectedSection8:               null  // (yes, public housing)
@@ -277,7 +274,6 @@ const CLIENT_ROW_4 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   117,
     expectedSection8:               null  // null (yes, public housing)
@@ -339,7 +335,6 @@ const CLIENT_ROW_5 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   301,
     expectedSection8:               null
@@ -401,7 +396,6 @@ const CLIENT_ROW_6 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   192,
     expectedSection8:               null  // "Yes - Public Housing"
@@ -468,7 +462,6 @@ const CLIENT_ROW_7 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   20,
     expectedSection8:               null  // "Yes - Public Housing but NOT Section 8"
@@ -540,7 +533,6 @@ const CLIENT_ROW_8 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   null,
     expectedSection8:               null  // None given
@@ -603,7 +595,6 @@ const CLIENT_ROW_9 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   150,
     expectedSection8:               null  // None given
@@ -670,7 +661,6 @@ const CLIENT_ROW_10 = {
     nonHeatElectricity:             false,
     phone:                          false,
     fuelAssistance:                 false,
-    otherExpenses:                  0,
     // Values to test, to 'expect'
     expectedSNAP:                   8,
     expectedSection8:               null  // None given
@@ -738,7 +728,6 @@ const CLIENT_ROW_10 = {
 //     nonHeatElectricity:             false,
 //     phone:                          false,
 //     fuelAssistance:                 false,
-//     otherExpenses:                  0,
 //    // Values to test, to 'expect'
 //     expectedSNAP:                  null,
 //     expectedSection8:              null  // "Yes - Public Housing"

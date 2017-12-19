@@ -340,11 +340,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       }
 
       <Housing current={current} time={time} type={type} setClientProperty={setClientProperty} />
-
-      <FormHeading>Other</FormHeading>
-      <CashFlowRow {...sharedProps} generic={'otherExpenses'}> Other Expenses </CashFlowRow>
-
-    </div>
+  </div>
   );
 
 };  // End ExpensesFormContent()
