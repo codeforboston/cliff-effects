@@ -394,20 +394,20 @@ describe('SNAPhelpers', () => {
   // Not sure if this test is at all useful
   // `SNAPhelpers.getEarnedIncomeDeduction()`
   // PERCENT_GROSS_MONTHLY_EARNED: 0.20
-  describe('`.getEarnedIncomeDeduction( timeClient )` given a time-restricted client object with a household size of', () => {
+  describe('`.getEarnedIncomeDeduction( timeClient )` given a time-restricted client object with an earned income of', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep( defaultCurrent );
     });
 
-    it('1 should get amount equal to STANDARD_DEDUCTIONS bracket 1', () => {
+    it('0 should get 0 * .2', () => {
       expect(SNAPhelpers.getEarnedIncomeDeduction( defaultCurrent )).toEqual(0);
     });
-    it('6 should get amount equal to STANDARD_DEDUCTIONS bracket 6', () => {
+    it('100 should get  100 * .2', () => {
       current.earned = 100
       expect(SNAPhelpers.getEarnedIncomeDeduction( current )).toEqual(20);
     });
-    it('8 should get the same amount as a six-member household', () => {
+    it('10000 should get  10000 * .2', () => {
       current.earned = 10000
       expect(SNAPhelpers.getEarnedIncomeDeduction( current )).toEqual(2000);
     });
