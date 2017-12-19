@@ -546,27 +546,27 @@ describe('SNAPhelpers', () => {
 
   // `SNAPhelpers.getNetIncomeTestResult()`
   describe('`.getNetIncomeTestResult( timeClient )` given a time-restricted client object with', () => {
-    let current, mock;
+    let current, getMaxNetIncome;
     beforeEach(() => {
       current = cloneDeep( defaultCurrent );
-      mock = jest.spyOn(SNAPhelpers, 'getMaxNetIncome');
+      getMaxNetIncome = jest.spyOn(SNAPhelpers, 'getMaxNetIncome');
     });
     afterEach(() => {
-      mock.mockRestore();
+      getMaxNetIncome.mockRestore();
     });
 
     it('that has no limit on net income, should return true', () => {
-      mock.mockImplementation(() => 'no limit');
+      getMaxNetIncome.mockImplementation(() => 'no limit');
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
     });
 
     it('that has net income below monthly limit, should return true', () => {
-      mock.mockImplementation(() => Number.POSITIVE_INFINITY);
+      getMaxNetIncome.mockImplementation(() => Number.POSITIVE_INFINITY);
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
     });
 
     it('that has net income above monthly limit, should return false', () => {
-      mock.mockImplementation(() => Number.NEGATIVE_INFINITY);
+      getMaxNetIncome.mockImplementation(() => Number.NEGATIVE_INFINITY);
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(false);
     });
   });
