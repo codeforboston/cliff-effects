@@ -3,6 +3,7 @@ import { SNAPhelpers } from '../../../../programs/federal/snap';
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import * as cashflow from '../../../../utils/cashflow';
+import * as getGovData from '../../../../utils/getGovData';
 import { UNEARNED_INCOME_SOURCES } from '../../../../data/massachusetts/name-cores';
 import { cloneDeep } from 'lodash';
 
@@ -261,6 +262,15 @@ describe('SNAPhelpers', () => {
 
 
   // `SNAPhelpers.getPovertyGrossIncomeLevel()`
+  test('`getPovertyGrossIncomeLevel( timeClient )', () => {
+    const current = cloneDeep( defaultCurrent );
+    const mock = jest.spyOn(getGovData, 'getMonthlyLimitBySize');
+    const federalPovertyGuidelines = expect.any(Object);
+    SNAPhelpers.getPovertyGrossIncomeLevel( current );
+    expect(mock).toBeCalledWith(federalPovertyGuidelines, 1, 200);
+    mock.mockRestore();
+  });
+
   // `SNAPhelpers.getGrossIncomeTestResult()`
 
 
