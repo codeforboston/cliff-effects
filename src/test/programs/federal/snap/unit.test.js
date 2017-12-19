@@ -541,7 +541,47 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getHomelessDeduction()`
   // `SNAPhelpers.getAdjustedNotGrossIncome()`
   // `SNAPhelpers.monthlyNetIncome()`
+
+
   // `SNAPhelpers.getMaxNetIncome()`
+  describe('`.getMaxNetIncome( timeClient )` given a time-restricted client object with', () => {
+    let current, getPovertyGrossIncomeLevel;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      getPovertyGrossIncomeLevel = jest.spyOn(SNAPhelpers, 'getPovertyGrossIncomeLevel');
+    });
+    afterEach(() => {
+      getPovertyGrossIncomeLevel.mockRestore();
+    })
+
+    it('that has income below the poverty line, it should return \'no limit\'', () => {
+      getPovertyGrossIncomeLevel.mockImplementation(() => Number.POSITIVE_INFINITY);
+      expect(SNAPhelpers.getMaxNetIncome( current )).toEqual('no limit');
+    });
+
+    it('that has no elderly or disabled members, it should return \'no limit\'', () => {
+      getPovertyGrossIncomeLevel.mockImplementation(() => Number.NEGATIVE_INFINITY);
+      expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
+      expect(SNAPhelpers.getMaxNetIncome( current )).toEqual('no limit');
+    });
+
+    it('returns the yearly limit', () => {
+      getPovertyGrossIncomeLevel.mockImplementation(() => Number.NEGATIVE_INFINITY);
+      current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
+
+      const getYearlyLimitBySize = jest.spyOn(getGovData, 'getYearlyLimitBySize');
+      const yearlyLimit = 12;
+      getYearlyLimitBySize.mockImplementation(() => yearlyLimit);
+
+      const snapData = expect.any(Object);
+      const numMembers = current.household.length;
+
+      expect(SNAPhelpers.getMaxNetIncome( current )).toEqual(yearlyLimit);
+      expect(getYearlyLimitBySize).toBeCalledWith(snapData, numMembers);
+
+      getYearlyLimitBySize.mockRestore();
+    });
+  });
 
 
   // `SNAPhelpers.getNetIncomeTestResult()`
