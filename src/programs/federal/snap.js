@@ -135,13 +135,12 @@ hlp.getNonUtilityCosts = function(client) {
 };
 
 hlp.getUtilityCostByBracket = function (client) {
-      
 
   if( hlp.isHomeless(client) ){
     return 0;
 
   } else {
-    // console.log( client.shelter, client.climateControl );
+    
     var utilityCategory = null;
 
     if ( client.climateControl || client.fuelAssistance ) {

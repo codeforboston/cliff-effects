@@ -86,8 +86,6 @@ describe('SNAPhelpers', () => {
         expect(SNAPhelpers.isElderlyOrDisabled( spouse )).toBe(true);
       });
     });
-    /** Note: In SNAP a 'disabled' family is one where /any/ member
-     *     is disabled, not just head or spouse, unlike Section 8. */
     describe('a regular member', () => {
       let member;
       beforeEach(() => { member = { m_age: 30, m_role: 'member', m_disabled: false }; });
@@ -140,6 +138,8 @@ describe('SNAPhelpers', () => {
         expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(true);
       });
     });
+    /** Note: In SNAP a 'disabled' family is one where /any/ member
+     *     is disabled, not just head or spouse, unlike Section 8. */
     describe('a regular member', () => {
       it('that is not disabled and under 60 should return false', () => {
         current.household.push({ m_age: 30, m_role: 'member', m_disabled: false });
@@ -376,14 +376,14 @@ describe('SNAPhelpers', () => {
 
     let one = 160,
         six = 228;
-    it('1 should get amount equal to STANDARD_DEDUCTIONS bracket 1', () => {
+    it('1 should return amount equal to STANDARD_DEDUCTIONS bracket 1', () => {
       expect(SNAPhelpers.getStandardDeduction( defaultCurrent )).toEqual(one);
     });
-    it('6 should get amount equal to STANDARD_DEDUCTIONS bracket 6', () => {
+    it('6 should return amount equal to STANDARD_DEDUCTIONS bracket 6', () => {
       addNumMembers( 5, current.household );
       expect(SNAPhelpers.getStandardDeduction( current )).toEqual(six);
     });
-    it('8 should get the same amount as a six-member household', () => {
+    it('8 should return the same amount as a six-member household', () => {
       let current = cloneDeep( defaultCurrent );
       addNumMembers( 14, current.household );
       expect(SNAPhelpers.getStandardDeduction( current )).toEqual(six);
@@ -400,21 +400,73 @@ describe('SNAPhelpers', () => {
       current = cloneDeep( defaultCurrent );
     });
 
-    it('0 should get 0 * .2', () => {
+    it('0 should return 0 * .2', () => {
       expect(SNAPhelpers.getEarnedIncomeDeduction( defaultCurrent )).toEqual(0);
     });
-    it('100 should get  100 * .2', () => {
+    it('100 should return  100 * .2', () => {
       current.earned = 100
       expect(SNAPhelpers.getEarnedIncomeDeduction( current )).toEqual(20);
     });
-    it('10000 should get  10000 * .2', () => {
+    it('10000 should return  10000 * .2', () => {
       current.earned = 10000
       expect(SNAPhelpers.getEarnedIncomeDeduction( current )).toEqual(2000);
     });
   });
 
 
+  /** Note: May be a good idea to abstract some of these to take
+   *     SNAP data as arguments. */
+  /** Note: May change to include disabled assistance and regular
+   *     member medical in medical expenses - our info for this is
+   *     in question. @todo Abstract getting medical expenses. */
   // `SNAPhelpers.getMedicalDeduction()`
+  // STANDARD_MEDICAL_DEDUCTION: 155, MIN_MEDICAL_EXPENSES: 35,
+  // MAX_MEDICAL_EXPENSES: 190,
+  describe('`.getMedicalDeduction( timeClient )` given a time-restricted client object with', () => {
+    let current;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      current.household[0].m_disabled = true;
+    });
+
+    it('no disabled member should return 0', () => {
+      current.household[0].m_disabled = false;
+      expect(SNAPhelpers.getMedicalDeduction( current )).toEqual(0);
+    });
+
+    describe('a disabled member and', () => {
+      it('0 medical expenses should return 0', () => {
+        current.disabledMedical = 0;
+        expect(SNAPhelpers.getMedicalDeduction( current )).toEqual(0);
+      });
+      it('medical expenses under the minimum should return 0', () => {
+        current.disabledMedical = 34;
+        expect(SNAPhelpers.getMedicalDeduction( current )).toEqual(0);
+      });
+
+      describe('medical expenses between the minimum and maximum inclusive', () => {
+        it('(min) should return the standard deduction', () => {
+          current.disabledMedical = 35;
+          expect(SNAPhelpers.getMedicalDeduction( current )).toEqual(155);
+        });
+        it('(max) should return the standard deduction', () => {
+          current.disabledMedical = 190;
+          expect(SNAPhelpers.getMedicalDeduction( current )).toEqual(155);
+        });
+        it('(between) should return the standard deduction', () => {
+          current.disabledMedical = 100;
+          expect(SNAPhelpers.getMedicalDeduction( current )).toEqual(155);
+        });
+      });
+
+      it('medical expenses over the maximum should return expenses minus minimum', () => {
+        current.disabledMedical = 200;
+        expect(SNAPhelpers.getMedicalDeduction( current )).toEqual(200 - 35);
+      });
+    });
+  });
+
+
   // `SNAPhelpers.getDependentCareDeduction()`
   // `SNAPhelpers.getHalfAdjustedIncome()`
   // `SNAPhelpers.getRawShelterDeduction()`
