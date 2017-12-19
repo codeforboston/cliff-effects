@@ -14,6 +14,8 @@ import {
 } from '../../utils/getGovData';
 import {
   getEveryMemberOfHousehold,
+  getEveryMember,
+  getDependentsOfHousehold,
   isDisabled,
   isUnder13,
   getUnder13OfHousehold
@@ -62,24 +64,22 @@ hlp.householdSize = function ( client ) {
 };
 
 hlp.isElderlyOrDisabled = function ( member ) {
-  return member.age >= 60 || isDisabled( member );
+  return member.m_age >= 60 || isDisabled( member );
 };
 
 hlp.hasDisabledOrElderlyMember = function (client) {
   return getEveryMemberOfHousehold( client, hlp.isElderlyOrDisabled ).length > 0;
 };
 
-hlp.isDependentOver12 = function ( member ) {
-  return (!isUnder13( member ) && member.age <= 18) || isDisabled( member );
+hlp.hasDependentsOver12 = function ( client ) {
+  var isOver12 = function ( member ) { return !isUnder13( member ); };
+  var members = getEveryMember( getDependentsOfHousehold( client ), isOver12 );
+  return members.length > 0;
 };
 
 
 // ======================
 //GROSS INCOME
-hlp.getChildSupportPaid = function (client) {
-  return client.childSupportPaidOut;
-};
-
 hlp.getAdjustedGross = function (client) {
   var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut
   return Math.max( 0, raw );
@@ -119,16 +119,15 @@ hlp.isHomeless = function(client ) {
 
 /** @todo: What about housing voucher? */
 hlp.getNonUtilityCosts = function(client) {
-  var shelterCost = null,
-      isHomeowner = client.shelter === 'homeowner';
+  var shelterCost = null;
 
   if ( hlp.isHomeless(client) ) {
     shelterCost = 0;
-  } else if( isHomeowner ) {
+  } else if( client.shelter === 'homeowner' ) {
     shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
   } else if ( client.shelter === 'renter' ) {
     shelterCost = client.rent;
-  } else if ( client.shelter === 'voucher ') {
+  } else if ( client.shelter === 'voucher') {
     shelterCost = client.rentShare;
   }
 
@@ -206,7 +205,8 @@ hlp.getDependentCareDeduction = function (client) {
     dependentCare += sumProps( client, UNDER13_CARE_EXPENSES );
   }
 
-  if ( getEveryMemberOfHousehold( client, hlp.isDependentOver12 ).length > 0 ) {
+  /** May want to test this the same way as Expenses step does. More consistent? */
+  if ( hlp.hasDependentsOver12( client ) ) {
     dependentCare += sumProps( client, OVER12_CARE_EXPENSES );
   }
 

@@ -309,7 +309,7 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
 
   return (
-    <wrapper className='field-aligner two-column'>
+    <div className='field-aligner two-column'>
       <div style={{marginBottom: '.5em'}}>
         <ColumnHeader columnNum='One'></ColumnHeader>
         <ColumnHeader columnNum='Two'>Role</ColumnHeader>
@@ -332,7 +332,7 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
         <Columns.Four noMargin={true} />
       </Button>
 
-    </wrapper>
+    </div>
   );
 
 };  // End HouseholdContent()

@@ -129,19 +129,19 @@ const ResultsGraph = (props) => {
   };
 
   // return (
-  //   <wrapper className = 'result-page'>
+  //   <div className = 'result-page'>
   //     <FormPartsContainer
   //       title     = {'Results'}
   //       left      = {{ name: 'Go Back', func: props.previousStep }}
   //       right     = {{ name: 'Save Results', func: () => props.saveForm(false) }}
   //        <div> <Line data={data} options={options} /> </div>
   //     </FormPartsContainer>
-  //   </wrapper>
+  //   </div>
   // )
 
   // Non-saving version for first prototype testing
   return (
-    <wrapper className = 'result-page flex-item flex-column'>
+    <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
         title     = {'Results'}
         left      = {{ name: 'Go Back', func: props.previousStep }}
@@ -149,7 +149,7 @@ const ResultsGraph = (props) => {
       >
          <div> <Line data={data} options={options} /> </div>
       </FormPartsContainer>
-    </wrapper>
+    </div>
   )
 
 };  // End Results()

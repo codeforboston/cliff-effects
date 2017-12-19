@@ -1,8 +1,8 @@
-import { getSNAPBenefits } from '../../../programs/federal/snap';
+import { getSNAPBenefits } from '../../../../programs/federal/snap';
 
 // CLIENTS
-import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
-import { sampleClients } from '../../sampleClients';
+import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
+import { sampleClients } from '../../../sampleClients';
 import { cloneDeep } from 'lodash';
 
 const defaultClient       = cloneDeep( CLIENT_DEFAULTS );
@@ -81,9 +81,8 @@ describe('getSNAPBenefits', () => {
   describe('row10', () => {
     it('Should calculate the correct current benefits', () => {
       let client = sampleClients.row10;
-      // Sample data result didn't match. Missing data?
       // expect(getSNAPBenefits(client, 'current')).toBeCloseTo(client.current.expectedSNAP, 4);
-      // Current result
+      // Project Hope: 8, Excel: 0, Ours: 0
       expect(getSNAPBenefits(client, 'current')).toBeCloseTo(0, 4);
     });
   });

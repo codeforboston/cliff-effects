@@ -22,10 +22,10 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
         How much money would your household make in the future?
       </h3>
-      <wrapper
+      <div
         className="field-aligner two-column"
       >
-        <wrapper
+        <div
           style={
             Object {
               "display": "inline-block",
@@ -72,7 +72,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           >
             Income Type
           </h4>
-        </wrapper>
+        </div>
         <div
           className="inline field cashflow"
         >
@@ -136,13 +136,13 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
               />
             </div>
           </div>
-          <wrapper
+          <div
             className="cashflow-column"
           >
             <label>
               Earned income
             </label>
-            <wrapper
+            <div
               className="label-info hidden"
               style={
                 Object {
@@ -151,14 +151,14 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
               }
             >
               (Weekly income = hourly wage times average number of work hours per week)
-            </wrapper>
-          </wrapper>
+            </div>
+          </div>
         </div>
-      </wrapper>
+      </div>
       <div
         className="ui divider ui section divider hidden"
       />
-      <wrapper>
+      <div>
         <h1
           className="ui header ui Header teal align centered"
         >
@@ -169,7 +169,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         >
           How will your income affect your future benefits?
         </h3>
-        <wrapper>
+        <div>
           <table
             className="ui celled table"
           >
@@ -357,8 +357,8 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
               </tr>
             </tbody>
           </table>
-        </wrapper>
-      </wrapper>
+        </div>
+      </div>
     </div>
     <div
       className="ui divider"
