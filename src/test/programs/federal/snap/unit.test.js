@@ -29,6 +29,8 @@ const defaultCurrent  = defaultClient.current;
 
 describe('SNAPhelpers', () => {
 
+  /** @todo Rake tests - Still need to test differet household
+   *     sizes. */
   // `SNAPhelpers.householdSize()`
   describe('`.householdSize( timeClient )` given a time-restricted client object should get household size of', () => {
     it('1', () => {
@@ -46,6 +48,9 @@ describe('SNAPhelpers', () => {
     });
   });
 
+
+  /** @todo Rake tests - Probably still need to test elderly
+   *     and disabled separately - important in other ways. */
   // `SNAPhelpers.isElderlyOrDisabled()`
   describe('`.isElderlyOrDisabled( member )` given', () => {
     describe('a head of household', () => {
@@ -81,7 +86,8 @@ describe('SNAPhelpers', () => {
         expect(SNAPhelpers.isElderlyOrDisabled( spouse )).toBe(true);
       });
     });
-
+    /** Note: In SNAP a 'disabled' family is one where /any/ member
+     *     is disabled, not just head or spouse, unlike Section 8. */
     describe('a regular member', () => {
       let member;
       beforeEach(() => { member = { m_age: 30, m_role: 'member', m_disabled: false }; });
@@ -101,8 +107,9 @@ describe('SNAPhelpers', () => {
   });
 
 
+  /** @todo Rake tests - Same. */
   // `SNAPhelpers.hasDisabledOrElderlyMember()`
-  describe('`.isElderlyOrDisabled( timeClient )` given a time-constrained client with a household containing', () => {
+  describe('`.hasDisabledOrElderlyMember( timeClient )` given a time-constrained client with a household containing', () => {
     let current;
     beforeEach(() => { current = cloneDeep( defaultCurrent ); });
 
@@ -150,6 +157,8 @@ describe('SNAPhelpers', () => {
   });
 
 
+  /** @todo Rake tests - No need to include head and spouse
+   *     that would otherwise be dependent by age. */
   // `SNAPhelpers.hasDependentsOver12()`
   describe('`.hasDependentsOver12( timeClient )` given a time-constrained client with a household containing', () => {
     let current;
@@ -223,7 +232,8 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getGrossIncomeTestResult()`
 
 
-  /** @todo `.isHomeless()` should probably be an abstracted shelter getter.  */
+  /** @todo `.isHomeless()` should probably be an abstracted
+   *     shelter getter.  */
   // `SNAPhelpers.isHomeless()`
   describe('`.isHomeless( timeClient )` given a time-restricted client object', () => {
     let current;
@@ -247,7 +257,10 @@ describe('SNAPhelpers', () => {
     });
   });
 
-
+  /** @todo Rake tests - No need to include tests containg,
+   *     e.g., mortage and rent at the same time */
+  /** @todo Rake tests - Not sure if we still need variations
+   *     in both contractRent and rentShare the same times */
   // `SNAPhelpers.getNonUtilityCosts()`
   describe('`.getNonUtilityCosts( timeClient )` given a time-restricted client object', () => {
     let current;
@@ -285,6 +298,8 @@ describe('SNAPhelpers', () => {
   });
 
 
+  /** @todo Rake tests - we can just have one at a time, no
+   *     need for combos */
   // `SNAPhelpers.getUtilityCostByBracket()`
   describe('`.getUtilityCostByBracket( timeClient )` given a time-restricted client object', () => {
 
@@ -345,8 +360,37 @@ describe('SNAPhelpers', () => {
   });
 
 
+  // May not need to be tested considering tests for utilities and
+  // other expenses. This one just adds those two.
   // `SNAPhelpers.getTotalshelterCost()`
+
+
+  /** @todo Rake tests - test a household with > 6 members */
   // `SNAPhelpers.getStandardDeduction()`
+  // STANDARD_DEDUCTIONS: { 0: 0, 1: 160, 2: 160, 3: 160, 4: 170, 5: 199, 6: 228, 'eachAdditional': 0 }
+  describe('`.getStandardDeduction( timeClient )` given a time-restricted client object with a household size of', () => {
+    let current;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+    });
+
+    let one = 160,
+        six = 228;
+    it('1 should get amount equal to STANDARD_DEDUCTIONS bracket 1', () => {
+      expect(SNAPhelpers.getStandardDeduction( defaultCurrent )).toEqual(one);
+    });
+    it('6 should get amount equal to STANDARD_DEDUCTIONS bracket 6', () => {
+      addNumMembers( 5, current.household );
+      expect(SNAPhelpers.getStandardDeduction( current )).toEqual(six);
+    });
+    it('8 should get the same amount as a six-member household', () => {
+      let current = cloneDeep( defaultCurrent );
+      addNumMembers( 14, current.household );
+      expect(SNAPhelpers.getStandardDeduction( current )).toEqual(six);
+    });
+  });
+
+
   // `SNAPhelpers.getEarnedIncomeDeduction()`
   // `SNAPhelpers.getMedicalDeduction()`
   // `SNAPhelpers.getDependentCareDeduction()`
