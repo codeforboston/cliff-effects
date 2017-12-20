@@ -542,8 +542,70 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getHalfAdjustedIncome()`
   // `SNAPhelpers.getRawShelterDeduction()`
   // `SNAPhelpers.getShelterDeduction()`
+
+
   // `SNAPhelpers.getHomelessDeduction()`
+  describe('`.getHomelessDeduction() given a time-restriced client object with', () => {
+    let current;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+    });
+
+    it('that is homeless, it should return the homeless deduction', () => {
+      current.shelter = 'homeless';
+      expect(SNAPhelpers.getHomelessDeduction( current )).toEqual(SNAPData.HOMELESS_DEDUCTION);
+    });
+
+    it('that is not homeless, it should return zero', () => {
+      current.shelter = 'homeowner';
+      expect(SNAPhelpers.getHomelessDeduction( current )).toEqual(0);
+    });
+  });
+
+
   // `SNAPhelpers.getAdjustedNotGrossIncome()`
+  describe('`.getAdjustedNotGrossIncome( timeClient )` given a time-restricted client object with', () => {
+    let current, mocks,
+      adjustedGross, standardDeduction, earnedIncomeDeduction, medicalDeduction, dependentCareDeduction;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      mocks = [];
+    });
+    afterEach(() => {
+      mocks.forEach(mock => mock.mockRestore());
+    });
+
+    const mockHelpers = () => {
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross),
+        jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction),
+        jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction),
+        jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction),
+        jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction)
+      ];
+    };
+
+    it('returns a adjusted income less certain deductions', () => {
+      adjustedGross = 1000;
+      standardDeduction = earnedIncomeDeduction = medicalDeduction = dependentCareDeduction = 1;
+      mockHelpers()
+      
+      const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
+      const income = adjustedGross - deductions;
+      expect(SNAPhelpers.getAdjustedNotGrossIncome( current )).toEqual(income);
+    });
+
+    it('that has a negative income after deductions, it should return 0', () => {
+      adjustedGross = 0;
+      standardDeduction = earnedIncomeDeduction = medicalDeduction = dependentCareDeduction = 1;
+      mockHelpers()
+      
+      const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
+      const income = adjustedGross - deductions;
+      expect(income).toBeLessThan(0)
+      expect(SNAPhelpers.getAdjustedNotGrossIncome( current )).toEqual(0);
+    });
+  });
 
 
   // `SNAPhelpers.monthlyNetIncome()`
