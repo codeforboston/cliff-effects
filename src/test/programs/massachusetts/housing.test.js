@@ -2,6 +2,7 @@ import { section8Helpers } from '../../../programs/massachusetts/housing'
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
+import { sampleClients } from '../../sampleClients';
 import { cloneDeep } from 'lodash';
 
 // ==================
@@ -14,6 +15,15 @@ const defaultCurrent  = defaultClient.current;
 describe('section8Helpers', () => {
 
   // `section8Helpers.getTTPs()`
+  describe('section8Helpers.getTTPs()', () => {
+    it('Test sample client 3', () => {
+      sampleClients.row3.future = cloneDeep(sampleClients.row3.current);
+      let temp1 = section8Helpers.getTTPs(sampleClients.row3);
+      expect(temp1.newTTP).toEqual(203.1);
+      expect(temp1.newTTP).toEqual(203.1)
+    });
+  });
+
   // `section8Helpers.getNetIncome()`
   // `section8Helpers.getAdjustedIncome()`
   // `section8Helpers.getDisabledAndMedicalAllowancesSum()`
