@@ -178,19 +178,44 @@ hlp.getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
   if ( !hlp.hasAnyDsbOrElderly( client, time ) ) { return 0; }
-
   // pg 5-30 to 5-31
-  var handcpExpense  = client[ time ].disabledAssistance,  // #7
-      asstSubtracted = handcpExpense - netSubtractor,  // #9
-      asstIncome     = client[ time ].earnedBecauseOfAdultCare, // #10
-      hcapAllowance  = Math.min( asstSubtracted, asstIncome ),  // #11
-      hcapMin        = Math.max( 0, hcapAllowance );  // Don't get negative
+  var handcpExpense       = client[ time ].disabledAssistance,  // #7
+      assistanceRemainder = handcpExpense - netSubtractor,  // #9
+      handicapAllowance   = hlp.getMinHandicapAllowance( client, time, assistanceRemainder );  // #10, #11
 
-  // ----- Maybe Stop #D ----- \\
+  // ----- Maybe Stop, #D ----- \\
   /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
-  if ( !hlp.hasDsbOrEldHeadOrSpouse( client, time ) ) { return hcapMin; }
+  if ( !hlp.hasDsbOrEldHeadOrSpouse( client, time ) ) { return handicapAllowance; }
+
+  // ----- Medical Allowance #12 - 13 ----- \\
+  let medicalExpenses = hlp.getMedicalExpenses( client, time );
+  // Read all of pg 5-32 and 5-34 for the following conditional.
+  // Jumps around because cases are overlapping.
+  var medAllowance = 0;
+  // #13a, pg 5-32 bottom (5-33 to 5-34 example falls in here)
+  // Note: #13 forgets the '>=' part and just says '>'
+  if ( assistanceRemainder >= 0 ) { medAllowance = medicalExpenses; }
+  // #13b; pg 5-33 middle /and/ pg 5-32 middle, above "special calcuations"
+  // In both cases handcpExpense is >= 0 and can be safely added.
+  else {
+    var sum       = medicalExpenses + handcpExpense;
+    medAllowance  = sum - netSubtractor;
+  }
+
+  var medMin = Math.max( 0, medAllowance );
+  return handicapAllowance + medMin;  // #15 contribution ( #11 + #13 )
+};  // End hlp.getDisabledAndMedicalAllowancesSum()
 
 
+hlp.getMinHandicapAllowance = function ( client, time, assistanceRemainder ) {
+  let asstIncome     = client[ time ].earnedBecauseOfAdultCare, // #10
+      hcapAllowance  = Math.min( assistanceRemainder, asstIncome ),  // #11
+      hcapMin        = Math.max( 0, hcapAllowance );  // Don't get negative
+  return hcapMin;
+};
+
+
+hlp.getMedicalExpenses = function ( client, time ) {
   // ----- Medical Allowance #12 - 13 ----- \\
   // #12, pg 5-31 to 5-32
   var disOrElderlyMedical = client[ time ].disabledMedical,
@@ -198,28 +223,8 @@ hlp.getDisabledAndMedicalAllowancesSum = function ( client, timeframe, net ) {
       otherMedical        = client[ time ].otherMedical,
       medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
 
-  // Read all of pg 5-32 and 5-34 for the following conditional.
-  // Jumps around because cases are overlapping.
-
-  var medAllowance = 0;
-  // #13a, pg 5-32 bottom (5-33 to 5-34 example falls in here)
-  // Note: #13 forgets the '>=' part and just says '>'
-  if ( asstSubtracted >= 0 ) {
-    medAllowance = medicalExpenses;
-
-  // #13b
-  // pg 5-33 middle /and/ pg 5-32 middle, above "special calcuations"
-  // In both cases handcpExpense is >= 0 and can be safely aded.
-  } else {
-    var sum = medicalExpenses + handcpExpense;
-    medAllowance = sum - netSubtractor;
-  }
-
-  var medMin = Math.max( 0, medAllowance );
-
-  // #15 contribution ( #11 + #13 )
-  return hcapMin + medMin;
-};  // End hlp.getDisabledAndMedicalAllowancesSum()
+  return medicalExpenses;
+};
 
 
 hlp.isDisabledOrElderly = function ( member ) {
