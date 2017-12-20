@@ -540,7 +540,42 @@ describe('SNAPhelpers', () => {
 
   // `SNAPhelpers.getDependentCareDeduction()`
   // `SNAPhelpers.getHalfAdjustedIncome()`
+
+
   // `SNAPhelpers.getRawShelterDeduction()`
+  describe('`.getRawShelterDeduction( timeClient )` given a time-restricted client object with', () => {
+    let current, getTotalshelterCost, getHalfAdjustedIncome;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      getTotalshelterCost = jest.spyOn(SNAPhelpers, 'getTotalshelterCost');
+      getHalfAdjustedIncome = jest.spyOn(SNAPhelpers, 'getHalfAdjustedIncome');
+    });
+    afterEach(() => {
+      getTotalshelterCost.mockRestore();
+      getHalfAdjustedIncome.mockRestore();
+    });
+
+    it('returns the shelter cost less the partially adjusted income', () => {
+      const shelterCost = 100;
+      const adjustedIncome = 1;
+      getTotalshelterCost.mockReturnValue(shelterCost);
+      getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
+
+      const rawDeduction = shelterCost - adjustedIncome;
+      expect(SNAPhelpers.getRawShelterDeduction( current )).toEqual(rawDeduction);
+    });
+
+    it('that has a negative raw shelter deduction, it should return zero', () => {
+      const shelterCost = 1;
+      const adjustedIncome = 100;
+      getTotalshelterCost.mockReturnValue(shelterCost);
+      getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
+
+      const rawDeduction = shelterCost - adjustedIncome;
+      expect(rawDeduction).toBeLessThan(0);
+      expect(SNAPhelpers.getRawShelterDeduction( current )).toEqual(0);
+    });
+  });
 
 
   // `SNAPhelpers.getShelterDeduction()`
