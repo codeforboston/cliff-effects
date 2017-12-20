@@ -539,7 +539,20 @@ describe('SNAPhelpers', () => {
 
 
   // `SNAPhelpers.getDependentCareDeduction()`
+
+
   // `SNAPhelpers.getHalfAdjustedIncome()`
+  test('`.getHalfAdjustedIncome( timeClient )', () => {
+    const current = cloneDeep( defaultCurrent );
+
+    const getAdjustedNotGrossIncome = jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome');
+    const income = 100;
+    getAdjustedNotGrossIncome.mockReturnValue(income);
+
+    expect(SNAPhelpers.getHalfAdjustedIncome( current )).toEqual(income / 2);
+    
+    getAdjustedNotGrossIncome.mockRestore();
+  });
 
 
   // `SNAPhelpers.getRawShelterDeduction()`
