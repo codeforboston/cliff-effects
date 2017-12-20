@@ -551,21 +551,21 @@ describe('SNAPhelpers', () => {
       OVER12_CARE_EXPENSES.forEach(name => current[name] = 1);
     });
 
-    it('that has no dependents, it should return 0', () => {
+    it('no dependents, it should return 0', () => {
       expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(0);
     });
 
-    it('that has under 13 dependents, it should return related expenses', () => {
+    it('under 13 dependents, it should return related expenses', () => {
       current.household.push({ m_age: 12, m_disabled: false, m_role: 'member' });
       expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(UNDER13_CARE_EXPENSES.length);
     });
 
-    it('that has over 12 dependents, it should return related expenses', () => {
+    it('over 12 dependents, it should return related expenses', () => {
       current.household.push({ m_age: 13, m_disabled: false, m_role: 'member' });
       expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(OVER12_CARE_EXPENSES.length);
     });
 
-    it('that has disabled dependents, it should return related expenses', () => {
+    it('disabled dependents, it should return related expenses', () => {
       current.household.push({ m_age: 19, m_disabled: true, m_role: 'member' });
       expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(OVER12_CARE_EXPENSES.length);
     })
@@ -599,7 +599,7 @@ describe('SNAPhelpers', () => {
       getHalfAdjustedIncome.mockRestore();
     });
 
-    it('returns the shelter cost less the partially adjusted income', () => {
+    it('a positive raw shelter deduction, it should return the deductions', () => {
       const shelterCost = 100;
       const adjustedIncome = 1;
       getTotalshelterCost.mockReturnValue(shelterCost);
@@ -609,7 +609,7 @@ describe('SNAPhelpers', () => {
       expect(SNAPhelpers.getRawShelterDeduction( current )).toEqual(rawDeduction);
     });
 
-    it('that has a negative raw shelter deduction, it should return zero', () => {
+    it('a negative raw shelter deduction, it should return zero', () => {
       const shelterCost = 1;
       const adjustedIncome = 100;
       getTotalshelterCost.mockReturnValue(shelterCost);
@@ -633,20 +633,20 @@ describe('SNAPhelpers', () => {
       getRawShelterDeduction.mockRestore();
     });
 
-    it('that has an elderly or disabled member, it should return the raw deduction', () => {
+    it('an elderly or disabled member, it should return the raw deduction', () => {
       current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
       const rawDeduction = 12;
       getRawShelterDeduction.mockReturnValue(rawDeduction);
       expect(SNAPhelpers.getShelterDeduction( current )).toEqual(rawDeduction);
     });
 
-    it('that has a raw deduction under the cap, it should return the raw deduction', () => {
+    it('a raw deduction under the cap, it should return the raw deduction', () => {
       const rawDeduction = SNAPData.SHELTER_DEDUCTION_CAP - 1;
       getRawShelterDeduction.mockReturnValue(rawDeduction);
       expect(SNAPhelpers.getShelterDeduction( current )).toEqual(rawDeduction);
     });
 
-    it('that has a raw deduction above the cap, it should return the cap', () => {
+    it('a raw deduction above the cap, it should return the cap', () => {
       const rawDeduction = SNAPData.SHELTER_DEDUCTION_CAP + 1;
       getRawShelterDeduction.mockReturnValue(rawDeduction);
       expect(SNAPhelpers.getShelterDeduction( current )).toEqual(SNAPData.SHELTER_DEDUCTION_CAP);
@@ -661,12 +661,12 @@ describe('SNAPhelpers', () => {
       current = cloneDeep( defaultCurrent );
     });
 
-    it('that is homeless, it should return the homeless deduction', () => {
+    it('homeless, it should return the homeless deduction', () => {
       current.shelter = 'homeless';
       expect(SNAPhelpers.getHomelessDeduction( current )).toEqual(SNAPData.HOMELESS_DEDUCTION);
     });
 
-    it('that is not homeless, it should return zero', () => {
+    it('not homeless, it should return zero', () => {
       ['homeowner', 'renter', 'voucher'].forEach(shelter => {
         current.shelter = shelter;
         expect(SNAPhelpers.getHomelessDeduction( current )).toEqual(0);
@@ -704,7 +704,7 @@ describe('SNAPhelpers', () => {
       expect(SNAPhelpers.getAdjustedNotGrossIncome( current )).toEqual(income);
     });
 
-    it('that has a negative income after deductions, it should return 0', () => {
+    it('negative income after deductions, it should return 0', () => {
       const adjustedGross = 0;
       const standardDeduction = 1;
       const earnedIncomeDeduction = 1;
@@ -736,7 +736,7 @@ describe('SNAPhelpers', () => {
       mocks.forEach(mock => mock.mockRestore());
     });
 
-    it('that has a positive income after deductions, it should return that adjusted income', () => {
+    it('positive income after deductions, it should return that adjusted income', () => {
       const income = 1000;
       const homelessDeduction = 100;
       const shelterDeduction = 1;
@@ -750,7 +750,7 @@ describe('SNAPhelpers', () => {
       expect(SNAPhelpers.monthlyNetIncome( current )).toEqual(monthlyNetIncome);
     });
 
-    it('that has a negative income after deductions, it should return 0', () => {
+    it('negative income after deductions, it should return 0', () => {
       const income = 0;
       const homelessDeduction = 100;
       const shelterDeduction = 1;
@@ -778,12 +778,12 @@ describe('SNAPhelpers', () => {
       getPovertyGrossIncomeLevel.mockRestore();
     })
 
-    it('that has income below the poverty line, it should return \'no limit\'', () => {
+    it('income below the poverty line, it should return \'no limit\'', () => {
       getPovertyGrossIncomeLevel.mockReturnValue(Number.POSITIVE_INFINITY);
       expect(SNAPhelpers.getMaxNetIncome( current )).toEqual('no limit');
     });
 
-    it('that has no elderly or disabled members, it should return \'no limit\'', () => {
+    it('no elderly or disabled members, it should return \'no limit\'', () => {
       getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
       expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
       expect(SNAPhelpers.getMaxNetIncome( current )).toEqual('no limit');
@@ -821,17 +821,17 @@ describe('SNAPhelpers', () => {
       getMaxNetIncome.mockRestore();
     });
 
-    it('that has no limit on net income, should return true', () => {
+    it('no limit on net income, should return true', () => {
       getMaxNetIncome.mockReturnValue('no limit');
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
     });
 
-    it('that has net income below monthly limit, should return true', () => {
+    it('net income below monthly limit, should return true', () => {
       getMaxNetIncome.mockReturnValue(Number.POSITIVE_INFINITY);
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
     });
 
-    it('that has net income above monthly limit, should return false', () => {
+    it('net income above monthly limit, should return false', () => {
       getMaxNetIncome.mockReturnValue(Number.NEGATIVE_INFINITY);
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(false);
     });
