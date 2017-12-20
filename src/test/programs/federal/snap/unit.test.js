@@ -667,8 +667,10 @@ describe('SNAPhelpers', () => {
     });
 
     it('that is not homeless, it should return zero', () => {
-      current.shelter = 'homeowner';
-      expect(SNAPhelpers.getHomelessDeduction( current )).toEqual(0);
+      ['homeowner', 'renter', 'voucher'].forEach(shelter => {
+        current.shelter = shelter;
+        expect(SNAPhelpers.getHomelessDeduction( current )).toEqual(0);
+      });
     });
   });
 
