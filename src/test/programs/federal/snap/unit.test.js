@@ -4,7 +4,11 @@ import { SNAPhelpers } from '../../../../programs/federal/snap';
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import * as cashflow from '../../../../utils/cashflow';
 import * as getGovData from '../../../../utils/getGovData';
-import { UNEARNED_INCOME_SOURCES } from '../../../../data/massachusetts/name-cores';
+import {
+  UNEARNED_INCOME_SOURCES,
+  UNDER13_CARE_EXPENSES,
+  OVER12_CARE_EXPENSES
+} from '../../../../data/massachusetts/name-cores';
 import { cloneDeep } from 'lodash';
 
 // HELPERS
@@ -539,6 +543,28 @@ describe('SNAPhelpers', () => {
 
 
   // `SNAPhelpers.getDependentCareDeduction()`
+  describe('`.getDependentCareDeduction( timeClient ) given a time-restricted client object with', () => {
+    let current;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+    });
+
+    it('that has no dependents, it should return 0', () => {
+      expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(0);
+    });
+
+    it('that has under 13 dependents, it should return related expenses', () => {
+      current.household.push({ m_age: 12, m_disabled: false, m_role: 'member' });
+      UNDER13_CARE_EXPENSES.forEach(name => current[name] = 1);
+      expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(UNDER13_CARE_EXPENSES.length);
+    });
+
+    it('that has over 12 dependents, it should return related expenses', () => {
+      current.household.push({ m_age: 13, m_disabled: false, m_role: 'member' });
+      OVER12_CARE_EXPENSES.forEach(name => current[name] = 1);
+      expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(OVER12_CARE_EXPENSES.length);
+    });
+  });
 
 
   // `SNAPhelpers.getHalfAdjustedIncome()`
@@ -550,7 +576,7 @@ describe('SNAPhelpers', () => {
     getAdjustedNotGrossIncome.mockReturnValue(income);
 
     expect(SNAPhelpers.getHalfAdjustedIncome( current )).toEqual(income / 2);
-    
+
     getAdjustedNotGrossIncome.mockRestore();
   });
 
