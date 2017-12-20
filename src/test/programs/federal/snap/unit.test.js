@@ -677,17 +677,20 @@ describe('SNAPhelpers', () => {
 
   // `SNAPhelpers.getAdjustedNotGrossIncome()`
   describe('`.getAdjustedNotGrossIncome( timeClient )` given a time-restricted client object with', () => {
-    let current, mocks,
-      adjustedGross, standardDeduction, earnedIncomeDeduction, medicalDeduction, dependentCareDeduction;
+    let current, mocks;
     beforeEach(() => {
       current = cloneDeep( defaultCurrent );
-      mocks = [];
     });
     afterEach(() => {
       mocks.forEach(mock => mock.mockRestore());
     });
 
-    const mockHelpers = () => {
+    it('positive income after deductions, it should return that adjusted income', () => {
+      const adjustedGross = 1000;
+      const standardDeduction = 1;
+      const earnedIncomeDeduction = 1;
+      const medicalDeduction = 1;
+      const dependentCareDeduction = 1;
       mocks = [
         jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross),
         jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction),
@@ -695,12 +698,6 @@ describe('SNAPhelpers', () => {
         jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction),
         jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction)
       ];
-    };
-
-    it('returns a adjusted income less certain deductions', () => {
-      adjustedGross = 1000;
-      standardDeduction = earnedIncomeDeduction = medicalDeduction = dependentCareDeduction = 1;
-      mockHelpers()
       
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
@@ -708,9 +705,18 @@ describe('SNAPhelpers', () => {
     });
 
     it('that has a negative income after deductions, it should return 0', () => {
-      adjustedGross = 0;
-      standardDeduction = earnedIncomeDeduction = medicalDeduction = dependentCareDeduction = 1;
-      mockHelpers()
+      const adjustedGross = 0;
+      const standardDeduction = 1;
+      const earnedIncomeDeduction = 1;
+      const medicalDeduction = 1;
+      const dependentCareDeduction = 1;
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross),
+        jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction),
+        jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction),
+        jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction),
+        jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction)
+      ];
       
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
