@@ -728,38 +728,37 @@ describe('SNAPhelpers', () => {
 
   // `SNAPhelpers.monthlyNetIncome()`
   describe('`.monthlyNetIncome( timeClient )` given a time-restricted client object with', () => {
-    let current, mocks, income, homelessDeduction, shelterDeduction;
+    let current, mocks;
     beforeEach(() => {
       current = cloneDeep( defaultCurrent );
-      mocks = [];
     });
     afterEach(() => {
       mocks.forEach(mock => mock.mockRestore());
     });
 
-    const mockHelpers = () => {
+    it('that has a positive income after deductions, it should return that adjusted income', () => {
+      const income = 1000;
+      const homelessDeduction = 100;
+      const shelterDeduction = 1;
       mocks = [
         jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
         jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
         jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction)
       ];
-    };
-
-    it('returns a adjusted income less certain deductions', () => {
-      income = 1000;
-      homelessDeduction = 100;
-      shelterDeduction = 1;
-      mockHelpers()
       
       const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
       expect(SNAPhelpers.monthlyNetIncome( current )).toEqual(monthlyNetIncome);
     });
 
     it('that has a negative income after deductions, it should return 0', () => {
-      income = 0;
-      homelessDeduction = 100;
-      shelterDeduction = 1;
-      mockHelpers()
+      const income = 0;
+      const homelessDeduction = 100;
+      const shelterDeduction = 1;
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
+        jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
+        jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction)
+      ];
       
       const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
       expect(monthlyNetIncome).toBeLessThan(0);
