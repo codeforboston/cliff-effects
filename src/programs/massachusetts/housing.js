@@ -77,7 +77,6 @@ var section8Helpers = {},
 * Is using raw monthly values or converting values to monthly amounts
 */
 hlp.getTTPs = function ( client ) {
-debugger;
   var oldNet = hlp.getNetIncome( client, 'current' ),
       newNet = hlp.getNetIncome( client, 'future' );
 
