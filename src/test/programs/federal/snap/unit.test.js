@@ -541,7 +541,38 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getDependentCareDeduction()`
   // `SNAPhelpers.getHalfAdjustedIncome()`
   // `SNAPhelpers.getRawShelterDeduction()`
+
+
   // `SNAPhelpers.getShelterDeduction()`
+  describe('`.getShelterDeduction( timeClient )` given a time-restricted client object with', () => {
+    let current, getRawShelterDeduction;
+    beforeEach(() => {
+      current = cloneDeep( defaultCurrent );
+      getRawShelterDeduction = jest.spyOn(SNAPhelpers, 'getRawShelterDeduction');
+    });
+    afterEach(() => {
+      getRawShelterDeduction.mockRestore();
+    });
+
+    it('that has an elderly or disabled member, it should return the raw deduction', () => {
+      current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
+      const rawDeduction = 12;
+      getRawShelterDeduction.mockReturnValue(rawDeduction);
+      expect(SNAPhelpers.getShelterDeduction( current )).toEqual(rawDeduction);
+    });
+
+    it('that has a raw deduction under the cap, it should return the raw deduction', () => {
+      const rawDeduction = SNAPData.SHELTER_DEDUCTION_CAP - 1;
+      getRawShelterDeduction.mockReturnValue(rawDeduction);
+      expect(SNAPhelpers.getShelterDeduction( current )).toEqual(rawDeduction);
+    });
+
+    it('that has a raw deduction above the cap, it should return the cap', () => {
+      const rawDeduction = SNAPData.SHELTER_DEDUCTION_CAP + 1;
+      getRawShelterDeduction.mockReturnValue(rawDeduction);
+      expect(SNAPhelpers.getShelterDeduction( current )).toEqual(SNAPData.SHELTER_DEDUCTION_CAP);
+    });
+  });
 
 
   // `SNAPhelpers.getHomelessDeduction()`
