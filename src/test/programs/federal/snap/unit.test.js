@@ -789,14 +789,16 @@ describe('SNAPhelpers', () => {
       expect(SNAPhelpers.getMaxNetIncome( current )).toEqual('no limit');
     });
 
-    it('returns the yearly limit', () => {
+    it('income above poverty line and disabled members, it should return the yearly limit', () => {
       getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
       current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
 
+      // mock getYearlyLimitBySize, which is what generates the limit to be returned
       const getYearlyLimitBySize = jest.spyOn(getGovData, 'getYearlyLimitBySize');
       const yearlyLimit = 12;
       getYearlyLimitBySize.mockReturnValue(yearlyLimit);
 
+      // expected params for getYearlyLimtBySize
       const snapData = expect.any(Object);
       const numMembers = current.household.length;
 
