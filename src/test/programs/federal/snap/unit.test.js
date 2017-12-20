@@ -547,6 +547,8 @@ describe('SNAPhelpers', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep( defaultCurrent );
+      UNDER13_CARE_EXPENSES.forEach(name => current[name] = 1);
+      OVER12_CARE_EXPENSES.forEach(name => current[name] = 1);
     });
 
     it('that has no dependents, it should return 0', () => {
@@ -555,15 +557,18 @@ describe('SNAPhelpers', () => {
 
     it('that has under 13 dependents, it should return related expenses', () => {
       current.household.push({ m_age: 12, m_disabled: false, m_role: 'member' });
-      UNDER13_CARE_EXPENSES.forEach(name => current[name] = 1);
       expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(UNDER13_CARE_EXPENSES.length);
     });
 
     it('that has over 12 dependents, it should return related expenses', () => {
       current.household.push({ m_age: 13, m_disabled: false, m_role: 'member' });
-      OVER12_CARE_EXPENSES.forEach(name => current[name] = 1);
       expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(OVER12_CARE_EXPENSES.length);
     });
+
+    it('that has disabled dependents, it should return related expenses', () => {
+      current.household.push({ m_age: 19, m_disabled: true, m_role: 'member' });
+      expect(SNAPhelpers.getDependentCareDeduction( current )).toEqual(OVER12_CARE_EXPENSES.length);
+    })
   });
 
 
