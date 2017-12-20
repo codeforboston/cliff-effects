@@ -243,7 +243,7 @@ describe('SNAPhelpers', () => {
       current = cloneDeep( defaultCurrent );
       current.childSupportPaidOut = 100;
       mock = jest.spyOn(cashflow, 'getGrossUnearnedIncomeMonthly');
-      mock.mockImplementation(() => grossUnearnedIncome);
+      mock.mockReturnValue(grossUnearnedIncome);
     });
     afterEach(() => {
       mock.mockRestore();
@@ -271,7 +271,7 @@ describe('SNAPhelpers', () => {
 
     const getMonthlyLimitBySize = jest.spyOn(getGovData, 'getMonthlyLimitBySize');
     const monthlyLimit = 12;
-    getMonthlyLimitBySize.mockImplementation(() => monthlyLimit);
+    getMonthlyLimitBySize.mockReturnValue(monthlyLimit);
 
     const federalPovertyGuidelines = expect.any(Object);
     const numMembers = current.household.length;
@@ -767,23 +767,23 @@ describe('SNAPhelpers', () => {
     })
 
     it('that has income below the poverty line, it should return \'no limit\'', () => {
-      getPovertyGrossIncomeLevel.mockImplementation(() => Number.POSITIVE_INFINITY);
+      getPovertyGrossIncomeLevel.mockReturnValue(Number.POSITIVE_INFINITY);
       expect(SNAPhelpers.getMaxNetIncome( current )).toEqual('no limit');
     });
 
     it('that has no elderly or disabled members, it should return \'no limit\'', () => {
-      getPovertyGrossIncomeLevel.mockImplementation(() => Number.NEGATIVE_INFINITY);
+      getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
       expect(SNAPhelpers.hasDisabledOrElderlyMember( current )).toBe(false);
       expect(SNAPhelpers.getMaxNetIncome( current )).toEqual('no limit');
     });
 
     it('returns the yearly limit', () => {
-      getPovertyGrossIncomeLevel.mockImplementation(() => Number.NEGATIVE_INFINITY);
+      getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
       current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
 
       const getYearlyLimitBySize = jest.spyOn(getGovData, 'getYearlyLimitBySize');
       const yearlyLimit = 12;
-      getYearlyLimitBySize.mockImplementation(() => yearlyLimit);
+      getYearlyLimitBySize.mockReturnValue(yearlyLimit);
 
       const snapData = expect.any(Object);
       const numMembers = current.household.length;
@@ -808,17 +808,17 @@ describe('SNAPhelpers', () => {
     });
 
     it('that has no limit on net income, should return true', () => {
-      getMaxNetIncome.mockImplementation(() => 'no limit');
+      getMaxNetIncome.mockReturnValue('no limit');
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
     });
 
     it('that has net income below monthly limit, should return true', () => {
-      getMaxNetIncome.mockImplementation(() => Number.POSITIVE_INFINITY);
+      getMaxNetIncome.mockReturnValue(Number.POSITIVE_INFINITY);
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(true);
     });
 
     it('that has net income above monthly limit, should return false', () => {
-      getMaxNetIncome.mockImplementation(() => Number.NEGATIVE_INFINITY);
+      getMaxNetIncome.mockReturnValue(Number.NEGATIVE_INFINITY);
       expect(SNAPhelpers.getNetIncomeTestResult( current )).toBe(false);
     });
   });
