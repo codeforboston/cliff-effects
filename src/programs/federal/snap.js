@@ -186,7 +186,7 @@ hlp.getMedicalDeduction = function (client) {
     if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) && (medicalExpenses <= SNAPData.MAX_MEDICAL_EXPENSES)) {
       medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
 
-    } else if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES++) {
+    } else if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES + 1) {
       medicalDeduce = medicalExpenses - SNAPData.MIN_MEDICAL_EXPENSES;
 
     }
