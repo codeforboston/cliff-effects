@@ -16,4 +16,8 @@ describe('getTimeSetter', () => {
     expect(data.hasOwnProperty('time')).toBe(true);
   });
 
+  it('is data set correctly', () => {
+    expect(data.time).toBe('current');
+  });
+
 });
