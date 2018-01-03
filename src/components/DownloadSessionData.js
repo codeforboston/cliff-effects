@@ -4,12 +4,12 @@ import DownloadFile from './DownloadFile';
 
 /**
  * Download link for various data on the current session.
- * @extends React.Component
+ * @extends React.PureComponent
  * 
  * @param props {object}
  * @param props.client {object}
  */
-class DownloadSessionData extends React.Component {
+class DownloadSessionData extends React.PureComponent {
   render() {
     const { client } = this.props;
 
@@ -18,7 +18,11 @@ class DownloadSessionData extends React.Component {
     const url = URL.createObjectURL(blob);
     const filename = 'cliff-effects-data.json';
 
-    return <DownloadFile filename={filename} url={url} />;
+    return (
+      <DownloadFile filename={filename} url={url}>
+        Download session data
+      </DownloadFile>
+    );
   }
 }
 
