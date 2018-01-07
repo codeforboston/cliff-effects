@@ -41,7 +41,7 @@ class VisitPage extends Component {
         currentStep: 1,
         isBlocking: true,
         redirect: false,
-        client : { ...CLIENT_DEFAULTS },
+        client: cloneDeep(CLIENT_DEFAULTS),
         // Hack for MVP
         oldShelter: CLIENT_DEFAULTS.current.shelter,
         userChanged: {}
