@@ -6,6 +6,9 @@ import DownloadErrorData from './DownloadErrorData';
 /**
  * Download prompt for latest uncaught error.
  * @extends React.Component
+ * 
+ * @param props {object}
+ * @param props.client {object}
  */
 class DownloadErrorPrompt extends React.Component {
   state = {
@@ -27,13 +30,14 @@ class DownloadErrorPrompt extends React.Component {
   }
 
   render() {
+    const { client } = this.props;
     const { error, visible } = this.state;
 
     return visible &&
       <Message onDismiss={this.hide}>
         <Message.Header>There was an error!</Message.Header>
         <Message.Content>
-          <DownloadErrorData error={error} />
+          <DownloadErrorData client={client} error={error} />
         </Message.Content>
       </Message>;
   }

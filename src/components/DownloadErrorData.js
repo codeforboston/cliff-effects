@@ -7,15 +7,19 @@ import DownloadFileAs from './DownloadFileAs';
  * @extends React.PureComponent
  * 
  * @param props {object}
+ * @param props.client {object}
  * @param props.error {Error}
  */
 class DownloadErrorData extends React.PureComponent {
   render() {
-    const { error } = this.props;
+    const { client, error } = this.props;
 
     const data = {
-      message: error.message,
-      stack: error.stack
+      client: client,
+      error: {
+        message: error.message,
+        stack: error.stack
+      }
     };
     const json = JSON.stringify(data);
     const blob = new Blob([json], { type: 'application/json' });
