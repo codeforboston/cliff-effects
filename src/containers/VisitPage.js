@@ -57,6 +57,15 @@ class VisitPage extends Component {
     ];  // end this.steps {}
   };  // End constructor()
 
+  resetClient = () => {
+    this.setState({
+      currentStep: 1,
+      client: cloneDeep(CLIENT_DEFAULTS),
+      oldShelter: CLIENT_DEFAULTS.current.shelter,
+      userChanged: {}
+    });
+  }
+
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
@@ -122,7 +131,8 @@ class VisitPage extends Component {
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
                    changeClient={this.changeClient}
-                   saveForm={this.saveForm} />
+                   saveForm={this.saveForm}
+                   resetClient={this.resetClient} />
     );
   };  // End getCurrentStep()
 
