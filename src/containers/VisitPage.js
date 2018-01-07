@@ -18,14 +18,16 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
-import ConfirmLeave from '../components/ConfirmLeave'
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
+import OnLeavePrompt from '../components/OnLeavePrompt';
 import StepBar from '../components/StepBar';
 import ResultsGraph from '../forms/ResultsGraph';
+
+const defaultPromptCallback = ok => this.setState({ promptOpen: ok });
 
 class VisitPage extends Component {
   constructor(props) {
@@ -42,6 +44,8 @@ class VisitPage extends Component {
         isBlocking: true,
         redirect: false,
         client: cloneDeep(CLIENT_DEFAULTS),
+        promptOpen: false,
+        promptCallback: defaultPromptCallback,
         // Hack for MVP
         oldShelter: CLIENT_DEFAULTS.current.shelter,
         userChanged: {}
@@ -59,10 +63,24 @@ class VisitPage extends Component {
 
   resetClient = () => {
     this.setState({
-      currentStep: 1,
-      client: cloneDeep(CLIENT_DEFAULTS),
-      oldShelter: CLIENT_DEFAULTS.current.shelter,
-      userChanged: {}
+      promptOpen: true,
+      promptCallback: ok => {
+        if (ok) {
+          this.setState({
+            promptOpen: false,
+            promptCallback: defaultPromptCallback,
+            currentStep: 1,
+            client: cloneDeep(CLIENT_DEFAULTS),
+            oldShelter: CLIENT_DEFAULTS.current.shelter,
+            userChanged: {}
+          });
+        } else {
+          this.setState({
+            promptOpen: false,
+            promptCallback: defaultPromptCallback
+          });
+        }
+      }
     });
   }
 
@@ -139,13 +157,14 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <ConfirmLeave
-          when={this.state.isBlocking}
-          message='This action will erase all current data. Are you sure you want to do this?'
-        />
         <Prompt
           when={this.state.isBlocking}
           message='This action will erase all current data. Are you sure you want to do this?'
+        />
+        <OnLeavePrompt
+          callback={this.state.promptCallback}
+          client={this.props.client}
+          open={this.state.promptOpen}
         />
 
         {this.state.redirect ?

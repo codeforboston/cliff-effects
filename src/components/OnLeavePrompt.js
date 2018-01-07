@@ -5,8 +5,8 @@ import DownloadSessionData from './DownloadSessionData';
 
 /**
  * Called with result of user interaction with on leave modal.
- * Receives true if user downloaded file or chose to stay,
- * or false if user chose to leave.
+ * Receives false if user downloaded file or chose to stay,
+ * or true if user chose to leave.
  * 
  * @callback onLeaveCallback
  * @param ok {boolean} - Result of result of user interaction.
@@ -23,11 +23,11 @@ import DownloadSessionData from './DownloadSessionData';
 class OnLeavePrompt extends React.Component {
   leave = event => {
     event.preventDefault();
-    this.props.callback(false);
+    this.props.callback(true);
   }
   stay = event => {
     event.preventDefault();
-    this.props.callback(true);
+    this.props.callback(false);
   }
 
   render() {
@@ -44,7 +44,7 @@ class OnLeavePrompt extends React.Component {
           <Button
             as={DownloadSessionData}
             client={client}
-            onClick={() => callback(true)}
+            onClick={() => callback(false)}
           />
         </Modal.Actions>
       </Modal>
