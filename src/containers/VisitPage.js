@@ -27,7 +27,8 @@ import OnLeavePrompt from '../components/OnLeavePrompt';
 import StepBar from '../components/StepBar';
 import ResultsGraph from '../forms/ResultsGraph';
 
-const defaultPromptCallback = ok => this.setState({ promptOpen: ok });
+// React Router <Prompt> customization shenanigans
+import * as getUserConfirmation from '../utils/getUserConfirmation';
 
 class VisitPage extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class VisitPage extends Component {
         redirect: false,
         client: cloneDeep(CLIENT_DEFAULTS),
         promptOpen: false,
-        promptCallback: defaultPromptCallback,
+        promptCallback: ok => this.setState({ promptOpen: ok }),
         // Hack for MVP
         oldShelter: CLIENT_DEFAULTS.current.shelter,
         userChanged: {}
@@ -61,14 +62,30 @@ class VisitPage extends Component {
     ];  // end this.steps {}
   };  // End constructor()
 
+  componentDidMount() {
+    const confirm = (message, callback) =>
+      this.setState({
+        promptOpen: true,
+        promptCallback: ok => {
+          this.setState({ promptOpen: false });
+          callback(ok);
+        }
+      })
+    getUserConfirmation.set(confirm);
+  }
+
+  componentWillUnmount() {
+    getUserConfirmation.unset();
+  }
+
   resetClient = () => {
-    this.setState({
+    this.setState(prevState => ({
       promptOpen: true,
       promptCallback: ok => {
         if (ok) {
           this.setState({
             promptOpen: false,
-            promptCallback: defaultPromptCallback,
+            promptCallback: prevState.promptCallback,
             currentStep: 1,
             client: cloneDeep(CLIENT_DEFAULTS),
             oldShelter: CLIENT_DEFAULTS.current.shelter,
@@ -77,11 +94,11 @@ class VisitPage extends Component {
         } else {
           this.setState({
             promptOpen: false,
-            promptCallback: defaultPromptCallback
+            promptCallback: prevState.promptCallback
           });
         }
       }
-    });
+    }));
   }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {

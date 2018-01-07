@@ -4,6 +4,8 @@ import {
   Route,
 } from 'react-router-dom'
 
+import getUserConfirmation from './utils/getUserConfirmation'
+
 import HomePage from './containers/HomePage'
 import AboutPage from './containers/AboutPage'
 import VisitPage from './containers/VisitPage'
@@ -15,7 +17,7 @@ import Header from './components/Header'
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 const App = () => (
   <div id='App'>
-    <HashRouter>
+    <HashRouter getUserConfirmation={getUserConfirmation}>
       <div id='HashRouter'>
         <Route path="/:rest+" component={Header}/>
         <Route exact path="/" component={HomePage}/>
