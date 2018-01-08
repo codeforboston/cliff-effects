@@ -18,6 +18,7 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
+import ConfirmLeave from '../components/ConfirmLeave';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
@@ -182,6 +183,10 @@ class VisitPage extends Component {
           callback={this.state.promptCallback}
           client={this.props.client}
           open={this.state.promptOpen}
+        />
+        <ConfirmLeave
+          when={this.state.isBlocking}
+          message='This action will erase all current data. Are you sure you want to do this?'
         />
 
         {this.state.redirect ?
