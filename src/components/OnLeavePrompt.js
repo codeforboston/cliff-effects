@@ -5,8 +5,8 @@ import DownloadSessionData from './DownloadSessionData';
 
 /**
  * Called with result of user interaction with on leave modal.
- * Receives false if user downloaded file or chose to stay,
- * or true if user chose to leave.
+ * Receives true if the user chose to leave or downloads the data,
+ * or false if the user chose to stay.
  * 
  * @callback onLeaveCallback
  * @param ok {boolean} - Result of result of user interaction.
@@ -44,7 +44,7 @@ class OnLeavePrompt extends React.Component {
           <Button
             as={DownloadSessionData}
             client={client}
-            onClick={() => callback(false)}
+            onClick={() => callback(true)}
           />
         </Modal.Actions>
       </Modal>

@@ -181,7 +181,7 @@ class VisitPage extends Component {
         />
         <OnLeavePrompt
           callback={this.state.promptCallback}
-          client={this.props.client}
+          client={this.state.client}
           open={this.state.promptOpen}
         />
         <ConfirmLeave
