@@ -50,7 +50,7 @@ class VisitPage extends Component {
         promptOpen: false,
         promptMessage: '',
         promptData: {},
-        promptCallback: ok => this.setState({ promptOpen: ok }),
+        promptCallback: () => {},
         // Hack for MVP
         oldShelter: CLIENT_DEFAULTS.current.shelter,
         userChanged: {}
