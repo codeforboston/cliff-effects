@@ -17,7 +17,7 @@ import DownloadFile from './DownloadFile';
  * 
  * @param props {object}
  * @param props.callback {onLeaveCallback}
- * @param props.client {object}
+ * @param props.data {object}
  * @param props.message {string}
  * @param props.open {boolean} - Whether the modal is visible.
  */
@@ -32,7 +32,7 @@ class OnLeavePrompt extends React.Component {
   }
 
   render() {
-    const { client, message, open } = this.props;
+    const { data, message, open } = this.props;
 
     return (
       <Modal open={open}>
@@ -41,7 +41,7 @@ class OnLeavePrompt extends React.Component {
           <p>
             Please include session data in support requests.
             {' '/* TODO: better way of adding horizontal space */}
-            <DownloadFile data={{ client: client }}>
+            <DownloadFile data={data}>
               Download session data
             </DownloadFile>
           </p>

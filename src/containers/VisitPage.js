@@ -48,6 +48,7 @@ class VisitPage extends Component {
         client: cloneDeep(CLIENT_DEFAULTS),
         promptOpen: false,
         promptMessage: '',
+        promptData: {},
         promptCallback: ok => this.setState({ promptOpen: ok }),
         // Hack for MVP
         oldShelter: CLIENT_DEFAULTS.current.shelter,
@@ -65,8 +66,9 @@ class VisitPage extends Component {
   };  // End constructor()
 
   componentDidMount() {
+    const data = { client: this.state.client };
     const confirm = (message, callback) =>
-      this.prompt(callback, message);
+      this.prompt(callback, data, message);
     getUserConfirmation.set(confirm);
   }
 
@@ -75,23 +77,25 @@ class VisitPage extends Component {
   }
 
   resetClient = () => {
+    const data = { client: this.state.client };
     this.prompt(ok => ok && this.setState({
       currentStep: 1,
       client: cloneDeep(CLIENT_DEFAULTS),
       oldShelter: CLIENT_DEFAULTS.current.shelter,
       userChanged: {}
-    }));
+    }), data);
   }
 
-  prompt = (callback, message) => {
-    this.setState({
+  prompt = (callback, data, message) => {
+    this.setState(prevState => ({
       promptOpen: true,
       promptMessage: message,
+      promptData: data,
       promptCallback: ok => {
         this.setState({ promptOpen: false });
         callback(ok);
       }
-    });
+    }));
   }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -173,7 +177,7 @@ class VisitPage extends Component {
         />
         <OnLeavePrompt
           callback={this.state.promptCallback}
-          client={this.state.client}
+          data={this.state.promptData}
           message={this.state.promptMessage}
           open={this.state.promptOpen}
         />
