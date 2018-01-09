@@ -21,6 +21,7 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 import ConfirmLeave from '../components/ConfirmLeave';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
+import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
 import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
@@ -180,6 +181,10 @@ class VisitPage extends Component {
           data={this.state.promptData}
           message={this.state.promptMessage}
           open={this.state.promptOpen}
+        />
+        <DownloadErrorPrompt
+          client={this.state.client}
+          prompt={this.prompt}
         />
         <ConfirmLeave
           when={this.state.isBlocking}

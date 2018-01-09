@@ -1,7 +1,4 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
-
-import DownloadErrorData from './DownloadErrorData';
 
 /**
  * Download prompt for latest uncaught error.
@@ -9,37 +6,35 @@ import DownloadErrorData from './DownloadErrorData';
  * 
  * @param props {object}
  * @param props.client {object}
+ * @param props.prompt {prompt}
  */
 class DownloadErrorPrompt extends React.Component {
-  state = {
-    error: null,
-    visible: false
-  };
+  static callback = () => {};
+  static message = 'There was an unexpected error. Would you like to reload the page?';
 
-  saveError = ({ error }) =>
-    this.setState({ error: error, visible: true });
-
-  hide = () => this.setState({ visible: false });
+  handleError = ({ error }) => {
+    const { client, prompt } = this.props;
+    const { callback, message } = DownloadErrorPrompt;
+    const data = {
+      client: client,
+      error: {
+        message: error.message,
+        stack: error.stack
+      }
+    };
+    prompt(callback, data, message);
+  }
 
   componentDidMount() {
-    window.addEventListener('error', this.saveError);
+    window.addEventListener('error', this.handleError);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('error', this.saveError);
+    window.removeEventListener('error', this.handleError);
   }
 
   render() {
-    const { client } = this.props;
-    const { error, visible } = this.state;
-
-    return visible &&
-      <Message onDismiss={this.hide}>
-        <Message.Header>There was an error!</Message.Header>
-        <Message.Content>
-          <DownloadErrorData client={client} error={error} />
-        </Message.Content>
-      </Message>;
+    return null;
   }
 }
 
