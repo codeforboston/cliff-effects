@@ -4,13 +4,12 @@ import readline from 'readline';
 
 import { cloneDeep, extend } from 'lodash';
 
-import { FILE_NAME } from './generateTestCases';
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import { getSNAPBenefits } from '../../../../programs/federal/snap';
 
-test.skip('getSNAPBenefits() matches saved results', done => {
+test('getSNAPBenefits() matches saved results', done => {
   const rl = readline.createInterface({
-    input: fs.createReadStream(path.resolve(__dirname, FILE_NAME))
+    input: fs.createReadStream(path.resolve(__dirname, 'test-cases.txt'))
   });
 
   rl.on('line', line => {
