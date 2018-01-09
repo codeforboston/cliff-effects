@@ -47,6 +47,7 @@ class VisitPage extends Component {
         redirect: false,
         client: cloneDeep(CLIENT_DEFAULTS),
         promptOpen: false,
+        promptMessage: '',
         promptCallback: ok => this.setState({ promptOpen: ok }),
         // Hack for MVP
         oldShelter: CLIENT_DEFAULTS.current.shelter,
@@ -65,13 +66,7 @@ class VisitPage extends Component {
 
   componentDidMount() {
     const confirm = (message, callback) =>
-      this.setState({
-        promptOpen: true,
-        promptCallback: ok => {
-          this.setState({ promptOpen: false });
-          callback(ok);
-        }
-      })
+      this.prompt(callback, message);
     getUserConfirmation.set(confirm);
   }
 
@@ -80,26 +75,23 @@ class VisitPage extends Component {
   }
 
   resetClient = () => {
-    this.setState(prevState => ({
-      promptOpen: true,
-      promptCallback: ok => {
-        if (ok) {
-          this.setState({
-            promptOpen: false,
-            promptCallback: prevState.promptCallback,
-            currentStep: 1,
-            client: cloneDeep(CLIENT_DEFAULTS),
-            oldShelter: CLIENT_DEFAULTS.current.shelter,
-            userChanged: {}
-          });
-        } else {
-          this.setState({
-            promptOpen: false,
-            promptCallback: prevState.promptCallback
-          });
-        }
-      }
+    this.prompt(ok => ok && this.setState({
+      currentStep: 1,
+      client: cloneDeep(CLIENT_DEFAULTS),
+      oldShelter: CLIENT_DEFAULTS.current.shelter,
+      userChanged: {}
     }));
+  }
+
+  prompt = (callback, message) => {
+    this.setState({
+      promptOpen: true,
+      promptMessage: message,
+      promptCallback: ok => {
+        this.setState({ promptOpen: false });
+        callback(ok);
+      }
+    });
   }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -182,6 +174,7 @@ class VisitPage extends Component {
         <OnLeavePrompt
           callback={this.state.promptCallback}
           client={this.state.client}
+          message={this.state.promptMessage}
           open={this.state.promptOpen}
         />
         <ConfirmLeave

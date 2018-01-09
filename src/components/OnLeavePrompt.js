@@ -18,6 +18,7 @@ import DownloadSessionData from './DownloadSessionData';
  * @param props {object}
  * @param props.callback {onLeaveCallback}
  * @param props.client {object}
+ * @param props.message {string}
  * @param props.open {boolean} - Whether the modal is visible.
  */
 class OnLeavePrompt extends React.Component {
@@ -31,12 +32,12 @@ class OnLeavePrompt extends React.Component {
   }
 
   render() {
-    const { callback, client, open } = this.props;
+    const { callback, client, message, open } = this.props;
 
     return (
       <Modal open={open}>
         <Modal.Content>
-          <p>Are you sure you want to leave the page?</p>
+          <p>{message || 'Are you sure you want to leave the page?'}</p>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.leave}>Leave</Button>
