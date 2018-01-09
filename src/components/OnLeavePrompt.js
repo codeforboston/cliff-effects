@@ -32,21 +32,21 @@ class OnLeavePrompt extends React.Component {
   }
 
   render() {
-    const { callback, client, message, open } = this.props;
+    const { client, message, open } = this.props;
 
     return (
       <Modal open={open}>
         <Modal.Content>
           <p>{message || 'Are you sure you want to leave the page?'}</p>
+          <p>
+            Please include session data in support requests.
+            {' '/* TODO: better way of adding horizontal space */}
+            <DownloadSessionData client={client} />
+          </p>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.leave}>Leave</Button>
           <Button onClick={this.stay}>Stay</Button>
-          <Button
-            as={DownloadSessionData}
-            client={client}
-            onClick={() => callback(true)}
-          />
         </Modal.Actions>
       </Modal>
     );

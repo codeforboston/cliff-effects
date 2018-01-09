@@ -8,8 +8,8 @@ import React from 'react';
  * @param props.filename {string}
  * @param props.url {string}
  */
-const DownloadFile = ({ children = "Download file", filename, url, onClick }) =>
-  <a href={url} download={filename} onClick={onClick}>
+const DownloadFile = ({ children = "Download file", filename, url }) =>
+  <a href={url} download={filename}>
     {children}
   </a>;
 
