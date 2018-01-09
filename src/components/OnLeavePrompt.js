@@ -36,6 +36,7 @@ class OnLeavePrompt extends React.Component {
 
     return (
       <Modal open={open}>
+        <Modal.Header>Do you want to leave this site?</Modal.Header>
         <Modal.Content>
           <p>{message || 'Are you sure you want to leave the page?'}</p>
           <p>
