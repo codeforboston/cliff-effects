@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal } from 'semantic-ui-react';
 
-import DownloadSessionData from './DownloadSessionData';
+import DownloadFile from './DownloadFile';
 
 /**
  * Called with result of user interaction with on leave modal.
@@ -41,7 +41,9 @@ class OnLeavePrompt extends React.Component {
           <p>
             Please include session data in support requests.
             {' '/* TODO: better way of adding horizontal space */}
-            <DownloadSessionData client={client} />
+            <DownloadFile data={{ client: client }}>
+              Download session data
+            </DownloadFile>
           </p>
         </Modal.Content>
         <Modal.Actions>

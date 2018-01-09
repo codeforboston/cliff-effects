@@ -20,13 +20,13 @@ class DownloadFileAs extends React.Component {
   }
 
   render() {
-    const { children, url } = this.props;
+    const { children, data } = this.props;
     const { filename } = this.state;
 
     return (
       <div>
         <input onChange={this.updateFilename} value={filename} />
-        <DownloadFile url={url} filename={filename}>
+        <DownloadFile data={data} filename={filename}>
           {children}
         </DownloadFile>
       </div>
