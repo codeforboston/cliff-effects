@@ -78,13 +78,17 @@ class VisitPage extends Component {
   }
 
   resetClient = () => {
-    const data = { client: this.state.client };
-    this.prompt(ok => ok && this.setState({
+    this.setState({
       currentStep: 1,
       client: cloneDeep(CLIENT_DEFAULTS),
       oldShelter: CLIENT_DEFAULTS.current.shelter,
       userChanged: {}
-    }), data);
+    });
+  }
+
+  resetClientPrompt = () => {
+    const data = { client: this.state.client };
+    this.prompt(ok => ok && this.resetClient(), data);
   }
 
   prompt = (callback, data, message) => {
@@ -165,7 +169,7 @@ class VisitPage extends Component {
                    previousStep={this.previousStep}
                    changeClient={this.changeClient}
                    saveForm={this.saveForm}
-                   resetClient={this.resetClient} />
+                   resetClient={this.resetClientPrompt} />
     );
   };  // End getCurrentStep()
 
@@ -183,6 +187,7 @@ class VisitPage extends Component {
           open={this.state.promptOpen}
         />
         <DownloadErrorPrompt
+          callback={this.resetClient}
           client={this.state.client}
           prompt={this.prompt}
         />

@@ -9,12 +9,11 @@ import React from 'react';
  * @param props.prompt {prompt}
  */
 class DownloadErrorPrompt extends React.Component {
-  static callback = () => {};
   static message = 'There was an unexpected error. Would you like to reload the page?';
 
   handleError = ({ error }) => {
-    const { client, prompt } = this.props;
-    const { callback, message } = DownloadErrorPrompt;
+    const { callback, client, prompt } = this.props;
+    const { message } = DownloadErrorPrompt;
     const data = {
       client: client,
       error: {
