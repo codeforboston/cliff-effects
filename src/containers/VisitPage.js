@@ -92,7 +92,7 @@ class VisitPage extends Component {
   }
 
   prompt = (callback, data, message) => {
-    this.setState(prevState => ({
+    this.setState({
       promptOpen: true,
       promptMessage: message,
       promptData: data,
@@ -100,7 +100,7 @@ class VisitPage extends Component {
         this.setState({ promptOpen: false });
         callback(ok);
       }
-    }));
+    });
   }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -187,8 +187,9 @@ class VisitPage extends Component {
           open={this.state.promptOpen}
         />
         <DownloadErrorPrompt
-          callback={this.resetClient}
+          callback={ok => ok && this.resetClient()}
           client={this.state.client}
+          message='There was an unexpected error. Would you like to reload the page?'
           prompt={this.prompt}
         />
         <ConfirmLeave

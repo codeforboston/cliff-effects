@@ -5,15 +5,14 @@ import React from 'react';
  * @extends React.Component
  * 
  * @param props {object}
+ * @param props.callback {onLeaveCallback}
  * @param props.client {object}
+ * @param props.message {string}
  * @param props.prompt {prompt}
  */
 class DownloadErrorPrompt extends React.Component {
-  static message = 'There was an unexpected error. Would you like to reload the page?';
-
   handleError = ({ error }) => {
-    const { callback, client, prompt } = this.props;
-    const { message } = DownloadErrorPrompt;
+    const { callback, client, message, prompt } = this.props;
     const data = {
       client: client,
       error: {
