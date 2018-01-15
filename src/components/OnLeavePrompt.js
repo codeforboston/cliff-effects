@@ -42,21 +42,26 @@ class OnLeavePrompt extends React.Component {
   }
 
   render() {
-    const { data, message, open } = this.props;
+    const { data, header, message, open, leaveText, stayText } = this.props;
     const { downloaded } = this.state;
+
+    var realLeave = leaveText || 'Leave',
+        realStay  = stayText || 'Stay';
 
     return (
       <Modal open={open}>
-        <Modal.Header>Do you want to leave this site?</Modal.Header>
+        <Modal.Header>{header || 'Do you want to download the anonymized data?'}</Modal.Header>
         <Modal.Content>
-          <p>{message || 'Are you sure you want to leave the page?'}</p>
           <p>
-            Please include session data in support requests.
+            If you are giving feedback or reporting a bug, please use the download button first to download an anoymized version of the data, then attach that downloaded file to the email you send to andrew@codeforboston.org.
+          </p>
+          <p>
+            {message || 'Selecting "' + realLeave + '" will erase the information you have put into the form. You will still be able to click it after downloading.'}
           </p>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={this.leave}>Leave</Button>
-          <Button onClick={this.stay}>Stay</Button>
+          <Button onClick={this.leave}>{realLeave}</Button>
+          <Button onClick={this.stay}>{realStay}</Button>
           <Button
             as={DownloadFile}
             data={data}

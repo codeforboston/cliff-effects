@@ -12,7 +12,7 @@ import React from 'react';
  */
 class DownloadErrorPrompt extends React.Component {
   handleError = ({ error }) => {
-    const { callback, client, message, prompt } = this.props;
+    const { callback, client, header, leaveText, message, prompt } = this.props;
     const data = {
       client: client,
       error: {
@@ -20,7 +20,7 @@ class DownloadErrorPrompt extends React.Component {
         stack: error.stack
       }
     };
-    prompt(callback, data, message);
+    prompt(callback, data, leaveText, header, message);
   }
 
   componentDidMount() {

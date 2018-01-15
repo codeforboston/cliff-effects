@@ -49,6 +49,8 @@ class VisitPage extends Component {
         client: cloneDeep(CLIENT_DEFAULTS),
         promptOpen: false,
         promptMessage: '',
+        promptHeader: '',
+        promptLeaveText: 'Reset',
         promptData: {},
         promptCallback: () => {},
         // Hack for MVP
@@ -88,13 +90,15 @@ class VisitPage extends Component {
 
   resetClientPrompt = () => {
     const data = { client: this.state.client };
-    this.prompt(ok => ok && this.resetClient(), data);
+    this.prompt(ok => ok && this.resetClient(), data, 'Reset');
   }
 
-  prompt = (callback, data, message) => {
+  prompt = (callback, data, leaveText, header, message) => {
     this.setState({
       promptOpen: true,
       promptMessage: message,
+      promptLeaveText: leaveText,
+      promptHeader: header,
       promptData: data,
       promptCallback: ok => {
         this.setState({ promptOpen: false });
@@ -178,24 +182,24 @@ class VisitPage extends Component {
       <div className='forms-container flex-item flex-column'>
         <Prompt
           when={this.state.isBlocking}
-          message='This action will erase all current data. Are you sure you want to do this?'
+          message='Leave'
         />
         <OnLeavePrompt
           callback={this.state.promptCallback}
           data={this.state.promptData}
+          header={this.state.promptHeader}
+          leaveText={this.state.promptLeaveText}
           message={this.state.promptMessage}
           open={this.state.promptOpen}
         />
         <DownloadErrorPrompt
           callback={ok => ok && this.resetClient()}
           client={this.state.client}
-          message='There was an unexpected error. Would you like to reload the page?'
+          header='There was an unexpected error. Do you want to download the error data?'
+          leaveText='Reset'
           prompt={this.prompt}
         />
-        <ConfirmLeave
-          when={this.state.isBlocking}
-          message='This action will erase all current data. Are you sure you want to do this?'
-        />
+        <ConfirmLeave when={this.state.isBlocking} />
 
         {this.state.redirect ?
           <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
