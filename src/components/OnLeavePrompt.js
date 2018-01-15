@@ -22,6 +22,10 @@ import DownloadFile from './DownloadFile';
  * @param props.open {boolean} - Whether the modal is visible.
  */
 class OnLeavePrompt extends React.Component {
+  state = { downloaded: false };
+
+  download = () => this.setState({ downloaded: true });
+
   leave = event => {
     event.preventDefault();
     this.props.callback(true);
@@ -31,8 +35,15 @@ class OnLeavePrompt extends React.Component {
     this.props.callback(false);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data !== nextProps.data) {
+      this.setState({ downloaded: false });
+    }
+  }
+
   render() {
     const { data, message, open } = this.props;
+    const { downloaded } = this.state;
 
     return (
       <Modal open={open}>
@@ -41,15 +52,19 @@ class OnLeavePrompt extends React.Component {
           <p>{message || 'Are you sure you want to leave the page?'}</p>
           <p>
             Please include session data in support requests.
-            {' '/* TODO: better way of adding horizontal space */}
-            <DownloadFile data={data}>
-              Download session data
-            </DownloadFile>
           </p>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.leave}>Leave</Button>
           <Button onClick={this.stay}>Stay</Button>
+          <Button
+            as={DownloadFile}
+            data={data}
+            onClick={this.download}
+            primary={!downloaded}
+          >
+            {downloaded ? 'Download again' : 'Download data'}
+          </Button>
         </Modal.Actions>
       </Modal>
     );
