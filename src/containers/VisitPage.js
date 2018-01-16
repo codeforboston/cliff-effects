@@ -70,8 +70,8 @@ class VisitPage extends Component {
 
   componentDidMount() {
     const data = { client: this.state.client };
-    const confirm = (message, callback) =>
-      this.prompt(callback, data, message);
+    const confirm = (message, callback, leaveText, header) =>
+      this.prompt(callback, data, leaveText, header, message);
     getUserConfirmation.set(confirm);
   }
 
