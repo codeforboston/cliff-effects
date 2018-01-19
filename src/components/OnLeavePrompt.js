@@ -45,8 +45,10 @@ class OnLeavePrompt extends React.Component {
     const { data, header, message, open, leaveText, stayText } = this.props;
     const { downloaded } = this.state;
 
-    var realLeave = leaveText || 'Leave',
-        realStay  = stayText || 'Stay';
+    var realLeave   = leaveText || 'Leave',
+        realStay    = stayText || 'Stay',
+        realMessage = message;
+    if ( message === 'default' ) { realMessage =  'Selecting "' + realLeave + '" will erase the information you have put into the form. You will still be able to click it after downloading.'; }
 
     return (
       <Modal open={open}>
@@ -55,9 +57,7 @@ class OnLeavePrompt extends React.Component {
           <p>
             If you are giving feedback or reporting a bug, please use the download button first to download an anoymized version of the data, then attach that downloaded file to the email you send to andrew@codeforboston.org.
           </p>
-          <p>
-            {message || 'Selecting "' + realLeave + '" will erase the information you have put into the form. You will still be able to click it after downloading.'}
-          </p>
+          <p> {realMessage} </p>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.leave}>{realLeave}</Button>

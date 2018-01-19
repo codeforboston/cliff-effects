@@ -70,8 +70,8 @@ class VisitPage extends Component {
 
   componentDidMount() {
     const data = { client: this.state.client };
-    const confirm = (message, callback, leaveText, header) =>
-      this.prompt(callback, data, leaveText, header, message);
+    const confirm = (message, callback) =>
+      this.prompt(callback, data, null, null, message);
     getUserConfirmation.set(confirm);
   }
 
@@ -182,7 +182,7 @@ class VisitPage extends Component {
       <div className='forms-container flex-item flex-column'>
         <Prompt
           when={this.state.isBlocking}
-          message='Leave'
+          message='default'
         />
         <OnLeavePrompt
           callback={this.state.promptCallback}
