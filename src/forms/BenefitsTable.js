@@ -25,24 +25,20 @@ const getSignSymbol = function ( num ) {
 
 const BenefitsTable = function ( props ) {
 
-  var client        = props.client,
-      currentClient = cloneDeep( client ),
-      futureClient  = cloneDeep( currentClient );
-  // Hack because everything's using future value instead
-  // of just using current value.
-  currentClient.future.earned = currentClient.current.earned;
+  var client = cloneDeep( props.client ),
+      curr   = client.current;
 
-  var SNAPBenefitCurrent  = client.current.hasSnap ? Math.round( getSNAPBenefits( client, 'current' ) * 12 ) : 0,
-      SNAPBenefitFuture   = client.current.hasSnap ? Math.round( getSNAPBenefits( client, 'future' ) * 12 ) : 0,
+  var SNAPBenefitCurrent  = curr.hasSnap ? Math.round( getSNAPBenefits( client, 'current' ) * 12 ) : 0,
+      SNAPBenefitFuture   = curr.hasSnap ? Math.round( getSNAPBenefits( client, 'future' ) * 12 ) : 0,
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8BenefitCurrent  = client.current.hasHousing ? Math.round( getHousingBenefit( client ) * 12 ) : 0,
-      sec8BenefitFuture   = client.current.hasHousing ? Math.round( getHousingBenefit( client ) * 12 ) : 0,
+      sec8BenefitCurrent  = curr.hasHousing ? Math.round( (curr.contractRent - curr.rentShare) * 12 ) : 0,
+      sec8BenefitFuture   = curr.hasHousing ? Math.round( getHousingBenefit( client ) * 12 ) : 0,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
       totalDiff           = SNAPDiff + sec8Diff,
-      incomeCurrent       = Math.round( currentClient.current.earned * 12 ),
-      incomeFuture        = Math.round( futureClient.future.earned * 12 ),
+      incomeCurrent       = Math.round( curr.earned * 12 ),
+      incomeFuture        = Math.round( client.future.earned * 12 ),
       incomeDiff          = incomeFuture - incomeCurrent,
       netCurrent          = totalBenefitCurrent + incomeCurrent,
       netFuture           = totalBenefitFuture + incomeFuture,
@@ -84,7 +80,7 @@ const   columnHeaderStyle = {
 
 
 const SNAPBenefitRow = function( props ){
-  if(!currentClient.current.hasSnap ) return (null)
+  if(!client.current.hasSnap ) return (null)
     return (
       <Table.Row>
         <Table.Cell style={rowHeaderStyle}>SNAP</Table.Cell>
@@ -96,7 +92,7 @@ const SNAPBenefitRow = function( props ){
   };
 
 const Sec8BenefitRow  = function( props ){  
-  if(!currentClient.current.hasHousing) return (null)
+  if(!client.current.hasHousing) return (null)
     return (
       <Table.Row>
         <Table.Cell style={rowHeaderStyle}>Section 8 Housing</Table.Cell>
@@ -108,7 +104,7 @@ const Sec8BenefitRow  = function( props ){
 };
 
 const TotalBenefitsRow = function( props ){
-  if(!currentClient.current.hasSnap || !currentClient.current.hasHousing) return (null)
+  if(!client.current.hasSnap || !client.current.hasHousing) return (null)
     return(
       <Table.Row>
         <Table.Cell textAlign='right' width={3} style={totalsRowHeaderStyle}>Total Benefits</Table.Cell>
@@ -153,9 +149,9 @@ const TotalsRow = function ( props ) {
           </Table.Row>
       </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow client={currentClient} />
-          <Sec8BenefitRow client={currentClient} />
-          <TotalBenefitsRow client={currentClient} />
+          <SNAPBenefitRow client={client} />
+          <Sec8BenefitRow client={client} />
+          <TotalBenefitsRow client={client} />
           <IncomeRow />
           <TotalsRow />
         </Table.Body>
