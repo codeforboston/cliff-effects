@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 // Logic
 import { getSNAPBenefits } from '../programs/federal/snap';
@@ -44,15 +44,13 @@ const ResultsGraph = (props) => {
     datasets: [
       {
         label: "SNAP",
-        borderColor: "rgba(101, 47, 138, 1)",
-        data: snapData,
-        fill: false
+        backgroundColor: "rgba(101, 47, 138, 1)",
+        data: snapData
       },
       {
         label: "Section 8 Housing",
-        borderColor: "rgba(206, 203, 61, 1)",
-        data: housingData,
-        fill: false
+        backgroundColor: "rgba(206, 203, 61, 1)",
+        data: housingData
       },
     ]
   };
@@ -63,9 +61,9 @@ const ResultsGraph = (props) => {
         text: 'Benefit Eligibility for Household Size ' +
                 props.client.householdSize
     },
-    showLines: true,
     scales: {
         yAxes: [{
+          stacked: true,
           scaleLabel: {
             display: true,
               labelString: 'Benefit Value ($)'
@@ -82,6 +80,7 @@ const ResultsGraph = (props) => {
           }
         }],
         xAxes: [{
+          stacked: true,
           scaleLabel: {
             display: true,
               labelString: 'Annual Income ($)'
@@ -147,7 +146,7 @@ const ResultsGraph = (props) => {
         left      = {{ name: 'Go Back', func: props.previousStep }}
         right      = {{ name: 'Reset', func: props.resetClient }}
       >
-         <div> <Line data={data} options={options} /> </div>
+         <div> <Bar data={data} options={options} /> </div>
       </FormPartsContainer>
     </div>
   )
