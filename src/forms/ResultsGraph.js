@@ -21,6 +21,36 @@ const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
       incomeName    = PROGRAM_CHART_VALUES.income.name;
 
 
+// Helper functions to format vlaues
+const formatAxis = function ( label ) {
+  /* Adds 1,000s separators to graph axes */
+  return label.toLocaleString( "en-US" );
+};
+
+const toFancyMoneyStr = function ( toFormat ) {
+  return toFormat.toLocaleString("en-US", {style:"currency",currency:"USD"}).replace('.00','');
+}
+
+const formatTitle = function (tooltipItems, data) {
+  var toFormat = data.labels[tooltipItems[0].index];
+  return toFancyMoneyStr( toFormat );
+};
+
+const formatLabel =  function(tooltipItem, data) {
+  /* From https://github.com/chartjs/Chart.js/issues/2386 */
+  return data.datasets[tooltipItem.datasetIndex].label
+          + ": " + toFancyMoneyStr( tooltipItem.yLabel );
+}
+
+
+/* Note: default tooltip for chart.js 2.0+:
+ * options: { tooltips: { callbacks: {
+ *  label: function(tooltipItem, data) {
+ *    return tooltipItem.yLabel;
+ *  }
+ * }}}
+ */
+
 const ResultsGraph = (props) => {
   var xRange = _.range(0, 100000, 1000);
   /** Need a new object so client's data doesn't get changed. */
@@ -67,13 +97,6 @@ const ResultsGraph = (props) => {
         },
       ]
     },  // end `data`
-    /* default tooltip for chart.js 2.0+:
-     * options: { tooltips: { callbacks: {
-     *  label: function(tooltipItem, data) {
-     *    return tooltipItem.yLabel;
-     *  }
-     * }}}
-     */
     options: {
       title: {
         display: true,
@@ -88,11 +111,8 @@ const ResultsGraph = (props) => {
           },
           ticks: {
             beginAtZero: true,
-            /* function to add $ and 1,000s separators to graph axes
-             * we are using chart.js v2.7 so it requires a callback function */
-            callback: function(label) {
-              return label.toLocaleString("en-US");
-            }
+            /* chart.js v2.7 requires a callback function */
+            callback: formatAxis
           }
         }],
         xAxes: [{
@@ -101,26 +121,14 @@ const ResultsGraph = (props) => {
             labelString: 'Annual Income ($)'
           },
           ticks: {
-            callback: function(label) {
-              return label.toLocaleString("en-US");
-            }
+            callback: formatAxis
           }
         }]
-      },
+      },  // end `scales`
       tooltips: {
-        /* Add currency format. */
         callbacks: {
-          title: function(tooltipItems, data) {
-            return data
-              .labels[tooltipItems[0].index]
-              .toLocaleString("en-US", {style:"currency",currency:"USD"}).replace('.00','');
-          },
-          /* From https://github.com/chartjs/Chart.js/issues/2386 */
-          label: function(tooltipItem, data) {
-            return data.datasets[tooltipItem.datasetIndex]
-              .label + ": " + tooltipItem.yLabel
-              .toLocaleString("en-US",{style:"currency", currency:"USD"}).replace('.00','');
-          }
+          title: formatTitle,
+          label: formatLabel
         }
       }  // end `tooltips`
     }  // end `options`
@@ -156,9 +164,7 @@ const ResultsGraph = (props) => {
           },
           ticks: {
             beginAtZero: true,
-            callback: function(label) {
-              return label.toLocaleString("en-US");
-            }
+            callback: formatAxis
           }
         }],
         xAxes: [{
@@ -168,27 +174,14 @@ const ResultsGraph = (props) => {
               labelString: 'Annual Income ($)'
           },
           ticks: {
-            callback: function(label) {
-              return label.toLocaleString("en-US");
-            }
+            callback: formatAxis
           }
         }]
       },
       tooltips: {
         callbacks: {
-          title: function(tooltipItems, data) {
-            return data.labels[tooltipItems[0].index].toLocaleString(
-              "en-US",
-              {style:"currency",currency:"USD"}
-            ).replace('.00','');
-          },
-          label: function(tooltipItem, data) {
-            return data.datasets[tooltipItem.datasetIndex].label + ": " +
-              tooltipItem.yLabel.toLocaleString(
-                "en-US",
-                {style:"currency", currency:"USD"}
-              ).replace('.00','');
-          }
+          title: formatTitle,
+          label: formatLabel
         }
       }
     }
@@ -240,13 +233,7 @@ const ResultsGraph = (props) => {
           },
           ticks: {
             beginAtZero: true,
-            /*
-              * function to add $ and 1,000s separators to graph axes
-              * we are using chart.js v2.7 so it requires a callback function
-              */
-            callback: function(label) {
-                return label.toLocaleString("en-US");
-            }
+            callback: formatAxis
           }
         }],
         xAxes: [{
@@ -256,9 +243,7 @@ const ResultsGraph = (props) => {
               labelString: 'Annual Income ($)'
           },
           ticks: {
-            callback: function(label) {
-                return label.toLocaleString("en-US");
-            }
+            callback: formatAxis
           }
         }]
       },
@@ -266,24 +251,14 @@ const ResultsGraph = (props) => {
         callbacks: {
           title: function(tooltipItems, data) {
             const { index } = tooltipItems[0];
-            return _.sumBy(data.datasets, dataset => dataset.data[index]).toLocaleString(
-              "en-US",
-              {style:"currency",currency:"USD"}
-            ).replace('.00','');
+            return toFancyMoneyStr( _.sumBy( data.datasets, dataset => dataset.data[index] ))
           },
-          label: function(tooltipItem, data) {
-            return data.datasets[tooltipItem.datasetIndex].label + ": " +
-              tooltipItem.yLabel.toLocaleString(
-                "en-US",
-                {style:"currency", currency:"USD"}
-              ).replace('.00','');
-          }
+          label: formatLabel
         }
       }
     }
   }
 
-  // Non-saving version for first prototype testing
   return (
     <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
