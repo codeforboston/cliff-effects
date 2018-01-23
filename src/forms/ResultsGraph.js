@@ -5,9 +5,15 @@ import { Bar, Line } from 'react-chartjs-2';
 // Logic
 import { getSNAPBenefits } from '../programs/federal/snap';
 import { getHousingBenefit } from '../programs/massachusetts/housing';
+import {
+  formatAxis,
+  formatTitle,
+  formatLabel,
+  stackedTitle
+} from '../utils/charts/chartFunctions';
 
 // Data
-import { PROGRAM_CHART_VALUES } from '../utils/PROGRAM_CHART_VALUES'
+import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 
 // Our Components
 import { FormPartsContainer } from './formHelpers';
@@ -19,28 +25,6 @@ const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
       section8Name  = PROGRAM_CHART_VALUES.section8.name,
       incomeColor   = PROGRAM_CHART_VALUES.income.color,
       incomeName    = PROGRAM_CHART_VALUES.income.name;
-
-
-// Helper functions to format vlaues
-const formatAxis = function ( label ) {
-  /* Adds 1,000s separators to graph axes */
-  return label.toLocaleString( "en-US" );
-};
-
-const toFancyMoneyStr = function ( toFormat ) {
-  return toFormat.toLocaleString("en-US", {style:"currency",currency:"USD"}).replace('.00','');
-}
-
-const formatTitle = function (tooltipItems, data) {
-  var toFormat = data.labels[tooltipItems[0].index];
-  return toFancyMoneyStr( toFormat );
-};
-
-const formatLabel =  function(tooltipItem, data) {
-  /* From https://github.com/chartjs/Chart.js/issues/2386 */
-  return data.datasets[tooltipItem.datasetIndex].label
-          + ": " + toFancyMoneyStr( tooltipItem.yLabel );
-}
 
 
 /* Note: default tooltip for chart.js 2.0+:
@@ -249,10 +233,7 @@ const ResultsGraph = (props) => {
       },
       tooltips: {
         callbacks: {
-          title: function(tooltipItems, data) {
-            const { index } = tooltipItems[0];
-            return toFancyMoneyStr( _.sumBy( data.datasets, dataset => dataset.data[index] ))
-          },
+          title: stackedTitle,
           label: formatLabel
         }
       }
