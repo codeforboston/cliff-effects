@@ -37,9 +37,84 @@ const ResultsGraph = (props) => {
     return yearlySubsidy;
   });
 
-  // TAFDC color? "rgba(206, 125, 61, 1)"
+  var lineProps = {
+    data: {
+      labels: xRange,
+      datasets: [
+        {
+          label: "SNAP",
+          borderColor: "rgba(101, 47, 138, 1)",
+          data: snapData,
+          fill: false
+        },
+        {
+          label: "Section 8 Housing",
+          borderColor: "rgba(206, 203, 61, 1)",
+          data: housingData,
+          fill: false
+        },
+      ]
+    },  // end `data`
+    /* default tooltip for chart.js 2.0+:
+     * options: { tooltips: { callbacks: {
+     *  label: function(tooltipItem, data) {
+     *    return tooltipItem.yLabel;
+     *  }
+     * }}}
+     */
+    options: {
+      title: {
+        display: true,
+          text: 'Benefit Eligibility for Household Size ' + props.client.householdSize
+      },
+      showLines: true,
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Benefit Value ($)'
+          },
+          ticks: {
+            beginAtZero: true,
+            /* function to add $ and 1,000s separators to graph axes
+             * we are using chart.js v2.7 so it requires a callback function */
+            callback: function(label) {
+              return label.toLocaleString("en-US");
+            }
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Annual Income ($)'
+          },
+          ticks: {
+            callback: function(label) {
+              return label.toLocaleString("en-US");
+            }
+          }
+        }]
+      },
+      tooltips: {
+        /* Add currency format. */
+        callbacks: {
+          title: function(tooltipItems, data) {
+            return data
+              .labels[tooltipItems[0].index]
+              .toLocaleString("en-US", {style:"currency",currency:"USD"}).replace('.00','');
+          },
+          /* From https://github.com/chartjs/Chart.js/issues/2386 */
+          label: function(tooltipItem, data) {
+            return data.datasets[tooltipItem.datasetIndex]
+              .label + ": " + tooltipItem.yLabel
+              .toLocaleString("en-US",{style:"currency", currency:"USD"}).replace('.00','');
+          }
+        }
+      }  // end `tooltips`
+    }  // end `options`
+  };  // end lineProps
 
-  const barProps = {
+  const stackedBarProps = {
     data: {
       labels: xRange,
       datasets: [
@@ -70,10 +145,6 @@ const ResultsGraph = (props) => {
           },
           ticks: {
             beginAtZero: true,
-            /*
-              * function to add $ and 1,000s separators to graph axes
-              * we are using chart.js v2.7 so it requires a callback function
-              */
             callback: function(label) {
               return label.toLocaleString("en-US");
             }
@@ -92,34 +163,14 @@ const ResultsGraph = (props) => {
           }
         }]
       },
-        /*
-         * default tooltip for chart.js 2.0+  when unspecified looks like:
-         *
-         * options: {
-         *   tooltips: {
-         *       callbacks: {
-         *           label: function(tooltipItem, data) {
-         *               return tooltipItem.yLabel;
-         *           }
-         *       }
-         *   }
-         * }
-         *
-         */
       tooltips: {
         callbacks: {
-          // format the title of the tooltips to be in USD
           title: function(tooltipItems, data) {
             return data.labels[tooltipItems[0].index].toLocaleString(
               "en-US",
               {style:"currency",currency:"USD"}
             ).replace('.00','');
           },
-          /*
-            * to add number formatting to the tooltips. returns the data label
-            * + currency format
-            * from https://github.com/chartjs/Chart.js/issues/2386
-            */
           label: function(tooltipItem, data) {
             return data.datasets[tooltipItem.datasetIndex].label + ": " +
               tooltipItem.yLabel.toLocaleString(
@@ -132,7 +183,7 @@ const ResultsGraph = (props) => {
     }
   };
 
-  const lineProps = {
+  const stackedAreaProps = {
     data: {
       labels: xRange.slice(0, 50),
       datasets: [
@@ -231,8 +282,9 @@ const ResultsGraph = (props) => {
         right      = {{ name: 'Reset', func: props.resetClient }}
       >
          <div>
-           <Bar {...barProps} />
            <Line {...lineProps} />
+           <Bar {...stackedBarProps} />
+           <Line {...stackedAreaProps} />
           </div>
       </FormPartsContainer>
     </div>
