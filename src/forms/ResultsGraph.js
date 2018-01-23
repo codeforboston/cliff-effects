@@ -6,8 +6,20 @@ import { Bar, Line } from 'react-chartjs-2';
 import { getSNAPBenefits } from '../programs/federal/snap';
 import { getHousingBenefit } from '../programs/massachusetts/housing';
 
+// Data
+import { PROGRAM_CHART_VALUES } from '../utils/PROGRAM_CHART_VALUES'
+
 // Our Components
 import { FormPartsContainer } from './formHelpers';
+
+
+const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
+      SNAPName      = PROGRAM_CHART_VALUES.SNAP.name,
+      section8Color = PROGRAM_CHART_VALUES.section8.color,
+      section8Name  = PROGRAM_CHART_VALUES.section8.name,
+      incomeColor   = PROGRAM_CHART_VALUES.income.color,
+      incomeName    = PROGRAM_CHART_VALUES.income.name;
+
 
 const ResultsGraph = (props) => {
   var xRange = _.range(0, 100000, 1000);
@@ -42,14 +54,14 @@ const ResultsGraph = (props) => {
       labels: xRange,
       datasets: [
         {
-          label: "SNAP",
-          borderColor: "rgba(101, 47, 138, 1)",
+          label: SNAPName,
+          borderColor: SNAPColor,
           data: snapData,
           fill: false
         },
         {
-          label: "Section 8 Housing",
-          borderColor: "rgba(206, 203, 61, 1)",
+          label: section8Name,
+          borderColor: section8Color,
           data: housingData,
           fill: false
         },
@@ -119,13 +131,13 @@ const ResultsGraph = (props) => {
       labels: xRange,
       datasets: [
         {
-          label: "SNAP",
-          backgroundColor: "rgba(101, 47, 138, 1)",
+          label: SNAPName,
+          backgroundColor: SNAPColor,
           data: snapData
         },
         {
-          label: "Section 8 Housing",
-          backgroundColor: "rgba(206, 203, 61, 1)",
+          label: section8Name,
+          backgroundColor: section8Color,
           data: housingData
         },
       ]
@@ -188,19 +200,19 @@ const ResultsGraph = (props) => {
       labels: xRange.slice(0, 50),
       datasets: [
         {
-          label: "Income",
-          backgroundColor: "rgba(60, 136, 206, 0.55)",
+          label: incomeName,
+          backgroundColor: incomeColor,
           data: xRange.slice(0, 50),
           fill: "origin"
         },
         {
-          label: "SNAP",
-          backgroundColor: "rgba(101, 47, 138, 0.55)",
+          label: SNAPName,
+          backgroundColor: SNAPColor,
           data: snapData.slice(0, 50)
         },
         {
-          label: "Section 8 Housing",
-          backgroundColor: "rgba(206, 203, 61, 0.55)",
+          label: section8Name,
+          backgroundColor: section8Color,
           data: housingData.slice(0, 50)
         },
       ]
