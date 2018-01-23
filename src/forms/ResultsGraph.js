@@ -77,7 +77,7 @@ const ResultsGraph = (props) => {
     options: {
       title: {
         display: true,
-          text: 'Benefit Eligibility for Household Size ' + props.client.householdSize
+          text: 'Individual Benefit Amounts for Household as Income Changes'
       },
       showLines: true,
       scales: {
@@ -145,8 +145,7 @@ const ResultsGraph = (props) => {
     options: {
       title: {
         display: true,
-        text: 'Benefit Eligibility for Household Size ' +
-          props.client.householdSize
+        text: 'Stacked Benefit Amounts for Household as Income Changes'
       },
       scales: {
         yAxes: [{
@@ -220,8 +219,7 @@ const ResultsGraph = (props) => {
     options: {
       title: {
         display: true,
-        text: 'Benefit Eligibility for Household Size ' +
-          props.client.householdSize
+        text: 'All Money Coming in as Income Changes'
       },
       elements: {
         line: {
