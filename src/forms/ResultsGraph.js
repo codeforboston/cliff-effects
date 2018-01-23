@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 // Logic
 import { getSNAPBenefits } from '../programs/federal/snap';
@@ -118,59 +118,6 @@ const ResultsGraph = (props) => {
     }  // end `options`
   };  // end lineProps
 
-  const stackedBarProps = {
-    data: {
-      labels: xRange,
-      datasets: [
-        {
-          label: SNAPName,
-          backgroundColor: SNAPColor,
-          data: snapData
-        },
-        {
-          label: section8Name,
-          backgroundColor: section8Color,
-          data: housingData
-        },
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Stacked Benefit Amounts for Household as Income Changes'
-      },
-      scales: {
-        yAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-              labelString: 'Total Benefit Values ($)'
-          },
-          ticks: {
-            beginAtZero: true,
-            callback: formatAxis
-          }
-        }],
-        xAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-              labelString: 'Annual Income ($)'
-          },
-          ticks: {
-            callback: formatAxis
-          }
-        }]
-      },
-      tooltips: {
-        callbacks: {
-          title: formatTitle,
-          label: formatLabel
-        }
-      }
-    }
-  };
-
   const stackedAreaProps = {
     data: {
       labels: xRange.slice(0, 50),
@@ -199,9 +146,7 @@ const ResultsGraph = (props) => {
         text: 'All Money Coming in as Income Changes'
       },
       elements: {
-        line: {
-          fill: '-1'
-        },
+        line: { fill: '-1' },
         point: {
           radius: 0,
           hitRadius: 10,
@@ -213,7 +158,7 @@ const ResultsGraph = (props) => {
           stacked: true,
           scaleLabel: {
             display: true,
-              labelString: 'Total Money Coming In ($)'
+            labelString: 'Total Money Coming In ($)'
           },
           ticks: {
             beginAtZero: true,
@@ -224,7 +169,7 @@ const ResultsGraph = (props) => {
           stacked: true,
           scaleLabel: {
             display: true,
-              labelString: 'Annual Income ($)'
+            labelString: 'Annual Income ($)'
           },
           ticks: {
             callback: formatAxis
@@ -249,7 +194,6 @@ const ResultsGraph = (props) => {
       >
          <div>
            <Line {...lineProps} />
-           <Bar {...stackedBarProps} />
            <Line {...stackedAreaProps} />
           </div>
       </FormPartsContainer>
