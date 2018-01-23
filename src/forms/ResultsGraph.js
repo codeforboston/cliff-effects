@@ -141,7 +141,7 @@ const ResultsGraph = (props) => {
           stacked: true,
           scaleLabel: {
             display: true,
-              labelString: 'Benefit Value ($)'
+              labelString: 'Total Benefit Values ($)'
           },
           ticks: {
             beginAtZero: true,
@@ -226,7 +226,7 @@ const ResultsGraph = (props) => {
           stacked: true,
           scaleLabel: {
             display: true,
-              labelString: 'Benefit Value ($)'
+              labelString: 'Total Money Coming In ($)'
           },
           ticks: {
             beginAtZero: true,
