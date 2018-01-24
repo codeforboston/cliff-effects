@@ -141,7 +141,7 @@ const Role = function ({ member, setMember }) {
 
     var options = [
       { text: 'Spouse of Head of Household', value: 'spouse' },
-      { text: 'Household Member', value: 'member' }
+      { text: 'Child/Other Household Member', value: 'member' }
     ];
 
     ThisRole = <Dropdown selection
@@ -152,7 +152,7 @@ const Role = function ({ member, setMember }) {
 
   } else {
 
-    ThisRole  = <span>Household Member</span>;
+    ThisRole = <span>Child/Other Household Member</span>;
 
   }
 
