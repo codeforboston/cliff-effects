@@ -18,14 +18,19 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
-import ConfirmLeave from '../components/ConfirmLeave'
+import ConfirmLeave from '../components/ConfirmLeave';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
+import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
 import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
+import OnLeavePrompt from '../components/OnLeavePrompt';
 import StepBar from '../components/StepBar';
 import ResultsGraph from '../forms/ResultsGraph';
+
+// React Router <Prompt> customization shenanigans
+import * as getUserConfirmation from '../utils/getUserConfirmation';
 
 class VisitPage extends Component {
   constructor(props) {
@@ -41,7 +46,13 @@ class VisitPage extends Component {
         currentStep: 1,
         isBlocking: true,
         redirect: false,
-        client : { ...CLIENT_DEFAULTS },
+        client: cloneDeep(CLIENT_DEFAULTS),
+        promptOpen: false,
+        promptMessage: '',
+        promptHeader: '',
+        promptLeaveText: 'Reset',
+        promptData: {},
+        promptCallback: () => {},
         // Hack for MVP
         oldShelter: CLIENT_DEFAULTS.current.shelter,
         userChanged: {}
@@ -56,6 +67,45 @@ class VisitPage extends Component {
       { title: 'Results', form: ResultsGraph }
     ];  // end this.steps {}
   };  // End constructor()
+
+  componentDidMount() {
+    const data = { client: this.state.client };
+    const confirm = (message, callback) =>
+      this.prompt(callback, data, null, null, message);
+    getUserConfirmation.set(confirm);
+  }
+
+  componentWillUnmount() {
+    getUserConfirmation.unset();
+  }
+
+  resetClient = () => {
+    this.setState({
+      currentStep: 1,
+      client: cloneDeep(CLIENT_DEFAULTS),
+      oldShelter: CLIENT_DEFAULTS.current.shelter,
+      userChanged: {}
+    });
+  }
+
+  resetClientPrompt = () => {
+    const data = { client: this.state.client };
+    this.prompt(ok => ok && this.resetClient(), data, 'Reset');
+  }
+
+  prompt = (callback, data, leaveText, header, message) => {
+    this.setState({
+      promptOpen: true,
+      promptMessage: message,
+      promptLeaveText: leaveText,
+      promptHeader: header,
+      promptData: data,
+      promptCallback: ok => {
+        this.setState({ promptOpen: false });
+        callback(ok);
+      }
+    });
+  }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
@@ -122,21 +172,34 @@ class VisitPage extends Component {
                    nextStep={this.nextStep}
                    previousStep={this.previousStep}
                    changeClient={this.changeClient}
-                   saveForm={this.saveForm} />
+                   saveForm={this.saveForm}
+                   resetClient={this.resetClientPrompt} />
     );
   };  // End getCurrentStep()
 
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <ConfirmLeave
-          when={this.state.isBlocking}
-          message='This action will erase all current data. Are you sure you want to do this?'
-        />
         <Prompt
           when={this.state.isBlocking}
-          message='This action will erase all current data. Are you sure you want to do this?'
+          message='default'
         />
+        <OnLeavePrompt
+          callback={this.state.promptCallback}
+          data={this.state.promptData}
+          header={this.state.promptHeader}
+          leaveText={this.state.promptLeaveText}
+          message={this.state.promptMessage}
+          open={this.state.promptOpen}
+        />
+        <DownloadErrorPrompt
+          callback={ok => ok && this.resetClient()}
+          client={this.state.client}
+          header='There was an unexpected error. Do you want to download the error data?'
+          leaveText='Reset'
+          prompt={this.prompt}
+        />
+        <ConfirmLeave when={this.state.isBlocking} />
 
         {this.state.redirect ?
           <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
