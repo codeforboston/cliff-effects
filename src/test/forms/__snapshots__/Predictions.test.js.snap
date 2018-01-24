@@ -169,6 +169,17 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         >
           How will your income affect your future benefits?
         </h3>
+        <div
+          className="ui message"
+        >
+          This tool is in testing and these numbers might not be right. Please send a report to 
+          <a
+            href="mailto:andrew@codeforboston.org"
+          >
+            andrew@codeforboston.org
+          </a>
+           saying what the numbers were and what they should have been.
+        </div>
         <div>
           <table
             className="ui celled table"
