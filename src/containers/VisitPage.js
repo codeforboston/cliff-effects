@@ -53,7 +53,7 @@ class VisitPage extends Component {
       { title: 'Income', form: CurrentIncomeStep },
       { title: 'Expenses', form: CurrentExpensesStep },
       { title: 'Predictions', form: PredictionsStep },
-      { title: 'Results', form: ResultsGraph }
+      { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
   };  // End constructor()
 
