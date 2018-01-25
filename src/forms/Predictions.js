@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Header } from 'semantic-ui-react';
+import { Form, Divider, Header, Message } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 import { BenefitsTable } from './BenefitsTable';
@@ -48,6 +48,8 @@ const Table = function ({ client }) {
     <div>
     <Header as='h1' className='ui Header teal align centered'>Results</Header>
     <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
+    {/* @todo Add a floating download button and add instructions here to download the data using that button */}
+    <Message>This tool is in testing and these numbers might not be right. Please send a report to <a href="mailto:andrew@codeforboston.org">andrew@codeforboston.org</a> saying what the numbers were and what they should have been.</Message>
     <BenefitsTable client={client} />
     </div>
   );

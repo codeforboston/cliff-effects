@@ -93,7 +93,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
 };  // End Utilities(<>)
 
 
-const ShelterDetails = function ({ current, type, time, setClientProperty }) {
+const HousingDetails = function ({ current, type, time, setClientProperty }) {
 
   let shelter = current.shelter,
       sharedProps = {
@@ -139,10 +139,10 @@ const ShelterDetails = function ({ current, type, time, setClientProperty }) {
     );
 
   }  // end which expenses
-};  // End ShelterDetails(<>)
+};  // End HousingDetails(<>)
 
 
-const ShelterRadio = function ({ currentValue, label, time, setClientProperty }) {
+const HousingRadio = function ({ currentValue, label, time, setClientProperty }) {
 
   var value = label.toLowerCase();
 
@@ -158,7 +158,7 @@ const ShelterRadio = function ({ currentValue, label, time, setClientProperty })
     </Form.Field>
   );
 
-};  // End ShelterRadio(<>)
+};  // End HousingRadio(<>)
 
 
 /** 
@@ -190,26 +190,26 @@ const Housing = function ({ current, type, time, setClientProperty }) {
   return (
     <div>
 
-      <FormHeading>Shelter</FormHeading>
+      <FormHeading>Housing</FormHeading>
 
       { current.shelter === 'voucher'
       ? null
       : <div>
 
         <Header as='h4'>What is your housing situation?</Header>
-        <ShelterRadio
+        <HousingRadio
           currentValue={current.shelter}
           label={'Homeless'}
           time={time}
           setClientProperty={ensureRouteAndValue}
         />
-        <ShelterRadio
+        <HousingRadio
           currentValue={current.shelter}
           label={'Renter'}
           time={time}
           setClientProperty={ensureRouteAndValue}
         />
-        <ShelterRadio
+        <HousingRadio
           currentValue={current.shelter}
           label={'Homeowner'}
           time={time}
@@ -218,7 +218,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 
       </div>}
 
-      <ShelterDetails {...sharedProps}/>
+      <HousingDetails {...sharedProps}/>
 
     </div>
   );

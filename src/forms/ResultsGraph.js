@@ -143,7 +143,7 @@ const ResultsGraph = (props) => {
   return (
     <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
-        title     = {'Results'}
+        title     = {'Graphs'}
         left      = {{ name: 'Go Back', func: props.previousStep }}
         right      = {{ name: 'Reset', func: props.resetClient }}
       >
