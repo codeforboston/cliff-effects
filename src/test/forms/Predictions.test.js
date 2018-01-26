@@ -1,6 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { configure } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import { PredictionsStep } from '../../forms/Predictions';
@@ -15,7 +14,7 @@ test('Prediction component renders as snapshot correctly', () => {
   const setClientProperty = jest.fn();
   const changeClient = jest.fn();
   const saveForm = jest.fn();
-  const rendered = renderer.create(
+  const wrapper = shallow(
     <PredictionsStep
       currentStep={1}
       client={CLIENT_DEFAULTS}
@@ -26,5 +25,5 @@ test('Prediction component renders as snapshot correctly', () => {
       saveForm={saveForm}
      />
   );
-  expect(rendered.toJSON()).toMatchSnapshot();
+  expect(wrapper).toMatchSnapshot();
 });

@@ -1,71 +1,159 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Prediction component renders as snapshot correctly 1`] = `
-<form
-  action={undefined}
-  className="ui form income-form flex-item flex-column"
-  onSubmit={[Function]}
+<Form
+  as="form"
+  className="income-form flex-item flex-column"
 >
-  <div
-    className="ui very padded segment flex-item flex-column"
+  <FormPartsContainer
+    clarifier="How much money would your household make in the future?"
+    left={
+      Object {
+        "func": [Function],
+        "name": "Previous",
+      }
+    }
+    right={
+      Object {
+        "func": [Function],
+        "name": "Next",
+      }
+    }
+    title="Future Household Income"
   >
-    <div
-      className="ui basic segment flex-item"
-    >
-      <h1
-        className="ui teal center aligned header"
-      >
-        Future Household Income
-      </h1>
-      <h3
-        className="ui center aligned header"
-      >
-        How much money would your household make in the future?
-      </h3>
-      <div
-        className="field-aligner two-column"
-      >
-        <div
-          style={
+    <IncomeForm
+      future={
+        Object {
+          "SSDI": 0,
+          "SSI": 0,
+          "TAFDC": 0,
+          "adultDirectCare": 0,
+          "adultOtherCare": 0,
+          "adultTransportation": 0,
+          "alimony": 0,
+          "childBeforeAndAfterSchoolCare": 0,
+          "childDirectCare": 0,
+          "childOtherCare": 0,
+          "childSupportIn": 0,
+          "childSupportPaidOut": 0,
+          "childTransportation": 0,
+          "climateControl": false,
+          "contractRent": 0,
+          "disabledAssistance": 0,
+          "disabledMedical": 0,
+          "earned": 0,
+          "earnedBecauseOfAdultCare": 0,
+          "earnedBecauseOfChildCare": 0,
+          "fuelAssistance": false,
+          "hasHousing": false,
+          "hasSnap": false,
+          "household": Array [
             Object {
-              "display": "inline-block",
-            }
-          }
-        >
-          <h4
-            className="ui teal header income-column cashflow-column header weekly"
-            style={
+              "m_age": 30,
+              "m_disabled": false,
+              "m_role": "head",
+            },
+          ],
+          "housingInsurance": 0,
+          "incomeExclusions": 0,
+          "mortgage": 0,
+          "nonHeatElectricity": false,
+          "otherIncome": 0,
+          "otherMedical": 0,
+          "pension": 0,
+          "phone": false,
+          "propertyTax": 0,
+          "rent": 0,
+          "rentShare": 0,
+          "shelter": "homeless",
+          "socialSecurity": 0,
+          "unemployment": 0,
+          "workersComp": 0,
+        }
+      }
+      setClientProperty={[Function]}
+      time="future"
+    />
+    <Divider
+      className="ui section divider hidden"
+    />
+    <Table
+      client={
+        Object {
+          "current": Object {
+            "SSDI": 0,
+            "SSI": 0,
+            "TAFDC": 0,
+            "adultDirectCare": 0,
+            "adultOtherCare": 0,
+            "adultTransportation": 0,
+            "alimony": 0,
+            "childBeforeAndAfterSchoolCare": 0,
+            "childDirectCare": 0,
+            "childOtherCare": 0,
+            "childSupportIn": 0,
+            "childSupportPaidOut": 0,
+            "childTransportation": 0,
+            "climateControl": false,
+            "contractRent": 0,
+            "disabledAssistance": 0,
+            "disabledMedical": 0,
+            "earned": 0,
+            "earnedBecauseOfAdultCare": 0,
+            "earnedBecauseOfChildCare": 0,
+            "fuelAssistance": false,
+            "hasHousing": false,
+            "hasSnap": false,
+            "household": Array [
               Object {
-                "fontSize": "14px",
-              }
-            }
-          >
-            Weekly
-          </h4>
-          <h4
-            className="ui teal header income-column cashflow-column header monthly"
-            style={
+                "m_age": 30,
+                "m_disabled": false,
+                "m_role": "head",
+              },
+            ],
+            "housingInsurance": 0,
+            "incomeExclusions": 0,
+            "mortgage": 0,
+            "nonHeatElectricity": false,
+            "otherIncome": 0,
+            "otherMedical": 0,
+            "pension": 0,
+            "phone": false,
+            "propertyTax": 0,
+            "rent": 0,
+            "rentShare": 0,
+            "shelter": "homeless",
+            "socialSecurity": 0,
+            "unemployment": 0,
+            "workersComp": 0,
+          },
+          "future": Object {
+            "SSDI": 0,
+            "SSI": 0,
+            "TAFDC": 0,
+            "adultDirectCare": 0,
+            "adultOtherCare": 0,
+            "adultTransportation": 0,
+            "alimony": 0,
+            "childBeforeAndAfterSchoolCare": 0,
+            "childDirectCare": 0,
+            "childOtherCare": 0,
+            "childSupportIn": 0,
+            "childSupportPaidOut": 0,
+            "childTransportation": 0,
+            "climateControl": false,
+            "contractRent": 0,
+            "disabledAssistance": 0,
+            "disabledMedical": 0,
+            "earned": 0,
+            "earnedBecauseOfAdultCare": 0,
+            "earnedBecauseOfChildCare": 0,
+            "fuelAssistance": false,
+            "hasHousing": false,
+            "hasSnap": false,
+            "household": Array [
               Object {
-                "fontSize": "14px",
-              }
-            }
-          >
-            Monthly
-          </h4>
-          <h4
-            className="ui teal header income-column cashflow-column header yearly"
-            style={
-              Object {
-                "fontSize": "14px",
-              }
-            }
-          >
-            Yearly
-          </h4>
-          <h4
-            className="ui teal header income-column cashflow-column header income"
-            style={
-              Object {
+<<<<<<< HEAD
                 "fontSize": "14px",
               }
             }
@@ -373,46 +461,135 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     </div>
     <div
       className="ui divider"
-    />
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "space-between",
+=======
+                "m_age": 30,
+                "m_disabled": false,
+                "m_role": "head",
+              },
+            ],
+            "housingInsurance": 0,
+            "incomeExclusions": 0,
+            "mortgage": 0,
+            "nonHeatElectricity": false,
+            "otherIncome": 0,
+            "otherMedical": 0,
+            "pension": 0,
+            "phone": false,
+            "propertyTax": 0,
+            "rent": 0,
+            "rentShare": 0,
+            "shelter": "homeless",
+            "socialSecurity": 0,
+            "unemployment": 0,
+            "workersComp": 0,
+          },
         }
       }
-    >
-      <button
-        className="ui teal large button"
-        disabled={undefined}
-        onClick={[Function]}
-        role="button"
-        style={
-          Object {
-            "flexBasis": "118.3px",
-          }
+>>>>>>> Fix Predictions snapshot test
+    />
+    <Divider
+      className="ui section divider hidden"
+    />
+    <Chart
+      client={
+        Object {
+          "current": Object {
+            "SSDI": 0,
+            "SSI": 0,
+            "TAFDC": 0,
+            "adultDirectCare": 0,
+            "adultOtherCare": 0,
+            "adultTransportation": 0,
+            "alimony": 0,
+            "childBeforeAndAfterSchoolCare": 0,
+            "childDirectCare": 0,
+            "childOtherCare": 0,
+            "childSupportIn": 0,
+            "childSupportPaidOut": 0,
+            "childTransportation": 0,
+            "climateControl": false,
+            "contractRent": 0,
+            "disabledAssistance": 0,
+            "disabledMedical": 0,
+            "earned": 0,
+            "earnedBecauseOfAdultCare": 0,
+            "earnedBecauseOfChildCare": 0,
+            "fuelAssistance": false,
+            "hasHousing": false,
+            "hasSnap": false,
+            "household": Array [
+              Object {
+                "m_age": 30,
+                "m_disabled": false,
+                "m_role": "head",
+              },
+            ],
+            "housingInsurance": 0,
+            "incomeExclusions": 0,
+            "mortgage": 0,
+            "nonHeatElectricity": false,
+            "otherIncome": 0,
+            "otherMedical": 0,
+            "pension": 0,
+            "phone": false,
+            "propertyTax": 0,
+            "rent": 0,
+            "rentShare": 0,
+            "shelter": "homeless",
+            "socialSecurity": 0,
+            "unemployment": 0,
+            "workersComp": 0,
+          },
+          "future": Object {
+            "SSDI": 0,
+            "SSI": 0,
+            "TAFDC": 0,
+            "adultDirectCare": 0,
+            "adultOtherCare": 0,
+            "adultTransportation": 0,
+            "alimony": 0,
+            "childBeforeAndAfterSchoolCare": 0,
+            "childDirectCare": 0,
+            "childOtherCare": 0,
+            "childSupportIn": 0,
+            "childSupportPaidOut": 0,
+            "childTransportation": 0,
+            "climateControl": false,
+            "contractRent": 0,
+            "disabledAssistance": 0,
+            "disabledMedical": 0,
+            "earned": 0,
+            "earnedBecauseOfAdultCare": 0,
+            "earnedBecauseOfChildCare": 0,
+            "fuelAssistance": false,
+            "hasHousing": false,
+            "hasSnap": false,
+            "household": Array [
+              Object {
+                "m_age": 30,
+                "m_disabled": false,
+                "m_role": "head",
+              },
+            ],
+            "housingInsurance": 0,
+            "incomeExclusions": 0,
+            "mortgage": 0,
+            "nonHeatElectricity": false,
+            "otherIncome": 0,
+            "otherMedical": 0,
+            "pension": 0,
+            "phone": false,
+            "propertyTax": 0,
+            "rent": 0,
+            "rentShare": 0,
+            "shelter": "homeless",
+            "socialSecurity": 0,
+            "unemployment": 0,
+            "workersComp": 0,
+          },
         }
-        tabIndex={undefined}
-        type="button"
-      >
-        Previous
-      </button>
-      <button
-        className="ui teal large button"
-        disabled={undefined}
-        onClick={[Function]}
-        role="button"
-        style={
-          Object {
-            "flexBasis": "118.3px",
-          }
-        }
-        tabIndex={undefined}
-        type="button"
-      >
-        Next
-      </button>
-    </div>
-  </div>
-</form>
+      }
+    />
+  </FormPartsContainer>
+</Form>
 `;
