@@ -1,12 +1,9 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import { PredictionsStep } from '../../forms/Predictions';
 
 import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
-
-configure({ adapter: new Adapter() });
 
 test('Prediction component renders as snapshot correctly', () => {
   const nextStep = jest.fn();
