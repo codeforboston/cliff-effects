@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   Container,
-  Responsive
+  Responsive,
 } from 'semantic-ui-react';
 import {
   Redirect,
@@ -19,13 +19,14 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/ConfirmLeave';
+import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
+import OnLeavePrompt from '../components/OnLeavePrompt';
+import { DownloadAnytime } from '../components/DownloadAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
-import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
 import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
-import OnLeavePrompt from '../components/OnLeavePrompt';
 import StepBar from '../components/StepBar';
 import ResultsGraph from '../forms/ResultsGraph';
 
@@ -167,13 +168,16 @@ class VisitPage extends Component {
     var FormSection = this.steps[ step ].form;
 
     return (
-      <FormSection currentStep={this.state.currentStep}
-                   client={this.state.client}
-                   nextStep={this.nextStep}
-                   previousStep={this.previousStep}
-                   changeClient={this.changeClient}
-                   saveForm={this.saveForm}
-                   resetClient={this.resetClientPrompt} />
+      <div>
+        <FormSection currentStep={this.state.currentStep}
+                     client={this.state.client}
+                     nextStep={this.nextStep}
+                     previousStep={this.previousStep}
+                     changeClient={this.changeClient}
+                     saveForm={this.saveForm}
+                     resetClient={this.resetClientPrompt} />
+        <DownloadAnytime client={this.state.client}/>
+      </div>
     );
   };  // End getCurrentStep()
 

@@ -152,3 +152,9 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0; /* Removes leftover margin */
 }
+
+.fixed {
+  top: 6.2em;
+  left: -.75em;
+  position: fixed;
+}
