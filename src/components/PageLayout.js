@@ -4,8 +4,6 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-// import { AboutContent } from '../components/AboutContent';
-
 const PageLayout = (props) => {
   return (
     <div>
