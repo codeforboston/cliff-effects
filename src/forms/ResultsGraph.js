@@ -5,9 +5,35 @@ import { Line } from 'react-chartjs-2';
 // Logic
 import { getSNAPBenefits } from '../programs/federal/snap';
 import { getHousingBenefit } from '../programs/massachusetts/housing';
+import {
+  formatAxis,
+  formatTitle,
+  formatLabel,
+  stackedTitle
+} from '../utils/charts/chartFunctions';
+
+// Data
+import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 
 // Our Components
 import { FormPartsContainer } from './formHelpers';
+
+
+const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
+      SNAPName      = PROGRAM_CHART_VALUES.SNAP.name,
+      section8Color = PROGRAM_CHART_VALUES.section8.color,
+      section8Name  = PROGRAM_CHART_VALUES.section8.name,
+      incomeColor   = PROGRAM_CHART_VALUES.income.color,
+      incomeName    = PROGRAM_CHART_VALUES.income.name;
+
+
+/* Note: default tooltip for chart.js 2.0+:
+ * options: { tooltips: { callbacks: {
+ *  label: function(tooltipItem, data) {
+ *    return tooltipItem.yLabel;
+ *  }
+ * }}}
+ */
 
 const ResultsGraph = (props) => {
   var xRange = _.range(0, 100000, 1000);
@@ -37,109 +63,128 @@ const ResultsGraph = (props) => {
     return yearlySubsidy;
   });
 
-  // TAFDC color? "rgba(206, 125, 61, 1)"
-
-  var data = {
-    labels: xRange,
-    datasets: [
-      {
-        label: "SNAP",
-        borderColor: "rgba(101, 47, 138, 1)",
-        data: snapData,
-        fill: false
+  var lineProps = {
+    data: {
+      labels: xRange,
+      datasets: [
+        {
+          label: SNAPName,
+          borderColor: SNAPColor,
+          data: snapData,
+          fill: false
+        },
+        {
+          label: section8Name,
+          borderColor: section8Color,
+          data: housingData,
+          fill: false
+        },
+      ]
+    },  // end `data`
+    options: {
+      title: {
+        display: true,
+          text: 'Individual Benefit Amounts for Household as Income Changes'
       },
-      {
-        label: "Section 8 Housing",
-        borderColor: "rgba(206, 203, 61, 1)",
-        data: housingData,
-        fill: false
-      },
-    ]
-  };
-
-  var options = {
-    title: {
-      display: true,
-        text: 'Benefit Eligibility for Household Size ' +
-                props.client.householdSize
-    },
-    showLines: true,
-    scales: {
+      showLines: true,
+      scales: {
         yAxes: [{
           scaleLabel: {
             display: true,
-              labelString: 'Benefit Value ($)'
+            labelString: 'Benefit Value ($)'
           },
           ticks: {
-              beginAtZero: true,
-              /*
-               * function to add $ and 1,000s separators to graph axes
-               * we are using chart.js v2.7 so it requires a callback function
-               */
-              callback: function(label) {
-                  return label.toLocaleString("en-US");
-              }
+            beginAtZero: true,
+            /* chart.js v2.7 requires a callback function */
+            callback: formatAxis
           }
         }],
         xAxes: [{
           scaleLabel: {
             display: true,
-              labelString: 'Annual Income ($)'
+            labelString: 'Annual Income ($)'
           },
-            ticks: {
-              callback: function(label) {
-                  return label.toLocaleString("en-US");
-              }
-            }
+          ticks: {
+            callback: formatAxis
+          }
         }]
-    },
-      /*
-       * default tooltip for chart.js 2.0+  when unspecified looks like:
-       *
-       * options: {
-       *   tooltips: {
-       *       callbacks: {
-       *           label: function(tooltipItem, data) {
-       *               return tooltipItem.yLabel;
-       *           }
-       *       }
-       *   }
-       * }
-       *
-       */
-    tooltips: {
+      },  // end `scales`
+      tooltips: {
         callbacks: {
-            // format the title of the tooltips to be in USD
-            title: function(tooltipItems, data) {
-                return data.labels[tooltipItems[0].index].toLocaleString("en-US",
-                    {style:"currency",currency:"USD"}).replace('.00','');
-            },
-            /*
-             * to add number formatting to the tooltips. returns the data label
-             * + currency format
-             * from https://github.com/chartjs/Chart.js/issues/2386
-             */
-            label: function(tooltipItem, data) {
-                return data.datasets[tooltipItem.datasetIndex].label + ": " +
-                    tooltipItem.yLabel.toLocaleString("en-US",{style:"currency",
-                        currency:"USD"}).replace('.00','');
-            }
+          title: formatTitle,
+          label: formatLabel
         }
+      }  // end `tooltips`
+    }  // end `options`
+  };  // end lineProps
+
+  const stackedAreaProps = {
+    data: {
+      labels: xRange.slice(0, 50),
+      datasets: [
+        {
+          label: incomeName,
+          backgroundColor: incomeColor,
+          data: xRange.slice(0, 50),
+          fill: "origin"
+        },
+        {
+          label: SNAPName,
+          backgroundColor: SNAPColor,
+          data: snapData.slice(0, 50)
+        },
+        {
+          label: section8Name,
+          backgroundColor: section8Color,
+          data: housingData.slice(0, 50)
+        },
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'All Money Coming in as Income Changes'
+      },
+      elements: {
+        line: { fill: '-1' },
+        point: {
+          radius: 0,
+          hitRadius: 10,
+          hoverRadius: 10
+        }
+      },
+      scales: {
+        yAxes: [{
+          stacked: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Total Money Coming In ($)'
+          },
+          ticks: {
+            beginAtZero: true,
+            callback: formatAxis
+          }
+        }],
+        xAxes: [{
+          stacked: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Annual Income ($)'
+          },
+          ticks: {
+            callback: formatAxis
+          }
+        }]
+      },
+      tooltips: {
+        callbacks: {
+          title: stackedTitle,
+          label: formatLabel
+        }
+      }
     }
-  };
+  }
 
-  // return (
-  //   <div className = 'result-page'>
-  //     <FormPartsContainer
-  //       title     = {'Results'}
-  //       left      = {{ name: 'Go Back', func: props.previousStep }}
-  //       right     = {{ name: 'Save Results', func: () => props.saveForm(false) }}
-  //        <div> <Line data={data} options={options} /> </div>
-  //     </FormPartsContainer>
-  //   </div>
-  // )
-
-  // Non-saving version for first prototype testing
   return (
     <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
@@ -147,7 +192,10 @@ const ResultsGraph = (props) => {
         left      = {{ name: 'Go Back', func: props.previousStep }}
         right      = {{ name: 'Reset', func: props.resetClient }}
       >
-         <div> <Line data={data} options={options} /> </div>
+         <div>
+           <Line {...lineProps} />
+           <Line {...stackedAreaProps} />
+          </div>
       </FormPartsContainer>
     </div>
   )
