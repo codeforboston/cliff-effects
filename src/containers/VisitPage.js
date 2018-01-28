@@ -146,16 +146,23 @@ class VisitPage extends Component {
     }
   }
 
+  scrollToTop = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
+
   nextStep = () => {
     this.setState(prevState => ({
       currentStep: prevState.currentStep + 1
     }));
+    this.scrollToTop();
   };
 
   previousStep = () => {
     this.setState(prevState => ({
       currentStep: prevState.currentStep - 1
     }));
+    this.scrollToTop();
   };
 
   goToStep = (index) => {
