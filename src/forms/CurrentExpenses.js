@@ -15,6 +15,7 @@ import {
   IntervalColumnHeadings,
   CashFlowRow
 } from './formHelpers';
+import { ContractRentField, RentShareField } from './rentFields';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -105,12 +106,8 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
     return (
       <div>
         <IntervalColumnHeadings type={ type }/>
-        <CashFlowRow {...sharedProps} generic={'rentShare'}> Rent Share </CashFlowRow>
-        <CashFlowRow {...sharedProps}
-          generic={'contractRent'}
-          labeInfo={'The full amount the landlord would charge without a Section 8 voucher'}>
-            Contract Rent
-        </CashFlowRow>
+        <RentShareField {...sharedProps} />
+        <ContractRentField {...sharedProps} />
         <Utilities {...sharedProps}/>
       </div>
     );
