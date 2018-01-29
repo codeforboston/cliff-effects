@@ -90,8 +90,15 @@ class VisitPage extends Component {
   }
 
   resetClientPrompt = () => {
-    const data = { client: this.state.client };
-    this.prompt(ok => ok && this.resetClient(), data, 'Reset');
+    // If the user hasn't interacted with the form at all
+    if ( !this.state.dirty ) {
+      // just go to the start of the form
+      this.goToStep( 1 );
+    } else {
+      // Otherwise, suggest the user download the data
+      const data = { client: this.state.client };
+      this.prompt(ok => ok && this.resetClient(), data, 'Reset');
+    }
   }
 
   prompt = (callback, data, leaveText, header, message) => {
@@ -135,7 +142,12 @@ class VisitPage extends Component {
     // Restore shelter to previous value
     else { client.current.shelter = oldShelter; }
 
-    this.setState( prevState => ({ client: client, userChanged: userChanged, oldShelter: oldShelter }) );
+    this.setState( prevState => ({
+      client: client,
+      userChanged: userChanged,
+      oldShelter: oldShelter,
+      dirty: true
+    }) );
   }  // End onClientChange()
 
   saveForm = (exitAfterSave) => {
@@ -202,6 +214,7 @@ class VisitPage extends Component {
           leaveText={this.state.promptLeaveText}
           message={this.state.promptMessage}
           open={this.state.promptOpen}
+          dirty={this.state.dirty}
         />
         <DownloadErrorPrompt
           callback={ok => ok && this.resetClient()}
@@ -210,7 +223,7 @@ class VisitPage extends Component {
           leaveText='Reset'
           prompt={this.prompt}
         />
-        <ConfirmLeave when={this.state.isBlocking} />
+        <ConfirmLeave isBlocking={this.state.isBlocking} dirty={this.state.dirty}/>
 
         {this.state.redirect ?
           <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
