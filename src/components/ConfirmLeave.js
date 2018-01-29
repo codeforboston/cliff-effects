@@ -6,7 +6,6 @@ import React from 'react';
  *
  * @param props {object}
  * @param props.isBlocking {boolean} - Whether the component should block
- * @param props.dirty {boolean} - Whether the user has interacted with the form
  * @param props.message {string} - The message the browser shows, maybe
  */
 class ConfirmLeave extends React.Component {
