@@ -45,7 +45,7 @@ class VisitPage extends Component {
         clientInfo: clientInfo,
         visitId: this.props.match.params.visitId,
         currentStep: 1,
-        isBlocking: true,
+        isBlocking: false,
         redirect: false,
         client: cloneDeep(CLIENT_DEFAULTS),
         promptOpen: false,
@@ -91,7 +91,7 @@ class VisitPage extends Component {
 
   resetClientPrompt = () => {
     // If the user hasn't interacted with the form at all
-    if ( !this.state.dirty ) {
+    if ( !this.state.isBlocking ) {
       // just go to the start of the form
       this.goToStep( 1 );
     } else {
@@ -146,7 +146,8 @@ class VisitPage extends Component {
       client: client,
       userChanged: userChanged,
       oldShelter: oldShelter,
-      dirty: true
+      // Form has been changed, data should now be downloadable
+      isBlocking: true
     }) );
   }  // End onClientChange()
 
@@ -214,7 +215,7 @@ class VisitPage extends Component {
           leaveText={this.state.promptLeaveText}
           message={this.state.promptMessage}
           open={this.state.promptOpen}
-          dirty={this.state.dirty}
+          isBlocking={this.state.isBlocking}
         />
         <DownloadErrorPrompt
           callback={ok => ok && this.resetClient()}
@@ -223,7 +224,7 @@ class VisitPage extends Component {
           leaveText='Reset'
           prompt={this.prompt}
         />
-        <ConfirmLeave isBlocking={this.state.isBlocking} dirty={this.state.dirty}/>
+        <ConfirmLeave isBlocking={this.state.isBlocking}/>
 
         {this.state.redirect ?
           <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
