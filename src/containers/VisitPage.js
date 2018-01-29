@@ -85,6 +85,7 @@ class VisitPage extends Component {
       currentStep: 1,
       client: cloneDeep(CLIENT_DEFAULTS),
       oldShelter: CLIENT_DEFAULTS.current.shelter,
+      isBlocking: false,
       userChanged: {}
     });
   }
