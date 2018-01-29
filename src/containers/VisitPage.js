@@ -220,7 +220,7 @@ class VisitPage extends Component {
         <DownloadErrorPrompt
           callback={ok => ok && this.resetClient()}
           client={this.state.client}
-          header='There was an unexpected error. Do you want to download the error data so you can send it in an email to andrew@codeforboston.org?'
+          header='There was an unexpected error. Do you want to download the error data?'
           leaveText='Reset'
           prompt={this.prompt}
         />
