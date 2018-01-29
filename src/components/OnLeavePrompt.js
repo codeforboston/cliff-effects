@@ -42,9 +42,16 @@ class OnLeavePrompt extends React.Component {
   }
 
   render() {
-    const { data, header, message, open, leaveText, stayText } = this.props;
+    const { isBlocking, data, header, message, open, leaveText, stayText } = this.props;
     const { downloaded } = this.state;
 
+    // If the user hasn't interacted with the form at all
+    if ( !isBlocking ) {
+      // just go ahead and leave without displaying prompt
+      return null;
+    }
+
+    // Otherwise, set up the prompt
     var realLeave   = leaveText || 'Leave',
         realStay    = stayText || 'Stay',
         realMessage = message;

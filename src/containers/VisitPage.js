@@ -45,7 +45,7 @@ class VisitPage extends Component {
         clientInfo: clientInfo,
         visitId: this.props.match.params.visitId,
         currentStep: 1,
-        isBlocking: true,
+        isBlocking: false,
         redirect: false,
         client: cloneDeep(CLIENT_DEFAULTS),
         promptOpen: false,
@@ -85,13 +85,21 @@ class VisitPage extends Component {
       currentStep: 1,
       client: cloneDeep(CLIENT_DEFAULTS),
       oldShelter: CLIENT_DEFAULTS.current.shelter,
+      isBlocking: false,
       userChanged: {}
     });
   }
 
   resetClientPrompt = () => {
-    const data = { client: this.state.client };
-    this.prompt(ok => ok && this.resetClient(), data, 'Reset');
+    // If the user hasn't interacted with the form at all
+    if ( !this.state.isBlocking ) {
+      // just go to the start of the form
+      this.goToStep( 1 );
+    } else {
+      // Otherwise, suggest the user download the data
+      const data = { client: this.state.client };
+      this.prompt(ok => ok && this.resetClient(), data, 'Reset');
+    }
   }
 
   prompt = (callback, data, leaveText, header, message) => {
@@ -135,7 +143,13 @@ class VisitPage extends Component {
     // Restore shelter to previous value
     else { client.current.shelter = oldShelter; }
 
-    this.setState( prevState => ({ client: client, userChanged: userChanged, oldShelter: oldShelter }) );
+    this.setState( prevState => ({
+      client: client,
+      userChanged: userChanged,
+      oldShelter: oldShelter,
+      // Form has been changed, data should now be downloadable
+      isBlocking: true
+    }) );
   }  // End onClientChange()
 
   saveForm = (exitAfterSave) => {
@@ -202,6 +216,7 @@ class VisitPage extends Component {
           leaveText={this.state.promptLeaveText}
           message={this.state.promptMessage}
           open={this.state.promptOpen}
+          isBlocking={this.state.isBlocking}
         />
         <DownloadErrorPrompt
           callback={ok => ok && this.resetClient()}
@@ -210,7 +225,7 @@ class VisitPage extends Component {
           leaveText='Reset'
           prompt={this.prompt}
         />
-        <ConfirmLeave when={this.state.isBlocking} />
+        <ConfirmLeave isBlocking={this.state.isBlocking}/>
 
         {this.state.redirect ?
           <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
