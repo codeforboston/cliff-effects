@@ -106,8 +106,8 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
     return (
       <div>
         <IntervalColumnHeadings type={ type }/>
-        <RentShareField {...sharedProps} />
         <ContractRentField {...sharedProps} />
+        <RentShareField {...sharedProps} />
         <Utilities {...sharedProps}/>
       </div>
     );
