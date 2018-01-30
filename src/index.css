@@ -158,3 +158,15 @@ input[type=number]::-webkit-outer-spin-button {
   left: -.75em;
   position: fixed;
 }
+
+
+/* CHARTS */
+.graph-holder {
+  position: relative;
+}
+
+.graph-time-options {
+  position: absolute;
+  top: 2em;
+  right: 0;
+}

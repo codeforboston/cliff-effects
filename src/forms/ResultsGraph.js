@@ -1,6 +1,7 @@
 import _ from 'lodash'
-import React from 'react';
+import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
+import { Button } from 'semantic-ui-react';
 
 // Logic
 import { getSNAPBenefits } from '../programs/federal/snap';
@@ -25,6 +26,39 @@ const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
       section8Name  = PROGRAM_CHART_VALUES.section8.name,
       incomeColor   = PROGRAM_CHART_VALUES.income.color,
       incomeName    = PROGRAM_CHART_VALUES.income.name;
+
+
+const GraphButton = function ({ id, activeID, onClick }) {
+  return (
+    <Button id={id} active={activeID === id} onClick={onClick}>
+      {id}
+    </Button>
+  );
+};  // End <GraphButton>
+
+
+class GraphTimeButtons extends Component {
+
+  constructor ( props ) {
+    super( props );
+    this.state = { activeID: 'Yearly' };
+  }
+
+  onClick = ( evnt ) => {
+    this.setState({ activeID: evnt.target.id });
+  }
+
+  render () {
+    return (
+      <Button.Group basic className='graph-time-options'>
+        <GraphButton id={'Weekly'} activeID={this.state.activeID} onClick={this.onClick}/>
+        <GraphButton id={'Monthly'} activeID={this.state.activeID} onClick={this.onClick}/>
+        <GraphButton id={'Yearly'} activeID={this.state.activeID} onClick={this.onClick}/>
+      </Button.Group>
+    );
+  }  // End render()
+
+};  // End <GraphTimeButtons>
 
 
 /* Note: default tooltip for chart.js 2.0+:
@@ -192,14 +226,19 @@ const ResultsGraph = (props) => {
         left      = {{ name: 'Go Back', func: props.previousStep }}
         right      = {{ name: 'Reset', func: props.resetClient }}
       >
-         <div>
-           <Line {...lineProps} />
-           <Line {...stackedAreaProps} />
-          </div>
+        <div className='graph-holder'>
+          <Line {...lineProps} />
+          <GraphTimeButtons/>
+        </div>
+        <div className='graph-holder'>
+          <Line {...stackedAreaProps} />
+          <GraphTimeButtons/>
+        </div>
       </FormPartsContainer>
     </div>
   )
 
 };  // End Results()
+
 
 export default ResultsGraph
