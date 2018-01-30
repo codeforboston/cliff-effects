@@ -28,6 +28,16 @@ const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
       incomeName    = PROGRAM_CHART_VALUES.income.name;
 
 
+const maxXMonthly       = 100000/12,
+      intervalXMontyly  = 1000/12;
+
+const multipliers = {
+  'Weekly': 1/(4 + 1/3),
+  'Monthly': 1,
+  'Yearly': 12
+}
+
+
 const GraphButton = function ({ id, activeID, onClick }) {
   return (
     <Button id={id} active={activeID === id} onClick={onClick}>
@@ -48,30 +58,9 @@ const GraphTimeButtons = function ({ activeID, onClick }) {
 };  // End <GraphTimeButtons>
 
 
-class GraphHolder extends Component {
-
-  constructor ( props ) {
-    super( props );
-    this.state = { activeID: 'Yearly' };
-  }
-
-  onClick = ( evnt ) => {
-    this.setState({ activeID: evnt.target.id });
-  }
-
-  render () {
-    return (
-      <div className='graph-holder'>
-        <Line {...this.props.graphProps} />
-        <GraphTimeButtons activeID={this.state.activeID} onClick={this.onClick}/>
-      </div>
-    );
-  };  // End render()
-
-};  // End <GraphHolder>
-
-
-
+// ===============
+// GRAPH DATA
+// ===============
 /* Note: default tooltip for chart.js 2.0+:
  * options: { tooltips: { callbacks: {
  *  label: function(tooltipItem, data) {
@@ -79,35 +68,141 @@ class GraphHolder extends Component {
  *  }
  * }}}
  */
-
-const ResultsGraph = (props) => {
-  var xRange = _.range(0, 100000, 1000);
-  /** Need a new object so client's data doesn't get changed. */
-  var fakeClient = _.cloneDeep( props.client );
-
-  var snapData = xRange.map(annualIncome => {
-      fakeClient.future.earned = annualIncome/12;
-      return getSNAPBenefits(fakeClient, 'future') * 12});
-
-  /** Section-8 Housing Choice Voucher */
-  /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
-  fakeClient.current.contractRent = fakeClient.current.contractRent || 700;
-  fakeClient.current.earned = 0;
-  var housingData = xRange.map(function ( annualIncome ) {
-    // New renting data
-    fakeClient.future.earned = annualIncome/12;
-
-    var monthlySubsidy  = getHousingBenefit( fakeClient, 'future' ),
-        yearlySubsidy   = monthlySubsidy * 12;
-
-    // Prep for next loop
-    var newShare = fakeClient.current.contractRent - monthlySubsidy;
-    fakeClient.current.rentShare  = newShare;
-    fakeClient.current.earned     = annualIncome/12;
-
-    return yearlySubsidy;
+const getFauxSNAP = function ( xRange, client, multiplier ) {
+  var fakeClient = _.cloneDeep( client );
+  var data = xRange.map( function ( income ) {
+    fakeClient.future.earned = income / multiplier;  // Turn it back into monthly
+    return getSNAPBenefits( fakeClient, 'future' ) * multiplier;
   });
 
+  return data;
+};  // End getFauxSNAP
+
+
+const getFauxSec8 = function ( xRange, client, multiplier ) {
+  /** Section-8 Housing Choice Voucher */
+  /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
+  var fakeClient = _.cloneDeep( client );
+
+  fakeClient.current.contractRent = fakeClient.current.contractRent || 1000;
+  fakeClient.current.earned       = 0;
+
+  var data = xRange.map( function ( income ) {
+    // New renting data
+    fakeClient.future.earned  = income / multiplier;  // Turn it back into monthly
+    var monthlySubsidy        = getHousingBenefit( fakeClient, 'future' );
+
+    // Prep for next loop
+    // Will use current values to calculate new values
+    var newShare                  = fakeClient.current.contractRent - monthlySubsidy;
+    fakeClient.current.rentShare  = newShare;
+    fakeClient.current.earned     = fakeClient.future.earned;
+
+    return monthlySubsidy * multiplier;
+  });
+
+  return data;
+}
+
+
+const GrossGraph = function ({ client, multiplier }) {
+  // Adjust to time-interval, round to hundreds
+  var max       = Math.ceil((maxXMonthly * multiplier)/100) * 100,
+      interval  = Math.ceil((intervalXMontyly * multiplier)/100) * 100;
+
+  var xRange = _.range(0, max, interval);
+
+  /** Need a new object so client's data doesn't get changed. */
+  var snapData    = getFauxSNAP( xRange, client, multiplier ),
+      sec8Data    = getFauxSec8( xRange, client, multiplier ),
+      incomeData  = xRange;
+
+  var stackedAreaProps = {
+    data: {
+      labels: xRange,
+      datasets: [
+        {
+          label: incomeName,
+          backgroundColor: incomeColor,
+          data: incomeData,
+          fill: "origin"
+        },
+        {
+          label: SNAPName,
+          backgroundColor: SNAPColor,
+          data: snapData
+        },
+        {
+          label: section8Name,
+          backgroundColor: section8Color,
+          data: sec8Data
+        },
+      ]  // end `datasets`
+    },  // end `data`
+    options: {
+      title: {
+        display: true,
+        text: 'All Money Coming in as Income Changes'
+      },  // end `title`
+      elements: {
+        line: { fill: '-1' },
+        point: {
+          radius: 0,
+          hitRadius: 10,
+          hoverRadius: 10
+        }
+      },  // end `elements`
+      scales: {
+        yAxes: [{
+          stacked: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Total Money Coming In ($)'
+          },
+          ticks: {
+            beginAtZero: true,
+            callback: formatAxis
+          }
+        }],  // end `yAxes`
+        xAxes: [{
+          stacked: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Annual Income ($)'
+          },
+          ticks: {
+            callback: formatAxis
+          }
+        }]  // end `xAxes`
+      },  // end `scales`
+      tooltips: {
+        callbacks: {
+          title: stackedTitle,
+          label: formatLabel
+        }
+      }  // end `tooltips`
+    }  // end `options`
+  };  // end `stackedAreaProps`
+
+  return (
+    <Line {...stackedAreaProps} />
+  );
+};  // End <GrossGraph>
+
+
+const BenefitGraph = function ({ client, multiplier }) {
+  // Adjust to time-interval, round to hundreds
+  var max       = Math.ceil((maxXMonthly * multiplier)/100) * 100,
+      // interval  = Math.ceil((intervalXMontyly * multiplier)/100) * 100;
+      interval  = Math.ceil((max/100)/10) * 10;
+  console.log(max, interval)
+
+  var xRange = _.range(0, max, interval);
+
+  /** Need a new object so client's data doesn't get changed. */
+  var snapData = getFauxSNAP( xRange, client, multiplier ),
+      sec8Data = getFauxSec8( xRange, client, multiplier );
+  
   var lineProps = {
     data: {
       labels: xRange,
@@ -116,13 +211,15 @@ const ResultsGraph = (props) => {
           label: SNAPName,
           borderColor: SNAPColor,
           data: snapData,
-          fill: false
+          fill: false,
+          lineTension: 0
         },
         {
           label: section8Name,
           borderColor: section8Color,
-          data: housingData,
-          fill: false
+          data: sec8Data,
+          fill: false,
+          lineTension: 0
         },
       ]
     },  // end `data`
@@ -143,7 +240,7 @@ const ResultsGraph = (props) => {
             /* chart.js v2.7 requires a callback function */
             callback: formatAxis
           }
-        }],
+        }],  // end `yAxes`
         xAxes: [{
           scaleLabel: {
             display: true,
@@ -152,7 +249,7 @@ const ResultsGraph = (props) => {
           ticks: {
             callback: formatAxis
           }
-        }]
+        }]  // end `xAxes`
       },  // end `scales`
       tooltips: {
         callbacks: {
@@ -163,82 +260,52 @@ const ResultsGraph = (props) => {
     }  // end `options`
   };  // end lineProps
 
-  const stackedAreaProps = {
-    data: {
-      labels: xRange.slice(0, 50),
-      datasets: [
-        {
-          label: incomeName,
-          backgroundColor: incomeColor,
-          data: xRange.slice(0, 50),
-          fill: "origin"
-        },
-        {
-          label: SNAPName,
-          backgroundColor: SNAPColor,
-          data: snapData.slice(0, 50)
-        },
-        {
-          label: section8Name,
-          backgroundColor: section8Color,
-          data: housingData.slice(0, 50)
-        },
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'All Money Coming in as Income Changes'
-      },
-      elements: {
-        line: { fill: '-1' },
-        point: {
-          radius: 0,
-          hitRadius: 10,
-          hoverRadius: 10
-        }
-      },
-      scales: {
-        yAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Total Money Coming In ($)'
-          },
-          ticks: {
-            beginAtZero: true,
-            callback: formatAxis
-          }
-        }],
-        xAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Annual Income ($)'
-          },
-          ticks: {
-            callback: formatAxis
-          }
-        }]
-      },
-      tooltips: {
-        callbacks: {
-          title: stackedTitle,
-          label: formatLabel
-        }
-      }
-    }
+  return (
+    <Line {...lineProps} />
+  );
+};  // End <BenefitGraph>
+
+
+class GraphHolder extends Component {
+
+  constructor ( props ) {
+    super( props );
+    this.state = { activeID: 'Yearly', multiplier: multipliers[ 'Yearly' ] };
   }
+
+  onClick = ( evnt ) => {
+    var id = evnt.target.id;
+    this.setState({ activeID: id, multiplier: multipliers[ id ] });
+  }
+
+  render () {
+    const { activeID, multiplier }  = this.state,
+          { Graph, client }         = this.props;
+
+    return (
+      <div className='graph-holder'>
+        <Graph client={client} multiplier={multiplier} />
+        <GraphTimeButtons activeID={activeID} onClick={this.onClick} />
+      </div>
+    );
+  };  // End render()
+
+};  // End <GraphHolder>
+
+
+
+
+const ResultsGraph = ({ client, previousStep, resetClient }) => {
 
   return (
     <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
         title     = {'Graphs'}
-        left      = {{ name: 'Go Back', func: props.previousStep }}
-        right      = {{ name: 'Reset', func: props.resetClient }}
+        left      = {{ name: 'Go Back', func: previousStep }}
+        right      = {{ name: 'Reset', func: resetClient }}
       >
-        <GraphHolder graphProps={{...lineProps}} />
-        <GraphHolder graphProps={{...stackedAreaProps}} />
+        <GraphHolder client={client} Graph={BenefitGraph} />
+        <GraphHolder client={client} Graph={GrossGraph} />
       </FormPartsContainer>
     </div>
   )
