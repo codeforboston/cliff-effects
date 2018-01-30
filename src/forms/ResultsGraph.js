@@ -37,7 +37,18 @@ const GraphButton = function ({ id, activeID, onClick }) {
 };  // End <GraphButton>
 
 
-class GraphTimeButtons extends Component {
+const GraphTimeButtons = function ({ activeID, onClick }) {
+  return (
+    <Button.Group basic className='graph-time-options'>
+      <GraphButton id={'Weekly'} activeID={activeID} onClick={onClick}/>
+      <GraphButton id={'Monthly'} activeID={activeID} onClick={onClick}/>
+      <GraphButton id={'Yearly'} activeID={activeID} onClick={onClick}/>
+    </Button.Group>
+  );
+};  // End <GraphTimeButtons>
+
+
+class GraphHolder extends Component {
 
   constructor ( props ) {
     super( props );
@@ -50,15 +61,15 @@ class GraphTimeButtons extends Component {
 
   render () {
     return (
-      <Button.Group basic className='graph-time-options'>
-        <GraphButton id={'Weekly'} activeID={this.state.activeID} onClick={this.onClick}/>
-        <GraphButton id={'Monthly'} activeID={this.state.activeID} onClick={this.onClick}/>
-        <GraphButton id={'Yearly'} activeID={this.state.activeID} onClick={this.onClick}/>
-      </Button.Group>
+      <div className='graph-holder'>
+        <Line {...this.props.graphProps} />
+        <GraphTimeButtons activeID={this.state.activeID} onClick={this.onClick}/>
+      </div>
     );
-  }  // End render()
+  };  // End render()
 
-};  // End <GraphTimeButtons>
+};  // End <GraphHolder>
+
 
 
 /* Note: default tooltip for chart.js 2.0+:
@@ -226,14 +237,8 @@ const ResultsGraph = (props) => {
         left      = {{ name: 'Go Back', func: props.previousStep }}
         right      = {{ name: 'Reset', func: props.resetClient }}
       >
-        <div className='graph-holder'>
-          <Line {...lineProps} />
-          <GraphTimeButtons/>
-        </div>
-        <div className='graph-holder'>
-          <Line {...stackedAreaProps} />
-          <GraphTimeButtons/>
-        </div>
+        <GraphHolder graphProps={{...lineProps}} />
+        <GraphHolder graphProps={{...stackedAreaProps}} />
       </FormPartsContainer>
     </div>
   )
