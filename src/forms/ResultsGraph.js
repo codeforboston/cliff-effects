@@ -20,22 +20,21 @@ import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 import { FormPartsContainer } from './formHelpers';
 
 
-const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
-      SNAPName      = PROGRAM_CHART_VALUES.SNAP.name,
-      section8Color = PROGRAM_CHART_VALUES.section8.color,
-      section8Name  = PROGRAM_CHART_VALUES.section8.name,
-      incomeColor   = PROGRAM_CHART_VALUES.income.color,
-      incomeName    = PROGRAM_CHART_VALUES.income.name;
+const SNAP_COLOR    = PROGRAM_CHART_VALUES.SNAP.color,
+      SNAP_NAME     = PROGRAM_CHART_VALUES.SNAP.name,
+      SECTION8_COLOR = PROGRAM_CHART_VALUES.section8.color,
+      SECTION8_NAME  = PROGRAM_CHART_VALUES.section8.name,
+      INCOME_COLOR   = PROGRAM_CHART_VALUES.income.color,
+      INCOME_NAME    = PROGRAM_CHART_VALUES.income.name;
 
 
-const maxXMonthly       = 100000/12,
-      intervalXMontyly  = 1000/12;
+const MAX_X_MONTHLY = 100000/12;
 
-const multipliers = {
+const MULTIPLIERS = {
   'Weekly': 1/(4 + 1/3),
   'Monthly': 1,
   'Yearly': 12
-}
+};
 
 
 const GraphButton = function ({ id, activeID, onClick }) {
@@ -107,8 +106,8 @@ const getFauxSec8 = function ( xRange, client, multiplier ) {
 
 const GrossGraph = function ({ client, multiplier }) {
   // Adjust to time-interval, round to hundreds
-  var max       = Math.ceil((maxXMonthly * multiplier)/100) * 100,
-      interval  = Math.ceil((intervalXMontyly * multiplier)/100) * 100;
+  var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
+      interval  = Math.ceil((max/100)/10) * 10;
 
   var xRange = _.range(0, max, interval);
 
@@ -122,19 +121,19 @@ const GrossGraph = function ({ client, multiplier }) {
       labels: xRange,
       datasets: [
         {
-          label: incomeName,
-          backgroundColor: incomeColor,
+          label: INCOME_NAME,
+          backgroundColor: INCOME_COLOR,
           data: incomeData,
           fill: "origin"
         },
         {
-          label: SNAPName,
-          backgroundColor: SNAPColor,
+          label: SNAP_NAME,
+          backgroundColor: SNAP_COLOR,
           data: snapData
         },
         {
-          label: section8Name,
-          backgroundColor: section8Color,
+          label: SECTION8_NAME,
+          backgroundColor: SECTION8_COLOR,
           data: sec8Data
         },
       ]  // end `datasets`
@@ -192,10 +191,8 @@ const GrossGraph = function ({ client, multiplier }) {
 
 const BenefitGraph = function ({ client, multiplier }) {
   // Adjust to time-interval, round to hundreds
-  var max       = Math.ceil((maxXMonthly * multiplier)/100) * 100,
-      // interval  = Math.ceil((intervalXMontyly * multiplier)/100) * 100;
+  var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
       interval  = Math.ceil((max/100)/10) * 10;
-  console.log(max, interval)
 
   var xRange = _.range(0, max, interval);
 
@@ -208,15 +205,15 @@ const BenefitGraph = function ({ client, multiplier }) {
       labels: xRange,
       datasets: [
         {
-          label: SNAPName,
-          borderColor: SNAPColor,
+          label: SNAP_NAME,
+          borderColor: SNAP_COLOR,
           data: snapData,
           fill: false,
           lineTension: 0
         },
         {
-          label: section8Name,
-          borderColor: section8Color,
+          label: SECTION8_NAME,
+          borderColor: SECTION8_COLOR,
           data: sec8Data,
           fill: false,
           lineTension: 0
@@ -270,12 +267,12 @@ class GraphHolder extends Component {
 
   constructor ( props ) {
     super( props );
-    this.state = { activeID: 'Yearly', multiplier: multipliers[ 'Yearly' ] };
+    this.state = { activeID: 'Yearly', multiplier: MULTIPLIERS[ 'Yearly' ] };
   }
 
   onClick = ( evnt ) => {
     var id = evnt.target.id;
-    this.setState({ activeID: id, multiplier: multipliers[ id ] });
+    this.setState({ activeID: id, multiplier: MULTIPLIERS[ id ] });
   }
 
   render () {
@@ -291,8 +288,6 @@ class GraphHolder extends Component {
   };  // End render()
 
 };  // End <GraphHolder>
-
-
 
 
 const ResultsGraph = ({ client, previousStep, resetClient }) => {
