@@ -7,7 +7,7 @@ import { toMonthlyAmount } from '../utils/math';
 import { isPositiveNumber } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
 
-class RentShareInput extends Component {
+class RentInput extends Component {
   constructor ( props ) {
     super( props );
 
@@ -16,6 +16,8 @@ class RentShareInput extends Component {
       valid:      true,
       focusedVal: this.props.value,
     };
+
+    this.handleChange = this.props.handleChange.bind(this);
   }
   
   handleFocus = ( evnt, inputProps ) => {
@@ -29,22 +31,6 @@ class RentShareInput extends Component {
   handleBlur = ( evnt ) => {
     this.props.updateFieldError(false)
     this.setState({ focused: false, valid: true });
-  }
-
-  handleChange = ( evnt, inputProps ) => {
-    const { value } = inputProps;
-    const { contractRent, updateFieldError } = this.props;
-
-    let valid = value <= contractRent;
-    updateFieldError(!valid);
-
-    valid = valid && isPositiveNumber(value);
-
-    if ( valid ) {
-      this.props.store( evnt, inputProps, this.props.otherData );
-    }
-
-    this.setState({ valid: valid, focusedVal: value });
   }
 
   render() {
@@ -70,11 +56,26 @@ class RentShareInput extends Component {
   }
 }
 
-
 class RentShareField extends Component {
   state = { error: false }
 
   updateFieldError = error => this.setState({ error: error });
+
+  handleChange( evnt, inputProps ) {
+    const { value } = inputProps;
+    const { contractRent, updateFieldError } = this.props;
+  
+    let valid = value <= contractRent;
+    updateFieldError(!valid);
+  
+    valid = valid && isPositiveNumber(value);
+  
+    if ( valid ) {
+      this.props.store( evnt, inputProps, this.props.otherData );
+    }
+  
+    this.setState({ valid: valid, focusedVal: value });
+  }
 
   render() {
     const { timeState, setClientProperty, type, time } = this.props;
@@ -91,14 +92,15 @@ class RentShareField extends Component {
         baseProps = {
           store:    updateClient,
           format:   toMoneyStr,
-          updateFieldError: this.updateFieldError
+          updateFieldError: this.updateFieldError,
+          handleChange: this.handleChange
         };
 
     const baseContractRent = timeState[ 'contractRent' ];
 
     return (
       <Form.Field inline className={'cashflow'}>
-        <RentShareInput
+        <RentInput
           {...baseProps}
           value     = { baseVal / 4.33 }
           name      = { 'rentShareWeekly' }
@@ -106,7 +108,7 @@ class RentShareField extends Component {
           otherData = { 'weekly' }
           contractRent = {baseContractRent / 4.33}
         />
-        <RentShareInput
+        <RentInput
           {...baseProps}
           value     = { baseVal }
           name      = { 'rentShare' }
@@ -114,7 +116,7 @@ class RentShareField extends Component {
           otherData = { 'monthly' }
           contractRent = {baseContractRent}
         />
-        <RentShareInput
+        <RentInput
           {...baseProps}
           value     = { baseVal * 12 }
           name      = { 'rentShareYearly' }
@@ -134,31 +136,13 @@ class RentShareField extends Component {
   }
 }
 
-class ContractRentInput extends Component {
-  constructor ( props ) {
-    super( props );
 
-    this.state = {
-      focused:    false,
-      valid:      true,
-      focusedVal: this.props.value,
-    };
-  }
-  
-  handleFocus = ( evnt, inputProps ) => {
-    var newState = {
-      focused:    true,
-      focusedVal: this.props.format( this.props.value )
-    }
-    this.setState( newState );
-  }
-  
-  handleBlur = ( evnt ) => {
-    this.props.updateFieldError(false);
-    this.setState({ focused: false, valid: true });
-  }
+class ContractRentField extends Component {
+  state = { error: false }
 
-  handleChange = ( evnt, inputProps ) => {
+  updateFieldError = error => this.setState({ error: error });
+
+  handleChange( evnt, inputProps ) {
     const { value } = inputProps;
     const { rentShare, updateFieldError } = this.props;
 
@@ -175,35 +159,6 @@ class ContractRentInput extends Component {
   }
 
   render() {
-
-    var { valid, focused, focusedVal }  = this.state;
-    var { value, name, className }      = this.props;
-
-    // Format correctly when neighbors are updated, if needed
-    if ( !focused ) { value = this.props.format( value ) }
-    else { value = focusedVal; }
-
-    return (
-      <Form.Input
-        error     = { !valid }
-        value     = { value }
-        name      = { name }
-        className = { className }
-        onChange  = { this.handleChange }
-        onFocus   = { this.handleFocus }
-        onBlur    = { this.handleBlur }
-        type      = { 'number' } />
-    );
-  }
-}
-
-
-class ContractRentField extends Component {
-  state = { error: false }
-
-  updateFieldError = error => this.setState({ error: error });
-
-  render() {
     const { timeState, setClientProperty, type, time } = this.props;
     const { error } = this.state;
 
@@ -218,14 +173,15 @@ class ContractRentField extends Component {
         baseProps = {
           store:    updateClient,
           format:   toMoneyStr,
-          updateFieldError: this.updateFieldError
+          updateFieldError: this.updateFieldError,
+          handleChange: this.handleChange
         };
 
     const baseRentShare = timeState[ 'rentShare' ];
 
     return (
       <Form.Field inline className={'cashflow'}>
-        <ContractRentInput
+        <RentInput
           {...baseProps}
           value     = { baseVal / 4.33 }
           name      = { 'rentShareWeekly' }
@@ -233,7 +189,7 @@ class ContractRentField extends Component {
           otherData = { 'weekly' }
           rentShare = {baseRentShare / 4.33}
         />
-        <ContractRentInput
+        <RentInput
           {...baseProps}
           value     = { baseVal }
           name      = { 'rentShare' }
@@ -241,7 +197,7 @@ class ContractRentField extends Component {
           otherData = { 'monthly' }
           rentShare = {baseRentShare}
         />
-        <ContractRentInput
+        <RentInput
           {...baseProps}
           value     = { baseVal * 12 }
           name      = { 'rentShareYearly' }
