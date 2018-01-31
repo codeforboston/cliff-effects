@@ -124,7 +124,7 @@ class RentShareField extends Component {
           otherData = { 'yearly' }
           contractRent = {baseContractRent * 12}
         />
-        <div className={'cashflow-column'}>
+        <div className={'cashflow-column cashflow-column-last-child'}>
           <label>Rent Share</label>
         </div>
         {error &&
@@ -205,7 +205,7 @@ class ContractRentField extends Component {
           otherData = { 'yearly' }
           rentShare = {baseRentShare * 12}
         />
-        <div className={'cashflow-column'}>
+        <div className={'cashflow-column cashflow-column-last-child'}>
           <label>Contract Rent</label>
           <InlineLabelInfo>
             The full amount the landlord would charge without a Section 8 voucher
