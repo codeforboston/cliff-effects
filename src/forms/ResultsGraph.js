@@ -88,6 +88,14 @@ const ResultsGraph = (props) => {
       ctx.lineTo(offset, scale.bottom);
       ctx.stroke();
 
+      ctx.fillStyle = 'darkgray';
+      ctx.textAlign = 'left';
+      const lineHeight = ctx.measureText('M').width * 1.2;
+      const xMargin = 5;
+      const yMargin = 200;
+      ctx.fillText('Future', offset + xMargin, yMargin);
+      ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
+
       ctx.restore();
     }
   };
