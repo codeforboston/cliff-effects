@@ -37,6 +37,40 @@ const MULTIPLIERS = {
 };
 
 
+// const income = props.client.future.earned * 12;
+
+const verticalLinePlugin = function ( xRange, income, debug ) {
+  console.log( 'income:', income );
+  return ({
+    afterDatasetsDraw( chart ) {
+      const i = xRange.findIndex(val => income < val);
+      const k = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
+      if ( debug ) { console.log( 'income:', income, '; i:', i, '; k:', k, '; xRange[i]:', xRange[i], '; xRange[i - 1]:', xRange[i - 1], (income - xRange[i - 1]), (xRange[i] - xRange[i - 1]) ); }
+      
+      const data = chart.getDatasetMeta(0).data;
+      const prevX = data[i - 1]._model.x;
+      const currX = data[i]._model.x;
+      const offset = Math.floor(k * (currX - prevX) + prevX);
+
+      const ctx = chart.chart.ctx;
+      const scale = chart.scales['y-axis-0'];
+
+      ctx.save();
+
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 5]);
+      ctx.moveTo(offset, scale.top);
+      ctx.lineTo(offset, scale.bottom);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+  });
+};
+
+
 const GraphButton = function ({ id, activeID, onClick }) {
   return (
     <Button id={id} active={activeID === id} onClick={onClick}>
@@ -180,7 +214,8 @@ const GrossGraph = function ({ client, multiplier }) {
           label: formatLabel
         }
       }  // end `tooltips`
-    }  // end `options`
+    },  // end `options`
+    plugins: [verticalLinePlugin( xRange, (client.current.earned * multiplier) )]
   };  // end `stackedAreaProps`
 
   return (
@@ -197,8 +232,11 @@ const BenefitGraph = function ({ client, multiplier }) {
   var xRange = _.range(0, max, interval);
 
   /** Need a new object so client's data doesn't get changed. */
-  var snapData = getFauxSNAP( xRange, client, multiplier ),
-      sec8Data = getFauxSec8( xRange, client, multiplier );
+  var income    = client.current.earned * multiplier,
+      snapData  = getFauxSNAP( xRange, client, multiplier ),
+      sec8Data  = getFauxSec8( xRange, client, multiplier );
+
+  var plugin    = verticalLinePlugin( xRange, income, true );
   
   var lineProps = {
     data: {
@@ -254,8 +292,10 @@ const BenefitGraph = function ({ client, multiplier }) {
           label: formatLabel
         }
       }  // end `tooltips`
-    }  // end `options`
+    },  // end `options`
+    plugins: [plugin]
   };  // end lineProps
+  console.log( multiplier, income )
 
   return (
     <Line {...lineProps} />

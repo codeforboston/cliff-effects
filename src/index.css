@@ -69,7 +69,8 @@ Used to fill vertical space.
 }
 
 .ui.form h4.ui.header.cashflow-column:last-child,
-.ui.form .cashflow .cashflow-column:last-child {
+.ui.form .cashflow .cashflow-column:last-child,
+.ui.form .cashflow .cashflow-column-last-child {
   text-align: left;
   width: auto;
   padding-left: 1em !important;
