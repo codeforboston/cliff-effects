@@ -39,35 +39,40 @@ const MULTIPLIERS = {
 
 // const income = props.client.future.earned * 12;
 
-const verticalLinePlugin = function ( xRange, income, debug ) {
-  console.log( 'income:', income );
-  return ({
-    afterDatasetsDraw( chart ) {
-      const i = xRange.findIndex(val => income < val);
-      const k = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
-      if ( debug ) { console.log( 'income:', income, '; i:', i, '; k:', k, '; xRange[i]:', xRange[i], '; xRange[i - 1]:', xRange[i - 1], (income - xRange[i - 1]), (xRange[i] - xRange[i - 1]) ); }
-      
-      const data = chart.getDatasetMeta(0).data;
-      const prevX = data[i - 1]._model.x;
-      const currX = data[i]._model.x;
-      const offset = Math.floor(k * (currX - prevX) + prevX);
+class verticalLinePlugin {
 
-      const ctx = chart.chart.ctx;
-      const scale = chart.scales['y-axis-0'];
+  constructor () {
+    this.xRange = [];
+    this.income = 0;
+  }
 
-      ctx.save();
+  afterDatasetsDraw = ( chart ) => {
+    const xRange = this.xRange,
+          income = this.income;
 
-      ctx.beginPath();
-      ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
-      ctx.lineWidth = 2;
-      ctx.setLineDash([5, 5]);
-      ctx.moveTo(offset, scale.top);
-      ctx.lineTo(offset, scale.bottom);
-      ctx.stroke();
+    const i = xRange.findIndex(val => income < val);
+    const positionBetweenTwoPoints = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
+    
+    const data = chart.getDatasetMeta(0).data;
+    const prevX = data[i - 1]._model.x;
+    const currX = data[i]._model.x;
+    const offset = Math.floor(positionBetweenTwoPoints * (currX - prevX) + prevX);
 
-      ctx.restore();
-    }
-  });
+    const ctx = chart.chart.ctx;
+    const scale = chart.scales['y-axis-0'];
+
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 5]);
+    ctx.moveTo(offset, scale.top);
+    ctx.lineTo(offset, scale.bottom);
+    ctx.stroke();
+
+    ctx.restore();
+  }
 };
 
 
@@ -91,17 +96,8 @@ const GraphTimeButtons = function ({ activeID, onClick }) {
 };  // End <GraphTimeButtons>
 
 
-// ===============
-// GRAPH DATA
-// ===============
-/* Note: default tooltip for chart.js 2.0+:
- * options: { tooltips: { callbacks: {
- *  label: function(tooltipItem, data) {
- *    return tooltipItem.yLabel;
- *  }
- * }}}
- */
 const getFauxSNAP = function ( xRange, client, multiplier ) {
+  /** Need a new object so client's data doesn't get changed. */
   var fakeClient = _.cloneDeep( client );
   var data = xRange.map( function ( income ) {
     fakeClient.future.earned = income / multiplier;  // Turn it back into monthly
@@ -113,8 +109,7 @@ const getFauxSNAP = function ( xRange, client, multiplier ) {
 
 
 const getFauxSec8 = function ( xRange, client, multiplier ) {
-  /** Section-8 Housing Choice Voucher */
-  /** @todo Base this rent on FMR areas and client area of residence if no rent available. */
+  /** Need a new object so client's data doesn't get changed. */
   var fakeClient = _.cloneDeep( client );
 
   fakeClient.current.contractRent = fakeClient.current.contractRent || 1000;
@@ -138,168 +133,210 @@ const getFauxSec8 = function ( xRange, client, multiplier ) {
 }
 
 
-const GrossGraph = function ({ client, multiplier }) {
-  // Adjust to time-interval, round to hundreds
-  var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
-      interval  = Math.ceil((max/100)/10) * 10;
+// ===============
+// GRAPH DATA
+// ===============
+/* Note: default tooltip for chart.js 2.0+:
+ * options: { tooltips: { callbacks: {
+ *  label: function(tooltipItem, data) {
+ *    return tooltipItem.yLabel;
+ *  }
+ * }}}
+ */
+class GrossGraph extends Component {
 
-  var xRange = _.range(0, max, interval);
+  constructor ( props ) {
+    super( props );
+    this.state = {
+      verticalLine: new verticalLinePlugin()
+    }
+  }
 
-  /** Need a new object so client's data doesn't get changed. */
-  var snapData    = getFauxSNAP( xRange, client, multiplier ),
-      sec8Data    = getFauxSec8( xRange, client, multiplier ),
-      incomeData  = xRange;
+  render () {
+    const { client, multiplier } = this.props;
 
-  var stackedAreaProps = {
-    data: {
-      labels: xRange,
-      datasets: [
-        {
-          label: INCOME_NAME,
-          backgroundColor: INCOME_COLOR,
-          data: incomeData,
-          fill: "origin"
-        },
-        {
-          label: SNAP_NAME,
-          backgroundColor: SNAP_COLOR,
-          data: snapData
-        },
-        {
-          label: SECTION8_NAME,
-          backgroundColor: SECTION8_COLOR,
-          data: sec8Data
-        },
-      ]  // end `datasets`
-    },  // end `data`
-    options: {
-      title: {
-        display: true,
-        text: 'All Money Coming in as Income Changes'
-      },  // end `title`
-      elements: {
-        line: { fill: '-1' },
-        point: {
-          radius: 0,
-          hitRadius: 10,
-          hoverRadius: 10
-        }
-      },  // end `elements`
-      scales: {
-        yAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Total Money Coming In ($)'
+    // Adjust to time-interval, round to hundreds
+    var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
+        interval  = Math.ceil((max/100)/10) * 10;
+
+    var xRange = _.range(0, max, interval);
+
+    /** Need a new object so client's data doesn't get changed. */
+    var income      = client.current.earned * multiplier,
+        snapData    = getFauxSNAP( xRange, client, multiplier ),
+        sec8Data    = getFauxSec8( xRange, client, multiplier ),
+        incomeData  = xRange;
+
+    // react-chartjs-2 keeps references to plugins, so we
+    // have to mutate that reference
+    this.state.verticalLine.xRange = xRange;
+    this.state.verticalLine.income = income;
+
+    var stackedAreaProps = {
+      data: {
+        labels: xRange,
+        datasets: [
+          {
+            label: INCOME_NAME,
+            backgroundColor: INCOME_COLOR,
+            data: incomeData,
+            fill: "origin"
           },
-          ticks: {
-            beginAtZero: true,
-            callback: formatAxis
-          }
-        }],  // end `yAxes`
-        xAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Annual Income ($)'
+          {
+            label: SNAP_NAME,
+            backgroundColor: SNAP_COLOR,
+            data: snapData
           },
-          ticks: {
-            callback: formatAxis
+          {
+            label: SECTION8_NAME,
+            backgroundColor: SECTION8_COLOR,
+            data: sec8Data
+          },
+        ]  // end `datasets`
+      },  // end `data`
+      options: {
+        title: {
+          display: true,
+          text: 'All Money Coming in as Income Changes'
+        },  // end `title`
+        elements: {
+          line: { fill: '-1' },
+          point: {
+            radius: 0,
+            hitRadius: 10,
+            hoverRadius: 10
           }
-        }]  // end `xAxes`
-      },  // end `scales`
-      tooltips: {
-        callbacks: {
-          title: stackedTitle,
-          label: formatLabel
-        }
-      }  // end `tooltips`
-    },  // end `options`
-    plugins: [verticalLinePlugin( xRange, (client.current.earned * multiplier) )]
-  };  // end `stackedAreaProps`
+        },  // end `elements`
+        scales: {
+          yAxes: [{
+            stacked: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Total Money Coming In ($)'
+            },
+            ticks: {
+              beginAtZero: true,
+              callback: formatAxis
+            }
+          }],  // end `yAxes`
+          xAxes: [{
+            stacked: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Annual Income ($)'
+            },
+            ticks: {
+              callback: formatAxis
+            }
+          }]  // end `xAxes`
+        },  // end `scales`
+        tooltips: {
+          callbacks: {
+            title: stackedTitle,
+            label: formatLabel
+          }
+        }  // end `tooltips`
+      },  // end `options`
+      plugins: [this.state.verticalLine]
+    };  // end `stackedAreaProps`
 
-  return (
-    <Line {...stackedAreaProps} />
-  );
+    return (
+      <Line {...stackedAreaProps} />
+    );
+  }
 };  // End <GrossGraph>
 
 
-const BenefitGraph = function ({ client, multiplier }) {
-  // Adjust to time-interval, round to hundreds
-  var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
-      interval  = Math.ceil((max/100)/10) * 10;
+class BenefitGraph extends Component {
 
-  var xRange = _.range(0, max, interval);
+  constructor ( props ) {
+    super( props );
+    this.state = {
+      verticalLine: new verticalLinePlugin()
+    }
+  }
 
-  /** Need a new object so client's data doesn't get changed. */
-  var income    = client.current.earned * multiplier,
-      snapData  = getFauxSNAP( xRange, client, multiplier ),
-      sec8Data  = getFauxSec8( xRange, client, multiplier );
+  render () {
+    const { client, multiplier } = this.props;
 
-  var plugin    = verticalLinePlugin( xRange, income, true );
-  
-  var lineProps = {
-    data: {
-      labels: xRange,
-      datasets: [
-        {
-          label: SNAP_NAME,
-          borderColor: SNAP_COLOR,
-          data: snapData,
-          fill: false,
-          lineTension: 0
-        },
-        {
-          label: SECTION8_NAME,
-          borderColor: SECTION8_COLOR,
-          data: sec8Data,
-          fill: false,
-          lineTension: 0
-        },
-      ]
-    },  // end `data`
-    options: {
-      title: {
-        display: true,
-          text: 'Individual Benefit Amounts for Household as Income Changes'
-      },
-      showLines: true,
-      scales: {
-        yAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Benefit Value ($)'
+    // Adjust to time-interval, round to hundreds
+    var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
+        interval  = Math.ceil((max/100)/10) * 10;
+
+    var xRange = _.range(0, max, interval);
+
+    var income    = client.current.earned * multiplier,
+        snapData  = getFauxSNAP( xRange, client, multiplier ),
+        sec8Data  = getFauxSec8( xRange, client, multiplier );
+
+    // react-chartjs-2 keeps references to plugins, so we
+    // have to mutate that reference
+    this.state.verticalLine.xRange = xRange;
+    this.state.verticalLine.income = income;
+    
+    var lineProps = {
+      data: {
+        labels: xRange,
+        datasets: [
+          {
+            label: SNAP_NAME,
+            borderColor: SNAP_COLOR,
+            data: snapData,
+            fill: false,
+            lineTension: 0
           },
-          ticks: {
-            beginAtZero: true,
-            /* chart.js v2.7 requires a callback function */
-            callback: formatAxis
-          }
-        }],  // end `yAxes`
-        xAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Annual Income ($)'
+          {
+            label: SECTION8_NAME,
+            borderColor: SECTION8_COLOR,
+            data: sec8Data,
+            fill: false,
+            lineTension: 0
           },
-          ticks: {
-            callback: formatAxis
+        ]
+      },  // end `data`
+      options: {
+        title: {
+          display: true,
+            text: 'Individual Benefit Amounts for Household as Income Changes'
+        },
+        showLines: true,
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Benefit Value ($)'
+            },
+            ticks: {
+              beginAtZero: true,
+              /* chart.js v2.7 requires a callback function */
+              callback: formatAxis
+            }
+          }],  // end `yAxes`
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Annual Income ($)'
+            },
+            ticks: {
+              callback: formatAxis
+            }
+          }]  // end `xAxes`
+        },  // end `scales`
+        tooltips: {
+          callbacks: {
+            title: formatTitle,
+            label: formatLabel
           }
-        }]  // end `xAxes`
-      },  // end `scales`
-      tooltips: {
-        callbacks: {
-          title: formatTitle,
-          label: formatLabel
-        }
-      }  // end `tooltips`
-    },  // end `options`
-    plugins: [plugin]
-  };  // end lineProps
-  console.log( multiplier, income )
+        }  // end `tooltips`
+      },  // end `options`
+      plugins: [this.state.verticalLine]
+    };  // end lineProps
 
-  return (
-    <Line {...lineProps} />
-  );
+    return (
+      <Line {...lineProps} />
+    );
+  }
+
 };  // End <BenefitGraph>
 
 
@@ -337,7 +374,7 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
       <FormPartsContainer
         title     = {'Graphs'}
         left      = {{ name: 'Go Back', func: previousStep }}
-        right      = {{ name: 'Reset', func: resetClient }}
+        right     = {{ name: 'Reset', func: resetClient }}
       >
         <GraphHolder client={client} Graph={BenefitGraph} />
         <GraphHolder client={client} Graph={GrossGraph} />
