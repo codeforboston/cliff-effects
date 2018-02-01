@@ -63,6 +63,35 @@ const ResultsGraph = (props) => {
     return yearlySubsidy;
   });
 
+  const income = props.client.future.earned * 12;
+
+  const verticalLinePlugin = {
+    afterDatasetsDraw(chart) {
+      const i = xRange.findIndex(val => income < val);
+      const k = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
+      
+      const data = chart.getDatasetMeta(0).data;
+      const prevX = data[i - 1]._model.x;
+      const currX = data[i]._model.x;
+      const offset = Math.floor(k * (currX - prevX) + prevX);
+
+      const ctx = chart.chart.ctx;
+      const scale = chart.scales['y-axis-0'];
+
+      ctx.save();
+
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 5]);
+      ctx.moveTo(offset, scale.top);
+      ctx.lineTo(offset, scale.bottom);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+  };
+
   var lineProps = {
     data: {
       labels: xRange,
@@ -115,7 +144,8 @@ const ResultsGraph = (props) => {
           label: formatLabel
         }
       }  // end `tooltips`
-    }  // end `options`
+    },  // end `options`
+    plugins: [verticalLinePlugin]
   };  // end lineProps
 
   const stackedAreaProps = {
@@ -182,7 +212,8 @@ const ResultsGraph = (props) => {
           label: formatLabel
         }
       }
-    }
+    },
+    plugins: [verticalLinePlugin]
   }
 
   return (
