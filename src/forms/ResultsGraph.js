@@ -169,8 +169,9 @@ class GrossGraph extends Component {
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    this.state.verticalLine.xRange = xRange;
-    this.state.verticalLine.income = income;
+    var hack    = this.state.verticalLine;
+    hack.xRange = xRange;
+    hack.income = income;
 
     var stackedAreaProps = {
       data: {
@@ -271,8 +272,9 @@ class BenefitGraph extends Component {
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    this.state.verticalLine.xRange = xRange;
-    this.state.verticalLine.income = income;
+    var hack    = this.state.verticalLine;
+    hack.xRange = xRange;
+    hack.income = income;
     
     var lineProps = {
       data: {
