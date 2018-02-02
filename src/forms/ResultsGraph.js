@@ -386,8 +386,8 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
         left      = {{ name: 'Go Back', func: previousStep }}
         right     = {{ name: 'Reset', func: resetClient }}
       >
-        <GraphHolder client={client} Graph={BenefitGraph} />
         <GraphHolder client={client} Graph={GrossGraph} />
+        <GraphHolder client={client} Graph={BenefitGraph} />
       </FormPartsContainer>
     </div>
   )
