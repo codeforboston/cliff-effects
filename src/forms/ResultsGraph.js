@@ -192,14 +192,14 @@ class GrossGraph extends Component {
             fill: "origin"
           },
           {
-            label: SNAP_NAME,
-            backgroundColor: SNAP_COLOR,
-            data: snapData
-          },
-          {
             label: SECTION8_NAME,
             backgroundColor: SECTION8_COLOR,
             data: sec8Data
+          },
+          {
+            label: SNAP_NAME,
+            backgroundColor: SNAP_COLOR,
+            data: snapData
           },
         ]  // end `datasets`
       },  // end `data`
