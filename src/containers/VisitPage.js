@@ -142,6 +142,7 @@ class VisitPage extends Component {
     if ( client.current.hasHousing ) { client.current.shelter = 'voucher'; }
     // Restore shelter to previous value
     else { client.current.shelter = oldShelter; }
+    client.future.shelter = client.current.shelter;
 
     this.setState( prevState => ({
       client: client,
