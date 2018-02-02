@@ -88,8 +88,6 @@ class verticalLinePlugin {
     ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
 
     ctx.restore();
-
-    ctx.restore();
   }
 };
 
