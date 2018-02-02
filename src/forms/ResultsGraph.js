@@ -79,6 +79,16 @@ class verticalLinePlugin {
     ctx.fillText('Future', offset + xMargin, yMargin);
     ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
 
+    ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
+    ctx.textAlign = 'left';
+    const lineHeight = ctx.measureText('M').width * 1.2;
+    const xMargin = 5;
+    const yMargin = 200;
+    ctx.fillText('Future', offset + xMargin, yMargin);
+    ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
+
+    ctx.restore();
+
     ctx.restore();
   }
 };
@@ -170,7 +180,7 @@ class GrossGraph extends Component {
     var xRange = _.range(0, max, interval);
 
     /** Need a new object so client's data doesn't get changed. */
-    var income      = client.current.earned * multiplier,
+    var income      = client.future.earned * multiplier,
         snapData    = getFauxSNAP( xRange, client, multiplier ),
         sec8Data    = getFauxSec8( xRange, client, multiplier ),
         incomeData  = xRange;
@@ -274,7 +284,7 @@ class BenefitGraph extends Component {
 
     var xRange = _.range(0, max, interval);
 
-    var income    = client.current.earned * multiplier,
+    var income    = client.future.earned * multiplier,
         snapData  = getFauxSNAP( xRange, client, multiplier ),
         sec8Data  = getFauxSec8( xRange, client, multiplier );
 
