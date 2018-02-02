@@ -70,14 +70,6 @@ class verticalLinePlugin {
     ctx.moveTo(offset, scale.top);
     ctx.lineTo(offset, scale.bottom);
     ctx.stroke();
-    
-    ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
-    ctx.textAlign = 'left';
-    const lineHeight = ctx.measureText('M').width * 1.2;
-    const xMargin = 5;
-    const yMargin = 200;
-    ctx.fillText('Future', offset + xMargin, yMargin);
-    ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
 
     ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
     ctx.textAlign = 'left';
