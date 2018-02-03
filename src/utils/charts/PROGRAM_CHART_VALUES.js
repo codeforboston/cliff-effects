@@ -4,7 +4,7 @@ const PROGRAM_CHART_VALUES = {
     name: "Income",
     color: "rgb(136, 187, 236)"
   },
-  SNAP: {
+  snap: {
     name: "SNAP",
     color: "rgba(101, 47, 138, 1)"
   },
