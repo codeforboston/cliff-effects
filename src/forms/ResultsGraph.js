@@ -192,14 +192,14 @@ class GrossGraph extends Component {
             fill: "origin"
           },
           {
-            label: SNAP_NAME,
-            backgroundColor: SNAP_COLOR,
-            data: snapData
-          },
-          {
             label: SECTION8_NAME,
             backgroundColor: SECTION8_COLOR,
             data: sec8Data
+          },
+          {
+            label: SNAP_NAME,
+            backgroundColor: SNAP_COLOR,
+            data: snapData
           },
         ]  // end `datasets`
       },  // end `data`
@@ -386,8 +386,8 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
         left      = {{ name: 'Go Back', func: previousStep }}
         right     = {{ name: 'Reset', func: resetClient }}
       >
-        <GraphHolder client={client} Graph={BenefitGraph} />
         <GraphHolder client={client} Graph={GrossGraph} />
+        <GraphHolder client={client} Graph={BenefitGraph} />
       </FormPartsContainer>
     </div>
   )
