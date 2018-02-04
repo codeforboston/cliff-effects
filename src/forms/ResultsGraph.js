@@ -20,24 +20,13 @@ import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 import { FormPartsContainer } from './formHelpers';
 
 
-const SNAP_COLOR    = PROGRAM_CHART_VALUES.SNAP.color,
-      SNAP_NAME     = PROGRAM_CHART_VALUES.SNAP.name,
-      SECTION8_COLOR = PROGRAM_CHART_VALUES.section8.color,
-      SECTION8_NAME  = PROGRAM_CHART_VALUES.section8.name,
-      INCOME_COLOR   = PROGRAM_CHART_VALUES.income.color,
-      INCOME_NAME    = PROGRAM_CHART_VALUES.income.name;
-
-
 const MAX_X_MONTHLY = 100000/12;
-
 const MULTIPLIERS = {
   'Weekly': 1/(4 + 1/3),
   'Monthly': 1,
   'Yearly': 12
 };
 
-
-// const income = props.client.future.earned * 12;
 
 class verticalLinePlugin {
 
@@ -104,41 +93,68 @@ const GraphTimeButtons = function ({ activeID, onClick }) {
 };  // End <GraphTimeButtons>
 
 
-const getFauxSNAP = function ( xRange, client, multiplier ) {
-  /** Need a new object so client's data doesn't get changed. */
-  var fakeClient = _.cloneDeep( client );
+var getData = {};
+
+getData.income = function ( xRange, client, multiplier ) {
+  return xRange;
+};  // End getData.income
+
+getData.snap = function ( xRange, client, multiplier ) {
+
   var data = xRange.map( function ( income ) {
-    fakeClient.future.earned = income / multiplier;  // Turn it back into monthly
-    return getSNAPBenefits( fakeClient, 'future' ) * multiplier;
+    client.future.earned = income / multiplier;  // Turn it back into monthly
+    return getSNAPBenefits( client, 'future' ) * multiplier;
   });
 
   return data;
-};  // End getFauxSNAP
+};  // End getData.snap
 
 
-const getFauxSec8 = function ( xRange, client, multiplier ) {
-  /** Need a new object so client's data doesn't get changed. */
-  var fakeClient = _.cloneDeep( client );
+getData.section8 = function ( xRange, client, multiplier ) {
 
-  fakeClient.current.contractRent = fakeClient.current.contractRent || 1000;
-  fakeClient.current.earned       = 0;
+  client.current.contractRent = client.current.contractRent || 1000;
+  client.current.earned       = 0;
 
   var data = xRange.map( function ( income ) {
     // New renting data
-    fakeClient.future.earned  = income / multiplier;  // Turn it back into monthly
-    var monthlySubsidy        = getHousingBenefit( fakeClient, 'future' );
+    client.future.earned  = income / multiplier;  // Turn it back into monthly
+    var monthlySubsidy        = getHousingBenefit( client, 'future' );
 
     // Prep for next loop
     // Will use current values to calculate new values
-    var newShare                  = fakeClient.current.contractRent - monthlySubsidy;
-    fakeClient.current.rentShare  = newShare;
-    fakeClient.current.earned     = fakeClient.future.earned;
+    var newShare                  = client.current.contractRent - monthlySubsidy;
+    client.current.rentShare  = newShare;
+    client.current.earned     = client.future.earned;
 
     return monthlySubsidy * multiplier;
   });
 
   return data;
-}
+};  // End getData.section8()
+
+
+/** Returns the graph data formated in a way our graph library understands. */
+const getDatasets = function ( xRange, client, multiplier, activePrograms, extraProps ) {
+
+  var datasets = [];
+
+  for ( let programi = 0; programi < activePrograms.length; programi++ ) {
+
+    let programName   = activePrograms[ programi ],
+        graphFrosting = PROGRAM_CHART_VALUES[ programName ];
+
+    datasets.push( {
+      label: graphFrosting.name,
+      backgroundColor: graphFrosting.color,
+      borderColor: graphFrosting.color,
+      /** Need a new object so client's data doesn't get changed. */
+      data: getData[ programName ]( xRange, _.cloneDeep( client ), multiplier ),
+      ...extraProps[ programName ]
+    });
+  }  // end for programs in program chart values
+
+  return datasets;
+};  // End getDatasets()
 
 
 // ===============
@@ -161,47 +177,30 @@ class GrossGraph extends Component {
   }
 
   render () {
-    const { client, multiplier } = this.props;
+    const { client, multiplier, activePrograms } = this.props;
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
         interval  = Math.ceil((max/100)/10) * 10;
 
-    var xRange = _.range(0, max, interval);
+    var withIncome    = activePrograms.slice();
+    withIncome.unshift( 'income' );
 
-    /** Need a new object so client's data doesn't get changed. */
-    var income      = client.future.earned * multiplier,
-        snapData    = getFauxSNAP( xRange, client, multiplier ),
-        sec8Data    = getFauxSec8( xRange, client, multiplier ),
-        incomeData  = xRange;
+    var xRange        = _.range(0, max, interval),
+        extraProps    = { income: { fill: 'origin' } },
+        datasets      = getDatasets( xRange, client, multiplier, withIncome, extraProps );
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var hack    = this.state.verticalLine;
+    var income  = client.future.earned * multiplier,
+        hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
     var stackedAreaProps = {
       data: {
         labels: xRange,
-        datasets: [
-          {
-            label: INCOME_NAME,
-            backgroundColor: INCOME_COLOR,
-            data: incomeData,
-            fill: "origin"
-          },
-          {
-            label: SECTION8_NAME,
-            backgroundColor: SECTION8_COLOR,
-            data: sec8Data
-          },
-          {
-            label: SNAP_NAME,
-            backgroundColor: SNAP_COLOR,
-            data: snapData
-          },
-        ]  // end `datasets`
+        datasets: datasets
       },  // end `data`
       options: {
         title: {
@@ -266,43 +265,30 @@ class BenefitGraph extends Component {
   }
 
   render () {
-    const { client, multiplier } = this.props;
+    const { client, multiplier, activePrograms } = this.props;
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
         interval  = Math.ceil((max/100)/10) * 10;
 
-    var xRange = _.range(0, max, interval);
+    var xRange      = _.range(0, max, interval),  // x-axis/income numbers
+        extraProps  = { snap: { fill: false }, section8: { fill: false } },
+        datasets    = getDatasets( xRange, client, multiplier, activePrograms, extraProps );
 
-    var income    = client.future.earned * multiplier,
-        snapData  = getFauxSNAP( xRange, client, multiplier ),
-        sec8Data  = getFauxSec8( xRange, client, multiplier );
+    // If there's no data to show, don't show the table
+    if ( datasets.length === 0 ) { return null; }
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var hack    = this.state.verticalLine;
+    var income  = client.future.earned * multiplier,
+        hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
     
     var lineProps = {
       data: {
         labels: xRange,
-        datasets: [
-          {
-            label: SNAP_NAME,
-            borderColor: SNAP_COLOR,
-            data: snapData,
-            fill: false,
-            lineTension: 0
-          },
-          {
-            label: SECTION8_NAME,
-            borderColor: SECTION8_COLOR,
-            data: sec8Data,
-            fill: false,
-            lineTension: 0
-          },
-        ]
+        datasets: datasets
       },  // end `data`
       options: {
         title: {
@@ -364,11 +350,18 @@ class GraphHolder extends Component {
 
   render () {
     const { activeID, multiplier }  = this.state,
-          { Graph, client }         = this.props;
+          { Graph, client }         = this.props,
+          { current }               = client,
+          activePrograms            = [];
+
+    // The ids later used to access all program-specific data and functions
+    // Only active programs are added
+    if ( current.hasHousing ) { activePrograms.push( 'section8' ); }
+    if ( current.hasSnap )    { activePrograms.push( 'snap' ); }
 
     return (
       <div className='graph-holder'>
-        <Graph client={client} multiplier={multiplier} />
+        <Graph client={client} multiplier={multiplier} activePrograms={activePrograms} />
         <GraphTimeButtons activeID={activeID} onClick={this.onClick} />
       </div>
     );
