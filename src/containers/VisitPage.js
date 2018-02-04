@@ -13,7 +13,7 @@ import { setNestedProperty } from '../utils/setNestedProperty';
 import { cloneDeep } from 'lodash';
 
 // Data
-import { clientList } from '../config/dummyClients';
+// import { clientList } from '../config/dummyClients';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
@@ -30,6 +30,9 @@ import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import ResultsGraph from '../forms/ResultsGraph';
 
+// Dev Components
+import { CustomClient } from '../components/CustomClient';
+
 // React Router <Prompt> customization shenanigans
 import * as getUserConfirmation from '../utils/getUserConfirmation';
 
@@ -37,17 +40,25 @@ class VisitPage extends Component {
   constructor(props) {
     super(props);
 
-    const clientInfo = clientList.find( client => {
-      return client.clientId === parseInt(this.props.match.params.clientId, 10);
-    });
+
+    var { location, match } = this.props;
+    
+    // @todo use visitId to upload last file if possible?
+    var wantLoad = false;
+    if ( location.pathname.indexOf('/load') !== -1 ) {
+      wantLoad = true;
+    }
+
+    var clone = cloneDeep( CLIENT_DEFAULTS );
 
     this.state = {
-        clientInfo: clientInfo,
-        visitId: this.props.match.params.visitId,
+        clientInfo: match.params.clientId,
+        visitId: match.params.visitId,
+        mayLoadCustomClient: wantLoad,
         currentStep: 1,
         isBlocking: false,
         redirect: false,
-        client: cloneDeep(CLIENT_DEFAULTS),
+        client: clone,
         promptOpen: false,
         promptMessage: '',
         promptHeader: '',
@@ -55,7 +66,7 @@ class VisitPage extends Component {
         promptData: {},
         promptCallback: () => {},
         // Hack for MVP
-        oldShelter: CLIENT_DEFAULTS.current.shelter,
+        oldShelter: clone.current.shelter,
         userChanged: {}
     };  // end this.state {}
 
@@ -67,6 +78,7 @@ class VisitPage extends Component {
       { title: 'Predictions', form: PredictionsStep },
       { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
+
   };  // End constructor()
 
   componentDidMount() {
@@ -78,6 +90,10 @@ class VisitPage extends Component {
 
   componentWillUnmount() {
     getUserConfirmation.unset();
+  }
+
+  loadClient = ( clientContainer ) => {
+    this.setState({ client: clientContainer.client });
   }
 
   resetClient = () => {
@@ -191,6 +207,7 @@ class VisitPage extends Component {
 
     return (
       <div>
+        <CustomClient mayLoadCustomClient={this.state.mayLoadCustomClient} loadClient={this.loadClient} />
         <FormSection currentStep={this.state.currentStep}
                      client={this.state.client}
                      nextStep={this.nextStep}
