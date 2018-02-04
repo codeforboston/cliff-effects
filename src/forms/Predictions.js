@@ -82,8 +82,8 @@ const Chart = function({ client }) {
       housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
       incomeData  = [ incomeCurrent, incomeFuture ];
 
-  const SNAPColor     = PROGRAM_CHART_VALUES.SNAP.color,
-        SNAPName      = PROGRAM_CHART_VALUES.SNAP.name,
+  const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
+        SNAPName      = PROGRAM_CHART_VALUES.snap.name,
         section8Color = PROGRAM_CHART_VALUES.section8.color,
         section8Name  = PROGRAM_CHART_VALUES.section8.name,
         incomeColor   = PROGRAM_CHART_VALUES.income.color,
