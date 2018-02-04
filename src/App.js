@@ -23,7 +23,8 @@ const App = () => (
         <Route exact path="/" component={HomePage}/>
         <Route path="/about" component={AboutPage}/>
         <Route path="/visit/:clientId/:visitId" component={VisitPage}/>
-
+        <Route path="/visit/load" component={VisitPage}/>
+        <Route path="/load" component={VisitPage}/>
       </div>
     </HashRouter>
     <Footer />
