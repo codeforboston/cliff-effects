@@ -2,19 +2,19 @@
 
 > **cliff effect**: You are a person on government benefits, and you get a raise.  You're making more money!  But now that your income is higher, you don't make the cutoff for the benefits you receive.  Even though you're taking home more money, your situation is worse. Some of your benefits drop to nothing, or almost nothing. You've fallen off "the cliff."
 
-We are building the Cliff Effects webapp to help* [Project Hope](http://www.prohope.org/about/) case workers make quantifiable predictions about their clients' potential cliff effects - and advise their clients accordingly.  
+We are building the Cliff Effects webapp to help* [Project Hope](http://www.prohope.org/about/) case managers make quantifiable predictions about their clients' potential cliff effects - and advise their clients accordingly.
 
-(* Case workers handle their clients' problems on the ground; they aren't responsible for navigating benefit programs' complex policies, they do not have the time/resources to translate those policies into models. There's where we come in.)
+(* Case workers handle their clients' problems on the ground; they aren't responsible for navigating benefit programs' complex policies and do not have the time/resources to translate those policies into models.)
 
 
 ## Status
-We currently have a ReactJS frontend prototype.
+We currently have a ReactJS frontend prototype and start going into beta testing at the end of January.
 
 We are working on:
 
-- *Benefit amount calculations*: Converting rules into backend logic
-- *Data visualization*: Experimenting with different ways of portraying "the cliff"
-- *Simplifying user experience*: Making the tool navigable by case workers
+- *User testing*: Beta testing with case managers is about to start
+- *Feedback*: Setting up a useful way to get feedback from users
+- *Infrastructure*: Strengthening the code we have to make it more robust and maintainable
 
 
 ## How Can I Contribute?
@@ -28,7 +28,7 @@ We use GitHub Issues to organize our work.  Here's some quick reading about [how
 
 ## Environment Setup
 To follow these instructions, it'd help if you:
-- have mentally perpared for experimentation and learning and/or
+- have mentally prepared for experimentation and learning and/or
 - know how to open your terminal/command prompt
 - know a bit about how to navigate to different folders in your terminal
 - know a bit about installing software for your terminal, like nodejs
