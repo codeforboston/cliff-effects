@@ -8,6 +8,7 @@ import { BenefitsTable } from './BenefitsTable';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
+import { getBenefitTimeFrames, getIncomeTimeFrames } from '../utils/getTimeFrames';
 import { getSNAPBenefits } from '../programs/federal/snap';
 import { getHousingBenefit } from '../programs/massachusetts/housing';
 import {
@@ -35,7 +36,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
 
   var type = 'income';
 
-  /** 
+  /**
   * As per Project Hope input, for the first prototype we're only
   * including the ability to change earned income.
   */
@@ -44,10 +45,10 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
       <IntervalColumnHeadings type={type}/>
       <CashFlowRow
           timeState={future}
-				  type={type} 
+				  type={type}
 				  time={time}
 				  setClientProperty={setClientProperty}
-				  generic='earned' 
+				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
       </CashFlowRow>
@@ -71,12 +72,10 @@ const Chart = function({ client }) {
 
   var curr = client.current;
 
-  var SNAPBenefitCurrent  = curr.hasSnap ? Math.round( getSNAPBenefits( client, 'current' ) * 12 ) : 0,
-      SNAPBenefitFuture   = curr.hasSnap ? Math.round( getSNAPBenefits( client, 'future' ) * 12 ) : 0,
-      sec8BenefitCurrent  = curr.hasHousing ? Math.round( getHousingBenefit( client, 'current' ) * 12 ) : 0,
-      sec8BenefitFuture   = curr.hasHousing ? Math.round( getHousingBenefit( client, 'future' ) * 12 ) : 0,
-      incomeCurrent       = Math.round( curr.earned * 12 ),
-      incomeFuture        = Math.round( client.future.earned * 12 );
+  var
+    { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames( client, 'hasSnap', getSNAPBenefits ),
+    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames( client, 'hasHousing', getHousingBenefit ),
+    { incomeCurrent, incomeFuture } = getIncomeTimeFrames( client );
 
   var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
       housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
