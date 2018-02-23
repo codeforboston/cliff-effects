@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { Button } from 'semantic-ui-react';
 
 // Logic
 import { getSNAPBenefits } from '../programs/federal/snap';
@@ -18,7 +17,7 @@ import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 
 // Our Components
 import { FormPartsContainer } from './formHelpers';
-
+import { GraphTimeButtons} from '../components/GraphTimeButtons';
 
 const MAX_X_MONTHLY = 100000/12;
 const MULTIPLIERS = {
@@ -41,7 +40,7 @@ class verticalLinePlugin {
 
     const i = xRange.findIndex(val => income < val);
     const positionBetweenTwoPoints = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
-    
+
     const data = chart.getDatasetMeta(0).data;
     const prevX = data[i - 1]._model.x;
     const currX = data[i]._model.x;
@@ -72,25 +71,6 @@ class verticalLinePlugin {
   }
 };
 
-
-const GraphButton = function ({ id, activeID, onClick }) {
-  return (
-    <Button id={id} active={activeID === id} onClick={onClick}>
-      {id}
-    </Button>
-  );
-};  // End <GraphButton>
-
-
-const GraphTimeButtons = function ({ activeID, onClick }) {
-  return (
-    <Button.Group basic className='graph-time-options'>
-      <GraphButton id={'Weekly'} activeID={activeID} onClick={onClick}/>
-      <GraphButton id={'Monthly'} activeID={activeID} onClick={onClick}/>
-      <GraphButton id={'Yearly'} activeID={activeID} onClick={onClick}/>
-    </Button.Group>
-  );
-};  // End <GraphTimeButtons>
 
 
 var getData = {};
@@ -284,7 +264,7 @@ class BenefitGraph extends Component {
         hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
-    
+
     var lineProps = {
       data: {
         labels: xRange,
