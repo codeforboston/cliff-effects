@@ -4,6 +4,7 @@ import { Bar } from 'react-chartjs-2';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
+import DownloadFile from '../components/DownloadFile';
 import { BenefitsTable } from './BenefitsTable';
 
 // COMPONENT HELPER FUNCTIONS
@@ -62,7 +63,7 @@ const Table = function ({ client }) {
     <Header as='h1' className='ui Header teal align centered'>Results</Header>
     <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
     {/* @todo Add a floating download button and add instructions here to download the data using that button */}
-    <Message>This tool is in testing and these numbers might not be right. Please send a report to <a href="mailto:andrew@codeforboston.org">andrew@codeforboston.org</a> saying what the numbers were and what they should have been.</Message>
+    <Message visible warning>This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback. Please <DownloadFile>download the anonymized data</DownloadFile> and email it to <a href="mailto:andrew@codeforboston.org">andrew@codeforboston.org</a> with the answers to these questions: What are the correct numbers? What questions did the form miss asking that could be affecting the situation?</Message>
     <BenefitsTable client={client} />
     </div>
   );
