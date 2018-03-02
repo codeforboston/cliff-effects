@@ -125,7 +125,7 @@ class RentShareField extends Component {
           contractRent = {baseContractRent * 12}
         />
         <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>Rent Share</label>
+          <label>How much of that rent do you pay out of your pocket?</label>
         </div>
         {error &&
           <Label basic color='red' pointing="left">
@@ -206,7 +206,7 @@ class ContractRentField extends Component {
           rentShare = {baseRentShare * 12}
         />
         <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>Contract Rent</label>
+          <label>What is the full listed price of this housing unit? (Without utilities)</label>
           <InlineLabelInfo>
             The full amount the landlord would charge without a Section 8 voucher
           </InlineLabelInfo>
