@@ -105,7 +105,6 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
   if ( current.shelter === 'voucher' ) {
     return (
       <div>
-        <IntervalColumnHeadings type={ type }/>
         <ContractRentField {...sharedProps} />
         <RentShareField {...sharedProps} />
         <Utilities {...sharedProps}/>

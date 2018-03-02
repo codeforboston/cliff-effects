@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Form, Label } from 'semantic-ui-react';
 
-import { InlineLabelInfo } from './formHelpers';
-
 import { toMonthlyAmount } from '../utils/math';
 import { isPositiveNumber } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
+
 
 class RentInput extends Component {
   constructor ( props ) {
@@ -56,6 +55,7 @@ class RentInput extends Component {
   }
 }
 
+
 class RentShareField extends Component {
   state = { error: false }
 
@@ -63,9 +63,9 @@ class RentShareField extends Component {
 
   handleChange( evnt, inputProps ) {
     const { value } = inputProps;
-    const { contractRent, updateFieldError } = this.props;
+    const { comparator, updateFieldError } = this.props;
   
-    let valid = value <= contractRent;
+    let valid = value <= comparator;
     updateFieldError(!valid);
   
     valid = valid && isPositiveNumber(value);
@@ -102,30 +102,14 @@ class RentShareField extends Component {
       <Form.Field inline className={'cashflow'}>
         <RentInput
           {...baseProps}
-          value     = { baseVal / 4.33 }
-          name      = { 'rentShareWeekly' }
-          className = { classes.concat( 'weekly' ).join(' ') }
-          otherData = { 'weekly' }
-          contractRent = {baseContractRent / 4.33}
-        />
-        <RentInput
-          {...baseProps}
           value     = { baseVal }
           name      = { 'rentShare' }
           className = { classes.concat( 'monthly' ).join(' ') }
           otherData = { 'monthly' }
-          contractRent = {baseContractRent}
-        />
-        <RentInput
-          {...baseProps}
-          value     = { baseVal * 12 }
-          name      = { 'rentShareYearly' }
-          className = { classes.concat( 'yearly' ).join(' ') }
-          otherData = { 'yearly' }
-          contractRent = {baseContractRent * 12}
+          comparator = {baseContractRent}
         />
         <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>Your Rent Share (how much of the total rent you have to pay)</label>
+          <label>Your Monthly Rent Share (how much of the total rent you have to pay)</label>
         </div>
         {error &&
           <Label basic color='red' pointing="left">
@@ -144,9 +128,9 @@ class ContractRentField extends Component {
 
   handleChange( evnt, inputProps ) {
     const { value } = inputProps;
-    const { rentShare, updateFieldError } = this.props;
+    const { comparator, updateFieldError } = this.props;
 
-    let valid = rentShare <= value;
+    let valid = comparator <= value;
     updateFieldError(!valid);
 
     valid = valid && isPositiveNumber(value);
@@ -183,33 +167,14 @@ class ContractRentField extends Component {
       <Form.Field inline className={'cashflow'}>
         <RentInput
           {...baseProps}
-          value     = { baseVal / 4.33 }
-          name      = { 'rentShareWeekly' }
-          className = { classes.concat( 'weekly' ).join(' ') }
-          otherData = { 'weekly' }
-          rentShare = {baseRentShare / 4.33}
-        />
-        <RentInput
-          {...baseProps}
           value     = { baseVal }
           name      = { 'rentShare' }
           className = { classes.concat( 'monthly' ).join(' ') }
           otherData = { 'monthly' }
-          rentShare = {baseRentShare}
-        />
-        <RentInput
-          {...baseProps}
-          value     = { baseVal * 12 }
-          name      = { 'rentShareYearly' }
-          className = { classes.concat( 'yearly' ).join(' ') }
-          otherData = { 'yearly' }
-          rentShare = {baseRentShare * 12}
+          comparator = {baseRentShare}
         />
         <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>Contract Rent (the total rent for your apartment)</label>
-          <InlineLabelInfo>
-            The full amount the landlord would charge without a Section 8 voucher
-          </InlineLabelInfo>
+          <label>Monthly Contract Rent (the total rent for your apartment)</label>
         </div>
         {error &&
           <Label basic color='red' pointing="left">
