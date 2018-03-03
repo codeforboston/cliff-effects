@@ -402,7 +402,7 @@ class ManagedNumberField extends Component {
   }
   
   handleBlur = ( evnt ) => {
-    this.props.updateFieldError(false)
+    this.props.updateFieldValidity(false)
     this.setState({ focused: false, valid: true });
   }
 
@@ -415,7 +415,7 @@ class ManagedNumberField extends Component {
       this.props.store( evnt, inputProps, this.props.otherData );
     }
 
-    this.props.updateFieldError(!valid);
+    this.props.updateFieldValidity(!valid);
     this.setState({ valid: valid, focusedVal: value });
   }  // End handleChange()
 
@@ -479,7 +479,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
         store:    updateClient,
         validate: isPositiveNumber,
         format:   toMoneyStr,
-        updateFieldError: function () {}
+        updateFieldValidity: function () {}
       };
 
   return (
