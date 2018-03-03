@@ -42,21 +42,17 @@ class RentShareField extends Component {
       setClientProperty( evnt, obj );
     };
 
-    var baseVal   = timeState[ 'rentShare' ],
-        classes   = [ time, type, 'cashflow-column' ],
-        baseProps = {
-          store:    updateClient,
-          format:   toMoneyStr,
-          validate: this.validate,
-          updateFieldError: this.updateFieldError
-        };
+    var classes = [ time, type, 'cashflow-column', 'monthly' ].join(' ');
 
     const RentInput = <ManagedNumberField
-            {...baseProps}
-            value     = { baseVal }
+            value     = { timeState[ 'rentShare' ] }
             name      = { 'rentShare' }
-            className = { classes.concat( 'monthly' ).join(' ') }
-            otherData = { 'monthly' } />
+            className = { classes }
+            otherData = { 'monthly' }
+            store     = { updateClient }
+            format    = { toMoneyStr }
+            validate  = { this.validate }
+            updateFieldError = { this.updateFieldError } />
 
     return (
       <RentRow
@@ -89,21 +85,17 @@ class ContractRentField extends Component {
       setClientProperty( evnt, obj );
     };
 
-    var baseVal   = timeState[ 'contractRent' ],
-        classes   = [ time, type, 'cashflow-column' ],
-        baseProps = {
-          store:    updateClient,
-          format:   toMoneyStr,
-          validate: this.validate,
-          updateFieldError: this.updateFieldError,
-        };
+    var classes = [ time, type, 'cashflow-column', 'monthly' ].join(' ');
 
     const RentInput = <ManagedNumberField
-            {...baseProps}
-            value     = { baseVal }
+            value     = { timeState[ 'contractRent' ] }
             name      = { 'rentShare' }
-            className = { classes.concat( 'monthly' ).join(' ') }
-            otherData = { 'monthly' } />
+            className = { classes }
+            otherData = { 'monthly' }
+            store     = { updateClient }
+            format    = { toMoneyStr }
+            validate  = { this.validate }
+            updateFieldError = { this.updateFieldError } />
 
     return (
       <RentRow
