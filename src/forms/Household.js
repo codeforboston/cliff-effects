@@ -66,11 +66,11 @@ Columns.Four = function ({ noMargin, children }) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const ColumnHeader = function ({ children, columnNum }) {
@@ -89,11 +89,11 @@ const ColumnHeader = function ({ children, columnNum }) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const MemberButton = function ({ basic, color, iconName, className, onClick }) {
@@ -119,11 +119,11 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // ======================
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const Role = function ({ member, setMember }) {
@@ -167,11 +167,11 @@ const Role = function ({ member, setMember }) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx ) {
@@ -240,11 +240,11 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const getMembers = function ( current, time, setHousehold, setClientProperty ) {
@@ -268,13 +268,13 @@ const getMembers = function ( current, time, setHousehold, setClientProperty ) {
 
 
 /** @todo description
-* 
+*
 * @todo Could this be a number field? If not, then a dropdown?
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const HouseholdContent = function ({ current, time, setClientProperty }) {
@@ -297,10 +297,9 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
   var addMember = function ( evnt, inputProps ) {
 
-    var member = { m_age: 30, m_role: 'member', m_disabled: false };
-    if ( household.length === 1 ) {
-      member.m_role = 'spouse';
-    }
+    var member = household.length === 1
+      ? { m_age: 30, m_role: 'spouse', m_disabled: false}
+      : { m_age: 12, m_role: 'member', m_disabled: false};
 
     household.push( member );
     setHousehold( evnt, household );
@@ -339,11 +338,11 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
