@@ -7,10 +7,10 @@ import {
   Segment,
   Divider,
   Form,
+  Label,
   Grid,
   // Input,
   Checkbox,
-  // Money columns
 } from 'semantic-ui-react';
 
 // UTILITIES
@@ -293,6 +293,22 @@ const InlineLabelInfo = function ( props ) {
 // </label>
 
 
+// ========================================
+// INPUT CONTAINER COMPONENTS
+// ========================================
+
+/** Adds an option for an 'invalid input' message to the right of the last element */
+const ValidatableRow = function ({children, invalid, invalidMessage}) {
+  return (
+    <div>
+      {children}
+      {invalid &&
+        <Label basic color='red' pointing="left">{invalidMessage}</Label>
+      }
+    </div>
+  );
+};  // End <ValidatableRow>
+
 
 // ========================================
 // MONEY ON INTERVALS COLUMNS COMPONENTS
@@ -521,6 +537,7 @@ export {
   BottomButtons, FormPartsContainer, BottomButton,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
+  ValidatableRow,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
   CashFlowRow
 };

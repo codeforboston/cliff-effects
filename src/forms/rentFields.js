@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Label } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 import { toMonthlyAmount } from '../utils/math';
 import { isPositiveNumber } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
-import { ManagedNumberField } from './formHelpers';
-
-
-/** Adds an option for an 'invalid input' message to the right of the last element */
-const ValidatableRow = function ({children, invalid, invalidMessage}) {
-  return (
-    <div>
-      {children}
-      {invalid &&
-        <Label basic color='red' pointing="left">{invalidMessage}</Label>
-      }
-    </div>
-  );
-};  // End <ValidatableRow>
+import { ManagedNumberField, ValidatableRow } from './formHelpers';
 
 
 const RentRow = function ({inputProps, label, invalid, invalidMessage}) {
