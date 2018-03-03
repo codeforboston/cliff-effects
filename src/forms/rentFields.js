@@ -15,8 +15,19 @@ class RentInput extends Component {
       valid:      true,
       focusedVal: this.props.value,
     };
+  }
 
-    this.handleChange = this.props.handleChange.bind(this);
+  handleChange = ( evnt, inputProps ) => {
+
+    var { value } = inputProps,
+        valid     = this.props.validate( value );
+
+    if ( valid ) {
+      this.props.store( evnt, inputProps, this.props.otherData );
+    }
+
+    this.props.updateFieldError(!valid);
+    this.setState({ valid: valid, focusedVal: value });
   }
   
   handleFocus = ( evnt, inputProps ) => {
@@ -56,25 +67,29 @@ class RentInput extends Component {
 }
 
 
+const RentRow = function ({Inputs, label, error, errorMessage}) {
+  return (
+    <Form.Field inline className={'cashflow'}>
+      {Inputs}
+      <div className={'cashflow-column cashflow-column-last-child'}>
+        <label>{label}</label>
+      </div>
+      {error &&
+        <Label basic color='red' pointing="left">{errorMessage}</Label>
+      }
+    </Form.Field>
+  );
+};  // End <RentRow>
+
+
 class RentShareField extends Component {
   state = { error: false }
 
   updateFieldError = error => this.setState({ error: error });
 
-  handleChange( evnt, inputProps ) {
-    const { value } = inputProps;
-    const { comparator, updateFieldError } = this.props;
-  
-    let valid = value <= comparator;
-    updateFieldError(!valid);
-  
-    valid = valid && isPositiveNumber(value);
-  
-    if ( valid ) {
-      this.props.store( evnt, inputProps, this.props.otherData );
-    }
-  
-    this.setState({ valid: valid, focusedVal: value });
+  validate = ( value ) => {
+    let below = value <= this.props.timeState[ 'contractRent' ]
+    return below && isPositiveNumber( value );
   }
 
   render() {
@@ -92,30 +107,23 @@ class RentShareField extends Component {
         baseProps = {
           store:    updateClient,
           format:   toMoneyStr,
-          updateFieldError: this.updateFieldError,
-          handleChange: this.handleChange
+          validate: this.validate,
+          updateFieldError: this.updateFieldError
         };
 
-    const baseContractRent = timeState[ 'contractRent' ];
+    const Inputs = <RentInput
+            {...baseProps}
+            value     = { baseVal }
+            name      = { 'rentShare' }
+            className = { classes.concat( 'monthly' ).join(' ') }
+            otherData = { 'monthly' } />
 
     return (
-      <Form.Field inline className={'cashflow'}>
-        <RentInput
-          {...baseProps}
-          value     = { baseVal }
-          name      = { 'rentShare' }
-          className = { classes.concat( 'monthly' ).join(' ') }
-          otherData = { 'monthly' }
-          comparator = {baseContractRent}
-        />
-        <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>Your Monthly Rent Share (how much of the total rent you have to pay)</label>
-        </div>
-        {error &&
-          <Label basic color='red' pointing="left">
-            Rent share must be less than contract rent
-          </Label>}
-      </Form.Field>
+      <RentRow
+        Inputs={Inputs}
+        label={'Your Monthly Rent Share (how much of the total rent you have to pay)'}
+        error={error}
+        errorMessage={'Rent share must be less than contract rent'} />
     );
   }
 }
@@ -126,20 +134,9 @@ class ContractRentField extends Component {
 
   updateFieldError = error => this.setState({ error: error });
 
-  handleChange( evnt, inputProps ) {
-    const { value } = inputProps;
-    const { comparator, updateFieldError } = this.props;
-
-    let valid = comparator <= value;
-    updateFieldError(!valid);
-
-    valid = valid && isPositiveNumber(value);
-
-    if ( valid ) {
-      this.props.store( evnt, inputProps, this.props.otherData );
-    }
-
-    this.setState({ valid: valid, focusedVal: value });
+  validate = ( value ) => {
+    let above = value >= this.props.timeState[ 'rentShare' ]
+    return above && isPositiveNumber( value );
   }
 
   render() {
@@ -157,30 +154,23 @@ class ContractRentField extends Component {
         baseProps = {
           store:    updateClient,
           format:   toMoneyStr,
+          validate: this.validate,
           updateFieldError: this.updateFieldError,
-          handleChange: this.handleChange
         };
 
-    const baseRentShare = timeState[ 'rentShare' ];
+    const Inputs = <RentInput
+            {...baseProps}
+            value     = { baseVal }
+            name      = { 'rentShare' }
+            className = { classes.concat( 'monthly' ).join(' ') }
+            otherData = { 'monthly' } />
 
     return (
-      <Form.Field inline className={'cashflow'}>
-        <RentInput
-          {...baseProps}
-          value     = { baseVal }
-          name      = { 'rentShare' }
-          className = { classes.concat( 'monthly' ).join(' ') }
-          otherData = { 'monthly' }
-          comparator = {baseRentShare}
-        />
-        <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>Monthly Contract Rent (the total rent for your apartment)</label>
-        </div>
-        {error &&
-          <Label basic color='red' pointing="left">
-            Rent share must be less than contract rent
-          </Label>}
-      </Form.Field>
+      <RentRow
+        Inputs={Inputs}
+        label={'Monthly Contract Rent (the total rent for your apartment)'}
+        error={error}
+        errorMessage={'Rent share must be less than contract rent'} />
     );
   }
 }
