@@ -7,12 +7,19 @@ import { toMoneyStr } from '../utils/prettifiers';
 import { ManagedNumberField, ValidatableRow } from './formHelpers';
 
 
-const RentRow = function ({inputProps, label, invalid, invalidMessage}) {
+const RentRow = function ({inputProps, setClientProperty, label, invalid, invalidMessage}) {
+
+  var updateClient = function ( evnt, inputProps, interval ) {
+    var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
+        obj     = { name: inputProps.name, value: monthly };
+    setClientProperty( evnt, obj );
+  };
+
   return (
     <Form.Field inline className={'cashflow'}>
       <ValidatableRow invalid={invalid} invalidMessage={invalidMessage}>
 
-        <ManagedNumberField {...inputProps} otherData={'monthly'} format={ toMoneyStr } />
+        <ManagedNumberField {...inputProps} store={updateClient} otherData={'monthly'} format={ toMoneyStr } />
         <div className={'cashflow-column cashflow-column-last-child'}>
           <label>{label}</label>
         </div>
@@ -37,17 +44,10 @@ class RentShareField extends Component {
     const { timeState, setClientProperty, type, time } = this.props;
     const { invalid } = this.state;
 
-    var updateClient = function ( evnt, inputProps, interval ) {
-      var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
-          obj     = { name: 'rentShare', value: monthly };
-      setClientProperty( evnt, obj );
-    };
-
     const inputProps = {
       value:      timeState[ 'rentShare' ],
       name:       'rentShare',
       className:  [ time, type, 'cashflow-column', 'monthly' ].join(' '),
-      store:      updateClient,
       validate:   this.validate,
       updateFieldValidity: this.updateFieldValidity,
     }
@@ -55,6 +55,7 @@ class RentShareField extends Component {
     return (
       <RentRow
         inputProps={inputProps}
+        setClientProperty={setClientProperty}
         label={'Your Monthly Rent Share (how much of the total rent you have to pay)'}
         invalid={invalid}
         invalidMessage={'Rent share must be less than contract rent'} />
@@ -77,17 +78,10 @@ class ContractRentField extends Component {
     const { timeState, setClientProperty, type, time } = this.props;
     const { invalid } = this.state;
 
-    var updateClient = function ( evnt, inputProps, interval ) {
-      var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
-          obj     = { name: 'contractRent', value: monthly };
-      setClientProperty( evnt, obj );
-    };
-
     const inputProps = {
       value:      timeState[ 'contractRent' ],
-      name:       'rentShare',
+      name:       'contractRent',
       className:  [ time, type, 'cashflow-column', 'monthly' ].join(' '),
-      store:      updateClient,
       validate:   this.validate,
       updateFieldValidity: this.updateFieldValidity,
     }
@@ -95,6 +89,7 @@ class ContractRentField extends Component {
     return (
       <RentRow
         inputProps={inputProps}
+        setClientProperty={setClientProperty}
         label={'Monthly Contract Rent (the total rent for your apartment)'}
         invalid={invalid}
         invalidMessage={'Rent share must be less than contract rent'} />
@@ -103,6 +98,7 @@ class ContractRentField extends Component {
 }
 
 export {
+  RentRow,
   ContractRentField,
-  RentShareField
+  RentShareField,
 };
