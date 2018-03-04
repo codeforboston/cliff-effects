@@ -95,7 +95,6 @@ const PlainRentRow = function ({ timeState, setClientProperty, time, type }) {
 
 
 export {
-  MonthlyCashflowRow,
   ContractRentField,
   RentShareField,
   PlainRentRow,
