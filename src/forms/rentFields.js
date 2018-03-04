@@ -7,7 +7,7 @@ import { toMoneyStr } from '../utils/prettifiers';
 import { ManagedNumberField, ValidatableRow } from './formHelpers';
 
 
-const RentRow = function ({inputProps, setClientProperty, label, invalid, invalidMessage}) {
+const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, invalid, invalidMessage}) {
 
   var updateClient = function ( evnt, inputProps, interval ) {
     var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
@@ -27,7 +27,7 @@ const RentRow = function ({inputProps, setClientProperty, label, invalid, invali
       </ValidatableRow>
     </Form.Field>
   );
-};  // End <RentRow>
+};  // End <MonthlyCashflowRow>
 
 
 class RentShareField extends Component {
@@ -53,7 +53,7 @@ class RentShareField extends Component {
     }
 
     return (
-      <RentRow
+      <MonthlyCashflowRow
         inputProps={inputProps}
         setClientProperty={setClientProperty}
         label={'Your Monthly Rent Share (how much of the total rent you have to pay)'}
@@ -87,7 +87,7 @@ class ContractRentField extends Component {
     }
 
     return (
-      <RentRow
+      <MonthlyCashflowRow
         inputProps={inputProps}
         setClientProperty={setClientProperty}
         label={'Monthly Contract Rent (the total rent for your apartment)'}
@@ -97,8 +97,32 @@ class ContractRentField extends Component {
   }
 }
 
+
+const PlainRentRow = function ({ timeState, setClientProperty, time, type }) {
+
+  const inputProps = {
+    value:      timeState[ 'rent' ],
+    name:       'rent',
+    className:  [ time, type, 'cashflow-column', 'monthly' ].join(' '),
+    validate:   isPositiveNumber,
+    updateFieldValidity: function () {},
+  }
+
+  return (
+    <MonthlyCashflowRow
+      inputProps={inputProps}
+      setClientProperty={setClientProperty}
+      label={'Monthly Rent'}
+      invalid={false}
+      invalidMessage={''} />
+  );
+
+};  // End <PlainRentRow>
+
+
 export {
-  RentRow,
+  MonthlyCashflowRow,
   ContractRentField,
   RentShareField,
+  PlainRentRow,
 };
