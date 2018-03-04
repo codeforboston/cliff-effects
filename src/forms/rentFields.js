@@ -1,33 +1,7 @@
 import React, { Component } from 'react';
-import { Form } from 'semantic-ui-react';
+import { MonthlyCashflowRow } from './formHelpers';
 
-import { toMonthlyAmount } from '../utils/math';
 import { isPositiveNumber } from '../utils/validators';
-import { toMoneyStr } from '../utils/prettifiers';
-import { ManagedNumberField, ValidatableRow } from './formHelpers';
-
-
-const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, invalid, invalidMessage}) {
-
-  var updateClient = function ( evnt, inputProps, interval ) {
-    var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
-        obj     = { name: inputProps.name, value: monthly };
-    setClientProperty( evnt, obj );
-  };
-
-  return (
-    <Form.Field inline className={'cashflow'}>
-      <ValidatableRow invalid={invalid} invalidMessage={invalidMessage}>
-
-        <ManagedNumberField {...inputProps} store={updateClient} otherData={'monthly'} format={ toMoneyStr } />
-        <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>{label}</label>
-        </div>
-      
-      </ValidatableRow>
-    </Form.Field>
-  );
-};  // End <MonthlyCashflowRow>
 
 
 class RentShareField extends Component {

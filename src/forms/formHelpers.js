@@ -531,6 +531,31 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 };  // End CashFlowRow{} Component
 
 
+/** CashflowRow with only a monthly value. */
+const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, invalid, invalidMessage}) {
+
+  var updateClient = function ( evnt, inputProps, interval ) {
+    var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
+        obj     = { name: inputProps.name, value: monthly };
+    setClientProperty( evnt, obj );
+  };
+
+  return (
+    <Form.Field inline className={'cashflow'}>
+      <ValidatableRow invalid={invalid} invalidMessage={invalidMessage}>
+
+        <ManagedNumberField {...inputProps} store={updateClient} otherData={'monthly'} format={ toMoneyStr } />
+        <div className={'cashflow-column cashflow-column-last-child'}>
+          <label>{label}</label>
+        </div>
+      
+      </ValidatableRow>
+    </Form.Field>
+  );
+
+};  // End <MonthlyCashflowRow>
+
+
 /** @todo Separate into different files? */
 export {
   ExternalLink,
@@ -539,5 +564,5 @@ export {
   InlineLabelInfo,
   ValidatableRow,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
-  CashFlowRow
+  CashFlowRow, MonthlyCashflowRow
 };
