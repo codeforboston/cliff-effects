@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MonthlyCashflowRow } from './formHelpers';
+import { MonthlyCashFlowRow } from './formHelpers';
 
 import { isPositiveNumber } from '../utils/validators';
 
@@ -26,7 +26,7 @@ class RentShareField extends Component {
     }
 
     return (
-      <MonthlyCashflowRow
+      <MonthlyCashFlowRow
         inputProps={inputProps}
         setClientProperty={setClientProperty}
         label={'Your Monthly Rent Share (how much of the total rent you have to pay)'}
@@ -60,7 +60,7 @@ class ContractRentField extends Component {
     }
 
     return (
-      <MonthlyCashflowRow
+      <MonthlyCashFlowRow
         inputProps={inputProps}
         setClientProperty={setClientProperty}
         label={'Monthly Contract Rent (the total rent for your apartment)'}
@@ -82,7 +82,7 @@ const PlainRentRow = function ({ timeState, setClientProperty, time, type }) {
   }
 
   return (
-    <MonthlyCashflowRow
+    <MonthlyCashFlowRow
       inputProps={inputProps}
       setClientProperty={setClientProperty}
       label={'Monthly Rent'}

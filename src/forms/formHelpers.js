@@ -532,7 +532,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 
 /** CashflowRow with only a monthly value. */
-const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, valid, invalidMessage}) {
+const MonthlyCashFlowRow = function ({inputProps, setClientProperty, label, valid, invalidMessage}) {
 
   var updateClient = function ( evnt, inputProps, interval ) {
     var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
@@ -553,7 +553,7 @@ const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, vali
     </Form.Field>
   );
 
-};  // End <MonthlyCashflowRow>
+};  // End <MonthlyCashFlowRow>
 
 
 /** @todo Separate into different files? */
@@ -564,5 +564,5 @@ export {
   InlineLabelInfo,
   ValidatableRow,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
-  CashFlowRow, MonthlyCashflowRow
+  CashFlowRow, MonthlyCashFlowRow
 };
