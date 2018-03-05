@@ -5,19 +5,18 @@ import { isPositiveNumber } from '../utils/validators';
 
 
 class RentShareField extends Component {
-  state = { invalid: false }
+  state = { valid: true }
 
-  updateFieldValidity = invalid => this.setState({ invalid: invalid });
+  updateFieldValidity = valid => this.setState({ valid: valid });
 
-  validate = ( value ) => {
-    let below = value <= this.props.timeState[ 'contractRent' ]
-    return below && isPositiveNumber( value );
+  validate = ( ownValue ) => {
+    let selfBelow = ownValue <= this.props.timeState[ 'contractRent' ]
+    return selfBelow && isPositiveNumber( ownValue );
   }
 
   render() {
     const { timeState, setClientProperty, type, time } = this.props;
-    const { invalid } = this.state;
-
+    const { valid } = this.state;
     const inputProps = {
       value:      timeState[ 'rentShare' ],
       name:       'rentShare',
@@ -31,7 +30,7 @@ class RentShareField extends Component {
         inputProps={inputProps}
         setClientProperty={setClientProperty}
         label={'Your Monthly Rent Share (how much of the total rent you have to pay)'}
-        invalid={invalid}
+        valid={valid}
         invalidMessage={'Rent share must be less than contract rent'} />
     );
   }
@@ -39,18 +38,18 @@ class RentShareField extends Component {
 
 
 class ContractRentField extends Component {
-  state = { invalid: false }
+  state = { valid: true }
 
-  updateFieldValidity = invalid => this.setState({ invalid: invalid });
+  updateFieldValidity = valid => this.setState({ valid: valid });
 
-  validate = ( value ) => {
-    let above = value >= this.props.timeState[ 'rentShare' ]
-    return above && isPositiveNumber( value );
+  validate = ( ownValue ) => {
+    let selfAbove = ownValue >= this.props.timeState[ 'rentShare' ]
+    return selfAbove && isPositiveNumber( ownValue );
   }
 
   render() {
     const { timeState, setClientProperty, type, time } = this.props;
-    const { invalid } = this.state;
+    const { valid } = this.state;
 
     const inputProps = {
       value:      timeState[ 'contractRent' ],
@@ -65,7 +64,7 @@ class ContractRentField extends Component {
         inputProps={inputProps}
         setClientProperty={setClientProperty}
         label={'Monthly Contract Rent (the total rent for your apartment)'}
-        invalid={invalid}
+        valid={valid}
         invalidMessage={'Rent share must be less than contract rent'} />
     );
   }
@@ -87,7 +86,7 @@ const PlainRentRow = function ({ timeState, setClientProperty, time, type }) {
       inputProps={inputProps}
       setClientProperty={setClientProperty}
       label={'Monthly Rent'}
-      invalid={false}
+      valid={true}
       invalidMessage={''} />
   );
 

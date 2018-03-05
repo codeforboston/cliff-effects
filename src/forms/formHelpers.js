@@ -298,11 +298,11 @@ const InlineLabelInfo = function ( props ) {
 // ========================================
 
 /** Adds an option for an 'invalid input' message to the right of the last element */
-const ValidatableRow = function ({children, invalid, invalidMessage}) {
+const ValidatableRow = function ({children, valid, invalidMessage}) {
   return (
     <div>
       {children}
-      {invalid &&
+      {!valid &&
         <Label basic color='red' pointing="left">{invalidMessage}</Label>
       }
     </div>
@@ -418,7 +418,7 @@ class ManagedNumberField extends Component {
   }
   
   handleBlur = ( evnt ) => {
-    this.props.updateFieldValidity(false)
+    this.props.updateFieldValidity(true)
     this.setState({ focused: false, valid: true });
   }
 
@@ -431,7 +431,7 @@ class ManagedNumberField extends Component {
       this.props.store( evnt, inputProps, this.props.otherData );
     }
 
-    this.props.updateFieldValidity(!valid);
+    this.props.updateFieldValidity(valid);
     this.setState({ valid: valid, focusedVal: value });
   }  // End handleChange()
 
@@ -532,7 +532,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 
 /** CashflowRow with only a monthly value. */
-const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, invalid, invalidMessage}) {
+const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, valid, invalidMessage}) {
 
   var updateClient = function ( evnt, inputProps, interval ) {
     var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
@@ -542,7 +542,7 @@ const MonthlyCashflowRow = function ({inputProps, setClientProperty, label, inva
 
   return (
     <Form.Field inline className={'cashflow'}>
-      <ValidatableRow invalid={invalid} invalidMessage={invalidMessage}>
+      <ValidatableRow valid={valid} invalidMessage={invalidMessage}>
 
         <ManagedNumberField {...inputProps} store={updateClient} otherData={'monthly'} format={ toMoneyStr } />
         <div className={'cashflow-column cashflow-column-last-child'}>
