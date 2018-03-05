@@ -298,16 +298,15 @@ const InlineLabelInfo = function ( props ) {
 // ========================================
 
 /** Adds an option for an 'invalid input' message to the right of the last element */
-const ValidatableRow = function ({children, valid, invalidMessage}) {
-  return (
-    <div>
-      {children}
-      {!valid &&
-        <Label basic color='red' pointing="left">{invalidMessage}</Label>
-      }
-    </div>
-  );
-};  // End <ValidatableRow>
+const RowMessage = function ({ valid, message }) {
+
+  var result = null;
+  if ( !valid && message ) {
+    result = <Label basic color='red' pointing="left">{message}</Label>
+  }
+
+  return result;
+};  // End <RowMessage>
 
 
 // ========================================
@@ -462,6 +461,19 @@ class ManagedNumberField extends Component {
 };  // End ManagedNumberField
 
 
+const CashFlowContainer = function ({ children, label, valid, message }) {
+  return (
+    <Form.Field inline className={'cashflow'}>
+      { children }
+      <div className={'cashflow-column cashflow-column-last-child'}>
+        <label>{label}</label>
+      </div>
+      <RowMessage valid={valid} message={message} />
+    </Form.Field>
+  );
+};  // End <CashFlowContainer>
+
+
 /** @todo description
 *
 * @function
@@ -499,40 +511,34 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
       };
 
   return (
-    <Form.Field inline className={'cashflow'}>
+
+    <CashFlowContainer label={children} valid={true} message={null}>
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal / 4.33 }
         name      = { generic + 'Weekly' }
         className = { classes.concat( 'weekly' ).join(' ') }
-        otherData = { 'weekly' }
-      />
+        otherData = { 'weekly' } />
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal }
         name      = { generic }
         className = { classes.concat( 'monthly' ).join(' ') }
-        otherData = { 'monthly' }
-      />
+        otherData = { 'monthly' } />
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal * 12 }
         name      = { generic + 'Yearly' }
         className = { classes.concat( 'yearly' ).join(' ') }
-        otherData = { 'yearly' }
-      />
-      <div className={'cashflow-column'}>
-        <label>{ children }</label>
-        <InlineLabelInfo>{ labelInfo }</InlineLabelInfo>
-      </div>
-    </Form.Field>
+        otherData = { 'yearly' } />
+    </CashFlowContainer>
   );
 
 };  // End CashFlowRow{} Component
 
 
 /** CashflowRow with only a monthly value. */
-const MonthlyCashFlowRow = function ({inputProps, setClientProperty, label, valid, invalidMessage}) {
+const MonthlyCashFlowRow = function ({inputProps, setClientProperty, label, valid, message}) {
 
   var updateClient = function ( evnt, inputProps, interval ) {
     var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
@@ -541,16 +547,10 @@ const MonthlyCashFlowRow = function ({inputProps, setClientProperty, label, vali
   };
 
   return (
-    <Form.Field inline className={'cashflow'}>
-      <ValidatableRow valid={valid} invalidMessage={invalidMessage}>
 
+    <CashFlowContainer label={label} valid={valid} message={message}>
         <ManagedNumberField {...inputProps} store={updateClient} otherData={'monthly'} format={ toMoneyStr } />
-        <div className={'cashflow-column cashflow-column-last-child'}>
-          <label>{label}</label>
-        </div>
-      
-      </ValidatableRow>
-    </Form.Field>
+    </CashFlowContainer>
   );
 
 };  // End <MonthlyCashFlowRow>
@@ -562,7 +562,7 @@ export {
   BottomButtons, FormPartsContainer, BottomButton,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
-  ValidatableRow,
+  RowMessage,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
-  CashFlowRow, MonthlyCashFlowRow
+  CashFlowRow, MonthlyCashFlowRow, CashFlowContainer
 };

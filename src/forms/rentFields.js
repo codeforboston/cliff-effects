@@ -31,7 +31,7 @@ class RentShareField extends Component {
         setClientProperty={setClientProperty}
         label={'Your Monthly Rent Share (how much of the total rent you have to pay)'}
         valid={valid}
-        invalidMessage={'Rent share must be less than contract rent'} />
+        message={'Rent share must be less than contract rent'} />
     );
   }
 }
@@ -65,7 +65,7 @@ class ContractRentField extends Component {
         setClientProperty={setClientProperty}
         label={'Monthly Contract Rent (the total rent for your apartment)'}
         valid={valid}
-        invalidMessage={'Rent share must be less than contract rent'} />
+        message={'Rent share must be less than contract rent'} />
     );
   }
 }
@@ -87,7 +87,7 @@ const PlainRentRow = function ({ timeState, setClientProperty, time, type }) {
       setClientProperty={setClientProperty}
       label={'Monthly Rent'}
       valid={true}
-      invalidMessage={''} />
+      message={''} />
   );
 
 };  // End <PlainRentRow>
