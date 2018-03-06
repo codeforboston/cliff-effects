@@ -5,89 +5,121 @@ import { isPositiveNumber } from '../utils/validators';
 
 
 class RentShareField extends Component {
-  state = { valid: true }
+  state = { valid: true, message: null }
 
-  updateFieldValidity = valid => this.setState({ valid: valid });
+  validation = ( ownValue ) => {
+    var message = null, valid = true;
 
-  validate = ( ownValue ) => {
-    let selfBelow = ownValue <= this.props.timeState[ 'contractRent' ]
-    return selfBelow && isPositiveNumber( ownValue );
+    let isPosNum = isPositiveNumber( ownValue );
+    if ( !isPosNum ) { valid = false }
+    else {
+      valid = ownValue <= this.props.timeState[ 'contractRent' ];
+      if ( !valid ) { message = 'Rent share must be less than contract rent'; }
+    }
+
+    this.setState({ valid: valid, message: message });
+    return valid;
+  }
+
+  onBlur = ( evnt ) => {
+    this.setState({ valid: true, message: null });
   }
 
   render() {
-    const { timeState, setClientProperty, type, time } = this.props;
-    const { valid } = this.state;
+    const { timeState, setClientProperty } = this.props,
+          { valid, message } = this.state;
+
     const inputProps = {
-      value:      timeState[ 'rentShare' ],
       name:       'rentShare',
-      className:  [ time, type, 'cashflow-column', 'monthly' ].join(' '),
-      validate:   this.validate,
-      updateFieldValidity: this.updateFieldValidity,
+      validation: this.validation,
+      onBlur:     this.onBlur,
+    },
+    rowProps = {
+      label:    'Your Monthly Rent Share (how much of the total rent you have to pay)',
+      validRow: valid,
+      message:  message
     }
 
     return (
       <MonthlyCashFlowRow
-        inputProps={inputProps}
-        setClientProperty={setClientProperty}
-        label={'Your Monthly Rent Share (how much of the total rent you have to pay)'}
-        valid={valid}
-        message={'Rent share must be less than contract rent'} />
+        inputProps        = { inputProps }
+        baseValue         = { timeState[ 'rentShare' ] }
+        includes          = {[ 'monthly' ]}
+        setClientProperty = { setClientProperty }
+        rowProps          = { rowProps } />
     );
   }
-}
+};  // End <RentShareField>
 
 
 class ContractRentField extends Component {
-  state = { valid: true }
+  state = { valid: true, message: null }
 
-  updateFieldValidity = valid => this.setState({ valid: valid });
+  validation = ( ownValue ) => {
+    var message = null, valid = true;
 
-  validate = ( ownValue ) => {
-    let selfAbove = ownValue >= this.props.timeState[ 'rentShare' ]
-    return selfAbove && isPositiveNumber( ownValue );
+    let isPosNum = isPositiveNumber( ownValue );
+    if ( !isPosNum ) { valid = false }
+    else {
+      valid = ownValue >= this.props.timeState[ 'rentShare' ];
+      if ( !valid ) { message = 'Rent share must be less than contract rent'; }
+    }
+
+    this.setState({ valid: valid, message: message });
+    return valid;
+  }
+
+  onBlur = ( evnt ) => {
+    this.setState({ valid: true, message: null });
   }
 
   render() {
-    const { timeState, setClientProperty, type, time } = this.props;
-    const { valid } = this.state;
+    const { timeState, setClientProperty } = this.props,
+          { valid, message } = this.state;
 
     const inputProps = {
-      value:      timeState[ 'contractRent' ],
       name:       'contractRent',
-      className:  [ time, type, 'cashflow-column', 'monthly' ].join(' '),
-      validate:   this.validate,
-      updateFieldValidity: this.updateFieldValidity,
+      validation: this.validation,
+      onBlur:     this.onBlur,
+    },
+    rowProps = {
+      label:    'Monthly Contract Rent (the total rent for your apartment)',
+      validRow: valid,
+      message:  message
     }
 
     return (
       <MonthlyCashFlowRow
-        inputProps={inputProps}
-        setClientProperty={setClientProperty}
-        label={'Monthly Contract Rent (the total rent for your apartment)'}
-        valid={valid}
-        message={'Rent share must be less than contract rent'} />
+        inputProps        = { inputProps }
+        baseValue         = { timeState[ 'contractRent' ] }
+        includes          = {[ 'monthly' ]}
+        setClientProperty = { setClientProperty }
+        rowProps          = { rowProps } />
     );
   }
-}
+};  // End <ContractRentField>
 
 
-const PlainRentRow = function ({ timeState, setClientProperty, time, type }) {
+const PlainRentRow = function ({ timeState, setClientProperty }) {
 
   const inputProps = {
-    value:      timeState[ 'rent' ],
     name:       'rent',
-    className:  [ time, type, 'cashflow-column', 'monthly' ].join(' '),
-    validate:   isPositiveNumber,
-    updateFieldValidity: function () {},
+    validation: isPositiveNumber,
+    onBlur:     function () {},
+  },
+  rowProps = {
+    label:    'Monthly Rent',
+    validRow: true,
+    message:  null
   }
 
   return (
     <MonthlyCashFlowRow
-      inputProps={inputProps}
-      setClientProperty={setClientProperty}
-      label={'Monthly Rent'}
-      valid={true}
-      message={''} />
+      inputProps        = { inputProps }
+      baseValue         = { timeState[ 'rent' ] }
+      includes          = {[ 'monthly' ]}
+      setClientProperty = { setClientProperty }
+      rowProps          = { rowProps } />
   );
 
 };  // End <PlainRentRow>

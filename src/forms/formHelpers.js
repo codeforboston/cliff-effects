@@ -298,10 +298,10 @@ const InlineLabelInfo = function ( props ) {
 // ========================================
 
 /** Adds an option for an 'invalid input' message to the right of the last element */
-const RowMessage = function ({ valid, message }) {
+const RowMessage = function ({ validRow, message }) {
 
   var result = null;
-  if ( !valid && message ) {
+  if ( !validRow && message ) {
     result = <Label basic color='red' pointing="left">{message}</Label>
   }
 
@@ -399,49 +399,36 @@ const IntervalColumnHeadings = function ({ type }) {
 class ManagedNumberField extends Component {
   constructor ( props ) {
     super( props );
-    // Need updating
-    this.state = {
-      focused:    false,
-      valid:      true,
-      focusedVal: this.props.value,
-    };
+    this.state = { valid: true, focused: false, focusedVal: this.props.value, };
   }  // End constructor()
   
   handleFocus = ( evnt, inputProps ) => {
-    var newState = {
-      focused:    true,
-      // `value` here is probably a long decimal
-      focusedVal: this.props.format( this.props.value )
-    }
-    this.setState( newState );
+    // `value` here is probably a long decimal
+    var { value, format } = this.props;
+    this.setState({focused: true, focusedVal: format( value )});
   }
   
   handleBlur = ( evnt ) => {
-    this.props.updateFieldValidity(true)
+    this.props.onBlur( evnt );
     this.setState({ focused: false, valid: true });
   }
 
   handleChange = ( evnt, inputProps ) => {
-
+    var { validation, store, otherData } = this.props
     var { value } = inputProps,
-        valid = this.props.validate( value );
+          valid   = validation( value );
 
-    if ( valid ) {
-      this.props.store( evnt, inputProps, this.props.otherData );
-    }
-
-    this.props.updateFieldValidity(valid);
-    this.setState({ valid: valid, focusedVal: value });
+    if ( valid ) { store( evnt, inputProps, otherData ); }
+    this.setState({ focusedVal: value, valid: valid });
   }  // End handleChange()
 
   render() {
-
-    var { valid, focused, focusedVal }  = this.state;
-    var { value, name, className }      = this.props;
+    var { valid, focused, focusedVal }      = this.state;
+    var { value, name, className, format }  = this.props;
 
     // Format correctly when neighbors are updated, if needed
-    if ( !focused ) { value = this.props.format( value ) }
-    else { value = focusedVal; }
+    if ( !focused ) { value = format( value ) }
+    else            { value = focusedVal; }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */
     return (
@@ -455,20 +442,19 @@ class ManagedNumberField extends Component {
         onBlur    = { this.handleBlur }
         type      = { 'number' } />
     );
-
   }  // End render()
 
 };  // End ManagedNumberField
 
 
-const CashFlowContainer = function ({ children, label, valid, message }) {
+const CashFlowContainer = function ({ children, label, validRow, message }) {
   return (
     <Form.Field inline className={'cashflow'}>
       { children }
       <div className={'cashflow-column cashflow-column-last-child'}>
         <label>{label}</label>
       </div>
-      <RowMessage valid={valid} message={message} />
+      <RowMessage validRow={validRow} message={message} />
     </Form.Field>
   );
 };  // End <CashFlowContainer>
@@ -482,10 +468,12 @@ const CashFlowContainer = function ({ children, label, valid, message }) {
 *
 * @returns Component
 */
-const CashFlowRow = function ({ generic, timeState, setClientProperty, children, labelInfo, type, time }) {
+/** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
+      use `includes` array to include only certain columns perhaps */
+const CashFlowRow = function ({ generic, timeState, setClientProperty, children, validRow, message }) {
 
-  var updateClient = function ( evnt, inputProps, interval ) {
-    var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
+  var updateClient = function ( evnt, inputProps, data ) {
+    var monthly = toMonthlyAmount[ data.interval ]( evnt, inputProps.value ),
         obj     = { name: generic, value: monthly };
     setClientProperty( evnt, obj );
   };
@@ -502,35 +490,29 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
    *     different?
    */
   var baseVal   = timeState[ generic ],
-      classes   = [ time, type, 'cashflow-column' ],
       baseProps = {
-        store:    updateClient,
-        validate: isPositiveNumber,
-        format:   toMoneyStr,
-        updateFieldValidity: function () {}
+        name:       generic,
+        className:  'cashflow-column',
+        store:      updateClient,
+        validation: inputProps.validation || isPositiveNumber,
+        format:     toMoneyStr,
+        onBlur:     function () { return true; }
       };
 
   return (
-
-    <CashFlowContainer label={children} valid={true} message={null}>
+    <CashFlowContainer label={children} validRow={validRow || true} message={message || null}>
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal / 4.33 }
-        name      = { generic + 'Weekly' }
-        className = { classes.concat( 'weekly' ).join(' ') }
-        otherData = { 'weekly' } />
+        otherData = {{ interval: 'weekly' }} />
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal }
-        name      = { generic }
-        className = { classes.concat( 'monthly' ).join(' ') }
-        otherData = { 'monthly' } />
+        otherData = {{ interval: 'monthly' }} />
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal * 12 }
-        name      = { generic + 'Yearly' }
-        className = { classes.concat( 'yearly' ).join(' ') }
-        otherData = { 'yearly' } />
+        otherData = {{ interval: 'yearly' }} />
     </CashFlowContainer>
   );
 
@@ -538,18 +520,18 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 
 
 /** CashflowRow with only a monthly value. */
-const MonthlyCashFlowRow = function ({inputProps, setClientProperty, label, valid, message}) {
+const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty, rowProps }) {
 
-  var updateClient = function ( evnt, inputProps, interval ) {
-    var monthly = toMonthlyAmount[ interval ]( evnt, inputProps.value ),
-        obj     = { name: inputProps.name, value: monthly };
-    setClientProperty( evnt, obj );
+  inputProps = {
+    ...inputProps, // name, validation, and onBlur
+    className: 'cashflow-column',
+    format:     toMoneyStr,
+    store:      setClientProperty,
   };
 
   return (
-
-    <CashFlowContainer label={label} valid={valid} message={message}>
-        <ManagedNumberField {...inputProps} store={updateClient} otherData={'monthly'} format={ toMoneyStr } />
+    <CashFlowContainer {...rowProps}>
+        <ManagedNumberField {...inputProps} value={baseValue} otherData={{interval: 'monthly'}} />
     </CashFlowContainer>
   );
 
