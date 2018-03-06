@@ -470,7 +470,7 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
 */
 /** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
       use `includes` array to include only certain columns perhaps */
-const CashFlowRow = function ({ generic, timeState, setClientProperty, children, validRow, message }) {
+const CashFlowRow = function ({ generic, timeState, setClientProperty, children }) {
 
   var updateClient = function ( evnt, inputProps, data ) {
     var monthly = toMonthlyAmount[ data.interval ]( evnt, inputProps.value ),
@@ -500,7 +500,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
       };
 
   return (
-    <CashFlowContainer label={children} validRow={validRow || true} message={message || null}>
+    <CashFlowContainer label={children} validRow={true} message={null}>
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal / 4.33 }
