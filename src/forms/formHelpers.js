@@ -494,7 +494,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
         name:       generic,
         className:  'cashflow-column',
         store:      updateClient,
-        validation: inputProps.validation || isPositiveNumber,
+        validation: isPositiveNumber,
         format:     toMoneyStr,
         onBlur:     function () { return true; }
       };
