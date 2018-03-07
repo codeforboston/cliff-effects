@@ -15,7 +15,11 @@ import {
   IntervalColumnHeadings,
   CashFlowRow
 } from './formHelpers';
-import { ContractRentField, RentShareField } from './rentFields';
+import {
+  ContractRentField,
+  RentShareField,
+  PlainRentRow
+} from './rentFields';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -105,7 +109,6 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
   if ( current.shelter === 'voucher' ) {
     return (
       <div>
-        <IntervalColumnHeadings type={ type }/>
         <ContractRentField {...sharedProps} />
         <RentShareField {...sharedProps} />
         <Utilities {...sharedProps}/>
@@ -118,8 +121,8 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
   } else if ( shelter === 'renter' ) {
     return (
       <div>
-        <IntervalColumnHeadings type={ type }/>
-        <CashFlowRow {...sharedProps} generic={'rent'}> Rent </CashFlowRow>
+        <br/>
+        <PlainRentRow {...sharedProps} />
         <Utilities {...sharedProps}/>
       </div>
     );
