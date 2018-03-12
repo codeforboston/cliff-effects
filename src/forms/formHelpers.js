@@ -402,10 +402,10 @@ class ManagedNumberField extends Component {
     this.state = { valid: true, focused: false, focusedVal: this.props.value, };
   }  // End constructor()
   
+  //change form to blank string after click, before input
   handleFocus = ( evnt, inputProps ) => {
-    // `value` here is probably a long decimal
-    var { value, format } = this.props;
-    this.setState({focused: true, focusedVal: format( value )});
+    var blankString = " ";
+    this.setState({focused: true, focusedVal: blankString});
   }
   
   handleBlur = ( evnt ) => {
