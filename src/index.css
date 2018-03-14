@@ -161,6 +161,9 @@ input[type=number]::-webkit-outer-spin-button {
   position: fixed;
 }
 
+.rotate {
+    transform: rotate(90deg);
+}
 
 /* CHARTS */
 .graph-holder {
@@ -175,23 +178,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* DOWNLOAD DATA BUTTON */
 #download_data_fixed {
-    transform: rotate(90deg);
-    /* background-color: red; */
-    background-color: #fff;
-    color: #1CB5AC;
-    border-left: solid 1px #1CB5AC;
-    border-top: solid 1px #1CB5AC;
-    border-right: solid 1px #1CB5AC;
     position: fixed;
-    top: 20%;
+    top: 139px;
     left: -52px;
     z-index: 3000;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-}
-
-#download_data_fixed:hover {
-    background-color: #009c95;
-    color: white;
 }
