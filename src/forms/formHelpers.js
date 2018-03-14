@@ -7,6 +7,7 @@ import {
   Segment,
   Divider,
   Form,
+  Radio,
   Grid,
   // Input,
   Checkbox,
@@ -24,7 +25,7 @@ import { toMoneyStr } from '../utils/prettifiers';
 // ========================================
 
 /** Returns a component with a massive teal button
- * 
+ *
  */
 const MassiveButton = function ({ className, func, children }) {
 
@@ -87,7 +88,7 @@ const BottomButton = function(props){
 */
 const BottomButtons = function({ left, right }) {
   const flexItemStyle = { flexBasis: '118.3px' };
-  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' }; 
+  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' };
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       { left ?
@@ -368,10 +369,10 @@ const IntervalColumnHeadings = function ({ type }) {
 };  // End IntervalColumnHeadings{} Component
 
 
-/** 
+/**
  * @todo description
  * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
- * 
+ *
  * @param {Object} props
  * @param {number || string} props.value - Valid client value
  * @param {string} props.name - For HTML name property
@@ -391,7 +392,7 @@ class ManagedNumberField extends Component {
       focusedVal: this.props.value,
     };
   }  // End constructor()
-  
+
   handleFocus = ( evnt, inputProps ) => {
     var newState = {
       focused:    true,
@@ -400,7 +401,7 @@ class ManagedNumberField extends Component {
     }
     this.setState( newState );
   }
-  
+
   handleBlur = ( evnt ) => {
     this.setState({ focused: false, valid: true });
   }
@@ -511,6 +512,47 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children,
 };  // End CashFlowRow{} Component
 
 
+class ControlledRadioYesNo extends Component {
+  constructor(props ){
+    super(props)
+    this.state = {
+    }
+  }
+
+  render(){
+
+    return (
+      <div>
+        <Form.Field>
+        <b>{this.props.labelText}</b>
+        <b>checked:{this.props.checked.toString()}</b>
+
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='yes'
+            name='radioGroup'
+            questionname={this.props.name}
+            value='yes'
+            checked={this.props.checked === true}
+            onChange={this.props.onChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='no'
+            name='radioGroup'
+            questionname={this.props.name}
+            value='no'
+            checked={this.props.checked === false}
+            onChange={this.props.onChange}
+          />
+        </Form.Field>
+      </div>
+    )
+  }
+}
+
 /** @todo Separate into different files? */
 export {
   ExternalLink,
@@ -518,5 +560,6 @@ export {
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
-  CashFlowRow
+  CashFlowRow,
+  ControlledRadioYesNo
 };
