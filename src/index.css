@@ -148,18 +148,22 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 /* Remove controls from Safari and Chrome */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0; /* Removes leftover margin */
 }
 
+/* Old selector used for 'Download Data' button */
 .fixed {
   top: 6.2em;
   left: -.75em;
   position: fixed;
 }
 
+.rotate {
+    transform: rotate(90deg);
+}
 
 /* CHARTS */
 .graph-holder {
@@ -170,4 +174,14 @@ input[type=number]::-webkit-outer-spin-button {
   position: absolute;
   top: 2em;
   right: 0;
+}
+
+/* DOWNLOAD DATA BUTTON */
+#download_data_fixed {
+    position: fixed;
+    top: 139px;
+    left: -52px;
+    z-index: 3000;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
