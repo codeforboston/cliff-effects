@@ -21,28 +21,19 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 */
 const CurrentBenefitsContent = ({ current, setClientProperty }) => {
 
-  let setChecked = function ( evnt, inputProps ) {
-    inputProps.checked = inputProps.label === 'yes' ? true : false;
-    var obj = { ...inputProps, value: inputProps.value };
-    setClientProperty( evnt, obj );
-  };  // End setChecked()
-
-
   return (
-    <div className={'field-aligner'}>
-
+    <div >
       <ControlledRadioYesNo
-        labelText = "Do you have Section 8 Housing ?"
+        labelText = "Do you have Section 8 Housing?"
         checked={current.hasHousing}
-        onChange={setChecked}
         name="hasHousing"
+        setClientProperty={setClientProperty}
       />
-
       <ControlledRadioYesNo
         labelText = "Do you have Snap?"
         checked={current.hasSnap}
-        onChange={setChecked}
         name="hasSnap"
+        setClientProperty={setClientProperty}
       />
     </div>
   );  // end return

@@ -148,8 +148,8 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 /* Remove controls from Safari and Chrome */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0; /* Removes leftover margin */
 }
@@ -170,4 +170,14 @@ input[type=number]::-webkit-outer-spin-button {
   position: absolute;
   top: 2em;
   right: 0;
+}
+
+.radio-yes-no > div {
+  display:inline-block;
+  width: 10%;
+  padding-left: 20px;
+}
+
+.radio-yes-no > div:nth-of-type(1){
+  width: 30%;
 }
