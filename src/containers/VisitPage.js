@@ -28,7 +28,7 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
-import ResultsGraph from '../forms/ResultsGraph';
+//import ResultsGraph from '../forms/ResultsGraph';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
@@ -42,7 +42,7 @@ class VisitPage extends Component {
 
 
     var { location, match } = this.props;
-    
+
     // @todo use visitId to upload last file if possible?
     var wantLoad = false;
     if ( location.pathname.indexOf('/load') !== -1 ) {
@@ -75,8 +75,8 @@ class VisitPage extends Component {
       { title: 'Household', form: HouseholdStep },
       { title: 'Income', form: CurrentIncomeStep },
       { title: 'Expenses', form: CurrentExpensesStep },
-      { title: 'Predictions', form: PredictionsStep },
-      { title: 'Graphs', form: ResultsGraph }
+      { title: 'Predictions', form: PredictionsStep }//,
+    //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
 
   };  // End constructor()
