@@ -19,6 +19,9 @@ import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 import { FormPartsContainer } from './formHelpers';
 import { GraphTimeButtons} from '../components/GraphTimeButtons';
 
+// temporary!
+import { FeedbackForm } from '../components/FeedbackForm';
+
 const MAX_X_MONTHLY = 100000/12;
 const MULTIPLIERS = {
   'Weekly': 1/(4 + 1/3),
@@ -361,6 +364,8 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
       >
         <GraphHolder client={client} Graph={GrossGraph} />
         <GraphHolder client={client} Graph={BenefitGraph} />
+
+        <FeedbackForm />
       </FormPartsContainer>
     </div>
   )
