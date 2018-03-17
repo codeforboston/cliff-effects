@@ -8,6 +8,7 @@ import {
   Divider,
   Form,
   Label,
+  Radio,
   Grid,
   // Input,
   Checkbox,
@@ -24,7 +25,7 @@ import { toMoneyStr } from '../utils/prettifiers';
 // ========================================
 
 /** Returns a component with a massive teal button
- * 
+ *
  */
 const MassiveButton = function ({ className, func, children }) {
 
@@ -87,7 +88,7 @@ const BottomButton = function(props){
 */
 const BottomButtons = function({ left, right }) {
   const flexItemStyle = { flexBasis: '118.3px' };
-  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' }; 
+  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' };
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       { left ?
@@ -383,10 +384,10 @@ const IntervalColumnHeadings = function ({ type }) {
 };  // End IntervalColumnHeadings{} Component
 
 
-/** 
+/**
  * @todo description
  * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
- * 
+ *
  * @param {Object} props
  * @param {number || string} props.value - Valid client value
  * @param {string} props.name - For HTML name property
@@ -401,13 +402,13 @@ class ManagedNumberField extends Component {
     super( props );
     this.state = { valid: true, focused: false, focusedVal: this.props.value, };
   }  // End constructor()
-  
+
   //change form to blank string after click, before input
   handleFocus = ( evnt, inputProps ) => {
     var blankString = " ";
     this.setState({focused: true, focusedVal: blankString});
   }
-  
+
   handleBlur = ( evnt ) => {
     this.props.onBlur( evnt );
     this.setState({ focused: false, valid: true });
@@ -538,6 +539,51 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
 };  // End <MonthlyCashFlowRow>
 
 
+class ControlledRadioYesNo extends Component {
+  constructor(props ){
+    super(props)
+    this.state = {
+    }
+  }
+
+  onChange(e,inputProps){
+    inputProps.checked = inputProps.label === 'Yes' ? true : false;
+    var obj = { ...inputProps, value: inputProps.value };
+    this.props.setClientProperty( e, obj );
+  }
+
+
+  render(){
+    console.log(this.props)
+    return (
+      <div className="radio-yes-no">
+        <Form.Field >
+        <b>{this.props.labelText}</b>
+
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='Yes'
+            name={this.props.name}
+            value='yes'
+            checked={this.props.checked === true}
+            onChange={this.onChange.bind(this)}
+          />
+        </Form.Field>
+        <Form.Field >
+          <Radio
+            label='No'
+            name={this.props.name}
+            value='no'
+            checked={this.props.checked === false}
+            onChange={this.onChange.bind(this)}
+          />
+        </Form.Field>
+      </div>
+    )
+  }
+}
+
 /** @todo Separate into different files? */
 export {
   ExternalLink,
@@ -546,5 +592,6 @@ export {
   InlineLabelInfo,
   RowMessage,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
-  CashFlowRow, MonthlyCashFlowRow, CashFlowContainer
+  CashFlowRow, MonthlyCashFlowRow, CashFlowContainer,
+  ControlledRadioYesNo
 };
