@@ -80,6 +80,7 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
       <CashFlowRow {...sharedProps} generic='socialSecurity'> Social security </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='alimony'> Alimony </CashFlowRow>
       <CashFlowRow {...sharedProps} generic='otherIncome'> Other income </CashFlowRow>
+      <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
 
     </div>
   );  // end return
