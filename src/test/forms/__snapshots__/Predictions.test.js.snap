@@ -15,8 +15,8 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     }
     right={
       Object {
-        "func": [Function],
-        "name": "Next",
+        "func": undefined,
+        "name": "Reset",
       }
     }
     title="Future Household Income"
