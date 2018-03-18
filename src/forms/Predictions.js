@@ -185,7 +185,7 @@ const PredictionsStep = function ( props ) {
         title     = 'Future Household Income'
         clarifier = 'How much money would your household make in the future?'
         left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Next', func: props.nextStep}}>
+        right     = {{name: 'Reset', func: props.resetClient}}>
           <IncomeForm setClientProperty={setTimeProp} future={props.client.future} time={'future'} />
           <Divider className='ui section divider hidden' />
           <Table client={props.client}/>
