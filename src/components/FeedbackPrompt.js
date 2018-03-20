@@ -36,52 +36,17 @@ const questions = {
   }
 };
 
-/**
-* Form for submitting user feedback.
-*/
-class FeedbackForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      submissionFailed: false,
-    };
-    // TODO finish this
-  }
-
-  /**
-  * Builds an array of input elements to populate the form.
-  */
-  getInputs(formData) {
-    return Object.entries(questions).map(([key, {inputType: InputType, text}]) => {
-        return (
-          <InputType
-            key={key}
-            name={key}
-            label={text}
-            value={formData[key] || ''}
-            onChange={this.props.handleInputChange} />
-        );
-      });
-  }
-
-  render() {
-    return (
-      <Form>
-        {this.getInputs(this.props.formData)}
-      </Form>
-    );
-  }
-};
-
 /*
 * Modal that shows the feedback form.
 */
 class FeedbackPrompt extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       formData: {},
-      submissionFailed: false
+      submissionFailed: false,
+      submitting: false
     };
   }
 
@@ -97,11 +62,24 @@ class FeedbackPrompt extends React.Component {
     });
   }
 
+  getInputs() {
+    return Object.entries(questions).map(([key, {inputType: InputType, text}]) => {
+        return (
+          <InputType
+            key={key}
+            name={key}
+            label={text}
+            value={this.state.formData[key] || ''}
+            onChange={this.handleInputChange} />
+        );
+      });
+  }
+
   // returns promise that succeeds if submission is successful, else rejects.
-  sendDataToSpreadsheet(formData) {
+  sendDataToSpreadsheet(data) {
     const fetchOptions = {
       method: 'POST',
-      body: JSON.stringify(formData),
+      body: JSON.stringify(data)
     };
     return fetch(postUrl, fetchOptions)
     .then((response) => {
@@ -117,11 +95,16 @@ class FeedbackPrompt extends React.Component {
 
   cancel = (event) => {
     // Reset state for next time it's opened
-    this.setState({ formData: {}, submissionFailed: false });
+    this.setState({
+      formData: {},
+      submissionFailed: false,
+      submitting: false
+    });
     this.props.callback();
   }
 
   submit = (event) => {
+    this.setState({ submitting: true });
     const data = Object.assign(this.state.formData, { clientData: this.props.data });
     this.sendDataToSpreadsheet(data)
     .then((result) => {
@@ -130,6 +113,9 @@ class FeedbackPrompt extends React.Component {
     .catch((error) => {
       this.setState({ submissionFailed: true });
       console.error(error.message);
+    })
+    .finally(() => {
+      this.setState({ submitting: false });
     });
   }
 
@@ -138,16 +124,16 @@ class FeedbackPrompt extends React.Component {
       <Modal open={this.props.open}>
         <Modal.Header>Submit Cliff Effects Feedback</Modal.Header>
         <Modal.Content>
-          <FeedbackForm
-            handleInputChange={this.handleInputChange}
-            formData={this.state.formData} />
+          <Form>
+            {this.getInputs()}
+          </Form>
           <Message hidden={!this.state.submissionFailed} error>
             Error submitting data, please try again or <a href="mailto:andrew@codeforboston.org">email us</a>.
           </Message>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.cancel}>Cancel</Button>
-          <Button onClick={this.submit} primary>Submit</Button>
+          <Button onClick={this.submit} loading={this.state.submitting} primary>Submit</Button>
         </Modal.Actions>
       </Modal>
     );
