@@ -221,12 +221,13 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 
       <Columns.Three>
         <ManagedNumberField
-          value     = {member.m_age}
-          name      = {'m_age'}
-          className = {time + ' member-age ' + time}
-          validate  = {isPositiveWholeNumber}
-          format    = {function ( value ) { return value; }}
-          store     = {onMemberChange} />
+          value      = {member.m_age}
+          name       = {'m_age'}
+          className  = {time + ' member-age ' + time}
+          validation = {isPositiveWholeNumber}
+          format     = {function ( value ) { return value; }}
+          store      = {onMemberChange}
+          onBlur     = {function () { return true; }} />
       </Columns.Three>
 
       <Columns.Four>
