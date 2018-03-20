@@ -252,8 +252,8 @@ class VisitPage extends Component {
         />
         <ConfirmLeave isBlocking={this.state.isBlocking}/>
         <FeedbackPrompt
-          open={this.state.feedbackOpen}
-          callback={() => { this.setState({ feedbackOpen: false }); }}
+          isOpen={this.state.feedbackOpen}
+          close={() => { this.setState({ feedbackOpen: false }); }}
           data={this.state.client}
         />
 

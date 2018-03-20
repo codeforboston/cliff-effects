@@ -100,7 +100,7 @@ class FeedbackPrompt extends React.Component {
       submissionFailed: false,
       submitting: false
     });
-    this.props.callback();
+    this.props.close();
   }
 
   submit = (event) => {
@@ -108,7 +108,7 @@ class FeedbackPrompt extends React.Component {
     const data = Object.assign(this.state.formData, { clientData: this.props.data });
     this.sendDataToSpreadsheet(data)
     .then((result) => {
-      this.props.callback();
+      this.props.close();
     })
     .catch((error) => {
       this.setState({ submissionFailed: true });
@@ -121,7 +121,7 @@ class FeedbackPrompt extends React.Component {
 
   render () {
     return (
-      <Modal open={this.props.open}>
+      <Modal open={this.props.isOpen}>
         <Modal.Header>Submit Cliff Effects Feedback</Modal.Header>
         <Modal.Content>
           <Form>
