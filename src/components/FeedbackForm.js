@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Form,
 } from 'semantic-ui-react';
-require('isomorphic-fetch');
+import 'isomorphic-fetch';
 
 // From the Google Apps Script
 const postUrl = 'https://script.google.com/macros/s/AKfycbyXYbemTPcqsdbmXITnjaNi-CkN85g5kKPrgzt4AS8ykT2jH6Zn/exec';
@@ -13,7 +13,6 @@ export class FeedbackForm extends Component {
     this.state = {
       submissionFailed: false,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
     // TODO finish this
   }
 
@@ -34,7 +33,7 @@ export class FeedbackForm extends Component {
     });
   }
 
-  handleSubmit() {
+  this.handleSubmit = () => {
     // TODO don't use dummy data
     const dummyData = {
       clientData: { a: 'foo', b: 'bar', c: 'baz'},
