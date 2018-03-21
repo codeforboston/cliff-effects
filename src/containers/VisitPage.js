@@ -22,6 +22,7 @@ import ConfirmLeave from '../components/ConfirmLeave';
 import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
 import OnLeavePrompt from '../components/OnLeavePrompt';
 import { DownloadAnytime } from '../components/DownloadAnytime';
+import { ResetAnytime } from '../components/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
@@ -216,6 +217,7 @@ class VisitPage extends Component {
                      saveForm={this.saveForm}
                      resetClient={this.resetClientPrompt} />
         <DownloadAnytime client={this.state.client}/>
+        <ResetAnytime resetClient={this.resetClientPrompt} />
       </div>
     );
   };  // End getCurrentStep()
