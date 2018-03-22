@@ -185,3 +185,13 @@ input[type=number]::-webkit-outer-spin-button {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+/* RESET BUTTON */
+#reset_fixed {
+    position: fixed;
+    top: 253px;
+    left: -21px;
+    z-index: 3000;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
