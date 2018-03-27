@@ -20,6 +20,7 @@ import {
   RentShareField,
   PlainRentRow
 } from './rentFields';
+import EarnedBecauseOfChildCare from './EarnedBecauseOfChildCare';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -270,7 +271,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           <CashFlowRow {...sharedProps} generic={'childBeforeAndAfterSchoolCare'}> Before- and after-school care </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childTransportation'}> Transportation costs </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childOtherCare'}> Other care </CashFlowRow>
-          <CashFlowRow {...sharedProps} type={'income'} generic={'earnedBecauseOfChildCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses </CashFlowRow>
+          <EarnedBecauseOfChildCare {...sharedProps} />
         </div>
         : null
       }
