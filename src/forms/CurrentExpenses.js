@@ -20,7 +20,7 @@ import {
   RentShareField,
   PlainRentRow
 } from './rentFields';
-import EarnedBecauseOfChildCare from './EarnedBecauseOfChildCare';
+import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -271,7 +271,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           <CashFlowRow {...sharedProps} generic={'childBeforeAndAfterSchoolCare'}> Before- and after-school care </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childTransportation'}> Transportation costs </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childOtherCare'}> Other care </CashFlowRow>
-          <EarnedBecauseOfChildCare {...sharedProps} />
+          <CashFlowRowAfterConfirm {...sharedProps}
+            generic={'earnedBecauseOfChildCare'}
+            confirmLabel={'Does childcare allow you to make additional income?'}
+          >
+            <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses
+          </CashFlowRowAfterConfirm>
         </div>
         : null
       }
@@ -309,7 +314,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </ul>
           <IntervalColumnHeadings type={type}/>
           <CashFlowRow {...sharedProps} generic={'disabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'earnedBecauseOfAdultCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses </CashFlowRow>
+          <CashFlowRowAfterConfirm {...sharedProps}
+            generic={'earnedBecauseOfAdultCare'}
+            confirmLabel={'Do assistance expenses allow you to make additional income?'}
+          >
+            <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses
+          </CashFlowRowAfterConfirm>
         </div>
         : null
       }
