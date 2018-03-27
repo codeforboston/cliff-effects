@@ -21,6 +21,7 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 import ConfirmLeave from '../components/ConfirmLeave';
 import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
 import OnLeavePrompt from '../components/OnLeavePrompt';
+import FeedbackPrompt from '../components/FeedbackPrompt';
 import { DownloadAnytime } from '../components/DownloadAnytime';
 import { ResetAnytime } from '../components/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
@@ -66,6 +67,7 @@ class VisitPage extends Component {
         promptLeaveText: 'Reset',
         promptData: {},
         promptCallback: () => {},
+        feedbackOpen: false,
         // Hack for MVP
         oldShelter: clone.current.shelter,
         userChanged: {}
@@ -131,6 +133,10 @@ class VisitPage extends Component {
         callback(ok);
       }
     });
+  }
+
+  feedbackPrompt = () => {
+    this.setState({ feedbackOpen: true });
   }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -215,7 +221,8 @@ class VisitPage extends Component {
                      previousStep={this.previousStep}
                      changeClient={this.changeClient}
                      saveForm={this.saveForm}
-                     resetClient={this.resetClientPrompt} />
+                     resetClient={this.resetClientPrompt}
+                     feedbackPrompt={this.feedbackPrompt} />
         <DownloadAnytime client={this.state.client}/>
         <ResetAnytime resetClient={this.resetClientPrompt} />
       </div>
@@ -246,6 +253,11 @@ class VisitPage extends Component {
           prompt={this.prompt}
         />
         <ConfirmLeave isBlocking={this.state.isBlocking}/>
+        <FeedbackPrompt
+          isOpen={this.state.feedbackOpen}
+          close={() => { this.setState({ feedbackOpen: false }); }}
+          data={this.state.client}
+        />
 
         {this.state.redirect ?
           <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
