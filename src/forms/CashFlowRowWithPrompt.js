@@ -19,9 +19,14 @@ const NumberField = (props) => (
  * @see CashFlowRow
  */
 class CashFlowRowWithPrompt extends React.Component {
-  state = {
-    showField: false,
-    storedValue: 0
+  constructor(props) {
+    super(props);
+    
+    const value = props.timeState[props.generic];
+    this.state = {
+      showField: value !== 0,
+      storedValue: value
+    }
   }
 
   handleChange = (evt, inputProps) => {
