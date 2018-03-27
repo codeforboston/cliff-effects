@@ -187,7 +187,6 @@ input[type=number]::-webkit-outer-spin-button {
     border-bottom-right-radius: 0;
 }
 
-
 /* FORM ELEMENT */
 .radio-yes-no > div {
   display:inline-block;
@@ -199,4 +198,14 @@ input[type=number]::-webkit-outer-spin-button {
 .radio-yes-no > div:nth-of-type(1){
   width: 30%;
   min-width: 100px;
+}
+
+/* RESET BUTTON */
+#reset_fixed {
+    position: fixed;
+    top: 253px;
+    left: -21px;
+    z-index: 3000;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
