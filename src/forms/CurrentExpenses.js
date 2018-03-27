@@ -20,7 +20,7 @@ import {
   RentShareField,
   PlainRentRow
 } from './rentFields';
-import EarnedBecauseOfChildCare from './EarnedBecauseOfChildCare';
+import CashFlowRowWithPrompt from './CashFlowRowWithPrompt';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -271,7 +271,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           <CashFlowRow {...sharedProps} generic={'childBeforeAndAfterSchoolCare'}> Before- and after-school care </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childTransportation'}> Transportation costs </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childOtherCare'}> Other care </CashFlowRow>
-          <EarnedBecauseOfChildCare {...sharedProps} />
+          <CashFlowRowWithPrompt {...sharedProps}
+            generic={'earnedBecauseOfChildCare'}
+            promptLabel={'Does childcare allow you to make additional income?'}
+          >
+            <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses
+          </CashFlowRowWithPrompt>
         </div>
         : null
       }
