@@ -314,7 +314,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </ul>
           <IntervalColumnHeadings type={type}/>
           <CashFlowRow {...sharedProps} generic={'disabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
-          <CashFlowRow {...sharedProps} generic={'earnedBecauseOfAdultCare'}> <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses </CashFlowRow>
+          <CashFlowRowWithPrompt {...sharedProps}
+            generic={'earnedBecauseOfAdultCare'}
+            promptLabel={'Do assistance expenses allow you to make additional income?'}
+          >
+            <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses
+          </CashFlowRowWithPrompt>
         </div>
         : null
       }
