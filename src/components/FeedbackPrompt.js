@@ -48,7 +48,7 @@ class FeedbackPrompt extends React.Component {
     });
   }
 
-  cancel = (event) => {
+  close = (event) => {
     // Reset state for next time it's opened
     this.setState({
       formData: {},
@@ -63,14 +63,11 @@ class FeedbackPrompt extends React.Component {
     const data = Object.assign({ clientData: this.props.data }, this.state.formData);
     this.sendDataToSpreadsheet(data)
     .then((response) => {
-      this.props.close();
+      this.close();
     })
     .catch((error) => {
-      this.setState({ submissionFailed: true });
+      this.setState({ submissionFailed: true, submitting: false });
       console.error(error.message);
-    })
-    .finally(() => {
-      this.setState({ submitting: false });
     });
   }
 
@@ -82,9 +79,16 @@ class FeedbackPrompt extends React.Component {
     });
 
     return (
-      <Modal open={this.props.isOpen}>
+      <Modal
+        size='large'
+        open={this.props.isOpen}
+        onClose={this.close}
+        closeOnDimmerClick={false}
+        closeOnEscape={false}
+        closeIcon
+      >
         <Modal.Header>Submit Cliff Effects Feedback</Modal.Header>
-        <Modal.Content>
+        <Modal.Content scrolling>
           <Form>
             <Form.Input {...inputProps('currentSnap')} label={'If amount for the CURRENT SNAP subsidy was wrong, what\'s the correct amount?'} />
             <Form.Input {...inputProps('futureSnap')} label={'If amount for the FUTURE SNAP subsidy was wrong, what\'s the correct amount?'} />
@@ -99,7 +103,7 @@ class FeedbackPrompt extends React.Component {
           </Message>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={this.cancel}>Cancel</Button>
+          <Button onClick={this.close} disabled={this.state.submitting}>Cancel</Button>
           <Button onClick={this.submit} loading={this.state.submitting} disabled={this.state.submitting} primary>Submit</Button>
         </Modal.Actions>
       </Modal>
