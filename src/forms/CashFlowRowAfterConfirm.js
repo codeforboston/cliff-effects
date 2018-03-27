@@ -3,22 +3,22 @@ import { Form } from 'semantic-ui-react';
 
 import { CashFlowRow } from './formHelpers';
 
-const NumberField = (props) => (
+const IncomeField = (props) => (
   <CashFlowRow {...props} type={'income'} />
 );
 
 /**
- * Prompt the user before presenting a CashFlowRow
+ * Query the user before presenting a CashFlowRow
  * 
  * @param {object} props
  * @param {string} props.generic - The key of the value being set.
- * @param {string} props.promptLabel - Label for initial prompt.
+ * @param {string} props.confirmLabel - Label for preceding confirmation.
  * @param {string} props.children - Label for fields updating the value.
  * 
  * @extends React.Component
  * @see CashFlowRow
  */
-class CashFlowRowWithPrompt extends React.Component {
+class CashFlowRowAfterConfirm extends React.Component {
   constructor(props) {
     super(props);
     
@@ -37,7 +37,7 @@ class CashFlowRowWithPrompt extends React.Component {
     }
   }
 
-  hideField = evt => {
+  hideField(evt) {
     const { generic, setClientProperty, timeState } = this.props;
 
     this.setState({
@@ -51,7 +51,7 @@ class CashFlowRowWithPrompt extends React.Component {
     });
   }
 
-  showField = evt => {
+  showField(evt) {
     const { generic, setClientProperty } = this.props;
     const { storedValue } = this.state;
 
@@ -66,21 +66,21 @@ class CashFlowRowWithPrompt extends React.Component {
   }
 
   render() {
-    const { promptLabel, ...rest } = this.props;
+    const { confirmLabel, ...rest } = this.props;
     const { showField } = this.state;
 
     return (
       <div>
         <Form.Group inline>
-          <label>{promptLabel}</label>
+          <label>{confirmLabel}</label>
           <Form.Radio label={'Yes'} value={'Yes'} checked={showField} onChange={this.handleChange} />
           <Form.Radio label={'No'} value={'No'} checked={!showField} onChange={this.handleChange} />
         </Form.Group>
         
-        {showField && <NumberField {...rest} />}
+        {showField && <IncomeField {...rest} />}
       </div>
     );
   }
 }
 
-export default CashFlowRowWithPrompt;
+export default CashFlowRowAfterConfirm;

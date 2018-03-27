@@ -20,7 +20,7 @@ import {
   RentShareField,
   PlainRentRow
 } from './rentFields';
-import CashFlowRowWithPrompt from './CashFlowRowWithPrompt';
+import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -271,12 +271,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           <CashFlowRow {...sharedProps} generic={'childBeforeAndAfterSchoolCare'}> Before- and after-school care </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childTransportation'}> Transportation costs </CashFlowRow>
           <CashFlowRow {...sharedProps} generic={'childOtherCare'}> Other care </CashFlowRow>
-          <CashFlowRowWithPrompt {...sharedProps}
+          <CashFlowRowAfterConfirm {...sharedProps}
             generic={'earnedBecauseOfChildCare'}
-            promptLabel={'Does childcare allow you to make additional income?'}
+            confirmLabel={'Does childcare allow you to make additional income?'}
           >
             <span style={{textDecoration: 'underline'}}>Income</span> made possible by child care expenses
-          </CashFlowRowWithPrompt>
+          </CashFlowRowAfterConfirm>
         </div>
         : null
       }
@@ -314,12 +314,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </ul>
           <IntervalColumnHeadings type={type}/>
           <CashFlowRow {...sharedProps} generic={'disabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
-          <CashFlowRowWithPrompt {...sharedProps}
+          <CashFlowRowAfterConfirm {...sharedProps}
             generic={'earnedBecauseOfAdultCare'}
-            promptLabel={'Do assistance expenses allow you to make additional income?'}
+            confirmLabel={'Do assistance expenses allow you to make additional income?'}
           >
             <span style={{textDecoration: 'underline'}}>Income</span> made possible by assistance expenses
-          </CashFlowRowWithPrompt>
+          </CashFlowRowAfterConfirm>
         </div>
         : null
       }
