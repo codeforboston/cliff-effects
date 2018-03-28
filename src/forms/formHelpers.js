@@ -24,7 +24,7 @@ import { toMoneyStr } from '../utils/prettifiers';
 // ========================================
 
 /** Returns a component with a massive teal button
- * 
+ *
  */
 const MassiveButton = function ({ className, func, children }) {
 
@@ -87,7 +87,7 @@ const BottomButton = function(props){
 */
 const BottomButtons = function({ left, right }) {
   const flexItemStyle = { flexBasis: '118.3px' };
-  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' }; 
+  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' };
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       { left ?
@@ -383,10 +383,10 @@ const IntervalColumnHeadings = function ({ type }) {
 };  // End IntervalColumnHeadings{} Component
 
 
-/** 
+/**
  * @todo description
  * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
- * 
+ *
  * @param {Object} props
  * @param {number || string} props.value - Valid client value
  * @param {string} props.name - For HTML name property
@@ -401,13 +401,13 @@ class ManagedNumberField extends Component {
     super( props );
     this.state = { valid: true, focused: false, focusedVal: this.props.value, };
   }  // End constructor()
-  
+
   //change form to blank string after click, before input
   handleFocus = ( evnt, inputProps ) => {
     var blankString = " ";
     this.setState({focused: true, focusedVal: blankString});
   }
-  
+
   handleBlur = ( evnt ) => {
     this.props.onBlur( evnt );
     this.setState({ focused: false, valid: true });

@@ -61,8 +61,9 @@ const Table = function ({ client, feedbackPrompt }) {
     <div>
     <Header as='h1' className='ui Header teal align centered'>Results</Header>
     <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
-    {/* @todo Add a floating download button and add instructions here to download the data using that button */}
-    <Message visible warning>This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
+    {/* @todo Export/clean up styles  */}
+    <Message visible warning style={{ 'textAlign': 'center' }}>
+      This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
       <Button
         fluid
         color='teal'
