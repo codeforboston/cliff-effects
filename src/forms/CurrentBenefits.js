@@ -3,7 +3,7 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import { FormPartsContainer, MassiveToggle, ControlledRadioYesNo } from './formHelpers';
+import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -27,13 +27,13 @@ const CurrentBenefitsContent = ({ current, setClientProperty }) => {
         labelText = "Do you have Section 8 Housing?"
         checked={current.hasHousing}
         name="hasHousing"
-        setClientProperty={setClientProperty}
+        onChange={setClientProperty}
       />
       <ControlledRadioYesNo
         labelText = "Do you have Snap?"
         checked={current.hasSnap}
         name="hasSnap"
-        setClientProperty={setClientProperty}
+        onChange={setClientProperty}
       />
     </div>
   );  // end return
