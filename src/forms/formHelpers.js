@@ -8,6 +8,7 @@ import {
   Divider,
   Form,
   Label,
+  Radio,
   Grid,
   // Input,
   Checkbox,
@@ -538,6 +539,53 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
 };  // End <MonthlyCashFlowRow>
 
 
+class ControlledRadioYesNo extends Component {
+  constructor(props ){
+    super(props)
+    this.state = {
+    }
+  }
+
+  handleChange(e,inputProps){
+    var obj = {
+      ...inputProps,
+      checked: inputProps.label === 'Yes',
+    };
+
+    this.props.onChange( e, obj );
+  }
+
+
+  render(){
+    return (
+      <div className="radio-yes-no">
+        <Form.Field >
+        <b>{this.props.labelText}</b>
+
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='Yes'
+            name={this.props.name}
+            value='yes'
+            checked={this.props.checked === true}
+            onChange={this.handleChange.bind(this)}
+          />
+        </Form.Field>
+        <Form.Field >
+          <Radio
+            label='No'
+            name={this.props.name}
+            value='no'
+            checked={this.props.checked === false}
+            onChange={this.handleChange.bind(this)}
+          />
+        </Form.Field>
+      </div>
+    )
+  }
+}
+
 /** @todo Separate into different files? */
 export {
   ExternalLink,
@@ -546,5 +594,6 @@ export {
   InlineLabelInfo,
   RowMessage,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
-  CashFlowRow, MonthlyCashFlowRow, CashFlowContainer
+  CashFlowRow, MonthlyCashFlowRow, CashFlowContainer,
+  ControlledRadioYesNo
 };
