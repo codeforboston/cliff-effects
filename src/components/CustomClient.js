@@ -1,6 +1,21 @@
 import React from 'react';
 import { Divider, Form, Message } from 'semantic-ui-react';
 
+/**
+ * Load previous session from object.
+ * @callback loadClient
+ * @param {object} clientContainer - Object containing previous session as `client`.
+ */
+
+/**
+ * Form which loads previous session from JSON.
+ * 
+ * @param {object} props
+ * @param {boolean} props.mayLoadCustomClient - Whether form should be visible
+ * @param {loadClient} props.loadClient
+ * 
+ * @extends React.Component
+ */
 class CustomClient extends React.Component {
   state = {
     client: null,
