@@ -42,7 +42,10 @@ class OnLeavePrompt extends React.Component {
     var realLeave   = leaveText || 'Leave',
         realStay    = stayText || 'Stay',
         realMessage = message;
-    if ( message === 'default' ) { realMessage =  'Selecting "' + realLeave + '" will erase the information you have put into the form.'; }
+    if ( message === 'default' ) {
+       realMessage =  'Selecting "' + realLeave + '" will erase the information you have put into the form. ' +
+                      'You will still be able to click it after submitting feedback.';
+     }
 
     return (
       <Modal open={open}>
