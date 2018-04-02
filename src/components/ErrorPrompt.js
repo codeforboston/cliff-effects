@@ -1,16 +1,16 @@
 import React from 'react';
 
 /**
- * Download prompt for latest uncaught error.
+ * Prompt for latest uncaught error.
  * @extends React.Component
- * 
+ *
  * @param props {object}
  * @param props.callback {onLeaveCallback}
  * @param props.client {object}
  * @param props.message {string}
  * @param props.prompt {prompt}
  */
-class DownloadErrorPrompt extends React.Component {
+class ErrorPrompt extends React.Component {
   handleError = ({ error }) => {
     const { callback, client, header, leaveText, message, prompt } = this.props;
     const data = {
@@ -36,4 +36,4 @@ class DownloadErrorPrompt extends React.Component {
   }
 }
 
-export default DownloadErrorPrompt;
+export default ErrorPrompt;

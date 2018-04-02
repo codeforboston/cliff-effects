@@ -19,10 +19,10 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/ConfirmLeave';
-import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
+import ErrorPrompt from '../components/ErrorPrompt';
 import OnLeavePrompt from '../components/OnLeavePrompt';
 import FeedbackPrompt from '../components/FeedbackPrompt';
-import { DownloadAnytime } from '../components/DownloadAnytime';
+import { FeedbackAnytime } from '../components/FeedbackAnytime';
 import { ResetAnytime } from '../components/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
@@ -115,9 +115,9 @@ class VisitPage extends Component {
       // just go to the start of the form
       this.goToStep( 1 );
     } else {
-      // Otherwise, suggest the user download the data
+      // Otherwise, suggest the user submit feedback
       const data = { client: this.state.client };
-      this.prompt(ok => ok && this.resetClient(), data, 'Reset');
+      this.prompt(ok => ok && this.resetClient(), data, 'Reset', '', 'default');
     }
   }
 
@@ -223,7 +223,7 @@ class VisitPage extends Component {
                      saveForm={this.saveForm}
                      resetClient={this.resetClientPrompt}
                      feedbackPrompt={this.feedbackPrompt} />
-        <DownloadAnytime client={this.state.client}/>
+        <FeedbackAnytime feedbackPrompt={this.feedbackPrompt} />
         <ResetAnytime resetClient={this.resetClientPrompt} />
       </div>
     );
@@ -238,17 +238,17 @@ class VisitPage extends Component {
         />
         <OnLeavePrompt
           callback={this.state.promptCallback}
-          data={this.state.promptData}
           header={this.state.promptHeader}
           leaveText={this.state.promptLeaveText}
           message={this.state.promptMessage}
           open={this.state.promptOpen}
           isBlocking={this.state.isBlocking}
+          feedbackPrompt={this.feedbackPrompt}
         />
-        <DownloadErrorPrompt
+        <ErrorPrompt
           callback={ok => ok && this.resetClient()}
           client={this.state.client}
-          header='There was an unexpected error. Do you want to download the error data?'
+          header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
           prompt={this.prompt}
         />
