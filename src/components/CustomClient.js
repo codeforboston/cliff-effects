@@ -1,45 +1,81 @@
 import React from 'react';
-import { Divider } from 'semantic-ui-react';
+import { Divider, Form, Message } from 'semantic-ui-react';
 
-// Reference
-// https://codepen.io/hartzis/pen/VvNGZP?editors=0010
-// https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+/**
+ * Load previous session from object.
+ * @callback loadClient
+ * @param {object} clientContainer - Object containing previous session as `client`.
+ */
 
-const getText = function ( evnt, loadClient ) {
+/**
+ * Form which loads previous session from JSON.
+ * 
+ * @param {object} props
+ * @param {boolean} props.mayLoadCustomClient - Whether form should be visible
+ * @param {loadClient} props.loadClient
+ * 
+ * @extends React.Component
+ */
+class CustomClient extends React.Component {
+  state = {
+    client: null,
+    error: null,
+    json: ''
+  };
 
-    evnt.preventDefault();
+  submit = event => {
+    const { client } = this.state;
+    event.preventDefault();
+    if (client === null) return;
 
-    let reader = new FileReader(),
-        file = evnt.target.files[0];
-
-    reader.onload = ( readerEvnt ) => {
-
-      var fileText = reader.result
-
-      if ( fileText.indexOf('{"client":{"current"') > -1 ) {
-        var json = JSON.parse( fileText );
-        loadClient( json );
-      }
-
-    }
-
-    reader.readAsText(file);
-}
-
-
-const CustomClient = function ({ mayLoadCustomClient, loadClient }) {
-
-  if ( mayLoadCustomClient ) {
-    return (
-      <div>
-        <input type={'file'} onChange={function ( evnt ) { getText( evnt, loadClient ) }} />
-        <Divider />
-      </div>
-    );
-  } else {
-    return null;
+    this.setState({
+      client: null,
+      error: null,
+      json: ''
+    })
+    this.props.loadClient({ client: client });
   }
 
-};  // End <CustomClient>
+  handleChange = (_event, inputProps) => {
+    const { value } = inputProps;
+    try {
+      const newClient = JSON.parse(value);
+      this.setState({
+        client: newClient,
+        error: null,
+        json: value
+      });
+    } catch (error) {
+      this.setState({
+        client: null,
+        error: error,
+        json: value
+      });
+    }
+  }
+
+  render() {
+    if (!this.props.mayLoadCustomClient) return null;
+    const { client, error, json } = this.state;
+
+    return (
+      <Form error={error !== null} onSubmit={this.submit}>
+        <Form.Field>
+          <label>Client JSON</label>
+          <Form.Input type={'text'} value={json} onChange={this.handleChange} />
+        </Form.Field>
+        <Message 
+          error
+          header={'JSON Parse Failed!'}
+          content={error && error.message}
+        />
+        <Form.Button type={'submit'} disabled={client === null}>
+          Import Data
+        </Form.Button>
+        <Divider />
+      </Form>
+    )
+  }
+}
 
 export { CustomClient };

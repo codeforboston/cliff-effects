@@ -95,8 +95,15 @@ class VisitPage extends Component {
     getUserConfirmation.unset();
   }
 
-  loadClient = ( clientContainer ) => {
-    this.setState({ client: clientContainer.client });
+  loadClient = ({ client }) => {
+    const defaultClient = cloneDeep(CLIENT_DEFAULTS);
+
+    const current = Object.assign(defaultClient.current, client.current);
+    const future = Object.assign(defaultClient.future, client.future)
+    
+    const nextClient = { current: current, future: future };
+
+    this.setState({ client: nextClient });
   }
 
   resetClient = () => {
