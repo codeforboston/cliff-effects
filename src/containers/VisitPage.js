@@ -3,10 +3,7 @@ import {
   Container,
   Responsive,
 } from 'semantic-ui-react';
-import {
-  Redirect,
-  Prompt,
-} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // Object Manipulation
 import { setNestedProperty } from '../utils/setNestedProperty';
@@ -21,6 +18,7 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 import ConfirmLeave from '../components/ConfirmLeave';
 import ErrorPrompt from '../components/ErrorPrompt';
 import OnLeavePrompt from '../components/OnLeavePrompt';
+import ReactRouterConfirmLeave from '../components/ReactRouterConfirmLeave';
 import FeedbackPrompt from '../components/FeedbackPrompt';
 import { FeedbackAnytime } from '../components/FeedbackAnytime';
 import { ResetAnytime } from '../components/ResetAnytime';
@@ -34,9 +32,6 @@ import StepBar from '../components/StepBar';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
-
-// React Router <Prompt> customization shenanigans
-import * as getUserConfirmation from '../utils/getUserConfirmation';
 
 class VisitPage extends Component {
   constructor(props) {
@@ -84,16 +79,6 @@ class VisitPage extends Component {
     ];  // end this.steps {}
 
   };  // End constructor()
-
-  componentDidMount() {
-    const confirm = (message, callback) =>
-      this.prompt(callback, { message: message });
-    getUserConfirmation.set(confirm);
-  }
-
-  componentWillUnmount() {
-    getUserConfirmation.unset();
-  }
 
   loadClient = ({ client }) => {
     const defaultClient = cloneDeep(CLIENT_DEFAULTS);
@@ -240,14 +225,15 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <Prompt
-          when={this.state.isBlocking}
-          message='default'
-        />
         <OnLeavePrompt
           {...this.state.prompt}
           isBlocking={this.state.isBlocking}
           feedbackPrompt={this.feedbackPrompt}
+        />
+
+        <ReactRouterConfirmLeave
+          message='default'
+          prompt={this.prompt}
         />
         <ErrorPrompt
           callback={ok => ok && this.resetClient()}
@@ -256,6 +242,7 @@ class VisitPage extends Component {
           leaveText='Reset'
           prompt={this.prompt}
         />
+
         <ConfirmLeave isBlocking={this.state.isBlocking}/>
         <FeedbackPrompt
           isOpen={this.state.feedbackOpen}
