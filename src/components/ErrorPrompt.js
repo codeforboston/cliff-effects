@@ -12,7 +12,7 @@ import React from 'react';
  */
 class ErrorPrompt extends React.Component {
   handleError = ({ error }) => {
-    const { callback, client, header, leaveText, message, prompt } = this.props;
+    const { callback, client, prompt, ...promptProps } = this.props;
     const data = {
       client: client,
       error: {
@@ -20,7 +20,7 @@ class ErrorPrompt extends React.Component {
         stack: error.stack
       }
     };
-    prompt(callback, data, leaveText, header, message);
+    prompt(callback, { ...promptProps, data: data });
   }
 
   componentDidMount() {

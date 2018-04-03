@@ -61,12 +61,14 @@ class VisitPage extends Component {
         isBlocking: false,
         redirect: false,
         client: clone,
-        promptOpen: false,
-        promptMessage: '',
-        promptHeader: '',
-        promptLeaveText: 'Reset',
-        promptData: {},
-        promptCallback: () => {},
+        prompt: {
+          open: false,
+          message: '',
+          header: '',
+          leaveText: 'Reset',
+          data: {},
+          callback: () => {}
+        },
         feedbackOpen: false,
         // Hack for MVP
         oldShelter: clone.current.shelter,
@@ -87,7 +89,10 @@ class VisitPage extends Component {
   componentDidMount() {
     const data = { client: this.state.client };
     const confirm = (message, callback) =>
-      this.prompt(callback, data, null, null, message);
+      this.prompt(callback, {
+        data: data,
+        message: message
+      });
     getUserConfirmation.set(confirm);
   }
 
@@ -124,20 +129,23 @@ class VisitPage extends Component {
     } else {
       // Otherwise, suggest the user submit feedback
       const data = { client: this.state.client };
-      this.prompt(ok => ok && this.resetClient(), data, 'Reset', '', 'default');
+      this.prompt(ok => ok && this.resetClient(), {
+        data: data,
+        leaveText: 'Reset',
+        message: 'default'
+      });
     }
   }
 
-  prompt = (callback, data, leaveText, header, message) => {
+  prompt = (callback, promptProps) => {
     this.setState({
-      promptOpen: true,
-      promptMessage: message,
-      promptLeaveText: leaveText,
-      promptHeader: header,
-      promptData: data,
-      promptCallback: ok => {
-        this.setState({ promptOpen: false });
-        callback(ok);
+      prompt: {
+        ...promptProps,
+        open: true,
+        callback: ok => {
+          this.setState({ prompt: { open: false } });
+          callback(ok);
+        }
       }
     });
   }
@@ -244,11 +252,7 @@ class VisitPage extends Component {
           message='default'
         />
         <OnLeavePrompt
-          callback={this.state.promptCallback}
-          header={this.state.promptHeader}
-          leaveText={this.state.promptLeaveText}
-          message={this.state.promptMessage}
-          open={this.state.promptOpen}
+          {...this.state.prompt}
           isBlocking={this.state.isBlocking}
           feedbackPrompt={this.feedbackPrompt}
         />
