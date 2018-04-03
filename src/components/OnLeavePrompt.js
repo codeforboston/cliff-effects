@@ -15,9 +15,11 @@ import { Button, Modal } from 'semantic-ui-react';
  *
  * @param props {object}
  * @param props.callback {onLeaveCallback}
- * @param props.data {object}
  * @param props.message {string}
  * @param props.open {boolean} - Whether the modal is visible.
+ * @param props.isBlocking {boolean} - A secondary flag to control modal visibility.
+ * @param props.leaveText {string}
+ * @param props.stayText {string}
  */
 class OnLeavePrompt extends React.Component {
   leave = event => {

@@ -66,7 +66,6 @@ class VisitPage extends Component {
           message: '',
           header: '',
           leaveText: 'Reset',
-          data: {},
           callback: () => {}
         },
         feedbackOpen: false,
@@ -87,12 +86,8 @@ class VisitPage extends Component {
   };  // End constructor()
 
   componentDidMount() {
-    const data = { client: this.state.client };
     const confirm = (message, callback) =>
-      this.prompt(callback, {
-        data: data,
-        message: message
-      });
+      this.prompt(callback, { message: message });
     getUserConfirmation.set(confirm);
   }
 
@@ -128,9 +123,7 @@ class VisitPage extends Component {
       this.goToStep( 1 );
     } else {
       // Otherwise, suggest the user submit feedback
-      const data = { client: this.state.client };
       this.prompt(ok => ok && this.resetClient(), {
-        data: data,
         leaveText: 'Reset',
         message: 'default'
       });
