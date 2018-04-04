@@ -162,7 +162,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .rotate {
-    transform: rotate(90deg);
+    transform: rotate(270deg);
 }
 
 /* CHARTS */
@@ -176,15 +176,14 @@ input[type=number]::-webkit-outer-spin-button {
   right: 0;
 }
 
-
 /* DOWNLOAD DATA BUTTON */
 #download_data_fixed {
     position: fixed;
     top: 139px;
     left: -52px;
     z-index: 3000;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 /* FORM ELEMENT */
@@ -206,6 +205,6 @@ input[type=number]::-webkit-outer-spin-button {
     top: 253px;
     left: -21px;
     z-index: 3000;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
