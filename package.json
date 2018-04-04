@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.6.0",
-    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.21.0",
     "react": "^16.0.0",

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Form, Modal, Message } from 'semantic-ui-react';
-import 'isomorphic-fetch';
 
 // URL to direct requests to, from the Google Apps Script
 const postUrl = 'https://script.google.com/macros/s/AKfycbyXYbemTPcqsdbmXITnjaNi-CkN85g5kKPrgzt4AS8ykT2jH6Zn/exec';
