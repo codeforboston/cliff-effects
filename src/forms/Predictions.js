@@ -78,9 +78,9 @@ const Chart = function({ client }) {
     { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames( client, 'hasHousing', getHousingBenefit ),
     { incomeCurrent, incomeFuture } = getIncomeTimeFrames( client );
 
-  var snapData    = [ SNAPBenefitCurrent/12, SNAPBenefitFuture/12 ],
-      housingData = [ sec8BenefitCurrent/12, sec8BenefitFuture/12 ],
-      incomeData  = [ incomeCurrent/12, incomeFuture/12 ];
+  var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
+      housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
+      incomeData  = [ incomeCurrent, incomeFuture ];
 
   const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
         SNAPName      = PROGRAM_CHART_VALUES.snap.name,
