@@ -3,10 +3,7 @@ import {
   Container,
   Responsive,
 } from 'semantic-ui-react';
-import {
-  Redirect,
-  Prompt,
-} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // Object Manipulation
 import { setNestedProperty } from '../utils/setNestedProperty';
@@ -21,6 +18,7 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 import ConfirmLeave from '../components/ConfirmLeave';
 import ErrorPrompt from '../components/ErrorPrompt';
 import OnLeavePrompt from '../components/OnLeavePrompt';
+import ReactRouterConfirmLeave from '../components/ReactRouterConfirmLeave';
 import FeedbackPrompt from '../components/FeedbackPrompt';
 import { FeedbackAnytime } from '../components/FeedbackAnytime';
 import { ResetAnytime } from '../components/ResetAnytime';
@@ -34,9 +32,6 @@ import StepBar from '../components/StepBar';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
-
-// React Router <Prompt> customization shenanigans
-import * as getUserConfirmation from '../utils/getUserConfirmation';
 
 class VisitPage extends Component {
   constructor(props) {
@@ -61,12 +56,13 @@ class VisitPage extends Component {
         isBlocking: false,
         redirect: false,
         client: clone,
-        promptOpen: false,
-        promptMessage: '',
-        promptHeader: '',
-        promptLeaveText: 'Reset',
-        promptData: {},
-        promptCallback: () => {},
+        prompt: {
+          open: false,
+          message: '',
+          header: '',
+          leaveText: 'Reset',
+          callback: () => {}
+        },
         feedbackOpen: false,
         // Hack for MVP
         oldShelter: clone.current.shelter,
@@ -83,17 +79,6 @@ class VisitPage extends Component {
     ];  // end this.steps {}
 
   };  // End constructor()
-
-  componentDidMount() {
-    const data = { client: this.state.client };
-    const confirm = (message, callback) =>
-      this.prompt(callback, data, null, null, message);
-    getUserConfirmation.set(confirm);
-  }
-
-  componentWillUnmount() {
-    getUserConfirmation.unset();
-  }
 
   loadClient = ({ client }) => {
     const defaultClient = cloneDeep(CLIENT_DEFAULTS);
@@ -123,21 +108,22 @@ class VisitPage extends Component {
       this.goToStep( 1 );
     } else {
       // Otherwise, suggest the user submit feedback
-      const data = { client: this.state.client };
-      this.prompt(ok => ok && this.resetClient(), data, 'Reset', '', 'default');
+      this.prompt(ok => ok && this.resetClient(), {
+        leaveText: 'Reset',
+        message: 'default'
+      });
     }
   }
 
-  prompt = (callback, data, leaveText, header, message) => {
+  prompt = (callback, promptProps) => {
     this.setState({
-      promptOpen: true,
-      promptMessage: message,
-      promptLeaveText: leaveText,
-      promptHeader: header,
-      promptData: data,
-      promptCallback: ok => {
-        this.setState({ promptOpen: false });
-        callback(ok);
+      prompt: {
+        ...promptProps,
+        open: true,
+        callback: ok => {
+          this.setState({ prompt: { open: false } });
+          callback(ok);
+        }
       }
     });
   }
@@ -239,18 +225,15 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <Prompt
-          when={this.state.isBlocking}
-          message='default'
-        />
         <OnLeavePrompt
-          callback={this.state.promptCallback}
-          header={this.state.promptHeader}
-          leaveText={this.state.promptLeaveText}
-          message={this.state.promptMessage}
-          open={this.state.promptOpen}
+          {...this.state.prompt}
           isBlocking={this.state.isBlocking}
           feedbackPrompt={this.feedbackPrompt}
+        />
+
+        <ReactRouterConfirmLeave
+          message='default'
+          prompt={this.prompt}
         />
         <ErrorPrompt
           callback={ok => ok && this.resetClient()}
@@ -259,6 +242,7 @@ class VisitPage extends Component {
           leaveText='Reset'
           prompt={this.prompt}
         />
+
         <ConfirmLeave isBlocking={this.state.isBlocking}/>
         <FeedbackPrompt
           isOpen={this.state.feedbackOpen}

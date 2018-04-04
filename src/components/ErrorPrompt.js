@@ -6,21 +6,13 @@ import React from 'react';
  *
  * @param props {object}
  * @param props.callback {onLeaveCallback}
- * @param props.client {object}
  * @param props.message {string}
  * @param props.prompt {prompt}
  */
 class ErrorPrompt extends React.Component {
   handleError = ({ error }) => {
-    const { callback, client, header, leaveText, message, prompt } = this.props;
-    const data = {
-      client: client,
-      error: {
-        message: error.message,
-        stack: error.stack
-      }
-    };
-    prompt(callback, data, leaveText, header, message);
+    const { callback, prompt, ...promptProps } = this.props;
+    prompt(callback, promptProps);
   }
 
   componentDidMount() {
