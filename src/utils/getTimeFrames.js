@@ -6,8 +6,8 @@
 const getBenefitTimeFrames = function ( client, benefitCheck, benefitsFunc ) {
     if (client.current[benefitCheck]) {
         return {
-            benefitCurrent: Math.round( benefitsFunc ( client, 'current' ) * 12 ),
-            benefitFuture: Math.round( benefitsFunc ( client, 'future' ) * 12 )
+            benefitCurrent: Math.round( benefitsFunc ( client, 'current' ) ),
+            benefitFuture: Math.round( benefitsFunc ( client, 'future' ) )
         }
     } else {
         return 0;
@@ -16,8 +16,8 @@ const getBenefitTimeFrames = function ( client, benefitCheck, benefitsFunc ) {
 
 const getIncomeTimeFrames = function( client ) {
     return {
-        incomeCurrent: Math.round( client.current.earned * 12 ),
-        incomeFuture: Math.round( client.future.earned * 12 )
+        incomeCurrent: Math.round( client.current.earned ),
+        incomeFuture: Math.round( client.future.earned )
     }
 };
 
