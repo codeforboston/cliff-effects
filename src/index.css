@@ -162,7 +162,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .rotate {
-    transform: rotate(90deg);
+    transform: rotate(270deg);
 }
 
 /* CHARTS */
@@ -192,10 +192,10 @@ input[type=number]::-webkit-outer-spin-button {
 /* FEEDBACK BUTTON */
 #feedback_fixed {
     position: fixed;
-    top: 147px;
+    top: 148px;
     left: -57px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 /* RESET BUTTON */
@@ -203,6 +203,6 @@ input[type=number]::-webkit-outer-spin-button {
     position: fixed;
     top: 270px;
     left: -21px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
