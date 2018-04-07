@@ -100,14 +100,14 @@ exports[`Benefits table renders correctly 1`] = `
         >
           $
           0
-           / year
+           / month
         </td>
         <td
           className="right aligned"
         >
           $
           0
-           / year
+           / month
         </td>
         <td
           className="right aligned"
@@ -115,7 +115,7 @@ exports[`Benefits table renders correctly 1`] = `
           
            $
           0
-           / year
+           / month
         </td>
       </tr>
       <tr
@@ -153,7 +153,7 @@ exports[`Benefits table renders correctly 1`] = `
         >
           $
           0
-           / year
+           / month
         </td>
         <td
           className="right aligned three wide"
@@ -168,7 +168,7 @@ exports[`Benefits table renders correctly 1`] = `
         >
           $
           0
-           / year
+           / month
         </td>
         <td
           className="right aligned three wide"
@@ -184,7 +184,7 @@ exports[`Benefits table renders correctly 1`] = `
           
            $
           0
-           / year
+           / month
         </td>
       </tr>
     </tbody>

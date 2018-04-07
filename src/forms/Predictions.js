@@ -138,7 +138,7 @@ const Chart = function({ client }) {
           stacked: true,
           scaleLabel: {
             display: true,
-            labelString: 'Annual Income ($)'
+            labelString: 'Monthly Income ($)'
           },
           ticks: {
             callback: formatAxis
