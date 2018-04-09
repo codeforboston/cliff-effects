@@ -1,31 +1,27 @@
 import React from 'react';
 import { Button, Modal } from 'semantic-ui-react';
 
-import DownloadFile from './DownloadFile';
-
 /**
  * Called with result of user interaction with on leave modal.
- * Receives true if the user chose to leave or downloads the data,
+ * Receives true if the user chose to leave,
  * or false if the user chose to stay.
- * 
+ *
  * @callback onLeaveCallback
  * @param ok {boolean} - Result of result of user interaction.
  */
 
 /**
- * Modal with three options: stay, leave, or download;
- * 
+ * Modal with three options: stay, leave, or submit feedback;
+ *
  * @param props {object}
  * @param props.callback {onLeaveCallback}
- * @param props.data {object}
  * @param props.message {string}
  * @param props.open {boolean} - Whether the modal is visible.
+ * @param props.isBlocking {boolean} - A secondary flag to control modal visibility.
+ * @param props.leaveText {string}
+ * @param props.stayText {string}
  */
 class OnLeavePrompt extends React.Component {
-  state = { downloaded: false };
-
-  download = () => this.setState({ downloaded: true });
-
   leave = event => {
     event.preventDefault();
     this.props.callback(true);
@@ -35,15 +31,8 @@ class OnLeavePrompt extends React.Component {
     this.props.callback(false);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.data !== nextProps.data) {
-      this.setState({ downloaded: false });
-    }
-  }
-
   render() {
-    const { isBlocking, data, header, message, open, leaveText, stayText } = this.props;
-    const { downloaded } = this.state;
+    const { isBlocking, header, message, open, leaveText, stayText } = this.props;
 
     // If the user hasn't interacted with the form at all
     if ( !isBlocking ) {
@@ -55,28 +44,21 @@ class OnLeavePrompt extends React.Component {
     var realLeave   = leaveText || 'Leave',
         realStay    = stayText || 'Stay',
         realMessage = message;
-    if ( message === 'default' ) { realMessage =  'Selecting "' + realLeave + '" will erase the information you have put into the form. You will still be able to click it after downloading.'; }
+    if ( message === 'default' ) {
+       realMessage =  'Selecting "' + realLeave + '" will erase the information you have put into the form. ' +
+                      'You will still be able to click it after submitting feedback.';
+     }
 
     return (
       <Modal open={open}>
-        <Modal.Header>{header || 'Do you want to download the anonymized data?'}</Modal.Header>
+        <Modal.Header>{header || `Do you want to give feedback before you ${realLeave.toLowerCase()}?`}</Modal.Header>
         <Modal.Content>
-          <p>
-            If you are giving feedback or reporting a bug, please use the download button first to download an anoymized version of the data, then attach that downloaded file to the email you send to andrew@codeforboston.org.
-          </p>
           <p> {realMessage} </p>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.leave}>{realLeave}</Button>
           <Button onClick={this.stay}>{realStay}</Button>
-          <Button
-            as={DownloadFile}
-            data={data}
-            onClick={this.download}
-            primary={!downloaded}
-          >
-            {downloaded ? 'Download again' : 'Download data'}
-          </Button>
+          <Button onClick={this.props.feedbackPrompt} primary>Submit Feedback</Button>
         </Modal.Actions>
       </Modal>
     );

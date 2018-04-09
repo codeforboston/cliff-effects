@@ -3,10 +3,7 @@ import {
   Container,
   Responsive,
 } from 'semantic-ui-react';
-import {
-  Redirect,
-  Prompt,
-} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // Object Manipulation
 import { setNestedProperty } from '../utils/setNestedProperty';
@@ -19,9 +16,11 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/ConfirmLeave';
-import DownloadErrorPrompt from '../components/DownloadErrorPrompt';
+import ErrorPrompt from '../components/ErrorPrompt';
 import OnLeavePrompt from '../components/OnLeavePrompt';
-import { DownloadAnytime } from '../components/DownloadAnytime';
+import ReactRouterConfirmLeave from '../components/ReactRouterConfirmLeave';
+import FeedbackPrompt from '../components/FeedbackPrompt';
+import { FeedbackAnytime } from '../components/FeedbackAnytime';
 import { ResetAnytime } from '../components/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
@@ -33,9 +32,6 @@ import StepBar from '../components/StepBar';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
-
-// React Router <Prompt> customization shenanigans
-import * as getUserConfirmation from '../utils/getUserConfirmation';
 
 class VisitPage extends Component {
   constructor(props) {
@@ -60,12 +56,14 @@ class VisitPage extends Component {
         isBlocking: false,
         redirect: false,
         client: clone,
-        promptOpen: false,
-        promptMessage: '',
-        promptHeader: '',
-        promptLeaveText: 'Reset',
-        promptData: {},
-        promptCallback: () => {},
+        prompt: {
+          open: false,
+          message: '',
+          header: '',
+          leaveText: 'Reset',
+          callback: () => {}
+        },
+        feedbackOpen: false,
         // Hack for MVP
         oldShelter: clone.current.shelter,
         userChanged: {}
@@ -82,19 +80,15 @@ class VisitPage extends Component {
 
   };  // End constructor()
 
-  componentDidMount() {
-    const data = { client: this.state.client };
-    const confirm = (message, callback) =>
-      this.prompt(callback, data, null, null, message);
-    getUserConfirmation.set(confirm);
-  }
+  loadClient = ({ client }) => {
+    const defaultClient = cloneDeep(CLIENT_DEFAULTS);
 
-  componentWillUnmount() {
-    getUserConfirmation.unset();
-  }
+    const current = Object.assign(defaultClient.current, client.current);
+    const future = Object.assign(defaultClient.future, client.future)
+    
+    const nextClient = { current: current, future: future };
 
-  loadClient = ( clientContainer ) => {
-    this.setState({ client: clientContainer.client });
+    this.setState({ client: nextClient });
   }
 
   resetClient = () => {
@@ -113,24 +107,29 @@ class VisitPage extends Component {
       // just go to the start of the form
       this.goToStep( 1 );
     } else {
-      // Otherwise, suggest the user download the data
-      const data = { client: this.state.client };
-      this.prompt(ok => ok && this.resetClient(), data, 'Reset');
+      // Otherwise, suggest the user submit feedback
+      this.prompt(ok => ok && this.resetClient(), {
+        leaveText: 'Reset',
+        message: 'default'
+      });
     }
   }
 
-  prompt = (callback, data, leaveText, header, message) => {
+  prompt = (callback, promptProps) => {
     this.setState({
-      promptOpen: true,
-      promptMessage: message,
-      promptLeaveText: leaveText,
-      promptHeader: header,
-      promptData: data,
-      promptCallback: ok => {
-        this.setState({ promptOpen: false });
-        callback(ok);
+      prompt: {
+        ...promptProps,
+        open: true,
+        callback: ok => {
+          this.setState({ prompt: { open: false } });
+          callback(ok);
+        }
       }
     });
+  }
+
+  feedbackPrompt = () => {
+    this.setState({ feedbackOpen: true });
   }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -215,8 +214,9 @@ class VisitPage extends Component {
                      previousStep={this.previousStep}
                      changeClient={this.changeClient}
                      saveForm={this.saveForm}
-                     resetClient={this.resetClientPrompt} />
-        <DownloadAnytime client={this.state.client}/>
+                     resetClient={this.resetClientPrompt}
+                     feedbackPrompt={this.feedbackPrompt} />
+        <FeedbackAnytime feedbackPrompt={this.feedbackPrompt} />
         <ResetAnytime resetClient={this.resetClientPrompt} />
       </div>
     );
@@ -225,27 +225,30 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <Prompt
-          when={this.state.isBlocking}
-          message='default'
-        />
         <OnLeavePrompt
-          callback={this.state.promptCallback}
-          data={this.state.promptData}
-          header={this.state.promptHeader}
-          leaveText={this.state.promptLeaveText}
-          message={this.state.promptMessage}
-          open={this.state.promptOpen}
+          {...this.state.prompt}
           isBlocking={this.state.isBlocking}
+          feedbackPrompt={this.feedbackPrompt}
         />
-        <DownloadErrorPrompt
+
+        <ReactRouterConfirmLeave
+          message='default'
+          prompt={this.prompt}
+        />
+        <ErrorPrompt
           callback={ok => ok && this.resetClient()}
           client={this.state.client}
-          header='There was an unexpected error. Do you want to download the error data?'
+          header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
           prompt={this.prompt}
         />
+
         <ConfirmLeave isBlocking={this.state.isBlocking}/>
+        <FeedbackPrompt
+          isOpen={this.state.feedbackOpen}
+          close={() => { this.setState({ feedbackOpen: false }); }}
+          data={this.state.client}
+        />
 
         {this.state.redirect ?
           <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
