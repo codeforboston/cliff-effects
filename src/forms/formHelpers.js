@@ -406,7 +406,7 @@ class ManagedNumberField extends Component {
   //change form to blank string after click, before input
   handleFocus = ( evnt, inputProps ) => {
     // This makes sure that only zeroes and blanks get reset
-    if (!this.state.focusedVal) {
+    if (!Number.parseFloat(evnt.target.value)) {
       this.setState({ focused: true, focusedVal: "" });
     }
   }
