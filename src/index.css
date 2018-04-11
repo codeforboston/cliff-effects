@@ -196,7 +196,7 @@ input[type=number]::-webkit-outer-spin-button {
     left: -57px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    background-color: #2185d0c7;
+    background-color: #f2711c;
 }
 
 /* RESET BUTTON */
@@ -206,5 +206,5 @@ input[type=number]::-webkit-outer-spin-button {
     left: -21px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    background-color: #2185d0c7;
+    background-color: #f2711c;
 }
