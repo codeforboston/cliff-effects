@@ -154,7 +154,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; /* Removes leftover margin */
 }
 
-/* Old selector used for 'Submit Feedback' and 'Reset' buttons */
+/* Old selector used for 'Download Data' button */
 .fixed {
   top: 6.2em;
   left: -.75em;
@@ -162,7 +162,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .rotate {
-    transform: rotate(270deg);
+    transform: rotate(90deg);
 }
 
 /* CHARTS */
@@ -174,6 +174,18 @@ input[type=number]::-webkit-outer-spin-button {
   position: absolute;
   top: 2em;
   right: 0;
+}
+
+
+/* DOWNLOAD DATA BUTTON */
+#download_data_fixed {
+    position: fixed;
+    top: 139px;
+    left: -52px;
+    z-index: 3000;
+    background-color: #2185d0c7;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* FORM ELEMENT */
@@ -189,20 +201,13 @@ input[type=number]::-webkit-outer-spin-button {
   min-width: 100px;
 }
 
-/* FEEDBACK BUTTON */
-#feedback_fixed {
-    position: fixed;
-    top: 148px;
-    left: -57px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
 /* RESET BUTTON */
 #reset_fixed {
     position: fixed;
-    top: 270px;
+    top: 253px;
     left: -21px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    z-index: 3000;
+    background-color: #2185d0c7;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
