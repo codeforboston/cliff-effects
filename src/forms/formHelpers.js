@@ -583,7 +583,7 @@ class ControlledRadioYesNo extends Component {
           <Radio
             label='Yes'
             name={this.props.name}
-            value='yes'
+            value='Yes'
             checked={this.props.checked === true}
             onChange={this.handleChange.bind(this)}
           />
@@ -592,7 +592,7 @@ class ControlledRadioYesNo extends Component {
           <Radio
             label='No'
             name={this.props.name}
-            value='no'
+            value='No'
             checked={this.props.checked === false}
             onChange={this.handleChange.bind(this)}
           />
