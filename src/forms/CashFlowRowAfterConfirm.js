@@ -25,7 +25,6 @@ class CashFlowRowAfterConfirm extends React.Component {
     
     const value = props.timeState[props.generic];
     this.state = {
-      /** @todo What if the following question isn't a cashflow question? */
       showField: value !== 0,
       storedValue: value
     }
