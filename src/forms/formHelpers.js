@@ -541,6 +541,20 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
 };  // End <MonthlyCashFlowRow>
 
 
+/** Yes/no toggleable radio button group with a label
+ * 
+ * @function
+ * @param {object} props
+ * @property {string} props.labelText
+ * @property {string} props.name - Key for radio-group. Must
+ *     be unique from all other radio names on the page.
+ * @property {bool} props.checked - `true` if 'yes' is selected
+ *     `false` if 'no' is selected. Change will be sent out.
+ * @property {function} props.onChange - is given event and adjusted
+ *     input element props object. Adjustment is to make sure
+ *     the property `checked` is under control since there are
+ *     issues further up the line.
+ */
 class ControlledRadioYesNo extends Component {
   constructor(props ){
     super(props)
