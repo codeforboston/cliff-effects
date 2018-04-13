@@ -176,17 +176,27 @@ input[type=number]::-webkit-outer-spin-button {
   right: 0;
 }
 
-/* FORM ELEMENT */
-.radio-yes-no > div {
-  display:inline-block;
-  width: 10%;
-  padding-left: 20px;
-  min-width: 60px
+/* FORM ELEMENTS */
+
+/* - Yes/No Toggle - */
+/* WARNING: Non-column appearance will remain until radio
+buttons are put on the left side. */
+.radio-yes-no {
+  display: flex;
 }
 
-.radio-yes-no > div:nth-of-type(1){
-  width: 30%;
-  min-width: 100px;
+/* Give padding between elements, but not at the start
+so it can be in-line with other form components.
+Unfortunately, we haven't found a great way to keep
+elements from being over-stretched when there's too much
+room and yet well-spaced when they're big, so padding is
+the way we're doing comfortable space between shorter
+form elements. */
+.radio-yes-no > div {
+  padding-left: 20px;
+}
+.radio-yes-no > div:nth-of-type(1) {
+  padding-left: 0;
 }
 
 /* FEEDBACK BUTTON */
