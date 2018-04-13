@@ -10,10 +10,10 @@ import {
 // PROJECT COMPONENTS
 import {
   FormPartsContainer,
-  // MassiveToggle,
   FormHeading,
   IntervalColumnHeadings,
-  CashFlowRow
+  CashFlowRow,
+  ControlledRadioYesNo,
 } from './formHelpers';
 import {
   ContractRentField,
@@ -76,23 +76,14 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
         onChange={setChecked}
       />
 
-      <Header as='h4'>Do you get Fuel Assistance?</Header>
-      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
-        <Radio
-          name={'fuelAssistance'}
-          label={'Yes'} value={'Yes'}
-          checked={fuelAssist}
-          onChange={setClientProperty}
-        />
-      </Form.Field>
-      <Form.Field style={{display: 'inline-block', paddingRight: '1em'}}>
-        <Radio
-          name={'fuelAssistance'}
-          label={'No'} value={'No'}
-          checked={!fuelAssist}
-          onChange={setClientProperty}
-        />
-      </Form.Field>
+      <br/>
+      <br/>
+      <ControlledRadioYesNo
+        labelText = { 'Do you get Fuel Assistance?' }
+        checked   = { fuelAssist }
+        name      = { 'fuelAssistance' }
+        onChange  = { setClientProperty } />
+
     </div>
 
   );
