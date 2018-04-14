@@ -1,7 +1,6 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react';
 
-import { CashFlowRow } from './formHelpers';
+import { CashFlowRow, ControlledRadioYesNo } from './formHelpers';
 
 const IncomeField = (props) => (
   <CashFlowRow {...props} type={'income'} />
@@ -9,6 +8,8 @@ const IncomeField = (props) => (
 
 /**
  * Query the user before presenting a CashFlowRow
+ * 
+ * @todo Update params
  * 
  * @param {object} props
  * @param {string} props.generic - The key of the value being set.
@@ -30,6 +31,7 @@ class CashFlowRowAfterConfirm extends React.Component {
   }
 
   handleChange = (evt, inputProps) => {
+
     if(inputProps.value === 'Yes') {
       this.showField(evt);
     } else {
@@ -66,18 +68,21 @@ class CashFlowRowAfterConfirm extends React.Component {
   }
 
   render() {
-    const { confirmLabel, ...rest } = this.props;
+    const { confirmLabel, generic, ...rest } = this.props;
     const { showField } = this.state;
 
     return (
+
       <div>
-        <Form.Group inline>
-          <label>{confirmLabel}</label>
-          <Form.Radio label={'Yes'} value={'Yes'} checked={showField} onChange={this.handleChange} />
-          <Form.Radio label={'No'} value={'No'} checked={!showField} onChange={this.handleChange} />
-        </Form.Group>
+
+        <ControlledRadioYesNo
+          labelText = { confirmLabel }
+          checked   = { showField }
+          name      = { 'confirm_' + generic }
+          onChange  = { this.handleChange } />
         
-        {showField && <IncomeField {...rest} />}
+        {showField && <IncomeField generic={generic} {...rest} />}
+
       </div>
     );
   }
