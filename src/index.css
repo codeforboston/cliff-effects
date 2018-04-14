@@ -211,9 +211,13 @@ form elements. */
 /* RESET BUTTON */
 #reset_fixed {
     position: fixed;
-    top: 270px;
-    left: -21px;
+    top: 290px;
+    left: -39px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     background-color: #f2711c;
+}
+
+#reset_fixed:hover {
+  background-color: #d16614;
 }
