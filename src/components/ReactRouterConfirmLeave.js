@@ -10,6 +10,7 @@ import * as getUserConfirmation from '../utils/getUserConfirmation';
  * @param props {object}
  * @param props.prompt {function}
  * @param props.message {string} - Passed on to <OnLeavePrompt>
+ * @param props.isBlocking {boolean} - Whether the prompt should be shown
  * 
  * @see OnLeavePrompt
  * @see getUserConfirmation
@@ -26,7 +27,8 @@ class ReactRouterConfirmLeave extends React.Component {
   }
 
   render() {
-    return <Prompt {...this.props} />;
+    const { isBlocking, ...rest } = this.props;
+    return <Prompt when={isBlocking} {...rest} />;
   }
 }
 
