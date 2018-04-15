@@ -234,6 +234,7 @@ class VisitPage extends Component {
         <ReactRouterConfirmLeave
           message='default'
           prompt={this.prompt}
+          isBlocking={this.state.isBlocking}
         />
         <ErrorPrompt
           callback={ok => ok && this.resetClient()}
