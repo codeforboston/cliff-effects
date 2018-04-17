@@ -400,14 +400,18 @@ const IntervalColumnHeadings = function ({ type }) {
 class ManagedNumberField extends Component {
   constructor ( props ) {
     super( props );
-    this.state = { valid: true, focused: false, focusedVal: this.props.value, };
+    var { format, value } = props;
+    this.state = { valid: true, focused: false, focusedVal: format( value ) };
   }  // End constructor()
 
   //change form to blank string after click, before input
   handleFocus = ( evnt, inputProps ) => {
     // This makes sure that only zeroes and blanks get reset
+    var { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
       this.setState({ focused: true, focusedVal: "" });
+    } else {
+      this.setState({ focused: true, focusedVal: format( value ) });
     }
   }
 
@@ -542,7 +546,7 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
 
 
 /** Yes/no toggleable radio button group with a label
- * 
+ *
  * @function
  * @param {object} props
  * @property {string} props.labelText
