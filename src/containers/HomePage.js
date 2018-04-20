@@ -48,8 +48,8 @@ class HomePage extends Component {
 
               <Link to='/about'>
               <Button style={{
-                backgroundColor: '#ffffffc8',
-                textColor: '#00b5ad',
+                backgroundColor: '#ffaaaac8',
+                textColor: '00b5ad',
                 fontSize: '1.5em',
                 marginLeft: '1.5em'}}>
                 Learn More
