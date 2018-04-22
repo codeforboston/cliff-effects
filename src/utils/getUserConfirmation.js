@@ -1,4 +1,4 @@
-import { getConfirmation as defaultConfirm } from 'history/DOMUtils'
+import { getConfirmation as defaultConfirm } from "history/DOMUtils";
 
 /*
 _history_, which is used by _React Router_, runs the function `getConfirmation()`
@@ -12,8 +12,8 @@ using `exports.set()`. `exports.unset()` restores the default function from _his
 
 let confirm = defaultConfirm;
 
-export const set = fn => confirm = fn;
+export const set = fn => (confirm = fn);
 
-export const unset = () => confirm = defaultConfirm;
+export const unset = () => (confirm = defaultConfirm);
 
 export default (result, callback) => confirm(result, callback);

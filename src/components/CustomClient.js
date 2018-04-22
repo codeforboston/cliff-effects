@@ -1,5 +1,5 @@
-import React from 'react';
-import { Divider, Form, Message } from 'semantic-ui-react';
+import React from "react";
+import { Divider, Form, Message } from "semantic-ui-react";
 
 /**
  * Load previous session from object.
@@ -9,18 +9,18 @@ import { Divider, Form, Message } from 'semantic-ui-react';
 
 /**
  * Form which loads previous session from JSON.
- * 
+ *
  * @param {object} props
  * @param {boolean} props.mayLoadCustomClient - Whether form should be visible
  * @param {loadClient} props.loadClient
- * 
+ *
  * @extends React.Component
  */
 class CustomClient extends React.Component {
   state = {
     client: null,
     error: null,
-    json: ''
+    json: ""
   };
 
   submit = event => {
@@ -31,10 +31,10 @@ class CustomClient extends React.Component {
     this.setState({
       client: null,
       error: null,
-      json: ''
-    })
+      json: ""
+    });
     this.props.loadClient({ client: client });
-  }
+  };
 
   handleChange = (_event, inputProps) => {
     const { value } = inputProps;
@@ -52,7 +52,7 @@ class CustomClient extends React.Component {
         json: value
       });
     }
-  }
+  };
 
   render() {
     if (!this.props.mayLoadCustomClient) return null;
@@ -62,19 +62,19 @@ class CustomClient extends React.Component {
       <Form error={error !== null} onSubmit={this.submit}>
         <Form.Field>
           <label>Client JSON</label>
-          <Form.Input type={'text'} value={json} onChange={this.handleChange} />
+          <Form.Input type={"text"} value={json} onChange={this.handleChange} />
         </Form.Field>
-        <Message 
+        <Message
           error
-          header={'JSON Parse Failed!'}
+          header={"JSON Parse Failed!"}
           content={error && error.message}
         />
-        <Form.Button type={'submit'} disabled={client === null}>
+        <Form.Button type={"submit"} disabled={client === null}>
           Import Data
         </Form.Button>
         <Divider />
       </Form>
-    )
+    );
   }
 }
 

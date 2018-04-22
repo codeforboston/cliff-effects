@@ -1,11 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import { PredictionsStep } from '../../forms/Predictions';
+import { PredictionsStep } from "../../forms/Predictions";
 
-import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
+import { CLIENT_DEFAULTS } from "../../utils/CLIENT_DEFAULTS";
 
-test('Prediction component renders as snapshot correctly', () => {
+test("Prediction component renders as snapshot correctly", () => {
   const nextStep = jest.fn();
   const previousStep = jest.fn();
   const setClientProperty = jest.fn();
@@ -20,7 +20,7 @@ test('Prediction component renders as snapshot correctly', () => {
       setClientProperty={setClientProperty}
       changeClient={changeClient}
       saveForm={saveForm}
-     />
+    />
   );
   expect(wrapper).toMatchSnapshot();
 });

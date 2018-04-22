@@ -1,21 +1,21 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
-import { cloneDeep, sample, times } from 'lodash';
-import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
+import { cloneDeep, sample, times } from "lodash";
+import { CLIENT_DEFAULTS } from "../../../../utils/CLIENT_DEFAULTS";
 import {
   UNEARNED_INCOME_SOURCES,
   UNDER13_CARE_EXPENSES,
   OVER12_CARE_EXPENSES
-} from '../../../../data/massachusetts/name-cores';
-import { getSNAPBenefits } from '../../../../programs/federal/snap';
+} from "../../../../data/massachusetts/name-cores";
+import { getSNAPBenefits } from "../../../../programs/federal/snap";
 
-export const FILE_NAME = 'test-cases.txt';
+export const FILE_NAME = "test-cases.txt";
 const NUMBER_TEST_CASES = 1000;
 const randomizers = [];
 
-const defaultMember = { m_age: 30, m_disabled: false, m_role: 'member' };
-const headMember = Object.assign({}, defaultMember, { m_role: 'head' });
+const defaultMember = { m_age: 30, m_disabled: false, m_role: "member" };
+const headMember = Object.assign({}, defaultMember, { m_role: "head" });
 const householdSize = changes => {
   const size = Math.ceil(Math.random() * 9);
   const members = [headMember];
@@ -29,9 +29,10 @@ const elderlyOrDisabled = changes => {
   const rnd = Math.random * 3;
   if (rnd < 1) return changes;
 
-  const member = rnd < 2
-    ? Object.assign({}, defaultMember, { m_disabled: true })
-    : Object.assign({}, defaultMember, { m_age: 61 });
+  const member =
+    rnd < 2
+      ? Object.assign({}, defaultMember, { m_disabled: true })
+      : Object.assign({}, defaultMember, { m_age: 61 });
   changes.household.push(member);
   return changes;
 };
@@ -46,7 +47,7 @@ const under13Dependent = changes => {
 randomizers.push(under13Dependent);
 
 const earned = changes => {
-  changes.earned = (Math.random() * 100)**2;
+  changes.earned = (Math.random() * 100) ** 2;
   return changes;
 };
 randomizers.push(earned);
@@ -62,33 +63,33 @@ randomizers.push(childSupportPaidOut);
 
 const unearnedIncomeSources = changes => {
   UNEARNED_INCOME_SOURCES.forEach(key => {
-    changes[key] = (Math.random() * 50)**2;
+    changes[key] = (Math.random() * 50) ** 2;
   });
   return changes;
 };
 randomizers.push(unearnedIncomeSources);
 
-const possibleShelters = ['homeless', 'houseowner', 'renter', 'voucher'];
+const possibleShelters = ["homeless", "houseowner", "renter", "voucher"];
 const shelters = changes => {
   changes.shelter = sample(possibleShelters);
   return changes;
 };
 randomizers.push(shelters);
 
-const possibleUtilityBrackets = ['Heating', 'Non-heating', 'Telephone', 'None'];
+const possibleUtilityBrackets = ["Heating", "Non-heating", "Telephone", "None"];
 const utilityBrackets = changes => {
   switch (sample(possibleUtilityBrackets)) {
-    case 'Heating':
+    case "Heating":
       if (Math.random() < 0.5) {
         changes.climateControl = true;
       } else {
         changes.fuelAssistance = true;
       }
       break;
-    case 'Non-heating':
+    case "Non-heating":
       changes.nonHeatElectricity = true;
       break;
-    case 'Telephone':
+    case "Telephone":
       changes.phone = true;
       break;
   }
@@ -96,23 +97,30 @@ const utilityBrackets = changes => {
 };
 randomizers.push(utilityBrackets);
 
-const shelterFeeNames =
-  ['mortgage', 'propertyTax', 'housingInsurance', 'rent', 'rentShare'];
+const shelterFeeNames = [
+  "mortgage",
+  "propertyTax",
+  "housingInsurance",
+  "rent",
+  "rentShare"
+];
 const shelterFees = changes => {
-  shelterFeeNames.forEach(name => changes[name] = (Math.random() * 50)**2 + 200);
+  shelterFeeNames.forEach(
+    name => (changes[name] = (Math.random() * 50) ** 2 + 200)
+  );
   return changes;
 };
 randomizers.push(shelterFees);
 
 const disabledMedical = changes => {
-  changes.disabledMedical = (Math.random() * 100)**2;
+  changes.disabledMedical = (Math.random() * 100) ** 2;
   return changes;
-}
+};
 randomizers.push(disabledMedical);
 
 const under13CareExpenses = changes => {
   UNDER13_CARE_EXPENSES.forEach(key => {
-    changes[key] = (Math.random() * 50)**2;
+    changes[key] = (Math.random() * 50) ** 2;
   });
   return changes;
 };
@@ -120,7 +128,7 @@ randomizers.push(under13CareExpenses);
 
 const over12CareExpenses = changes => {
   OVER12_CARE_EXPENSES.forEach(key => {
-    changes[key] = (Math.random() * 50)**2;
+    changes[key] = (Math.random() * 50) ** 2;
   });
   return changes;
 };
@@ -131,9 +139,9 @@ const stream = fs.createWriteStream(path.resolve(__dirname, FILE_NAME));
 
 times(NUMBER_TEST_CASES, () => {
   const changes = randomizers.reduce((changes, fn) => fn(changes), {});
-  const client = { current: cloneDeep(CLIENT_DEFAULTS.current) }
+  const client = { current: cloneDeep(CLIENT_DEFAULTS.current) };
   Object.assign(client.current, changes);
-  const benefits = getSNAPBenefits(client, 'current');
+  const benefits = getSNAPBenefits(client, "current");
   stream.write(`${JSON.stringify(changes)};${benefits}\n`);
 });
 
