@@ -1,17 +1,17 @@
-import React from 'react';
-import { Prompt } from 'react-router-dom';
+import React from "react";
+import { Prompt } from "react-router-dom";
 
 // React Router <Prompt> customization shenanigans
-import * as getUserConfirmation from '../utils/getUserConfirmation';
+import * as getUserConfirmation from "../utils/getUserConfirmation";
 
 /**
  * Customize React Router on leave prompt to use <OnLeavePrompt>
- * 
+ *
  * @param props {object}
  * @param props.prompt {function}
  * @param props.message {string} - Passed on to <OnLeavePrompt>
  * @param props.isBlocking {boolean} - Whether the prompt should be shown
- * 
+ *
  * @see OnLeavePrompt
  * @see getUserConfirmation
  */

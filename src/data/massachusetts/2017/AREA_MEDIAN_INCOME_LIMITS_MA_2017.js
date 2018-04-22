@@ -5,2163 +5,13742 @@
  * @constant
  * @global
  * @readonly
- * 
+ *
  * @exports {Object} AREA_MEDIAN_INCOME_LIMITS_MA_2017
  * @property {Object} countyName - MA county names ("free market rent" areas of residence) as keys
  * @property {number} countyName.median - 100% of the median income for a 4-family household
  * @property {Object} countyName.L50 - Very Low Income Limits (below 50% of the median income limit plus complex adjustments) for 1 to 8-member househo, eachAdditional: eachAdditionallds
  * @property {Object} countyName.ELI - Extremely Low Income Limits (below 30% of the median income limit plus complex adjustments) for 1 to 8-member househ, eachAdditional: noCalcsold
  * @property {Object} countyName.L80 -Low Income Limits (below 80% of the median income limit plus complex adjustments) for 1 to 8-member househo, eachAdditional: eachAdditionalld
- * 
+ *
  * @see https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=426025906
  * @see US-wide excel sheet downloaded from https://www.huduser.gov/portal/datasets/il.html#2017_data
  *
  */
 
-
-const eachAdditional = function ( data, numAdditional ) {
+const eachAdditional = function(data, numAdditional) {
   /**
-  * https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf
-  * 'For each person in excess of eight, the four-person income limit should be
-  * multiplied by an additional 8 percent. (For example, the nine-person limit
-  * equals 140 percent [132 + 8] of the relevant four-person income limit'
-  */ 
+   * https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf
+   * 'For each person in excess of eight, the four-person income limit should be
+   * multiplied by an additional 8 percent. (For example, the nine-person limit
+   * equals 140 percent [132 + 8] of the relevant four-person income limit'
+   */
 
-  var fourPersonLimit  = data[ '4' ];
+  var fourPersonLimit = data["4"];
   // We could include these hard-coded numbers as data somewhere.
   // We need to know when their expiration dates are.
-  var percent = (numAdditional * 8)/100,
-      amount  = fourPersonLimit * percent;
+  var percent = numAdditional * 8 / 100,
+    amount = fourPersonLimit * percent;
 
-  return amount
-};  // End eachAdditional()
+  return amount;
+}; // End eachAdditional()
 
-const noCalcs = function ( data, numAdditional ) {
+const noCalcs = function(data, numAdditional) {
   /**
-  * @todo Instead of throwing an error, send a message to the user.
-  * 
-  * https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf
-  * '...these family size adjustments are no longer sufficient to determine the level
-  * of extremely low-income limits... For families with more than 8 persons, HUD has
-  * developed a tool that should be used to calculate the extremely low-income
-  * limit for that area at http://www.huduser.gov/portal/datasets/il/il17/index.html'
-  * (page does not exist)
-  */ 
-  throw 'Area Median Income Limits for more than 8 household members cannot be'
-        + ' calculated here. See https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf';
+   * @todo Instead of throwing an error, send a message to the user.
+   *
+   * https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf
+   * '...these family size adjustments are no longer sufficient to determine the level
+   * of extremely low-income limits... For families with more than 8 persons, HUD has
+   * developed a tool that should be used to calculate the extremely low-income
+   * limit for that area at http://www.huduser.gov/portal/datasets/il/il17/index.html'
+   * (page does not exist)
+   */
+
+  throw "Area Median Income Limits for more than 8 household members cannot be" +
+    " calculated here. See https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf";
 };
 
-
 const AREA_MEDIAN_INCOME_LIMITS_MA_2017 = {
-  "Barnstable Town city": { 
+  "Barnstable Town city": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Bourne town": { 
+  "Bourne town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Brewster town": { 
+  "Brewster town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Chatham town": { 
+  "Chatham town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dennis town": { 
+  "Dennis town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Eastham town": { 
+  "Eastham town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Falmouth town": { 
+  "Falmouth town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Harwich town": { 
+  "Harwich town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Mashpee town": { 
+  "Mashpee town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Orleans town": { 
+  "Orleans town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Provincetown town": { 
+  "Provincetown town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sandwich town": { 
+  "Sandwich town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Truro town": { 
+  "Truro town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wellfleet town": { 
+  "Wellfleet town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Yarmouth town": { 
+  "Yarmouth town": {
     median: 90200,
-    L50: { 0: 0, 1: 31600, 2: 36100, 3: 40600, 4: 45100, 5: 48750, 6: 52350, 7: 55950, 8: 59550, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18950, 2: 21650, 3: 24350, 4: 27050, 5: 29250, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31600,
+      2: 36100,
+      3: 40600,
+      4: 45100,
+      5: 48750,
+      6: 52350,
+      7: 55950,
+      8: 59550,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18950,
+      2: 21650,
+      3: 24350,
+      4: 27050,
+      5: 29250,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Adams town": { 
+  "Adams town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Alford town": { 
+  "Alford town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Becket town": { 
+  "Becket town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Cheshire town": { 
+  "Cheshire town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Clarksburg town": { 
+  "Clarksburg town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dalton town": { 
+  "Dalton town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Egremont town": { 
+  "Egremont town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Florida town": { 
+  "Florida town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Great Barrington town": { 
+  "Great Barrington town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hancock town": { 
+  "Hancock town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hinsdale town": { 
+  "Hinsdale town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lanesborough town": { 
+  "Lanesborough town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lee town": { 
+  "Lee town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lenox town": { 
+  "Lenox town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Monterey town": { 
+  "Monterey town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Mount Washington town": { 
+  "Mount Washington town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "New Ashford town": { 
+  "New Ashford town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "New Marlborough town": { 
+  "New Marlborough town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "North Adams city": { 
+  "North Adams city": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Otis town": { 
+  "Otis town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Peru town": { 
+  "Peru town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Pittsfield city": { 
+  "Pittsfield city": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Richmond town": { 
+  "Richmond town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sandisfield town": { 
+  "Sandisfield town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Savoy town": { 
+  "Savoy town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sheffield town": { 
+  "Sheffield town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Stockbridge town": { 
+  "Stockbridge town": {
     median: 67200,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Tyringham town": { 
+  "Tyringham town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Washington town": { 
+  "Washington town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "West Stockbridge town": { 
+  "West Stockbridge town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Williamstown town": { 
+  "Williamstown town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Windsor town": { 
+  "Windsor town": {
     median: 72900,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Acushnet town": { 
+  "Acushnet town": {
     median: 62200,
-    L50: { 0: 0, 1: 22050, 2: 25200, 3: 28350, 4: 31500, 5: 34050, 6: 36550, 7: 39100, 8: 41600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 13250, 2: 16240, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 35250, 2: 40300, 3: 45350, 4: 50350, 5: 54400, 6: 58450, 7: 62450, 8: 66500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 22050,
+      2: 25200,
+      3: 28350,
+      4: 31500,
+      5: 34050,
+      6: 36550,
+      7: 39100,
+      8: 41600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 13250,
+      2: 16240,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 35250,
+      2: 40300,
+      3: 45350,
+      4: 50350,
+      5: 54400,
+      6: 58450,
+      7: 62450,
+      8: 66500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Attleboro city": { 
+  "Attleboro city": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Berkley town": { 
+  "Berkley town": {
     median: 94400,
-    L50: { 0: 0, 1: 31500, 2: 36000, 3: 40500, 4: 45000, 5: 48600, 6: 52200, 7: 55800, 8: 59400, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18900, 2: 21600, 3: 24300, 4: 27000, 5: 29200, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31500,
+      2: 36000,
+      3: 40500,
+      4: 45000,
+      5: 48600,
+      6: 52200,
+      7: 55800,
+      8: 59400,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18900,
+      2: 21600,
+      3: 24300,
+      4: 27000,
+      5: 29200,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dartmouth town": { 
+  "Dartmouth town": {
     median: 62200,
-    L50: { 0: 0, 1: 22050, 2: 25200, 3: 28350, 4: 31500, 5: 34050, 6: 36550, 7: 39100, 8: 41600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 13250, 2: 16240, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 35250, 2: 40300, 3: 45350, 4: 50350, 5: 54400, 6: 58450, 7: 62450, 8: 66500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 22050,
+      2: 25200,
+      3: 28350,
+      4: 31500,
+      5: 34050,
+      6: 36550,
+      7: 39100,
+      8: 41600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 13250,
+      2: 16240,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 35250,
+      2: 40300,
+      3: 45350,
+      4: 50350,
+      5: 54400,
+      6: 58450,
+      7: 62450,
+      8: 66500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dighton town": { 
+  "Dighton town": {
     median: 94400,
-    L50: { 0: 0, 1: 31500, 2: 36000, 3: 40500, 4: 45000, 5: 48600, 6: 52200, 7: 55800, 8: 59400, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18900, 2: 21600, 3: 24300, 4: 27000, 5: 29200, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31500,
+      2: 36000,
+      3: 40500,
+      4: 45000,
+      5: 48600,
+      6: 52200,
+      7: 55800,
+      8: 59400,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18900,
+      2: 21600,
+      3: 24300,
+      4: 27000,
+      5: 29200,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Easton town": { 
+  "Easton town": {
     median: 113200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Fairhaven town": { 
+  "Fairhaven town": {
     median: 62200,
-    L50: { 0: 0, 1: 22050, 2: 25200, 3: 28350, 4: 31500, 5: 34050, 6: 36550, 7: 39100, 8: 41600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 13250, 2: 16240, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 35250, 2: 40300, 3: 45350, 4: 50350, 5: 54400, 6: 58450, 7: 62450, 8: 66500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 22050,
+      2: 25200,
+      3: 28350,
+      4: 31500,
+      5: 34050,
+      6: 36550,
+      7: 39100,
+      8: 41600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 13250,
+      2: 16240,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 35250,
+      2: 40300,
+      3: 45350,
+      4: 50350,
+      5: 54400,
+      6: 58450,
+      7: 62450,
+      8: 66500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Fall River city": { 
+  "Fall River city": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Freetown town": { 
+  "Freetown town": {
     median: 62200,
-    L50: { 0: 0, 1: 22050, 2: 25200, 3: 28350, 4: 31500, 5: 34050, 6: 36550, 7: 39100, 8: 41600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 13250, 2: 16240, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 35250, 2: 40300, 3: 45350, 4: 50350, 5: 54400, 6: 58450, 7: 62450, 8: 66500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 22050,
+      2: 25200,
+      3: 28350,
+      4: 31500,
+      5: 34050,
+      6: 36550,
+      7: 39100,
+      8: 41600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 13250,
+      2: 16240,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 35250,
+      2: 40300,
+      3: 45350,
+      4: 50350,
+      5: 54400,
+      6: 58450,
+      7: 62450,
+      8: 66500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Mansfield town": { 
+  "Mansfield town": {
     median: 94400,
-    L50: { 0: 0, 1: 31500, 2: 36000, 3: 40500, 4: 45000, 5: 48600, 6: 52200, 7: 55800, 8: 59400, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18900, 2: 21600, 3: 24300, 4: 27000, 5: 29200, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31500,
+      2: 36000,
+      3: 40500,
+      4: 45000,
+      5: 48600,
+      6: 52200,
+      7: 55800,
+      8: 59400,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18900,
+      2: 21600,
+      3: 24300,
+      4: 27000,
+      5: 29200,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "New Bedford city": { 
+  "New Bedford city": {
     median: 62200,
-    L50: { 0: 0, 1: 22050, 2: 25200, 3: 28350, 4: 31500, 5: 34050, 6: 36550, 7: 39100, 8: 41600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 13250, 2: 16240, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 35250, 2: 40300, 3: 45350, 4: 50350, 5: 54400, 6: 58450, 7: 62450, 8: 66500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 22050,
+      2: 25200,
+      3: 28350,
+      4: 31500,
+      5: 34050,
+      6: 36550,
+      7: 39100,
+      8: 41600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 13250,
+      2: 16240,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 35250,
+      2: 40300,
+      3: 45350,
+      4: 50350,
+      5: 54400,
+      6: 58450,
+      7: 62450,
+      8: 66500,
+      eachAdditional: eachAdditional
+    }
   },
-  "North Attleborough town": { 
+  "North Attleborough town": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Norton town": { 
+  "Norton town": {
     median: 94400,
-    L50: { 0: 0, 1: 31500, 2: 36000, 3: 40500, 4: 45000, 5: 48600, 6: 52200, 7: 55800, 8: 59400, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18900, 2: 21600, 3: 24300, 4: 27000, 5: 29200, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31500,
+      2: 36000,
+      3: 40500,
+      4: 45000,
+      5: 48600,
+      6: 52200,
+      7: 55800,
+      8: 59400,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18900,
+      2: 21600,
+      3: 24300,
+      4: 27000,
+      5: 29200,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Raynham town": { 
+  "Raynham town": {
     median: 113200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Rehoboth town": { 
+  "Rehoboth town": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Seekonk town": { 
+  "Seekonk town": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Somerset town": { 
+  "Somerset town": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Swansea town": { 
+  "Swansea town": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Taunton city": { 
+  "Taunton city": {
     median: 94400,
-    L50: { 0: 0, 1: 31500, 2: 36000, 3: 40500, 4: 45000, 5: 48600, 6: 52200, 7: 55800, 8: 59400, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18900, 2: 21600, 3: 24300, 4: 27000, 5: 29200, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 31500,
+      2: 36000,
+      3: 40500,
+      4: 45000,
+      5: 48600,
+      6: 52200,
+      7: 55800,
+      8: 59400,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18900,
+      2: 21600,
+      3: 24300,
+      4: 27000,
+      5: 29200,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Westport town": { 
+  "Westport town": {
     median: 72100,
-    L50: { 0: 0, 1: 25250, 2: 28850, 3: 32450, 4: 36050, 5: 38950, 6: 41850, 7: 44750, 8: 47600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 15200, 2: 17350, 3: 20420, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 40400, 2: 46200, 3: 51950, 4: 57700, 5: 62350, 6: 66950, 7: 71550, 8: 76200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 25250,
+      2: 28850,
+      3: 32450,
+      4: 36050,
+      5: 38950,
+      6: 41850,
+      7: 44750,
+      8: 47600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 15200,
+      2: 17350,
+      3: 20420,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 40400,
+      2: 46200,
+      3: 51950,
+      4: 57700,
+      5: 62350,
+      6: 66950,
+      7: 71550,
+      8: 76200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Aquinnah town": { 
+  "Aquinnah town": {
     median: 87000,
-    L50: { 0: 0, 1: 30450, 2: 34800, 3: 39150, 4: 43500, 5: 47000, 6: 50500, 7: 53950, 8: 57450, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18300, 2: 20900, 3: 23500, 4: 26100, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30450,
+      2: 34800,
+      3: 39150,
+      4: 43500,
+      5: 47000,
+      6: 50500,
+      7: 53950,
+      8: 57450,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18300,
+      2: 20900,
+      3: 23500,
+      4: 26100,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Chilmark town": { 
+  "Chilmark town": {
     median: 87000,
-    L50: { 0: 0, 1: 30450, 2: 34800, 3: 39150, 4: 43500, 5: 47000, 6: 50500, 7: 53950, 8: 57450, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18300, 2: 20900, 3: 23500, 4: 26100, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30450,
+      2: 34800,
+      3: 39150,
+      4: 43500,
+      5: 47000,
+      6: 50500,
+      7: 53950,
+      8: 57450,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18300,
+      2: 20900,
+      3: 23500,
+      4: 26100,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Edgartown town": { 
+  "Edgartown town": {
     median: 87000,
-    L50: { 0: 0, 1: 30450, 2: 34800, 3: 39150, 4: 43500, 5: 47000, 6: 50500, 7: 53950, 8: 57450, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18300, 2: 20900, 3: 23500, 4: 26100, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30450,
+      2: 34800,
+      3: 39150,
+      4: 43500,
+      5: 47000,
+      6: 50500,
+      7: 53950,
+      8: 57450,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18300,
+      2: 20900,
+      3: 23500,
+      4: 26100,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Gosnold town": { 
+  "Gosnold town": {
     median: 87000,
-    L50: { 0: 0, 1: 30450, 2: 34800, 3: 39150, 4: 43500, 5: 47000, 6: 50500, 7: 53950, 8: 57450, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18300, 2: 20900, 3: 23500, 4: 26100, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30450,
+      2: 34800,
+      3: 39150,
+      4: 43500,
+      5: 47000,
+      6: 50500,
+      7: 53950,
+      8: 57450,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18300,
+      2: 20900,
+      3: 23500,
+      4: 26100,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Oak Bluffs town": { 
+  "Oak Bluffs town": {
     median: 87000,
-    L50: { 0: 0, 1: 30450, 2: 34800, 3: 39150, 4: 43500, 5: 47000, 6: 50500, 7: 53950, 8: 57450, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18300, 2: 20900, 3: 23500, 4: 26100, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30450,
+      2: 34800,
+      3: 39150,
+      4: 43500,
+      5: 47000,
+      6: 50500,
+      7: 53950,
+      8: 57450,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18300,
+      2: 20900,
+      3: 23500,
+      4: 26100,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Tisbury town": { 
+  "Tisbury town": {
     median: 87000,
-    L50: { 0: 0, 1: 30450, 2: 34800, 3: 39150, 4: 43500, 5: 47000, 6: 50500, 7: 53950, 8: 57450, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18300, 2: 20900, 3: 23500, 4: 26100, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30450,
+      2: 34800,
+      3: 39150,
+      4: 43500,
+      5: 47000,
+      6: 50500,
+      7: 53950,
+      8: 57450,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18300,
+      2: 20900,
+      3: 23500,
+      4: 26100,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "West Tisbury town": { 
+  "West Tisbury town": {
     median: 87000,
-    L50: { 0: 0, 1: 30450, 2: 34800, 3: 39150, 4: 43500, 5: 47000, 6: 50500, 7: 53950, 8: 57450, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18300, 2: 20900, 3: 23500, 4: 26100, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30450,
+      2: 34800,
+      3: 39150,
+      4: 43500,
+      5: 47000,
+      6: 50500,
+      7: 53950,
+      8: 57450,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18300,
+      2: 20900,
+      3: 23500,
+      4: 26100,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Amesbury Town city": { 
+  "Amesbury Town city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Andover town": { 
+  "Andover town": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Beverly city": { 
+  "Beverly city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Boxford town": { 
+  "Boxford town": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Danvers town": { 
+  "Danvers town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Essex town": { 
+  "Essex town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Georgetown town": { 
+  "Georgetown town": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Gloucester city": { 
+  "Gloucester city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Groveland town": { 
+  "Groveland town": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hamilton town": { 
+  "Hamilton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Haverhill city": { 
+  "Haverhill city": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ipswich town": { 
+  "Ipswich town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lawrence city": { 
+  "Lawrence city": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lynn city": { 
+  "Lynn city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lynnfield town": { 
+  "Lynnfield town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Manchester-by-the-Sea town": { 
+  "Manchester-by-the-Sea town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Marblehead town": { 
+  "Marblehead town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Merrimac town": { 
+  "Merrimac town": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Methuen city": { 
+  "Methuen city": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Middleton town": { 
+  "Middleton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Nahant town": { 
+  "Nahant town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Newbury town": { 
+  "Newbury town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Newburyport city": { 
+  "Newburyport city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "North Andover town": { 
+  "North Andover town": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Peabody city": { 
+  "Peabody city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Rockport town": { 
+  "Rockport town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Rowley town": { 
+  "Rowley town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Salem city": { 
+  "Salem city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Salisbury town": { 
+  "Salisbury town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Saugus town": { 
+  "Saugus town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Swampscott town": { 
+  "Swampscott town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Topsfield town": { 
+  "Topsfield town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wenham town": { 
+  "Wenham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "West Newbury town": { 
+  "West Newbury town": {
     median: 87600,
-    L50: { 0: 0, 1: 30700, 2: 35050, 3: 39450, 4: 43800, 5: 47350, 6: 50850, 7: 54350, 8: 57850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18450, 2: 21050, 3: 23700, 4: 26300, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30700,
+      2: 35050,
+      3: 39450,
+      4: 43800,
+      5: 47350,
+      6: 50850,
+      7: 54350,
+      8: 57850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18450,
+      2: 21050,
+      3: 23700,
+      4: 26300,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ashfield town": { 
+  "Ashfield town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Bernardston town": { 
+  "Bernardston town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Buckland town": { 
+  "Buckland town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Charlemont town": { 
+  "Charlemont town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Colrain town": { 
+  "Colrain town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Conway town": { 
+  "Conway town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Deerfield town": { 
+  "Deerfield town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Erving town": { 
+  "Erving town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Gill town": { 
+  "Gill town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Greenfield Town city": { 
+  "Greenfield Town city": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hawley town": { 
+  "Hawley town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Heath town": { 
+  "Heath town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Leverett town": { 
+  "Leverett town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Leyden town": { 
+  "Leyden town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Monroe town": { 
+  "Monroe town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Montague town": { 
+  "Montague town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "New Salem town": { 
+  "New Salem town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Northfield town": { 
+  "Northfield town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Orange town": { 
+  "Orange town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Rowe town": { 
+  "Rowe town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Shelburne town": { 
+  "Shelburne town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Shutesbury town": { 
+  "Shutesbury town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sunderland town": { 
+  "Sunderland town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Warwick town": { 
+  "Warwick town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wendell town": { 
+  "Wendell town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Whately town": { 
+  "Whately town": {
     median: 76500,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Agawam Town city": { 
+  "Agawam Town city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Blandford town": { 
+  "Blandford town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Brimfield town": { 
+  "Brimfield town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Chester town": { 
+  "Chester town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Chicopee city": { 
+  "Chicopee city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "East Longmeadow town": { 
+  "East Longmeadow town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Granville town": { 
+  "Granville town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hampden town": { 
+  "Hampden town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Holland town": { 
+  "Holland town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Holyoke city": { 
+  "Holyoke city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Longmeadow town": { 
+  "Longmeadow town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ludlow town": { 
+  "Ludlow town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Monson town": { 
+  "Monson town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Montgomery town": { 
+  "Montgomery town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Palmer Town city": { 
+  "Palmer Town city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Russell town": { 
+  "Russell town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Southwick town": { 
+  "Southwick town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Springfield city": { 
+  "Springfield city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Tolland town": { 
+  "Tolland town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wales town": { 
+  "Wales town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Westfield city": { 
+  "Westfield city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "West Springfield Town city": { 
+  "West Springfield Town city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wilbraham town": { 
+  "Wilbraham town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Amherst town": { 
+  "Amherst town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Belchertown town": { 
+  "Belchertown town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Chesterfield town": { 
+  "Chesterfield town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Cummington town": { 
+  "Cummington town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Easthampton Town city": { 
+  "Easthampton Town city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Goshen town": { 
+  "Goshen town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Granby town": { 
+  "Granby town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hadley town": { 
+  "Hadley town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hatfield town": { 
+  "Hatfield town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Huntington town": { 
+  "Huntington town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Middlefield town": { 
+  "Middlefield town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Northampton city": { 
+  "Northampton city": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Pelham town": { 
+  "Pelham town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Plainfield town": { 
+  "Plainfield town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Southampton town": { 
+  "Southampton town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "South Hadley town": { 
+  "South Hadley town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ware town": { 
+  "Ware town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Westhampton town": { 
+  "Westhampton town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Williamsburg town": { 
+  "Williamsburg town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Worthington town": { 
+  "Worthington town": {
     median: 66600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Acton town": { 
+  "Acton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Arlington town": { 
+  "Arlington town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ashby town": { 
+  "Ashby town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ashland town": { 
+  "Ashland town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ayer town": { 
+  "Ayer town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Bedford town": { 
+  "Bedford town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Belmont town": { 
+  "Belmont town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Billerica town": { 
+  "Billerica town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Boxborough town": { 
+  "Boxborough town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Burlington town": { 
+  "Burlington town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Cambridge city": { 
+  "Cambridge city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Carlisle town": { 
+  "Carlisle town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Chelmsford town": { 
+  "Chelmsford town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Concord town": { 
+  "Concord town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dracut town": { 
+  "Dracut town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dunstable town": { 
+  "Dunstable town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Everett city": { 
+  "Everett city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Framingham town": { 
+  "Framingham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Groton town": { 
+  "Groton town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Holliston town": { 
+  "Holliston town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hopkinton town": { 
+  "Hopkinton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hudson town": { 
+  "Hudson town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lexington town": { 
+  "Lexington town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lincoln town": { 
+  "Lincoln town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Littleton town": { 
+  "Littleton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lowell city": { 
+  "Lowell city": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Malden city": { 
+  "Malden city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Marlborough city": { 
+  "Marlborough city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Maynard town": { 
+  "Maynard town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Medford city": { 
+  "Medford city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Melrose city": { 
+  "Melrose city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Natick town": { 
+  "Natick town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Newton city": { 
+  "Newton city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "North Reading town": { 
+  "North Reading town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Pepperell town": { 
+  "Pepperell town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Reading town": { 
+  "Reading town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sherborn town": { 
+  "Sherborn town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Shirley town": { 
+  "Shirley town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Somerville city": { 
+  "Somerville city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Stoneham town": { 
+  "Stoneham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Stow town": { 
+  "Stow town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sudbury town": { 
+  "Sudbury town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Tewksbury town": { 
+  "Tewksbury town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Townsend town": { 
+  "Townsend town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Tyngsborough town": { 
+  "Tyngsborough town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wakefield town": { 
+  "Wakefield town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Waltham city": { 
+  "Waltham city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Watertown city": { 
+  "Watertown city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wayland town": { 
+  "Wayland town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Westford town": { 
+  "Westford town": {
     median: 96300,
-    L50: { 0: 0, 1: 33750, 2: 38550, 3: 43350, 4: 48150, 5: 52050, 6: 55900, 7: 59750, 8: 63600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20250, 2: 23150, 3: 26050, 4: 28900, 5: 31250, 6: 33550, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 33750,
+      2: 38550,
+      3: 43350,
+      4: 48150,
+      5: 52050,
+      6: 55900,
+      7: 59750,
+      8: 63600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20250,
+      2: 23150,
+      3: 26050,
+      4: 28900,
+      5: 31250,
+      6: 33550,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Weston town": { 
+  "Weston town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wilmington town": { 
+  "Wilmington town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Winchester town": { 
+  "Winchester town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Woburn city": { 
+  "Woburn city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Nantucket town": { 
+  "Nantucket town": {
     median: 99500,
-    L50: { 0: 0, 1: 34850, 2: 39800, 3: 44800, 4: 49750, 5: 53750, 6: 57750, 7: 61700, 8: 65700, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 20900, 2: 23900, 3: 26900, 4: 29850, 5: 32250, 6: 34650, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 50450, 2: 57650, 3: 64850, 4: 72050, 5: 77850, 6: 83600, 7: 89350, 8: 95150, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 34850,
+      2: 39800,
+      3: 44800,
+      4: 49750,
+      5: 53750,
+      6: 57750,
+      7: 61700,
+      8: 65700,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 20900,
+      2: 23900,
+      3: 26900,
+      4: 29850,
+      5: 32250,
+      6: 34650,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 50450,
+      2: 57650,
+      3: 64850,
+      4: 72050,
+      5: 77850,
+      6: 83600,
+      7: 89350,
+      8: 95150,
+      eachAdditional: eachAdditional
+    }
   },
-  "Avon town": { 
+  "Avon town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Bellingham town": { 
+  "Bellingham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Braintree Town city": { 
+  "Braintree Town city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Brookline town": { 
+  "Brookline town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Canton town": { 
+  "Canton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Cohasset town": { 
+  "Cohasset town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dedham town": { 
+  "Dedham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dover town": { 
+  "Dover town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Foxborough town": { 
+  "Foxborough town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Franklin Town city": { 
+  "Franklin Town city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Holbrook town": { 
+  "Holbrook town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Medfield town": { 
+  "Medfield town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Medway town": { 
+  "Medway town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Millis town": { 
+  "Millis town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Milton town": { 
+  "Milton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Needham town": { 
+  "Needham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Norfolk town": { 
+  "Norfolk town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Norwood town": { 
+  "Norwood town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Plainville town": { 
+  "Plainville town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Quincy city": { 
+  "Quincy city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Randolph town": { 
+  "Randolph town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sharon town": { 
+  "Sharon town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Stoughton town": { 
+  "Stoughton town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Walpole town": { 
+  "Walpole town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wellesley town": { 
+  "Wellesley town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Westwood town": { 
+  "Westwood town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Weymouth Town city": { 
+  "Weymouth Town city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wrentham town": { 
+  "Wrentham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Abington town": { 
+  "Abington town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Bridgewater town": { 
+  "Bridgewater town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Brockton city": { 
+  "Brockton city": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Carver town": { 
+  "Carver town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Duxbury town": { 
+  "Duxbury town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "East Bridgewater town": { 
+  "East Bridgewater town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Halifax town": { 
+  "Halifax town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hanover town": { 
+  "Hanover town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hanson town": { 
+  "Hanson town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hingham town": { 
+  "Hingham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hull town": { 
+  "Hull town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Kingston town": { 
+  "Kingston town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lakeville town": { 
+  "Lakeville town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Marion town": { 
+  "Marion town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Marshfield town": { 
+  "Marshfield town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Mattapoisett town": { 
+  "Mattapoisett town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Middleborough town": { 
+  "Middleborough town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Norwell town": { 
+  "Norwell town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Pembroke town": { 
+  "Pembroke town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Plymouth town": { 
+  "Plymouth town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Plympton town": { 
+  "Plympton town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Rochester town": { 
+  "Rochester town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Rockland town": { 
+  "Rockland town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Scituate town": { 
+  "Scituate town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Wareham town": { 
+  "Wareham town": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "West Bridgewater town": { 
+  "West Bridgewater town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Whitman town": { 
+  "Whitman town": {
     median: 81000,
-    L50: { 0: 0, 1: 29000, 2: 33150, 3: 37300, 4: 41400, 5: 44750, 6: 48050, 7: 51350, 8: 54650, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 17400, 2: 19900, 3: 22400, 4: 24850, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 46400, 2: 53000, 3: 59650, 4: 66250, 5: 71550, 6: 76850, 7: 82150, 8: 87450, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 29000,
+      2: 33150,
+      3: 37300,
+      4: 41400,
+      5: 44750,
+      6: 48050,
+      7: 51350,
+      8: 54650,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 17400,
+      2: 19900,
+      3: 22400,
+      4: 24850,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 46400,
+      2: 53000,
+      3: 59650,
+      4: 66250,
+      5: 71550,
+      6: 76850,
+      7: 82150,
+      8: 87450,
+      eachAdditional: eachAdditional
+    }
   },
-  "Boston city": { 
+  "Boston city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Chelsea city": { 
+  "Chelsea city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Revere city": { 
+  "Revere city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Winthrop Town city": { 
+  "Winthrop Town city": {
     median: 103400,
-    L50: { 0: 0, 1: 36200, 2: 41400, 3: 46550, 4: 51700, 5: 55850, 6: 60000, 7: 64150, 8: 68250, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 21700, 2: 24800, 3: 27900, 4: 31000, 5: 33500, 6: 36000, 7: 38450, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 54750, 2: 62550, 3: 70350, 4: 78150, 5: 84450, 6: 90700, 7: 96950, 8: 103200, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 36200,
+      2: 41400,
+      3: 46550,
+      4: 51700,
+      5: 55850,
+      6: 60000,
+      7: 64150,
+      8: 68250,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 21700,
+      2: 24800,
+      3: 27900,
+      4: 31000,
+      5: 33500,
+      6: 36000,
+      7: 38450,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 54750,
+      2: 62550,
+      3: 70350,
+      4: 78150,
+      5: 84450,
+      6: 90700,
+      7: 96950,
+      8: 103200,
+      eachAdditional: eachAdditional
+    }
   },
-  "Ashburnham town": { 
+  "Ashburnham town": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Athol town": { 
+  "Athol town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Auburn town": { 
+  "Auburn town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Barre town": { 
+  "Barre town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Berlin town": { 
+  "Berlin town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Blackstone town": { 
+  "Blackstone town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Bolton town": { 
+  "Bolton town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Boylston town": { 
+  "Boylston town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Brookfield town": { 
+  "Brookfield town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Charlton town": { 
+  "Charlton town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Clinton town": { 
+  "Clinton town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Douglas town": { 
+  "Douglas town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Dudley town": { 
+  "Dudley town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "East Brookfield town": { 
+  "East Brookfield town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Fitchburg city": { 
+  "Fitchburg city": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Gardner city": { 
+  "Gardner city": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Grafton town": { 
+  "Grafton town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hardwick town": { 
+  "Hardwick town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Harvard town": { 
+  "Harvard town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Holden town": { 
+  "Holden town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hopedale town": { 
+  "Hopedale town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Hubbardston town": { 
+  "Hubbardston town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lancaster town": { 
+  "Lancaster town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Leicester town": { 
+  "Leicester town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Leominster city": { 
+  "Leominster city": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Lunenburg town": { 
+  "Lunenburg town": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Mendon town": { 
+  "Mendon town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Milford town": { 
+  "Milford town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Millbury town": { 
+  "Millbury town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Millville town": { 
+  "Millville town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "New Braintree town": { 
+  "New Braintree town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Northborough town": { 
+  "Northborough town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Northbridge town": { 
+  "Northbridge town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "North Brookfield town": { 
+  "North Brookfield town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Oakham town": { 
+  "Oakham town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Oxford town": { 
+  "Oxford town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Paxton town": { 
+  "Paxton town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Petersham town": { 
+  "Petersham town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Phillipston town": { 
+  "Phillipston town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Princeton town": { 
+  "Princeton town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Royalston town": { 
+  "Royalston town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Rutland town": { 
+  "Rutland town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Shrewsbury town": { 
+  "Shrewsbury town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Southborough town": { 
+  "Southborough town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Southbridge Town city": { 
+  "Southbridge Town city": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Spencer town": { 
+  "Spencer town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sterling town": { 
+  "Sterling town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sturbridge town": { 
+  "Sturbridge town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Sutton town": { 
+  "Sutton town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Templeton town": { 
+  "Templeton town": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Upton town": { 
+  "Upton town": {
     median: 120200,
-    L50: { 0: 0, 1: 38100, 2: 43550, 3: 49000, 4: 54400, 5: 58800, 6: 63150, 7: 67500, 8: 71850, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 22900, 2: 26150, 3: 29400, 4: 32650, 5: 35300, 6: 37900, 7: 40500, 8: 43100, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 38100,
+      2: 43550,
+      3: 49000,
+      4: 54400,
+      5: 58800,
+      6: 63150,
+      7: 67500,
+      8: 71850,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 22900,
+      2: 26150,
+      3: 29400,
+      4: 32650,
+      5: 35300,
+      6: 37900,
+      7: 40500,
+      8: 43100,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Uxbridge town": { 
+  "Uxbridge town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Warren town": { 
+  "Warren town": {
     median: 75600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Webster town": { 
+  "Webster town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Westborough town": { 
+  "Westborough town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "West Boylston town": { 
+  "West Boylston town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "West Brookfield town": { 
+  "West Brookfield town": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   },
-  "Westminster town": { 
+  "Westminster town": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Winchendon town": { 
+  "Winchendon town": {
     median: 68600,
-    L50: { 0: 0, 1: 28000, 2: 32000, 3: 36000, 4: 40000, 5: 43200, 6: 46400, 7: 49600, 8: 52800, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 16800, 2: 19200, 3: 21600, 4: 24600, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 44800, 2: 51200, 3: 57600, 4: 64000, 5: 69150, 6: 74250, 7: 79400, 8: 84500, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 28000,
+      2: 32000,
+      3: 36000,
+      4: 40000,
+      5: 43200,
+      6: 46400,
+      7: 49600,
+      8: 52800,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 16800,
+      2: 19200,
+      3: 21600,
+      4: 24600,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 44800,
+      2: 51200,
+      3: 57600,
+      4: 64000,
+      5: 69150,
+      6: 74250,
+      7: 79400,
+      8: 84500,
+      eachAdditional: eachAdditional
+    }
   },
-  "Worcester city": { 
+  "Worcester city": {
     median: 85700,
-    L50: { 0: 0, 1: 30000, 2: 34300, 3: 38600, 4: 42850, 5: 46300, 6: 49750, 7: 53150, 8: 56600, eachAdditional: eachAdditional },
-    ELI: { 0: 0, 1: 18000, 2: 20600, 3: 23150, 4: 25700, 5: 28780, 6: 32960, 7: 37140, 8: 41320, eachAdditional: noCalcs },
-    L80: { 0: 0, 1: 47600, 2: 54400, 3: 61200, 4: 68000, 5: 73450, 6: 78900, 7: 84350, 8: 89800, eachAdditional: eachAdditional }
+    L50: {
+      0: 0,
+      1: 30000,
+      2: 34300,
+      3: 38600,
+      4: 42850,
+      5: 46300,
+      6: 49750,
+      7: 53150,
+      8: 56600,
+      eachAdditional: eachAdditional
+    },
+    ELI: {
+      0: 0,
+      1: 18000,
+      2: 20600,
+      3: 23150,
+      4: 25700,
+      5: 28780,
+      6: 32960,
+      7: 37140,
+      8: 41320,
+      eachAdditional: noCalcs
+    },
+    L80: {
+      0: 0,
+      1: 47600,
+      2: 54400,
+      3: 61200,
+      4: 68000,
+      5: 73450,
+      6: 78900,
+      7: 84350,
+      8: 89800,
+      eachAdditional: eachAdditional
+    }
   }
 };
 
-
-export {
-  AREA_MEDIAN_INCOME_LIMITS_MA_2017
-};
+export { AREA_MEDIAN_INCOME_LIMITS_MA_2017 };

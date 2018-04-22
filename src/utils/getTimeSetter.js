@@ -5,17 +5,13 @@
  *     the state).
  */
 
-
-const getTimeSetter = function ( time, func ) {
-
-  var timeFunc = function ( evnt, data ) {
+const getTimeSetter = function(time, func) {
+  var timeFunc = function(evnt, data) {
     data.time = time;
-    func( evnt, data );
+    func(evnt, data);
   };
 
   return timeFunc;
-
-};  // End getTimeSetter()
-
+}; // End getTimeSetter()
 
 export { getTimeSetter };

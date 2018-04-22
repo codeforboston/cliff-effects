@@ -1,4 +1,3 @@
-
 const PROGRAM_CHART_VALUES = {
   income: {
     name: "Income",
