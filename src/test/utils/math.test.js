@@ -1,4 +1,4 @@
-const math = require('../../utils/math');
+const math = require("../../utils/math");
 
 // These tests are at least temporarily deprecated because javascript floats
 // are known to misbehave such that these will likely fail and we expect the
@@ -26,12 +26,11 @@ test('Rounding a very large number', () => {
 });
 */
 
-test('Rounding infinity', () => {
-    expect(math.roundMoney(Infinity)).toBe(Infinity);
+test("Rounding infinity", () => {
+  expect(math.roundMoney(Infinity)).toBe(Infinity);
 });
 
-test('Rounding NaN', () => {
-    var roundedNan = math.roundMoney(NaN);
-    expect(isNaN(roundedNan)).toBe(true);
+test("Rounding NaN", () => {
+  var roundedNan = math.roundMoney(NaN);
+  expect(isNaN(roundedNan)).toBe(true);
 });
-

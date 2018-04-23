@@ -1,39 +1,32 @@
-
 // ===================
 // ACCUMULATORS
 // ===================
 
 /**
-* Creates an array containing the members in
-*     `memberList` that pass `memberTest()`
-*/
-const getEveryMember = function ( memberList, memberTest ) {
+ * Creates an array containing the members in
+ *     `memberList` that pass `memberTest()`
+ */
+const getEveryMember = function(memberList, memberTest) {
+  var members = [];
 
-  var members   = [];
-
-  for ( let memi = 0; memi < memberList.length; memi++ ) {
-
-    let member = memberList[ memi ];
-    if ( memberTest( member ) ) {
-      members.push( member );
+  for (let memi = 0; memi < memberList.length; memi++) {
+    let member = memberList[memi];
+    if (memberTest(member)) {
+      members.push(member);
     }
-
   }
 
   return members;
-
-};  // End getEveryMember()
-
+}; // End getEveryMember()
 
 /**
  * Creates an array containing the members in
  *     a `client`s household that pass `memberTest()`
  */
-const getEveryMemberOfHousehold = function ( client, memberTest ) {
+const getEveryMemberOfHousehold = function(client, memberTest) {
   var household = client.household;
-  return getEveryMember( household, memberTest );
-};  // End getEveryMemberOfHousehold()
-
+  return getEveryMember(household, memberTest);
+}; // End getEveryMemberOfHousehold()
 
 // ===================
 // TESTERS
@@ -41,25 +34,21 @@ const getEveryMemberOfHousehold = function ( client, memberTest ) {
 
 // --- HEAD OR SPOUSE --- \\
 
-const isHeadOrSpouse = function ( member ) {
-  return member.m_role === 'head' || member.m_role === 'spouse';
-};  // End isHeadOrSpouse()
+const isHeadOrSpouse = function(member) {
+  return member.m_role === "head" || member.m_role === "spouse";
+}; // End isHeadOrSpouse()
 
+const isNotHeadOrSpouse = function(member) {
+  return member.m_role !== "head" && member.m_role !== "spouse";
+}; // End isNotHeadOrSpouse()
 
-const isNotHeadOrSpouse = function ( member ) {
-  return member.m_role !== 'head' && member.m_role !== 'spouse';
-};  // End isNotHeadOrSpouse()
+const getHeadOrSpouseMembers = function(memberList) {
+  return getEveryMember(memberList, isHeadOrSpouse);
+}; // End getHeadOrSpouseMembers()
 
-
-const getHeadOrSpouseMembers = function ( memberList ) {
-  return getEveryMember( memberList, isHeadOrSpouse );
-};  // End getHeadOrSpouseMembers()
-
-
-const getHeadOrSpouseOfHousehold = function ( client ) {
-  return getEveryMemberOfHousehold( client, isHeadOrSpouse );
-};  // End getHeadOrSpouseOfHousehold()
-
+const getHeadOrSpouseOfHousehold = function(client) {
+  return getEveryMemberOfHousehold(client, isHeadOrSpouse);
+}; // End getHeadOrSpouseOfHousehold()
 
 // --- DEPENDENTS --- \\
 /**
@@ -67,74 +56,61 @@ const getHeadOrSpouseOfHousehold = function ( client ) {
  *     I think that on tax forms it's possible to claim people as
  *     dependents until age 26. */
 
-const isDependent = function ( member ) {
-  return (member.m_age <= 18 || member.m_disabled) && isNotHeadOrSpouse( member );
-};  // End isDependent()
+const isDependent = function(member) {
+  return (member.m_age <= 18 || member.m_disabled) && isNotHeadOrSpouse(member);
+}; // End isDependent()
 
+const getDependentMembers = function(memberList) {
+  return getEveryMember(memberList, isDependent);
+}; // End getDependentMembers()
 
-const getDependentMembers = function ( memberList ) {
-  return getEveryMember( memberList, isDependent );
-};  // End getDependentMembers()
-
-
-const getDependentsOfHousehold = function ( client ) {
-  return getEveryMemberOfHousehold( client, isDependent );
-};  // End getDependentsOfHousehold()
-
+const getDependentsOfHousehold = function(client) {
+  return getEveryMemberOfHousehold(client, isDependent);
+}; // End getDependentsOfHousehold()
 
 // --- DISABLED --- \\
 
-const isDisabled = function ( member ) {
+const isDisabled = function(member) {
   return member.m_disabled;
-};  // End isDisabled()
+}; // End isDisabled()
 
+const getDisabledMembers = function(memberList) {
+  return getEveryMember(memberList, isDisabled);
+}; // End getDisabledMembers()
 
-const getDisabledMembers = function ( memberList ) {
-  return getEveryMember( memberList, isDisabled );
-};  // End getDisabledMembers()
-
-
-const getDisabledOfHousehold = function ( client ) {
-  return getEveryMemberOfHousehold( client, isDisabled );
-};  // End getDisabledOfHousehold()
-
+const getDisabledOfHousehold = function(client) {
+  return getEveryMemberOfHousehold(client, isDisabled);
+}; // End getDisabledOfHousehold()
 
 // --- 12 OR UNDER --- \\
 // Yes, this is a thing because we had to split stuff up
 // strangely to accommodate mutliple programs more easily
-const isUnder13 = function ( member ) {
+const isUnder13 = function(member) {
   return member.m_age <= 12;
-};  // End isUnder13()
+}; // End isUnder13()
 
+const getUnder13Members = function(memberList) {
+  return getEveryMember(memberList, isUnder13);
+}; // End getUnder13Members()
 
-const getUnder13Members = function ( memberList ) {
-  return getEveryMember( memberList, isUnder13 );
-};  // End getUnder13Members()
-
-
-const getUnder13OfHousehold = function ( client ) {
-  return getEveryMemberOfHousehold( client, isUnder13 );
-};  // End getUnder13OfHousehold()
-
+const getUnder13OfHousehold = function(client) {
+  return getEveryMemberOfHousehold(client, isUnder13);
+}; // End getUnder13OfHousehold()
 
 export {
   getEveryMember,
   getEveryMemberOfHousehold,
-  
   isHeadOrSpouse,
   isNotHeadOrSpouse,
   getHeadOrSpouseMembers,
   getHeadOrSpouseOfHousehold,
-
   isDependent,
   getDependentMembers,
   getDependentsOfHousehold,
-  
   isDisabled,
   getDisabledMembers,
   getDisabledOfHousehold,
-
   isUnder13,
   getUnder13Members,
-  getUnder13OfHousehold,
+  getUnder13OfHousehold
 };

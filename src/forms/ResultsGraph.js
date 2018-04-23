@@ -1,141 +1,139 @@
-import _ from 'lodash'
-import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import _ from "lodash";
+import React, { Component } from "react";
+import { Line } from "react-chartjs-2";
 
 // Logic
-import { getSNAPBenefits } from '../programs/federal/snap';
-import { getHousingBenefit } from '../programs/massachusetts/housing';
+import { getSNAPBenefits } from "../programs/federal/snap";
+import { getHousingBenefit } from "../programs/massachusetts/housing";
 import {
   formatAxis,
   formatTitle,
   formatLabel,
   stackedTitle
-} from '../utils/charts/chartFunctions';
+} from "../utils/charts/chartFunctions";
 
 // Data
-import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
+import { PROGRAM_CHART_VALUES } from "../utils/charts/PROGRAM_CHART_VALUES";
 
 // Our Components
-import { FormPartsContainer } from './formHelpers';
-import { GraphTimeButtons} from '../components/GraphTimeButtons';
+import { FormPartsContainer } from "./formHelpers";
+import { GraphTimeButtons } from "../components/GraphTimeButtons";
 
-const MAX_X_MONTHLY = 100000/12;
+const MAX_X_MONTHLY = 100000 / 12;
 const MULTIPLIERS = {
-  'Weekly': 1/(4 + 1/3),
-  'Monthly': 1,
-  'Yearly': 12
+  Weekly: 1 / (4 + 1 / 3),
+  Monthly: 1,
+  Yearly: 12
 };
 
-
 class verticalLinePlugin {
-
-  constructor () {
+  constructor() {
     this.xRange = [];
     this.income = 0;
   }
 
-  afterDatasetsDraw = ( chart ) => {
+  afterDatasetsDraw = chart => {
     const xRange = this.xRange,
-          income = this.income;
+      income = this.income;
 
     const i = xRange.findIndex(val => income < val);
-    const positionBetweenTwoPoints = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
+    const positionBetweenTwoPoints =
+      (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
 
     const data = chart.getDatasetMeta(0).data;
     const prevX = data[i - 1]._model.x;
     const currX = data[i]._model.x;
-    const offset = Math.floor(positionBetweenTwoPoints * (currX - prevX) + prevX);
+    const offset = Math.floor(
+      positionBetweenTwoPoints * (currX - prevX) + prevX
+    );
 
     const ctx = chart.chart.ctx;
-    const scale = chart.scales['y-axis-0'];
+    const scale = chart.scales["y-axis-0"];
 
     ctx.save();
 
     ctx.beginPath();
-    ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
+    ctx.strokeStyle = "rgba(50, 50, 50, 0.5)";
     ctx.lineWidth = 2;
     ctx.setLineDash([5, 5]);
     ctx.moveTo(offset, scale.top);
     ctx.lineTo(offset, scale.bottom);
     ctx.stroke();
 
-    ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
-    ctx.textAlign = 'left';
-    const lineHeight = ctx.measureText('M').width * 1.2;
+    ctx.fillStyle = "rgba(50, 50, 50, 0.5)";
+    ctx.textAlign = "left";
+    const lineHeight = ctx.measureText("M").width * 1.2;
     const xMargin = 5;
     const yMargin = 200;
-    ctx.fillText('Future', offset + xMargin, yMargin);
-    ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
+    ctx.fillText("Future", offset + xMargin, yMargin);
+    ctx.fillText("Income", offset + xMargin, lineHeight + yMargin);
 
     ctx.restore();
-  }
-};
-
-
+  };
+}
 
 var getData = {};
 
-getData.income = function ( xRange, client, multiplier ) {
+getData.income = function(xRange, client, multiplier) {
   return xRange;
-};  // End getData.income
+}; // End getData.income
 
-getData.snap = function ( xRange, client, multiplier ) {
-
-  var data = xRange.map( function ( income ) {
-    client.future.earned = income / multiplier;  // Turn it back into monthly
-    return getSNAPBenefits( client, 'future' ) * multiplier;
+getData.snap = function(xRange, client, multiplier) {
+  var data = xRange.map(function(income) {
+    client.future.earned = income / multiplier; // Turn it back into monthly
+    return getSNAPBenefits(client, "future") * multiplier;
   });
 
   return data;
-};  // End getData.snap
+}; // End getData.snap
 
-
-getData.section8 = function ( xRange, client, multiplier ) {
-
+getData.section8 = function(xRange, client, multiplier) {
   client.current.contractRent = client.current.contractRent || 1000;
-  client.current.earned       = 0;
+  client.current.earned = 0;
 
-  var data = xRange.map( function ( income ) {
+  var data = xRange.map(function(income) {
     // New renting data
-    client.future.earned  = income / multiplier;  // Turn it back into monthly
-    var monthlySubsidy        = getHousingBenefit( client, 'future' );
+    client.future.earned = income / multiplier; // Turn it back into monthly
+    var monthlySubsidy = getHousingBenefit(client, "future");
 
     // Prep for next loop
     // Will use current values to calculate new values
-    var newShare                  = client.current.contractRent - monthlySubsidy;
-    client.current.rentShare  = newShare;
-    client.current.earned     = client.future.earned;
+    var newShare = client.current.contractRent - monthlySubsidy;
+    client.current.rentShare = newShare;
+    client.current.earned = client.future.earned;
 
     return monthlySubsidy * multiplier;
   });
 
   return data;
-};  // End getData.section8()
-
+}; // End getData.section8()
 
 /** Returns the graph data formated in a way our graph library understands. */
-const getDatasets = function ( xRange, client, multiplier, activePrograms, extraProps ) {
-
+const getDatasets = function(
+  xRange,
+  client,
+  multiplier,
+  activePrograms,
+  extraProps
+) {
   var datasets = [];
 
-  for ( let programi = 0; programi < activePrograms.length; programi++ ) {
+  for (let programi = 0; programi < activePrograms.length; programi++) {
+    let programName = activePrograms[programi],
+      graphFrosting = PROGRAM_CHART_VALUES[programName];
 
-    let programName   = activePrograms[ programi ],
-        graphFrosting = PROGRAM_CHART_VALUES[ programName ];
-
-    datasets.push( {
+    datasets.push({
       label: graphFrosting.name,
       backgroundColor: graphFrosting.color,
       borderColor: graphFrosting.color,
       /** Need a new object so client's data doesn't get changed. */
-      data: getData[ programName ]( xRange, _.cloneDeep( client ), multiplier ),
-      ...extraProps[ programName ]
+      data: getData[programName](xRange, _.cloneDeep(client), multiplier),
+      ...extraProps[programName]
     });
-  }  // end for programs in program chart values
+  } // end for programs in program chart values
 
   return datasets;
-};  // End getDatasets()
-
+}; // End getDatasets()
 
 // ===============
 // GRAPH DATA
@@ -148,32 +146,37 @@ const getDatasets = function ( xRange, client, multiplier, activePrograms, extra
  * }}}
  */
 class GrossGraph extends Component {
-
-  constructor ( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
     this.state = {
       verticalLine: new verticalLinePlugin()
-    }
+    };
   }
 
-  render () {
+  render() {
     const { client, multiplier, activePrograms } = this.props;
 
     // Adjust to time-interval, round to hundreds
-    var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
-        interval  = Math.ceil((max/100)/10) * 10;
+    var max = Math.ceil(MAX_X_MONTHLY * multiplier / 100) * 100,
+      interval = Math.ceil(max / 100 / 10) * 10;
 
-    var withIncome    = activePrograms.slice();
-    withIncome.unshift( 'income' );
+    var withIncome = activePrograms.slice();
+    withIncome.unshift("income");
 
-    var xRange        = _.range(0, max, interval),
-        extraProps    = { income: { fill: 'origin' } },
-        datasets      = getDatasets( xRange, client, multiplier, withIncome, extraProps );
+    var xRange = _.range(0, max, interval),
+      extraProps = { income: { fill: "origin" } },
+      datasets = getDatasets(
+        xRange,
+        client,
+        multiplier,
+        withIncome,
+        extraProps
+      );
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var income  = client.future.earned * multiplier,
-        hack    = this.state.verticalLine;
+    var income = client.future.earned * multiplier,
+      hack = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
@@ -181,87 +184,95 @@ class GrossGraph extends Component {
       data: {
         labels: xRange,
         datasets: datasets
-      },  // end `data`
+      }, // end `data`
       options: {
         title: {
           display: true,
-          text: 'All Money Coming in as Income Changes'
-        },  // end `title`
+          text: "All Money Coming in as Income Changes"
+        }, // end `title`
         elements: {
-          line: { fill: '-1' },
+          line: { fill: "-1" },
           point: {
             radius: 0,
             hitRadius: 10,
             hoverRadius: 10
           }
-        },  // end `elements`
+        }, // end `elements`
         scales: {
-          yAxes: [{
-            stacked: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Total Money Coming In ($)'
-            },
-            ticks: {
-              beginAtZero: true,
-              callback: formatAxis
+          yAxes: [
+            {
+              stacked: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Total Money Coming In ($)"
+              },
+              ticks: {
+                beginAtZero: true,
+                callback: formatAxis
+              }
             }
-          }],  // end `yAxes`
-          xAxes: [{
-            stacked: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Annual Income ($)'
-            },
-            ticks: {
-              callback: formatAxis
+          ], // end `yAxes`
+          xAxes: [
+            {
+              stacked: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Annual Income ($)"
+              },
+              ticks: {
+                callback: formatAxis
+              }
             }
-          }]  // end `xAxes`
-        },  // end `scales`
+          ] // end `xAxes`
+        }, // end `scales`
         tooltips: {
           callbacks: {
             title: stackedTitle,
             label: formatLabel
           }
-        }  // end `tooltips`
-      },  // end `options`
+        } // end `tooltips`
+      }, // end `options`
       plugins: [this.state.verticalLine]
-    };  // end `stackedAreaProps`
+    }; // end `stackedAreaProps`
 
-    return (
-      <Line {...stackedAreaProps} />
-    );
+    return <Line {...stackedAreaProps} />;
   }
-};  // End <GrossGraph>
-
+} // End <GrossGraph>
 
 class BenefitGraph extends Component {
-
-  constructor ( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
     this.state = {
       verticalLine: new verticalLinePlugin()
-    }
+    };
   }
 
-  render () {
+  render() {
     const { client, multiplier, activePrograms } = this.props;
 
     // Adjust to time-interval, round to hundreds
-    var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
-        interval  = Math.ceil((max/100)/10) * 10;
+    var max = Math.ceil(MAX_X_MONTHLY * multiplier / 100) * 100,
+      interval = Math.ceil(max / 100 / 10) * 10;
 
-    var xRange      = _.range(0, max, interval),  // x-axis/income numbers
-        extraProps  = { snap: { fill: false }, section8: { fill: false } },
-        datasets    = getDatasets( xRange, client, multiplier, activePrograms, extraProps );
+    var xRange = _.range(0, max, interval), // x-axis/income numbers
+      extraProps = { snap: { fill: false }, section8: { fill: false } },
+      datasets = getDatasets(
+        xRange,
+        client,
+        multiplier,
+        activePrograms,
+        extraProps
+      );
 
     // If there's no data to show, don't show the table
-    if ( datasets.length === 0 ) { return null; }
+    if (datasets.length === 0) {
+      return null;
+    }
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var income  = client.future.earned * multiplier,
-        hack    = this.state.verticalLine;
+    var income = client.future.earned * multiplier,
+      hack = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
@@ -269,103 +280,105 @@ class BenefitGraph extends Component {
       data: {
         labels: xRange,
         datasets: datasets
-      },  // end `data`
+      }, // end `data`
       options: {
         title: {
           display: true,
-            text: 'Individual Benefit Amounts for Household as Income Changes'
+          text: "Individual Benefit Amounts for Household as Income Changes"
         },
         showLines: true,
         scales: {
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Benefit Value ($)'
-            },
-            ticks: {
-              beginAtZero: true,
-              /* chart.js v2.7 requires a callback function */
-              callback: formatAxis
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "Benefit Value ($)"
+              },
+              ticks: {
+                beginAtZero: true,
+                /* chart.js v2.7 requires a callback function */
+                callback: formatAxis
+              }
             }
-          }],  // end `yAxes`
-          xAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Annual Income ($)'
-            },
-            ticks: {
-              callback: formatAxis
+          ], // end `yAxes`
+          xAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "Annual Income ($)"
+              },
+              ticks: {
+                callback: formatAxis
+              }
             }
-          }]  // end `xAxes`
-        },  // end `scales`
+          ] // end `xAxes`
+        }, // end `scales`
         tooltips: {
           callbacks: {
             title: formatTitle,
             label: formatLabel
           }
-        }  // end `tooltips`
-      },  // end `options`
+        } // end `tooltips`
+      }, // end `options`
       plugins: [this.state.verticalLine]
-    };  // end lineProps
+    }; // end lineProps
 
-    return (
-      <Line {...lineProps} />
-    );
+    return <Line {...lineProps} />;
   }
-
-};  // End <BenefitGraph>
-
+} // End <BenefitGraph>
 
 class GraphHolder extends Component {
-
-  constructor ( props ) {
-    super( props );
-    this.state = { activeID: 'Yearly', multiplier: MULTIPLIERS[ 'Yearly' ] };
+  constructor(props) {
+    super(props);
+    this.state = { activeID: "Yearly", multiplier: MULTIPLIERS["Yearly"] };
   }
 
-  onClick = ( evnt ) => {
+  onClick = evnt => {
     var id = evnt.target.id;
-    this.setState({ activeID: id, multiplier: MULTIPLIERS[ id ] });
-  }
+    this.setState({ activeID: id, multiplier: MULTIPLIERS[id] });
+  };
 
-  render () {
-    const { activeID, multiplier }  = this.state,
-          { Graph, client }         = this.props,
-          { current }               = client,
-          activePrograms            = [];
+  render() {
+    const { activeID, multiplier } = this.state,
+      { Graph, client } = this.props,
+      { current } = client,
+      activePrograms = [];
 
     // The ids later used to access all program-specific data and functions
     // Only active programs are added
-    if ( current.hasHousing ) { activePrograms.push( 'section8' ); }
-    if ( current.hasSnap )    { activePrograms.push( 'snap' ); }
+    if (current.hasHousing) {
+      activePrograms.push("section8");
+    }
+    if (current.hasSnap) {
+      activePrograms.push("snap");
+    }
 
     return (
-      <div className='graph-holder'>
-        <Graph client={client} multiplier={multiplier} activePrograms={activePrograms} />
+      <div className="graph-holder">
+        <Graph
+          client={client}
+          multiplier={multiplier}
+          activePrograms={activePrograms}
+        />
         <GraphTimeButtons activeID={activeID} onClick={this.onClick} />
       </div>
     );
-  };  // End render()
-
-};  // End <GraphHolder>
-
+  } // End render()
+} // End <GraphHolder>
 
 const ResultsGraph = ({ client, previousStep, resetClient }) => {
-
   return (
-    <div className = 'result-page flex-item flex-column'>
+    <div className="result-page flex-item flex-column">
       <FormPartsContainer
-        title     = {'Graphs'}
-        left      = {{ name: 'Go Back', func: previousStep }}
-        right     = {{ name: 'Reset', func: resetClient }}
+        title={"Graphs"}
+        left={{ name: "Go Back", func: previousStep }}
+        right={{ name: "Reset", func: resetClient }}
       >
         <GraphHolder client={client} Graph={GrossGraph} />
         <GraphHolder client={client} Graph={BenefitGraph} />
       </FormPartsContainer>
     </div>
-  )
+  );
+}; // End Results()
 
-};  // End Results()
-
-
-export default ResultsGraph
+export default ResultsGraph;

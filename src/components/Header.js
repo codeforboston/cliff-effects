@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { Segment } from 'semantic-ui-react';
+import { Segment } from "semantic-ui-react";
 
-import { MainMenu } from './MainMenu';
+import { MainMenu } from "./MainMenu";
 
 class Header extends React.Component {
   render() {
     return (
       <Segment
         inverted
-        textAlign='center'
-        style={{ padding: '1em 0em' }}
+        textAlign="center"
+        style={{ padding: "1em 0em" }}
         vertical
-        color='teal'
+        color="teal"
       >
         <MainMenu />
       </Segment>

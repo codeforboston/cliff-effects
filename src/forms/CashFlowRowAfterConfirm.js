@@ -1,43 +1,40 @@
-import React from 'react';
+import React from "react";
 
-import { CashFlowRow, ControlledRadioYesNo } from './formHelpers';
+import { CashFlowRow, ControlledRadioYesNo } from "./formHelpers";
 
-const IncomeField = (props) => (
-  <CashFlowRow {...props} type={'income'} />
-);
+const IncomeField = props => <CashFlowRow {...props} type={"income"} />;
 
 /**
  * Query the user before presenting a CashFlowRow
- * 
+ *
  * @todo Update params
- * 
+ *
  * @param {object} props
  * @param {string} props.generic - The key of the value being set.
  * @param {string} props.confirmLabel - Label for preceding confirmation.
  * @param {string} props.children - Label for fields updating the value.
- * 
+ *
  * @extends React.Component
  * @see CashFlowRow
  */
 class CashFlowRowAfterConfirm extends React.Component {
   constructor(props) {
     super(props);
-    
+
     const value = props.timeState[props.generic];
     this.state = {
       showField: value !== 0,
       storedValue: value
-    }
+    };
   }
 
   handleChange = (evt, inputProps) => {
-
-    if(inputProps.value === 'Yes') {
+    if (inputProps.value === "Yes") {
       this.showField(evt);
     } else {
       this.hideField(evt);
     }
-  }
+  };
 
   hideField(evt) {
     const { generic, setClientProperty, timeState } = this.props;
@@ -72,17 +69,15 @@ class CashFlowRowAfterConfirm extends React.Component {
     const { showField } = this.state;
 
     return (
-
       <div>
-
         <ControlledRadioYesNo
-          labelText = { confirmLabel }
-          checked   = { showField }
-          name      = { 'confirm_' + generic }
-          onChange  = { this.handleChange } />
-        
-        {showField && <IncomeField generic={generic} {...rest} />}
+          labelText={confirmLabel}
+          checked={showField}
+          name={"confirm_" + generic}
+          onChange={this.handleChange}
+        />
 
+        {showField && <IncomeField generic={generic} {...rest} />}
       </div>
     );
   }
