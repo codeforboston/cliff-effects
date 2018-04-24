@@ -1,10 +1,15 @@
 import React from 'react';
-import { Form, Divider, Header, Message, Button } from 'semantic-ui-react';
+import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 import { Bar } from 'react-chartjs-2';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 import { BenefitsTable } from './BenefitsTable';
+import {
+  GraphHolder,
+  GrossGraph,
+  BenefitGraph
+} from './ResultsGraph';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -55,29 +60,6 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
     </div>
   );
 };  // End IncomeForm() Component
-
-const Table = function ({ client, feedbackPrompt }) {
-  return(
-    <div>
-    <Header as='h1' className='ui Header teal align centered'>Results</Header>
-    <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
-    {/* @todo Export/clean up styles  */}
-    <Message visible warning style={{ 'textAlign': 'center' }}>
-      This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
-      <Button
-        fluid
-        color='teal'
-        style={{ 'display': 'block',
-                 'marginLeft': 'auto',
-                 'marginRight': 'auto',
-                 'marginTop': '10px',
-                 'maxWidth': '400px' }}
-        onClick={feedbackPrompt}>Submit Feedback</Button>
-    </Message>
-    <BenefitsTable client={client} />
-    </div>
-  );
-};
 
 const Chart = function({ client }) {
 
@@ -166,14 +148,19 @@ const Chart = function({ client }) {
 
 
   return (
-    <div>
-      <Header as='h1' className='ui Header teal align centered'>Chart</Header>
-      <Bar {...stackedBarProps} />
-    </div>
+    <Bar {...stackedBarProps} />
   );
 
 };  // End <Chart>
 
+const TabbedVisualizations = ({ client }) => (
+  <Tab panes={[
+    { menuItem: "Compare Table", render: () => <BenefitsTable client={client} /> },
+    { menuItem: "Compare Chart", render: () => <Chart client={client} /> },
+    { menuItem: "Gross", render: () => <GraphHolder client={client} Graph={GrossGraph} /> },
+    { menuItem: "Benefits", render: () => <GraphHolder client={client} Graph={BenefitGraph} /> }
+  ]}/>
+);
 
 /** @todo description
 *
@@ -198,9 +185,8 @@ const PredictionsStep = function ( props ) {
         right     = {{name: 'Reset', func: props.resetClient}}>
           <IncomeForm setClientProperty={setTimeProp} future={props.client.future} time={'future'} />
           <Divider className='ui section divider hidden' />
-          <Table client={props.client} feedbackPrompt={props.feedbackPrompt} />
-          <Divider className='ui section divider hidden' />
-          <Chart client={props.client}/>
+          <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
+          <TabbedVisualizations client={props.client} />
       </FormPartsContainer>
     </Form>
   );
