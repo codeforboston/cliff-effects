@@ -1,6 +1,7 @@
 // REACT COMPONENTS
 import React from 'react';
 import { Form } from 'semantic-ui-react';
+import { injectIntl } from 'react-intl';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
@@ -8,6 +9,18 @@ import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
 
+const LocalizedRadioYesNo = injectIntl(({ intl, checked, name, onChange }) => {
+  const { formatMessage } = intl;
+
+  return (
+    <ControlledRadioYesNo
+      labelText={formatMessage({ id: `${name}.label` })}
+      name={name}
+      checked={checked}
+      onChange={onChange}
+    />
+  );
+});
 
 /** @todo description
 *
@@ -23,14 +36,12 @@ const CurrentBenefitsContent = ({ current, setClientProperty }) => {
 
   return (
     <div >
-      <ControlledRadioYesNo
-        labelText = "Do you have Section 8 Housing?"
+      <LocalizedRadioYesNo
         checked={current.hasHousing}
         name="hasHousing"
         onChange={setClientProperty}
       />
-      <ControlledRadioYesNo
-        labelText = "Do you have Snap?"
+      <LocalizedRadioYesNo
         checked={current.hasSnap}
         name="hasSnap"
         onChange={setClientProperty}
