@@ -1,6 +1,6 @@
 // REACT COMPONENTS
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Icon, Popup } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
 // PROJECT COMPONENTS
@@ -10,13 +10,20 @@ import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
 import { getTimeSetter } from '../utils/getTimeSetter';
 
 const LocalizedRadioYesNo = injectIntl(({ intl, checked, name, onChange }) => {
-  const { formatMessage } = intl;
+  const { messages, formatMessage } = intl;
+  const children = messages[`${name}.hint`] ?
+    <Popup
+      trigger={<Icon name="help circle outline" />}
+      content={formatMessage({ id: `${name}.hint` })}
+    /> :
+    null;
 
   return (
     <ControlledRadioYesNo
+      checked={checked}
+      children={children}
       labelText={formatMessage({ id: `${name}.label` })}
       name={name}
-      checked={checked}
       onChange={onChange}
     />
   );
