@@ -562,8 +562,6 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
  *     input element props object. Adjustment is to make sure
  *     the property `checked` is under control since there are
  *     issues further up the line.
- * @property {React.Node} props.children - Arbitrary content rendered
- *     after radio buttons.
  */
 class ControlledRadioYesNo extends Component {
   constructor(props ){
@@ -607,7 +605,6 @@ class ControlledRadioYesNo extends Component {
             onChange={this.handleChange.bind(this)}
           />
         </Form.Field>
-        {this.props.children}
       </div>
     )
   }
