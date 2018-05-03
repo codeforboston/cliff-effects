@@ -583,11 +583,8 @@ class ControlledRadioYesNo extends Component {
   render(){
     return (
       <div className="radio-yes-no">
-        <Form.Field >
-        <b>{this.props.labelText}</b>
 
-        </Form.Field>
-        <Form.Field>
+         <Form.Field>
           <Radio
             label='Yes'
             name={this.props.name}
@@ -605,6 +602,11 @@ class ControlledRadioYesNo extends Component {
             onChange={this.handleChange.bind(this)}
           />
         </Form.Field>
+        <Form.Field >
+        <b>{this.props.labelText}</b>
+
+        </Form.Field>
+       
       </div>
     )
   }

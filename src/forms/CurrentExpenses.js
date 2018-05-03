@@ -187,7 +187,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
       { current.shelter === 'voucher'
       ? null
       : <div>
-
+          
         <Header as='h4'>What is your housing situation?</Header>
         <HousingRadio
           currentValue={current.shelter}
