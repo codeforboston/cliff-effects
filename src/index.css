@@ -195,9 +195,11 @@ form elements. */
 .radio-yes-no > div {
   padding-left: 20px;
 }
-.radio-yes-no > div:nth-of-type(1) {
+
+.radio-yes-no :first-child {
   padding-left: 0;
 }
+
 
 /* FEEDBACK BUTTON */
 #feedback_fixed {

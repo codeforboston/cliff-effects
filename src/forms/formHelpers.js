@@ -425,7 +425,11 @@ class ManagedNumberField extends Component {
     var { value } = inputProps,
           valid   = validation( value );
 
-    if ( valid ) { store( evnt, inputProps, otherData ); }
+    if ( valid ) {
+      store( evnt, inputProps, otherData );
+    } else if ( value.length === 0 ) {  // treat empty string as 0
+      store( evnt, { ...inputProps, value: '0' }, otherData );
+    }
     this.setState({ focusedVal: value, valid: valid });
   }  // End handleChange()
 
@@ -579,11 +583,8 @@ class ControlledRadioYesNo extends Component {
   render(){
     return (
       <div className="radio-yes-no">
-        <Form.Field >
-        <b>{this.props.labelText}</b>
 
-        </Form.Field>
-        <Form.Field>
+         <Form.Field>
           <Radio
             label='Yes'
             name={this.props.name}
@@ -601,6 +602,11 @@ class ControlledRadioYesNo extends Component {
             onChange={this.handleChange.bind(this)}
           />
         </Form.Field>
+        <Form.Field >
+        <b>{this.props.labelText}</b>
+
+        </Form.Field>
+       
       </div>
     )
   }
