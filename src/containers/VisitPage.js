@@ -13,6 +13,9 @@ import { cloneDeep } from 'lodash';
 // import { clientList } from '../config/dummyClients';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
+// Logic
+import { getTranslate } from '../utils/getTranslate';
+
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/ConfirmLeave';
@@ -66,7 +69,8 @@ class VisitPage extends Component {
         feedbackOpen: false,
         // Hack for MVP
         oldShelter: clone.current.shelter,
-        userChanged: {}
+        userChanged: {},
+        translate: getTranslate( 'en' ),
     };  // end this.state {}
 
     this.steps = [
@@ -130,6 +134,10 @@ class VisitPage extends Component {
 
   feedbackPrompt = () => {
     this.setState({ feedbackOpen: true });
+  }
+
+  setTranslate = ( evnt, inputProps ) => {
+    this.setState({ translate: getTranslate( inputProps.value ) });
   }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -215,7 +223,8 @@ class VisitPage extends Component {
                      changeClient={this.changeClient}
                      saveForm={this.saveForm}
                      resetClient={this.resetClientPrompt}
-                     feedbackPrompt={this.feedbackPrompt} />
+                     feedbackPrompt={this.feedbackPrompt}
+                     translate={this.state.translate} />
         <FeedbackAnytime feedbackPrompt={this.feedbackPrompt} />
         <ResetAnytime resetClient={this.resetClientPrompt} />
       </div>
