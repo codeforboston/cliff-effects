@@ -14,7 +14,7 @@ const CLIENT_DEFAULTS = {
   current: {
     // Current programs
     hasSnap:                        false,            // boolean
-    hasHousing:                     false,            // boolean
+    hasSection8:                    false,            // boolean
     // Household
     // 'm_' for 'member'
     household:  [{                  // 'head' member  // one or more member objects

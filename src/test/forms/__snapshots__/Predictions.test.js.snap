@@ -45,7 +45,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           "earnedBecauseOfAdultCare": 0,
           "earnedBecauseOfChildCare": 0,
           "fuelAssistance": false,
-          "hasHousing": false,
+          "hasSection8": false,
           "hasSnap": false,
           "household": Array [
             Object {
@@ -102,7 +102,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "earnedBecauseOfAdultCare": 0,
             "earnedBecauseOfChildCare": 0,
             "fuelAssistance": false,
-            "hasHousing": false,
+            "hasSection8": false,
             "hasSnap": false,
             "household": Array [
               Object {
@@ -149,7 +149,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "earnedBecauseOfAdultCare": 0,
             "earnedBecauseOfChildCare": 0,
             "fuelAssistance": false,
-            "hasHousing": false,
+            "hasSection8": false,
             "hasSnap": false,
             "household": Array [
               Object {
@@ -205,7 +205,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "earnedBecauseOfAdultCare": 0,
             "earnedBecauseOfChildCare": 0,
             "fuelAssistance": false,
-            "hasHousing": false,
+            "hasSection8": false,
             "hasSnap": false,
             "household": Array [
               Object {
@@ -252,7 +252,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "earnedBecauseOfAdultCare": 0,
             "earnedBecauseOfChildCare": 0,
             "fuelAssistance": false,
-            "hasHousing": false,
+            "hasSection8": false,
             "hasSnap": false,
             "household": Array [
               Object {

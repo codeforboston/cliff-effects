@@ -11,7 +11,7 @@ const CLIENT_ROW_N = {
   current: {
     // Current programs
     hasSnap:                        COL-T         boolean
-    hasHousing:                     COL-Y         boolean             For now, 'Public Housing' or 'MRVP' counts
+    hasSection8:                    COL-Y         boolean             For now, 'Public Housing' or 'MRVP' counts
     // Household
     household:  [                   COL-G         one or more         Distribution unclear
       {                             -----                             'head' of household should always be first
@@ -71,7 +71,7 @@ const CLIENT_ROW_N = {
 //   current: {
 //     // Current programs
 //     hasSnap:                        false,
-//     hasHousing:                     false,
+//     hasSection8:                    false,
 //     // Household
 //     household:  [{
 //         m_age:                      66,
@@ -127,7 +127,7 @@ const CLIENT_ROW_3 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     false,  // Public Housing (but NOT Section 8)
+    hasSection8:                    false,  // Public Housing (but NOT Section 8)
     // Household
     household:  [
       {
@@ -223,7 +223,7 @@ const CLIENT_ROW_4 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     true,
+    hasSection8:                    true,
     // Household
     household:  [
       {
@@ -284,7 +284,7 @@ const CLIENT_ROW_5 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     false,
+    hasSection8:                    false,
     // Household
     household:  [
       {
@@ -345,7 +345,7 @@ const CLIENT_ROW_6 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     false,
+    hasSection8:                    false,
     // Household
     household:  [
       {
@@ -406,7 +406,7 @@ const CLIENT_ROW_7 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     false, // Public Housing (but NOT Section 8)
+    hasSection8:                    false, // Public Housing (but NOT Section 8)
     // Household
     household:  [
       {
@@ -472,7 +472,7 @@ const CLIENT_ROW_8 = {
   current: {
     // Current programs
     hasSnap:                        false,
-    hasHousing:                     true,
+    hasSection8:                    true,
     // Household
     household:  [
       {
@@ -543,7 +543,7 @@ const CLIENT_ROW_9 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     true,
+    hasSection8:                    true,
     // Household
     // 'm_' for 'member'
     household:  [
@@ -605,7 +605,7 @@ const CLIENT_ROW_10 = {
   current: {
     // Current programs
     hasSnap:                        true,
-    hasHousing:                     true,
+    hasSection8:                    true,
     // Household
     household:  [
       {
@@ -672,7 +672,7 @@ const CLIENT_ROW_10 = {
 //   current: {
 //     // Current programs
 //     hasSnap:                        false,
-//     hasHousing:                     false,
+//     hasSection8:                    false,
 //     // Household
 //     household:  [
 //       {
