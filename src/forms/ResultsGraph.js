@@ -369,3 +369,9 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
 
 
 export default ResultsGraph
+
+export {
+  GraphHolder,
+  GrossGraph,
+  BenefitGraph
+};
