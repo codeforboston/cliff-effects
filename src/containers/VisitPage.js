@@ -14,7 +14,7 @@ import { cloneDeep } from 'lodash';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Logic
-import { getTranslate } from '../utils/getTranslate';
+import { getTranslate, getTextForLanguage } from '../utils/getTranslate';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
@@ -71,6 +71,7 @@ class VisitPage extends Component {
       oldShelter:   clone.current.shelter,
       userChanged:  {},
       translate:    getTranslate('en'),
+      snippets:     getTextForLanguage('en'),
     };  // end this.state {}
 
     this.steps = [
@@ -85,7 +86,7 @@ class VisitPage extends Component {
 
     const current = Object.assign(defaultClient.current, client.current);
     const future = Object.assign(defaultClient.future, client.future);
-    
+
     const nextClient = { current: current, future: future };
 
     this.setState({ client: nextClient });
@@ -135,6 +136,10 @@ class VisitPage extends Component {
   setTranslate = (evnt, inputProps) => {
     this.setState({ translate: getTranslate(inputProps.value) });
   };
+
+  setLanguage = ( evnt, inputProps ) => {
+    this.setState({ snippets: getTextForLanguage( inputProps.value ) });
+  }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
@@ -219,7 +224,8 @@ class VisitPage extends Component {
           saveForm={ this.saveForm }
           resetClient={ this.resetClientPrompt }
           feedbackPrompt={ this.feedbackPrompt }
-          translate={ this.state.translate } />
+          translate={ this.state.translate }
+          snippets={ this.state.snippets } />
         <FeedbackAnytime feedbackPrompt={ this.feedbackPrompt } />
         <ResetAnytime resetClient={ this.resetClientPrompt } />
       </div>

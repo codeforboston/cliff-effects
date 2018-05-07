@@ -73,4 +73,27 @@ const getTranslate = function (appLanguageName) {
 };  // End getTranslate()
 
 
-export { getTranslate };
+/** Returns the object named by langName that contains
+ * the text snippets of that language. If that language
+ * doesn't exist, it warns the coder and returns English.
+ */
+const getTextForLanguage = function (langName) {
+
+  if (localizations[ langName ]) {
+
+    return localizations[ langName ];
+
+  } else {
+
+    console.warn('There\'s no localization for ' + langName + '. Defaulting to English.');
+    return localizations.en;
+
+  }
+
+};  // End getTextForLanguage()
+
+
+export {
+  getTranslate,
+  getTextForLanguage,
+};
