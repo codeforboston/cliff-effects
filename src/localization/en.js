@@ -1,6 +1,6 @@
 export default {
-  'hasHousing.label':         'Do you have Section 8 Housing?',
-  'hasHousing.hint':          'Section 8 provides rental housing assistance.',
+  'hasSection8.label':        'Do you have Section 8 Housing?',
+  'hasSection8.hint':         'Section 8 provides rental housing assistance.',
   'hasSnap.label':            'Do you have SNAP?',
   'hasSnap.hint':             'SNAP provides assistance with buying food',
   'hasEarnedIncome.label':    'Do you have earned income?',

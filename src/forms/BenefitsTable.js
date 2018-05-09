@@ -31,8 +31,8 @@ const BenefitsTable = function ( props ) {
   var SNAPBenefitCurrent  = curr.hasSnap ? Math.round( getSNAPBenefits( client, 'current' ) ) : 0,
       SNAPBenefitFuture   = curr.hasSnap ? Math.round( getSNAPBenefits( client, 'future' ) ) : 0,
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8BenefitCurrent  = curr.hasHousing ? Math.round( getHousingBenefit( client, 'current' ) ) : 0,
-      sec8BenefitFuture   = curr.hasHousing ? Math.round( getHousingBenefit( client, 'future' ) ) : 0,
+      sec8BenefitCurrent  = curr.hasSection8 ? Math.round( getHousingBenefit( client, 'current' ) ) : 0,
+      sec8BenefitFuture   = curr.hasSection8 ? Math.round( getHousingBenefit( client, 'future' ) ) : 0,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
@@ -92,7 +92,7 @@ const SNAPBenefitRow = function( props ){
   };
 
 const Sec8BenefitRow  = function( props ){
-  if(!client.current.hasHousing) return (null)
+  if(!client.current.hasSection8) return (null)
     return (
       <Table.Row>
         <Table.Cell style={rowHeaderStyle}>Section 8 Housing</Table.Cell>
@@ -104,7 +104,7 @@ const Sec8BenefitRow  = function( props ){
 };
 
 const TotalBenefitsRow = function( props ){
-  if(!client.current.hasSnap || !client.current.hasHousing) return (null)
+  if(!client.current.hasSnap || !client.current.hasSection8) return (null)
     return(
       <Table.Row>
         <Table.Cell textAlign='right' width={3} style={totalsRowHeaderStyle}>Total Benefits</Table.Cell>

@@ -34,7 +34,7 @@ const stringToNumber = function ( str ) {
 const valueFixers = {
   // Current programs
   hasSnap:                        returnSame,
-  hasHousing:                     returnSame,
+  hasSection8:                    returnSame,
   // Household
   household:                      returnSame,
   m_age:                          returnSame,  // to positive int (validate in component?)
