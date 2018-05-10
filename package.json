@@ -22,8 +22,7 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build&&gh-pages -d build",
     "generateSNAPTests": "./node_modules/.bin/babel-node src/test/programs/federal/snap/generateTestCases",
-    "lint": "./node_modules/.bin/eslint src",
-    "format": "npm run lint -- --fix"
+    "lint": "./node_modules/.bin/eslint src --fix"
   },
   "homepage": "https://codeforboston.github.io/cliff-effects",
   "devDependencies": {
