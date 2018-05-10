@@ -34,7 +34,6 @@ const CLIENT_DEFAULTS = {
     socialSecurity:                 0,                // positive number
     alimony:                        0,                // positive number
     otherIncome:                    0,                // positive number
-    incomeExclusions:               0,                // positive number
     // Expenses
     childDirectCare:                0,                // positive number
     childBeforeAndAfterSchoolCare:  0,                // positive number
