@@ -23,10 +23,12 @@ const Footer = () => {
           <Grid.Column width={7}>
             <Header
               as='h4'
-              inverted>Cliff Effects Tool</Header>
+              inverted>Cliff Effects Tool
+            </Header>
             <p>Made with <Icon
               name='heart'
-              size='small' /> by Code for Boston</p>
+              size='small' /> by Code for Boston
+            </p>
           </Grid.Column>
         </Grid.Row>
       </Grid>

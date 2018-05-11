@@ -118,12 +118,14 @@ class FeedbackPrompt extends React.Component {
         <Modal.Actions>
           <Button
             onClick={this.close}
-            disabled={this.state.submitting}>Cancel</Button>
+            disabled={this.state.submitting}>Cancel
+          </Button>
           <Button
             onClick={this.submit}
             loading={this.state.submitting}
             disabled={this.state.submitting}
-            primary>Submit</Button>
+            primary>Submit
+          </Button>
         </Modal.Actions>
       </Modal>
     );

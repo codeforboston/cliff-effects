@@ -75,37 +75,47 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
         generic='earned'
         labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
-		  </CashFlowRow>
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='TAFDC'> TAFDC </CashFlowRow>
+        generic='TAFDC'> TAFDC 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='SSI'> SSI </CashFlowRow>
+        generic='SSI'> SSI 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='SSDI'> SSDI </CashFlowRow>
+        generic='SSDI'> SSDI 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='childSupportIn'> Child support received </CashFlowRow>
+        generic='childSupportIn'> Child support received 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='unemployment'> Unemployment </CashFlowRow>
+        generic='unemployment'> Unemployment 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='workersComp'> Worker’s comp </CashFlowRow>
+        generic='workersComp'> Worker’s comp 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='pension'> Pension </CashFlowRow>
+        generic='pension'> Pension 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='socialSecurity'> Social security </CashFlowRow>
+        generic='socialSecurity'> Social security 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='alimony'> Alimony </CashFlowRow>
+        generic='alimony'> Alimony 
+      </CashFlowRow>
       <CashFlowRow
         {...sharedProps}
-        generic='otherIncome'> Other income </CashFlowRow>
+        generic='otherIncome'> Other income 
+      </CashFlowRow>
       <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
 
     </div>

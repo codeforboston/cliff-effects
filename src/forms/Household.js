@@ -47,7 +47,8 @@ Columns.One = function ({ noMargin, children }) {
     ...columnStyle,
     marginTop: marginTop,
     width: '5em', 
-  }}> {children} </div>);
+  }}> {children} 
+  </div>);
 };
 
 Columns.Two = function ({ noMargin, children }) {
@@ -59,7 +60,8 @@ Columns.Two = function ({ noMargin, children }) {
     width: '20em',
     textAlign: 'left',
     paddingLeft: '1em', 
-  }}> {children} </div>);
+  }}> {children} 
+  </div>);
 };
 
 Columns.Three = function ({ noMargin, children }) {
@@ -69,7 +71,8 @@ Columns.Three = function ({ noMargin, children }) {
     ...columnStyle,
     marginTop: marginTop,
     width: '5em', 
-  }}> {children} </div>);
+  }}> {children} 
+  </div>);
 };
 
 Columns.Four = function ({ noMargin, children }) {
@@ -79,7 +82,8 @@ Columns.Four = function ({ noMargin, children }) {
     ...columnStyle,
     marginTop: marginTop,
     width: '10em', 
-  }}> {children} </div>);
+  }}> {children} 
+  </div>);
 };
 
 
@@ -265,7 +269,8 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
                 verticalAlign: 'text-top', 
               }} />
             : null
-          }</span>
+          }
+          </span>
         }
       </Columns.One>
 
@@ -401,7 +406,8 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
         <Columns.Two noMargin={true}>
           <Header
             as='h4'
-            color={'teal'}> Add a member </Header>
+            color={'teal'}> Add a member 
+          </Header>
         </Columns.Two>
 
         <Columns.Three noMargin={true} />

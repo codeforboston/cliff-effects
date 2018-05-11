@@ -61,10 +61,12 @@ const Table = function ({ client, feedbackPrompt }) {
     <div>
       <Header
         as='h1'
-        className='ui Header teal align centered'>Results</Header>
+        className='ui Header teal align centered'>Results
+      </Header>
       <Header
         as='h3'
-        className='ui Header align centered'>How will your income affect your future benefits?</Header>
+        className='ui Header align centered'>How will your income affect your future benefits?
+      </Header>
       {/* @todo Export/clean up styles  */}
       <Message
         visible
@@ -81,7 +83,8 @@ const Table = function ({ client, feedbackPrompt }) {
             'marginTop': '10px',
             'maxWidth': '400px', 
           }}
-          onClick={feedbackPrompt}>Submit Feedback</Button>
+          onClick={feedbackPrompt}>Submit Feedback
+        </Button>
       </Message>
       <BenefitsTable client={client} />
     </div>
@@ -182,7 +185,8 @@ const Chart = function({ client }) {
     <div>
       <Header
         as='h1'
-        className='ui Header teal align centered'>Chart</Header>
+        className='ui Header teal align centered'>Chart
+      </Header>
       <Bar {...stackedBarProps} />
     </div>
   );

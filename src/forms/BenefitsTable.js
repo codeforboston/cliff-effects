@@ -108,19 +108,23 @@ const BenefitsTable = function (props) {
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowHeaderStyle}>Total Benefits</Table.Cell>
+          style={totalsRowHeaderStyle}>Total Benefits
+        </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowStyle}>${totalBenefitCurrent} / month</Table.Cell>
+          style={totalsRowStyle}>${totalBenefitCurrent} / month
+        </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowStyle}>${totalBenefitFuture} / month</Table.Cell>
+          style={totalsRowStyle}>${totalBenefitFuture} / month
+        </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowStyle}>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / month</Table.Cell>
+          style={totalsRowStyle}>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / month
+        </Table.Cell>
       </Table.Row>
     );
   };
@@ -142,19 +146,23 @@ const BenefitsTable = function (props) {
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowHeaderStyle}>Net Total</Table.Cell>
+          style={totalsRowHeaderStyle}>Net Total
+        </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowStyle}>${netCurrent} / month</Table.Cell>
+          style={totalsRowStyle}>${netCurrent} / month
+        </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowStyle}>${netFuture} / month</Table.Cell>
+          style={totalsRowStyle}>${netFuture} / month
+        </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={3}
-          style={totalsRowStyle}>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / month</Table.Cell>
+          style={totalsRowStyle}>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / month
+        </Table.Cell>
       </Table.Row>
     );
   };
@@ -166,16 +174,20 @@ const BenefitsTable = function (props) {
           <Table.Row >
             <Table.Cell
               style={columnHeaderStyle}
-              width={3}>Benefit</Table.Cell>
+              width={3}>Benefit
+            </Table.Cell>
             <Table.Cell
               style={columnHeaderStyle}
-              width={3}>Current Benefits</Table.Cell>
+              width={3}>Current Benefits
+            </Table.Cell>
             <Table.Cell
               style={columnHeaderStyle}
-              width={3}>New Estimate</Table.Cell>
+              width={3}>New Estimate
+            </Table.Cell>
             <Table.Cell
               style={columnHeaderStyle}
-              width={3}>Difference</Table.Cell>
+              width={3}>Difference
+            </Table.Cell>
           </Table.Row>
         </Table.Header>
         <Table.Body>

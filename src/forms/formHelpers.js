@@ -50,7 +50,8 @@ const MassiveButton = function ({ className, func, children }) {
 const ExternalLink = function ({ href, children }) {
   return (<a
     href={href}
-    target='_blank'>{children}</a>);
+    target='_blank'>{children}
+  </a>);
 };
 
 
@@ -349,7 +350,8 @@ const RowMessage = function ({ validRow, message }) {
     result = <Label
       basic
       color='red'
-      pointing="left">{message}</Label>;
+      pointing="left">{message}
+    </Label>;
   }
 
   return result;
@@ -404,7 +406,8 @@ const ColumnHeading = function ({ type, colName, style, children }) {
       as='h4'
       className={classes}
       style={style}
-      color='teal'>{children}</Header>
+      color='teal'>{children}
+    </Header>
   );
 };  // End ColumnHeading()
 
@@ -427,20 +430,24 @@ const IntervalColumnHeadings = function ({ type }) {
       <ColumnHeading
         type={type}
         colName='weekly'
-        style={styles}>Weekly</ColumnHeading>
+        style={styles}>Weekly
+      </ColumnHeading>
       <ColumnHeading
         type={type}
         colName='monthly'
-        style={styles}>Monthly</ColumnHeading>
+        style={styles}>Monthly
+      </ColumnHeading>
       <ColumnHeading
         type={type}
         colName='yearly'
-        style={styles}>Yearly</ColumnHeading>
+        style={styles}>Yearly
+      </ColumnHeading>
       <ColumnHeading
         type={type}
         colName={type}
         style={styles}
-        columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
+        columnTitle={columnTitle}>{columnTitle}
+      </ColumnHeading>
     </div>
   );
 

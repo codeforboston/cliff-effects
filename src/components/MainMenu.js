@@ -23,7 +23,8 @@ const MainMenu = function (props) {
             target="_blank"
             rel="noopener noreferrer"><Image
               src={logo}
-              size='tiny' /></a>
+              size='tiny' />
+          </a>
         </Menu.Item>
         <Menu.Item><Link to="/">Home</Link></Menu.Item>
         <Menu.Item><Link to="/about">About</Link></Menu.Item>
