@@ -16,7 +16,8 @@
   ],
   "plugins": [
       "babel",
-      "jest"
+      "jest",
+      "react"
   ],
   "rules": {
       "babel/no-invalid-this": 1,
@@ -43,6 +44,7 @@
       "curly": ["warn", "all"],
       "arrow-body-style": ["warn", "always"],
       "arrow-parens": ["warn", "always"],
-      "react/jsx-closing-bracket-location": ["warn", "after-props"]
+      "react/jsx-closing-bracket-location": ["warn", "after-props"],
+      "react/jsx-tag-spacing": "warn"
   }
 }
