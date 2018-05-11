@@ -423,7 +423,7 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 const IntervalColumnHeadings = function ({ type }) {
 
   var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {return letter.toUpperCase();}) + ' Type',
-    styles      = { fontSize: '14px' };
+      styles      = { fontSize: '14px' };
 
   return (
     <div style={{ display: 'inline-block' }}>
@@ -506,7 +506,7 @@ class ManagedNumberField extends Component {
   handleChange = (evnt, inputProps) => {
     var { validation, store, otherData } = this.props;
     var { value } = inputProps,
-      valid   = validation(value);
+        valid   = validation(value);
 
     if (valid) {
       store(evnt, inputProps, otherData);
@@ -578,10 +578,10 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
 
   var updateClient = function (evnt, inputProps, data) {
     var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
-      obj     = {
-        name: generic,
-        value: monthly, 
-      };
+        obj     = {
+          name: generic,
+          value: monthly, 
+        };
     setClientProperty(evnt, obj);
   };
 
@@ -597,14 +597,14 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
    *     different?
    */
   var baseVal   = timeState[ generic ],
-    baseProps = {
-      name:       generic,
-      className:  'cashflow-column',
-      store:      updateClient,
-      validation: isPositiveNumber,
-      format:     toMoneyStr,
-      onBlur:     function () { return true; },
-    };
+      baseProps = {
+        name:       generic,
+        className:  'cashflow-column',
+        store:      updateClient,
+        validation: isPositiveNumber,
+        format:     toMoneyStr,
+        onBlur:     function () { return true; },
+      };
 
   return (
     <CashFlowContainer

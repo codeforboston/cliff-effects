@@ -35,7 +35,7 @@
       "max-statements-per-line": ["warn", { "max": 1 }],
       "keyword-spacing": ["warn", { "before": true, "after": true }],
       "space-in-parens": ["warn", "never"],
-      "indent": ["warn", 2],
+      "indent": ["warn", 2, { "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
       "array-element-newline": ["warn", { "multiline": true }],
       "array-bracket-newline": ["warn", { "multiline": true }],
       "object-property-newline": ["warn", { "allowAllPropertiesOnSameLine": true }],

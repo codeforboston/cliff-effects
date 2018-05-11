@@ -24,53 +24,53 @@ const getSignSymbol = function (num) {
 const BenefitsTable = function (props) {
 
   var client = cloneDeep(props.client),
-    curr   = client.current;
+      curr   = client.current;
 
   var SNAPBenefitCurrent  = curr.hasSnap ? Math.round(getSNAPBenefits(client, 'current')) : 0,
-    SNAPBenefitFuture   = curr.hasSnap ? Math.round(getSNAPBenefits(client, 'future')) : 0,
-    SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-    sec8BenefitCurrent  = curr.hasSection8 ? Math.round(getHousingBenefit(client, 'current')) : 0,
-    sec8BenefitFuture   = curr.hasSection8 ? Math.round(getHousingBenefit(client, 'future')) : 0,
-    sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
-    totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
-    totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
-    totalDiff           = SNAPDiff + sec8Diff,
-    incomeCurrent       = Math.round(curr.earned),
-    incomeFuture        = Math.round(client.future.earned),
-    incomeDiff          = incomeFuture - incomeCurrent,
-    netCurrent          = totalBenefitCurrent + incomeCurrent,
-    netFuture           = totalBenefitFuture + incomeFuture,
-    netDiff             = totalDiff + incomeDiff;
+      SNAPBenefitFuture   = curr.hasSnap ? Math.round(getSNAPBenefits(client, 'future')) : 0,
+      SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
+      sec8BenefitCurrent  = curr.hasSection8 ? Math.round(getHousingBenefit(client, 'current')) : 0,
+      sec8BenefitFuture   = curr.hasSection8 ? Math.round(getHousingBenefit(client, 'future')) : 0,
+      sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
+      totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
+      totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
+      totalDiff           = SNAPDiff + sec8Diff,
+      incomeCurrent       = Math.round(curr.earned),
+      incomeFuture        = Math.round(client.future.earned),
+      incomeDiff          = incomeFuture - incomeCurrent,
+      netCurrent          = totalBenefitCurrent + incomeCurrent,
+      netFuture           = totalBenefitFuture + incomeFuture,
+      netDiff             = totalDiff + incomeDiff;
 
   const   columnHeaderStyle = {
-      background: 'rgba(0, 181, 173, 1)',
-      color: 'white',
-      fontSize: '1.3em',
-      fontWeight: 900,
-      textAlign: 'center',
-      borderRadius: 'inherit',
-      letterSpacing: '0.02em',
-    }
-    , totalsRowStyle    = {
-      borderTop: '2px solid rgba(0, 181, 173, 1)',
-      fontWeight: 700,
-      fontSize: '1.1em',
-      padingTop: '0.25em',
-    }
-    , rowHeaderStyle    = {
-      fontSize: '1.1em',
-      fontWeight: 700,
-      textAlign: 'left',
-    }
-    , totalsRowHeaderStyle = {
-      fontSize: '1.2em',
-      fontWeight: 700,
-      textAlign: 'left',
-      borderTop: '2px solid rgba(0, 181, 173, 1)',
-      padingTop: '0.25em',
+          background: 'rgba(0, 181, 173, 1)',
+          color: 'white',
+          fontSize: '1.3em',
+          fontWeight: 900,
+          textAlign: 'center',
+          borderRadius: 'inherit',
+          letterSpacing: '0.02em',
+        }
+        , totalsRowStyle    = {
+          borderTop: '2px solid rgba(0, 181, 173, 1)',
+          fontWeight: 700,
+          fontSize: '1.1em',
+          padingTop: '0.25em',
+        }
+        , rowHeaderStyle    = {
+          fontSize: '1.1em',
+          fontWeight: 700,
+          textAlign: 'left',
+        }
+        , totalsRowHeaderStyle = {
+          fontSize: '1.2em',
+          fontWeight: 700,
+          textAlign: 'left',
+          borderTop: '2px solid rgba(0, 181, 173, 1)',
+          padingTop: '0.25em',
 
 
-    };
+        };
 
 
 

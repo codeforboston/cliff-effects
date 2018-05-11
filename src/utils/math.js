@@ -26,10 +26,10 @@ const limit = function (initialVal, minMax) {
 
   /** @todo Add trailing 0's somewhere */
   var min = minMax.min,
-    max = minMax.max;
+      max = minMax.max;
 
   var raw   = parseFloat(initialVal),
-    value = raw;
+      value = raw;
   if (typeof min === 'number' && !isNaN(min)) { value = Math.max(min, raw); }
   if (typeof max === 'number' && !isNaN(max)) { value = Math.min(max, raw); }
 
@@ -45,7 +45,7 @@ toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
   var monthlyRaw  = weeklyVal * 4.33,
-    monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
+      monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;
 
 };  // End toMonthlyAmount.weekly()
@@ -63,7 +63,7 @@ toMonthlyAmount.yearly = function (evnt, yearlyVal) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
   var monthlyRaw  = (yearlyVal / 12),
-    monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
+      monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;
 
 };  // End toMonthlyAmount.yearly()

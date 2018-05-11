@@ -11,7 +11,7 @@ const getTranslate = function (appLanguage) {
   const translate = function (textKey, languageOverride) {
 
     var language    = languageOverride || appLanguage,
-      translation = localizations[ language ][ textKey ];
+        translation = localizations[ language ][ textKey ];
 
     return translation;
 

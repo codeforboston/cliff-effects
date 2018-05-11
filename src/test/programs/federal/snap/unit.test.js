@@ -431,10 +431,10 @@ describe('SNAPhelpers', () => {
   describe('`.getUtilityCostByBracket( timeClient )` given a time-restricted client object', () => {
 
     let climate = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
-      fuel    = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
-      electric = SNAPData.UTILITY_COST_BRACKETS[ 'Non-heating' ],
-      phone   = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ],
-      none    = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
+        fuel    = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
+        electric = SNAPData.UTILITY_COST_BRACKETS[ 'Non-heating' ],
+        phone   = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ],
+        none    = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
 
     let current;
     beforeEach(() => {
@@ -502,7 +502,7 @@ describe('SNAPhelpers', () => {
     });
 
     let one = 160,
-      six = 228;
+        six = 228;
     it('1 should return amount equal to STANDARD_DEDUCTIONS bracket 1', () => {
       expect(SNAPhelpers.getStandardDeduction(defaultCurrent)).toEqual(one);
     });

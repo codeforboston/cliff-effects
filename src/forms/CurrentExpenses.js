@@ -42,9 +42,9 @@ import {
 const Utilities = function ({ current, type, time, setClientProperty }) {
 
   let climate     = current.climateControl,
-    electricity = current.nonHeatElectricity,
-    phone       = current.phone,
-    fuelAssist  = current.fuelAssistance;
+      electricity = current.nonHeatElectricity,
+      phone       = current.phone,
+      fuelAssist  = current.fuelAssistance;
 
   let setChecked = function (evnt, inputProps) {
     var obj = {
@@ -93,13 +93,13 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
 const HousingDetails = function ({ current, type, time, setClientProperty }) {
 
   let shelter = current.shelter,
-    sharedProps = {
-      timeState: current,
-      current: current,
-      type: type,
-      time: time,
-      setClientProperty: setClientProperty,
-    };
+      sharedProps = {
+        timeState: current,
+        current: current,
+        type: type,
+        time: time,
+        setClientProperty: setClientProperty,
+      };
 
   if (current.shelter === 'voucher') {
     return (
@@ -245,13 +245,13 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
   let type        = 'expense',
-    household   = current.household,
-    sharedProps = {
-      timeState: current,
-      type: type,
-      time: time,
-      setClientProperty: setClientProperty, 
-    };
+      household   = current.household,
+      sharedProps = {
+        timeState: current,
+        type: type,
+        time: time,
+        setClientProperty: setClientProperty, 
+      };
 
   /** @todo Make an age-checking function to
    *     keep household data structure under 
@@ -260,15 +260,15 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
   // Won't include head or spouse
   var allDependents = getDependentMembers(household),
-    under13       = getEveryMember(allDependents, isUnder13),
-    over12        = getEveryMember(allDependents, isOver12);
+      under13       = getEveryMember(allDependents, isUnder13),
+      over12        = getEveryMember(allDependents, isOver12);
 
   // 'Elderly' here is using the lowest common denominator - SNAP standards.
   var isElderlyOrDisabled = function (member) {
     return isDisabled(member) || member.m_age >= 60;
   };
   var elderlyOrDisabled = getEveryMember(household, isElderlyOrDisabled),
-    elderlyOrDisabledHeadOrSpouse = getEveryMember(elderlyOrDisabled, isHeadOrSpouse);
+      elderlyOrDisabledHeadOrSpouse = getEveryMember(elderlyOrDisabled, isHeadOrSpouse);
 
   return (
     <div className='field-aligner two-column'>

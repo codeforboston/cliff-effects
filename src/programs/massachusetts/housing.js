@@ -55,20 +55,20 @@ const getHousingBenefit = function (client, timeframe) {
   }
 
   var ttps        = hlp.getTTPs(client),
-    diff        = ttps.newTTP - ttps.oldTTP,
-    newShare    = diff + client.current.rentShare,
-    contrRent   = client.current.contractRent;
+      diff        = ttps.newTTP - ttps.oldTTP,
+      newShare    = diff + client.current.rentShare,
+      contrRent   = client.current.contractRent;
 
   // Don't pay more rent than the landlord is asking for
   var maxShare    = Math.min(contrRent, newShare),
-    newSubsidy  = contrRent - maxShare;
+      newSubsidy  = contrRent - maxShare;
 
   return newSubsidy;
 };  // End getHousingBenefit
 
 
 var section8Helpers = {},
-  hlp             = section8Helpers;
+    hlp             = section8Helpers;
 
 /**
 * @todo getTTPs - Get Total Tenant Payment
@@ -78,10 +78,10 @@ var section8Helpers = {},
 */
 hlp.getTTPs = function (client) {
   var oldNet = hlp.getNetIncome(client, 'current'),
-    newNet = hlp.getNetIncome(client, 'future');
+      newNet = hlp.getNetIncome(client, 'future');
 
   var oldAdj = hlp.getAdjustedIncome(client, 'current', oldNet),
-    newAdj = hlp.getAdjustedIncome(client, 'future', newNet);
+      newAdj = hlp.getAdjustedIncome(client, 'future', newNet);
 
   /** @todo A placeholder till we know what to do with negative values */
   oldAdj = Math.max(0, oldAdj);
@@ -89,10 +89,10 @@ hlp.getTTPs = function (client) {
 
   // #17, 30% of Adjusted Monthly Income
   var oldAdjToTest = oldAdj * 0.3,
-    newAdjToTest = newAdj * 0.3,
-    // #18, 10% of Monthly Income
-    oldNetToTest = oldNet * 0.1,
-    newNetToTest = newNet * 0.1;
+      newAdjToTest = newAdj * 0.3,
+      // #18, 10% of Monthly Income
+      oldNetToTest = oldNet * 0.1,
+      newNetToTest = newNet * 0.1;
 
   /**
   * TTP = 'total tenant payment'. One place (pg 59) calls this min ttp
@@ -104,11 +104,11 @@ hlp.getTTPs = function (client) {
   * can be waived.
   */
   var oldMaxTTP = Math.max(oldNetToTest, oldAdjToTest),
-    newMaxTTP = Math.max(newNetToTest, newAdjToTest),
-    ttps      = {
-      oldTTP: oldMaxTTP,
-      newTTP: newMaxTTP, 
-    };
+      newMaxTTP = Math.max(newNetToTest, newAdjToTest),
+      ttps      = {
+        oldTTP: oldMaxTTP,
+        newTTP: newMaxTTP, 
+      };
 
   return ttps;
 };  // End hlp.getTTPs()
@@ -123,7 +123,7 @@ hlp.getTTPs = function (client) {
 */
 hlp.getNetIncome = function (client, timeframe) {
   var unearned = getGrossUnearnedIncomeMonthly(client[ timeframe ]),
-    gross    = unearned + client[ timeframe ].earned;
+      gross    = unearned + client[ timeframe ].earned;
   // net = gross - incomeExclusions, but income exclusions not accounted for for MVP
   return gross;
 };  // End hlp.getNetIncome()
@@ -144,16 +144,16 @@ hlp.getNetIncome = function (client, timeframe) {
 hlp.getAdjustedIncome = function (client, timeframe, net) {
 
   var time       = timeframe,  // shorter
-    allowances = [];
+      allowances = [];
 
   // #4 & #5
   var depAllowanceAnnual = getDependentsOfHousehold(client[ time ]).length * 480;
   allowances.push(depAllowanceAnnual / 12);
   // #6
   var childcare   = sumProps(client[ time ], UNDER13_CARE_EXPENSES),
-    ccIncome    = client[ time ].earnedBecauseOfChildCare,
-    /** @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
-    ccMin       = Math.min(childcare, ccIncome);
+      ccIncome    = client[ time ].earnedBecauseOfChildCare,
+      /** @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
+      ccMin       = Math.min(childcare, ccIncome);
   allowances.push(ccMin);
   // #7 - 13
   var disAndMed = hlp.getDisabledAndMedicalAllowancesSum(client, time, net);
@@ -162,7 +162,7 @@ hlp.getAdjustedIncome = function (client, timeframe, net) {
   if (hlp.hasDsbOrEldHeadOrSpouse(client, time)) { allowances.push(400 / 12); }
 
   var total = sum(allowances),
-    adj   = net - total;
+      adj   = net - total;
 
   return Math.max(0, adj);
 };  // End hlp.getAdjustedIncome()
@@ -177,14 +177,14 @@ hlp.getAdjustedIncome = function (client, timeframe, net) {
 hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
 
   var time          = timeframe,  // shorter
-    netSubtractor = net * 0.03;  // #8, #13
+      netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
   if (!hlp.hasAnyDsbOrElderly(client, time)) { return 0; }
   // pg 5-30 to 5-31
   var handcpExpense       = client[ time ].disabledAssistance,  // #7
-    assistanceRemainder = handcpExpense - netSubtractor,  // #9
-    handicapAllowance   = hlp.getMinHandicapAllowance(client, time, assistanceRemainder);  // #10, #11
+      assistanceRemainder = handcpExpense - netSubtractor,  // #9
+      handicapAllowance   = hlp.getMinHandicapAllowance(client, time, assistanceRemainder);  // #10, #11
 
   // ----- Maybe Stop, #D ----- \\
   /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
@@ -212,8 +212,8 @@ hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
 
 hlp.getMinHandicapAllowance = function (client, time, assistanceRemainder) {
   let asstIncome     = client[ time ].earnedBecauseOfAdultCare, // #10
-    hcapAllowance  = Math.min(assistanceRemainder, asstIncome),  // #11
-    hcapMin        = Math.max(0, hcapAllowance);  // Don't get negative
+      hcapAllowance  = Math.min(assistanceRemainder, asstIncome),  // #11
+      hcapMin        = Math.max(0, hcapAllowance);  // Don't get negative
   return hcapMin;
 };
 
@@ -222,9 +222,9 @@ hlp.getMedicalExpenses = function (client, time) {
   // ----- Medical Allowance #12 - 13 ----- \\
   // #12, pg 5-31 to 5-32
   var disOrElderlyMedical = client[ time ].disabledMedical,
-    // pg 5-31 says all medical expenses count for this household
-    otherMedical        = client[ time ].otherMedical,
-    medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
+      // pg 5-31 says all medical expenses count for this household
+      otherMedical        = client[ time ].otherMedical,
+      medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
 
   return medicalExpenses;
 };

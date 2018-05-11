@@ -37,7 +37,7 @@
 */
 var getMonthlyLimitBySize = function (data, numItems, percent) {
   var yearly  = getYearlyLimitBySize(data, numItems, percent),
-    monthly = Math.ceil(yearly / 12);
+      monthly = Math.ceil(yearly / 12);
   return monthly;
 };  // End getMonthlyLimitBySize()
 
@@ -77,8 +77,8 @@ var getMonthlyLimitBySize = function (data, numItems, percent) {
 const getYearlyLimitBySize = function (data, numItems, percent) {
   
   var safePerc  = percent || 100,
-    limit     = null,
-    maxGiven  = getMaxIntKey(data);
+      limit     = null,
+      maxGiven  = getMaxIntKey(data);
 
   if (numItems <= maxGiven) {
 
@@ -87,7 +87,7 @@ const getYearlyLimitBySize = function (data, numItems, percent) {
   } else {
 
     var numExtra    = numItems - maxGiven,
-      extraAmount = getExtraAmount(data, numExtra);
+        extraAmount = getExtraAmount(data, numExtra);
     limit = data[ maxGiven ] + extraAmount;
 
   }
@@ -108,7 +108,7 @@ const getYearlyLimitBySize = function (data, numItems, percent) {
 var getExtraAmount = function (data, numExtra) {
 
   var extraAmount     = 0,
-    eachAdditional  = data.eachAdditional;
+      eachAdditional  = data.eachAdditional;
 
   // Either allow additional amount to be calculated
   // or add a hard-coded amount.

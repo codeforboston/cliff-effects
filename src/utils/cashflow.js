@@ -62,7 +62,7 @@ const getGrossUnearnedIncomeMonthly = function (client) {
  */
 const getSimpleGrossIncomeMonthly = function (client) {
   var earned    = client.earned,
-    unearned  = getGrossUnearnedIncomeMonthly(client);
+      unearned  = getGrossUnearnedIncomeMonthly(client);
   return earned + unearned;
 };  // End getSimpleGrossIncomeMonthly()
 

@@ -36,18 +36,18 @@ class RentShareField extends Component {
 
   render() {
     const { timeState, setClientProperty } = this.props,
-      { valid, message } = this.state;
+          { valid, message } = this.state;
 
     const inputProps = {
-        name:       'rentShare',
-        validation: this.validation,
-        onBlur:     this.onBlur,
-      },
-      rowProps = {
-        label:    'Your Monthly Rent Share (how much of the total rent you have to pay)',
-        validRow: valid,
-        message:  message,
-      };
+            name:       'rentShare',
+            validation: this.validation,
+            onBlur:     this.onBlur,
+          },
+          rowProps = {
+            label:    'Your Monthly Rent Share (how much of the total rent you have to pay)',
+            validRow: valid,
+            message:  message,
+          };
 
     return (
       <MonthlyCashFlowRow
@@ -93,18 +93,18 @@ class ContractRentField extends Component {
 
   render() {
     const { timeState, setClientProperty } = this.props,
-      { valid, message } = this.state;
+          { valid, message } = this.state;
 
     const inputProps = {
-        name:       'contractRent',
-        validation: this.validation,
-        onBlur:     this.onBlur,
-      },
-      rowProps = {
-        label:    'Monthly Contract Rent (the total rent for your apartment)',
-        validRow: valid,
-        message:  message,
-      };
+            name:       'contractRent',
+            validation: this.validation,
+            onBlur:     this.onBlur,
+          },
+          rowProps = {
+            label:    'Monthly Contract Rent (the total rent for your apartment)',
+            validRow: valid,
+            message:  message,
+          };
 
     return (
       <MonthlyCashFlowRow
@@ -121,15 +121,15 @@ class ContractRentField extends Component {
 const PlainRentRow = function ({ timeState, setClientProperty }) {
 
   const inputProps = {
-      name:       'rent',
-      validation: isPositiveNumber,
-      onBlur:     function () {},
-    },
-    rowProps = {
-      label:    'Monthly Rent',
-      validRow: true,
-      message:  null,
-    };
+          name:       'rent',
+          validation: isPositiveNumber,
+          onBlur:     function () {},
+        },
+        rowProps = {
+          label:    'Monthly Rent',
+          validRow: true,
+          message:  null,
+        };
 
   return (
     <MonthlyCashFlowRow

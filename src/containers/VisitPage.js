@@ -166,16 +166,16 @@ class VisitPage extends Component {
     if (typeof checked === 'boolean') { val = checked; }
 
     var client      = cloneDeep(this.state.client),
-      userChanged = { ...this.state.userChanged },  // only 1 deep
-      current     = client.current,
-      future      = client.future,
-      routeList   = route.split('/'),
-      id          = routeList[0],  // `routeList` gets mutated
-      newEvent    = {
-        time: time,
-        route: routeList,
-        value: val, 
-      };
+        userChanged = { ...this.state.userChanged },  // only 1 deep
+        current     = client.current,
+        future      = client.future,
+        routeList   = route.split('/'),
+        id          = routeList[0],  // `routeList` gets mutated
+        newEvent    = {
+          time: time,
+          route: routeList,
+          value: val, 
+        };
 
     setNestedProperty(newEvent, {
       current,

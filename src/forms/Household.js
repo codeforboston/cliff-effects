@@ -157,7 +157,7 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 const Role = function ({ member, setMember }) {
 
   var ThisRole  = null,
-    margin   = '0';
+      margin   = '0';
 
   if (member.index === 0) {
 
@@ -217,7 +217,7 @@ const Role = function ({ member, setMember }) {
 const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx) {
 
   var member      = household[ indx ],
-    routeStart  = 'household/' + indx + '/';
+      routeStart  = 'household/' + indx + '/';
   member.index    = indx;  // Just needed as member prop in this file
 
 
@@ -315,12 +315,12 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 const getMembers = function (current, time, setHousehold, setClientProperty) {
 
   var household = current.household,
-    props     = {
-      household:          household,
-      time:               time,
-      setHousehold:       setHousehold,
-      setClientProperty:  setClientProperty,
-    };
+      props     = {
+        household:          household,
+        time:               time,
+        setHousehold:       setHousehold,
+        setClientProperty:  setClientProperty,
+      };
 
   var mems = [];
   for (let memi = 0; memi < household.length; memi++) {

@@ -96,20 +96,20 @@ const Chart = function({ client }) {
   var curr = client.current;
 
   var
-    { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
-    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getHousingBenefit),
-    { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
+      { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
+      { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getHousingBenefit),
+      { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
 
   var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
-    housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
-    incomeData  = [ incomeCurrent, incomeFuture ];
+      housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
+      incomeData  = [ incomeCurrent, incomeFuture ];
 
   const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
-    SNAPName      = PROGRAM_CHART_VALUES.snap.name,
-    section8Color = PROGRAM_CHART_VALUES.section8.color,
-    section8Name  = PROGRAM_CHART_VALUES.section8.name,
-    incomeColor   = PROGRAM_CHART_VALUES.income.color,
-    incomeName    = PROGRAM_CHART_VALUES.income.name;
+        SNAPName      = PROGRAM_CHART_VALUES.snap.name,
+        section8Color = PROGRAM_CHART_VALUES.section8.color,
+        section8Name  = PROGRAM_CHART_VALUES.section8.name,
+        incomeColor   = PROGRAM_CHART_VALUES.income.color,
+        incomeName    = PROGRAM_CHART_VALUES.income.name;
 
   var datasets = [
     {

@@ -36,7 +36,7 @@ class verticalLinePlugin {
 
   afterDatasetsDraw = (chart) => {
     const xRange = this.xRange,
-      income = this.income;
+          income = this.income;
 
     const i = xRange.findIndex((val) => {return income < val;});
     const positionBetweenTwoPoints = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
@@ -121,7 +121,7 @@ const getDatasets = function (xRange, client, multiplier, activePrograms, extraP
   for (let programi = 0; programi < activePrograms.length; programi++) {
 
     let programName   = activePrograms[ programi ],
-      graphFrosting = PROGRAM_CHART_VALUES[ programName ];
+        graphFrosting = PROGRAM_CHART_VALUES[ programName ];
 
     datasets.push({
       label: graphFrosting.name,
@@ -159,19 +159,19 @@ class GrossGraph extends Component {
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier) / 100) * 100,
-      interval  = Math.ceil((max / 100) / 10) * 10;
+        interval  = Math.ceil((max / 100) / 10) * 10;
 
     var withIncome    = activePrograms.slice();
     withIncome.unshift('income');
 
     var xRange        = _.range(0, max, interval),
-      extraProps    = { income: { fill: 'origin' } },
-      datasets      = getDatasets(xRange, client, multiplier, withIncome, extraProps);
+        extraProps    = { income: { fill: 'origin' } },
+        datasets      = getDatasets(xRange, client, multiplier, withIncome, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
     var income  = client.future.earned * multiplier,
-      hack    = this.state.verticalLine;
+        hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
@@ -247,14 +247,14 @@ class BenefitGraph extends Component {
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier) / 100) * 100,
-      interval  = Math.ceil((max / 100) / 10) * 10;
+        interval  = Math.ceil((max / 100) / 10) * 10;
 
     var xRange      = _.range(0, max, interval),  // x-axis/income numbers
-      extraProps  = {
-        snap: { fill: false },
-        section8: { fill: false }, 
-      },
-      datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
+        extraProps  = {
+          snap: { fill: false },
+          section8: { fill: false }, 
+        },
+        datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
     if (datasets.length === 0) { return null; }
@@ -262,7 +262,7 @@ class BenefitGraph extends Component {
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
     var income  = client.future.earned * multiplier,
-      hack    = this.state.verticalLine;
+        hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
@@ -339,9 +339,9 @@ class GraphHolder extends Component {
 
   render () {
     const { activeID, multiplier }  = this.state,
-      { Graph, client }         = this.props,
-      { current }               = client,
-      activePrograms            = [];
+          { Graph, client }         = this.props,
+          { current }               = client,
+          activePrograms            = [];
 
     // The ids later used to access all program-specific data and functions
     // Only active programs are added

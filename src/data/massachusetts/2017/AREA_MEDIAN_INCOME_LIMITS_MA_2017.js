@@ -31,7 +31,7 @@ const eachAdditional = function (data, numAdditional) {
   // We could include these hard-coded numbers as data somewhere.
   // We need to know when their expiration dates are.
   var percent = (numAdditional * 8) / 100,
-    amount  = fourPersonLimit * percent;
+      amount  = fourPersonLimit * percent;
 
   return amount;
 };  // End eachAdditional()

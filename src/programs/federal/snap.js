@@ -28,11 +28,11 @@ const getSNAPBenefits = function (client, timeframe) {
   client = client[ timeframe ];
 
   var finalResult = 0,
-    grossIncomeTestResult   = hlp.getGrossIncomeTestResult(client),
-    netIncomeTestResult     = hlp.getNetIncomeTestResult(client),
-    maxSnapAllotment        = getYearlyLimitBySize(SNAPData.SNAP_LIMITS, hlp.householdSize(client)),
-    thirtyPercentNetIncome  = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
-    maxClientAllotment      = Math.max(0, maxSnapAllotment - thirtyPercentNetIncome);
+      grossIncomeTestResult   = hlp.getGrossIncomeTestResult(client),
+      netIncomeTestResult     = hlp.getNetIncomeTestResult(client),
+      maxSnapAllotment        = getYearlyLimitBySize(SNAPData.SNAP_LIMITS, hlp.householdSize(client)),
+      thirtyPercentNetIncome  = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
+      maxClientAllotment      = Math.max(0, maxSnapAllotment - thirtyPercentNetIncome);
 
   if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
 
@@ -54,7 +54,7 @@ const getSNAPBenefits = function (client, timeframe) {
 // ======================
 // BENEFIT HELPER FUNCTIONS
 var SNAPhelpers = {},
-  hlp         = SNAPhelpers;
+    hlp         = SNAPhelpers;
 
 
 // ======================
@@ -91,8 +91,8 @@ hlp.getPovertyGrossIncomeLevel = function (client) {
 
 hlp.getGrossIncomeTestResult = function (client) {
   var adjustedGross           = hlp.getAdjustedGross(client),
-    povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
-    isPassGrossIncomeTest   = null;
+      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
+      isPassGrossIncomeTest   = null;
   if (hlp.hasDisabledOrElderlyMember(client)) {
     isPassGrossIncomeTest = true;
   } else {
@@ -160,7 +160,7 @@ hlp.getUtilityCostByBracket = function (client) {
 hlp.getTotalshelterCost = function (client) {
 
   var shelterCosts = hlp.getNonUtilityCosts(client),
-    utilityCosts = hlp.getUtilityCostByBracket(client);
+      utilityCosts = hlp.getUtilityCostByBracket(client);
 
   return shelterCosts + utilityCosts;
 };
@@ -219,8 +219,8 @@ hlp.getHalfAdjustedIncome = function(client) {
 
 hlp.getRawShelterDeduction = function(client) {
   var totalShelterCost    = hlp.getTotalshelterCost(client),
-    halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
-    rawShelterDeduction = totalShelterCost - halfAdjustedIncome;
+      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
+      rawShelterDeduction = totalShelterCost - halfAdjustedIncome;
 
   return Math.max(0, rawShelterDeduction);
 };
@@ -247,10 +247,10 @@ hlp.getHomelessDeduction = function(client) {
 // NET INCOME
 hlp.getAdjustedNotGrossIncome = function (client) {
   var adjustedGross           = hlp.getAdjustedGross(client),
-    standardDeduction       = hlp.getStandardDeduction(client),
-    earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
-    medicalDeduction        = hlp.getMedicalDeduction(client),
-    dependentCareDeduction  = hlp.getDependentCareDeduction(client);
+      standardDeduction       = hlp.getStandardDeduction(client),
+      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
+      medicalDeduction        = hlp.getMedicalDeduction(client),
+      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
 
   var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
   return Math.max(0, adjustedIncome);
@@ -258,9 +258,9 @@ hlp.getAdjustedNotGrossIncome = function (client) {
 
 hlp.monthlyNetIncome = function(client) {
   var adjustedIncome        = hlp.getAdjustedNotGrossIncome(client),
-    hasHomelessDeduction  = hlp.getHomelessDeduction(client),
-    shelterDeduction      = hlp.getShelterDeduction(client),
-    extraDeductions       = hasHomelessDeduction + shelterDeduction;
+      hasHomelessDeduction  = hlp.getHomelessDeduction(client),
+      shelterDeduction      = hlp.getShelterDeduction(client),
+      extraDeductions       = hasHomelessDeduction + shelterDeduction;
 
   var afterDeductions = adjustedIncome - extraDeductions;
 
@@ -270,8 +270,8 @@ hlp.monthlyNetIncome = function(client) {
 hlp.getMaxNetIncome = function (client) {
   //TODO: Logic different in website calculate; when (hlp.monthlyNetIncome < 0 ) = 0 while excel return a number
   var adjustedGross           = hlp.getAdjustedGross(client),
-    povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
-    disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
+      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
+      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
   
   if ((adjustedGross <= povertyGrossIncomeLevel) || !disabledOrElderlyMember) {
     return 'no limit';
