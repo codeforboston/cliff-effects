@@ -6,14 +6,14 @@ import {
   Dropdown,
   Header,
   Checkbox,
-  Icon
+  Icon,
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import {
   FormPartsContainer,
   ColumnHeading,
-  ManagedNumberField
+  ManagedNumberField,
 } from './formHelpers';
 
 // COMPONENT HELPER FUNCTIONS
@@ -42,27 +42,49 @@ const Columns = {};
 // `noMargin` is a bit hacky, but it'll do for now
 Columns.One = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if ( noMargin ) { marginTop = 0; }
-  return ( <div style={{...columnStyle, marginTop: marginTop, width: '5em'}}> {children} </div> );
-}
+  if (noMargin) { marginTop = 0; }
+  return (<div style={{
+    ...columnStyle,
+    marginTop: marginTop,
+    width: '5em', 
+  }}> {children} 
+  </div>);
+};
 
 Columns.Two = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if ( noMargin ) { marginTop = 0; }
-  return ( <div style={{...columnStyle, marginTop: marginTop, width: '20em', textAlign: 'left', paddingLeft: '1em'}}> {children} </div> );
-}
+  if (noMargin) { marginTop = 0; }
+  return (<div style={{
+    ...columnStyle,
+    marginTop: marginTop,
+    width: '20em',
+    textAlign: 'left',
+    paddingLeft: '1em', 
+  }}> {children} 
+  </div>);
+};
 
 Columns.Three = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if ( noMargin ) { marginTop = 0; }
-  return ( <div style={{...columnStyle, marginTop: marginTop, width: '5em'}}> {children} </div> );
-}
+  if (noMargin) { marginTop = 0; }
+  return (<div style={{
+    ...columnStyle,
+    marginTop: marginTop,
+    width: '5em', 
+  }}> {children} 
+  </div>);
+};
 
 Columns.Four = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if ( noMargin ) { marginTop = 0; }
-  return ( <div style={{...columnStyle, marginTop: marginTop, width: '10em'}}> {children} </div> );
-}
+  if (noMargin) { marginTop = 0; }
+  return (<div style={{
+    ...columnStyle,
+    marginTop: marginTop,
+    width: '10em', 
+  }}> {children} 
+  </div>);
+};
 
 
 /** @todo description
@@ -79,7 +101,9 @@ const ColumnHeader = function ({ children, columnNum }) {
 
   return (
     <Container>
-      <ColumnHeading type={'household'} colName={''}>
+      <ColumnHeading
+        type={'household'}
+        colName={''}>
         { children }
       </ColumnHeading>
     </Container>
@@ -107,7 +131,11 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
       icon={iconName}
       className={className}
       onClick={onClick}
-      style={{ padding: '0', height: '2.2em', width: '2.2em' }}
+      style={{
+        padding: '0',
+        height: '2.2em',
+        width: '2.2em', 
+      }}
       circular />
   );
 
@@ -131,24 +159,31 @@ const Role = function ({ member, setMember }) {
   var ThisRole  = null,
       margin   = '0';
 
-  if ( member.index === 0 ) {
+  if (member.index === 0) {
 
     ThisRole  = <span>Head of Household</span>;
 
-  } else if ( member.index === 1 ) {
+  } else if (member.index === 1) {
 
     margin = '-1em';
 
     var options = [
-      { text: 'Spouse of Head of Household', value: 'spouse' },
-      { text: 'Child/Other Household Member', value: 'member' }
+      {
+        text: 'Spouse of Head of Household',
+        value: 'spouse', 
+      },
+      {
+        text: 'Child/Other Household Member',
+        value: 'member', 
+      },
     ];
 
-    ThisRole = <Dropdown selection
-                  name={'m_role'}
-                  value={member.m_role}
-                  options={options}
-                  onChange={setMember}/>
+    ThisRole = <Dropdown
+      selection
+      name={'m_role'}
+      value={member.m_role}
+      options={options}
+      onChange={setMember} />;
 
   } else {
 
@@ -158,7 +193,12 @@ const Role = function ({ member, setMember }) {
 
   // Styles will have to be adjusted.
   return (
-    <div style={{ display: 'inline-block', width: '100%', textAlign: 'left', marginLeft: margin }}>
+    <div style={{
+      display: 'inline-block',
+      width: '100%',
+      textAlign: 'left',
+      marginLeft: margin, 
+    }}>
       { ThisRole }
     </div>
   );
@@ -174,49 +214,70 @@ const Role = function ({ member, setMember }) {
 *
 * @returns Component
 */
-const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx ) {
+const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx) {
 
   var member      = household[ indx ],
       routeStart  = 'household/' + indx + '/';
   member.index    = indx;  // Just needed as member prop in this file
 
 
-  var onMemberChange = function ( evnt, inputProps ) {
+  var onMemberChange = function (evnt, inputProps) {
     var route = routeStart + inputProps.name;
-    var data  = { route: route, value: inputProps.value };
-    setClientProperty( evnt, data );
+    var data  = {
+      route: route,
+      value: inputProps.value, 
+    };
+    setClientProperty(evnt, data);
   };
 
 
-  var onMemberChecked = function ( evnt, inputProps ) {
+  var onMemberChecked = function (evnt, inputProps) {
     var route = routeStart + inputProps.name;
-    var data  = { route: route, value: inputProps.checked };
-    setClientProperty( evnt, data );
+    var data  = {
+      route: route,
+      value: inputProps.checked, 
+    };
+    setClientProperty(evnt, data);
   };
 
 
-  var removeMember = function ( evnt, inputProps ) {
-    household.splice( indx, 1 );
-    setHousehold( evnt, household );
+  var removeMember = function (evnt, inputProps) {
+    household.splice(indx, 1);
+    setHousehold(evnt, household);
   };  // End removeMember()
 
 
   // The font size thing is a bit weird, but... later
   return (
-    <Form.Field className='flex-item' key={indx}>
+    <Form.Field
+      className='flex-item'
+      key={indx}>
 
       <Columns.One>
         { indx > 0
-          ? <MemberButton className={'remove'} onClick={removeMember} iconName={'remove'} />
+          ? <MemberButton
+            className={'remove'}
+            onClick={removeMember}
+            iconName={'remove'} />
           : <span>{ household.length > 1
-            ? <Icon fitted name={'ban'} style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+            ? <Icon
+              fitted
+              name={'ban'}
+              style={{
+                color: '#cfcfd0',
+                fontSize: '2.2em',
+                verticalAlign: 'text-top', 
+              }} />
             : null
-          }</span>
+          }
+          </span>
         }
       </Columns.One>
 
       <Columns.Two>
-        <Role member={member} setMember={onMemberChange} />
+        <Role
+          member={member}
+          setMember={onMemberChange} />
       </Columns.Two>
 
       <Columns.Three>
@@ -225,13 +286,16 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
           name       = {'m_age'}
           className  = {time + ' member-age ' + time}
           validation = {isPositiveWholeNumber}
-          format     = {function ( value ) { return value; }}
+          format     = {function (value) { return value; }}
           store      = {onMemberChange}
           onBlur     = {function () { return true; }} />
       </Columns.Three>
 
       <Columns.Four>
-        <Checkbox name={'m_disabled'} checked={member.m_disabled} onChange={onMemberChecked} />
+        <Checkbox
+          name={'m_disabled'}
+          checked={member.m_disabled}
+          onChange={onMemberChecked} />
       </Columns.Four>
 
     </Form.Field>
@@ -248,20 +312,20 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 *
 * @returns Component
 */
-const getMembers = function ( current, time, setHousehold, setClientProperty ) {
+const getMembers = function (current, time, setHousehold, setClientProperty) {
 
   var household = current.household,
       props     = {
         household:          household,
         time:               time,
         setHousehold:       setHousehold,
-        setClientProperty:  setClientProperty
-      }
+        setClientProperty:  setClientProperty,
+      };
 
   var mems = [];
   for (let memi = 0; memi < household.length; memi++) {
-    mems.push( MemberField( props, memi ) );
-  };
+    mems.push(MemberField(props, memi));
+  }
 
   return mems;
 
@@ -281,51 +345,69 @@ const getMembers = function ( current, time, setHousehold, setClientProperty ) {
 const HouseholdContent = function ({ current, time, setClientProperty }) {
 
   // Don't mutate state properties
-  var household = cloneDeep( current.household );
+  var household = cloneDeep(current.household);
 
 
-  var setHousehold = function ( evnt, newHousehold ) {
+  var setHousehold = function (evnt, newHousehold) {
 
     var obj = {
       route: 'household',
-      value: newHousehold
+      value: newHousehold,
     };
 
-    setClientProperty( evnt, obj );
+    setClientProperty(evnt, obj);
 
   };  // End setHousehold()
 
 
-  var addMember = function ( evnt, inputProps ) {
+  var addMember = function (evnt, inputProps) {
 
     var member = household.length === 1
-      ? { m_age: 30, m_role: 'spouse', m_disabled: false}
-      : { m_age: 12, m_role: 'member', m_disabled: false};
+      ? {
+        m_age: 30,
+        m_role: 'spouse',
+        m_disabled: false, 
+      }
+      : {
+        m_age: 12,
+        m_role: 'member',
+        m_disabled: false, 
+      };
 
-    household.push( member );
-    setHousehold( evnt, household );
+    household.push(member);
+    setHousehold(evnt, household);
 
   };  // End addMember()
 
 
   return (
     <div className='field-aligner two-column'>
-      <div style={{marginBottom: '.5em'}}>
-        <ColumnHeader columnNum='One'></ColumnHeader>
+      <div style={{ marginBottom: '.5em' }}>
+        <ColumnHeader columnNum='One' />
         <ColumnHeader columnNum='Two'>Role</ColumnHeader>
         <ColumnHeader columnNum='Three'>Age</ColumnHeader>
         <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
       </div>
 
-      { getMembers( current, time, setHousehold, setClientProperty ) }
+      { getMembers(current, time, setHousehold, setClientProperty) }
 
-      <Button id={'addMember'} basic onClick={addMember}>
+      <Button
+        id={'addMember'}
+        basic
+        onClick={addMember}>
         <Columns.One noMargin={true}>
-          <Icon name={'plus'} circular inverted color={'teal'} />
+          <Icon
+            name={'plus'}
+            circular
+            inverted
+            color={'teal'} />
         </Columns.One>
 
         <Columns.Two noMargin={true}>
-          <Header as='h4' color={'teal'}> Add a member </Header>
+          <Header
+            as='h4'
+            color={'teal'}> Add a member 
+          </Header>
         </Columns.Two>
 
         <Columns.Three noMargin={true} />
@@ -347,18 +429,27 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const HouseholdStep = function ( props ) {
+const HouseholdStep = function (props) {
 
-  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+  const setTimeProp = getTimeSetter('current', props.changeClient);
 
   return (
     <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
         title     = {'Household'}
         clarifier = {'Information about the members of your household.'}
-        left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Next', func: props.nextStep}}>
-			<HouseholdContent setClientProperty={setTimeProp} current={props.client.current} time={'current'} />
+        left      = {{
+          name: 'Previous',
+          func: props.previousStep, 
+        }}
+        right     = {{
+          name: 'Next',
+          func: props.nextStep, 
+        }}>
+        <HouseholdContent
+          setClientProperty={setTimeProp}
+          current={props.client.current}
+          time={'current'} />
       </FormPartsContainer>
     </Form>
   );

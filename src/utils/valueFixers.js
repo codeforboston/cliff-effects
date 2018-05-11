@@ -6,25 +6,25 @@
 /**
  * Reused Functionality
  */
-const returnSame = function ( newVal, state ) {
+const returnSame = function (newVal, state) {
   return newVal;
 };
 
 /** @todo Take regular bools out of here. */
-const toBoolean = function ( value ) {
-  if ( value === 'Yes' ) {
+const toBoolean = function (value) {
+  if (value === 'Yes') {
     return true;
-  } else if ( value === 'No' ) {
+  } else if (value === 'No') {
     return false;
-  } else if ( typeof( value ) === 'boolean' ) {
+  } else if (typeof(value) === 'boolean') {
     return value;
   } else {
     return null;
   }
 };
 
-const stringToNumber = function ( str ) {
-  return Number( str );
+const stringToNumber = function (str) {
+  return Number(str);
 };
 
 /**

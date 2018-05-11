@@ -133,48 +133,48 @@ const CLIENT_ROW_3 = {
       {
         m_age:                      2,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      7,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      9,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      11,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      12,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      15,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      16,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      18,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      39,
         m_role:                     'head',
-        m_disabled:                 false
-      }
+        m_disabled:                 false,
+      },
     ],
     // Income
     earned:                         0,
@@ -215,7 +215,7 @@ const CLIENT_ROW_3 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   1062,
-    expectedSection8:               null  // (yes, public housing)
+    expectedSection8:               null,  // (yes, public housing)
   },
 };
 
@@ -229,13 +229,13 @@ const CLIENT_ROW_4 = {
       {
         m_age:                      60,
         m_role:                     'head',  // deduced from age distribution
-        m_disabled:                 true  // though not certain which member has disability and how many
+        m_disabled:                 true,  // though not certain which member has disability and how many
       },
       {
         m_age:                      14,
         m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_disabled:                 false,
+      },
     ],
     // Income
     earned:                         0,
@@ -276,7 +276,7 @@ const CLIENT_ROW_4 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   117,
-    expectedSection8:               null  // null (yes, public housing)
+    expectedSection8:               null,  // null (yes, public housing)
   },
 };
 
@@ -290,13 +290,13 @@ const CLIENT_ROW_5 = {
       {
         m_age:                      32,
         m_role:                     'head',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      3,
         m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_disabled:                 false,
+      },
     ],
     // Income
     earned:                         2080.00,
@@ -337,7 +337,7 @@ const CLIENT_ROW_5 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   301,
-    expectedSection8:               null
+    expectedSection8:               null,
   },
 };
 
@@ -351,13 +351,13 @@ const CLIENT_ROW_6 = {
       {
         m_age:                      28,
         m_role:                     'head',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      0,
         m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_disabled:                 false,
+      },
     ],
     // Income
     earned:                         0,
@@ -398,7 +398,7 @@ const CLIENT_ROW_6 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   192,
-    expectedSection8:               null  // "Yes - Public Housing"
+    expectedSection8:               null,  // "Yes - Public Housing"
   },
 };
 
@@ -412,18 +412,18 @@ const CLIENT_ROW_7 = {
       {
         m_age:                      2,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      6,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      40,
         m_role:                     'head',
-        m_disabled:                 false
-      }
+        m_disabled:                 false,
+      },
     ],
     // Income
     earned:                         2700,
@@ -464,7 +464,7 @@ const CLIENT_ROW_7 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   20,
-    expectedSection8:               null  // "Yes - Public Housing but NOT Section 8"
+    expectedSection8:               null,  // "Yes - Public Housing but NOT Section 8"
   },
 };
 
@@ -478,23 +478,23 @@ const CLIENT_ROW_8 = {
       {
         m_age:                      57,
         m_role:                     'head',  // deduced from age distribution
-        m_disabled:                 false  // boolean though not certain which member has disability and how many
+        m_disabled:                 false,  // boolean though not certain which member has disability and how many
       },
       {
         m_age:                      35,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      3,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      3,
         m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_disabled:                 false,
+      },
     ],
     // Income
     earned:                         2000,
@@ -535,7 +535,7 @@ const CLIENT_ROW_8 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   null,
-    expectedSection8:               null  // None given
+    expectedSection8:               null,  // None given
   },
 };
 
@@ -547,17 +547,17 @@ const CLIENT_ROW_9 = {
     // Household
     // 'm_' for 'member'
     household:  [
-    {
+      {
         m_age:                      27,
         m_role:                     'head',  // deduced from age distribution
-        m_disabled:                 true             // COL-AM boolean 
-    },
-    {
+        m_disabled:                 true,             // COL-AM boolean 
+      },
+      {
         m_age:                      3,
         m_role:                     'member',
-        m_disabled:                 false
-    }
-  ],
+        m_disabled:                 false,
+      },
+    ],
     // Income
     earned:                         0,
     TAFDC:                          0,
@@ -597,7 +597,7 @@ const CLIENT_ROW_9 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   150,
-    expectedSection8:               null  // None given
+    expectedSection8:               null,  // None given
   },
 };
 
@@ -611,18 +611,18 @@ const CLIENT_ROW_10 = {
       {
         m_age:                      37,
         m_role:                     'head',
-        m_disabled:                 true
+        m_disabled:                 true,
       },
       {
         m_age:                      9,
         m_role:                     'member',
-        m_disabled:                 false
+        m_disabled:                 false,
       },
       {
         m_age:                      8,
         m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_disabled:                 false,
+      },
     ],
     // Income
     earned:                         798,
@@ -663,7 +663,7 @@ const CLIENT_ROW_10 = {
     fuelAssistance:                 false,
     // Values to test, to 'expect'
     expectedSNAP:                   8,
-    expectedSection8:               null  // None given
+    expectedSection8:               null,  // None given
   },
 };
 

@@ -49,37 +49,73 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
   var type = 'income';
 
   /** Makes sure values are propagated to 'future' properties if needed */
-  var ensureFuture = function ( evnt, inputProps ) {
-     setClientProperty( evnt, {...inputProps, fillFuture: true });
+  var ensureFuture = function (evnt, inputProps) {
+    setClientProperty(evnt, {
+      ...inputProps,
+      fillFuture: true, 
+    });
   };  // End ensureFuture()
 
   var sharedProps = {
     timeState: current,
     time: time,
     type: type,
-    setClientProperty: ensureFuture
+    setClientProperty: ensureFuture,
   };
 
   return (
     <div className='field-aligner two-column'>
 
-      <IntervalColumnHeadings type={type}/>
+      <IntervalColumnHeadings type={type} />
 
       {/* All kinds of things need to be explained. */}
       {/* @todo Change 'labelInfo' to visible blurb at top */}
-  	  <CashFlowRow  {...sharedProps} generic='earned' labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+  	  <CashFlowRow
+        {...sharedProps}
+        generic='earned'
+        labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
-		  </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='TAFDC'> TAFDC </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='SSI'> SSI </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='SSDI'> SSDI </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='childSupportIn'> Child support received </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='unemployment'> Unemployment </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='workersComp'> Worker’s comp </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='pension'> Pension </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='socialSecurity'> Social security </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='alimony'> Alimony </CashFlowRow>
-      <CashFlowRow {...sharedProps} generic='otherIncome'> Other income </CashFlowRow>
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='TAFDC'> TAFDC 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='SSI'> SSI 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='SSDI'> SSDI 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='childSupportIn'> Child support received 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='unemployment'> Unemployment 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='workersComp'> Worker’s comp 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='pension'> Pension 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='socialSecurity'> Social security 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='alimony'> Alimony 
+      </CashFlowRow>
+      <CashFlowRow
+        {...sharedProps}
+        generic='otherIncome'> Other income 
+      </CashFlowRow>
       <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
 
     </div>
@@ -97,9 +133,9 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const CurrentIncomeStep = function ( props ) {
+const CurrentIncomeStep = function (props) {
 
-  const setTimeProp = getTimeSetter( 'current', props.changeClient );
+  const setTimeProp = getTimeSetter('current', props.changeClient);
 
   /** @todo Are these titles accurate now? */
   return (
@@ -107,9 +143,18 @@ const CurrentIncomeStep = function ( props ) {
       <FormPartsContainer
         title     = 'Current Household Income'
         clarifier = 'Income that you collected in the past 12 months.'
-        left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Next', func: props.nextStep}}>
-          <IncomeForm setClientProperty={setTimeProp} current={props.client.current} time={'current'} />
+        left      = {{
+          name: 'Previous',
+          func: props.previousStep, 
+        }}
+        right     = {{
+          name: 'Next',
+          func: props.nextStep, 
+        }}>
+        <IncomeForm
+          setClientProperty={setTimeProp}
+          current={props.client.current}
+          time={'current'} />
       </FormPartsContainer>
     </Form>
   );

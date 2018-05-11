@@ -31,7 +31,13 @@ const MassiveButton = function ({ className, func, children }) {
 
   className = (className || '') + ' massive-button';
   return (
-    <Button fluid type='button' color='teal' size='large' className={className} onClick={func}>
+    <Button
+      fluid
+      type='button'
+      color='teal'
+      size='large'
+      className={className}
+      onClick={func}>
       { children }
     </Button>
   );
@@ -42,7 +48,10 @@ const MassiveButton = function ({ className, func, children }) {
  * Link that opens new tab
  */
 const ExternalLink = function ({ href, children }) {
-  return (<a href={href} target='_blank'>{children}</a>);
+  return (<a
+    href={href}
+    target='_blank'>{children}
+  </a>);
 };
 
 
@@ -60,7 +69,9 @@ const ExternalLink = function ({ href, children }) {
 */
 const BottomButton = function(props){
   return (
-    <Grid.Column className={'large-bottom-button'} width={3}>
+    <Grid.Column
+      className={'large-bottom-button'}
+      width={3}>
       <MassiveButton {...props} />
     </Grid.Column>
   );
@@ -88,18 +99,30 @@ const BottomButton = function(props){
 */
 const BottomButtons = function({ left, right }) {
   const flexItemStyle = { flexBasis: '118.3px' };
-  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' };
+  const buttonProps = {
+    style: flexItemStyle,
+    type: 'button',
+    color: 'teal',
+    size: 'large', 
+  };
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'space-between', 
+    }}>
       { left ?
-        <Button {...buttonProps} onClick={left.func}>
+        <Button
+          {...buttonProps}
+          onClick={left.func}>
           { left.name }
         </Button>
         :
         <div style={flexItemStyle} />
       }
       { right ?
-        <Button {...buttonProps} onClick={right.func}>
+        <Button
+          {...buttonProps}
+          onClick={right.func}>
           { right.name }
         </Button>
         :
@@ -129,23 +152,36 @@ const BottomButtons = function({ left, right }) {
 */
 const FormPartsContainer = function(props) {
   return (
-    <Segment padded='very' className="flex-item flex-column">
-      <Segment basic={true} className="flex-item">
-        <Header as='h1' color='teal' textAlign='center'>
+    <Segment
+      padded='very'
+      className="flex-item flex-column">
+      <Segment
+        basic={true}
+        className="flex-item">
+        <Header
+          as='h1'
+          color='teal'
+          textAlign='center'>
           { props.title }
         </Header>
         { !props.clarifier
           ? null
-          : <Header as='h3' textAlign='center'>
-              { props.clarifier }
-            </Header>
+          : <Header
+            as='h3'
+            textAlign='center'>
+            { props.clarifier }
+          </Header>
         }
 
         { props.children }
 
       </Segment>
       <Divider />
-      <BottomButtons left={props.left} right={props.right} next={props.next} prev={props.prev} />
+      <BottomButtons
+        left={props.left}
+        right={props.right}
+        next={props.next}
+        prev={props.prev} />
 
     </Segment>
   );
@@ -171,14 +207,15 @@ const MassiveToggle = function (props) {
 
   /** @todo Switch props.setClientProperty to props.onChange everywhere */
   return (
-    <Form.Field className='massive-toggle'
+    <Form.Field
+      className='massive-toggle'
       toggle
       label={ props.label }
       checked={ props.checked || props.value }
       onChange={ props.onChange || props.setClientProperty }
       name={ props.name || props.name }
       control={ Checkbox }
-      size='massive'/>
+      size='massive' />
   );
 
 };  // End MassiveToggle{} Component
@@ -193,14 +230,18 @@ const MassiveToggle = function (props) {
 *
 * @returns Component
 */
-const FormSubheading = function ( props ) {
+const FormSubheading = function (props) {
 
-  if ( !props.children ) { return null; }
+  if (!props.children) { return null; }
 
   return (
-    <div className = { 'form-subheading' }
-      style={{ display: 'block', textAlign: 'left' }}>
-        { props.children }
+    <div
+      className = { 'form-subheading' }
+      style={{
+        display: 'block',
+        textAlign: 'left', 
+      }}>
+      { props.children }
     </div>
   );
 
@@ -217,16 +258,18 @@ const FormSubheading = function ( props ) {
 */
 const FormHeading = function ({ subheading, children }) {
 
-  if ( !children ) { return null; }
+  if (!children) { return null; }
 
   return (
     <div className={'form-heading'} >
-      <div></div> {/** div here to make sure header margin doesn\'t collapse */}
-      <Header as='h3' style={{ display: 'inline-block' }}>
+      <div /> {/** div here to make sure header margin doesn\'t collapse */}
+      <Header
+        as='h3'
+        style={{ display: 'inline-block' }}>
         { children }
       </Header>
       <FormSubheading>{subheading}</FormSubheading>
-      <br/>
+      <br />
     </div>
   );
 
@@ -241,7 +284,7 @@ const FormHeading = function ({ subheading, children }) {
 *
 * @returns Component
 */
-const InlineLabelInfo = function ( props ) {
+const InlineLabelInfo = function (props) {
 
   var labelInfoDisplay = ' hidden'; // Will be '' in future
 
@@ -258,9 +301,10 @@ const InlineLabelInfo = function ( props ) {
   // );
 
   return (
-    <div className = { 'label-info' + labelInfoDisplay }
+    <div
+      className = { 'label-info' + labelInfoDisplay }
       style = {{ marginLeft: '1em' }}>
-        { props.children }
+      { props.children }
     </div>
   );
 
@@ -302,8 +346,12 @@ const InlineLabelInfo = function ( props ) {
 const RowMessage = function ({ validRow, message }) {
 
   var result = null;
-  if ( !validRow && message ) {
-    result = <Label basic color='red' pointing="left">{message}</Label>
+  if (!validRow && message) {
+    result = <Label
+      basic
+      color='red'
+      pointing="left">{message}
+    </Label>;
   }
 
   return result;
@@ -354,7 +402,12 @@ const RowMessage = function ({ validRow, message }) {
 const ColumnHeading = function ({ type, colName, style, children }) {
   var classes = type + '-column cashflow-column header ' + colName;
   return (
-    <Header as='h4' className={classes} style={style} color='teal'>{children}</Header>
+    <Header
+      as='h4'
+      className={classes}
+      style={style}
+      color='teal'>{children}
+    </Header>
   );
 };  // End ColumnHeading()
 
@@ -369,15 +422,32 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 */
 const IntervalColumnHeadings = function ({ type }) {
 
-  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase()) + " Type",
+  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {return letter.toUpperCase();}) + ' Type',
       styles      = { fontSize: '14px' };
 
   return (
     <div style={{ display: 'inline-block' }}>
-      <ColumnHeading type={type} colName='weekly'  style={styles}>Weekly</ColumnHeading>
-      <ColumnHeading type={type} colName='monthly' style={styles}>Monthly</ColumnHeading>
-      <ColumnHeading type={type} colName='yearly'  style={styles}>Yearly</ColumnHeading>
-      <ColumnHeading type={type} colName={type} style={styles} columnTitle={columnTitle}>{columnTitle}</ColumnHeading>
+      <ColumnHeading
+        type={type}
+        colName='weekly'
+        style={styles}>Weekly
+      </ColumnHeading>
+      <ColumnHeading
+        type={type}
+        colName='monthly'
+        style={styles}>Monthly
+      </ColumnHeading>
+      <ColumnHeading
+        type={type}
+        colName='yearly'
+        style={styles}>Yearly
+      </ColumnHeading>
+      <ColumnHeading
+        type={type}
+        colName={type}
+        style={styles}
+        columnTitle={columnTitle}>{columnTitle}
+      </ColumnHeading>
     </div>
   );
 
@@ -398,47 +468,66 @@ const IntervalColumnHeadings = function ({ type }) {
  * @param {function} props.store - Given an event, `value`, [`otherData`]
  */
 class ManagedNumberField extends Component {
-  constructor ( props ) {
-    super( props );
+  constructor (props) {
+    super(props);
     var { format, value } = props;
-    this.state = { valid: true, focused: false, focusedVal: format( value ) };
+    this.state = {
+      valid: true,
+      focused: false,
+      focusedVal: format(value), 
+    };
   }  // End constructor()
 
   //change form to blank string after click, before input
-  handleFocus = ( evnt, inputProps ) => {
+  handleFocus = (evnt, inputProps) => {
     // This makes sure that only zeroes and blanks get reset
     var { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
-      this.setState({ focused: true, focusedVal: "" });
+      this.setState({
+        focused: true,
+        focusedVal: '', 
+      });
     } else {
-      this.setState({ focused: true, focusedVal: format( value ) });
+      this.setState({
+        focused: true,
+        focusedVal: format(value), 
+      });
     }
-  }
+  };
 
-  handleBlur = ( evnt ) => {
-    this.props.onBlur( evnt );
-    this.setState({ focused: false, valid: true });
-  }
+  handleBlur = (evnt) => {
+    this.props.onBlur(evnt);
+    this.setState({
+      focused: false,
+      valid: true, 
+    });
+  };
 
-  handleChange = ( evnt, inputProps ) => {
-    var { validation, store, otherData } = this.props
+  handleChange = (evnt, inputProps) => {
+    var { validation, store, otherData } = this.props;
     var { value } = inputProps,
-          valid   = validation( value );
+        valid   = validation(value);
 
-    if ( valid ) {
-      store( evnt, inputProps, otherData );
-    } else if ( value.length === 0 ) {  // treat empty string as 0
-      store( evnt, { ...inputProps, value: '0' }, otherData );
+    if (valid) {
+      store(evnt, inputProps, otherData);
+    } else if (value.length === 0) {  // treat empty string as 0
+      store(evnt, {
+        ...inputProps,
+        value: '0', 
+      }, otherData);
     }
-    this.setState({ focusedVal: value, valid: valid });
-  }  // End handleChange()
+    this.setState({
+      focusedVal: value,
+      valid: valid, 
+    });
+  };  // End handleChange()
 
   render() {
     var { valid, focused, focusedVal }      = this.state;
     var { value, name, className, format }  = this.props;
 
     // Format correctly when neighbors are updated, if needed
-    if ( !focused ) { value = format( value ) }
+    if (!focused) { value = format(value); }
     else            { value = focusedVal; }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */
@@ -455,17 +544,21 @@ class ManagedNumberField extends Component {
     );
   }  // End render()
 
-};  // End ManagedNumberField
+}  // End ManagedNumberField
 
 
 const CashFlowContainer = function ({ children, label, validRow, message }) {
   return (
-    <Form.Field inline className={'cashflow'}>
+    <Form.Field
+      inline
+      className={'cashflow'}>
       { children }
       <div className={'cashflow-column cashflow-column-last-child'}>
         <label>{label}</label>
       </div>
-      <RowMessage validRow={validRow} message={message} />
+      <RowMessage
+        validRow={validRow}
+        message={message} />
     </Form.Field>
   );
 };  // End <CashFlowContainer>
@@ -483,10 +576,13 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
       use `includes` array to include only certain columns perhaps */
 const CashFlowRow = function ({ generic, timeState, setClientProperty, children }) {
 
-  var updateClient = function ( evnt, inputProps, data ) {
-    var monthly = toMonthlyAmount[ data.interval ]( evnt, inputProps.value ),
-        obj     = { name: generic, value: monthly };
-    setClientProperty( evnt, obj );
+  var updateClient = function (evnt, inputProps, data) {
+    var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
+        obj     = {
+          name: generic,
+          value: monthly, 
+        };
+    setClientProperty(evnt, obj);
   };
 
   /** baseVal
@@ -507,11 +603,14 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
         store:      updateClient,
         validation: isPositiveNumber,
         format:     toMoneyStr,
-        onBlur:     function () { return true; }
+        onBlur:     function () { return true; },
       };
 
   return (
-    <CashFlowContainer label={children} validRow={true} message={null}>
+    <CashFlowContainer
+      label={children}
+      validRow={true}
+      message={null}>
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal / 4.33 }
@@ -542,7 +641,10 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
 
   return (
     <CashFlowContainer {...rowProps}>
-        <ManagedNumberField {...inputProps} value={baseValue} otherData={{interval: 'monthly'}} />
+      <ManagedNumberField
+        {...inputProps}
+        value={baseValue}
+        otherData={{ interval: 'monthly' }} />
     </CashFlowContainer>
   );
 
@@ -564,10 +666,9 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
  *     issues further up the line.
  */
 class ControlledRadioYesNo extends Component {
-  constructor(props ){
-    super(props)
-    this.state = {
-    }
+  constructor(props){
+    super(props);
+    this.state = {};
   }
 
   handleChange(e,inputProps){
@@ -576,7 +677,7 @@ class ControlledRadioYesNo extends Component {
       checked: inputProps.label === 'Yes',
     };
 
-    this.props.onChange( e, obj );
+    this.props.onChange(e, obj);
   }
 
 
@@ -584,14 +685,13 @@ class ControlledRadioYesNo extends Component {
     return (
       <div className="radio-yes-no">
 
-         <Form.Field>
+        <Form.Field>
           <Radio
             label='Yes'
             name={this.props.name}
             value='Yes'
             checked={this.props.checked === true}
-            onChange={this.handleChange.bind(this)}
-          />
+            onChange={this.handleChange.bind(this)} />
         </Form.Field>
         <Form.Field >
           <Radio
@@ -599,16 +699,15 @@ class ControlledRadioYesNo extends Component {
             name={this.props.name}
             value='No'
             checked={this.props.checked === false}
-            onChange={this.handleChange.bind(this)}
-          />
+            onChange={this.handleChange.bind(this)} />
         </Form.Field>
         <Form.Field >
-        <b>{this.props.labelText}</b>
+          <b>{this.props.labelText}</b>
 
         </Form.Field>
        
       </div>
-    )
+    );
   }
 }
 
@@ -621,5 +720,5 @@ export {
   RowMessage,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
   CashFlowRow, MonthlyCashFlowRow, CashFlowContainer,
-  ControlledRadioYesNo
+  ControlledRadioYesNo,
 };

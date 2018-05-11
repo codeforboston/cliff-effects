@@ -1,0 +1,52 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "jsx": true
+      }
+  },
+  "env": {
+      "browser": true
+  },
+  "extends": [
+      "react-app",
+      "plugin:jest/recommended"
+  ],
+  "plugins": [
+      "babel",
+      "jest",
+      "react"
+  ],
+  "rules": {
+      "babel/no-invalid-this": 1,
+      "babel/semi": 1,
+      "react/prop-types": 0,
+
+      "object-curly-spacing": ["warn", "always"],	
+      "array-bracket-spacing": ["warn", "always"],
+      "valid-jsdoc": "warn",
+      "react/self-closing-comp": "warn",
+      "comma-dangle": ["warn", "always-multiline"],
+      "space-infix-ops": "warn",
+      "quotes": ["warn", "single"],
+      "func-style": ["warn", "expression"],
+      "max-statements-per-line": ["warn", { "max": 1 }],
+      "keyword-spacing": ["warn", { "before": true, "after": true }],
+      "space-in-parens": ["warn", "never"],
+      "indent": ["warn", 2, { "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
+      "array-element-newline": ["warn", { "multiline": true }],
+      "array-bracket-newline": ["warn", { "multiline": true }],
+      "object-property-newline": ["warn", { "allowAllPropertiesOnSameLine": true }],
+      "object-curly-newline": ["warn", { "multiline": true }],
+      "react/jsx-max-props-per-line": ["warn", { "maximum": 1 }],
+      "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
+      "curly": ["warn", "all"],
+      "arrow-body-style": ["warn", "always"],
+      "arrow-parens": ["warn", "always"],
+      "react/jsx-closing-bracket-location": ["warn", "after-props"],
+      "react/jsx-tag-spacing": "warn",
+      "react/jsx-closing-tag-location": "warn"
+  }
+}

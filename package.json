@@ -21,7 +21,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm run build&&gh-pages -d build",
-    "generateSNAPTests": "./node_modules/.bin/babel-node src/test/programs/federal/snap/generateTestCases"
+    "generateSNAPTests": "./node_modules/.bin/babel-node src/test/programs/federal/snap/generateTestCases",
+    "lint": "./node_modules/.bin/eslint src --fix"
   },
   "homepage": "https://codeforboston.github.io/cliff-effects",
   "devDependencies": {
@@ -32,6 +33,9 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
+    "eslint": "^4.19.1",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-jest": "^21.15.1",
     "gh-pages": "^1.1.0",
     "react-test-renderer": "^16.3.2"
   },

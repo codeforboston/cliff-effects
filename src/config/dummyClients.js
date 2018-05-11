@@ -7,14 +7,14 @@ const clientList = [
     dob: '1/1/1997',
     zipCode: '02210',
     visits: [
-        {
-            date: '7/14/16',
-            benefits: 'SNAP, MassHealth, Section 8'
-        },
-        {
-            date: '5/1/17',
-            benefits: 'SNAP, MassHealth'
-        },
+      {
+        date: '7/14/16',
+        benefits: 'SNAP, MassHealth, Section 8',
+      },
+      {
+        date: '5/1/17',
+        benefits: 'SNAP, MassHealth',
+      },
     ],
   },
   {
@@ -115,7 +115,7 @@ const clientList = [
     dob: '1/1/1997',
     zipCode: '02210',
     visits:[],
-  }
-]
+  },
+];
 
-export {clientList};
+export { clientList };
