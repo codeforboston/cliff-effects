@@ -44,9 +44,7 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 * 
 * @returns Component
 */
-const IncomeForm = function ({
-  current, time, setClientProperty, 
-}) {
+const IncomeForm = function ({ current, time, setClientProperty }) {
 
   var type = 'income';
 

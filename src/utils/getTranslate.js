@@ -22,6 +22,4 @@ const getTranslate = function (appLanguage) {
 };
 
 
-export {
-  getTranslate,
-};
+export { getTranslate };

@@ -1,8 +1,6 @@
 // REACT COMPONENTS
 import React from 'react';
-import {
-  Table,
-} from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
 // Both the table and graph should just be added to a results page, but
@@ -136,9 +134,7 @@ const BenefitsTable = function (props) {
 
   const TotalsRow = function (props) {
     return (
-      <Table.Row style={{
-        border: 'none', 
-      }}>
+      <Table.Row style={{ border: 'none' }}>
         <Table.Cell textAlign='right'
           width={3}
           style={totalsRowHeaderStyle}>Net Total</Table.Cell>
@@ -184,6 +180,4 @@ const BenefitsTable = function (props) {
 };  // End BenefitsTable(<>)
 
 
-export {
-  BenefitsTable,
-};
+export { BenefitsTable };

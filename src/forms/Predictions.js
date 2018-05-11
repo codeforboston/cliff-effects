@@ -32,9 +32,7 @@ import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 *
 * @returns Component
 */
-const IncomeForm = function ({
-  future, time, setClientProperty, 
-}) {
+const IncomeForm = function ({ future, time, setClientProperty }) {
 
   var type = 'income';
 
@@ -58,9 +56,7 @@ const IncomeForm = function ({
   );
 };  // End IncomeForm() Component
 
-const Table = function ({
-  client, feedbackPrompt, 
-}) {
+const Table = function ({ client, feedbackPrompt }) {
   return (
     <div>
       <Header as='h1'
@@ -70,9 +66,7 @@ const Table = function ({
       {/* @todo Export/clean up styles  */}
       <Message visible
         warning
-        style={{
-          'textAlign': 'center', 
-        }}>
+        style={{ 'textAlign': 'center' }}>
       This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
         <Button
           fluid
@@ -91,35 +85,18 @@ const Table = function ({
   );
 };
 
-const Chart = function({
-  client, 
-}) {
+const Chart = function({ client }) {
 
   var curr = client.current;
 
   var
-    {
-      benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture, 
-    } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
-    {
-      benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture, 
-    } = getBenefitTimeFrames(client, 'hasSection8', getHousingBenefit),
-    {
-      incomeCurrent, incomeFuture, 
-    } = getIncomeTimeFrames(client);
+    { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
+    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getHousingBenefit),
+    { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
 
-  var snapData    = [
-      SNAPBenefitCurrent,
-      SNAPBenefitFuture, 
-    ],
-    housingData = [
-      sec8BenefitCurrent,
-      sec8BenefitFuture, 
-    ],
-    incomeData  = [
-      incomeCurrent,
-      incomeFuture, 
-    ];
+  var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
+    housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
+    incomeData  = [ incomeCurrent, incomeFuture ];
 
   const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
     SNAPName      = PROGRAM_CHART_VALUES.snap.name,
@@ -184,9 +161,7 @@ const Chart = function({
               display: true,
               labelString: 'Monthly Income ($)',
             },
-            ticks: {
-              callback: formatAxis,
-            },
+            ticks: { callback: formatAxis },
           },
         ],
       },

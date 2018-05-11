@@ -1,9 +1,7 @@
 import { Button } from 'semantic-ui-react';
 import React from 'react';
 
-const GraphButton = function ({
-  id, activeID, onClick, 
-}) {
+const GraphButton = function ({ id, activeID, onClick }) {
   return (
     <Button id={id}
       active={activeID === id}
@@ -13,9 +11,7 @@ const GraphButton = function ({
   );
 };
 
-const GraphTimeButtons = function ({
-  activeID, onClick, 
-}) {
+const GraphTimeButtons = function ({ activeID, onClick }) {
   return (
     <Button.Group basic
       className='graph-time-options'>

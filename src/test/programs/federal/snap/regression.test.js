@@ -8,15 +8,10 @@ import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import { getSNAPBenefits } from '../../../../programs/federal/snap';
 
 test('getSNAPBenefits() matches saved results', (done) => {
-  const rl = readline.createInterface({
-    input: fs.createReadStream(path.resolve(__dirname, 'test-cases.txt')),
-  });
+  const rl = readline.createInterface({ input: fs.createReadStream(path.resolve(__dirname, 'test-cases.txt')) });
 
   rl.on('line', (line) => {
-    const [
-      setupStr,
-      expectedStr,
-    ] = line.split(';');
+    const [ setupStr, expectedStr ] = line.split(';');
     const client = cloneDeep(CLIENT_DEFAULTS);
     extend(client.current, JSON.parse(setupStr));
     expect(getSNAPBenefits(client, 'current')).toEqual(+expectedStr);

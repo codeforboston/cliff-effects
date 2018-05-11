@@ -12,23 +12,17 @@ import { getSNAPBenefits } from '../../../../programs/federal/snap';
 
 export const FILE_NAME = 'test-cases.txt';
 const NUMBER_TEST_CASES = 1000;
-const randomizers = [
-];
+const randomizers = [];
 
 const defaultMember = {
   m_age: 30,
   m_disabled: false,
   m_role: 'member', 
 };
-const headMember = Object.assign({
-}, defaultMember, {
-  m_role: 'head', 
-});
+const headMember = Object.assign({}, defaultMember, { m_role: 'head' });
 const householdSize = (changes) => {
   const size = Math.ceil(Math.random() * 9);
-  const members = [
-    headMember,
-  ];
+  const members = [ headMember ];
   times(size - 1, () => {return members.push(defaultMember);});
   changes.household = members;
   return changes;
@@ -40,14 +34,8 @@ const elderlyOrDisabled = (changes) => {
   if (rnd < 1) {return changes;}
 
   const member = rnd < 2
-    ? Object.assign({
-    }, defaultMember, {
-      m_disabled: true, 
-    })
-    : Object.assign({
-    }, defaultMember, {
-      m_age: 61, 
-    });
+    ? Object.assign({}, defaultMember, { m_disabled: true })
+    : Object.assign({}, defaultMember, { m_age: 61 });
   changes.household.push(member);
   return changes;
 };
@@ -56,10 +44,7 @@ randomizers.push(elderlyOrDisabled);
 const under13Dependent = (changes) => {
   if (Math.random() < 0.5) {return changes;}
 
-  changes.household.push(Object.assign({
-  }, defaultMember, {
-    m_age: 11, 
-  }));
+  changes.household.push(Object.assign({}, defaultMember, { m_age: 11 }));
   return changes;
 };
 randomizers.push(under13Dependent);
@@ -87,24 +72,14 @@ const unearnedIncomeSources = (changes) => {
 };
 randomizers.push(unearnedIncomeSources);
 
-const possibleShelters = [
-  'homeless',
-  'houseowner',
-  'renter',
-  'voucher',
-];
+const possibleShelters = [ 'homeless', 'houseowner', 'renter', 'voucher' ];
 const shelters = (changes) => {
   changes.shelter = sample(possibleShelters);
   return changes;
 };
 randomizers.push(shelters);
 
-const possibleUtilityBrackets = [
-  'Heating',
-  'Non-heating',
-  'Telephone',
-  'None',
-];
+const possibleUtilityBrackets = [ 'Heating', 'Non-heating', 'Telephone', 'None' ];
 const utilityBrackets = (changes) => {
   switch (sample(possibleUtilityBrackets)) {
   case 'Heating':
@@ -126,13 +101,7 @@ const utilityBrackets = (changes) => {
 randomizers.push(utilityBrackets);
 
 const shelterFeeNames =
-  [
-    'mortgage',
-    'propertyTax',
-    'housingInsurance',
-    'rent',
-    'rentShare',
-  ];
+  [ 'mortgage', 'propertyTax', 'housingInsurance', 'rent', 'rentShare' ];
 const shelterFees = (changes) => {
   shelterFeeNames.forEach((name) => {return changes[name] = (Math.random() * 50) ** 2 + 200;});
   return changes;
@@ -165,11 +134,8 @@ randomizers.push(over12CareExpenses);
 const stream = fs.createWriteStream(path.resolve(__dirname, FILE_NAME));
 
 times(NUMBER_TEST_CASES, () => {
-  const changes = randomizers.reduce((changes, fn) => {return fn(changes);}, {
-  });
-  const client = {
-    current: cloneDeep(CLIENT_DEFAULTS.current), 
-  };
+  const changes = randomizers.reduce((changes, fn) => {return fn(changes);}, {});
+  const client = { current: cloneDeep(CLIENT_DEFAULTS.current) };
   Object.assign(client.current, changes);
   const benefits = getSNAPBenefits(client, 'current');
   stream.write(`${JSON.stringify(changes)};${benefits}\n`);

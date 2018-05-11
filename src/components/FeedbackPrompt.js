@@ -12,8 +12,7 @@ class FeedbackPrompt extends React.Component {
     super(props);
 
     this.state = {
-      formData: {
-      },
+      formData: {},
       submissionFailed: false,
       submitting: false,
     };
@@ -25,12 +24,7 @@ class FeedbackPrompt extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    this.setState({
-      formData: Object.assign({
-      }, this.state.formData, {
-        [name]: value, 
-      }),
-    });
+    this.setState({ formData: Object.assign({}, this.state.formData, { [name]: value }) });
   };
 
   // returns promise that succeeds if submission is successful, else rejects.
@@ -54,8 +48,7 @@ class FeedbackPrompt extends React.Component {
   close = (event) => {
     // Reset state for next time it's opened
     this.setState({
-      formData: {
-      },
+      formData: {},
       submissionFailed: false,
       submitting: false,
     });
@@ -63,12 +56,8 @@ class FeedbackPrompt extends React.Component {
   };
 
   submit = (event) => {
-    this.setState({
-      submitting: true, 
-    });
-    const data = Object.assign({
-      clientData: this.props.data, 
-    }, this.state.formData);
+    this.setState({ submitting: true });
+    const data = Object.assign({ clientData: this.props.data }, this.state.formData);
     this.sendDataToSpreadsheet(data)
       .then((response) => {
         this.close();

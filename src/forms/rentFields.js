@@ -35,12 +35,8 @@ class RentShareField extends Component {
   };
 
   render() {
-    const {
-        timeState, setClientProperty, 
-      } = this.props,
-      {
-        valid, message, 
-      } = this.state;
+    const { timeState, setClientProperty } = this.props,
+      { valid, message } = this.state;
 
     const inputProps = {
         name:       'rentShare',
@@ -57,9 +53,7 @@ class RentShareField extends Component {
       <MonthlyCashFlowRow
         inputProps        = { inputProps }
         baseValue         = { timeState[ 'rentShare' ] }
-        includes          = {[
-          'monthly', 
-        ]}
+        includes          = {[ 'monthly' ]}
         setClientProperty = { setClientProperty }
         rowProps          = { rowProps } />
     );
@@ -98,12 +92,8 @@ class ContractRentField extends Component {
   };
 
   render() {
-    const {
-        timeState, setClientProperty, 
-      } = this.props,
-      {
-        valid, message, 
-      } = this.state;
+    const { timeState, setClientProperty } = this.props,
+      { valid, message } = this.state;
 
     const inputProps = {
         name:       'contractRent',
@@ -120,9 +110,7 @@ class ContractRentField extends Component {
       <MonthlyCashFlowRow
         inputProps        = { inputProps }
         baseValue         = { timeState[ 'contractRent' ] }
-        includes          = {[
-          'monthly', 
-        ]}
+        includes          = {[ 'monthly' ]}
         setClientProperty = { setClientProperty }
         rowProps          = { rowProps } />
     );
@@ -130,9 +118,7 @@ class ContractRentField extends Component {
 }  // End <ContractRentField>
 
 
-const PlainRentRow = function ({
-  timeState, setClientProperty, 
-}) {
+const PlainRentRow = function ({ timeState, setClientProperty }) {
 
   const inputProps = {
       name:       'rent',
@@ -149,9 +135,7 @@ const PlainRentRow = function ({
     <MonthlyCashFlowRow
       inputProps        = { inputProps }
       baseValue         = { timeState[ 'rent' ] }
-      includes          = {[
-        'monthly', 
-      ]}
+      includes          = {[ 'monthly' ]}
       setClientProperty = { setClientProperty }
       rowProps          = { rowProps } />
   );

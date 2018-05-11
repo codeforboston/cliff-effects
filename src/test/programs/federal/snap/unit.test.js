@@ -735,11 +735,7 @@ describe('SNAPhelpers', () => {
     });
 
     it('not homeless, it should return zero', () => {
-      [
-        'homeowner',
-        'renter',
-        'voucher', 
-      ].forEach((shelter) => {
+      [ 'homeowner', 'renter', 'voucher' ].forEach((shelter) => {
         current.shelter = shelter;
         expect(SNAPhelpers.getHomelessDeduction(current)).toEqual(0);
       });
@@ -763,13 +759,7 @@ describe('SNAPhelpers', () => {
       const earnedIncomeDeduction = 1;
       const medicalDeduction = 1;
       const dependentCareDeduction = 1;
-      mocks = [
-        jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross),
-        jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction),
-        jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction),
-        jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction),
-        jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction),
-      ];
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross), jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction), jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction), jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction), jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction) ];
       
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
@@ -782,13 +772,7 @@ describe('SNAPhelpers', () => {
       const earnedIncomeDeduction = 1;
       const medicalDeduction = 1;
       const dependentCareDeduction = 1;
-      mocks = [
-        jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross),
-        jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction),
-        jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction),
-        jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction),
-        jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction),
-      ];
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross), jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction), jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction), jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction), jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction) ];
       
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
@@ -812,11 +796,7 @@ describe('SNAPhelpers', () => {
       const income = 1000;
       const homelessDeduction = 100;
       const shelterDeduction = 1;
-      mocks = [
-        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
-        jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
-        jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction),
-      ];
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction) ];
       
       const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
       expect(SNAPhelpers.monthlyNetIncome(current)).toEqual(monthlyNetIncome);
@@ -826,11 +806,7 @@ describe('SNAPhelpers', () => {
       const income = 0;
       const homelessDeduction = 100;
       const shelterDeduction = 1;
-      mocks = [
-        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
-        jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
-        jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction),
-      ];
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction) ];
       
       const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
       expect(monthlyNetIncome).toBeLessThan(0);

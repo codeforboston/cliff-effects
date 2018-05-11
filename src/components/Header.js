@@ -10,9 +10,7 @@ class Header extends React.Component {
       <Segment
         inverted
         textAlign='center'
-        style={{
-          padding: '1em 0em', 
-        }}
+        style={{ padding: '1em 0em' }}
         vertical
         color='teal'>
         <MainMenu />

@@ -67,8 +67,7 @@ const getHousingBenefit = function (client, timeframe) {
 };  // End getHousingBenefit
 
 
-var section8Helpers = {
-  },
+var section8Helpers = {},
   hlp             = section8Helpers;
 
 /**
@@ -145,8 +144,7 @@ hlp.getNetIncome = function (client, timeframe) {
 hlp.getAdjustedIncome = function (client, timeframe, net) {
 
   var time       = timeframe,  // shorter
-    allowances = [
-    ];
+    allowances = [];
 
   // #4 & #5
   var depAllowanceAnnual = getDependentsOfHousehold(client[ time ]).length * 480;

@@ -9,8 +9,7 @@
 */
 const getEveryMember = function (memberList, memberTest) {
 
-  var members   = [
-  ];
+  var members   = [];
 
   for (let memi = 0; memi < memberList.length; memi++) {
 

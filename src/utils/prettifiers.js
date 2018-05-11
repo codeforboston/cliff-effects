@@ -9,6 +9,4 @@ const toMoneyStr = function (decimal) {
 };
 
 
-export {
-  toMoneyStr,
-};
+export { toMoneyStr };

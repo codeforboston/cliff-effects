@@ -37,13 +37,10 @@ const columnStyle = {
   // marginBottom: '0.7em'
 };
 
-const Columns = {
-};
+const Columns = {};
 
 // `noMargin` is a bit hacky, but it'll do for now
-Columns.One = function ({
-  noMargin, children, 
-}) {
+Columns.One = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
   if (noMargin) { marginTop = 0; }
   return (<div style={{
@@ -53,9 +50,7 @@ Columns.One = function ({
   }}> {children} </div>);
 };
 
-Columns.Two = function ({
-  noMargin, children, 
-}) {
+Columns.Two = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
   if (noMargin) { marginTop = 0; }
   return (<div style={{
@@ -67,9 +62,7 @@ Columns.Two = function ({
   }}> {children} </div>);
 };
 
-Columns.Three = function ({
-  noMargin, children, 
-}) {
+Columns.Three = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
   if (noMargin) { marginTop = 0; }
   return (<div style={{
@@ -79,9 +72,7 @@ Columns.Three = function ({
   }}> {children} </div>);
 };
 
-Columns.Four = function ({
-  noMargin, children, 
-}) {
+Columns.Four = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
   if (noMargin) { marginTop = 0; }
   return (<div style={{
@@ -100,9 +91,7 @@ Columns.Four = function ({
 *
 * @returns Component
 */
-const ColumnHeader = function ({
-  children, columnNum, 
-}) {
+const ColumnHeader = function ({ children, columnNum }) {
 
   var Container = Columns[ columnNum ];
 
@@ -126,9 +115,7 @@ const ColumnHeader = function ({
 *
 * @returns Component
 */
-const MemberButton = function ({
-  basic, color, iconName, className, onClick, 
-}) {
+const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 
   color = color || null;
 
@@ -162,9 +149,7 @@ const MemberButton = function ({
 *
 * @returns Component
 */
-const Role = function ({
-  member, setMember, 
-}) {
+const Role = function ({ member, setMember }) {
 
   var ThisRole  = null,
     margin   = '0';
@@ -223,9 +208,7 @@ const Role = function ({
 *
 * @returns Component
 */
-const MemberField = function ({
-  household, time, setHousehold, setClientProperty, 
-}, indx) {
+const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx) {
 
   var member      = household[ indx ],
     routeStart  = 'household/' + indx + '/';
@@ -327,8 +310,7 @@ const getMembers = function (current, time, setHousehold, setClientProperty) {
       setClientProperty:  setClientProperty,
     };
 
-  var mems = [
-  ];
+  var mems = [];
   for (let memi = 0; memi < household.length; memi++) {
     mems.push(MemberField(props, memi));
   }
@@ -348,9 +330,7 @@ const getMembers = function (current, time, setHousehold, setClientProperty) {
 *
 * @returns Component
 */
-const HouseholdContent = function ({
-  current, time, setClientProperty, 
-}) {
+const HouseholdContent = function ({ current, time, setClientProperty }) {
 
   // Don't mutate state properties
   var household = cloneDeep(current.household);
@@ -390,9 +370,7 @@ const HouseholdContent = function ({
 
   return (
     <div className='field-aligner two-column'>
-      <div style={{
-        marginBottom: '.5em', 
-      }}>
+      <div style={{ marginBottom: '.5em' }}>
         <ColumnHeader columnNum='One' />
         <ColumnHeader columnNum='Two'>Role</ColumnHeader>
         <ColumnHeader columnNum='Three'>Age</ColumnHeader>

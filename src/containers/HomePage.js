@@ -10,9 +10,7 @@ class HomePage extends Component {
 
         <div id='HomeContent'>
 
-          <div style={{
-            display:'inline-block', 
-          }}>
+          <div style={{ display:'inline-block' }}>
 
             <h1 style={{
               fontSize: '5em',

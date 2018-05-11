@@ -41,9 +41,7 @@ class VisitPage extends Component {
     super(props);
 
 
-    var {
-      location, match, 
-    } = this.props;
+    var { location, match } = this.props;
 
     // @todo use visitId to upload last file if possible?
     var wantLoad = false;
@@ -71,8 +69,7 @@ class VisitPage extends Component {
       feedbackOpen: false,
       // Hack for MVP
       oldShelter: clone.current.shelter,
-      userChanged: {
-      },
+      userChanged: {},
       translate: getTranslate('en'),
     };  // end this.state {}
 
@@ -102,9 +99,7 @@ class VisitPage extends Component {
 
   }  // End constructor()
 
-  loadClient = ({
-    client, 
-  }) => {
+  loadClient = ({ client }) => {
     const defaultClient = cloneDeep(CLIENT_DEFAULTS);
 
     const current = Object.assign(defaultClient.current, client.current);
@@ -115,9 +110,7 @@ class VisitPage extends Component {
       future: future, 
     };
 
-    this.setState({
-      client: nextClient, 
-    });
+    this.setState({ client: nextClient });
   };
 
   resetClient = () => {
@@ -126,8 +119,7 @@ class VisitPage extends Component {
       client: cloneDeep(CLIENT_DEFAULTS),
       oldShelter: CLIENT_DEFAULTS.current.shelter,
       isBlocking: false,
-      userChanged: {
-      },
+      userChanged: {},
     });
   };
 
@@ -151,11 +143,7 @@ class VisitPage extends Component {
         ...promptProps,
         open: true,
         callback: (ok) => {
-          this.setState({
-            prompt: {
-              open: false, 
-            }, 
-          });
+          this.setState({ prompt: { open: false } });
           callback(ok);
         },
       },
@@ -163,20 +151,14 @@ class VisitPage extends Component {
   };
 
   feedbackPrompt = () => {
-    this.setState({
-      feedbackOpen: true, 
-    });
+    this.setState({ feedbackOpen: true });
   };
 
   setTranslate = (evnt, inputProps) => {
-    this.setState({
-      translate: getTranslate(inputProps.value), 
-    });
+    this.setState({ translate: getTranslate(inputProps.value) });
   };
 
-  changeClient = (evnt, {
-    route, name, value, checked, time, 
-  }) => {
+  changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
 
@@ -184,9 +166,7 @@ class VisitPage extends Component {
     if (typeof checked === 'boolean') { val = checked; }
 
     var client      = cloneDeep(this.state.client),
-      userChanged = {
-        ...this.state.userChanged, 
-      },  // only 1 deep
+      userChanged = { ...this.state.userChanged },  // only 1 deep
       current     = client.current,
       future      = client.future,
       routeList   = route.split('/'),
@@ -230,9 +210,7 @@ class VisitPage extends Component {
         redirect: true, 
       });
     } else {
-      this.setState({
-        isBlocking: false, 
-      });
+      this.setState({ isBlocking: false });
     }
   };
 
@@ -242,23 +220,17 @@ class VisitPage extends Component {
   };
 
   nextStep = () => {
-    this.setState((prevState) => {return {
-      currentStep: prevState.currentStep + 1,
-    };});
+    this.setState((prevState) => {return { currentStep: prevState.currentStep + 1 };});
     this.scrollToTop();
   };
 
   previousStep = () => {
-    this.setState((prevState) => {return {
-      currentStep: prevState.currentStep - 1,
-    };});
+    this.setState((prevState) => {return { currentStep: prevState.currentStep - 1 };});
     this.scrollToTop();
   };
 
   goToStep = (index) => {
-    this.setState({
-      currentStep: index, 
-    });
+    this.setState({ currentStep: index });
   };
 
   getCurrentStep = () => {
@@ -306,9 +278,7 @@ class VisitPage extends Component {
         <ConfirmLeave isBlocking={this.state.isBlocking}/>
         <FeedbackPrompt
           isOpen={this.state.feedbackOpen}
-          close={() => { this.setState({
-            feedbackOpen: false, 
-          }); }}
+          close={() => { this.setState({ feedbackOpen: false }); }}
           data={this.state.client}/>
 
         {this.state.redirect ?
@@ -319,22 +289,16 @@ class VisitPage extends Component {
         {/* `padding` here duplicates previous `<Grid>` styleing */}
         <Container
           className='flex-item flex-column'
-          style={{
-            padding: '42px 0', 
-          }}>
+          style={{ padding: '42px 0' }}>
           <Responsive minWidth='874.5'
-            style={{
-              padding: '14px 0', 
-            }}>
+            style={{ padding: '14px 0' }}>
             <StepBar
               currentStepIndex={this.state.currentStep}
               steps={this.steps}
               goToStep={this.goToStep}/>
           </Responsive>
           <div className="flex-item flex-column"
-            style={{
-              padding: '14px 0', 
-            }}>
+            style={{ padding: '14px 0' }}>
             {this.getCurrentStep()}
           </div>
         </Container>

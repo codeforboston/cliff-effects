@@ -24,8 +24,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Matt A.',
@@ -34,8 +33,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/matthew.png',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Mark G.',
@@ -44,8 +42,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/daniel.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Molly P.',
@@ -54,8 +51,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/molly.png',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'John J.',
@@ -64,8 +60,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/steve.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Amelia E.',
@@ -74,8 +69,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/molly.png',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Jill E.',
@@ -84,8 +78,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Bill C.',
@@ -94,8 +87,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/matthew.png',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Jeff K.',
@@ -104,8 +96,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/steve.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Sally V.',
@@ -114,8 +105,7 @@ const clientList = [
     image: 'http://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
   {
     name: 'Jim Y.',
@@ -124,8 +114,7 @@ const clientList = [
     image:'http://react.semantic-ui.com/assets/images/avatar/large/daniel.jpg',
     dob: '1/1/1997',
     zipCode: '02210',
-    visits:[
-    ],
+    visits:[],
   },
 ];
 

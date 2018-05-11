@@ -1,10 +1,6 @@
 import { valueFixers } from './valueFixers';
 
-const setNestedProperty = function ({
-  route, value, time, 
-}, {
-  current, future, 
-}, previouslySetByUser) {
+const setNestedProperty = function ({ route, value, time }, { current, future }, previouslySetByUser) {
   
   var itemID = route.shift();
   if (route.length <= 0) {
@@ -33,9 +29,7 @@ const setNestedProperty = function ({
 };  // End setNestedProperty()
 
 
-const setValidCurrent = function ({
-  name, value, type, 
-}, newCurrent) {
+const setValidCurrent = function ({ name, value, type }, newCurrent) {
   if (type === 'current') {
     newCurrent[ name ] = valueFixers[ name ](value, newCurrent);
   }

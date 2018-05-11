@@ -24,9 +24,7 @@ class CustomClient extends React.Component {
   };
 
   submit = (event) => {
-    const {
-      client, 
-    } = this.state;
+    const { client } = this.state;
     event.preventDefault();
     if (client === null) {return;}
 
@@ -35,15 +33,11 @@ class CustomClient extends React.Component {
       error: null,
       json: '',
     });
-    this.props.loadClient({
-      client: client, 
-    });
+    this.props.loadClient({ client: client });
   };
 
   handleChange = (_event, inputProps) => {
-    const {
-      value, 
-    } = inputProps;
+    const { value } = inputProps;
     try {
       const newClient = JSON.parse(value);
       this.setState({
@@ -62,9 +56,7 @@ class CustomClient extends React.Component {
 
   render() {
     if (!this.props.mayLoadCustomClient) {return null;}
-    const {
-      client, error, json, 
-    } = this.state;
+    const { client, error, json } = this.state;
 
     return (
       <Form error={error !== null}
