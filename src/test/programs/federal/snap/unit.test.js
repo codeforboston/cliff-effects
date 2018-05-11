@@ -269,17 +269,18 @@ describe('SNAPhelpers', () => {
   test('`getPovertyGrossIncomeLevel( timeClient )', () => {
     const current = cloneDeep( defaultCurrent );
 
-    const getMonthlyLimitBySize = jest.spyOn(getGovData, 'getMonthlyLimitBySize');
+    const getLimitBySize = jest.spyOn(getGovData, 'getLimitBySize');
     const monthlyLimit = 12;
-    getMonthlyLimitBySize.mockReturnValue(monthlyLimit);
+    getLimitBySize.mockReturnValue(monthlyLimit);
 
     const federalPovertyGuidelines = expect.any(Object);
     const numMembers = current.household.length;
 
-    expect(SNAPhelpers.getPovertyGrossIncomeLevel( current )).toEqual(monthlyLimit);
-    expect(getMonthlyLimitBySize).toBeCalledWith(federalPovertyGuidelines, numMembers, 200);
+    const incomeLimit = SNAPhelpers.getPovertyGrossIncomeLevel( current ) * 12
+    expect( incomeLimit ).toEqual( monthlyLimit );
+    expect(getLimitBySize).toBeCalledWith(federalPovertyGuidelines, numMembers, 200);
 
-    getMonthlyLimitBySize.mockRestore();
+    getLimitBySize.mockRestore();
   });
 
 
@@ -793,19 +794,19 @@ describe('SNAPhelpers', () => {
       getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
       current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
 
-      // mock getYearlyLimitBySize, which is what generates the limit to be returned
-      const getYearlyLimitBySize = jest.spyOn(getGovData, 'getYearlyLimitBySize');
+      // mock getLimitBySize, which is what generates the limit to be returned
+      const getLimitBySize = jest.spyOn(getGovData, 'getLimitBySize');
       const yearlyLimit = 12;
-      getYearlyLimitBySize.mockReturnValue(yearlyLimit);
+      getLimitBySize.mockReturnValue(yearlyLimit);
 
       // expected params for getYearlyLimtBySize
       const snapData = expect.any(Object);
       const numMembers = current.household.length;
 
       expect(SNAPhelpers.getMaxNetIncome( current )).toEqual(yearlyLimit);
-      expect(getYearlyLimitBySize).toBeCalledWith(snapData, numMembers);
+      expect(getLimitBySize).toBeCalledWith(snapData, numMembers);
 
-      getYearlyLimitBySize.mockRestore();
+      getLimitBySize.mockRestore();
     });
   });
 
