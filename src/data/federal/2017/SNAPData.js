@@ -6,27 +6,32 @@
  */
 const SNAPData = {
   // in monthly values, because that is what 106 CMR 364.400 leads to: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-400.pdf
-  STANDARD_DEDUCTIONS: { 0: 0,
+  STANDARD_DEDUCTIONS: {
+    0: 0,
     1: 160,
     2: 160,
     3: 160,
     4: 170,
     5: 199,
     6: 228,
-    'eachAdditional': 0 },
+    'eachAdditional': 0, 
+  },
   PERCENT_GROSS_MONTHLY_EARNED: 0.20,
   STANDARD_MEDICAL_DEDUCTION: 155,
   MIN_MEDICAL_EXPENSES: 35,
   MAX_MEDICAL_EXPENSES: 190,
   // in monthly values, original source: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-945.pdf
-  UTILITY_COST_BRACKETS: { 'Heating': 636,
+  UTILITY_COST_BRACKETS: {
+    'Heating': 636,
     'Non-heating': 392,
     'Zero Utility Expenses': 0,
-    'Telephone': 45 },
+    'Telephone': 45, 
+  },
   SHELTER_DEDUCTION_CAP: 535,
   HOMELESS_DEDUCTION: 143,
   // in monthly values, original source: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-970.pdf
-  NET_INCOME_LIMITS: { 0: 0,
+  NET_INCOME_LIMITS: {
+    0: 0,
     1: 1005,
     2: 1354,
     3: 1702,
@@ -35,9 +40,11 @@ const SNAPData = {
     6: 2747,
     7: 3095,
     8: 3444,
-    'eachAdditional': 349 },
+    'eachAdditional': 349, 
+  },
   // in monthly values, original source: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-980-hh-1-10.pdf
-  SNAP_LIMITS: { 0: 0,
+  SNAP_LIMITS: {
+    0: 0,
     1: 192,
     2: 352,
     3: 504,
@@ -46,7 +53,8 @@ const SNAPData = {
     6: 913,
     7: 1009,
     8: 1153,
-    'eachAdditional': 144 },
+    'eachAdditional': 144, 
+  },
   // Was this used for Bay State CAP?
   // maxFoodStamp: 194,
   PERCENT_OF_NET: 0.30,

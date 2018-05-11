@@ -39,7 +39,8 @@ const limit = function (initialVal, minMax) {
 };  // End limit()
 
 
-var toMonthlyAmount = {};
+var toMonthlyAmount = {
+};
 
 toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
@@ -53,7 +54,9 @@ toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
 toMonthlyAmount.monthly = function (evnt, monthlyVal) {
   // Monthly is used for a lot of things and is the one we want to store
-  var monthlyInBounds = limit(monthlyVal, { min: 0 });
+  var monthlyInBounds = limit(monthlyVal, {
+    min: 0, 
+  });
   return monthlyInBounds;
 
 };  // End toMonthlyAmount.monthly()

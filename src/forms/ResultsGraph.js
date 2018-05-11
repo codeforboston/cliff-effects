@@ -77,7 +77,8 @@ class verticalLinePlugin {
 
 
 
-var getData = {};
+var getData = {
+};
 
 getData.income = function (xRange, client, multiplier) {
   return xRange;
@@ -162,7 +163,9 @@ class GrossGraph extends Component {
   }
 
   render () {
-    const { client, multiplier, activePrograms } = this.props;
+    const {
+      client, multiplier, activePrograms, 
+    } = this.props;
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier) / 100) * 100,
@@ -172,7 +175,11 @@ class GrossGraph extends Component {
     withIncome.unshift('income');
 
     var xRange        = _.range(0, max, interval),
-      extraProps    = { income: { fill: 'origin' } },
+      extraProps    = {
+        income: {
+          fill: 'origin', 
+        }, 
+      },
       datasets      = getDatasets(xRange, client, multiplier, withIncome, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
@@ -193,7 +200,9 @@ class GrossGraph extends Component {
           text: 'All Money Coming in as Income Changes',
         },  // end `title`
         elements: {
-          line: { fill: '-1' },
+          line: {
+            fill: '-1', 
+          },
           point: {
             radius: 0,
             hitRadius: 10,
@@ -256,15 +265,23 @@ class BenefitGraph extends Component {
   }
 
   render () {
-    const { client, multiplier, activePrograms } = this.props;
+    const {
+      client, multiplier, activePrograms, 
+    } = this.props;
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier) / 100) * 100,
       interval  = Math.ceil((max / 100) / 10) * 10;
 
     var xRange      = _.range(0, max, interval),  // x-axis/income numbers
-      extraProps  = { snap: { fill: false },
-        section8: { fill: false } },
+      extraProps  = {
+        snap: {
+          fill: false, 
+        },
+        section8: {
+          fill: false, 
+        }, 
+      },
       datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
@@ -338,20 +355,30 @@ class GraphHolder extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { activeID: 'Yearly',
-      multiplier: MULTIPLIERS[ 'Yearly' ] };
+    this.state = {
+      activeID: 'Yearly',
+      multiplier: MULTIPLIERS[ 'Yearly' ], 
+    };
   }
 
   onClick = (evnt) => {
     var id = evnt.target.id;
-    this.setState({ activeID: id,
-      multiplier: MULTIPLIERS[ id ] });
+    this.setState({
+      activeID: id,
+      multiplier: MULTIPLIERS[ id ], 
+    });
   };
 
   render () {
-    const { activeID, multiplier }  = this.state,
-      { Graph, client }         = this.props,
-      { current }               = client,
+    const {
+        activeID, multiplier, 
+      }  = this.state,
+      {
+        Graph, client, 
+      }         = this.props,
+      {
+        current, 
+      }               = client,
       activePrograms            = [
       ];
 
@@ -374,16 +401,22 @@ class GraphHolder extends Component {
 }  // End <GraphHolder>
 
 
-const ResultsGraph = ({ client, previousStep, resetClient }) => {
+const ResultsGraph = ({
+  client, previousStep, resetClient, 
+}) => {
 
   return (
     <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
         title     = {'Graphs'}
-        left      = {{ name: 'Go Back',
-          func: previousStep }}
-        right     = {{ name: 'Reset',
-          func: resetClient }}>
+        left      = {{
+          name: 'Go Back',
+          func: previousStep, 
+        }}
+        right     = {{
+          name: 'Reset',
+          func: resetClient, 
+        }}>
         <GraphHolder client={client}
           Graph={GrossGraph} />
         <GraphHolder client={client}

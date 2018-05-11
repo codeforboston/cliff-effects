@@ -36,11 +36,13 @@ test('getEveryMember() empty result', () => {
 
 // getEveryMemberOfHousehold(obj, fn) = obj.household.filter(fn)
 test('getEveryMemberOfHousehold()', () => {
-  const client = { household: [
-    0,
-    1,
-    0,
-  ] };
+  const client = {
+    household: [
+      0,
+      1,
+      0,
+    ], 
+  };
   expect(getEveryMemberOfHousehold(client, (val) => {return val === 0;})).toHaveLength(2);
 });
 
@@ -48,7 +50,9 @@ describe('head or spouse', () => {
   const headOrSpouse = [
     'head',
     'spouse', 
-  ].map((role) => {return { m_role: role };});
+  ].map((role) => {return {
+    m_role: role, 
+  };});
   const notHeadOrSpouse = [
     'Head',
     'member',
@@ -80,38 +84,58 @@ describe('head or spouse', () => {
   });
 
   test('getHeadOrSpouseOfHousehold()', () => {
-    const client = { household: allMembers };
+    const client = {
+      household: allMembers, 
+    };
     expect(getHeadOrSpouseOfHousehold(client)).toHaveLength(2);
   });
 });
 
 describe('dependents', () => {
   const dependents = [
-    { m_age: 18,
-      m_role: 'member' },
-    { m_age: 17,
-      m_role: 'member' },
-    { m_age: 19,
+    {
+      m_age: 18,
+      m_role: 'member', 
+    },
+    {
+      m_age: 17,
+      m_role: 'member', 
+    },
+    {
+      m_age: 19,
       m_disabled: true,
-      m_role: 'member' },
+      m_role: 'member', 
+    },
   ];
   const notDependents = [
-    { m_age: 18,
-      m_role: 'head' },
-    { m_age: 18,
-      m_role: 'spouse' },
-    { m_age: 19,
+    {
+      m_age: 18,
+      m_role: 'head', 
+    },
+    {
+      m_age: 18,
+      m_role: 'spouse', 
+    },
+    {
+      m_age: 19,
       m_disabled: true,
-      m_role: 'head' },
-    { m_age: 19,
+      m_role: 'head', 
+    },
+    {
+      m_age: 19,
       m_disabled: true,
-      m_role: 'spouse' },
-    { m_age: 19,
+      m_role: 'spouse', 
+    },
+    {
+      m_age: 19,
       m_disabled: false,
-      m_role: 'member' },
-    { m_age: 26,
+      m_role: 'member', 
+    },
+    {
+      m_age: 26,
       m_disabled: false,
-      m_role: 'member' },
+      m_role: 'member', 
+    },
   ];
   const allMembers = dependents.concat(notDependents);
 
@@ -125,14 +149,20 @@ describe('dependents', () => {
   });
 
   test('getDependentsOfHousehold()', () => {
-    const client = { household: allMembers };
+    const client = {
+      household: allMembers, 
+    };
     expect(getDependentsOfHousehold(client)).toHaveLength(dependents.length);
   });
 });
 
 describe('disabled', () => {
-  const disabled = { m_disabled: true };
-  const notDisabled = { m_disabled: false };
+  const disabled = {
+    m_disabled: true, 
+  };
+  const notDisabled = {
+    m_disabled: false, 
+  };
   const allMembers = [
     disabled,
     notDisabled,
@@ -149,7 +179,9 @@ describe('disabled', () => {
   });
 
   test('getDisabledOfHousehold()', () => {
-    const client = { household: allMembers };
+    const client = {
+      household: allMembers, 
+    };
     expect(getDisabledOfHousehold(client)).toHaveLength(1);
   });
 });
@@ -158,12 +190,16 @@ describe('under 13', () => {
   const under13 = [
     11,
     12, 
-  ].map((age) => {return { m_age: age };});
+  ].map((age) => {return {
+    m_age: age, 
+  };});
   const over12 = [
     13,
     14,
     77,
-  ].map((age) => {return { m_age: age };});
+  ].map((age) => {return {
+    m_age: age, 
+  };});
   const allMembers = under13.concat(over12);
 
   test('isUnder13()', () => {
@@ -176,7 +212,9 @@ describe('under 13', () => {
   });
 
   test('getUnder13OfHousehold()', () => {
-    const client = { household: allMembers };
+    const client = {
+      household: allMembers, 
+    };
     expect(getUnder13OfHousehold(client)).toHaveLength(under13.length);
   });
 });

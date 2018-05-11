@@ -136,7 +136,9 @@ const BenefitsTable = function (props) {
 
   const TotalsRow = function (props) {
     return (
-      <Table.Row style={{ border: 'none' }}>
+      <Table.Row style={{
+        border: 'none', 
+      }}>
         <Table.Cell textAlign='right'
           width={3}
           style={totalsRowHeaderStyle}>Net Total</Table.Cell>

@@ -2,8 +2,10 @@ import _ from 'lodash';
 
 // Helper functions to format vlaues
 const toFancyMoneyStr = function (toFormat) {
-  return toFormat.toLocaleString('en-US', { style:'currency',
-    currency:'USD' }).replace('.00','');
+  return toFormat.toLocaleString('en-US', {
+    style:'currency',
+    currency:'USD', 
+  }).replace('.00','');
 };
 
 const formatAxis = function (label) {
@@ -23,7 +25,9 @@ const formatLabel =  function(tooltipItem, data) {
 };
 
 const stackedTitle = function(tooltipItems, data) {
-  const { index } = tooltipItems[0];
+  const {
+    index, 
+  } = tooltipItems[0];
   return toFancyMoneyStr(_.sumBy(data.datasets, (dataset) => {return dataset.data[index];}));
 };
 

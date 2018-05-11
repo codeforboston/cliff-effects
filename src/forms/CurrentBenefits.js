@@ -8,7 +8,9 @@ import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
 
-const LocalizedRadioYesNo = function ({ translate, checked, name, onChange }) {
+const LocalizedRadioYesNo = function ({
+  translate, checked, name, onChange, 
+}) {
 
   return (
     <ControlledRadioYesNo
@@ -29,7 +31,9 @@ const LocalizedRadioYesNo = function ({ translate, checked, name, onChange }) {
 *
 * @returns Component
 */
-const CurrentBenefitsContent = ({ current, setClientProperty, translate }) => {
+const CurrentBenefitsContent = ({
+  current, setClientProperty, translate, 
+}) => {
 
   return (
     <div >
@@ -58,7 +62,9 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate }) => {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const CurrentBenefitsStep = ({ changeClient, nextStep, client, translate }) => {
+const CurrentBenefitsStep = ({
+  changeClient, nextStep, client, translate, 
+}) => {
 
   const setTimeProp = getTimeSetter('current', changeClient);
 
@@ -68,8 +74,10 @@ const CurrentBenefitsStep = ({ changeClient, nextStep, client, translate }) => {
       <FormPartsContainer
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
-        right     = {{ name: 'Next',
-          func: nextStep }}>
+        right     = {{
+          name: 'Next',
+          func: nextStep, 
+        }}>
         <CurrentBenefitsContent
           setClientProperty = {setTimeProp}
           current           = {client.current}

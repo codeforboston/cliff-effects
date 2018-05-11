@@ -10,8 +10,12 @@ import React from 'react';
  * @param props.prompt {prompt}
  */
 class ErrorPrompt extends React.Component {
-  handleError = ({ error }) => {
-    const { callback, prompt, ...promptProps } = this.props;
+  handleError = ({
+    error, 
+  }) => {
+    const {
+      callback, prompt, ...promptProps 
+    } = this.props;
     prompt(callback, promptProps);
   };
 

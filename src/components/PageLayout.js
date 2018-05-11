@@ -7,8 +7,10 @@ import {
 const PageLayout = (props) => {
   return (
     <div>
-      <Segment style={{ padding: '8em 0em' }}
-        vertical>
+      <Segment style={{
+        padding: '8em 0em', 
+      }}
+      vertical>
         <Grid container
           stackable
           verticalAlign='middle'>

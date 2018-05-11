@@ -5,8 +5,10 @@ import { isPositiveNumber } from '../utils/validators';
 
 
 class RentShareField extends Component {
-  state = { valid: true,
-    message: null };
+  state = {
+    valid: true,
+    message: null, 
+  };
 
   validation = (ownValue) => {
     var message = null, valid = true;
@@ -18,19 +20,27 @@ class RentShareField extends Component {
       if (!valid) { message = 'Rent share must be less than contract rent'; }
     }
 
-    this.setState({ valid: valid,
-      message: message });
+    this.setState({
+      valid: valid,
+      message: message, 
+    });
     return valid;
   };
 
   onBlur = (evnt) => {
-    this.setState({ valid: true,
-      message: null });
+    this.setState({
+      valid: true,
+      message: null, 
+    });
   };
 
   render() {
-    const { timeState, setClientProperty } = this.props,
-      { valid, message } = this.state;
+    const {
+        timeState, setClientProperty, 
+      } = this.props,
+      {
+        valid, message, 
+      } = this.state;
 
     const inputProps = {
         name:       'rentShare',
@@ -58,8 +68,10 @@ class RentShareField extends Component {
 
 
 class ContractRentField extends Component {
-  state = { valid: true,
-    message: null };
+  state = {
+    valid: true,
+    message: null, 
+  };
 
   validation = (ownValue) => {
     var message = null, valid = true;
@@ -71,19 +83,27 @@ class ContractRentField extends Component {
       if (!valid) { message = 'Rent share must be less than contract rent'; }
     }
 
-    this.setState({ valid: valid,
-      message: message });
+    this.setState({
+      valid: valid,
+      message: message, 
+    });
     return valid;
   };
 
   onBlur = (evnt) => {
-    this.setState({ valid: true,
-      message: null });
+    this.setState({
+      valid: true,
+      message: null, 
+    });
   };
 
   render() {
-    const { timeState, setClientProperty } = this.props,
-      { valid, message } = this.state;
+    const {
+        timeState, setClientProperty, 
+      } = this.props,
+      {
+        valid, message, 
+      } = this.state;
 
     const inputProps = {
         name:       'contractRent',
@@ -110,7 +130,9 @@ class ContractRentField extends Component {
 }  // End <ContractRentField>
 
 
-const PlainRentRow = function ({ timeState, setClientProperty }) {
+const PlainRentRow = function ({
+  timeState, setClientProperty, 
+}) {
 
   const inputProps = {
       name:       'rent',

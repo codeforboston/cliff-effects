@@ -39,7 +39,9 @@ import {
 // COMPONENTS
 // ========================================
 
-const Utilities = function ({ current, type, time, setClientProperty }) {
+const Utilities = function ({
+  current, type, time, setClientProperty, 
+}) {
 
   let climate     = current.climateControl,
     electricity = current.nonHeatElectricity,
@@ -47,8 +49,10 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
     fuelAssist  = current.fuelAssistance;
 
   let setChecked = function (evnt, inputProps) {
-    var obj = { ...inputProps,
-      value: inputProps.checked };
+    var obj = {
+      ...inputProps,
+      value: inputProps.checked, 
+    };
     setClientProperty(evnt, obj);
   };  // End setChecked()
 
@@ -88,7 +92,9 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
 };  // End Utilities(<>)
 
 
-const HousingDetails = function ({ current, type, time, setClientProperty }) {
+const HousingDetails = function ({
+  current, type, time, setClientProperty, 
+}) {
 
   let shelter = current.shelter,
     sharedProps = {
@@ -138,7 +144,9 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
 };  // End HousingDetails(<>)
 
 
-const HousingRadio = function ({ currentValue, label, time, setClientProperty }) {
+const HousingRadio = function ({
+  currentValue, label, time, setClientProperty, 
+}) {
 
   var value = label.toLowerCase();
 
@@ -166,17 +174,21 @@ const HousingRadio = function ({ currentValue, label, time, setClientProperty })
  * 
  * @returns React element
  */
-const Housing = function ({ current, type, time, setClientProperty }) {
+const Housing = function ({
+  current, type, time, setClientProperty, 
+}) {
 
   // We're using a bunch of radio buttons. Since `checked` is defined
   // in Radio components, `setClientProperty()` would store it, but we
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed. */
   let ensureRouteAndValue = function (evnt, inputProps) {
-    var obj = { ...inputProps,
+    var obj = {
+      ...inputProps,
       name: inputProps.name,
       value: inputProps.value,
-      checked: null };
+      checked: null, 
+    };
     setClientProperty(evnt, obj);
   };
 
@@ -232,14 +244,18 @@ const Housing = function ({ current, type, time, setClientProperty }) {
  * 
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, setClientProperty }) {
+const ExpensesFormContent = function ({
+  current, time, setClientProperty, 
+}) {
 
   let type        = 'expense',
     household   = current.household,
-    sharedProps = { timeState: current,
+    sharedProps = {
+      timeState: current,
       type: type,
       time: time,
-      setClientProperty: setClientProperty };
+      setClientProperty: setClientProperty, 
+    };
 
   /** @todo Make an age-checking function to
    *     keep household data structure under 
@@ -277,7 +293,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           <CashFlowRowAfterConfirm {...sharedProps}
             generic={'earnedBecauseOfChildCare'}
             confirmLabel={'Does childcare allow you to make additional income?'}>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by child care expenses
+            <span style={{
+              textDecoration: 'underline', 
+            }}>Income</span> made possible by child care expenses
           </CashFlowRowAfterConfirm>
         </div>
         : null
@@ -324,7 +342,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           <CashFlowRowAfterConfirm {...sharedProps}
             generic={'earnedBecauseOfAdultCare'}
             confirmLabel={'Do assistance expenses allow you to make additional income?'}>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by assistance expenses
+            <span style={{
+              textDecoration: 'underline', 
+            }}>Income</span> made possible by assistance expenses
           </CashFlowRowAfterConfirm>
         </div>
         : null
@@ -388,7 +408,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
   * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client }) {
+const CurrentExpensesStep = function ({
+  changeClient, previousStep, nextStep, client, 
+}) {
 
   const setTimeProp = getTimeSetter('current', changeClient);
 
@@ -397,10 +419,14 @@ const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, cl
       <FormPartsContainer
         title     = {'Current Household Expenses'}
         clarifier = {null}
-        left      = {{ name: 'Previous',
-          func: previousStep }}
-        right     = {{ name: 'Next',
-          func: nextStep }}>
+        left      = {{
+          name: 'Previous',
+          func: previousStep, 
+        }}
+        right     = {{
+          name: 'Next',
+          func: nextStep, 
+        }}>
         <ExpensesFormContent setClientProperty={setTimeProp}
           current={client.current}
           time={'current'} />

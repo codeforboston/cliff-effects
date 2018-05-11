@@ -53,7 +53,8 @@ const getSNAPBenefits = function (client, timeframe) {
 
 // ======================
 // BENEFIT HELPER FUNCTIONS
-var SNAPhelpers = {},
+var SNAPhelpers = {
+  },
   hlp         = SNAPhelpers;
 
 

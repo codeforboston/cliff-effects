@@ -67,7 +67,8 @@ const getHousingBenefit = function (client, timeframe) {
 };  // End getHousingBenefit
 
 
-var section8Helpers = {},
+var section8Helpers = {
+  },
   hlp             = section8Helpers;
 
 /**
@@ -105,8 +106,10 @@ hlp.getTTPs = function (client) {
   */
   var oldMaxTTP = Math.max(oldNetToTest, oldAdjToTest),
     newMaxTTP = Math.max(newNetToTest, newAdjToTest),
-    ttps      = { oldTTP: oldMaxTTP,
-      newTTP: newMaxTTP };
+    ttps      = {
+      oldTTP: oldMaxTTP,
+      newTTP: newMaxTTP, 
+    };
 
   return ttps;
 };  // End hlp.getTTPs()

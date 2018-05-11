@@ -1,12 +1,14 @@
 import { getTimeSetter } from '../../utils/getTimeSetter';
 
 describe('getTimeSetter', () => {
-  var data = {};
+  var data = {
+  };
 
   const fakeCallback = function (evnt, data) {};
 
   var returnedFunc = getTimeSetter('current', fakeCallback);
-  returnedFunc({}, data);
+  returnedFunc({
+  }, data);
 
   it('does return a function', () => {
     expect(typeof(returnedFunc) === 'function').toBe(true);

@@ -15,10 +15,15 @@ const NUMBER_TEST_CASES = 1000;
 const randomizers = [
 ];
 
-const defaultMember = { m_age: 30,
+const defaultMember = {
+  m_age: 30,
   m_disabled: false,
-  m_role: 'member' };
-const headMember = Object.assign({}, defaultMember, { m_role: 'head' });
+  m_role: 'member', 
+};
+const headMember = Object.assign({
+}, defaultMember, {
+  m_role: 'head', 
+});
 const householdSize = (changes) => {
   const size = Math.ceil(Math.random() * 9);
   const members = [
@@ -35,8 +40,14 @@ const elderlyOrDisabled = (changes) => {
   if (rnd < 1) {return changes;}
 
   const member = rnd < 2
-    ? Object.assign({}, defaultMember, { m_disabled: true })
-    : Object.assign({}, defaultMember, { m_age: 61 });
+    ? Object.assign({
+    }, defaultMember, {
+      m_disabled: true, 
+    })
+    : Object.assign({
+    }, defaultMember, {
+      m_age: 61, 
+    });
   changes.household.push(member);
   return changes;
 };
@@ -45,7 +56,10 @@ randomizers.push(elderlyOrDisabled);
 const under13Dependent = (changes) => {
   if (Math.random() < 0.5) {return changes;}
 
-  changes.household.push(Object.assign({}, defaultMember, { m_age: 11 }));
+  changes.household.push(Object.assign({
+  }, defaultMember, {
+    m_age: 11, 
+  }));
   return changes;
 };
 randomizers.push(under13Dependent);
@@ -151,8 +165,11 @@ randomizers.push(over12CareExpenses);
 const stream = fs.createWriteStream(path.resolve(__dirname, FILE_NAME));
 
 times(NUMBER_TEST_CASES, () => {
-  const changes = randomizers.reduce((changes, fn) => {return fn(changes);}, {});
-  const client = { current: cloneDeep(CLIENT_DEFAULTS.current) };
+  const changes = randomizers.reduce((changes, fn) => {return fn(changes);}, {
+  });
+  const client = {
+    current: cloneDeep(CLIENT_DEFAULTS.current), 
+  };
   Object.assign(client.current, changes);
   const benefits = getSNAPBenefits(client, 'current');
   stream.write(`${JSON.stringify(changes)};${benefits}\n`);

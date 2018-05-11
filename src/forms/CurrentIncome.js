@@ -44,14 +44,18 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 * 
 * @returns Component
 */
-const IncomeForm = function ({ current, time, setClientProperty }) {
+const IncomeForm = function ({
+  current, time, setClientProperty, 
+}) {
 
   var type = 'income';
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFuture = function (evnt, inputProps) {
-    setClientProperty(evnt, { ...inputProps,
-      fillFuture: true });
+    setClientProperty(evnt, {
+      ...inputProps,
+      fillFuture: true, 
+    });
   };  // End ensureFuture()
 
   var sharedProps = {
@@ -120,10 +124,14 @@ const CurrentIncomeStep = function (props) {
       <FormPartsContainer
         title     = 'Current Household Income'
         clarifier = 'Income that you collected in the past 12 months.'
-        left      = {{ name: 'Previous',
-          func: props.previousStep }}
-        right     = {{ name: 'Next',
-          func: props.nextStep }}>
+        left      = {{
+          name: 'Previous',
+          func: props.previousStep, 
+        }}
+        right     = {{
+          name: 'Next',
+          func: props.nextStep, 
+        }}>
         <IncomeForm setClientProperty={setTimeProp}
           current={props.client.current}
           time={'current'} />

@@ -18,7 +18,9 @@ import * as getUserConfirmation from '../utils/getUserConfirmation';
 class ReactRouterConfirmLeave extends React.Component {
   componentDidMount() {
     const confirm = (message, callback) =>
-    {return this.props.prompt(callback, { message: message });};
+    {return this.props.prompt(callback, {
+      message: message, 
+    });};
     getUserConfirmation.set(confirm);
   }
 
@@ -27,7 +29,9 @@ class ReactRouterConfirmLeave extends React.Component {
   }
 
   render() {
-    const { isBlocking, ...rest } = this.props;
+    const {
+      isBlocking, ...rest 
+    } = this.props;
     return <Prompt when={isBlocking}
       {...rest} />;
   }

@@ -11,7 +11,9 @@ const Footer = () => {
   return (
     <Segment inverted
       vertical
-      style={{ padding: '2em 0em' }}
+      style={{
+        padding: '2em 0em', 
+      }}
       color='teal'>
       <Grid container
         divided

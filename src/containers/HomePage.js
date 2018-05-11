@@ -11,12 +11,14 @@ class HomePage extends Component {
         <div id='HomeContent'>
 
           <div style={{
-            display:'inline-block' }}>
+            display:'inline-block', 
+          }}>
 
             <h1 style={{
               fontSize: '5em',
               color: '#efefef',
-              marginBottom: '-15px' }}>
+              marginBottom: '-15px', 
+            }}>
               Cliff Effects Tool
             </h1>
 
@@ -25,7 +27,8 @@ class HomePage extends Component {
               color: '#efefef',
               textAlign: 'right',
               marginTop: '-15px',
-              marginRight: '45px' }}>
+              marginRight: '45px', 
+            }}>
               GUIDANCE PROTOTYPE*
             </h2>
 
@@ -34,7 +37,8 @@ class HomePage extends Component {
           <div className='center-contents'
             style={{
               marginTop: '3em',
-              marginBottom: '3em' }}>
+              marginBottom: '3em', 
+            }}>
 
             <div>
               <Link to='/visit/54321/1'>
@@ -42,7 +46,8 @@ class HomePage extends Component {
                   backgroundColor: '#ffffffc8',
                   textColor: '#00b5ad',
                   fontSize: '1.5em',
-                  marginRight: '1.5em' }}>
+                  marginRight: '1.5em', 
+                }}>
                 Get Started
                 </Button>
               </Link>
@@ -52,7 +57,8 @@ class HomePage extends Component {
                   backgroundColor: '#ffffffc8',
                   textColor: '#00b5ad',
                   fontSize: '1.5em',
-                  marginLeft: '1.5em' }}>
+                  marginLeft: '1.5em', 
+                }}>
                 Learn More
                 </Button>
               </Link>
@@ -63,7 +69,8 @@ class HomePage extends Component {
           <p style={{
             color: '#efefef',
             textAlign: 'center',
-            fontSize: '1em' }}>*
+            fontSize: '1em', 
+          }}>*
             This is a prototype and should not be used to make financial decisions.
           </p>
 

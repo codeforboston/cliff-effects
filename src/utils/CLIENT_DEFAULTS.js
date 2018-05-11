@@ -66,7 +66,8 @@ const CLIENT_DEFAULTS = {
   },
 
   // Note: A `future` value will default to the client's `current` value until a user changes it explicitly
-  future: {},                       // same structure // same
+  future: {
+  },                       // same structure // same
 
 };
 

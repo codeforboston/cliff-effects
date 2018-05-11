@@ -27,7 +27,9 @@ import { toMoneyStr } from '../utils/prettifiers';
 /** Returns a component with a massive teal button
  *
  */
-const MassiveButton = function ({ className, func, children }) {
+const MassiveButton = function ({
+  className, func, children, 
+}) {
 
   className = (className || '') + ' massive-button';
   return (
@@ -46,7 +48,9 @@ const MassiveButton = function ({ className, func, children }) {
 /**
  * Link that opens new tab
  */
-const ExternalLink = function ({ href, children }) {
+const ExternalLink = function ({
+  href, children, 
+}) {
   return (<a href={href}
     target='_blank'>{children}</a>);
 };
@@ -93,15 +97,23 @@ const BottomButton = function(props){
 *
 * @returns Component
 */
-const BottomButtons = function({ left, right }) {
-  const flexItemStyle = { flexBasis: '118.3px' };
-  const buttonProps = { style: flexItemStyle,
+const BottomButtons = function({
+  left, right, 
+}) {
+  const flexItemStyle = {
+    flexBasis: '118.3px', 
+  };
+  const buttonProps = {
+    style: flexItemStyle,
     type: 'button',
     color: 'teal',
-    size: 'large' };
+    size: 'large', 
+  };
   return (
-    <div style={{ display: 'flex',
-      justifyContent: 'space-between' }}>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'space-between', 
+    }}>
       { left ?
         <Button {...buttonProps}
           onClick={left.func}>
@@ -220,8 +232,10 @@ const FormSubheading = function (props) {
 
   return (
     <div className = { 'form-subheading' }
-      style={{ display: 'block',
-        textAlign: 'left' }}>
+      style={{
+        display: 'block',
+        textAlign: 'left', 
+      }}>
       { props.children }
     </div>
   );
@@ -237,7 +251,9 @@ const FormSubheading = function (props) {
 *
 * @returns Component
 */
-const FormHeading = function ({ subheading, children }) {
+const FormHeading = function ({
+  subheading, children, 
+}) {
 
   if (!children) { return null; }
 
@@ -245,7 +261,9 @@ const FormHeading = function ({ subheading, children }) {
     <div className={'form-heading'} >
       <div /> {/** div here to make sure header margin doesn\'t collapse */}
       <Header as='h3'
-        style={{ display: 'inline-block' }}>
+        style={{
+          display: 'inline-block', 
+        }}>
         { children }
       </Header>
       <FormSubheading>{subheading}</FormSubheading>
@@ -282,7 +300,9 @@ const InlineLabelInfo = function (props) {
 
   return (
     <div className = { 'label-info' + labelInfoDisplay }
-      style = {{ marginLeft: '1em' }}>
+      style = {{
+        marginLeft: '1em', 
+      }}>
       { props.children }
     </div>
   );
@@ -322,7 +342,9 @@ const InlineLabelInfo = function (props) {
 // ========================================
 
 /** Adds an option for an 'invalid input' message to the right of the last element */
-const RowMessage = function ({ validRow, message }) {
+const RowMessage = function ({
+  validRow, message, 
+}) {
 
   var result = null;
   if (!validRow && message) {
@@ -376,7 +398,9 @@ const RowMessage = function ({ validRow, message }) {
 *
 * @returns Component
 */
-const ColumnHeading = function ({ type, colName, style, children }) {
+const ColumnHeading = function ({
+  type, colName, style, children, 
+}) {
   var classes = type + '-column cashflow-column header ' + colName;
   return (
     <Header as='h4'
@@ -395,13 +419,19 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 *
 * @returns Component
 */
-const IntervalColumnHeadings = function ({ type }) {
+const IntervalColumnHeadings = function ({
+  type, 
+}) {
 
   var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {return letter.toUpperCase();}) + ' Type',
-    styles      = { fontSize: '14px' };
+    styles      = {
+      fontSize: '14px', 
+    };
 
   return (
-    <div style={{ display: 'inline-block' }}>
+    <div style={{
+      display: 'inline-block', 
+    }}>
       <ColumnHeading type={type}
         colName='weekly'
         style={styles}>Weekly</ColumnHeading>
@@ -437,49 +467,73 @@ const IntervalColumnHeadings = function ({ type }) {
 class ManagedNumberField extends Component {
   constructor (props) {
     super(props);
-    var { format, value } = props;
-    this.state = { valid: true,
+    var {
+      format, value, 
+    } = props;
+    this.state = {
+      valid: true,
       focused: false,
-      focusedVal: format(value) };
+      focusedVal: format(value), 
+    };
   }  // End constructor()
 
   //change form to blank string after click, before input
   handleFocus = (evnt, inputProps) => {
     // This makes sure that only zeroes and blanks get reset
-    var { format, value } = this.props;
+    var {
+      format, value, 
+    } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
-      this.setState({ focused: true,
-        focusedVal: '' });
+      this.setState({
+        focused: true,
+        focusedVal: '', 
+      });
     } else {
-      this.setState({ focused: true,
-        focusedVal: format(value) });
+      this.setState({
+        focused: true,
+        focusedVal: format(value), 
+      });
     }
   };
 
   handleBlur = (evnt) => {
     this.props.onBlur(evnt);
-    this.setState({ focused: false,
-      valid: true });
+    this.setState({
+      focused: false,
+      valid: true, 
+    });
   };
 
   handleChange = (evnt, inputProps) => {
-    var { validation, store, otherData } = this.props;
-    var { value } = inputProps,
+    var {
+      validation, store, otherData, 
+    } = this.props;
+    var {
+        value, 
+      } = inputProps,
       valid   = validation(value);
 
     if (valid) {
       store(evnt, inputProps, otherData);
     } else if (value.length === 0) {  // treat empty string as 0
-      store(evnt, { ...inputProps,
-        value: '0' }, otherData);
+      store(evnt, {
+        ...inputProps,
+        value: '0', 
+      }, otherData);
     }
-    this.setState({ focusedVal: value,
-      valid: valid });
+    this.setState({
+      focusedVal: value,
+      valid: valid, 
+    });
   };  // End handleChange()
 
   render() {
-    var { valid, focused, focusedVal }      = this.state;
-    var { value, name, className, format }  = this.props;
+    var {
+      valid, focused, focusedVal, 
+    }      = this.state;
+    var {
+      value, name, className, format, 
+    }  = this.props;
 
     // Format correctly when neighbors are updated, if needed
     if (!focused) { value = format(value); }
@@ -502,7 +556,9 @@ class ManagedNumberField extends Component {
 }  // End ManagedNumberField
 
 
-const CashFlowContainer = function ({ children, label, validRow, message }) {
+const CashFlowContainer = function ({
+  children, label, validRow, message, 
+}) {
   return (
     <Form.Field inline
       className={'cashflow'}>
@@ -527,12 +583,16 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
 */
 /** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
       use `includes` array to include only certain columns perhaps */
-const CashFlowRow = function ({ generic, timeState, setClientProperty, children }) {
+const CashFlowRow = function ({
+  generic, timeState, setClientProperty, children, 
+}) {
 
   var updateClient = function (evnt, inputProps, data) {
     var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
-      obj     = { name: generic,
-        value: monthly };
+      obj     = {
+        name: generic,
+        value: monthly, 
+      };
     setClientProperty(evnt, obj);
   };
 
@@ -564,15 +624,21 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal / 4.33 }
-        otherData = {{ interval: 'weekly' }} />
+        otherData = {{
+          interval: 'weekly', 
+        }} />
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal }
-        otherData = {{ interval: 'monthly' }} />
+        otherData = {{
+          interval: 'monthly', 
+        }} />
       <ManagedNumberField
         {...baseProps}
         value     = { baseVal * 12 }
-        otherData = {{ interval: 'yearly' }} />
+        otherData = {{
+          interval: 'yearly', 
+        }} />
     </CashFlowContainer>
   );
 
@@ -580,7 +646,9 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
 
 
 /** CashflowRow with only a monthly value. */
-const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty, rowProps }) {
+const MonthlyCashFlowRow = function ({
+  inputProps, baseValue, setClientProperty, rowProps, 
+}) {
 
   inputProps = {
     ...inputProps, // name, validation, and onBlur
@@ -593,7 +661,9 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
     <CashFlowContainer {...rowProps}>
       <ManagedNumberField {...inputProps}
         value={baseValue}
-        otherData={{ interval: 'monthly' }} />
+        otherData={{
+          interval: 'monthly', 
+        }} />
     </CashFlowContainer>
   );
 

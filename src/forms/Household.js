@@ -37,41 +37,58 @@ const columnStyle = {
   // marginBottom: '0.7em'
 };
 
-const Columns = {};
-
-// `noMargin` is a bit hacky, but it'll do for now
-Columns.One = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
-  if (noMargin) { marginTop = 0; }
-  return (<div style={{ ...columnStyle,
-    marginTop: marginTop,
-    width: '5em' }}> {children} </div>);
+const Columns = {
 };
 
-Columns.Two = function ({ noMargin, children }) {
+// `noMargin` is a bit hacky, but it'll do for now
+Columns.One = function ({
+  noMargin, children, 
+}) {
   var marginTop = columnStyle.marginTop;
   if (noMargin) { marginTop = 0; }
-  return (<div style={{ ...columnStyle,
+  return (<div style={{
+    ...columnStyle,
+    marginTop: marginTop,
+    width: '5em', 
+  }}> {children} </div>);
+};
+
+Columns.Two = function ({
+  noMargin, children, 
+}) {
+  var marginTop = columnStyle.marginTop;
+  if (noMargin) { marginTop = 0; }
+  return (<div style={{
+    ...columnStyle,
     marginTop: marginTop,
     width: '20em',
     textAlign: 'left',
-    paddingLeft: '1em' }}> {children} </div>);
+    paddingLeft: '1em', 
+  }}> {children} </div>);
 };
 
-Columns.Three = function ({ noMargin, children }) {
+Columns.Three = function ({
+  noMargin, children, 
+}) {
   var marginTop = columnStyle.marginTop;
   if (noMargin) { marginTop = 0; }
-  return (<div style={{ ...columnStyle,
+  return (<div style={{
+    ...columnStyle,
     marginTop: marginTop,
-    width: '5em' }}> {children} </div>);
+    width: '5em', 
+  }}> {children} </div>);
 };
 
-Columns.Four = function ({ noMargin, children }) {
+Columns.Four = function ({
+  noMargin, children, 
+}) {
   var marginTop = columnStyle.marginTop;
   if (noMargin) { marginTop = 0; }
-  return (<div style={{ ...columnStyle,
+  return (<div style={{
+    ...columnStyle,
     marginTop: marginTop,
-    width: '10em' }}> {children} </div>);
+    width: '10em', 
+  }}> {children} </div>);
 };
 
 
@@ -83,7 +100,9 @@ Columns.Four = function ({ noMargin, children }) {
 *
 * @returns Component
 */
-const ColumnHeader = function ({ children, columnNum }) {
+const ColumnHeader = function ({
+  children, columnNum, 
+}) {
 
   var Container = Columns[ columnNum ];
 
@@ -107,7 +126,9 @@ const ColumnHeader = function ({ children, columnNum }) {
 *
 * @returns Component
 */
-const MemberButton = function ({ basic, color, iconName, className, onClick }) {
+const MemberButton = function ({
+  basic, color, iconName, className, onClick, 
+}) {
 
   color = color || null;
 
@@ -118,9 +139,11 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
       icon={iconName}
       className={className}
       onClick={onClick}
-      style={{ padding: '0',
+      style={{
+        padding: '0',
         height: '2.2em',
-        width: '2.2em' }}
+        width: '2.2em', 
+      }}
       circular />
   );
 
@@ -139,7 +162,9 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 *
 * @returns Component
 */
-const Role = function ({ member, setMember }) {
+const Role = function ({
+  member, setMember, 
+}) {
 
   var ThisRole  = null,
     margin   = '0';
@@ -153,10 +178,14 @@ const Role = function ({ member, setMember }) {
     margin = '-1em';
 
     var options = [
-      { text: 'Spouse of Head of Household',
-        value: 'spouse' },
-      { text: 'Child/Other Household Member',
-        value: 'member' },
+      {
+        text: 'Spouse of Head of Household',
+        value: 'spouse', 
+      },
+      {
+        text: 'Child/Other Household Member',
+        value: 'member', 
+      },
     ];
 
     ThisRole = <Dropdown selection
@@ -173,10 +202,12 @@ const Role = function ({ member, setMember }) {
 
   // Styles will have to be adjusted.
   return (
-    <div style={{ display: 'inline-block',
+    <div style={{
+      display: 'inline-block',
       width: '100%',
       textAlign: 'left',
-      marginLeft: margin }}>
+      marginLeft: margin, 
+    }}>
       { ThisRole }
     </div>
   );
@@ -192,7 +223,9 @@ const Role = function ({ member, setMember }) {
 *
 * @returns Component
 */
-const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx) {
+const MemberField = function ({
+  household, time, setHousehold, setClientProperty, 
+}, indx) {
 
   var member      = household[ indx ],
     routeStart  = 'household/' + indx + '/';
@@ -201,16 +234,20 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 
   var onMemberChange = function (evnt, inputProps) {
     var route = routeStart + inputProps.name;
-    var data  = { route: route,
-      value: inputProps.value };
+    var data  = {
+      route: route,
+      value: inputProps.value, 
+    };
     setClientProperty(evnt, data);
   };
 
 
   var onMemberChecked = function (evnt, inputProps) {
     var route = routeStart + inputProps.name;
-    var data  = { route: route,
-      value: inputProps.checked };
+    var data  = {
+      route: route,
+      value: inputProps.checked, 
+    };
     setClientProperty(evnt, data);
   };
 
@@ -234,9 +271,11 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
           : <span>{ household.length > 1
             ? <Icon fitted
               name={'ban'}
-              style={{ color: '#cfcfd0',
+              style={{
+                color: '#cfcfd0',
                 fontSize: '2.2em',
-                verticalAlign: 'text-top' }} />
+                verticalAlign: 'text-top', 
+              }} />
             : null
           }</span>
         }
@@ -309,7 +348,9 @@ const getMembers = function (current, time, setHousehold, setClientProperty) {
 *
 * @returns Component
 */
-const HouseholdContent = function ({ current, time, setClientProperty }) {
+const HouseholdContent = function ({
+  current, time, setClientProperty, 
+}) {
 
   // Don't mutate state properties
   var household = cloneDeep(current.household);
@@ -330,12 +371,16 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
   var addMember = function (evnt, inputProps) {
 
     var member = household.length === 1
-      ? { m_age: 30,
+      ? {
+        m_age: 30,
         m_role: 'spouse',
-        m_disabled: false }
-      : { m_age: 12,
+        m_disabled: false, 
+      }
+      : {
+        m_age: 12,
         m_role: 'member',
-        m_disabled: false };
+        m_disabled: false, 
+      };
 
     household.push(member);
     setHousehold(evnt, household);
@@ -345,7 +390,9 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
   return (
     <div className='field-aligner two-column'>
-      <div style={{ marginBottom: '.5em' }}>
+      <div style={{
+        marginBottom: '.5em', 
+      }}>
         <ColumnHeader columnNum='One' />
         <ColumnHeader columnNum='Two'>Role</ColumnHeader>
         <ColumnHeader columnNum='Three'>Age</ColumnHeader>
@@ -397,10 +444,14 @@ const HouseholdStep = function (props) {
       <FormPartsContainer
         title     = {'Household'}
         clarifier = {'Information about the members of your household.'}
-        left      = {{ name: 'Previous',
-          func: props.previousStep }}
-        right     = {{ name: 'Next',
-          func: props.nextStep }}>
+        left      = {{
+          name: 'Previous',
+          func: props.previousStep, 
+        }}
+        right     = {{
+          name: 'Next',
+          func: props.nextStep, 
+        }}>
         <HouseholdContent setClientProperty={setTimeProp}
           current={props.client.current}
           time={'current'} />

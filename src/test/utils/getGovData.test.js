@@ -31,10 +31,12 @@ const testAdditionalFunction = function (data, extraAmount) {
 };
 
 // ************** Main body ************** /
-var fedPovertyGuidelines = { 0: 0,
+var fedPovertyGuidelines = {
+  0: 0,
   1: 12060,
   2: 16240,
-  eachAdditional: 4180 };
+  eachAdditional: 4180, 
+};
 
 testYearlyLimit ('1. Default percent test',         fedPovertyGuidelines, 1, undefinedString,12060);
 testYearlyLimit ('2. Default percent test',         fedPovertyGuidelines, 2, undefinedString,16240);
@@ -42,10 +44,12 @@ testYearlyLimit ('3. Test when percent=200 doubles',fedPovertyGuidelines, 2, 200
 testYearlyLimit ('4. Test when percent=50 halves',  fedPovertyGuidelines, 2, 50,         8120);
 testYearlyLimit ('5. Test with items out of range', fedPovertyGuidelines, 5, undefinedString,16240 + 3 * 4180);
 
-fedPovertyGuidelines = { 0: 0,
+fedPovertyGuidelines = {
+  0: 0,
   1: 12060,
   2: 20000,
-  eachAdditional: testAdditionalFunction };
+  eachAdditional: testAdditionalFunction, 
+};
 testYearlyLimit ('6. Test of function for each additional',fedPovertyGuidelines, 5, undefinedString,20000 + 3 * 100);
 
 /** ******** ERROR CONDITIONS THAT DO NOT NEED TO BE CHECKED ********

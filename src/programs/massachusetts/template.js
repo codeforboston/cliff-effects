@@ -51,9 +51,11 @@ var getProgramNameBenefits = function (client) {
   var result = {
     result: 'good',
     details: 'All good!',
-    data: { important: 10,
+    data: {
+      important: 10,
       external: 500,
-      info: 'ELI' },
+      info: 'ELI', 
+    },
   };
 
   return Result(result);
