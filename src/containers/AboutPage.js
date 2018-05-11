@@ -10,7 +10,7 @@ const AboutPage = () => {
         <AboutContent/>
       </PageLayout>
     </div>
-  )
-}
+  );
+};
 
 export default AboutPage;

@@ -35,9 +35,9 @@
 * 
 * @returns Data value for num items, divided by 12 to get monthly value.
 */
-var getMonthlyLimitBySize = function ( data, numItems, percent ) {
-  var yearly  = getYearlyLimitBySize( data, numItems, percent ),
-      monthly = Math.ceil( yearly/12 );
+var getMonthlyLimitBySize = function (data, numItems, percent) {
+  var yearly  = getYearlyLimitBySize(data, numItems, percent),
+    monthly = Math.ceil(yearly / 12);
   return monthly;
 };  // End getMonthlyLimitBySize()
 
@@ -74,25 +74,25 @@ var getMonthlyLimitBySize = function ( data, numItems, percent ) {
 * 
 * @returns Data value calculated for the number of items, numItems, wanted.
 */
-const getYearlyLimitBySize = function ( data, numItems, percent ) {
+const getYearlyLimitBySize = function (data, numItems, percent) {
   
   var safePerc  = percent || 100,
-      limit     = null,
-      maxGiven  = getMaxIntKey( data );
+    limit     = null,
+    maxGiven  = getMaxIntKey(data);
 
-  if ( numItems <= maxGiven ) {
+  if (numItems <= maxGiven) {
 
     limit = data[ numItems ];
 
   } else {
 
     var numExtra    = numItems - maxGiven,
-        extraAmount = getExtraAmount( data, numExtra );
+      extraAmount = getExtraAmount(data, numExtra);
     limit = data[ maxGiven ] + extraAmount;
 
   }
   
-  return Math.ceil( limit * (safePerc/100) );
+  return Math.ceil(limit * (safePerc / 100));
 };  // End getYearlyLimitBySize()
 
 
@@ -105,16 +105,16 @@ const getYearlyLimitBySize = function ( data, numItems, percent ) {
 * 
 * @returns {number} The amount created by those extra items.
 */
-var getExtraAmount = function ( data, numExtra ) {
+var getExtraAmount = function (data, numExtra) {
 
   var extraAmount     = 0,
-      eachAdditional  = data.eachAdditional;
+    eachAdditional  = data.eachAdditional;
 
   // Either allow additional amount to be calculated
   // or add a hard-coded amount.
-  if ( typeof eachAdditional === 'function' ) {
+  if (typeof eachAdditional === 'function') {
 
-    extraAmount = eachAdditional( data, numExtra );
+    extraAmount = eachAdditional(data, numExtra);
 
   } else {  // Assumed either number or falsy
 
@@ -132,12 +132,12 @@ var getExtraAmount = function ( data, numExtra ) {
 * Of the keys in an object that can be converted to integers,
 * return the highest converted value.
 */
-var getMaxIntKey = function ( data ) {
+var getMaxIntKey = function (data) {
   var max = 0;
-  for ( let key in data ) {
+  for (let key in data) {
 
-    var asInt = parseInt( key, 10 );
-    if ( !isNaN(asInt) && asInt > max ) {
+    var asInt = parseInt(key, 10);
+    if (!isNaN(asInt) && asInt > max) {
       max = asInt;
     }
 
@@ -147,6 +147,6 @@ var getMaxIntKey = function ( data ) {
 
 
 export {
-	getMonthlyLimitBySize,
+  getMonthlyLimitBySize,
   getYearlyLimitBySize,
 };

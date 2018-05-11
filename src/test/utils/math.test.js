@@ -27,11 +27,11 @@ test('Rounding a very large number', () => {
 */
 
 test('Rounding infinity', () => {
-    expect(math.roundMoney(Infinity)).toBe(Infinity);
+  expect(math.roundMoney(Infinity)).toBe(Infinity);
 });
 
 test('Rounding NaN', () => {
-    var roundedNan = math.roundMoney(NaN);
-    expect(isNaN(roundedNan)).toBe(true);
+  var roundedNan = math.roundMoney(NaN);
+  expect(isNaN(roundedNan)).toBe(true);
 });
 

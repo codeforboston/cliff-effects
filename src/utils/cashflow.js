@@ -11,7 +11,7 @@ import { sum, pick, values } from 'lodash';
 import {
   UNEARNED_INCOME_SOURCES,
   UNDER13_CARE_EXPENSES,
-  OVER12_CARE_EXPENSES
+  OVER12_CARE_EXPENSES,
 } from '../data/massachusetts/name-cores';
 
 // ==================================
@@ -27,9 +27,9 @@ import {
  * 
  * @returns {number} - Total dependent care expenses
  */
-const getDependentCostsMonthly = function ( client ) {
-  var props = UNDER13_CARE_EXPENSES.concat( OVER12_CARE_EXPENSES );
-  return sumProps( client, props );
+const getDependentCostsMonthly = function (client) {
+  var props = UNDER13_CARE_EXPENSES.concat(OVER12_CARE_EXPENSES);
+  return sumProps(client, props);
 };  // End getDependentCostsMonthly()
 
 
@@ -45,8 +45,8 @@ const getDependentCostsMonthly = function ( client ) {
  * 
  * @returns {number}
  */
-const getGrossUnearnedIncomeMonthly = function ( client ) {
-  return sumProps( client, UNEARNED_INCOME_SOURCES );
+const getGrossUnearnedIncomeMonthly = function (client) {
+  return sumProps(client, UNEARNED_INCOME_SOURCES);
 };  // End getGrossUnearnedIncomeMonthly()
 
 
@@ -60,10 +60,10 @@ const getGrossUnearnedIncomeMonthly = function ( client ) {
  * @returns {number} - Total earned and unearned monthly
  *     income with no deductions or exclusions.
  */
-const getSimpleGrossIncomeMonthly = function ( client ) {
+const getSimpleGrossIncomeMonthly = function (client) {
   var earned    = client.earned,
-      unearned  = getGrossUnearnedIncomeMonthly( client );
-	return earned + unearned;
+    unearned  = getGrossUnearnedIncomeMonthly(client);
+  return earned + unearned;
 };  // End getSimpleGrossIncomeMonthly()
 
 
@@ -80,8 +80,8 @@ const getSimpleGrossIncomeMonthly = function ( client ) {
  * 
  * @returns {number}
  */
-const sumProps = function ( obj, props ) {
-  return sum( values(pick( obj, props )) );
+const sumProps = function (obj, props) {
+  return sum(values(pick(obj, props)));
 };  // End sumProps()
 
 
@@ -89,5 +89,5 @@ export {
   getDependentCostsMonthly,
   getSimpleGrossIncomeMonthly,
   getGrossUnearnedIncomeMonthly,
-  sumProps
+  sumProps,
 };

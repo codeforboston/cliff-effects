@@ -14,7 +14,7 @@ import { getHousingBenefit } from '../programs/massachusetts/housing';
 import {
   formatAxis,
   formatLabel,
-  stackedTitle
+  stackedTitle,
 } from '../utils/charts/chartFunctions';
 
 // DATA
@@ -44,7 +44,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
     <div className='field-aligner two-column'>
       <IntervalColumnHeadings type={type}/>
       <CashFlowRow
-          timeState={future}
+        timeState={future}
 				  type={type}
 				  time={time}
 				  setClientProperty={setClientProperty}
@@ -57,24 +57,28 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
 };  // End IncomeForm() Component
 
 const Table = function ({ client, feedbackPrompt }) {
-  return(
+  return (
     <div>
-    <Header as='h1' className='ui Header teal align centered'>Results</Header>
-    <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
-    {/* @todo Export/clean up styles  */}
-    <Message visible warning style={{ 'textAlign': 'center' }}>
+      <Header as='h1'
+        className='ui Header teal align centered'>Results</Header>
+      <Header as='h3'
+        className='ui Header align centered'>How will your income affect your future benefits?</Header>
+      {/* @todo Export/clean up styles  */}
+      <Message visible
+        warning
+        style={{ 'textAlign': 'center' }}>
       This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
-      <Button
-        fluid
-        color='teal'
-        style={{ 'display': 'block',
-                 'marginLeft': 'auto',
-                 'marginRight': 'auto',
-                 'marginTop': '10px',
-                 'maxWidth': '400px' }}
-        onClick={feedbackPrompt}>Submit Feedback</Button>
-    </Message>
-    <BenefitsTable client={client} />
+        <Button
+          fluid
+          color='teal'
+          style={{ 'display': 'block',
+            'marginLeft': 'auto',
+            'marginRight': 'auto',
+            'marginTop': '10px',
+            'maxWidth': '400px' }}
+          onClick={feedbackPrompt}>Submit Feedback</Button>
+      </Message>
+      <BenefitsTable client={client} />
     </div>
   );
 };
@@ -84,90 +88,106 @@ const Chart = function({ client }) {
   var curr = client.current;
 
   var
-    { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames( client, 'hasSnap', getSNAPBenefits ),
-    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames( client, 'hasSection8', getHousingBenefit ),
-    { incomeCurrent, incomeFuture } = getIncomeTimeFrames( client );
+    { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
+    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getHousingBenefit),
+    { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
 
-  var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
-      housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
-      incomeData  = [ incomeCurrent, incomeFuture ];
+  var snapData    = [
+      SNAPBenefitCurrent,
+      SNAPBenefitFuture, 
+    ],
+    housingData = [
+      sec8BenefitCurrent,
+      sec8BenefitFuture, 
+    ],
+    incomeData  = [
+      incomeCurrent,
+      incomeFuture, 
+    ];
 
   const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
-        SNAPName      = PROGRAM_CHART_VALUES.snap.name,
-        section8Color = PROGRAM_CHART_VALUES.section8.color,
-        section8Name  = PROGRAM_CHART_VALUES.section8.name,
-        incomeColor   = PROGRAM_CHART_VALUES.income.color,
-        incomeName    = PROGRAM_CHART_VALUES.income.name;
+    SNAPName      = PROGRAM_CHART_VALUES.snap.name,
+    section8Color = PROGRAM_CHART_VALUES.section8.color,
+    section8Name  = PROGRAM_CHART_VALUES.section8.name,
+    incomeColor   = PROGRAM_CHART_VALUES.income.color,
+    incomeName    = PROGRAM_CHART_VALUES.income.name;
 
-  var datasets = [{
-    label: incomeName,
-    backgroundColor: incomeColor,
-    data: incomeData,
-    fill: "origin"
-  }];
+  var datasets = [
+    {
+      label: incomeName,
+      backgroundColor: incomeColor,
+      data: incomeData,
+      fill: 'origin',
+    }, 
+  ];
 
-  if ( curr.hasSnap ) {
+  if (curr.hasSnap) {
     datasets.push({
       label: SNAPName,
       backgroundColor: SNAPColor,
-      data: snapData
+      data: snapData,
     });
   }
 
-  if ( curr.hasSection8 ) {
+  if (curr.hasSection8) {
     datasets.push({
       label: section8Name,
       backgroundColor: section8Color,
-      data: housingData
+      data: housingData,
     });
   }
 
   const stackedBarProps = {
     data: {
       labels: incomeData,
-      datasets: datasets
+      datasets: datasets,
     },
     options: {
       title: {
         display: true,
-        text: 'Money Coming In as Income Changes'
+        text: 'Money Coming In as Income Changes',
       },
       scales: {
-        yAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Total Money Coming In ($)'
+        yAxes: [
+          {
+            stacked: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Total Money Coming In ($)',
+            },
+            ticks: {
+              beginAtZero: true,
+              callback: formatAxis,
+            },
           },
-          ticks: {
-            beginAtZero: true,
-            callback: formatAxis
-          }
-        }],
-        xAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Monthly Income ($)'
+        ],
+        xAxes: [
+          {
+            stacked: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Monthly Income ($)',
+            },
+            ticks: {
+              callback: formatAxis,
+            },
           },
-          ticks: {
-            callback: formatAxis
-          }
-        }]
+        ],
       },
       tooltips: {
         callbacks: {
           title: stackedTitle,
-          label: formatLabel
-        }
-      }
-    }
+          label: formatLabel,
+        },
+      },
+    },
   };
 
 
   return (
     <div>
-      <Header as='h1' className='ui Header teal align centered'>Chart</Header>
+      <Header as='h1'
+        className='ui Header teal align centered'>Chart</Header>
       <Bar {...stackedBarProps} />
     </div>
   );
@@ -184,9 +204,9 @@ const Chart = function({ client }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const PredictionsStep = function ( props ) {
+const PredictionsStep = function (props) {
 
-  const setTimeProp = getTimeSetter( 'future', props.changeClient );
+  const setTimeProp = getTimeSetter('future', props.changeClient);
 
   /** @todo Are these titles accurate now? */
   return (
@@ -194,13 +214,18 @@ const PredictionsStep = function ( props ) {
       <FormPartsContainer
         title     = 'Future Household Income'
         clarifier = 'How much money would your household make in the future?'
-        left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Reset', func: props.resetClient}}>
-          <IncomeForm setClientProperty={setTimeProp} future={props.client.future} time={'future'} />
-          <Divider className='ui section divider hidden' />
-          <Table client={props.client} feedbackPrompt={props.feedbackPrompt} />
-          <Divider className='ui section divider hidden' />
-          <Chart client={props.client}/>
+        left      = {{ name: 'Previous',
+          func: props.previousStep }}
+        right     = {{ name: 'Reset',
+          func: props.resetClient }}>
+        <IncomeForm setClientProperty={setTimeProp}
+          future={props.client.future}
+          time={'future'} />
+        <Divider className='ui section divider hidden' />
+        <Table client={props.client}
+          feedbackPrompt={props.feedbackPrompt} />
+        <Divider className='ui section divider hidden' />
+        <Chart client={props.client}/>
       </FormPartsContainer>
     </Form>
   );

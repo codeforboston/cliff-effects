@@ -20,21 +20,21 @@ class CustomClient extends React.Component {
   state = {
     client: null,
     error: null,
-    json: ''
+    json: '',
   };
 
-  submit = event => {
+  submit = (event) => {
     const { client } = this.state;
     event.preventDefault();
-    if (client === null) return;
+    if (client === null) {return;}
 
     this.setState({
       client: null,
       error: null,
-      json: ''
-    })
+      json: '',
+    });
     this.props.loadClient({ client: client });
-  }
+  };
 
   handleChange = (_event, inputProps) => {
     const { value } = inputProps;
@@ -43,38 +43,41 @@ class CustomClient extends React.Component {
       this.setState({
         client: newClient,
         error: null,
-        json: value
+        json: value,
       });
     } catch (error) {
       this.setState({
         client: null,
         error: error,
-        json: value
+        json: value,
       });
     }
-  }
+  };
 
   render() {
-    if (!this.props.mayLoadCustomClient) return null;
+    if (!this.props.mayLoadCustomClient) {return null;}
     const { client, error, json } = this.state;
 
     return (
-      <Form error={error !== null} onSubmit={this.submit}>
+      <Form error={error !== null}
+        onSubmit={this.submit}>
         <Form.Field>
           <label>Client JSON</label>
-          <Form.Input type={'text'} value={json} onChange={this.handleChange} />
+          <Form.Input type={'text'}
+            value={json}
+            onChange={this.handleChange} />
         </Form.Field>
         <Message 
           error
           header={'JSON Parse Failed!'}
-          content={error && error.message}
-        />
-        <Form.Button type={'submit'} disabled={client === null}>
+          content={error && error.message}/>
+        <Form.Button type={'submit'}
+          disabled={client === null}>
           Import Data
         </Form.Button>
         <Divider />
       </Form>
-    )
+    );
   }
 }
 

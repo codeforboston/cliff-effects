@@ -10,13 +10,13 @@ import React from 'react';
  */
 class ConfirmLeave extends React.Component {
   static defaultProps = {
-    isBlocking: true
+    isBlocking: true,
   };
 
-  confirm = event => {
-    if ( !this.props.isBlocking ) return; // do not block unload
+  confirm = (event) => {
+    if (!this.props.isBlocking) {return;} // do not block unload
     return (event.returnValue = this.props.message || '');
-  }
+  };
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.confirm);

@@ -6,12 +6,13 @@ import { ExternalLink } from '../forms/formHelpers';
 
 /** Too simplify the process of creating content for the 'About' page */
 
-const AboutContent = function ( props ) {
+const AboutContent = function (props) {
 
   return (
     <div>
 
-      <Header as='h1' style={{ fontSize: '4em' }}>About the Cliff Effects Tool</Header>
+      <Header as='h1'
+        style={{ fontSize: '4em' }}>About the Cliff Effects Tool</Header>
 
       <Header as='h3'>What is this tool for?</Header>
       <Message><strong>Important note:</strong> This application is a minimum viable product. It should not be used as the sole tool to understand a client's SNAP or Section 8 financial situation, or for any other public assistance program.</Message>

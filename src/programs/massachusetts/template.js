@@ -43,18 +43,20 @@ import { Result } from '../../../utils/Result';
 * 
 * @returns {Result} (how to reference an external class is currently unknown)
 */
-var getProgramNameBenefits = function ( client ) {
+var getProgramNameBenefits = function (client) {
 
-	// Do some calculations with client, adding helper functions
-	// in here if needed.
+  // Do some calculations with client, adding helper functions
+  // in here if needed.
 
-	var result = {
-		result: 'good',
-		details: 'All good!',
-		data: { important: 10, external: 500, info: 'ELI' }
-	}
+  var result = {
+    result: 'good',
+    details: 'All good!',
+    data: { important: 10,
+      external: 500,
+      info: 'ELI' },
+  };
 
-	return Result( result );
+  return Result(result);
 };  // End getProgramNameBenefits()
 
 

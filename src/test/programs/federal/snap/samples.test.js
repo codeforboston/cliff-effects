@@ -5,7 +5,7 @@ import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import { sampleClients } from '../../../sampleClients';
 import { cloneDeep } from 'lodash';
 
-const defaultClient       = cloneDeep( CLIENT_DEFAULTS );
+const defaultClient       = cloneDeep(CLIENT_DEFAULTS);
 
 describe('getSNAPBenefits', () => {
   describe('default client', () => {

@@ -17,11 +17,13 @@ const CLIENT_DEFAULTS = {
     hasSection8:                    false,            // boolean
     // Household
     // 'm_' for 'member'
-    household:  [{                  // 'head' member  // one or more member objects
+    household:  [
+      {                  // 'head' member  // one or more member objects
         m_age:                      30,               // whole number
         m_role:                     'head',           // 'head', 'spouse', 'member'
-        m_disabled:                 false             // boolean
-    }],
+        m_disabled:                 false,             // boolean
+      },
+    ],
     // Income
     earned:                         0,                // positive number (can have more than two decimal places)
     TAFDC:                          0,                // positive number
@@ -68,7 +70,7 @@ const CLIENT_DEFAULTS = {
 
 };
 
-CLIENT_DEFAULTS.future = cloneDeep( CLIENT_DEFAULTS.current );
+CLIENT_DEFAULTS.future = cloneDeep(CLIENT_DEFAULTS.current);
 
 
 export { CLIENT_DEFAULTS };
