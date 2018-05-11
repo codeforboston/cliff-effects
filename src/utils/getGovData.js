@@ -7,45 +7,6 @@ import {
 * we've seen so far.
 */
 
-
-/** Calculate appropriate MONTHLY bracket/limit value (such as income limit)
-* by number of relevant items (such as number of household members). This
-* function is needed because the math for these calculation needs to be
-* consistent.
-* 
-* @see Math observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
-* @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
-* 
-* IF YOUR DATA HAS MONTHLY VALUES AND WANT A MONTHLY LIMIT VALUE, USE
-* `getLimitBySize()` INSTEAD.
-* 
-* @example Using household size to get federal poverty income limit:
-* var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
-* getMonthlyLimitBySize( fedPovertyGuidelines, 1 );  // 1005
-* getMonthlyLimitBySize( fedPovertyGuidelines, 2 );  // 1354
-* getMonthlyLimitBySize( fedPovertyGuidelines, 3 );  // 1702
-* 
-* @function
-* @param {object} data Annual data to use to get a bracket/limit value.
-* @param {number} data.0 Never known to equal more than 0 so far.
-* @param {number} data.1 (Or any int key) Value of bracket/limit that
-* matches the number described by the key. For example, data.3 would be
-* the income limit value for a household with three members.
-* @param {number|function} data.eachAdditional Usually an amount to
-* add for each person or item over the maximum hardcoded limits. Can be a
-* function to calculate said amount based on number of extra items.
-* @param {number} numItems Number of items (for example, household size).
-* @param {number} [percent] Multiplies limit. You'd pass in 100% as `100`.
-* 
-* @returns Data value for num items, divided by 12 to get monthly value.
-*/
-// var getMonthlyLimitBySize = function ( data, numItems, percent ) {
-//   var yearly  = getLimitBySize( data, numItems, percent ),
-//       monthly = Math.ceil( yearly/12 );
-//   return monthly;
-// };  // End getMonthlyLimitBySize()
-
-
 /** Calculate appropriate bracket/limit value (such as income
  *     limit) by number of relevant items (such as number of
  *     household members).
@@ -151,6 +112,7 @@ var getMaxIntKey = function ( data ) {
 
 
 export {
-	// getMonthlyLimitBySize,
   getLimitBySize,
+  getExtraAmount,
+  getMaxIntKey,
 };
