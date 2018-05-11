@@ -3,7 +3,8 @@ import React from 'react';
 
 const GraphButton = function ({ id, activeID, onClick }) {
   return (
-    <Button id={id}
+    <Button
+      id={id}
       active={activeID === id}
       onClick={onClick}>
       {id}
@@ -13,17 +14,21 @@ const GraphButton = function ({ id, activeID, onClick }) {
 
 const GraphTimeButtons = function ({ activeID, onClick }) {
   return (
-    <Button.Group basic
+    <Button.Group
+      basic
       className='graph-time-options'>
-      <GraphButton id={'Weekly'}
+      <GraphButton
+        id={'Weekly'}
         activeID={activeID}
-        onClick={onClick}/>
-      <GraphButton id={'Monthly'}
+        onClick={onClick} />
+      <GraphButton
+        id={'Monthly'}
         activeID={activeID}
-        onClick={onClick}/>
-      <GraphButton id={'Yearly'}
+        onClick={onClick} />
+      <GraphButton
+        id={'Yearly'}
         activeID={activeID}
-        onClick={onClick}/>
+        onClick={onClick} />
     </Button.Group>
   );
 };

@@ -32,7 +32,8 @@ class HomePage extends Component {
 
           </div>
 
-          <div className='center-contents'
+          <div
+            className='center-contents'
             style={{
               marginTop: '3em',
               marginBottom: '3em', 

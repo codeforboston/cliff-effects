@@ -105,16 +105,20 @@ const BenefitsTable = function (props) {
     if (!client.current.hasSnap || !client.current.hasSection8) {return (null);}
     return (
       <Table.Row>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowHeaderStyle}>Total Benefits</Table.Cell>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowStyle}>${totalBenefitCurrent} / month</Table.Cell>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowStyle}>${totalBenefitFuture} / month</Table.Cell>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowStyle}>{ getSignSymbol(totalDiff) } ${Math.abs(totalDiff)} / month</Table.Cell>
       </Table.Row>
@@ -135,16 +139,20 @@ const BenefitsTable = function (props) {
   const TotalsRow = function (props) {
     return (
       <Table.Row style={{ border: 'none' }}>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowHeaderStyle}>Net Total</Table.Cell>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowStyle}>${netCurrent} / month</Table.Cell>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowStyle}>${netFuture} / month</Table.Cell>
-        <Table.Cell textAlign='right'
+        <Table.Cell
+          textAlign='right'
           width={3}
           style={totalsRowStyle}>{ getSignSymbol(netDiff) } ${Math.abs(netDiff)} / month</Table.Cell>
       </Table.Row>
@@ -156,13 +164,17 @@ const BenefitsTable = function (props) {
       <Table celled>
         <Table.Header>
           <Table.Row >
-            <Table.Cell style={columnHeaderStyle}
+            <Table.Cell
+              style={columnHeaderStyle}
               width={3}>Benefit</Table.Cell>
-            <Table.Cell style={columnHeaderStyle}
+            <Table.Cell
+              style={columnHeaderStyle}
               width={3}>Current Benefits</Table.Cell>
-            <Table.Cell style={columnHeaderStyle}
+            <Table.Cell
+              style={columnHeaderStyle}
               width={3}>New Estimate</Table.Cell>
-            <Table.Cell style={columnHeaderStyle}
+            <Table.Cell
+              style={columnHeaderStyle}
               width={3}>Difference</Table.Cell>
           </Table.Row>
         </Table.Header>

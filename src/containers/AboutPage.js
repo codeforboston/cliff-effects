@@ -7,7 +7,7 @@ const AboutPage = () => {
   return (
     <div>
       <PageLayout>
-        <AboutContent/>
+        <AboutContent />
       </PageLayout>
     </div>
   );

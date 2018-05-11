@@ -42,7 +42,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
   */
   return (
     <div className='field-aligner two-column'>
-      <IntervalColumnHeadings type={type}/>
+      <IntervalColumnHeadings type={type} />
       <CashFlowRow
         timeState={future}
 				  type={type}
@@ -59,12 +59,15 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
 const Table = function ({ client, feedbackPrompt }) {
   return (
     <div>
-      <Header as='h1'
+      <Header
+        as='h1'
         className='ui Header teal align centered'>Results</Header>
-      <Header as='h3'
+      <Header
+        as='h3'
         className='ui Header align centered'>How will your income affect your future benefits?</Header>
       {/* @todo Export/clean up styles  */}
-      <Message visible
+      <Message
+        visible
         warning
         style={{ 'textAlign': 'center' }}>
       This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
@@ -177,7 +180,8 @@ const Chart = function({ client }) {
 
   return (
     <div>
-      <Header as='h1'
+      <Header
+        as='h1'
         className='ui Header teal align centered'>Chart</Header>
       <Bar {...stackedBarProps} />
     </div>
@@ -213,14 +217,16 @@ const PredictionsStep = function (props) {
           name: 'Reset',
           func: props.resetClient, 
         }}>
-        <IncomeForm setClientProperty={setTimeProp}
+        <IncomeForm
+          setClientProperty={setTimeProp}
           future={props.client.future}
           time={'future'} />
         <Divider className='ui section divider hidden' />
-        <Table client={props.client}
+        <Table
+          client={props.client}
           feedbackPrompt={props.feedbackPrompt} />
         <Divider className='ui section divider hidden' />
-        <Chart client={props.client}/>
+        <Chart client={props.client} />
       </FormPartsContainer>
     </Form>
   );

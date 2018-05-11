@@ -28,7 +28,8 @@ class ReactRouterConfirmLeave extends React.Component {
 
   render() {
     const { isBlocking, ...rest } = this.props;
-    return <Prompt when={isBlocking}
+    return <Prompt
+      when={isBlocking}
       {...rest} />;
   }
 }

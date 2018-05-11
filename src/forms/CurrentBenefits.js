@@ -37,12 +37,12 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate }) => {
         checked   = {current.hasSection8}
         name      = {'hasSection8'}
         onChange  = {setClientProperty}
-        translate = {translate}/>
+        translate = {translate} />
       <LocalizedRadioYesNo
         checked   = {current.hasSnap}
         name      = {'hasSnap'}
         onChange  = {setClientProperty}
-        translate = {translate}/>
+        translate = {translate} />
     </div>
   );  // end return
 
@@ -63,7 +63,8 @@ const CurrentBenefitsStep = ({ changeClient, nextStep, client, translate }) => {
   const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
-    <Form size='massive'
+    <Form
+      size='massive'
       className='household-size-form flex-item flex-column'>
       <FormPartsContainer
         title     = {'Current Benefits'}

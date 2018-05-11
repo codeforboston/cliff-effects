@@ -19,7 +19,7 @@ test('Prediction component renders as snapshot correctly', () => {
       previousStep={previousStep}
       setClientProperty={setClientProperty}
       changeClient={changeClient}
-      saveForm={saveForm}/>
+      saveForm={saveForm} />
   );
   expect(wrapper).toMatchSnapshot();
 });

@@ -62,22 +62,22 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
         name={'climateControl'}
         label={'Heating or cooling (e.g. A/C during summer)'}
         checked={climate}
-        onChange={setChecked}/>
-      <br/>
+        onChange={setChecked} />
+      <br />
       <Checkbox
         name={'nonHeatElectricity'}
         label={'Electricity for non-heating purposes'}
         checked={electricity}
-        onChange={setChecked}/>
-      <br/>
+        onChange={setChecked} />
+      <br />
       <Checkbox
         name={'phone'}
         label={'Telephone service'}
         checked={phone}
-        onChange={setChecked}/>
+        onChange={setChecked} />
 
-      <br/>
-      <br/>
+      <br />
+      <br />
       <ControlledRadioYesNo
         labelText = { 'Do you get Fuel Assistance?' }
         checked   = { fuelAssist }
@@ -106,7 +106,7 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
       <div>
         <ContractRentField {...sharedProps} />
         <RentShareField {...sharedProps} />
-        <Utilities {...sharedProps}/>
+        <Utilities {...sharedProps} />
       </div>
     );
 
@@ -116,23 +116,26 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
   } else if (shelter === 'renter') {
     return (
       <div>
-        <br/>
+        <br />
         <PlainRentRow {...sharedProps} />
-        <Utilities {...sharedProps}/>
+        <Utilities {...sharedProps} />
       </div>
     );
 
   } else if (shelter === 'homeowner') {
     return (
       <div>
-        <IntervalColumnHeadings type={ type }/>
-        <CashFlowRow {...sharedProps}
+        <IntervalColumnHeadings type={ type } />
+        <CashFlowRow
+          {...sharedProps}
           generic={'mortgage'}> Mortgage </CashFlowRow>
-        <CashFlowRow {...sharedProps}
+        <CashFlowRow
+          {...sharedProps}
           generic={'housingInsurance'}> Insurance Costs </CashFlowRow>
-        <CashFlowRow {...sharedProps}
+        <CashFlowRow
+          {...sharedProps}
           generic={'propertyTax'}> Property Tax </CashFlowRow>
-        <Utilities {...sharedProps}/>
+        <Utilities {...sharedProps} />
       </div>
     );
 
@@ -151,7 +154,7 @@ const HousingRadio = function ({ currentValue, label, time, setClientProperty })
         label={label}
         value={value}
         checked={currentValue === value}
-        onChange={setClientProperty}/>
+        onChange={setClientProperty} />
     </Form.Field>
   );
 
@@ -205,21 +208,21 @@ const Housing = function ({ current, type, time, setClientProperty }) {
             currentValue={current.shelter}
             label={'Homeless'}
             time={time}
-            setClientProperty={ensureRouteAndValue}/>
+            setClientProperty={ensureRouteAndValue} />
           <HousingRadio
             currentValue={current.shelter}
             label={'Renter'}
             time={time}
-            setClientProperty={ensureRouteAndValue}/>
+            setClientProperty={ensureRouteAndValue} />
           <HousingRadio
             currentValue={current.shelter}
             label={'Homeowner'}
             time={time}
-            setClientProperty={ensureRouteAndValue}/>
+            setClientProperty={ensureRouteAndValue} />
 
         </div>}
 
-      <HousingDetails {...sharedProps}/>
+      <HousingDetails {...sharedProps} />
 
     </div>
   );
@@ -271,16 +274,21 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         ? <div>
           <FormHeading subheading = {'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Reasonable Unreimbursed Non-Medical Child(ren) Care</FormHeading>
-          <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps}
+          <IntervalColumnHeadings type={type} />
+          <CashFlowRow
+            {...sharedProps}
             generic={'childDirectCare'}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...sharedProps}
+          <CashFlowRow
+            {...sharedProps}
             generic={'childBeforeAndAfterSchoolCare'}> Before- and after-school care </CashFlowRow>
-          <CashFlowRow {...sharedProps}
+          <CashFlowRow
+            {...sharedProps}
             generic={'childTransportation'}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...sharedProps}
+          <CashFlowRow
+            {...sharedProps}
             generic={'childOtherCare'}> Other care </CashFlowRow>
-          <CashFlowRowAfterConfirm {...sharedProps}
+          <CashFlowRowAfterConfirm
+            {...sharedProps}
             generic={'earnedBecauseOfChildCare'}
             confirmLabel={'Does childcare allow you to make additional income?'}>
             <span style={{ textDecoration: 'underline' }}>Income</span> made possible by child care expenses
@@ -292,8 +300,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       { current.hasSnap
         ? <div>
           <FormHeading>Child Support</FormHeading>
-          <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps}
+          <IntervalColumnHeadings type={type} />
+          <CashFlowRow
+            {...sharedProps}
             generic={'childSupportPaidOut'}> <strong>Legally obligated</strong> child support </CashFlowRow>
         </div>
         : null
@@ -304,12 +313,15 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         ? <div>
           <FormHeading subheading = {'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n'}>
             Dependent Care of Persons Over 12 Years of Age</FormHeading>
-          <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps}
+          <IntervalColumnHeadings type={type} />
+          <CashFlowRow
+            {...sharedProps}
             generic={'adultDirectCare'}> Direct care costs </CashFlowRow>
-          <CashFlowRow {...sharedProps}
+          <CashFlowRow
+            {...sharedProps}
             generic={'adultTransportation'}> Transportation costs </CashFlowRow>
-          <CashFlowRow {...sharedProps}
+          <CashFlowRow
+            {...sharedProps}
             generic={'adultOtherCare'}> Other care </CashFlowRow>
         </div>
         : null
@@ -324,10 +336,12 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
             <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
           </ul>
-          <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps}
+          <IntervalColumnHeadings type={type} />
+          <CashFlowRow
+            {...sharedProps}
             generic={'disabledAssistance'}> Disabled/Handicapped assistance </CashFlowRow>
-          <CashFlowRowAfterConfirm {...sharedProps}
+          <CashFlowRowAfterConfirm
+            {...sharedProps}
             generic={'earnedBecauseOfAdultCare'}
             confirmLabel={'Do assistance expenses allow you to make additional income?'}>
             <span style={{ textDecoration: 'underline' }}>Income</span> made possible by assistance expenses
@@ -355,16 +369,19 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             <li>Live-in or periodic medical assistance.</li>
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
           </ul>
-          <IntervalColumnHeadings type={type}/>
-          <CashFlowRow {...sharedProps}
+          <IntervalColumnHeadings type={type} />
+          <CashFlowRow
+            {...sharedProps}
             generic='disabledMedical'> Disabled/Elderly medical expenses </CashFlowRow>
-          <CashFlowRow {...sharedProps}
+          <CashFlowRow
+            {...sharedProps}
             generic='otherMedical'> Medical expenses of other members </CashFlowRow>
         </div>
         : null
       }
 
-      <Housing current={current}
+      <Housing
+        current={current}
         time={time}
         type={type}
         setClientProperty={setClientProperty} />
@@ -411,7 +428,8 @@ const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, cl
           name: 'Next',
           func: nextStep, 
         }}>
-        <ExpensesFormContent setClientProperty={setTimeProp}
+        <ExpensesFormContent
+          setClientProperty={setTimeProp}
           current={client.current}
           time={'current'} />
       </FormPartsContainer>

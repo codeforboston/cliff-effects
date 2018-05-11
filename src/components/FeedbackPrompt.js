@@ -89,29 +89,38 @@ class FeedbackPrompt extends React.Component {
         <Modal.Header>Submit Cliff Effects Feedback</Modal.Header>
         <Modal.Content scrolling>
           <Form>
-            <Form.Input {...inputProps('currentSnap')}
+            <Form.Input
+              {...inputProps('currentSnap')}
               label={'If amount for the CURRENT SNAP subsidy was wrong, what\'s the correct amount?'} />
-            <Form.Input {...inputProps('futureSnap')}
+            <Form.Input
+              {...inputProps('futureSnap')}
               label={'If amount for the FUTURE SNAP subsidy was wrong, what\'s the correct amount?'} />
-            <Form.Input {...inputProps('futureS8')}
+            <Form.Input
+              {...inputProps('futureS8')}
               label={'If amount for the FUTURE Section 8 voucher was wrong, what\'s the correct amount?'} />
-            <Form.TextArea {...inputProps('otherCircumstances')}
+            <Form.TextArea
+              {...inputProps('otherCircumstances')}
               label={'What else could be going on that could affect your benefit amount? ' +
               'For example, are you a veteran? Are you a full-time student?'} />
-            <Form.TextArea {...inputProps('bugReport')}
+            <Form.TextArea
+              {...inputProps('bugReport')}
               label={'If there was a bug or error, describe the bug and what you were trying to do when the bug happened.'} />
-            <Form.TextArea {...inputProps('comments')}
+            <Form.TextArea
+              {...inputProps('comments')}
               label={'Do you have any other comments?'} />
           </Form>
-          <Message hidden={!this.state.submissionFailed}
+          <Message
+            hidden={!this.state.submissionFailed}
             error>
             Error submitting data, please try again or <a href="mailto:andrew@codeforboston.org">email us</a>.
           </Message>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={this.close}
+          <Button
+            onClick={this.close}
             disabled={this.state.submitting}>Cancel</Button>
-          <Button onClick={this.submit}
+          <Button
+            onClick={this.submit}
             loading={this.state.submitting}
             disabled={this.state.submitting}
             primary>Submit</Button>

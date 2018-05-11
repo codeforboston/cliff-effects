@@ -7,16 +7,19 @@ import {
 const PageLayout = (props) => {
   return (
     <div>
-      <Segment style={{ padding: '8em 0em' }}
+      <Segment
+        style={{ padding: '8em 0em' }}
         vertical>
-        <Grid container
+        <Grid
+          container
           stackable
           verticalAlign='middle'>
           <Grid.Row>
             <Grid.Column width={10}>
               {props.children}
             </Grid.Column>
-            <Grid.Column floated='right'
+            <Grid.Column
+              floated='right'
               width={6} />
           </Grid.Row>
         </Grid>

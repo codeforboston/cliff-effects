@@ -97,7 +97,8 @@ const ColumnHeader = function ({ children, columnNum }) {
 
   return (
     <Container>
-      <ColumnHeading type={'household'}
+      <ColumnHeading
+        type={'household'}
         colName={''}>
         { children }
       </ColumnHeading>
@@ -173,11 +174,12 @@ const Role = function ({ member, setMember }) {
       },
     ];
 
-    ThisRole = <Dropdown selection
+    ThisRole = <Dropdown
+      selection
       name={'m_role'}
       value={member.m_role}
       options={options}
-      onChange={setMember}/>;
+      onChange={setMember} />;
 
   } else {
 
@@ -243,16 +245,19 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 
   // The font size thing is a bit weird, but... later
   return (
-    <Form.Field className='flex-item'
+    <Form.Field
+      className='flex-item'
       key={indx}>
 
       <Columns.One>
         { indx > 0
-          ? <MemberButton className={'remove'}
+          ? <MemberButton
+            className={'remove'}
             onClick={removeMember}
             iconName={'remove'} />
           : <span>{ household.length > 1
-            ? <Icon fitted
+            ? <Icon
+              fitted
               name={'ban'}
               style={{
                 color: '#cfcfd0',
@@ -265,7 +270,8 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
       </Columns.One>
 
       <Columns.Two>
-        <Role member={member}
+        <Role
+          member={member}
           setMember={onMemberChange} />
       </Columns.Two>
 
@@ -281,7 +287,8 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
       </Columns.Three>
 
       <Columns.Four>
-        <Checkbox name={'m_disabled'}
+        <Checkbox
+          name={'m_disabled'}
           checked={member.m_disabled}
           onChange={onMemberChecked} />
       </Columns.Four>
@@ -379,18 +386,21 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
       { getMembers(current, time, setHousehold, setClientProperty) }
 
-      <Button id={'addMember'}
+      <Button
+        id={'addMember'}
         basic
         onClick={addMember}>
         <Columns.One noMargin={true}>
-          <Icon name={'plus'}
+          <Icon
+            name={'plus'}
             circular
             inverted
             color={'teal'} />
         </Columns.One>
 
         <Columns.Two noMargin={true}>
-          <Header as='h4'
+          <Header
+            as='h4'
             color={'teal'}> Add a member </Header>
         </Columns.Two>
 
@@ -430,7 +440,8 @@ const HouseholdStep = function (props) {
           name: 'Next',
           func: props.nextStep, 
         }}>
-        <HouseholdContent setClientProperty={setTimeProp}
+        <HouseholdContent
+          setClientProperty={setTimeProp}
           current={props.client.current}
           time={'current'} />
       </FormPartsContainer>

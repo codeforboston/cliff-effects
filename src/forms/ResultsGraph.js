@@ -350,10 +350,12 @@ class GraphHolder extends Component {
 
     return (
       <div className='graph-holder'>
-        <Graph client={client}
+        <Graph
+          client={client}
           multiplier={multiplier}
           activePrograms={activePrograms} />
-        <GraphTimeButtons activeID={activeID}
+        <GraphTimeButtons
+          activeID={activeID}
           onClick={this.onClick} />
       </div>
     );
@@ -376,9 +378,11 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
           name: 'Reset',
           func: resetClient, 
         }}>
-        <GraphHolder client={client}
+        <GraphHolder
+          client={client}
           Graph={GrossGraph} />
-        <GraphHolder client={client}
+        <GraphHolder
+          client={client}
           Graph={BenefitGraph} />
       </FormPartsContainer>
     </div>

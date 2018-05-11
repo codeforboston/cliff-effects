@@ -6,7 +6,8 @@ const FeedbackAnytime = function (props) {
 
   return (
     <div>
-      <Button onClick={props.feedbackPrompt}
+      <Button
+        onClick={props.feedbackPrompt}
         type='button'
         color='teal'
         size='medium'

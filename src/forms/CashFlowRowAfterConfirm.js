@@ -3,7 +3,8 @@ import React from 'react';
 import { CashFlowRow, ControlledRadioYesNo } from './formHelpers';
 
 const IncomeField = (props) => {return (
-  <CashFlowRow {...props}
+  <CashFlowRow
+    {...props}
     type={'income'} />
 );};
 
@@ -80,7 +81,8 @@ class CashFlowRowAfterConfirm extends React.Component {
           name      = { 'confirm_' + generic }
           onChange  = { this.handleChange } />
         
-        {showField && <IncomeField generic={generic}
+        {showField && <IncomeField
+          generic={generic}
           {...rest} />}
 
       </div>

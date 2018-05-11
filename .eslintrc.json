@@ -41,6 +41,7 @@
       "object-property-newline": ["warn", { "allowAllPropertiesOnSameLine": true }],
       "object-curly-newline": ["warn", { "multiline": true }],
       "react/jsx-max-props-per-line": ["warn", { "maximum": 1 }],
+      "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
       "curly": ["warn", "all"],
       "arrow-body-style": ["warn", "always"],
       "arrow-parens": ["warn", "always"],

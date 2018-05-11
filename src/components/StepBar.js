@@ -14,7 +14,8 @@ const StepBar = ({ steps, currentStepIndex, goToStep }) => {
     cleanSteps[ index ] = newStep;
   });
 
-  return (<Step.Group className='six'
+  return (<Step.Group
+    className='six'
     size='mini'
     ordered
     items={cleanSteps} />);

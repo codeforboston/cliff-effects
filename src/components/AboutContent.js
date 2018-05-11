@@ -11,7 +11,8 @@ const AboutContent = function (props) {
   return (
     <div>
 
-      <Header as='h1'
+      <Header
+        as='h1'
         style={{ fontSize: '4em' }}>About the Cliff Effects Tool</Header>
 
       <Header as='h3'>What is this tool for?</Header>

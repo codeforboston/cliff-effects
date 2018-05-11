@@ -19,19 +19,25 @@ const App = () => {return (
   <div id='App'>
     <HashRouter getUserConfirmation={getUserConfirmation}>
       <div id='HashRouter'>
-        <Route path="/:rest+"
-          component={Header}/>
-        <Route exact
+        <Route
+          path="/:rest+"
+          component={Header} />
+        <Route
+          exact
           path="/"
-          component={HomePage}/>
-        <Route path="/about"
-          component={AboutPage}/>
-        <Route path="/visit/:clientId/:visitId"
-          component={VisitPage}/>
-        <Route path="/visit/load"
-          component={VisitPage}/>
-        <Route path="/load"
-          component={VisitPage}/>
+          component={HomePage} />
+        <Route
+          path="/about"
+          component={AboutPage} />
+        <Route
+          path="/visit/:clientId/:visitId"
+          component={VisitPage} />
+        <Route
+          path="/visit/load"
+          component={VisitPage} />
+        <Route
+          path="/load"
+          component={VisitPage} />
       </div>
     </HashRouter>
     <Footer />

@@ -58,7 +58,8 @@ class OnLeavePrompt extends React.Component {
         <Modal.Actions>
           <Button onClick={this.leave}>{realLeave}</Button>
           <Button onClick={this.stay}>{realStay}</Button>
-          <Button onClick={this.props.feedbackPrompt}
+          <Button
+            onClick={this.props.feedbackPrompt}
             primary>Submit Feedback</Button>
         </Modal.Actions>
       </Modal>
