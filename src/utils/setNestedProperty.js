@@ -6,8 +6,8 @@ const setNestedProperty = function ({ route, value, time }, { current, future },
   if (route.length <= 0) {
     // console.log( value );
     var newEvent = {
-      type: time,
-      name: itemID,
+      type:  time,
+      name:  itemID,
       value: value, 
     };
     setValidCurrent(newEvent, current);
@@ -16,8 +16,8 @@ const setNestedProperty = function ({ route, value, time }, { current, future },
   } else {
     // Get this key or index and remove it from list
     var next = {
-      current:  current[itemID],
-      future:   future[itemID],
+      current: current[itemID],
+      future:  future[itemID],
     };
     setNestedProperty({
       route,

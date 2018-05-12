@@ -3,8 +3,8 @@ import _ from 'lodash';
 // Helper functions to format vlaues
 const toFancyMoneyStr = function (toFormat) {
   return toFormat.toLocaleString('en-US', {
-    style:'currency',
-    currency:'USD', 
+    style:    'currency',
+    currency: 'USD', 
   }).replace('.00','');
 };
 

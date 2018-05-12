@@ -66,47 +66,47 @@ describe('head or spouse', () => {
 describe('dependents', () => {
   const dependents = [
     {
-      m_age: 18,
+      m_age:  18,
       m_role: 'member', 
     },
     {
-      m_age: 17,
+      m_age:  17,
       m_role: 'member', 
     },
     {
-      m_age: 19,
+      m_age:      19,
       m_disabled: true,
-      m_role: 'member', 
+      m_role:     'member', 
     },
   ];
   const notDependents = [
     {
-      m_age: 18,
+      m_age:  18,
       m_role: 'head', 
     },
     {
-      m_age: 18,
+      m_age:  18,
       m_role: 'spouse', 
     },
     {
-      m_age: 19,
+      m_age:      19,
       m_disabled: true,
-      m_role: 'head', 
+      m_role:     'head', 
     },
     {
-      m_age: 19,
+      m_age:      19,
       m_disabled: true,
-      m_role: 'spouse', 
+      m_role:     'spouse', 
     },
     {
-      m_age: 19,
+      m_age:      19,
       m_disabled: false,
-      m_role: 'member', 
+      m_role:     'member', 
     },
     {
-      m_age: 26,
+      m_age:      26,
       m_disabled: false,
-      m_role: 'member', 
+      m_role:     'member', 
     },
   ];
   const allMembers = dependents.concat(notDependents);

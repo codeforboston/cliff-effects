@@ -21,9 +21,9 @@ import { GraphTimeButtons } from '../components/GraphTimeButtons';
 
 const MAX_X_MONTHLY = 100000 / 12;
 const MULTIPLIERS = {
-  'Weekly': 1 / (4 + 1 / 3),
+  'Weekly':  1 / (4 + 1 / 3),
   'Monthly': 1,
-  'Yearly': 12,
+  'Yearly':  12,
 };
 
 
@@ -124,11 +124,11 @@ const getDatasets = function (xRange, client, multiplier, activePrograms, extraP
         graphFrosting = PROGRAM_CHART_VALUES[ programName ];
 
     datasets.push({
-      label: graphFrosting.name,
+      label:           graphFrosting.name,
       backgroundColor: graphFrosting.color,
-      borderColor: graphFrosting.color,
+      borderColor:     graphFrosting.color,
       /** Need a new object so client's data doesn't get changed. */
-      data: getData[ programName ](xRange, _.cloneDeep(client), multiplier),
+      data:            getData[ programName ](xRange, _.cloneDeep(client), multiplier),
       ...extraProps[ programName ],
     });
   }  // end for programs in program chart values
@@ -177,41 +177,41 @@ class GrossGraph extends Component {
 
     var stackedAreaProps = {
       data: {
-        labels: xRange,
+        labels:   xRange,
         datasets: datasets,
       },  // end `data`
       options: {
         title: {
           display: true,
-          text: 'All Money Coming in as Income Changes',
+          text:    'All Money Coming in as Income Changes',
         },  // end `title`
         elements: {
-          line: { fill: '-1' },
+          line:  { fill: '-1' },
           point: {
-            radius: 0,
-            hitRadius: 10,
+            radius:      0,
+            hitRadius:   10,
             hoverRadius: 10,
           },
         },  // end `elements`
         scales: {
           yAxes: [
             {
-              stacked: true,
+              stacked:    true,
               scaleLabel: {
-                display: true,
+                display:     true,
                 labelString: 'Total Money Coming In ($)',
               },
               ticks: {
                 beginAtZero: true,
-                callback: formatAxis,
+                callback:    formatAxis,
               },
             },
           ],  // end `yAxes`
           xAxes: [
             {
-              stacked: true,
+              stacked:    true,
               scaleLabel: {
-                display: true,
+                display:     true,
                 labelString: 'Annual Income ($)',
               },
               ticks: { callback: formatAxis },
@@ -251,7 +251,7 @@ class BenefitGraph extends Component {
 
     var xRange      = _.range(0, max, interval),  // x-axis/income numbers
         extraProps  = {
-          snap: { fill: false },
+          snap:     { fill: false },
           section8: { fill: false }, 
         },
         datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
@@ -268,33 +268,33 @@ class BenefitGraph extends Component {
 
     var lineProps = {
       data: {
-        labels: xRange,
+        labels:   xRange,
         datasets: datasets,
       },  // end `data`
       options: {
         title: {
           display: true,
-          text: 'Individual Benefit Amounts for Household as Income Changes',
+          text:    'Individual Benefit Amounts for Household as Income Changes',
         },
         showLines: true,
-        scales: {
+        scales:    {
           yAxes: [
             {
               scaleLabel: {
-                display: true,
+                display:     true,
                 labelString: 'Benefit Value ($)',
               },
               ticks: {
                 beginAtZero: true,
                 /* chart.js v2.7 requires a callback function */
-                callback: formatAxis,
+                callback:    formatAxis,
               },
             }, 
           ],  // end `yAxes`
           xAxes: [
             {
               scaleLabel: {
-                display: true,
+                display:     true,
                 labelString: 'Annual Income ($)',
               },
               ticks: { callback: formatAxis },
@@ -324,7 +324,7 @@ class GraphHolder extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      activeID: 'Yearly',
+      activeID:   'Yearly',
       multiplier: MULTIPLIERS[ 'Yearly' ], 
     };
   }
@@ -332,7 +332,7 @@ class GraphHolder extends Component {
   onClick = (evnt) => {
     var id = evnt.target.id;
     this.setState({
-      activeID: id,
+      activeID:   id,
       multiplier: MULTIPLIERS[ id ], 
     });
   };

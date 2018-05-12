@@ -32,9 +32,9 @@ const testAdditionalFunction = function (data, extraAmount) {
 
 // ************** Main body ************** /
 var fedPovertyGuidelines = {
-  0: 0,
-  1: 12060,
-  2: 16240,
+  0:              0,
+  1:              12060,
+  2:              16240,
   eachAdditional: 4180, 
 };
 
@@ -45,9 +45,9 @@ testYearlyLimit ('4. Test when percent=50 halves',  fedPovertyGuidelines, 2, 50,
 testYearlyLimit ('5. Test with items out of range', fedPovertyGuidelines, 5, undefinedString,16240 + 3 * 4180);
 
 fedPovertyGuidelines = {
-  0: 0,
-  1: 12060,
-  2: 20000,
+  0:              0,
+  1:              12060,
+  2:              20000,
   eachAdditional: testAdditionalFunction, 
 };
 testYearlyLimit ('6. Test of function for each additional',fedPovertyGuidelines, 5, undefinedString,20000 + 3 * 100);

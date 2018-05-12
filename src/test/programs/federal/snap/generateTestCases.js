@@ -15,9 +15,9 @@ const NUMBER_TEST_CASES = 1000;
 const randomizers = [];
 
 const defaultMember = {
-  m_age: 30,
+  m_age:      30,
   m_disabled: false,
-  m_role: 'member', 
+  m_role:     'member', 
 };
 const headMember = Object.assign({}, defaultMember, { m_role: 'head' });
 const householdSize = (changes) => {

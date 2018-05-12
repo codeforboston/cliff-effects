@@ -101,13 +101,13 @@ const BottomButtons = function({ left, right }) {
   const flexItemStyle = { flexBasis: '118.3px' };
   const buttonProps = {
     style: flexItemStyle,
-    type: 'button',
+    type:  'button',
     color: 'teal',
-    size: 'large', 
+    size:  'large', 
   };
   return (
     <div style={{
-      display: 'flex',
+      display:        'flex',
       justifyContent: 'space-between', 
     }}>
       { left ?
@@ -238,7 +238,7 @@ const FormSubheading = function (props) {
     <div
       className = { 'form-subheading' }
       style={{
-        display: 'block',
+        display:   'block',
         textAlign: 'left', 
       }}>
       { props.children }
@@ -472,8 +472,8 @@ class ManagedNumberField extends Component {
     super(props);
     var { format, value } = props;
     this.state = {
-      valid: true,
-      focused: false,
+      valid:      true,
+      focused:    false,
       focusedVal: format(value), 
     };
   }  // End constructor()
@@ -484,12 +484,12 @@ class ManagedNumberField extends Component {
     var { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
       this.setState({
-        focused: true,
+        focused:    true,
         focusedVal: '', 
       });
     } else {
       this.setState({
-        focused: true,
+        focused:    true,
         focusedVal: format(value), 
       });
     }
@@ -499,7 +499,7 @@ class ManagedNumberField extends Component {
     this.props.onBlur(evnt);
     this.setState({
       focused: false,
-      valid: true, 
+      valid:   true, 
     });
   };
 
@@ -518,7 +518,7 @@ class ManagedNumberField extends Component {
     }
     this.setState({
       focusedVal: value,
-      valid: valid, 
+      valid:      valid, 
     });
   };  // End handleChange()
 
@@ -579,7 +579,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
   var updateClient = function (evnt, inputProps, data) {
     var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
         obj     = {
-          name: generic,
+          name:  generic,
           value: monthly, 
         };
     setClientProperty(evnt, obj);
@@ -635,8 +635,8 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
   inputProps = {
     ...inputProps, // name, validation, and onBlur
     className: 'cashflow-column',
-    format:     toMoneyStr,
-    store:      setClientProperty,
+    format:    toMoneyStr,
+    store:     setClientProperty,
   };
 
   return (

@@ -77,11 +77,11 @@ const Table = function ({ client, feedbackPrompt }) {
           fluid
           color='teal'
           style={{
-            'display': 'block',
-            'marginLeft': 'auto',
+            'display':     'block',
+            'marginLeft':  'auto',
             'marginRight': 'auto',
-            'marginTop': '10px',
-            'maxWidth': '400px', 
+            'marginTop':   '10px',
+            'maxWidth':    '400px', 
           }}
           onClick={feedbackPrompt}>Submit Feedback
         </Button>
@@ -113,58 +113,58 @@ const Chart = function({ client }) {
 
   var datasets = [
     {
-      label: incomeName,
+      label:           incomeName,
       backgroundColor: incomeColor,
-      data: incomeData,
-      fill: 'origin',
+      data:            incomeData,
+      fill:            'origin',
     }, 
   ];
 
   if (curr.hasSnap) {
     datasets.push({
-      label: SNAPName,
+      label:           SNAPName,
       backgroundColor: SNAPColor,
-      data: snapData,
+      data:            snapData,
     });
   }
 
   if (curr.hasSection8) {
     datasets.push({
-      label: section8Name,
+      label:           section8Name,
       backgroundColor: section8Color,
-      data: housingData,
+      data:            housingData,
     });
   }
 
   const stackedBarProps = {
     data: {
-      labels: incomeData,
+      labels:   incomeData,
       datasets: datasets,
     },
     options: {
       title: {
         display: true,
-        text: 'Money Coming In as Income Changes',
+        text:    'Money Coming In as Income Changes',
       },
       scales: {
         yAxes: [
           {
-            stacked: true,
+            stacked:    true,
             scaleLabel: {
-              display: true,
+              display:     true,
               labelString: 'Total Money Coming In ($)',
             },
             ticks: {
               beginAtZero: true,
-              callback: formatAxis,
+              callback:    formatAxis,
             },
           },
         ],
         xAxes: [
           {
-            stacked: true,
+            stacked:    true,
             scaleLabel: {
-              display: true,
+              display:     true,
               labelString: 'Monthly Income ($)',
             },
             ticks: { callback: formatAxis },

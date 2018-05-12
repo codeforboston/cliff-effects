@@ -27,7 +27,7 @@ class CashFlowRowAfterConfirm extends React.Component {
     
     const value = props.timeState[props.generic];
     this.state = {
-      showField: value !== 0,
+      showField:   value !== 0,
       storedValue: value,
     };
   }
@@ -45,12 +45,12 @@ class CashFlowRowAfterConfirm extends React.Component {
     const { generic, setClientProperty, timeState } = this.props;
 
     this.setState({
-      showField: false,
+      showField:   false,
       storedValue: timeState[generic],
     });
 
     setClientProperty(evt, {
-      name: generic,
+      name:  generic,
       value: 0,
     });
   }
@@ -60,7 +60,7 @@ class CashFlowRowAfterConfirm extends React.Component {
     const { storedValue } = this.state;
 
     setClientProperty(evt, {
-      name: generic,
+      name:  generic,
       value: storedValue,
     });
 

@@ -31,7 +31,7 @@ import { cloneDeep } from 'lodash';
 // Very specific to household size. May be worth creating
 // a constructor for columns in general, or maybe use a Grid.
 const columnStyle = {
-  display: 'inline-block',
+  display:   'inline-block',
   textAlign: 'center',
   marginTop: '0.7em',
   // marginBottom: '0.7em'
@@ -46,7 +46,7 @@ Columns.One = function ({ noMargin, children }) {
   return (<div style={{
     ...columnStyle,
     marginTop: marginTop,
-    width: '5em', 
+    width:     '5em', 
   }}> {children} 
   </div>);
 };
@@ -56,9 +56,9 @@ Columns.Two = function ({ noMargin, children }) {
   if (noMargin) { marginTop = 0; }
   return (<div style={{
     ...columnStyle,
-    marginTop: marginTop,
-    width: '20em',
-    textAlign: 'left',
+    marginTop:   marginTop,
+    width:       '20em',
+    textAlign:   'left',
     paddingLeft: '1em', 
   }}> {children} 
   </div>);
@@ -70,7 +70,7 @@ Columns.Three = function ({ noMargin, children }) {
   return (<div style={{
     ...columnStyle,
     marginTop: marginTop,
-    width: '5em', 
+    width:     '5em', 
   }}> {children} 
   </div>);
 };
@@ -81,7 +81,7 @@ Columns.Four = function ({ noMargin, children }) {
   return (<div style={{
     ...columnStyle,
     marginTop: marginTop,
-    width: '10em', 
+    width:     '10em', 
   }}> {children} 
   </div>);
 };
@@ -133,8 +133,8 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
       onClick={onClick}
       style={{
         padding: '0',
-        height: '2.2em',
-        width: '2.2em', 
+        height:  '2.2em',
+        width:   '2.2em', 
       }}
       circular />
   );
@@ -169,11 +169,11 @@ const Role = function ({ member, setMember }) {
 
     var options = [
       {
-        text: 'Spouse of Head of Household',
+        text:  'Spouse of Head of Household',
         value: 'spouse', 
       },
       {
-        text: 'Child/Other Household Member',
+        text:  'Child/Other Household Member',
         value: 'member', 
       },
     ];
@@ -194,9 +194,9 @@ const Role = function ({ member, setMember }) {
   // Styles will have to be adjusted.
   return (
     <div style={{
-      display: 'inline-block',
-      width: '100%',
-      textAlign: 'left',
+      display:    'inline-block',
+      width:      '100%',
+      textAlign:  'left',
       marginLeft: margin, 
     }}>
       { ThisRole }
@@ -264,8 +264,8 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
               fitted
               name={'ban'}
               style={{
-                color: '#cfcfd0',
-                fontSize: '2.2em',
+                color:         '#cfcfd0',
+                fontSize:      '2.2em',
                 verticalAlign: 'text-top', 
               }} />
             : null
@@ -316,10 +316,10 @@ const getMembers = function (current, time, setHousehold, setClientProperty) {
 
   var household = current.household,
       props     = {
-        household:          household,
-        time:               time,
-        setHousehold:       setHousehold,
-        setClientProperty:  setClientProperty,
+        household:         household,
+        time:              time,
+        setHousehold:      setHousehold,
+        setClientProperty: setClientProperty,
       };
 
   var mems = [];
@@ -364,13 +364,13 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 
     var member = household.length === 1
       ? {
-        m_age: 30,
-        m_role: 'spouse',
+        m_age:      30,
+        m_role:     'spouse',
         m_disabled: false, 
       }
       : {
-        m_age: 12,
-        m_role: 'member',
+        m_age:      12,
+        m_role:     'member',
         m_disabled: false, 
       };
 

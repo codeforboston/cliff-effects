@@ -10,21 +10,21 @@ class HomePage extends Component {
 
         <div id='HomeContent'>
 
-          <div style={{ display:'inline-block' }}>
+          <div style={{ display: 'inline-block' }}>
 
             <h1 style={{
-              fontSize: '5em',
-              color: '#efefef',
+              fontSize:     '5em',
+              color:        '#efefef',
               marginBottom: '-15px', 
             }}>
               Cliff Effects Tool
             </h1>
 
             <h2 style={{
-              fontSize: '2em',
-              color: '#efefef',
-              textAlign: 'right',
-              marginTop: '-15px',
+              fontSize:    '2em',
+              color:       '#efefef',
+              textAlign:   'right',
+              marginTop:   '-15px',
               marginRight: '45px', 
             }}>
               GUIDANCE PROTOTYPE*
@@ -35,7 +35,7 @@ class HomePage extends Component {
           <div
             className='center-contents'
             style={{
-              marginTop: '3em',
+              marginTop:    '3em',
               marginBottom: '3em', 
             }}>
 
@@ -43,9 +43,9 @@ class HomePage extends Component {
               <Link to='/visit/54321/1'>
                 <Button style={{
                   backgroundColor: '#ffffffc8',
-                  textColor: '#00b5ad',
-                  fontSize: '1.5em',
-                  marginRight: '1.5em', 
+                  textColor:       '#00b5ad',
+                  fontSize:        '1.5em',
+                  marginRight:     '1.5em', 
                 }}>
                 Get Started
                 </Button>
@@ -54,9 +54,9 @@ class HomePage extends Component {
               <Link to='/about'>
                 <Button style={{
                   backgroundColor: '#ffffffc8',
-                  textColor: '#00b5ad',
-                  fontSize: '1.5em',
-                  marginLeft: '1.5em', 
+                  textColor:       '#00b5ad',
+                  fontSize:        '1.5em',
+                  marginLeft:      '1.5em', 
                 }}>
                 Learn More
                 </Button>
@@ -66,9 +66,9 @@ class HomePage extends Component {
           </div>
 
           <p style={{
-            color: '#efefef',
+            color:     '#efefef',
             textAlign: 'center',
-            fontSize: '1em', 
+            fontSize:  '1em', 
           }}>*
             This is a prototype and should not be used to make financial decisions.
           </p>

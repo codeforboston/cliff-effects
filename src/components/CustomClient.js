@@ -19,8 +19,8 @@ import { Divider, Form, Message } from 'semantic-ui-react';
 class CustomClient extends React.Component {
   state = {
     client: null,
-    error: null,
-    json: '',
+    error:  null,
+    json:   '',
   };
 
   submit = (event) => {
@@ -30,8 +30,8 @@ class CustomClient extends React.Component {
 
     this.setState({
       client: null,
-      error: null,
-      json: '',
+      error:  null,
+      json:   '',
     });
     this.props.loadClient({ client: client });
   };
@@ -42,14 +42,14 @@ class CustomClient extends React.Component {
       const newClient = JSON.parse(value);
       this.setState({
         client: newClient,
-        error: null,
-        json: value,
+        error:  null,
+        json:   value,
       });
     } catch (error) {
       this.setState({
         client: null,
-        error: error,
-        json: value,
+        error:  error,
+        json:   value,
       });
     }
   };

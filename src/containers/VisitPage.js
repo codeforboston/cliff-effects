@@ -52,47 +52,47 @@ class VisitPage extends Component {
     var clone = cloneDeep(CLIENT_DEFAULTS);
 
     this.state = {
-      clientInfo: match.params.clientId,
-      visitId: match.params.visitId,
+      clientInfo:          match.params.clientId,
+      visitId:             match.params.visitId,
       mayLoadCustomClient: wantLoad,
-      currentStep: 1,
-      isBlocking: false,
-      redirect: false,
-      client: clone,
-      prompt: {
-        open: false,
-        message: '',
-        header: '',
+      currentStep:         1,
+      isBlocking:          false,
+      redirect:            false,
+      client:              clone,
+      prompt:              {
+        open:      false,
+        message:   '',
+        header:    '',
         leaveText: 'Reset',
-        callback: () => {},
+        callback:  () => {},
       },
       feedbackOpen: false,
       // Hack for MVP
-      oldShelter: clone.current.shelter,
-      userChanged: {},
-      translate: getTranslate('en'),
+      oldShelter:   clone.current.shelter,
+      userChanged:  {},
+      translate:    getTranslate('en'),
     };  // end this.state {}
 
     this.steps = [
       {
         title: 'Current Benefits',
-        form: CurrentBenefitsStep, 
+        form:  CurrentBenefitsStep, 
       },
       {
         title: 'Household',
-        form: HouseholdStep, 
+        form:  HouseholdStep, 
       },
       {
         title: 'Income',
-        form: CurrentIncomeStep, 
+        form:  CurrentIncomeStep, 
       },
       {
         title: 'Expenses',
-        form: CurrentExpensesStep, 
+        form:  CurrentExpensesStep, 
       },
       {
         title: 'Predictions',
-        form: PredictionsStep, 
+        form:  PredictionsStep, 
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
@@ -107,7 +107,7 @@ class VisitPage extends Component {
     
     const nextClient = {
       current: current,
-      future: future, 
+      future:  future, 
     };
 
     this.setState({ client: nextClient });
@@ -116,9 +116,9 @@ class VisitPage extends Component {
   resetClient = () => {
     this.setState({
       currentStep: 1,
-      client: cloneDeep(CLIENT_DEFAULTS),
-      oldShelter: CLIENT_DEFAULTS.current.shelter,
-      isBlocking: false,
+      client:      cloneDeep(CLIENT_DEFAULTS),
+      oldShelter:  CLIENT_DEFAULTS.current.shelter,
+      isBlocking:  false,
       userChanged: {},
     });
   };
@@ -132,7 +132,7 @@ class VisitPage extends Component {
       // Otherwise, suggest the user submit feedback
       this.prompt((ok) => {return ok && this.resetClient();}, {
         leaveText: 'Reset',
-        message: 'default',
+        message:   'default',
       });
     }
   };
@@ -141,7 +141,7 @@ class VisitPage extends Component {
     this.setState({
       prompt: {
         ...promptProps,
-        open: true,
+        open:     true,
         callback: (ok) => {
           this.setState({ prompt: { open: false } });
           callback(ok);
@@ -172,7 +172,7 @@ class VisitPage extends Component {
         routeList   = route.split('/'),
         id          = routeList[0],  // `routeList` gets mutated
         newEvent    = {
-          time: time,
+          time:  time,
           route: routeList,
           value: val, 
         };
@@ -194,11 +194,11 @@ class VisitPage extends Component {
     client.future.shelter = client.current.shelter;
 
     this.setState((prevState) => {return {
-      client: client,
+      client:      client,
       userChanged: userChanged,
-      oldShelter: oldShelter,
+      oldShelter:  oldShelter,
       // Form has been changed, data should now be downloadable
-      isBlocking: true,
+      isBlocking:  true,
     };});
   };  // End onClientChange()
 
@@ -207,7 +207,7 @@ class VisitPage extends Component {
     if (exitAfterSave) {
       this.setState({
         isBlocking: false,
-        redirect: true, 
+        redirect:   true, 
       });
     } else {
       this.setState({ isBlocking: false });

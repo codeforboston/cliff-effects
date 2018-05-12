@@ -21,8 +21,8 @@ import { SNAPData } from '../../../../data/federal/2017/SNAPData';
 var addNumMembers = function (num, household) {
   while (num > 0) {
     household.push({
-      m_age: 30,
-      m_role: 'member',
+      m_age:      30,
+      m_role:     'member',
       m_disabled: false, 
     });
     num -= 1;
@@ -67,8 +67,8 @@ describe('SNAPhelpers', () => {
     describe('a head of household', () => {
       let head;
       beforeEach(() => { head = {
-        m_age: 30,
-        m_role: 'head',
+        m_age:      30,
+        m_role:     'head',
         m_disabled: false, 
       }; });
 
@@ -88,8 +88,8 @@ describe('SNAPhelpers', () => {
     describe('a spouse', () => {
       let spouse;
       beforeEach(() => { spouse = {
-        m_age: 30,
-        m_role: 'spouse',
+        m_age:      30,
+        m_role:     'spouse',
         m_disabled: false, 
       }; });
 
@@ -108,8 +108,8 @@ describe('SNAPhelpers', () => {
     describe('a regular member', () => {
       let member;
       beforeEach(() => { member = {
-        m_age: 30,
-        m_role: 'member',
+        m_age:      30,
+        m_role:     'member',
         m_disabled: false, 
       }; });
 
@@ -150,24 +150,24 @@ describe('SNAPhelpers', () => {
     describe('a spouse', () => {
       it('that is not disabled and under 60 should return false', () => {
         current.household.push({
-          m_age: 30,
-          m_role: 'spouse',
+          m_age:      30,
+          m_role:     'spouse',
           m_disabled: false, 
         });
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(false);
       });
       it('that is disabled should return true', () => {
         current.household.push({
-          m_age: 30,
-          m_role: 'spouse',
+          m_age:      30,
+          m_role:     'spouse',
           m_disabled: true, 
         });
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(true);
       });
       it('that is 60 should return true', () => {
         current.household.push({
-          m_age: 60,
-          m_role: 'spouse',
+          m_age:      60,
+          m_role:     'spouse',
           m_disabled: false, 
         });
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(true);
@@ -178,24 +178,24 @@ describe('SNAPhelpers', () => {
     describe('a regular member', () => {
       it('that is not disabled and under 60 should return false', () => {
         current.household.push({
-          m_age: 30,
-          m_role: 'member',
+          m_age:      30,
+          m_role:     'member',
           m_disabled: false, 
         });
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(false);
       });
       it('that is disabled should return true', () => {
         current.household.push({
-          m_age: 30,
-          m_role: 'member',
+          m_age:      30,
+          m_role:     'member',
           m_disabled: true, 
         });
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(true);
       });
       it('that is 60 should return true', () => {
         current.household.push({
-          m_age: 60,
-          m_role: 'member',
+          m_age:      60,
+          m_role:     'member',
           m_disabled: false, 
         });
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(true);
@@ -233,8 +233,8 @@ describe('SNAPhelpers', () => {
     describe('a spouse', () => {
 
       beforeEach(() => { current.household[1] = {
-        m_age: 30,
-        m_role: 'spouse',
+        m_age:      30,
+        m_role:     'spouse',
         m_disabled: false, 
       }; });
 
@@ -258,8 +258,8 @@ describe('SNAPhelpers', () => {
     describe('a regular member', () => {
 
       beforeEach(() => { current.household[1] = {
-        m_age: 30,
-        m_role: 'member',
+        m_age:      30,
+        m_role:     'member',
         m_disabled: false, 
       }; });
 
@@ -340,9 +340,9 @@ describe('SNAPhelpers', () => {
 
     it('that has an elderly or disabled dependent, should return true', () => {
       current.household.push({
-        m_age: 65,
+        m_age:      65,
         m_disabled: true,
-        m_role: 'member', 
+        m_role:     'member', 
       });
       expect(SNAPhelpers.getGrossIncomeTestResult(current)).toBe(true);
     });
@@ -609,27 +609,27 @@ describe('SNAPhelpers', () => {
 
     it('under 13 dependents, it should return related expenses', () => {
       current.household.push({
-        m_age: 12,
+        m_age:      12,
         m_disabled: false,
-        m_role: 'member', 
+        m_role:     'member', 
       });
       expect(SNAPhelpers.getDependentCareDeduction(current)).toEqual(UNDER13_CARE_EXPENSES.length);
     });
 
     it('over 12 dependents, it should return related expenses', () => {
       current.household.push({
-        m_age: 13,
+        m_age:      13,
         m_disabled: false,
-        m_role: 'member', 
+        m_role:     'member', 
       });
       expect(SNAPhelpers.getDependentCareDeduction(current)).toEqual(OVER12_CARE_EXPENSES.length);
     });
 
     it('disabled dependents, it should return related expenses', () => {
       current.household.push({
-        m_age: 19,
+        m_age:      19,
         m_disabled: true,
-        m_role: 'member', 
+        m_role:     'member', 
       });
       expect(SNAPhelpers.getDependentCareDeduction(current)).toEqual(OVER12_CARE_EXPENSES.length);
     });
@@ -699,9 +699,9 @@ describe('SNAPhelpers', () => {
 
     it('an elderly or disabled member, it should return the raw deduction', () => {
       current.household.push({
-        m_age: 65,
+        m_age:      65,
         m_disabled: true,
-        m_role: 'member', 
+        m_role:     'member', 
       });
       const rawDeduction = 12;
       getRawShelterDeduction.mockReturnValue(rawDeduction);
@@ -840,9 +840,9 @@ describe('SNAPhelpers', () => {
     it('income above poverty line and disabled members, it should return the yearly limit', () => {
       getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
       current.household.push({
-        m_age: 65,
+        m_age:      65,
         m_disabled: true,
-        m_role: 'member', 
+        m_role:     'member', 
       });
 
       // mock getYearlyLimitBySize, which is what generates the limit to be returned

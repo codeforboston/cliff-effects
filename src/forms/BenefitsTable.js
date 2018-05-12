@@ -43,31 +43,31 @@ const BenefitsTable = function (props) {
       netDiff             = totalDiff + incomeDiff;
 
   const   columnHeaderStyle = {
-          background: 'rgba(0, 181, 173, 1)',
-          color: 'white',
-          fontSize: '1.3em',
-          fontWeight: 900,
-          textAlign: 'center',
-          borderRadius: 'inherit',
+          background:    'rgba(0, 181, 173, 1)',
+          color:         'white',
+          fontSize:      '1.3em',
+          fontWeight:    900,
+          textAlign:     'center',
+          borderRadius:  'inherit',
           letterSpacing: '0.02em',
         }
         , totalsRowStyle    = {
-          borderTop: '2px solid rgba(0, 181, 173, 1)',
+          borderTop:  '2px solid rgba(0, 181, 173, 1)',
           fontWeight: 700,
-          fontSize: '1.1em',
-          padingTop: '0.25em',
+          fontSize:   '1.1em',
+          padingTop:  '0.25em',
         }
         , rowHeaderStyle    = {
-          fontSize: '1.1em',
+          fontSize:   '1.1em',
           fontWeight: 700,
-          textAlign: 'left',
+          textAlign:  'left',
         }
         , totalsRowHeaderStyle = {
-          fontSize: '1.2em',
+          fontSize:   '1.2em',
           fontWeight: 700,
-          textAlign: 'left',
-          borderTop: '2px solid rgba(0, 181, 173, 1)',
-          padingTop: '0.25em',
+          textAlign:  'left',
+          borderTop:  '2px solid rgba(0, 181, 173, 1)',
+          padingTop:  '0.25em',
 
 
         };

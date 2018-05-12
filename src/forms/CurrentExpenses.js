@@ -94,10 +94,10 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
 
   let shelter = current.shelter,
       sharedProps = {
-        timeState: current,
-        current: current,
-        type: type,
-        time: time,
+        timeState:         current,
+        current:           current,
+        type:              type,
+        time:              time,
         setClientProperty: setClientProperty,
       };
 
@@ -183,17 +183,17 @@ const Housing = function ({ current, type, time, setClientProperty }) {
   let ensureRouteAndValue = function (evnt, inputProps) {
     var obj = {
       ...inputProps,
-      name: inputProps.name,
-      value: inputProps.value,
+      name:    inputProps.name,
+      value:   inputProps.value,
       checked: null, 
     };
     setClientProperty(evnt, obj);
   };
 
   let sharedProps = {
-    current: current,
-    type: type,
-    time: time,
+    current:           current,
+    type:              type,
+    time:              time,
     setClientProperty: ensureRouteAndValue,
   };
 
@@ -247,9 +247,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
   let type        = 'expense',
       household   = current.household,
       sharedProps = {
-        timeState: current,
-        type: type,
-        time: time,
+        timeState:         current,
+        type:              type,
+        time:              time,
         setClientProperty: setClientProperty, 
       };
 

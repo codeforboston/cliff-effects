@@ -47,6 +47,7 @@
       "arrow-parens": ["warn", "always"],
       "react/jsx-closing-bracket-location": ["warn", "after-props"],
       "react/jsx-tag-spacing": "warn",
-      "react/jsx-closing-tag-location": "warn"
+      "react/jsx-closing-tag-location": "warn",
+      "key-spacing": ["warn", { "align": "value" }]
   }
 }

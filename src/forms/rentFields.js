@@ -6,7 +6,7 @@ import { isPositiveNumber } from '../utils/validators';
 
 class RentShareField extends Component {
   state = {
-    valid: true,
+    valid:   true,
     message: null, 
   };
 
@@ -21,7 +21,7 @@ class RentShareField extends Component {
     }
 
     this.setState({
-      valid: valid,
+      valid:   valid,
       message: message, 
     });
     return valid;
@@ -29,7 +29,7 @@ class RentShareField extends Component {
 
   onBlur = (evnt) => {
     this.setState({
-      valid: true,
+      valid:   true,
       message: null, 
     });
   };
@@ -63,7 +63,7 @@ class RentShareField extends Component {
 
 class ContractRentField extends Component {
   state = {
-    valid: true,
+    valid:   true,
     message: null, 
   };
 
@@ -78,7 +78,7 @@ class ContractRentField extends Component {
     }
 
     this.setState({
-      valid: valid,
+      valid:   valid,
       message: message, 
     });
     return valid;
@@ -86,7 +86,7 @@ class ContractRentField extends Component {
 
   onBlur = (evnt) => {
     this.setState({
-      valid: true,
+      valid:   true,
       message: null, 
     });
   };
