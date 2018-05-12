@@ -223,3 +223,27 @@ form elements. */
 #reset_fixed:hover {
   background-color: #d16614;
 }
+
+
+/* =============== */
+/* PREDICTIONS (manual theme implementation) */
+/* =============== */
+/* If theme is changed, this will have to be changed by hand */
+
+.ui.attached.tabular.menu {
+  border-bottom-color: #00b6ad;
+}
+
+.ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+  border-color: #00b6ad;
+}
+
+.ui.tabular.menu .item {
+  border-color: #dedede;
+  border-top-width: 1px;
+  border-radius: .28571429rem .28571429rem 0 0;
+}
+
+.ui.tabular.menu .item:not(.active):hover {
+  background-color: #dedede;
+}

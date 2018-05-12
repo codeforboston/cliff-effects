@@ -154,11 +154,12 @@ const Chart = function({ client }) {
 };  // End <Chart>
 
 const TabbedVisualizations = ({ client }) => (
-  <Tab panes={[
-    { menuItem: "Compare Table", render: () => <BenefitsTable client={client} /> },
-    { menuItem: "Compare Chart", render: () => <Chart client={client} /> },
-    { menuItem: "Gross", render: () => <GraphHolder client={client} Graph={GrossGraph} /> },
-    { menuItem: "Benefits", render: () => <GraphHolder client={client} Graph={BenefitGraph} /> }
+  // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
+  <Tab menu={{ color: 'teal',  attached: true, tabular: true }} panes={[
+    { menuItem: 'Summary', render: () => <Tab.Pane><BenefitsTable client={client} /></Tab.Pane> },
+    { menuItem: 'Summary Chart', render: () => <Tab.Pane><Chart client={client} /></Tab.Pane> },
+    { menuItem: 'Stacked Incomes', render: () => <Tab.Pane><GraphHolder client={client} Graph={GrossGraph} /></Tab.Pane> },
+    { menuItem: 'Benefit Changes', render: () => <Tab.Pane><GraphHolder client={client} Graph={BenefitGraph} /></Tab.Pane> }
   ]}/>
 );
 
