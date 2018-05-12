@@ -256,3 +256,9 @@ form elements. */
 .ui.tabular.menu .item:not(.active):hover {
   background-color: #dedede;
 }
+
+/* File semantic-ui-react bug report? This is not 0 automatically */
+/* In semantic-ui-react `.attached` is not included */
+.ui.attached.menu>.item:first-child {
+  border-bottom-left-radius: 0;
+}
