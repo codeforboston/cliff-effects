@@ -1,80 +1,44 @@
+import {
+  moneyToWholeNum,
+} from './math';
+
 /** 
 * Getting or calculating data values by leveraging common data patterns
 * we've seen so far.
 */
 
-
-/** Calculate appropriate MONTHLY bracket/limit value (such as income limit)
-* by number of relevant items (such as number of household members). This
-* function is needed because the math for these calculation needs to be
-* consistent.
-* 
-* @see Math observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
-* @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
-* 
-* IF YOUR DATA HAS MONTHLY VALUES AND WANT A MONTHLY LIMIT VALUE, USE
-* `getYearlyLimitBySize()` INSTEAD.
-* 
-* @example Using household size to get federal poverty income limit:
-* var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
-* getMonthlyLimitBySize( fedPovertyGuidelines, 1 );  // 1005
-* getMonthlyLimitBySize( fedPovertyGuidelines, 2 );  // 1354
-* getMonthlyLimitBySize( fedPovertyGuidelines, 3 );  // 1702
-* 
-* @function
-* @param {object} data Annual data to use to get a bracket/limit value.
-* @param {number} data.0 Never known to equal more than 0 so far.
-* @param {number} data.1 (Or any int key) Value of bracket/limit that
-* matches the number described by the key. For example, data.3 would be
-* the income limit value for a household with three members.
-* @param {number|function} data.eachAdditional Usually an amount to
-* add for each person or item over the maximum hardcoded limits. Can be a
-* function to calculate said amount based on number of extra items.
-* @param {number} numItems Number of items (for example, household size).
-* @param {number} [percent] Multiplies limit. You'd pass in 100% as `100`.
-* 
-* @returns Data value for num items, divided by 12 to get monthly value.
-*/
-var getMonthlyLimitBySize = function ( data, numItems, percent ) {
-  var yearly  = getYearlyLimitBySize( data, numItems, percent ),
-      monthly = Math.ceil( yearly/12 );
-  return monthly;
-};  // End getMonthlyLimitBySize()
-
-
-/** Calculate appropriate ANNUAL/YEARLY bracket/limit value (such as income
-* limit) by number of relevant items (such as number of household members).
-* 
-* Uses all the same values as `getMonthlyLimitBySize`, but no dividing
-* happens.
-* 
-* IF YOUR DATA HAS MONTHLY VALUES AND WANT A MONTHLY LIMIT VALUE, USE
-* THIS FUNCTION WITH YOUR DATA
-* 
-* @see Math observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
-* @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
-* 
-* @example Using household size to get federal poverty income limit:
-* var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
-* getYearlyLimitBySize( fedPovertyGuidelines, 1 );  // 12060
-* getYearlyLimitBySize( fedPovertyGuidelines, 2 );  // 16240
-* getYearlyLimitBySize( fedPovertyGuidelines, 3 );  // 20420
-* 
-* @function
-* @param {object} data Data to use to get a bracket/limit value.
-* @param {number} data.0 Never known to equal more than 0 so far.
-* @param {number} data.1 (Or any int key) Value of bracket/limit that
-* matches the number described by the key. For example, data.3 would be
-* the income limit value for a household with three members.
-* @param {number|function} data.eachAdditional Usually an amount to
-* add for each person or item over the maximum hardcoded limits. Can be a
-* function to calculate said amount based on number of extra items.
-* @param {number} numItems Number of items (for example, household size).
-* @param {number} [percent] Multiplies limit. You'd pass in 100% as `100`.
-* 
-* @returns Data value calculated for the number of items, numItems, wanted.
-*/
-const getYearlyLimitBySize = function ( data, numItems, percent ) {
+/** Calculate appropriate bracket/limit value (such as income
+ *     limit) by number of relevant items (such as number of
+ *     household members).
+ * 
+ * ===============================================================
+ * WARNING: Be aware of what time scale (weekly, monthly or yearly)
+ *     your data uses so that you can convert to the right values.
+ * ===============================================================
+ * 
+ * @example Using household size to get federal poverty income limit:
+ * var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240,
+ *    eachAdditional: 4180 };
+ * getLimitBySize( fedPovertyGuidelines, 1 );  // 12060
+ * getLimitBySize( fedPovertyGuidelines, 2 );  // 16240
+ * getLimitBySize( fedPovertyGuidelines, 3 );  // 20420
+ * 
+ * @function
+ * @param {object} data Data to use to get a bracket/limit value.
+ * @param {number} data.0 Never known to equal more than 0 so far.
+ * @param {number} data.1 (Or any int key) Value of bracket/limit that
+ * matches the number described by the key. For example, data.3 would be
+ * the income limit value for a household with three members.
+ * @param {number|function} data.eachAdditional Usually an amount to
+ * add for each person or item over the maximum hardcoded limits. Can be a
+ * function to calculate said amount based on number of extra items.
+ * @param {number} numItems Number of items (for example, household size).
+ * @param {number} [percent] Multiplies the result before sending it back.
+ * You'd pass in 100% as `100`.
+ * 
+ * @returns Data value determined for the number of items, numItems, wanted.
+ */
+const getLimitBySize = function ( data, numItems, percent ) {
   
   var safePerc  = percent || 100,
       limit     = null,
@@ -92,8 +56,9 @@ const getYearlyLimitBySize = function ( data, numItems, percent ) {
 
   }
   
-  return Math.ceil( limit * (safePerc/100) );
-};  // End getYearlyLimitBySize()
+  // The right kind of math as observed in MA data tables
+  return moneyToWholeNum( limit * (safePerc/100) );
+};  // End getLimitBySize()
 
 
 /** Deals with different value types for data.eachAdditional
@@ -147,6 +112,7 @@ var getMaxIntKey = function ( data ) {
 
 
 export {
-	getMonthlyLimitBySize,
-  getYearlyLimitBySize,
+  getLimitBySize,
+  getExtraAmount,
+  getMaxIntKey,
 };

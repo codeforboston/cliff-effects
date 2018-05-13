@@ -16,6 +16,17 @@ const roundMoney = function ( val ) {
   return ( Math.round(val * 100) / 100 ); // val = '' returns 0
 };  // End roundMoney()
 
+
+/** This is how we've seen it done in MA tables
+ * 
+ * @see Math was observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
+ * @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
+ */
+const moneyToWholeNum = function ( val ) {
+  return Math.ceil( val );
+}
+
+
 /**
 * Turns a value into a float, limits it in between min and max, and
 * makes sure to return a number (not NaN).
@@ -69,4 +80,10 @@ toMonthlyAmount.yearly = function ( evnt, yearlyVal ) {
 };  // End toMonthlyAmount.yearly()
 
 
-export { sum, roundMoney, limit, toMonthlyAmount };
+export {
+  sum,
+  roundMoney,
+  moneyToWholeNum,
+  limit,
+  toMonthlyAmount,
+};

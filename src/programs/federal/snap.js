@@ -9,9 +9,11 @@ import {
   getGrossUnearnedIncomeMonthly
 } from '../../utils/cashflow';
 import {
-  getYearlyLimitBySize,
-  getMonthlyLimitBySize
+  getLimitBySize,
 } from '../../utils/getGovData';
+import {
+  toMonthlyFrom,
+} from '../../utils/convert-by-timescale';
 import {
   getEveryMemberOfHousehold,
   getEveryMember,
@@ -30,7 +32,7 @@ const getSNAPBenefits = function ( client, timeframe ) {
   var finalResult = 0,
       grossIncomeTestResult   = hlp.getGrossIncomeTestResult( client ),
       netIncomeTestResult     = hlp.getNetIncomeTestResult( client ),
-      maxSnapAllotment        = getYearlyLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) ),
+      maxSnapAllotment        = getLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) ),
       percentageOfNetIncome   = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
       maxClientAllotment      = Math.max( 0, maxSnapAllotment - percentageOfNetIncome );
 
@@ -86,7 +88,13 @@ hlp.getAdjustedGross = function (client) {
 };
 
 hlp.getPovertyGrossIncomeLevel = function (client ) {
-  return getMonthlyLimitBySize(federalPovertyGuidelines, hlp.householdSize( client ), 200);
+  var data      = federalPovertyGuidelines,
+      numPeople = hlp.householdSize( client ),
+      // Data is given in yearly amounts
+      limit     = getLimitBySize( data, numPeople, 200),
+      // Needs to be gov money rounded?
+      monthly   = toMonthlyFrom( limit, 'yearly' );
+  return monthly;
 };
 
 hlp.getGrossIncomeTestResult = function (client) {
@@ -169,7 +177,7 @@ hlp.getTotalshelterCost = function (client) {
 // ======================
 // INCOME DEDUCTIONS
 hlp.getStandardDeduction = function (client) {
-  return getYearlyLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.householdSize( client ));
+  return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.householdSize( client ));
 };
 
 hlp.getEarnedIncomeDeduction = function (client) {
@@ -276,7 +284,7 @@ hlp.getMaxNetIncome = function (client) {
   if ( (adjustedGross <= povertyGrossIncomeLevel) || !disabledOrElderlyMember ) {
     return "no limit";
   } else {
-    return getYearlyLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize( client ));
+    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize( client ));
   }
 };
 
