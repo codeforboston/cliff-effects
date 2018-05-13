@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
+import { Message } from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
@@ -92,7 +93,7 @@ getData.snap = function ( xRange, client, multiplier ) {
 
 getData.section8 = function ( xRange, client, multiplier ) {
 
-  client.current.contractRent = client.current.contractRent || 1000;
+  client.current.contractRent = client.current.contractRent;
   client.current.earned       = 0;
 
   var data = xRange.map( function ( income ) {
@@ -245,7 +246,11 @@ class BenefitGraph extends Component {
   }
 
   render () {
-    const { client, multiplier, activePrograms } = this.props;
+    const { client, multiplier, activePrograms, className } = this.props;
+
+    if ( activePrograms.length === 0 ) {
+      return <Message className={className}>No public benefit programs have been selected</Message>
+    }
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier)/100) * 100,
@@ -341,7 +346,7 @@ class GraphHolder extends Component {
 
     return (
       <div className='graph-holder'>
-        <Graph client={client} multiplier={multiplier} activePrograms={activePrograms} />
+        <Graph className='client-graph' client={client} multiplier={multiplier} activePrograms={activePrograms} />
         <GraphTimeButtons activeID={activeID} onClick={this.onClick} />
       </div>
     );
@@ -369,3 +374,9 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
 
 
 export default ResultsGraph
+
+export {
+  GraphHolder,
+  GrossGraph,
+  BenefitGraph
+};

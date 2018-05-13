@@ -168,12 +168,21 @@ input[type=number]::-webkit-outer-spin-button {
 /* CHARTS */
 .graph-holder {
   position: relative;
+  min-height: 7rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .graph-time-options {
   position: absolute;
   top: 2em;
   right: 0;
+}
+
+.client-graph.ui.message {
+  flex: 1;
+  margin-bottom: 0;
 }
 
 /* FORM ELEMENTS */
@@ -222,4 +231,34 @@ form elements. */
 
 #reset_fixed:hover {
   background-color: #d16614;
+}
+
+
+/* =============== */
+/* PREDICTIONS (manual theme implementation) */
+/* =============== */
+/* If theme is changed, this will have to be changed by hand */
+
+.ui.attached.tabular.menu {
+  border-bottom-color: #00b6ad;
+}
+
+.ui.attached:not(.message)+.ui.attached.segment:not(.top) {
+  border-color: #00b6ad;
+}
+
+.ui.tabular.menu .item {
+  border-color: #dedede;
+  border-top-width: 1px;
+  border-radius: .28571429rem .28571429rem 0 0;
+}
+
+.ui.tabular.menu .item:not(.active):hover {
+  background-color: #dedede;
+}
+
+/* File semantic-ui-react bug report? This is not 0 automatically */
+/* In semantic-ui-react `.attached` is not included */
+.ui.attached.menu>.item:first-child {
+  border-bottom-left-radius: 0;
 }
