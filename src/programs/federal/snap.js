@@ -31,10 +31,10 @@ const getSNAPBenefits = function ( client, timeframe ) {
       grossIncomeTestResult   = hlp.getGrossIncomeTestResult( client ),
       netIncomeTestResult     = hlp.getNetIncomeTestResult( client ),
       maxSnapAllotment        = getYearlyLimitBySize( SNAPData.SNAP_LIMITS, hlp.householdSize( client ) ),
-      thirtyPercentNetIncome  = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
-      maxClientAllotment      = Math.max( 0, maxSnapAllotment - thirtyPercentNetIncome );
+      percentageOfNetIncome   = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
+      maxClientAllotment      = Math.max( 0, maxSnapAllotment - percentageOfNetIncome );
 
-  if (grossIncomeTestResult === true &&  netIncomeTestResult === true) {
+  if (grossIncomeTestResult === true && netIncomeTestResult === true) {
 
     if ( maxClientAllotment <= SNAPData.SMALL_HOUSEHOLD_MIN_GRANT ) {
       if ( hlp.householdSize( client ) <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
@@ -52,7 +52,7 @@ const getSNAPBenefits = function ( client, timeframe ) {
 
 
 // ======================
-// BENEFIT HELPER FUNCTIONS
+// ESTABLISH OBJECT FOR BENEFIT HELPERS
 var SNAPhelpers = {},
     hlp         = SNAPhelpers;
 
