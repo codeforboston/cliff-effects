@@ -341,7 +341,7 @@ class GraphHolder extends Component {
 
     // The ids later used to access all program-specific data and functions
     // Only active programs are added
-    if ( current.hasHousing ) { activePrograms.push( 'section8' ); }
+    if ( current.hasSection8 ) { activePrograms.push( 'section8' ); }
     if ( current.hasSnap )    { activePrograms.push( 'snap' ); }
 
     return (

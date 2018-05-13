@@ -67,7 +67,7 @@ const Chart = function({ client }) {
 
   var
     { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames( client, 'hasSnap', getSNAPBenefits ),
-    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames( client, 'hasHousing', getHousingBenefit ),
+    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames( client, 'hasSection8', getHousingBenefit ),
     { incomeCurrent, incomeFuture } = getIncomeTimeFrames( client );
 
   var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
@@ -96,7 +96,7 @@ const Chart = function({ client }) {
     });
   }
 
-  if ( curr.hasHousing ) {
+  if ( curr.hasSection8 ) {
     datasets.push({
       label: section8Name,
       backgroundColor: section8Color,

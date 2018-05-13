@@ -34,8 +34,8 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate }) => {
   return (
     <div >
       <LocalizedRadioYesNo
-        checked   = {current.hasHousing}
-        name      = {'hasHousing'}
+        checked   = {current.hasSection8}
+        name      = {'hasSection8'}
         onChange  = {setClientProperty}
         translate = {translate}
       />

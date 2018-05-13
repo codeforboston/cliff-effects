@@ -163,7 +163,7 @@ class VisitPage extends Component {
     // Hack for MVP (otherwise need dependency + history system)
     let oldShelter = this.state.oldShelter;
     if ( route === 'shelter' ) { oldShelter = client.current.shelter; }  // client shelter should be right now
-    if ( client.current.hasHousing ) { client.current.shelter = 'voucher'; }
+    if ( client.current.hasSection8 ) { client.current.shelter = 'voucher'; }
     // Restore shelter to previous value
     else { client.current.shelter = oldShelter; }
     client.future.shelter = client.current.shelter;
