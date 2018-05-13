@@ -16,10 +16,10 @@ const testYearlyLimit = function ( testname, pguidelines, pitems, ppercent, expe
   test (testname +" items: "+pitems+" / percent: "+ppercent+" / expected: "+expected, () => 
     {
        if ( typeof(ppercent) == stringString && ppercent == undefinedString){ 
-         expect(getgovdata.getYearlyLimitBySize( pguidelines, pitems )).toBe(expected);
+         expect(getgovdata.getLimitBySize( pguidelines, pitems )).toBe(expected);
        }
        else {
-         expect(getgovdata.getYearlyLimitBySize( pguidelines, pitems, ppercent )).toBe(expected);   
+         expect(getgovdata.getLimitBySize( pguidelines, pitems, ppercent )).toBe(expected);   
        }
     }); 
  };  
