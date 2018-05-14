@@ -32,10 +32,14 @@ import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 /** @todo description
 *
 * @function
-* @param {object} props
-* @property {object} props.__ - explanation
+* @param {object} props Values described below
+* @property {object} props.future Client future/predictive data.
+* @property {string} props.time Used in class names. Meant to make
+*     this more easily decoupled in future.
+* @property {function} props.setClientProperty Update client state
+*     values.
 *
-* @returns Component
+* @returns {class} Component
 */
 const IncomeForm = function ({ future, time, setClientProperty }) {
 
@@ -157,29 +161,31 @@ const Chart = function({ client }) {
 
 };  // End <Chart>
 
-const TabbedVisualizations = ({ client }) => {return (
+const TabbedVisualizations = ({ client }) => {
+  return (
   // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
-  <Tab
-    menu={{ color: 'teal',  attached: true, tabular: true }}
-    panes={[
-      { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={client} /></Tab.Pane>;} },
-      { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={client} /></Tab.Pane>;} },
-      {
-        menuItem: 'Stacked Incomes',
-        render:   () => {return <Tab.Pane><GraphHolder
-          client={client}
-          Graph={GrossGraph} />
-        </Tab.Pane>;}, 
-      },
-      {
-        menuItem: 'Benefit Changes',
-        render:   () => {return <Tab.Pane><GraphHolder
-          client={client}
-          Graph={BenefitGraph} />
-        </Tab.Pane>;}, 
-      },
-    ]} />
-);};
+    <Tab
+      menu={{ color: 'teal',  attached: true, tabular: true }}
+      panes={[
+        { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={client} /></Tab.Pane>;} },
+        { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={client} /></Tab.Pane>;} },
+        {
+          menuItem: 'Stacked Incomes',
+          render:   () => {return <Tab.Pane><GraphHolder
+            client={client}
+            Graph={GrossGraph} />
+          </Tab.Pane>;}, 
+        },
+        {
+          menuItem: 'Benefit Changes',
+          render:   () => {return <Tab.Pane><GraphHolder
+            client={client}
+            Graph={BenefitGraph} />
+          </Tab.Pane>;}, 
+        },
+      ]} />
+  );
+};
 
 /** @todo description
 *
