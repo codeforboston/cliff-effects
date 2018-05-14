@@ -40,15 +40,15 @@ class verticalLinePlugin {
           income = this.income;
 
     const i = xRange.findIndex((val) => {return income < val;});
-    const positionBetweenTwoPoints = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
+    const positionBetweenTwoPoints = (income - xRange[ i - 1 ]) / (xRange[ i ] - xRange[ i - 1 ]);
 
     const data = chart.getDatasetMeta(0).data;
-    const prevX = data[i - 1]._model.x;
-    const currX = data[i]._model.x;
+    const prevX = data[ i - 1 ]._model.x;
+    const currX = data[ i ]._model.x;
     const offset = Math.floor(positionBetweenTwoPoints * (currX - prevX) + prevX);
 
     const ctx = chart.chart.ctx;
-    const scale = chart.scales['y-axis-0'];
+    const scale = chart.scales[ 'y-axis-0' ];
 
     ctx.save();
 

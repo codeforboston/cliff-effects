@@ -11,19 +11,19 @@ const formatAxis = function (label) {
 };
 
 const formatTitle = function (tooltipItems, data) {
-  var toFormat = data.labels[tooltipItems[0].index];
+  var toFormat = data.labels[ tooltipItems[ 0 ].index ];
   return toFancyMoneyStr(toFormat);
 };
 
 const formatLabel =  function(tooltipItem, data) {
   /* From https://github.com/chartjs/Chart.js/issues/2386 */
-  return data.datasets[tooltipItem.datasetIndex].label
+  return data.datasets[ tooltipItem.datasetIndex ].label
           + ': ' + toFancyMoneyStr(tooltipItem.yLabel);
 };
 
 const stackedTitle = function(tooltipItems, data) {
-  const { index } = tooltipItems[0];
-  return toFancyMoneyStr(_.sumBy(data.datasets, (dataset) => {return dataset.data[index];}));
+  const { index } = tooltipItems[ 0 ];
+  return toFancyMoneyStr(_.sumBy(data.datasets, (dataset) => {return dataset.data[ index ];}));
 };
 
 
