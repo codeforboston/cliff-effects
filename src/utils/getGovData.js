@@ -1,6 +1,4 @@
-import {
-  moneyToWholeNum,
-} from './math';
+import { moneyToWholeNum } from './math';
 
 /** 
 * Getting or calculating data values by leveraging common data patterns
@@ -38,26 +36,26 @@ import {
  * 
  * @returns Data value determined for the number of items, numItems, wanted.
  */
-const getLimitBySize = function ( data, numItems, percent ) {
+const getLimitBySize = function (data, numItems, percent) {
   
   var safePerc  = percent || 100,
       limit     = null,
-      maxGiven  = getMaxIntKey( data );
+      maxGiven  = getMaxIntKey(data);
 
-  if ( numItems <= maxGiven ) {
+  if (numItems <= maxGiven) {
 
     limit = data[ numItems ];
 
   } else {
 
     var numExtra    = numItems - maxGiven,
-        extraAmount = getExtraAmount( data, numExtra );
+        extraAmount = getExtraAmount(data, numExtra);
     limit = data[ maxGiven ] + extraAmount;
 
   }
   
   // The right kind of math as observed in MA data tables
-  return moneyToWholeNum( limit * (safePerc/100) );
+  return moneyToWholeNum(limit * (safePerc / 100));
 };  // End getLimitBySize()
 
 
@@ -70,16 +68,16 @@ const getLimitBySize = function ( data, numItems, percent ) {
 * 
 * @returns {number} The amount created by those extra items.
 */
-var getExtraAmount = function ( data, numExtra ) {
+var getExtraAmount = function (data, numExtra) {
 
   var extraAmount     = 0,
       eachAdditional  = data.eachAdditional;
 
   // Either allow additional amount to be calculated
   // or add a hard-coded amount.
-  if ( typeof eachAdditional === 'function' ) {
+  if (typeof eachAdditional === 'function') {
 
-    extraAmount = eachAdditional( data, numExtra );
+    extraAmount = eachAdditional(data, numExtra);
 
   } else {  // Assumed either number or falsy
 
@@ -97,12 +95,12 @@ var getExtraAmount = function ( data, numExtra ) {
 * Of the keys in an object that can be converted to integers,
 * return the highest converted value.
 */
-var getMaxIntKey = function ( data ) {
+var getMaxIntKey = function (data) {
   var max = 0;
-  for ( let key in data ) {
+  for (let key in data) {
 
-    var asInt = parseInt( key, 10 );
-    if ( !isNaN(asInt) && asInt > max ) {
+    var asInt = parseInt(key, 10);
+    if (!isNaN(asInt) && asInt > max) {
       max = asInt;
     }
 

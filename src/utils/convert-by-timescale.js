@@ -9,15 +9,15 @@
  * @param {string} startTimescale - timescale of the original
  *     value. Can be 'weekly', 'monthly', or 'yearly'.
  */
-var toYearlyFrom = function ( amount, startTimescale ) {
+var toYearlyFrom = function (amount, startTimescale) {
   
   var converted = amount;
 
-  if ( startTimescale === 'weekly' ) {
+  if (startTimescale === 'weekly') {
     converted = amount * 52;
-  } else if ( startTimescale === 'monthly' ) {
+  } else if (startTimescale === 'monthly') {
     converted = amount * 12;
-  } else if ( startTimescale === 'yearly' ) {
+  } else if (startTimescale === 'yearly') {
     // do nothing
   }
 
@@ -32,15 +32,15 @@ var toYearlyFrom = function ( amount, startTimescale ) {
  * @param {string} startTimescale - timescale of the original
  *     value. Can be 'weekly', 'monthly', or 'yearly'.
  */
-var toMonthlyFrom = function ( amount, startTimescale ) {
+var toMonthlyFrom = function (amount, startTimescale) {
   
   var converted = amount;
 
-  if ( startTimescale === 'weekly' ) {
-    converted = amount * ( 4 + (1/3));
-  } else if ( startTimescale === 'monthly' ) {
+  if (startTimescale === 'weekly') {
+    converted = amount * (4 + (1 / 3));
+  } else if (startTimescale === 'monthly') {
     // do nothing
-  } else if ( startTimescale === 'yearly' ) {
+  } else if (startTimescale === 'yearly') {
     converted = amount / 12;
   }
 
@@ -55,15 +55,15 @@ var toMonthlyFrom = function ( amount, startTimescale ) {
  * @param {string} startTimescale - timescale of the original
  *     value. Can be 'weekly', 'monthly', or 'yearly'.
  */
-var toWeeklyFrom = function ( amount, startTimescale ) {
+var toWeeklyFrom = function (amount, startTimescale) {
   
   var converted = amount;
 
-  if ( startTimescale === 'weekly' ) {
+  if (startTimescale === 'weekly') {
     // do nothing
-  } else if ( startTimescale === 'monthly' ) {
-    converted = amount / ( 4 + (1/3));
-  } else if ( startTimescale === 'yearly' ) {
+  } else if (startTimescale === 'monthly') {
+    converted = amount / (4 + (1 / 3));
+  } else if (startTimescale === 'yearly') {
     converted = amount * 52;
   }
 

@@ -1,6 +1,6 @@
 // REACT COMPONENTS
 import React from 'react';
-import { Form, } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
@@ -37,14 +37,12 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate }) => {
         checked   = {current.hasSection8}
         name      = {'hasSection8'}
         onChange  = {setClientProperty}
-        translate = {translate}
-      />
+        translate = {translate} />
       <LocalizedRadioYesNo
         checked   = {current.hasSnap}
         name      = {'hasSnap'}
         onChange  = {setClientProperty}
-        translate = {translate}
-      />
+        translate = {translate} />
     </div>
   );  // end return
 
@@ -62,18 +60,20 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate }) => {
 // `props` is a cloned version of the original props. References broken.
 const CurrentBenefitsStep = ({ changeClient, nextStep, client, translate }) => {
 
-  const setTimeProp = getTimeSetter( 'current', changeClient );
+  const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
-    <Form size='massive' className='household-size-form flex-item flex-column'>
+    <Form
+      size='massive'
+      className='household-size-form flex-item flex-column'>
       <FormPartsContainer
         title     = {'Current Benefits'}
         clarifier = {'Select the benefits you currently receive.'}
-        right     = {{name: 'Next', func: nextStep}}>
-          <CurrentBenefitsContent
-            setClientProperty = {setTimeProp}
-            current           = {client.current}
-            translate         = {translate} />
+        right     = {{ name: 'Next', func: nextStep }}>
+        <CurrentBenefitsContent
+          setClientProperty = {setTimeProp}
+          current           = {client.current}
+          translate         = {translate} />
       </FormPartsContainer>
 
     </Form>

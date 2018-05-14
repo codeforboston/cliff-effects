@@ -6,11 +6,11 @@
  */
 
 
-const getTimeSetter = function ( time, func ) {
+const getTimeSetter = function (time, func) {
 
-  var timeFunc = function ( evnt, data ) {
+  var timeFunc = function (evnt, data) {
     data.time = time;
-    func( evnt, data );
+    func(evnt, data);
   };
 
   return timeFunc;
