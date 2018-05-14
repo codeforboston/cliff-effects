@@ -57,7 +57,7 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate }) => {
  *
  * @function
  * @param {object} props See below.
- * @property {function} props.setClientProperty Updates state upstream.
+ * @property {function} props.changeClient Updates state upstream.
  * @property {function} props.translate Uses user chosen language-specific
  *    snippets.
  * @property {object} props.client JSON object with future and current values.

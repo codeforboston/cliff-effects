@@ -187,15 +187,19 @@ const TabbedVisualizations = ({ client }) => {
   );
 };
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-// `props` is a cloned version of the original props. References broken.
+/** @todo Abstract all the step components?
+ *
+ * @function
+ * @param {object} props See below.
+ * @property {function} props.changeClient Updates state upstream.
+ * @property {function} props.translate Uses user chosen language-specific
+ *    snippets.
+ * @property {object} props.client JSON object with future and current values.
+ * @property {function} props.nextStep Go to next form section.
+ * @property {function} props.previousStep Go to previous form section.
+ *
+ * @returns {object} Component
+ */
 const PredictionsStep = function (props) {
 
   const setTimeProp = getTimeSetter('future', props.changeClient);
@@ -209,15 +213,16 @@ const PredictionsStep = function (props) {
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Reset', func: props.resetClient }}>
         <IncomeForm
-          setClientProperty={setTimeProp}
-          future={props.client.future}
-          time={'future'} />
+          setClientProperty ={ setTimeProp }
+          future            ={ props.client.future }
+          time              ={ 'future' } />
         <Divider className='ui section divider hidden' />
         <Header
-          as='h3'
-          className='ui Header align centered'>How will your income affect your future benefits?
+          as        ='h3'
+          className ='ui Header align centered'>
+            How will your income affect your future benefits?
         </Header>
-        <TabbedVisualizations client={props.client} />
+        <TabbedVisualizations client={ props.client } />
       </FormPartsContainer>
     </Form>
   );
