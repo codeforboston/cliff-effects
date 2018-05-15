@@ -24,7 +24,7 @@
       "babel/semi": 1,
       "react/prop-types": 0,
 
-      "object-curly-spacing": ["warn", "always"],	
+      "object-curly-spacing": ["warn", "always", { "arraysInObjects": false, "objectsInObjects": false }],	
       "array-bracket-spacing": ["warn", "always"],
       "valid-jsdoc": "warn",
       "react/self-closing-comp": "warn",
@@ -48,6 +48,9 @@
       "react/jsx-closing-bracket-location": ["warn", "after-props"],
       "react/jsx-tag-spacing": "warn",
       "react/jsx-closing-tag-location": "warn",
-      "key-spacing": ["warn", { "align": "value" }]
+      "key-spacing": ["warn", { "align": "value" }],
+      "react/jsx-curly-spacing": ["warn", 2, {"when": "always", "spacing": {
+        "objectLiterals": "never"
+      }}]
   }
 }
