@@ -32,10 +32,14 @@ import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 /** @todo description
 *
 * @function
-* @param {object} props
-* @property {object} props.__ - explanation
+* @param {object} props Values described below
+* @property {object} props.future Client future/predictive data.
+* @property {string} props.time Used in class names. Meant to make
+*     this more easily decoupled in future.
+* @property {function} props.setClientProperty Update client state
+*     values.
 *
-* @returns Component
+* @returns {class} Component
 */
 const IncomeForm = function ({ future, time, setClientProperty }) {
 
@@ -157,39 +161,45 @@ const Chart = function({ client }) {
 
 };  // End <Chart>
 
-const TabbedVisualizations = ({ client }) => {return (
+const TabbedVisualizations = ({ client }) => {
+  return (
   // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
-  <Tab
-    menu={{ color: 'teal',  attached: true, tabular: true }}
-    panes={[
-      { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={client} /></Tab.Pane>;} },
-      { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={client} /></Tab.Pane>;} },
-      {
-        menuItem: 'Stacked Incomes',
-        render:   () => {return <Tab.Pane><GraphHolder
-          client={client}
-          Graph={GrossGraph} />
-        </Tab.Pane>;}, 
-      },
-      {
-        menuItem: 'Benefit Changes',
-        render:   () => {return <Tab.Pane><GraphHolder
-          client={client}
-          Graph={BenefitGraph} />
-        </Tab.Pane>;}, 
-      },
-    ]} />
-);};
+    <Tab
+      menu={{ color: 'teal',  attached: true, tabular: true }}
+      panes={[
+        { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={client} /></Tab.Pane>;} },
+        { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={client} /></Tab.Pane>;} },
+        {
+          menuItem: 'Stacked Incomes',
+          render:   () => {return <Tab.Pane><GraphHolder
+            client={client}
+            Graph={GrossGraph} />
+          </Tab.Pane>;}, 
+        },
+        {
+          menuItem: 'Benefit Changes',
+          render:   () => {return <Tab.Pane><GraphHolder
+            client={client}
+            Graph={BenefitGraph} />
+          </Tab.Pane>;}, 
+        },
+      ]} />
+  );
+};
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-// `props` is a cloned version of the original props. References broken.
+/** @todo Abstract all the step components?
+ *
+ * @function
+ * @param {object} props See below.
+ * @property {function} props.changeClient Updates state upstream.
+ * @property {function} props.translate Uses user chosen language-specific
+ *    snippets.
+ * @property {object} props.client JSON object with future and current values.
+ * @property {function} props.nextStep Go to next form section.
+ * @property {function} props.previousStep Go to previous form section.
+ *
+ * @returns {object} Component
+ */
 const PredictionsStep = function (props) {
 
   const setTimeProp = getTimeSetter('future', props.changeClient);
@@ -203,15 +213,16 @@ const PredictionsStep = function (props) {
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Reset', func: props.resetClient }}>
         <IncomeForm
-          setClientProperty={setTimeProp}
-          future={props.client.future}
-          time={'future'} />
+          setClientProperty ={ setTimeProp }
+          future            ={ props.client.future }
+          time              ={ 'future' } />
         <Divider className='ui section divider hidden' />
         <Header
-          as='h3'
-          className='ui Header align centered'>How will your income affect your future benefits?
+          as        ='h3'
+          className ='ui Header align centered'>
+            How will your income affect your future benefits?
         </Header>
-        <TabbedVisualizations client={props.client} />
+        <TabbedVisualizations client={ props.client } />
       </FormPartsContainer>
     </Form>
   );
