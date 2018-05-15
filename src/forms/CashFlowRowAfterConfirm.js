@@ -2,22 +2,27 @@ import React from 'react';
 
 import { CashFlowRow, ControlledRadioYesNo } from './formHelpers';
 
-const IncomeField = (props) => {return (
-  <CashFlowRow
-    {...props}
-    type={'income'} />
-);};
+const IncomeField = (props) => {
+  return (
+    <CashFlowRow
+      {...props}
+      type={'income'} />
+  );
+};
 
 /**
  * Query the user before presenting a CashFlowRow
  * 
  * @todo Update params
+ * @todo Can we remove the requirement for jsdoc object descriptions?
+ * @todo jsdoc thinks this is for `handleChange()` as well. Fix?
  * 
- * @param {object} props
+ * @param {object} props See below
  * @param {string} props.generic - The key of the value being set.
  * @param {string} props.confirmLabel - Label for preceding confirmation.
  * @param {string} props.children - Label for fields updating the value.
  * 
+ * @returns {object} Component
  * @extends React.Component
  * @see CashFlowRow
  */
@@ -25,7 +30,7 @@ class CashFlowRowAfterConfirm extends React.Component {
   constructor(props) {
     super(props);
     
-    const value = props.timeState[props.generic];
+    const value = props.timeState[ props.generic ];
     this.state = {
       showField:   value !== 0,
       storedValue: value,
@@ -82,8 +87,8 @@ class CashFlowRowAfterConfirm extends React.Component {
           onChange  = { this.handleChange } />
         
         {showField && <IncomeField
-          generic={generic}
-          {...rest} />}
+          generic={ generic }
+          { ...rest } />}
 
       </div>
     );
