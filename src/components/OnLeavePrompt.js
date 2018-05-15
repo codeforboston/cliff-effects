@@ -50,16 +50,16 @@ class OnLeavePrompt extends React.Component {
     }
 
     return (
-      <Modal open={open}>
+      <Modal open={ open }>
         <Modal.Header>{header || `Do you want to give feedback before you ${realLeave.toLowerCase()}?`}</Modal.Header>
         <Modal.Content>
           <p> {realMessage} </p>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={this.leave}>{realLeave}</Button>
-          <Button onClick={this.stay}>{realStay}</Button>
+          <Button onClick={ this.leave }>{realLeave}</Button>
+          <Button onClick={ this.stay }>{realStay}</Button>
           <Button
-            onClick={this.props.feedbackPrompt}
+            onClick={ this.props.feedbackPrompt }
             primary>Submit Feedback
           </Button>
         </Modal.Actions>

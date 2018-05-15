@@ -7,12 +7,12 @@ const FeedbackAnytime = function (props) {
   return (
     <div>
       <Button
-        onClick={props.feedbackPrompt}
+        onClick={ props.feedbackPrompt }
         type='button'
         color='teal'
         size='medium'
-        className={'fixed rotate'}
-        id={'feedback_fixed'}>
+        className={ 'fixed rotate' }
+        id={ 'feedback_fixed' }>
         Send Feedback
       </Button>
     </div>

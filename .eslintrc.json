@@ -49,7 +49,7 @@
       "react/jsx-tag-spacing": "warn",
       "react/jsx-closing-tag-location": "warn",
       "key-spacing": ["warn", { "align": "value" }],
-      "react/jsx-curly-spacing": ["warn", 2, {"when": "always", "spacing": {
+      "react/jsx-curly-spacing": ["warn", "always", { "spacing": {
         "objectLiterals": "never"
       }}]
   }

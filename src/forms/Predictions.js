@@ -51,12 +51,12 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
   */
   return (
     <div className='field-aligner two-column'>
-      <IntervalColumnHeadings type={type} />
+      <IntervalColumnHeadings type={ type } />
       <CashFlowRow
-        timeState={future}
-				  type={type}
-				  time={time}
-				  setClientProperty={setClientProperty}
+        timeState={ future }
+				  type={ type }
+				  time={ time }
+				  setClientProperty={ setClientProperty }
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           Earned income
@@ -156,7 +156,7 @@ const Chart = function({ client }) {
 
 
   return (
-    <Bar {...stackedBarProps} />
+    <Bar { ...stackedBarProps } />
   );
 
 };  // End <Chart>
@@ -166,24 +166,24 @@ const TabbedVisualizations = ({ client }) => {
   // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
-      panes={[
-        { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={client} /></Tab.Pane>;} },
-        { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={client} /></Tab.Pane>;} },
+      panes={ [
+        { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} },
+        { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={ client } /></Tab.Pane>;} },
         {
           menuItem: 'Stacked Incomes',
           render:   () => {return <Tab.Pane><GraphHolder
-            client={client}
-            Graph={GrossGraph} />
+            client={ client }
+            Graph={ GrossGraph } />
           </Tab.Pane>;}, 
         },
         {
           menuItem: 'Benefit Changes',
           render:   () => {return <Tab.Pane><GraphHolder
-            client={client}
-            Graph={BenefitGraph} />
+            client={ client }
+            Graph={ BenefitGraph } />
           </Tab.Pane>;}, 
         },
-      ]} />
+      ] } />
   );
 };
 
