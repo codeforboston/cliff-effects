@@ -45,40 +45,36 @@ class VisitPage extends Component {
 
     // @todo use visitId to upload last file if possible?
     var wantLoad = false;
-    if ( location.pathname.indexOf('/load') !== -1 ) {
+    if (location.pathname.indexOf('/load') !== -1) {
       wantLoad = true;
     }
 
-    var clone = cloneDeep( CLIENT_DEFAULTS );
+    var clone = cloneDeep(CLIENT_DEFAULTS);
 
     this.state = {
-        clientInfo: match.params.clientId,
-        visitId: match.params.visitId,
-        mayLoadCustomClient: wantLoad,
-        currentStep: 1,
-        isBlocking: false,
-        redirect: false,
-        client: clone,
-        prompt: {
-          open: false,
-          message: '',
-          header: '',
-          leaveText: 'Reset',
-          callback: () => {}
-        },
-        feedbackOpen: false,
-        // Hack for MVP
-        oldShelter: clone.current.shelter,
-        userChanged: {},
-        translate: getTranslate( 'en' ),
+      clientInfo:          match.params.clientId,
+      visitId:             match.params.visitId,
+      mayLoadCustomClient: wantLoad,
+      currentStep:         1,
+      isBlocking:          false,
+      redirect:            false,
+      client:              clone,
+      prompt:              {
+        open:      false,
+        message:   '',
+        header:    '',
+        leaveText: 'Reset',
+        callback:  () => {},
+      },
+      feedbackOpen: false,
+      // Hack for MVP
+      oldShelter:   clone.current.shelter,
+      userChanged:  {},
+      translate:    getTranslate('en'),
     };  // end this.state {}
 
     this.steps = [
-      { title: 'Current Benefits', form: CurrentBenefitsStep, },
-      { title: 'Household', form: HouseholdStep },
-      { title: 'Income', form: CurrentIncomeStep },
-      { title: 'Expenses', form: CurrentExpensesStep },
-      { title: 'Predictions', form: PredictionsStep }//,
+      { title: 'Current Benefits', form: CurrentBenefitsStep }, { title: 'Household', form: HouseholdStep }, { title: 'Income', form: CurrentIncomeStep }, { title: 'Expenses', form: CurrentExpensesStep }, { title: 'Predictions', form: PredictionsStep },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
 
@@ -88,103 +84,103 @@ class VisitPage extends Component {
     const defaultClient = cloneDeep(CLIENT_DEFAULTS);
 
     const current = Object.assign(defaultClient.current, client.current);
-    const future = Object.assign(defaultClient.future, client.future)
+    const future = Object.assign(defaultClient.future, client.future);
     
     const nextClient = { current: current, future: future };
 
     this.setState({ client: nextClient });
-  }
+  };
 
   resetClient = () => {
     this.setState({
       currentStep: 1,
-      client: cloneDeep(CLIENT_DEFAULTS),
-      oldShelter: CLIENT_DEFAULTS.current.shelter,
-      isBlocking: false,
-      userChanged: {}
+      client:      cloneDeep(CLIENT_DEFAULTS),
+      oldShelter:  CLIENT_DEFAULTS.current.shelter,
+      isBlocking:  false,
+      userChanged: {},
     });
-  }
+  };
 
   resetClientPrompt = () => {
     // If the user hasn't interacted with the form at all
-    if ( !this.state.isBlocking ) {
+    if (!this.state.isBlocking) {
       // just go to the start of the form
-      this.goToStep( 1 );
+      this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      this.prompt(ok => ok && this.resetClient(), {
+      this.prompt((ok) => {return ok && this.resetClient();}, {
         leaveText: 'Reset',
-        message: 'default'
+        message:   'default',
       });
     }
-  }
+  };
 
   prompt = (callback, promptProps) => {
     this.setState({
       prompt: {
         ...promptProps,
-        open: true,
-        callback: ok => {
+        open:     true,
+        callback: (ok) => {
           this.setState({ prompt: { open: false } });
           callback(ok);
-        }
-      }
+        },
+      },
     });
-  }
+  };
 
   feedbackPrompt = () => {
     this.setState({ feedbackOpen: true });
-  }
+  };
 
-  setTranslate = ( evnt, inputProps ) => {
-    this.setState({ translate: getTranslate( inputProps.value ) });
-  }
+  setTranslate = (evnt, inputProps) => {
+    this.setState({ translate: getTranslate(inputProps.value) });
+  };
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
 
     var val = value;
-    if ( typeof checked === 'boolean' ) { val = checked; }
+    if (typeof checked === 'boolean') { val = checked; }
 
-    var client      = cloneDeep( this.state.client ),
-        userChanged = {...this.state.userChanged},  // only 1 deep
+    var client      = cloneDeep(this.state.client),
+        userChanged = { ...this.state.userChanged },  // only 1 deep
         current     = client.current,
         future      = client.future,
         routeList   = route.split('/'),
         id          = routeList[0],  // `routeList` gets mutated
         newEvent    = { time: time, route: routeList, value: val };
 
-    setNestedProperty(newEvent, {current, future}, this.state.userChanged[ id ]);
+    setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
-    if ( time === 'future' ) { userChanged[ id ] = true; }
+    if (time === 'future') { userChanged[ id ] = true; }
 
     // Hack for MVP (otherwise need dependency + history system)
     let oldShelter = this.state.oldShelter;
-    if ( route === 'shelter' ) { oldShelter = client.current.shelter; }  // client shelter should be right now
-    if ( client.current.hasHousing ) { client.current.shelter = 'voucher'; }
+    if (route === 'shelter') { oldShelter = client.current.shelter; }  // client shelter should be right now
+    if (client.current.hasSection8) { client.current.shelter = 'voucher'; }
     // Restore shelter to previous value
     else { client.current.shelter = oldShelter; }
     client.future.shelter = client.current.shelter;
 
-    this.setState( prevState => ({
-      client: client,
+    this.setState((prevState) => {return {
+      client:      client,
       userChanged: userChanged,
-      oldShelter: oldShelter,
+      oldShelter:  oldShelter,
       // Form has been changed, data should now be downloadable
-      isBlocking: true
-    }) );
-  }  // End onClientChange()
+      isBlocking:  true,
+    };});
+  };  // End onClientChange()
 
   saveForm = (exitAfterSave) => {
     alert('Form saved (not really, this is a placeholder).');
     if (exitAfterSave) {
-      this.setState({isBlocking: false, redirect: true});
+      this.setState({ isBlocking: false, redirect: true });
     } else {
-      this.setState({isBlocking: false});
+      this.setState({ isBlocking: false });
     }
-  }
+  };
 
   scrollToTop = () => {
     document.body.scrollTop = 0; // For Safari
@@ -192,39 +188,38 @@ class VisitPage extends Component {
   };
 
   nextStep = () => {
-    this.setState(prevState => ({
-      currentStep: prevState.currentStep + 1
-    }));
+    this.setState((prevState) => {return { currentStep: prevState.currentStep + 1 };});
     this.scrollToTop();
   };
 
   previousStep = () => {
-    this.setState(prevState => ({
-      currentStep: prevState.currentStep - 1
-    }));
+    this.setState((prevState) => {return { currentStep: prevState.currentStep - 1 };});
     this.scrollToTop();
   };
 
   goToStep = (index) => {
     this.setState({ currentStep: index });
-  }
+  };
 
   getCurrentStep = () => {
-    var step = Math.max( 1, Math.min( this.steps.length, this.state.currentStep )) - 1;   //keep it between 1 and 8 and convert to 0 index
+    var step = Math.max(1, Math.min(this.steps.length, this.state.currentStep)) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
 
     return (
       <div>
-        <CustomClient mayLoadCustomClient={this.state.mayLoadCustomClient} loadClient={this.loadClient} />
-        <FormSection currentStep={this.state.currentStep}
-                     client={this.state.client}
-                     nextStep={this.nextStep}
-                     previousStep={this.previousStep}
-                     changeClient={this.changeClient}
-                     saveForm={this.saveForm}
-                     resetClient={this.resetClientPrompt}
-                     feedbackPrompt={this.feedbackPrompt}
-                     translate={this.state.translate} />
+        <CustomClient
+          mayLoadCustomClient={this.state.mayLoadCustomClient}
+          loadClient={this.loadClient} />
+        <FormSection
+          currentStep={this.state.currentStep}
+          client={this.state.client}
+          nextStep={this.nextStep}
+          previousStep={this.previousStep}
+          changeClient={this.changeClient}
+          saveForm={this.saveForm}
+          resetClient={this.resetClientPrompt}
+          feedbackPrompt={this.feedbackPrompt}
+          translate={this.state.translate} />
         <FeedbackAnytime feedbackPrompt={this.feedbackPrompt} />
         <ResetAnytime resetClient={this.resetClientPrompt} />
       </div>
@@ -237,53 +232,51 @@ class VisitPage extends Component {
         <OnLeavePrompt
           {...this.state.prompt}
           isBlocking={this.state.isBlocking}
-          feedbackPrompt={this.feedbackPrompt}
-        />
+          feedbackPrompt={this.feedbackPrompt} />
 
         <ReactRouterConfirmLeave
           message='default'
           prompt={this.prompt}
-          isBlocking={this.state.isBlocking}
-        />
+          isBlocking={this.state.isBlocking} />
         <ErrorPrompt
-          callback={ok => ok && this.resetClient()}
+          callback={(ok) => {return ok && this.resetClient();}}
           client={this.state.client}
           header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
-          prompt={this.prompt}
-        />
+          prompt={this.prompt} />
 
-        <ConfirmLeave isBlocking={this.state.isBlocking}/>
+        <ConfirmLeave isBlocking={this.state.isBlocking} />
         <FeedbackPrompt
           isOpen={this.state.feedbackOpen}
           close={() => { this.setState({ feedbackOpen: false }); }}
-          data={this.state.client}
-        />
+          data={this.state.client} />
 
         {this.state.redirect ?
-          <Redirect to={`/detail/${this.state.clientInfo.clientId}`}/> :
+          <Redirect to={`/detail/${this.state.clientInfo.clientId}`} /> :
           false
         }
 
         {/* `padding` here duplicates previous `<Grid>` styleing */}
         <Container
           className='flex-item flex-column'
-          style={{ padding: '42px 0' }}
-        >
-          <Responsive minWidth='874.5' style={{ padding: '14px 0' }}>
+          style={{ padding: '42px 0' }}>
+          <Responsive
+            minWidth='874.5'
+            style={{ padding: '14px 0' }}>
             <StepBar
               currentStepIndex={this.state.currentStep}
               steps={this.steps}
-              goToStep={this.goToStep}
-            />
+              goToStep={this.goToStep} />
           </Responsive>
-          <div className="flex-item flex-column" style={{ padding: '14px 0' }}>
+          <div
+            className="flex-item flex-column"
+            style={{ padding: '14px 0' }}>
             {this.getCurrentStep()}
           </div>
         </Container>
       </div>
-    )
+    );
   }
 }
 
-export default VisitPage
+export default VisitPage;

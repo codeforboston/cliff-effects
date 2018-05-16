@@ -11,7 +11,7 @@ const CLIENT_ROW_N = {
   current: {
     // Current programs
     hasSnap:                        COL-T         boolean
-    hasHousing:                     COL-Y         boolean             For now, 'Public Housing' or 'MRVP' counts
+    hasSection8:                    COL-Y         boolean             For now, 'Public Housing' or 'MRVP' counts
     // Household
     household:  [                   COL-G         one or more         Distribution unclear
       {                             -----                             'head' of household should always be first
@@ -71,7 +71,7 @@ const CLIENT_ROW_N = {
 //   current: {
 //     // Current programs
 //     hasSnap:                        false,
-//     hasHousing:                     false,
+//     hasSection8:                    false,
 //     // Household
 //     household:  [{
 //         m_age:                      66,
@@ -126,544 +126,544 @@ const CLIENT_ROW_N = {
 const CLIENT_ROW_3 = {
   current: {
     // Current programs
-    hasSnap:                        true,
-    hasHousing:                     false,  // Public Housing (but NOT Section 8)
+    hasSnap:     true,
+    hasSection8: false,  // Public Housing (but NOT Section 8)
     // Household
-    household:  [
+    household:   [
       {
-        m_age:                      2,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      2,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      7,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      7,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      9,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      9,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      11,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      11,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      12,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      12,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      15,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      15,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      16,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      16,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      18,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      18,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      39,
-        m_role:                     'head',
-        m_disabled:                 false
-      }
+        m_age:      39,
+        m_role:     'head',
+        m_disabled: false,
+      },
     ],
     // Income
-    earned:                         0,
-    TAFDC:                          997,
-    SSI:                            0,
-    SSDI:                           0,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        0,
+    TAFDC:                         997,
+    SSI:                           0,
+    SSDI:                          0,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'renter',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           200,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'renter',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          200,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   1062,
-    expectedSection8:               null  // (yes, public housing)
+    expectedSNAP:                  1062,
+    expectedSection8:              null,  // (yes, public housing)
   },
 };
 
 const CLIENT_ROW_4 = {
   current: {
     // Current programs
-    hasSnap:                        true,
-    hasHousing:                     true,
+    hasSnap:     true,
+    hasSection8: true,
     // Household
-    household:  [
+    household:   [
       {
-        m_age:                      60,
-        m_role:                     'head',  // deduced from age distribution
-        m_disabled:                 true  // though not certain which member has disability and how many
+        m_age:      60,
+        m_role:     'head',  // deduced from age distribution
+        m_disabled: true,  // though not certain which member has disability and how many
       },
       {
-        m_age:                      14,
-        m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_age:      14,
+        m_role:     'member',
+        m_disabled: false,
+      },
     ],
     // Income
-    earned:                         0,
-    TAFDC:                          0,
-    SSI:                            1048,
-    SSDI:                           0,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        0,
+    TAFDC:                         0,
+    SSI:                           1048,
+    SSDI:                          0,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'housingVoucher',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           395,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'housingVoucher',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          395,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   117,
-    expectedSection8:               null  // null (yes, public housing)
+    expectedSNAP:                  117,
+    expectedSection8:              null,  // null (yes, public housing)
   },
 };
 
 const CLIENT_ROW_5 = {
   current: {
     // Current programs
-    hasSnap:                        true,
-    hasHousing:                     false,
+    hasSnap:     true,
+    hasSection8: false,
     // Household
-    household:  [
+    household:   [
       {
-        m_age:                      32,
-        m_role:                     'head',
-        m_disabled:                 false
+        m_age:      32,
+        m_role:     'head',
+        m_disabled: false,
       },
       {
-        m_age:                      3,
-        m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_age:      3,
+        m_role:     'member',
+        m_disabled: false,
+      },
     ],
     // Income
-    earned:                         2080.00,
-    TAFDC:                          0,
-    SSI:                            0,
-    SSDI:                           0,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        2080.00,
+    TAFDC:                         0,
+    SSI:                           0,
+    SSDI:                          0,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'renting',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           0,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'renting',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          0,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   301,
-    expectedSection8:               null
+    expectedSNAP:                  301,
+    expectedSection8:              null,
   },
 };
 
 const CLIENT_ROW_6 = {
   current: {
     // Current programs
-    hasSnap:                        true,
-    hasHousing:                     false,
+    hasSnap:     true,
+    hasSection8: false,
     // Household
-    household:  [
+    household:   [
       {
-        m_age:                      28,
-        m_role:                     'head',
-        m_disabled:                 false
+        m_age:      28,
+        m_role:     'head',
+        m_disabled: false,
       },
       {
-        m_age:                      0,
-        m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_age:      0,
+        m_role:     'member',
+        m_disabled: false,
+      },
     ],
     // Income
-    earned:                         0,
-    TAFDC:                          239,
-    SSI:                            0,
-    SSDI:                           0,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        0,
+    TAFDC:                         239,
+    SSI:                           0,
+    SSDI:                          0,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'homeless',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           0,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'homeless',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          0,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   192,
-    expectedSection8:               null  // "Yes - Public Housing"
+    expectedSNAP:                  192,
+    expectedSection8:              null,  // "Yes - Public Housing"
   },
 };
 
 const CLIENT_ROW_7 = {
   current: {
     // Current programs
-    hasSnap:                        true,
-    hasHousing:                     false, // Public Housing (but NOT Section 8)
+    hasSnap:     true,
+    hasSection8: false, // Public Housing (but NOT Section 8)
     // Household
-    household:  [
+    household:   [
       {
-        m_age:                      2,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      2,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      6,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      6,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      40,
-        m_role:                     'head',
-        m_disabled:                 false
-      }
+        m_age:      40,
+        m_role:     'head',
+        m_disabled: false,
+      },
     ],
     // Income
-    earned:                         2700,
-    TAFDC:                          0,
-    SSI:                            55,
-    SSDI:                           0,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        2700,
+    TAFDC:                         0,
+    SSI:                           55,
+    SSDI:                          0,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'renter',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           1212,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'renter',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          1212,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   20,
-    expectedSection8:               null  // "Yes - Public Housing but NOT Section 8"
+    expectedSNAP:                  20,
+    expectedSection8:              null,  // "Yes - Public Housing but NOT Section 8"
   },
 };
 
 const CLIENT_ROW_8 = {
   current: {
     // Current programs
-    hasSnap:                        false,
-    hasHousing:                     true,
+    hasSnap:     false,
+    hasSection8: true,
     // Household
-    household:  [
+    household:   [
       {
-        m_age:                      57,
-        m_role:                     'head',  // deduced from age distribution
-        m_disabled:                 false  // boolean though not certain which member has disability and how many
+        m_age:      57,
+        m_role:     'head',  // deduced from age distribution
+        m_disabled: false,  // boolean though not certain which member has disability and how many
       },
       {
-        m_age:                      35,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      35,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      3,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      3,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      3,
-        m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_age:      3,
+        m_role:     'member',
+        m_disabled: false,
+      },
     ],
     // Income
-    earned:                         2000,
-    TAFDC:                          0,
-    SSI:                            0,
-    SSDI:                           0,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        2000,
+    TAFDC:                         0,
+    SSI:                           0,
+    SSDI:                          0,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'housingVoucher',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           0,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'housingVoucher',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          0,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   null,
-    expectedSection8:               null  // None given
+    expectedSNAP:                  null,
+    expectedSection8:              null,  // None given
   },
 };
 
 const CLIENT_ROW_9 = {
   current: {
     // Current programs
-    hasSnap:                        true,
-    hasHousing:                     true,
+    hasSnap:     true,
+    hasSection8: true,
     // Household
     // 'm_' for 'member'
-    household:  [
-    {
-        m_age:                      27,
-        m_role:                     'head',  // deduced from age distribution
-        m_disabled:                 true             // COL-AM boolean 
-    },
-    {
-        m_age:                      3,
-        m_role:                     'member',
-        m_disabled:                 false
-    }
-  ],
+    household:   [
+      {
+        m_age:      27,
+        m_role:     'head',  // deduced from age distribution
+        m_disabled: true,             // COL-AM boolean 
+      },
+      {
+        m_age:      3,
+        m_role:     'member',
+        m_disabled: false,
+      },
+    ],
     // Income
-    earned:                         0,
-    TAFDC:                          0,
-    SSI:                            1152,
-    SSDI:                           0,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        0,
+    TAFDC:                         0,
+    SSI:                           1152,
+    SSDI:                          0,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'housingVoucher',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           240,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'housingVoucher',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          240,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   150,
-    expectedSection8:               null  // None given
+    expectedSNAP:                  150,
+    expectedSection8:              null,  // None given
   },
 };
 
 const CLIENT_ROW_10 = {
   current: {
     // Current programs
-    hasSnap:                        true,
-    hasHousing:                     true,
+    hasSnap:     true,
+    hasSection8: true,
     // Household
-    household:  [
+    household:   [
       {
-        m_age:                      37,
-        m_role:                     'head',
-        m_disabled:                 true
+        m_age:      37,
+        m_role:     'head',
+        m_disabled: true,
       },
       {
-        m_age:                      9,
-        m_role:                     'member',
-        m_disabled:                 false
+        m_age:      9,
+        m_role:     'member',
+        m_disabled: false,
       },
       {
-        m_age:                      8,
-        m_role:                     'member',
-        m_disabled:                 false
-      }
+        m_age:      8,
+        m_role:     'member',
+        m_disabled: false,
+      },
     ],
     // Income
-    earned:                         798,
-    TAFDC:                          0,
-    SSI:                            1806,
-    SSDI:                           588,
-    childSupportIn:                 0,
-    unemployment:                   0,
-    workersComp:                    0,
-    pension:                        0,
-    socialSecurity:                 0,
-    alimony:                        0,
-    otherIncome:                    0,
+    earned:                        798,
+    TAFDC:                         0,
+    SSI:                           1806,
+    SSDI:                          588,
+    childSupportIn:                0,
+    unemployment:                  0,
+    workersComp:                   0,
+    pension:                       0,
+    socialSecurity:                0,
+    alimony:                       0,
+    otherIncome:                   0,
     // Expenses
-    childDirectCare:                0,
-    childBeforeAndAfterSchoolCare:  0,
-    childTransportation:            0,
-    childOtherCare:                 0,
-    earnedBecauseOfChildCare:       0,
-    childSupportPaidOut:            0,
-    adultDirectCare:                0,
-    adultTransportation:            0,
-    adultOtherCare:                 0,
-    disabledAssistance:             0,
-    earnedBecauseOfAdultCare:       0,
-    disabledMedical:                0,
-    otherMedical:                   0,
-    shelter:                        'housingVoucher',
-    contractRent:                   0,
-    rentShare:                      0,
-    rent:                           910,
-    mortgage:                       0,
-    housingInsurance:               0,
-    propertyTax:                    0,
-    climateControl:                 false,
-    nonHeatElectricity:             false,
-    phone:                          false,
-    fuelAssistance:                 false,
+    childDirectCare:               0,
+    childBeforeAndAfterSchoolCare: 0,
+    childTransportation:           0,
+    childOtherCare:                0,
+    earnedBecauseOfChildCare:      0,
+    childSupportPaidOut:           0,
+    adultDirectCare:               0,
+    adultTransportation:           0,
+    adultOtherCare:                0,
+    disabledAssistance:            0,
+    earnedBecauseOfAdultCare:      0,
+    disabledMedical:               0,
+    otherMedical:                  0,
+    shelter:                       'housingVoucher',
+    contractRent:                  0,
+    rentShare:                     0,
+    rent:                          910,
+    mortgage:                      0,
+    housingInsurance:              0,
+    propertyTax:                   0,
+    climateControl:                false,
+    nonHeatElectricity:            false,
+    phone:                         false,
+    fuelAssistance:                false,
     // Values to test, to 'expect'
-    expectedSNAP:                   8,
-    expectedSection8:               null  // None given
+    expectedSNAP:                  8,
+    expectedSection8:              null,  // None given
   },
 };
 
@@ -672,7 +672,7 @@ const CLIENT_ROW_10 = {
 //   current: {
 //     // Current programs
 //     hasSnap:                        false,
-//     hasHousing:                     false,
+//     hasSection8:                    false,
 //     // Household
 //     household:  [
 //       {
@@ -737,13 +737,13 @@ const CLIENT_ROW_10 = {
 
 const sampleClients = {
   // CLIENT_ROW_2,  // No SNAP or Section 8
-  row3: CLIENT_ROW_3,
-  row4: CLIENT_ROW_4,
-  row5: CLIENT_ROW_5,
-  row6: CLIENT_ROW_6,
-  row7: CLIENT_ROW_7,
-  row8: CLIENT_ROW_8,
-  row9: CLIENT_ROW_9,
+  row3:  CLIENT_ROW_3,
+  row4:  CLIENT_ROW_4,
+  row5:  CLIENT_ROW_5,
+  row6:  CLIENT_ROW_6,
+  row7:  CLIENT_ROW_7,
+  row8:  CLIENT_ROW_8,
+  row9:  CLIENT_ROW_9,
   row10: CLIENT_ROW_10,
   // CLIENT_ROW_11  // No SNAP or Section 8
 };
