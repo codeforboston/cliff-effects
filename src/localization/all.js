@@ -2,10 +2,6 @@
 
 import EN from './en';
 
-var localizations = {
-  en: EN,
-};
+var localizations = { en: EN };
 
-export {
-  localizations,
-};
+export { localizations };

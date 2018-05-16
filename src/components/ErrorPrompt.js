@@ -13,7 +13,7 @@ class ErrorPrompt extends React.Component {
   handleError = ({ error }) => {
     const { callback, prompt, ...promptProps } = this.props;
     prompt(callback, promptProps);
-  }
+  };
 
   componentDidMount() {
     window.addEventListener('error', this.handleError);

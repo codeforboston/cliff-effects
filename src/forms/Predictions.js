@@ -1,10 +1,15 @@
 import React from 'react';
-import { Form, Divider, Header, Message, Button } from 'semantic-ui-react';
+import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 import { Bar } from 'react-chartjs-2';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 import { BenefitsTable } from './BenefitsTable';
+import {
+  GraphHolder,
+  GrossGraph,
+  BenefitGraph,
+} from './ResultsGraph';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -14,7 +19,7 @@ import { getHousingBenefit } from '../programs/massachusetts/housing';
 import {
   formatAxis,
   formatLabel,
-  stackedTitle
+  stackedTitle,
 } from '../utils/charts/chartFunctions';
 
 // DATA
@@ -42,9 +47,9 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
   */
   return (
     <div className='field-aligner two-column'>
-      <IntervalColumnHeadings type={type}/>
+      <IntervalColumnHeadings type={type} />
       <CashFlowRow
-          timeState={future}
+        timeState={future}
 				  type={type}
 				  time={time}
 				  setClientProperty={setClientProperty}
@@ -56,37 +61,14 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
   );
 };  // End IncomeForm() Component
 
-const Table = function ({ client, feedbackPrompt }) {
-  return(
-    <div>
-    <Header as='h1' className='ui Header teal align centered'>Results</Header>
-    <Header as='h3' className='ui Header align centered'>How will your income affect your future benefits?</Header>
-    {/* @todo Export/clean up styles  */}
-    <Message visible warning style={{ 'textAlign': 'center' }}>
-      This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
-      <Button
-        fluid
-        color='teal'
-        style={{ 'display': 'block',
-                 'marginLeft': 'auto',
-                 'marginRight': 'auto',
-                 'marginTop': '10px',
-                 'maxWidth': '400px' }}
-        onClick={feedbackPrompt}>Submit Feedback</Button>
-    </Message>
-    <BenefitsTable client={client} />
-    </div>
-  );
-};
-
 const Chart = function({ client }) {
 
   var curr = client.current;
 
   var
-    { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames( client, 'hasSnap', getSNAPBenefits ),
-    { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames( client, 'hasSection8', getHousingBenefit ),
-    { incomeCurrent, incomeFuture } = getIncomeTimeFrames( client );
+      { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
+      { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getHousingBenefit),
+      { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
 
   var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
       housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
@@ -99,81 +81,105 @@ const Chart = function({ client }) {
         incomeColor   = PROGRAM_CHART_VALUES.income.color,
         incomeName    = PROGRAM_CHART_VALUES.income.name;
 
-  var datasets = [{
-    label: incomeName,
-    backgroundColor: incomeColor,
-    data: incomeData,
-    fill: "origin"
-  }];
+  var datasets = [
+    {
+      label:           incomeName,
+      backgroundColor: incomeColor,
+      data:            incomeData,
+      fill:            'origin',
+    },
+  ];
 
-  if ( curr.hasSnap ) {
+  if (curr.hasSnap) {
     datasets.push({
-      label: SNAPName,
+      label:           SNAPName,
       backgroundColor: SNAPColor,
-      data: snapData
+      data:            snapData,
     });
   }
 
-  if ( curr.hasSection8 ) {
+  if (curr.hasSection8) {
     datasets.push({
-      label: section8Name,
+      label:           section8Name,
       backgroundColor: section8Color,
-      data: housingData
+      data:            housingData,
     });
   }
 
   const stackedBarProps = {
     data: {
-      labels: incomeData,
-      datasets: datasets
+      labels:   incomeData,
+      datasets: datasets,
     },
     options: {
       title: {
         display: true,
-        text: 'Money Coming In as Income Changes'
+        text:    'Money Coming In as Income Changes',
       },
       scales: {
-        yAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Total Money Coming In ($)'
+        yAxes: [
+          {
+            stacked:    true,
+            scaleLabel: {
+              display:     true,
+              labelString: 'Total Money Coming In ($)',
+            },
+            ticks: {
+              beginAtZero: true,
+              callback:    formatAxis,
+            },
+          }, 
+        ],
+        xAxes: [
+          {
+            stacked:    true,
+            scaleLabel: {
+              display:     true,
+              labelString: 'Monthly Income ($)',
+            },
+            ticks: { callback: formatAxis },
           },
-          ticks: {
-            beginAtZero: true,
-            callback: formatAxis
-          }
-        }],
-        xAxes: [{
-          stacked: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Monthly Income ($)'
-          },
-          ticks: {
-            callback: formatAxis
-          }
-        }]
+        ],
       },
       tooltips: {
         callbacks: {
           title: stackedTitle,
-          label: formatLabel
-        }
-      }
-    }
+          label: formatLabel,
+        },
+      },
+    },
   };
 
 
   return (
-    <div>
-      <Header as='h1' className='ui Header teal align centered'>Chart</Header>
-      <Bar {...stackedBarProps} />
-    </div>
+    <Bar {...stackedBarProps} />
   );
 
 };  // End <Chart>
 
+const TabbedVisualizations = ({ client }) => {return (
+  // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
+  <Tab
+    menu={{ color: 'teal',  attached: true, tabular: true }}
+    panes={[
+      { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={client} /></Tab.Pane>;} },
+      { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={client} /></Tab.Pane>;} },
+      {
+        menuItem: 'Stacked Incomes',
+        render:   () => {return <Tab.Pane><GraphHolder
+          client={client}
+          Graph={GrossGraph} />
+        </Tab.Pane>;}, 
+      },
+      {
+        menuItem: 'Benefit Changes',
+        render:   () => {return <Tab.Pane><GraphHolder
+          client={client}
+          Graph={BenefitGraph} />
+        </Tab.Pane>;}, 
+      },
+    ]} />
+);};
 
 /** @todo description
 *
@@ -184,9 +190,9 @@ const Chart = function({ client }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const PredictionsStep = function ( props ) {
+const PredictionsStep = function (props) {
 
-  const setTimeProp = getTimeSetter( 'future', props.changeClient );
+  const setTimeProp = getTimeSetter('future', props.changeClient);
 
   /** @todo Are these titles accurate now? */
   return (
@@ -194,13 +200,18 @@ const PredictionsStep = function ( props ) {
       <FormPartsContainer
         title     = 'Future Household Income'
         clarifier = 'How much money would your household make in the future?'
-        left      = {{name: 'Previous', func: props.previousStep}}
-        right     = {{name: 'Reset', func: props.resetClient}}>
-          <IncomeForm setClientProperty={setTimeProp} future={props.client.future} time={'future'} />
-          <Divider className='ui section divider hidden' />
-          <Table client={props.client} feedbackPrompt={props.feedbackPrompt} />
-          <Divider className='ui section divider hidden' />
-          <Chart client={props.client}/>
+        left      = {{ name: 'Previous', func: props.previousStep }}
+        right     = {{ name: 'Reset', func: props.resetClient }}>
+        <IncomeForm
+          setClientProperty={setTimeProp}
+          future={props.client.future}
+          time={'future'} />
+        <Divider className='ui section divider hidden' />
+        <Header
+          as='h3'
+          className='ui Header align centered'>How will your income affect your future benefits?
+        </Header>
+        <TabbedVisualizations client={props.client} />
       </FormPartsContainer>
     </Form>
   );

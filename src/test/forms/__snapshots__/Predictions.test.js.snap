@@ -55,7 +55,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             },
           ],
           "housingInsurance": 0,
-          "incomeExclusions": 0,
           "mortgage": 0,
           "nonHeatElectricity": false,
           "otherIncome": 0,
@@ -77,7 +76,13 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     <Divider
       className="ui section divider hidden"
     />
-    <Table
+    <Header
+      as="h3"
+      className="ui Header align centered"
+    >
+      How will your income affect your future benefits?
+    </Header>
+    <TabbedVisualizations
       client={
         Object {
           "current": Object {
@@ -112,7 +117,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
               },
             ],
             "housingInsurance": 0,
-            "incomeExclusions": 0,
             "mortgage": 0,
             "nonHeatElectricity": false,
             "otherIncome": 0,
@@ -159,110 +163,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
               },
             ],
             "housingInsurance": 0,
-            "incomeExclusions": 0,
-            "mortgage": 0,
-            "nonHeatElectricity": false,
-            "otherIncome": 0,
-            "otherMedical": 0,
-            "pension": 0,
-            "phone": false,
-            "propertyTax": 0,
-            "rent": 0,
-            "rentShare": 0,
-            "shelter": "homeless",
-            "socialSecurity": 0,
-            "unemployment": 0,
-            "workersComp": 0,
-          },
-        }
-      }
-    />
-    <Divider
-      className="ui section divider hidden"
-    />
-    <Chart
-      client={
-        Object {
-          "current": Object {
-            "SSDI": 0,
-            "SSI": 0,
-            "TAFDC": 0,
-            "adultDirectCare": 0,
-            "adultOtherCare": 0,
-            "adultTransportation": 0,
-            "alimony": 0,
-            "childBeforeAndAfterSchoolCare": 0,
-            "childDirectCare": 0,
-            "childOtherCare": 0,
-            "childSupportIn": 0,
-            "childSupportPaidOut": 0,
-            "childTransportation": 0,
-            "climateControl": false,
-            "contractRent": 0,
-            "disabledAssistance": 0,
-            "disabledMedical": 0,
-            "earned": 0,
-            "earnedBecauseOfAdultCare": 0,
-            "earnedBecauseOfChildCare": 0,
-            "fuelAssistance": false,
-            "hasSection8": false,
-            "hasSnap": false,
-            "household": Array [
-              Object {
-                "m_age": 30,
-                "m_disabled": false,
-                "m_role": "head",
-              },
-            ],
-            "housingInsurance": 0,
-            "incomeExclusions": 0,
-            "mortgage": 0,
-            "nonHeatElectricity": false,
-            "otherIncome": 0,
-            "otherMedical": 0,
-            "pension": 0,
-            "phone": false,
-            "propertyTax": 0,
-            "rent": 0,
-            "rentShare": 0,
-            "shelter": "homeless",
-            "socialSecurity": 0,
-            "unemployment": 0,
-            "workersComp": 0,
-          },
-          "future": Object {
-            "SSDI": 0,
-            "SSI": 0,
-            "TAFDC": 0,
-            "adultDirectCare": 0,
-            "adultOtherCare": 0,
-            "adultTransportation": 0,
-            "alimony": 0,
-            "childBeforeAndAfterSchoolCare": 0,
-            "childDirectCare": 0,
-            "childOtherCare": 0,
-            "childSupportIn": 0,
-            "childSupportPaidOut": 0,
-            "childTransportation": 0,
-            "climateControl": false,
-            "contractRent": 0,
-            "disabledAssistance": 0,
-            "disabledMedical": 0,
-            "earned": 0,
-            "earnedBecauseOfAdultCare": 0,
-            "earnedBecauseOfChildCare": 0,
-            "fuelAssistance": false,
-            "hasSection8": false,
-            "hasSnap": false,
-            "household": Array [
-              Object {
-                "m_age": 30,
-                "m_disabled": false,
-                "m_role": "head",
-              },
-            ],
-            "housingInsurance": 0,
-            "incomeExclusions": 0,
             "mortgage": 0,
             "nonHeatElectricity": false,
             "otherIncome": 0,
