@@ -4,7 +4,7 @@
  */
 
 const getBenefitTimeFrames = function (client, benefitCheck, benefitsFunc) {
-  if (client.current[benefitCheck]) {
+  if (client.current[ benefitCheck ]) {
     return {
       benefitCurrent: Math.round(benefitsFunc (client, 'current')),
       benefitFuture:  Math.round(benefitsFunc (client, 'future')),

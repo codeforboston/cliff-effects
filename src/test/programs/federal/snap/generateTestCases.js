@@ -62,7 +62,7 @@ randomizers.push(childSupportPaidOut);
 
 const unearnedIncomeSources = (changes) => {
   UNEARNED_INCOME_SOURCES.forEach((key) => {
-    changes[key] = (Math.random() * 50) ** 2;
+    changes[ key ] = (Math.random() * 50) ** 2;
   });
   return changes;
 };
@@ -99,7 +99,7 @@ randomizers.push(utilityBrackets);
 const shelterFeeNames =
   [ 'mortgage', 'propertyTax', 'housingInsurance', 'rent', 'rentShare' ];
 const shelterFees = (changes) => {
-  shelterFeeNames.forEach((name) => {return changes[name] = (Math.random() * 50) ** 2 + 200;});
+  shelterFeeNames.forEach((name) => {return changes[ name ] = (Math.random() * 50) ** 2 + 200;});
   return changes;
 };
 randomizers.push(shelterFees);
@@ -112,7 +112,7 @@ randomizers.push(disabledMedical);
 
 const under13CareExpenses = (changes) => {
   UNDER13_CARE_EXPENSES.forEach((key) => {
-    changes[key] = (Math.random() * 50) ** 2;
+    changes[ key ] = (Math.random() * 50) ** 2;
   });
   return changes;
 };
@@ -120,7 +120,7 @@ randomizers.push(under13CareExpenses);
 
 const over12CareExpenses = (changes) => {
   OVER12_CARE_EXPENSES.forEach((key) => {
-    changes[key] = (Math.random() * 50) ** 2;
+    changes[ key ] = (Math.random() * 50) ** 2;
   });
   return changes;
 };
