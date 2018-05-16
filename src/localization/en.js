@@ -23,9 +23,6 @@ export default {
   'hasSocialSecurity.hint':   'Social Security is a federal program that provides assistance to retirees',
   'hasAlimony.label':         'Do you receive alimony?',
   'hasAlimony.hint':          'Alimony is money paid by one spouse to the other after a divorce',
-  'hasOtherIncome':           'Do you have other income?',
-  'hasOtherIncome':           'Please note income you may have from sources that are not listed above',
-  'hasSection8.label': 'Do you have Section 8 Housing?',
-  'hasSection8.hint':  'Section 8 provides rental housing assistance.',
-  'hasSnap.label':     'Do you have SNAP?',
+  'hasOtherIncome.label':     'Do you have other income?',
+  'hasOtherIncome.hint':      'Please note income you may have from sources that are not listed above',
 };
