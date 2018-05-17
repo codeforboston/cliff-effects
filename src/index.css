@@ -214,7 +214,7 @@ form elements. */
 /* FEEDBACK BUTTON */
 #feedback_fixed {
     position: fixed;
-    top: 260px;
+    top: 234px;
     left: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -223,7 +223,7 @@ form elements. */
 /* RESET BUTTON */
 #reset_fixed {
     position: fixed;
-    top: 400px;
+    top: 362px;
     left: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
