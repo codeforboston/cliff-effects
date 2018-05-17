@@ -24,7 +24,7 @@ class FeedbackPrompt extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    this.setState({ formData: Object.assign({}, this.state.formData, { [name]: value }) });
+    this.setState({ formData: Object.assign({}, this.state.formData, { [ name ]: value }) });
   };
 
   // returns promise that succeeds if submission is successful, else rejects.
@@ -71,7 +71,7 @@ class FeedbackPrompt extends React.Component {
   render () {
     const inputProps = (name) => {return {
       name,
-      value:    this.state.formData[name] || '',
+      value:    this.state.formData[ name ] || '',
       onChange: this.handleInputChange,
     };};
 

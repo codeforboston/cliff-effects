@@ -12,8 +12,8 @@ const setNestedProperty = function ({ route, value, time }, { current, future },
   } else {
     // Get this key or index and remove it from list
     var next = {
-      current: current[itemID],
-      future:  future[itemID],
+      current: current[ itemID ],
+      future:  future[ itemID ],
     };
     setNestedProperty({ route, value, time }, next, previouslySetByUser);
   }
@@ -32,11 +32,11 @@ const setValidCurrent = function ({ name, value, type }, newCurrent) {
 
 const setValidFuture = function (evnt, newFuture, setByUser) {
   if (evnt.type === 'future') {
-    newFuture[evnt.name] = valueFixers[ evnt.name ](evnt.value, newFuture);
+    newFuture[ evnt.name ] = valueFixers[ evnt.name ](evnt.value, newFuture);
     // console.log( valueFixers[ evnt.name ]( evnt.value, newFuture ) );
   } else if (evnt.type === 'current') {
     if (!setByUser)  {
-      newFuture[evnt.name] = valueFixers[ evnt.name ](evnt.value, newFuture);
+      newFuture[ evnt.name ] = valueFixers[ evnt.name ](evnt.value, newFuture);
     }
   }
   return newFuture;

@@ -148,7 +148,7 @@ class VisitPage extends Component {
         current     = client.current,
         future      = client.future,
         routeList   = route.split('/'),
-        id          = routeList[0],  // `routeList` gets mutated
+        id          = routeList[ 0 ],  // `routeList` gets mutated
         newEvent    = { time: time, route: routeList, value: val };
 
     setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
