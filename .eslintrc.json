@@ -27,7 +27,6 @@
       "object-curly-spacing": ["warn", "always"],	
       "array-bracket-spacing": ["warn", "always"],
       "computed-property-spacing": ["warn", "always"],
-      "valid-jsdoc": "warn",
       "react/self-closing-comp": "warn",
       "comma-dangle": ["warn", "always-multiline"],
       "space-infix-ops": "warn",
