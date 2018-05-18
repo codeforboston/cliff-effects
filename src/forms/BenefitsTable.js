@@ -85,7 +85,7 @@ const BenefitsTable = function (props) {
 
     return (
       <Table.Row>
-        <Table.Cell style={rowHeaderStyle}>SNAP</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>SNAP</Table.Cell>
         <Table.Cell textAlign='right'>${SNAPBenefitCurrent} / month</Table.Cell>
         <Table.Cell textAlign='right'>${SNAPBenefitFuture} / month</Table.Cell>
         <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } ${ Math.abs(SNAPDiff) } / month</Table.Cell>
@@ -100,7 +100,7 @@ const BenefitsTable = function (props) {
 
     return (
       <Table.Row>
-        <Table.Cell style={rowHeaderStyle}>Section 8 Housing</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>Section 8 Housing</Table.Cell>
         <Table.Cell textAlign='right'>${sec8BenefitCurrent} / month</Table.Cell>
         <Table.Cell textAlign='right'>${sec8BenefitFuture} / month</Table.Cell>
         <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } ${ Math.abs(sec8Diff) } / month</Table.Cell>
@@ -117,23 +117,23 @@ const BenefitsTable = function (props) {
       <Table.Row>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowHeaderStyle}>Total Benefits
+          width={ 3 }
+          style={ totalsRowHeaderStyle }>Total Benefits
         </Table.Cell>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowStyle}>${totalBenefitCurrent} / month
+          width={ 3 }
+          style={ totalsRowStyle }>${totalBenefitCurrent} / month
         </Table.Cell>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowStyle}>${totalBenefitFuture} / month
+          width={ 3 }
+          style={ totalsRowStyle }>${totalBenefitFuture} / month
         </Table.Cell>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowStyle}>{ getSignSymbol(totalDiff) } ${ Math.abs(totalDiff) } / month
+          width={ 3 }
+          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } ${ Math.abs(totalDiff) } / month
         </Table.Cell>
       </Table.Row>
     );
@@ -142,7 +142,7 @@ const BenefitsTable = function (props) {
   const IncomeRow = function (props) {
     return (
       <Table.Row>
-        <Table.Cell style={rowHeaderStyle}>Income</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>Income</Table.Cell>
         <Table.Cell textAlign='right'>${incomeCurrent} / month</Table.Cell>
         <Table.Cell textAlign='right'>${incomeFuture} / month</Table.Cell>
         <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } ${ Math.abs(incomeDiff) } / month</Table.Cell>
@@ -155,23 +155,23 @@ const BenefitsTable = function (props) {
       <Table.Row style={{ border: 'none' }}>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowHeaderStyle}>Net Total
+          width={ 3 }
+          style={ totalsRowHeaderStyle }>Net Total
         </Table.Cell>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowStyle}>${netCurrent} / month
+          width={ 3 }
+          style={ totalsRowStyle }>${netCurrent} / month
         </Table.Cell>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowStyle}>${netFuture} / month
+          width={ 3 }
+          style={ totalsRowStyle }>${netFuture} / month
         </Table.Cell>
         <Table.Cell
           textAlign='right'
-          width={3}
-          style={totalsRowStyle}>{ getSignSymbol(netDiff) } ${ Math.abs(netDiff) } / month
+          width={ 3 }
+          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } ${ Math.abs(netDiff) } / month
         </Table.Cell>
       </Table.Row>
     );
@@ -183,27 +183,27 @@ const BenefitsTable = function (props) {
         <Table.Header>
           <Table.Row >
             <Table.Cell
-              style={columnHeaderStyle}
-              width={3}>Benefit
+              style={ columnHeaderStyle }
+              width={ 3 }>Benefit
             </Table.Cell>
             <Table.Cell
-              style={columnHeaderStyle}
-              width={3}>Current Benefits
+              style={ columnHeaderStyle }
+              width={ 3 }>Current Benefits
             </Table.Cell>
             <Table.Cell
-              style={columnHeaderStyle}
-              width={3}>New Estimate
+              style={ columnHeaderStyle }
+              width={ 3 }>New Estimate
             </Table.Cell>
             <Table.Cell
-              style={columnHeaderStyle}
-              width={3}>Difference
+              style={ columnHeaderStyle }
+              width={ 3 }>Difference
             </Table.Cell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow client={client} />
-          <Sec8BenefitRow client={client} />
-          <TotalBenefitsRow client={client} />
+          <SNAPBenefitRow client={ client } />
+          <Sec8BenefitRow client={ client } />
+          <TotalBenefitsRow client={ client } />
           <IncomeRow />
           <TotalsRow />
         </Table.Body>

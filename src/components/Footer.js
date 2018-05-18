@@ -20,7 +20,7 @@ const Footer = () => {
         inverted
         stackable>
         <Grid.Row>
-          <Grid.Column width={7}>
+          <Grid.Column width={ 7 }>
             <Header
               as='h4'
               inverted>Cliff Effects Tool

@@ -22,7 +22,7 @@ const MainMenu = function (props) {
             href="http://www.codeforboston.org"
             target="_blank"
             rel="noopener noreferrer"><Image
-              src={logo}
+              src={ logo }
               size='tiny' />
           </a>
         </Menu.Item>

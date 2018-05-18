@@ -15,12 +15,12 @@ const PageLayout = (props) => {
           stackable
           verticalAlign='middle'>
           <Grid.Row>
-            <Grid.Column width={10}>
+            <Grid.Column width={ 10 }>
               {props.children}
             </Grid.Column>
             <Grid.Column
               floated='right'
-              width={6} />
+              width={ 6 } />
           </Grid.Row>
         </Grid>
       </Segment>
