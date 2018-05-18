@@ -167,7 +167,7 @@ class GrossGraph extends Component {
     withIncome.unshift('income');
 
     var xRange        = _.range(0, max, interval),
-        extraProps    = { income: { fill: 'origin' } },
+        extraProps    = { income: { fill: 'origin' }},
         datasets      = getDatasets(xRange, client, multiplier, withIncome, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
@@ -231,7 +231,7 @@ class GrossGraph extends Component {
     };  // end `stackedAreaProps`
 
     return (
-      <Line {...stackedAreaProps} />
+      <Line { ...stackedAreaProps } />
     );
   }
 };  // End <GrossGraph>
@@ -249,7 +249,7 @@ class BenefitGraph extends Component {
     const multiplier = MULTIPLIERS[ timescale ];
 
     if (activePrograms.length === 0) {
-      return <Message className={className}>No public benefit programs have been selected</Message>;
+      return <Message className={ className }>No public benefit programs have been selected</Message>;
     }
 
     // Adjust to time-interval, round to hundreds
@@ -257,7 +257,7 @@ class BenefitGraph extends Component {
         interval  = Math.ceil((max / 100) / 10) * 10;
 
     var xRange      = _.range(0, max, interval),  // x-axis/income numbers
-        extraProps  = { snap: { fill: false }, section8: { fill: false } },
+        extraProps  = { snap: { fill: false }, section8: { fill: false }},
         datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
@@ -316,7 +316,7 @@ class BenefitGraph extends Component {
     };  // end lineProps
 
     return (
-      <Line {...lineProps} />
+      <Line { ...lineProps } />
     );
   }
 
@@ -350,12 +350,12 @@ class GraphHolder extends Component {
       <div className='graph-holder'>
         <Graph
           className='client-graph'
-          client={client}
-          timescale={activeID}
-          activePrograms={activePrograms} />
+          client={ client }
+          timescale={ activeID }
+          activePrograms={ activePrograms } />
         <GraphTimeButtons
-          activeID={activeID}
-          onClick={this.onClick} />
+          activeID={ activeID }
+          onClick={ this.onClick } />
       </div>
     );
   };  // End render()
@@ -368,15 +368,15 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
   return (
     <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
-        title     = {'Graphs'}
+        title     = { 'Graphs' }
         left      = {{ name: 'Go Back', func: previousStep }}
         right     = {{ name: 'Reset', func: resetClient }}>
         <GraphHolder
-          client={client}
-          Graph={GrossGraph} />
+          client={ client }
+          Graph={ GrossGraph } />
         <GraphHolder
-          client={client}
-          Graph={BenefitGraph} />
+          client={ client }
+          Graph={ BenefitGraph } />
       </FormPartsContainer>
     </div>
   );

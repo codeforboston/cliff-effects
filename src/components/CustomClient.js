@@ -60,22 +60,22 @@ class CustomClient extends React.Component {
 
     return (
       <Form
-        error={error !== null}
-        onSubmit={this.submit}>
+        error={ error !== null }
+        onSubmit={ this.submit }>
         <Form.Field>
           <label>Client JSON</label>
           <Form.Input
-            type={'text'}
-            value={json}
-            onChange={this.handleChange} />
+            type={ 'text' }
+            value={ json }
+            onChange={ this.handleChange } />
         </Form.Field>
         <Message 
           error
-          header={'JSON Parse Failed!'}
-          content={error && error.message} />
+          header={ 'JSON Parse Failed!' }
+          content={ error && error.message } />
         <Form.Button
-          type={'submit'}
-          disabled={client === null}>
+          type={ 'submit' }
+          disabled={ client === null }>
           Import Data
         </Form.Button>
         <Divider />

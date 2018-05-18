@@ -12,8 +12,14 @@ using `exports.set()`. `exports.unset()` restores the default function from _his
 
 let confirm = defaultConfirm;
 
-export const set = (fn) => {return confirm = fn;};
+export const set = (fn) => {
+  return confirm = fn;
+};
 
-export const unset = () => {return confirm = defaultConfirm;};
+export const unset = () => {
+  return confirm = defaultConfirm;
+};
 
-export default (result, callback) => {return confirm(result, callback);};
+export default (result, callback) => {
+  return confirm(result, callback);
+};

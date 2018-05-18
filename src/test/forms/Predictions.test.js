@@ -13,13 +13,13 @@ test('Prediction component renders as snapshot correctly', () => {
   const saveForm = jest.fn();
   const wrapper = shallow(
     <PredictionsStep
-      currentStep={1}
-      client={CLIENT_DEFAULTS}
-      nextStep={nextStep}
-      previousStep={previousStep}
-      setClientProperty={setClientProperty}
-      changeClient={changeClient}
-      saveForm={saveForm} />
+      currentStep={ 1 }
+      client={ CLIENT_DEFAULTS }
+      nextStep={ nextStep }
+      previousStep={ previousStep }
+      setClientProperty={ setClientProperty }
+      changeClient={ changeClient }
+      saveForm={ saveForm } />
   );
   expect(wrapper).toMatchSnapshot();
 });

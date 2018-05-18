@@ -36,8 +36,8 @@ const MassiveButton = function ({ className, func, children }) {
       type='button'
       color='teal'
       size='large'
-      className={className}
-      onClick={func}>
+      className={ className }
+      onClick={ func }>
       { children }
     </Button>
   );
@@ -49,7 +49,7 @@ const MassiveButton = function ({ className, func, children }) {
  */
 const ExternalLink = function ({ href, children }) {
   return (<a
-    href={href}
+    href={ href }
     target='_blank'>{children}
           </a>);
 };
@@ -70,9 +70,9 @@ const ExternalLink = function ({ href, children }) {
 const BottomButton = function(props){
   return (
     <Grid.Column
-      className={'large-bottom-button'}
-      width={3}>
-      <MassiveButton {...props} />
+      className={ 'large-bottom-button' }
+      width={ 3 }>
+      <MassiveButton { ...props } />
     </Grid.Column>
   );
 };  // End BottomButton() Component
@@ -104,21 +104,21 @@ const BottomButtons = function({ left, right }) {
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       { left ?
         <Button
-          {...buttonProps}
-          onClick={left.func}>
+          { ...buttonProps }
+          onClick={ left.func }>
           { left.name }
         </Button>
         :
-        <div style={flexItemStyle} />
+        <div style={ flexItemStyle } />
       }
       { right ?
         <Button
-          {...buttonProps}
-          onClick={right.func}>
+          { ...buttonProps }
+          onClick={ right.func }>
           { right.name }
         </Button>
         :
-        <div style={flexItemStyle} />
+        <div style={ flexItemStyle } />
       }
     </div>
   );
@@ -148,7 +148,7 @@ const FormPartsContainer = function(props) {
       padded='very'
       className="flex-item flex-column">
       <Segment
-        basic={true}
+        basic={ true }
         className="flex-item">
         <Header
           as='h1'
@@ -170,10 +170,10 @@ const FormPartsContainer = function(props) {
       </Segment>
       <Divider />
       <BottomButtons
-        left={props.left}
-        right={props.right}
-        next={props.next}
-        prev={props.prev} />
+        left={ props.left }
+        right={ props.right }
+        next={ props.next }
+        prev={ props.prev } />
 
     </Segment>
   );
@@ -250,7 +250,7 @@ const FormHeading = function ({ subheading, children }) {
   if (!children) { return null; }
 
   return (
-    <div className={'form-heading'} >
+    <div className={ 'form-heading' } >
       <div /> {/** div here to make sure header margin doesn\'t collapse */}
       <Header
         as='h3'
@@ -393,8 +393,8 @@ const ColumnHeading = function ({ type, colName, style, children }) {
   return (
     <Header
       as='h4'
-      className={classes}
-      style={style}
+      className={ classes }
+      style={ style }
       color='teal'>{children}
     </Header>
   );
@@ -417,25 +417,25 @@ const IntervalColumnHeadings = function ({ type }) {
   return (
     <div style={{ display: 'inline-block' }}>
       <ColumnHeading
-        type={type}
+        type={ type }
         colName='weekly'
-        style={styles}>Weekly
+        style={ styles }>Weekly
       </ColumnHeading>
       <ColumnHeading
-        type={type}
+        type={ type }
         colName='monthly'
-        style={styles}>Monthly
+        style={ styles }>Monthly
       </ColumnHeading>
       <ColumnHeading
-        type={type}
+        type={ type }
         colName='yearly'
-        style={styles}>Yearly
+        style={ styles }>Yearly
       </ColumnHeading>
       <ColumnHeading
-        type={type}
-        colName={type}
-        style={styles}
-        columnTitle={columnTitle}>{columnTitle}
+        type={ type }
+        colName={ type }
+        style={ styles }
+        columnTitle={ columnTitle }>{columnTitle}
       </ColumnHeading>
     </div>
   );
@@ -521,14 +521,14 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
   return (
     <Form.Field
       inline
-      className={'cashflow'}>
+      className={ 'cashflow' }>
       { children }
-      <div className={'cashflow-column cashflow-column-last-child'}>
+      <div className={ 'cashflow-column cashflow-column-last-child' }>
         <label>{label}</label>
       </div>
       <RowMessage
-        validRow={validRow}
-        message={message} />
+        validRow={ validRow }
+        message={ message } />
     </Form.Field>
   );
 };  // End <CashFlowContainer>
@@ -575,19 +575,19 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
 
   return (
     <CashFlowContainer
-      label={children}
-      validRow={true}
-      message={null}>
+      label={ children }
+      validRow={ true }
+      message={ null }>
       <ManagedNumberField
-        {...baseProps}
+        { ...baseProps }
         value     = { baseVal / 4.33 }
         otherData = {{ interval: 'weekly' }} />
       <ManagedNumberField
-        {...baseProps}
+        { ...baseProps }
         value     = { baseVal }
         otherData = {{ interval: 'monthly' }} />
       <ManagedNumberField
-        {...baseProps}
+        { ...baseProps }
         value     = { baseVal * 12 }
         otherData = {{ interval: 'yearly' }} />
     </CashFlowContainer>
@@ -607,10 +607,10 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty,
   };
 
   return (
-    <CashFlowContainer {...rowProps}>
+    <CashFlowContainer { ...rowProps }>
       <ManagedNumberField
-        {...inputProps}
-        value={baseValue}
+        { ...inputProps }
+        value={ baseValue }
         otherData={{ interval: 'monthly' }} />
     </CashFlowContainer>
   );
@@ -655,18 +655,18 @@ class ControlledRadioYesNo extends Component {
         <Form.Field>
           <Radio
             label='Yes'
-            name={this.props.name}
+            name={ this.props.name }
             value='Yes'
-            checked={this.props.checked === true}
-            onChange={this.handleChange.bind(this)} />
+            checked={ this.props.checked === true }
+            onChange={ this.handleChange.bind(this) } />
         </Form.Field>
         <Form.Field >
           <Radio
             label='No'
-            name={this.props.name}
+            name={ this.props.name }
             value='No'
-            checked={this.props.checked === false}
-            onChange={this.handleChange.bind(this)} />
+            checked={ this.props.checked === false }
+            onChange={ this.handleChange.bind(this) } />
         </Form.Field>
         <Form.Field >
           <b>{this.props.labelText}</b>
