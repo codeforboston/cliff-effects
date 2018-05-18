@@ -18,39 +18,51 @@ import {
 
 // getEveryMember(array, fn) = array.filter(fn)
 test('getEveryMember()', () => {
-  expect(getEveryMember([ 0, 1, 0 ], (val) => {return val === 0;})).toHaveLength(2);
+  expect(getEveryMember([ 0, 1, 0 ], (val) => {
+    return val === 0;}
+  )).toHaveLength(2);
 });
 
 test('getEveryMember() empty result', () => {
-  expect(getEveryMember([ 1, 1, 1 ], (value) => {return value === 0;})).toEqual([]);
+  expect(getEveryMember([ 1, 1, 1 ], (value) => {
+    return value === 0;
+  })).toEqual([]);
 });
 
 // getEveryMemberOfHousehold(obj, fn) = obj.household.filter(fn)
 test('getEveryMemberOfHousehold()', () => {
   const client = { household: [ 0, 1, 0 ] };
-  expect(getEveryMemberOfHousehold(client, (val) => {return val === 0;})).toHaveLength(2);
+  expect(getEveryMemberOfHousehold(client, (val) => {
+    return val === 0;
+  })).toHaveLength(2);
 });
 
 describe('head or spouse', () => {
-  const headOrSpouse = [ 'head', 'spouse' ].map((role) => {return { m_role: role };});
-  const notHeadOrSpouse = [ 'Head', 'member', '' ].map((role) => {return { m_role: role };});
+  const headOrSpouse = [ 'head', 'spouse' ].map((role) => {
+    return { m_role: role };
+  });
+  const notHeadOrSpouse = [ 'Head', 'member', '' ].map((role) => {
+    return { m_role: role };
+  });
   const allMembers = headOrSpouse.concat(notHeadOrSpouse);
 
   test('isHeadOrSpouse()', () => {
-    headOrSpouse.forEach((member) => {return expect(isHeadOrSpouse(member)).toBe(true);});
-    notHeadOrSpouse.forEach((member) =>
-    {return expect(isHeadOrSpouse(member)).toBe(false);}
-    );
+    headOrSpouse.forEach((member) => {
+      return expect(isHeadOrSpouse(member)).toBe(true);
+    });
+    notHeadOrSpouse.forEach((member) => {
+      return expect(isHeadOrSpouse(member)).toBe(false);
+    });
   });
 
   // !isHeadOrSpouse()
   test('isNotHeadOrSpouse()', () => {
-    headOrSpouse.forEach((member) =>
-    {return expect(isNotHeadOrSpouse(member)).toBe(false);}
-    );
-    notHeadOrSpouse.forEach((member) =>
-    {return expect(isNotHeadOrSpouse(member)).toBe(true);}
-    );
+    headOrSpouse.forEach((member) => {
+      return expect(isNotHeadOrSpouse(member)).toBe(false);
+    });
+    notHeadOrSpouse.forEach((member) => {
+      return expect(isNotHeadOrSpouse(member)).toBe(true);
+    });
   });
 
   test('getHeadOrSpouseMembers()', () => {
@@ -69,8 +81,12 @@ describe('dependents', () => {
   const allMembers = dependents.concat(notDependents);
 
   test('isDependent()', () => {
-    dependents.forEach((member) => {return expect(isDependent(member)).toBe(true);});
-    notDependents.forEach((member) => {return expect(isDependent(member)).toBe(false);});
+    dependents.forEach((member) => {
+      return expect(isDependent(member)).toBe(true);
+    });
+    notDependents.forEach((member) => {
+      return expect(isDependent(member)).toBe(false);
+    });
   });
 
   test('getDependentMembers()', () => {
@@ -104,13 +120,21 @@ describe('disabled', () => {
 });
 
 describe('under 13', () => {
-  const under13 = [ 11, 12 ].map((age) => {return { m_age: age };});
-  const over12 = [ 13, 14, 77 ].map((age) => {return { m_age: age };});
+  const under13 = [ 11, 12 ].map((age) => {
+    return { m_age: age };
+  });
+  const over12 = [ 13, 14, 77 ].map((age) => {
+    return { m_age: age };
+  });
   const allMembers = under13.concat(over12);
 
   test('isUnder13()', () => {
-    under13.forEach((member) => {return expect(isUnder13(member)).toBe(true);});
-    over12.forEach((member) => {return expect(isUnder13(member)).toBe(false);});
+    under13.forEach((member) => {
+      return expect(isUnder13(member)).toBe(true);
+    });
+    over12.forEach((member) => {
+      return expect(isUnder13(member)).toBe(false);
+    });
   });
 
   test('getUnder13Members()', () => {
