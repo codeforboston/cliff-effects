@@ -162,6 +162,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .rotate {
+    transform-origin: top left;
     transform: rotate(270deg);
 }
 
@@ -213,8 +214,8 @@ form elements. */
 /* FEEDBACK BUTTON */
 #feedback_fixed {
     position: fixed;
-    top: 148px;
-    left: -57px;
+    top: 234px;
+    left: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
@@ -222,8 +223,8 @@ form elements. */
 /* RESET BUTTON */
 #reset_fixed {
     position: fixed;
-    top: 290px;
-    left: -39px;
+    top: 362px;
+    left: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     background-color: #f2711c;
