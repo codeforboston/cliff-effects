@@ -14,7 +14,7 @@ import { cloneDeep } from 'lodash';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Logic
-import { getTranslate, getTextForLanguage } from '../utils/getTranslate';
+import { getTextForLanguage } from '../utils/getTextForLanguage';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
@@ -70,7 +70,6 @@ class VisitPage extends Component {
       // Hack for MVP
       oldShelter:   clone.current.shelter,
       userChanged:  {},
-      translate:    getTranslate('en'),
       snippets:     getTextForLanguage('en'),
     };  // end this.state {}
 
@@ -109,7 +108,10 @@ class VisitPage extends Component {
       this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      this.prompt((ok) => {return ok && this.resetClient();}, {
+      this.prompt((ok) => {
+        return ok && this.resetClient();
+      },
+      {
         leaveText: 'Reset',
         message:   'default',
       });
@@ -133,20 +135,18 @@ class VisitPage extends Component {
     this.setState({ feedbackOpen: true });
   };
 
-  setTranslate = (evnt, inputProps) => {
-    this.setState({ translate: getTranslate(inputProps.value) });
+  setLanguage = (evnt, inputProps) => {
+    this.setState({ snippets: getTextForLanguage(inputProps.value) });
   };
-
-  setLanguage = ( evnt, inputProps ) => {
-    this.setState({ snippets: getTextForLanguage( inputProps.value ) });
-  }
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
 
     var val = value;
-    if (typeof checked === 'boolean') { val = checked; }
+    if (typeof checked === 'boolean') {
+      val = checked;
+    }
 
     var client      = cloneDeep(this.state.client),
         userChanged = { ...this.state.userChanged },  // only 1 deep
@@ -159,23 +159,35 @@ class VisitPage extends Component {
     setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
-    if (time === 'future') { userChanged[ id ] = true; }
+    if (time === 'future') {
+      userChanged[ id ] = true;
+    }
 
     // Hack for MVP (otherwise need dependency + history system)
     let oldShelter = this.state.oldShelter;
-    if (route === 'shelter') { oldShelter = client.current.shelter; }  // client shelter should be right now
-    if (client.current.hasSection8) { client.current.shelter = 'voucher'; }
-    // Restore shelter to previous value
-    else { client.current.shelter = oldShelter; }
+    if (route === 'shelter') {
+      // client shelter should be right now
+      oldShelter = client.current.shelter;
+    }
+
+    if (client.current.hasSection8) {
+      client.current.shelter = 'voucher';
+    } else {
+      // Restore shelter to previous value
+      client.current.shelter = oldShelter;
+    }
+
     client.future.shelter = client.current.shelter;
 
-    this.setState((prevState) => {return {
-      client:      client,
-      userChanged: userChanged,
-      oldShelter:  oldShelter,
-      // Form has been changed, data should now be downloadable
-      isBlocking:  true,
-    };});
+    this.setState((prevState) => {
+      return {
+        client:      client,
+        userChanged: userChanged,
+        oldShelter:  oldShelter,
+        // Form has been changed, data should now be downloadable
+        isBlocking:  true,
+      };
+    });
   };  // End onClientChange()
 
   saveForm = (exitAfterSave) => {
@@ -193,12 +205,16 @@ class VisitPage extends Component {
   };
 
   nextStep = () => {
-    this.setState((prevState) => {return { currentStep: prevState.currentStep + 1 };});
+    this.setState((prevState) => {
+      return { currentStep: prevState.currentStep + 1 };
+    });
     this.scrollToTop();
   };
 
   previousStep = () => {
-    this.setState((prevState) => {return { currentStep: prevState.currentStep - 1 };});
+    this.setState((prevState) => {
+      return { currentStep: prevState.currentStep - 1 };
+    });
     this.scrollToTop();
   };
 
@@ -224,7 +240,6 @@ class VisitPage extends Component {
           saveForm={ this.saveForm }
           resetClient={ this.resetClientPrompt }
           feedbackPrompt={ this.feedbackPrompt }
-          translate={ this.state.translate }
           snippets={ this.state.snippets } />
         <FeedbackAnytime feedbackPrompt={ this.feedbackPrompt } />
         <ResetAnytime resetClient={ this.resetClientPrompt } />

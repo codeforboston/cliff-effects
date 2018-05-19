@@ -8,7 +8,8 @@ import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
 
-const LocalizedRadioYesNo = function ({ translate, snippets, checked, name, onChange }) {
+
+const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
 
   return (
     <ControlledRadioYesNo
@@ -19,20 +20,20 @@ const LocalizedRadioYesNo = function ({ translate, snippets, checked, name, onCh
   );
 };
 
+
 /**
-*
-* @todo Add 'vertical list of options' creator that will create a list of fields using the `.field-aligner` class
-*
-* @function
-* @param {object} props See below.
-* @property {object} props.current Client current info.
-* @property {function} props.setClientProperty Updates state upstream.
-* @property {function} props.snippets Uses user chosen language-specific
-*    snippets.
-*
-* @returns {object} Component
-*/
-const CurrentBenefitsContent = ({ current, setClientProperty, translate, snippets }) => {
+ * @todo Add 'vertical list of options' creator that will create a list of fields using the `.field-aligner` class
+ *
+ * @function
+ * @param {object} props See below.
+ * @property {object} props.current Client current info.
+ * @property {function} props.setClientProperty Updates state upstream.
+ * @property {function} props.snippets Uses user chosen language-specific
+ *    snippets.
+ *
+ * @returns {object} Component
+ */
+const CurrentBenefitsContent = ({ current, setClientProperty, snippets }) => {
 
   return (
     <div >
@@ -40,13 +41,11 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate, snippet
         checked   = { current.hasSection8 }
         name      = { 'hasSection8' }
         onChange  = { setClientProperty }
-        translate = { translate }
         snippets  = { snippets } />
       <LocalizedRadioYesNo
         checked   = { current.hasSnap }
         name      = { 'hasSnap' }
         onChange  = { setClientProperty }
-        translate = { translate }
         snippets  = { snippets } />
     </div>
   );  // end return
@@ -65,8 +64,7 @@ const CurrentBenefitsContent = ({ current, setClientProperty, translate, snippet
  *
  * @returns {object} Component
  */
-// `props` is a cloned version of the original props. References broken.
-const CurrentBenefitsStep = ({ changeClient, nextStep, client, translate, snippets }) => {
+const CurrentBenefitsStep = ({ changeClient, nextStep, client, snippets }) => {
 
   /** @todo Abstract `getTimeSetter()` use to VisitPage.js? */
   const setTimeProp = getTimeSetter('current', changeClient);
@@ -82,7 +80,6 @@ const CurrentBenefitsStep = ({ changeClient, nextStep, client, translate, snippe
         <CurrentBenefitsContent
           setClientProperty = { setTimeProp }
           current           = { client.current }
-          translate         = { translate }
           snippets          = { snippets } />
       </FormPartsContainer>
 
