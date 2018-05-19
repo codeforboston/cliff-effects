@@ -40,15 +40,15 @@ class verticalLinePlugin {
           income = this.income;
 
     const i = xRange.findIndex((val) => {return income < val;});
-    const positionBetweenTwoPoints = (income - xRange[i - 1]) / (xRange[i] - xRange[i - 1]);
+    const positionBetweenTwoPoints = (income - xRange[ i - 1 ]) / (xRange[ i ] - xRange[ i - 1 ]);
 
     const data = chart.getDatasetMeta(0).data;
-    const prevX = data[i - 1]._model.x;
-    const currX = data[i]._model.x;
+    const prevX = data[ i - 1 ]._model.x;
+    const currX = data[ i ]._model.x;
     const offset = Math.floor(positionBetweenTwoPoints * (currX - prevX) + prevX);
 
     const ctx = chart.chart.ctx;
-    const scale = chart.scales['y-axis-0'];
+    const scale = chart.scales[ 'y-axis-0' ];
 
     ctx.save();
 
@@ -156,7 +156,8 @@ class GrossGraph extends Component {
   }
 
   render () {
-    const { client, multiplier, activePrograms } = this.props;
+    const { client, timescale, activePrograms } = this.props;
+    const multiplier = MULTIPLIERS[ timescale ];
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier) / 100) * 100,
@@ -166,7 +167,7 @@ class GrossGraph extends Component {
     withIncome.unshift('income');
 
     var xRange        = _.range(0, max, interval),
-        extraProps    = { income: { fill: 'origin' } },
+        extraProps    = { income: { fill: 'origin' }},
         datasets      = getDatasets(xRange, client, multiplier, withIncome, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
@@ -213,7 +214,7 @@ class GrossGraph extends Component {
               stacked:    true,
               scaleLabel: {
                 display:     true,
-                labelString: 'Annual Income ($)',
+                labelString: timescale + ' Income ($)',
               },
               ticks: { callback: formatAxis },
             },
@@ -230,7 +231,7 @@ class GrossGraph extends Component {
     };  // end `stackedAreaProps`
 
     return (
-      <Line {...stackedAreaProps} />
+      <Line { ...stackedAreaProps } />
     );
   }
 };  // End <GrossGraph>
@@ -244,10 +245,11 @@ class BenefitGraph extends Component {
   }
 
   render () {
-    const { client, multiplier, activePrograms, className } = this.props;
+    const { client, timescale, activePrograms, className } = this.props;
+    const multiplier = MULTIPLIERS[ timescale ];
 
     if (activePrograms.length === 0) {
-      return <Message className={className}>No public benefit programs have been selected</Message>;
+      return <Message className={ className }>No public benefit programs have been selected</Message>;
     }
 
     // Adjust to time-interval, round to hundreds
@@ -255,7 +257,7 @@ class BenefitGraph extends Component {
         interval  = Math.ceil((max / 100) / 10) * 10;
 
     var xRange      = _.range(0, max, interval),  // x-axis/income numbers
-        extraProps  = { snap: { fill: false }, section8: { fill: false } },
+        extraProps  = { snap: { fill: false }, section8: { fill: false }},
         datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
@@ -297,7 +299,7 @@ class BenefitGraph extends Component {
             {
               scaleLabel: {
                 display:     true,
-                labelString: 'Annual Income ($)',
+                labelString: timescale + ' Income ($)',
               },
               ticks: { callback: formatAxis },
             }, 
@@ -314,7 +316,7 @@ class BenefitGraph extends Component {
     };  // end lineProps
 
     return (
-      <Line {...lineProps} />
+      <Line { ...lineProps } />
     );
   }
 
@@ -325,16 +327,16 @@ class GraphHolder extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { activeID: 'Yearly', multiplier: MULTIPLIERS[ 'Yearly' ] };
+    this.state = { activeID: 'Yearly' };
   }
 
   onClick = (evnt) => {
     var id = evnt.target.id;
-    this.setState({ activeID: id, multiplier: MULTIPLIERS[ id ] });
+    this.setState({ activeID: id });
   };
 
   render () {
-    const { activeID, multiplier }  = this.state,
+    const { activeID }  = this.state,
           { Graph, client }         = this.props,
           { current }               = client,
           activePrograms            = [];
@@ -348,12 +350,12 @@ class GraphHolder extends Component {
       <div className='graph-holder'>
         <Graph
           className='client-graph'
-          client={client}
-          multiplier={multiplier}
-          activePrograms={activePrograms} />
+          client={ client }
+          timescale={ activeID }
+          activePrograms={ activePrograms } />
         <GraphTimeButtons
-          activeID={activeID}
-          onClick={this.onClick} />
+          activeID={ activeID }
+          onClick={ this.onClick } />
       </div>
     );
   };  // End render()
@@ -366,15 +368,15 @@ const ResultsGraph = ({ client, previousStep, resetClient }) => {
   return (
     <div className = 'result-page flex-item flex-column'>
       <FormPartsContainer
-        title     = {'Graphs'}
+        title     = { 'Graphs' }
         left      = {{ name: 'Go Back', func: previousStep }}
         right     = {{ name: 'Reset', func: resetClient }}>
         <GraphHolder
-          client={client}
-          Graph={GrossGraph} />
+          client={ client }
+          Graph={ GrossGraph } />
         <GraphHolder
-          client={client}
-          Graph={BenefitGraph} />
+          client={ client }
+          Graph={ BenefitGraph } />
       </FormPartsContainer>
     </div>
   );

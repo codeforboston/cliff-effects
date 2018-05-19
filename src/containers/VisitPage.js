@@ -121,7 +121,7 @@ class VisitPage extends Component {
         ...promptProps,
         open:     true,
         callback: (ok) => {
-          this.setState({ prompt: { open: false } });
+          this.setState({ prompt: { open: false }});
           callback(ok);
         },
       },
@@ -148,7 +148,7 @@ class VisitPage extends Component {
         current     = client.current,
         future      = client.future,
         routeList   = route.split('/'),
-        id          = routeList[0],  // `routeList` gets mutated
+        id          = routeList[ 0 ],  // `routeList` gets mutated
         newEvent    = { time: time, route: routeList, value: val };
 
     setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
@@ -208,20 +208,20 @@ class VisitPage extends Component {
     return (
       <div>
         <CustomClient
-          mayLoadCustomClient={this.state.mayLoadCustomClient}
-          loadClient={this.loadClient} />
+          mayLoadCustomClient={ this.state.mayLoadCustomClient }
+          loadClient={ this.loadClient } />
         <FormSection
-          currentStep={this.state.currentStep}
-          client={this.state.client}
-          nextStep={this.nextStep}
-          previousStep={this.previousStep}
-          changeClient={this.changeClient}
-          saveForm={this.saveForm}
-          resetClient={this.resetClientPrompt}
-          feedbackPrompt={this.feedbackPrompt}
-          translate={this.state.translate} />
-        <FeedbackAnytime feedbackPrompt={this.feedbackPrompt} />
-        <ResetAnytime resetClient={this.resetClientPrompt} />
+          currentStep={ this.state.currentStep }
+          client={ this.state.client }
+          nextStep={ this.nextStep }
+          previousStep={ this.previousStep }
+          changeClient={ this.changeClient }
+          saveForm={ this.saveForm }
+          resetClient={ this.resetClientPrompt }
+          feedbackPrompt={ this.feedbackPrompt }
+          translate={ this.state.translate } />
+        <FeedbackAnytime feedbackPrompt={ this.feedbackPrompt } />
+        <ResetAnytime resetClient={ this.resetClientPrompt } />
       </div>
     );
   };  // End getCurrentStep()
@@ -230,29 +230,29 @@ class VisitPage extends Component {
     return (
       <div className='forms-container flex-item flex-column'>
         <OnLeavePrompt
-          {...this.state.prompt}
-          isBlocking={this.state.isBlocking}
-          feedbackPrompt={this.feedbackPrompt} />
+          { ...this.state.prompt }
+          isBlocking={ this.state.isBlocking }
+          feedbackPrompt={ this.feedbackPrompt } />
 
         <ReactRouterConfirmLeave
           message='default'
-          prompt={this.prompt}
-          isBlocking={this.state.isBlocking} />
+          prompt={ this.prompt }
+          isBlocking={ this.state.isBlocking } />
         <ErrorPrompt
-          callback={(ok) => {return ok && this.resetClient();}}
-          client={this.state.client}
+          callback={ (ok) => {return ok && this.resetClient();} }
+          client={ this.state.client }
           header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
-          prompt={this.prompt} />
+          prompt={ this.prompt } />
 
-        <ConfirmLeave isBlocking={this.state.isBlocking} />
+        <ConfirmLeave isBlocking={ this.state.isBlocking } />
         <FeedbackPrompt
-          isOpen={this.state.feedbackOpen}
-          close={() => { this.setState({ feedbackOpen: false }); }}
-          data={this.state.client} />
+          isOpen={ this.state.feedbackOpen }
+          close={ () => { this.setState({ feedbackOpen: false }); } }
+          data={ this.state.client } />
 
         {this.state.redirect ?
-          <Redirect to={`/detail/${this.state.clientInfo.clientId}`} /> :
+          <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } /> :
           false
         }
 
@@ -264,9 +264,9 @@ class VisitPage extends Component {
             minWidth='874.5'
             style={{ padding: '14px 0' }}>
             <StepBar
-              currentStepIndex={this.state.currentStep}
-              steps={this.steps}
-              goToStep={this.goToStep} />
+              currentStepIndex={ this.state.currentStep }
+              steps={ this.steps }
+              goToStep={ this.goToStep } />
           </Responsive>
           <div
             className="flex-item flex-column"

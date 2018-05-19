@@ -5,8 +5,8 @@ import { CashFlowRow, ControlledRadioYesNo } from './formHelpers';
 const IncomeField = (props) => {
   return (
     <CashFlowRow
-      {...props}
-      type={'income'} />
+      { ...props }
+      type={ 'income' } />
   );
 };
 
@@ -51,7 +51,7 @@ class CashFlowRowAfterConfirm extends React.Component {
 
     this.setState({
       showField:   false,
-      storedValue: timeState[generic],
+      storedValue: timeState[ generic ],
     });
 
     setClientProperty(evt, {

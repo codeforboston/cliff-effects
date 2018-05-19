@@ -123,11 +123,11 @@ describe('SNAPhelpers', () => {
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(false);
       });
       it('that is disabled should return true', () => {
-        current.household[0].m_disabled = true;
+        current.household[ 0 ].m_disabled = true;
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(true);
       });
       it('that is 60 should return true', () => {
-        current.household[0].m_age = 60;
+        current.household[ 0 ].m_age = 60;
         expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(true);
       });
     });
@@ -177,57 +177,57 @@ describe('SNAPhelpers', () => {
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is under 13 should return false', () => {
-        current.household[0].m_age = 12;
+        current.household[ 0 ].m_age = 12;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is under 18 should return false', () => {
-        current.household[0].m_age = 13;
+        current.household[ 0 ].m_age = 13;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is disabled should return false', () => {
-        current.household[0].m_disabled = true;
+        current.household[ 0 ].m_disabled = true;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
     });
 
     describe('a spouse', () => {
 
-      beforeEach(() => { current.household[1] = { m_age: 30, m_role: 'spouse', m_disabled: false }; });
+      beforeEach(() => { current.household[ 1 ] = { m_age: 30, m_role: 'spouse', m_disabled: false }; });
 
       it('that is not disabled or under 18 should return false', () => {
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is under 13 should return false', () => {
-        current.household[1].m_age = 12;
+        current.household[ 1 ].m_age = 12;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is under 18 should return false', () => {
-        current.household[1].m_age = 13;
+        current.household[ 1 ].m_age = 13;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is disabled should return false', () => {
-        current.household[1].m_disabled = true;
+        current.household[ 1 ].m_disabled = true;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
     });
 
     describe('a regular member', () => {
 
-      beforeEach(() => { current.household[1] = { m_age: 30, m_role: 'member', m_disabled: false }; });
+      beforeEach(() => { current.household[ 1 ] = { m_age: 30, m_role: 'member', m_disabled: false }; });
 
       it('that is not disabled or under 18 should return false', () => {
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is under 13 should return false', () => {
-        current.household[1].m_age = 12;
+        current.household[ 1 ].m_age = 12;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
       });
       it('that is under 18 should return true', () => {
-        current.household[1].m_age = 13;
+        current.household[ 1 ].m_age = 13;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(true);
       });
       it('that is disabled should return true', () => {
-        current.household[1].m_disabled = true;
+        current.household[ 1 ].m_disabled = true;
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(true);
       });
     });
@@ -502,11 +502,11 @@ describe('SNAPhelpers', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      current.household[0].m_disabled = true;
+      current.household[ 0 ].m_disabled = true;
     });
 
     it('no disabled member should return 0', () => {
-      current.household[0].m_disabled = false;
+      current.household[ 0 ].m_disabled = false;
       expect(SNAPhelpers.getMedicalDeduction(current)).toEqual(0);
     });
 
@@ -548,8 +548,8 @@ describe('SNAPhelpers', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      UNDER13_CARE_EXPENSES.forEach((name) => {return current[name] = 1;});
-      OVER12_CARE_EXPENSES.forEach((name) => {return current[name] = 1;});
+      UNDER13_CARE_EXPENSES.forEach((name) => {return current[ name ] = 1;});
+      OVER12_CARE_EXPENSES.forEach((name) => {return current[ name ] = 1;});
     });
 
     it('no dependents, it should return 0', () => {

@@ -44,7 +44,7 @@ class RentShareField extends Component {
       <MonthlyCashFlowRow
         inputProps        = { inputProps }
         baseValue         = { timeState[ 'rentShare' ] }
-        includes          = {[ 'monthly' ]}
+        includes          = { [ 'monthly' ] }
         setClientProperty = { setClientProperty }
         rowProps          = { rowProps } />
     );
@@ -92,7 +92,7 @@ class ContractRentField extends Component {
       <MonthlyCashFlowRow
         inputProps        = { inputProps }
         baseValue         = { timeState[ 'contractRent' ] }
-        includes          = {[ 'monthly' ]}
+        includes          = { [ 'monthly' ] }
         setClientProperty = { setClientProperty }
         rowProps          = { rowProps } />
     );
@@ -117,7 +117,7 @@ const PlainRentRow = function ({ timeState, setClientProperty }) {
     <MonthlyCashFlowRow
       inputProps        = { inputProps }
       baseValue         = { timeState[ 'rent' ] }
-      includes          = {[ 'monthly' ]}
+      includes          = { [ 'monthly' ] }
       setClientProperty = { setClientProperty }
       rowProps          = { rowProps } />
   );

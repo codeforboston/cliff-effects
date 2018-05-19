@@ -17,27 +17,27 @@ import Header from './components/Header';
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 const App = () => {return (
   <div id='App'>
-    <HashRouter getUserConfirmation={getUserConfirmation}>
+    <HashRouter getUserConfirmation={ getUserConfirmation }>
       <div id='HashRouter'>
         <Route
           path="/:rest+"
-          component={Header} />
+          component={ Header } />
         <Route
           exact
           path="/"
-          component={HomePage} />
+          component={ HomePage } />
         <Route
           path="/about"
-          component={AboutPage} />
+          component={ AboutPage } />
         <Route
           path="/visit/:clientId/:visitId"
-          component={VisitPage} />
+          component={ VisitPage } />
         <Route
           path="/visit/load"
-          component={VisitPage} />
+          component={ VisitPage } />
         <Route
           path="/load"
-          component={VisitPage} />
+          component={ VisitPage } />
       </div>
     </HashRouter>
     <Footer />

@@ -6,12 +6,12 @@ const BetaWarning = function (props) {
     <Menu.Item>
       <Responsive
         as='strong'
-        {...Responsive.onlyTablet}>
+        { ...Responsive.onlyTablet }>
         This tool is a prototype.
       </Responsive>
       <Responsive
         as='strong'
-        {...Responsive.onlyComputer}>
+        { ...Responsive.onlyComputer }>
         This tool is a prototype and should not be used to make financial decisions.
       </Responsive>
     </Menu.Item>

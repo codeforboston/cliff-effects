@@ -24,7 +24,7 @@ class FeedbackPrompt extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    this.setState({ formData: Object.assign({}, this.state.formData, { [name]: value }) });
+    this.setState({ formData: Object.assign({}, this.state.formData, { [ name ]: value }) });
   };
 
   // returns promise that succeeds if submission is successful, else rejects.
@@ -71,56 +71,56 @@ class FeedbackPrompt extends React.Component {
   render () {
     const inputProps = (name) => {return {
       name,
-      value:    this.state.formData[name] || '',
+      value:    this.state.formData[ name ] || '',
       onChange: this.handleInputChange,
     };};
 
     return (
       <Modal
         size='large'
-        open={this.props.isOpen}
-        onClose={this.close}
-        closeOnDimmerClick={false}
-        closeOnEscape={false}
+        open={ this.props.isOpen }
+        onClose={ this.close }
+        closeOnDimmerClick={ false }
+        closeOnEscape={ false }
         closeIcon>
         <Modal.Header>Submit Cliff Effects Feedback</Modal.Header>
         <Modal.Content scrolling>
           <Form>
             <Form.Input
-              {...inputProps('currentSnap')}
-              label={'If amount for the CURRENT SNAP subsidy was wrong, what\'s the correct amount?'} />
+              { ...inputProps('currentSnap') }
+              label={ 'If amount for the CURRENT SNAP subsidy was wrong, what\'s the correct amount?' } />
             <Form.Input
-              {...inputProps('futureSnap')}
-              label={'If amount for the FUTURE SNAP subsidy was wrong, what\'s the correct amount?'} />
+              { ...inputProps('futureSnap') }
+              label={ 'If amount for the FUTURE SNAP subsidy was wrong, what\'s the correct amount?' } />
             <Form.Input
-              {...inputProps('futureS8')}
-              label={'If amount for the FUTURE Section 8 voucher was wrong, what\'s the correct amount?'} />
+              { ...inputProps('futureS8') }
+              label={ 'If amount for the FUTURE Section 8 voucher was wrong, what\'s the correct amount?' } />
             <Form.TextArea
-              {...inputProps('otherCircumstances')}
-              label={'What else could be going on that could affect your benefit amount? ' +
-              'For example, are you a veteran? Are you a full-time student?'} />
+              { ...inputProps('otherCircumstances') }
+              label={ 'What else could be going on that could affect your benefit amount? ' +
+              'For example, are you a veteran? Are you a full-time student?' } />
             <Form.TextArea
-              {...inputProps('bugReport')}
-              label={'If there was a bug or error, describe the bug and what you were trying to do when the bug happened.'} />
+              { ...inputProps('bugReport') }
+              label={ 'If there was a bug or error, describe the bug and what you were trying to do when the bug happened.' } />
             <Form.TextArea
-              {...inputProps('comments')}
-              label={'Do you have any other comments?'} />
+              { ...inputProps('comments') }
+              label={ 'Do you have any other comments?' } />
           </Form>
           <Message
-            hidden={!this.state.submissionFailed}
+            hidden={ !this.state.submissionFailed }
             error>
             Error submitting data, please try again or <a href="mailto:andrew@codeforboston.org">email us</a>.
           </Message>
         </Modal.Content>
         <Modal.Actions>
           <Button
-            onClick={this.close}
-            disabled={this.state.submitting}>Cancel
+            onClick={ this.close }
+            disabled={ this.state.submitting }>Cancel
           </Button>
           <Button
-            onClick={this.submit}
-            loading={this.state.submitting}
-            disabled={this.state.submitting}
+            onClick={ this.submit }
+            loading={ this.state.submitting }
+            disabled={ this.state.submitting }
             primary>Submit
           </Button>
         </Modal.Actions>
