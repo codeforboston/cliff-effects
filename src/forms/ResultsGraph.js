@@ -156,7 +156,8 @@ class GrossGraph extends Component {
   }
 
   render () {
-    const { client, multiplier, activePrograms } = this.props;
+    const { client, timescale, activePrograms } = this.props;
+    const multiplier = MULTIPLIERS[ timescale ];
 
     // Adjust to time-interval, round to hundreds
     var max       = Math.ceil((MAX_X_MONTHLY * multiplier) / 100) * 100,
@@ -213,7 +214,7 @@ class GrossGraph extends Component {
               stacked:    true,
               scaleLabel: {
                 display:     true,
-                labelString: 'Annual Income ($)',
+                labelString: timescale + ' Income ($)',
               },
               ticks: { callback: formatAxis },
             },
@@ -244,7 +245,8 @@ class BenefitGraph extends Component {
   }
 
   render () {
-    const { client, multiplier, activePrograms, className } = this.props;
+    const { client, timescale, activePrograms, className } = this.props;
+    const multiplier = MULTIPLIERS[ timescale ];
 
     if (activePrograms.length === 0) {
       return <Message className={ className }>No public benefit programs have been selected</Message>;
@@ -297,7 +299,7 @@ class BenefitGraph extends Component {
             {
               scaleLabel: {
                 display:     true,
-                labelString: 'Annual Income ($)',
+                labelString: timescale + ' Income ($)',
               },
               ticks: { callback: formatAxis },
             }, 
@@ -325,16 +327,16 @@ class GraphHolder extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { activeID: 'Yearly', multiplier: MULTIPLIERS[ 'Yearly' ] };
+    this.state = { activeID: 'Yearly' };
   }
 
   onClick = (evnt) => {
     var id = evnt.target.id;
-    this.setState({ activeID: id, multiplier: MULTIPLIERS[ id ] });
+    this.setState({ activeID: id });
   };
 
   render () {
-    const { activeID, multiplier }  = this.state,
+    const { activeID }  = this.state,
           { Graph, client }         = this.props,
           { current }               = client,
           activePrograms            = [];
@@ -349,7 +351,7 @@ class GraphHolder extends Component {
         <Graph
           className='client-graph'
           client={ client }
-          multiplier={ multiplier }
+          timescale={ activeID }
           activePrograms={ activePrograms } />
         <GraphTimeButtons
           activeID={ activeID }
