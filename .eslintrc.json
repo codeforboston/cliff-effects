@@ -20,13 +20,15 @@
     "react"
   ],
   "rules": {
+    "babel/no-invalid-this": 1,
+    "babel/semi": 1,
+    "react/prop-types": 0,
+
     "array-bracket-newline": ["warn", { "multiline": true }],
     "array-bracket-spacing": ["warn", "always"],
     "array-element-newline": ["warn", { "multiline": true }],
     "arrow-body-style": ["warn", "always"],
     "arrow-parens": ["warn", "always"],
-    "babel/no-invalid-this": 1,
-    "babel/semi": 1,
     "comma-dangle": ["warn", "always-multiline"],
     "computed-property-spacing": ["warn", "always"],
     "curly": ["warn", "all"],
@@ -41,14 +43,13 @@
     "object-property-newline": ["warn", { "allowAllPropertiesOnSameLine": true }],
     "quotes": ["warn", "single"],
     "react/jsx-closing-bracket-location": ["warn", "after-props"],
-    "react/jsx-closing-tag-location": "warn",
+    "react/jsx-closing-tag-location": ["warn"],
     "react/jsx-curly-spacing": ["warn", "always", { "spacing": { "objectLiterals": "never" }}],
     "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
     "react/jsx-max-props-per-line": ["warn", { "maximum": 1 }],
-    "react/jsx-tag-spacing": "warn",
-    "react/prop-types": 0,
+    "react/jsx-tag-spacing": ["warn"],
     "react/self-closing-comp": "warn",
     "space-in-parens": ["warn", "never"],
-    "space-infix-ops": "warn"
+    "space-infix-ops": ["warn"]
   }
 }
