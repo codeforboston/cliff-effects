@@ -5,8 +5,8 @@ import { CashFlowRow, ControlledRadioYesNo } from './formHelpers';
 const IncomeField = (props) => {
   return (
     <CashFlowRow
-      {...props}
-      type={'income'} />
+      { ...props }
+      type={ 'income' } />
   );
 };
 

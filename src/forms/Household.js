@@ -80,8 +80,8 @@ const ColumnHeader = function ({ children, columnNum }) {
   return (
     <Container>
       <ColumnHeading
-        type={'household'}
-        colName={''}>
+        type={ 'household' }
+        colName={ '' }>
         { children }
       </ColumnHeading>
     </Container>
@@ -104,11 +104,11 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 
   return (
     <Button
-      basic={!!basic}
-      color={color}
-      icon={iconName}
-      className={className}
-      onClick={onClick}
+      basic={ !!basic }
+      color={ color }
+      icon={ iconName }
+      className={ className }
+      onClick={ onClick }
       style={{ padding: '0', height: '2.2em', width: '2.2em' }}
       circular />
   );
@@ -145,10 +145,10 @@ const Role = function ({ member, setMember }) {
 
     ThisRole = <Dropdown
       selection
-      name={'m_role'}
-      value={member.m_role}
-      options={options}
-      onChange={setMember} />;
+      name={ 'm_role' }
+      value={ member.m_role }
+      options={ options }
+      onChange={ setMember } />;
 
   } else {
 
@@ -205,18 +205,18 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
   return (
     <Form.Field
       className='flex-item'
-      key={indx}>
+      key={ indx }>
 
       <Columns.One>
         { indx > 0
           ? <MemberButton
-            className={'remove'}
-            onClick={removeMember}
-            iconName={'remove'} />
+            className={ 'remove' }
+            onClick={ removeMember }
+            iconName={ 'remove' } />
           : <span>{ household.length > 1
             ? <Icon
               fitted
-              name={'ban'}
+              name={ 'ban' }
               style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
             : null
           }
@@ -226,26 +226,26 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 
       <Columns.Two>
         <Role
-          member={member}
-          setMember={onMemberChange} />
+          member={ member }
+          setMember={ onMemberChange } />
       </Columns.Two>
 
       <Columns.Three>
         <ManagedNumberField
-          value      = {member.m_age}
-          name       = {'m_age'}
-          className  = {time + ' member-age ' + time}
-          validation = {isPositiveWholeNumber}
-          format     = {function (value) { return value; }}
-          store      = {onMemberChange}
-          onBlur     = {function () { return true; }} />
+          value      = { member.m_age }
+          name       = { 'm_age' }
+          className  = { time + ' member-age ' + time }
+          validation = { isPositiveWholeNumber }
+          format     = { function (value) { return value; } }
+          store      = { onMemberChange }
+          onBlur     = { function () { return true; } } />
       </Columns.Three>
 
       <Columns.Four>
         <Checkbox
-          name={'m_disabled'}
-          checked={member.m_disabled}
-          onChange={onMemberChecked} />
+          name={ 'm_disabled' }
+          checked={ member.m_disabled }
+          onChange={ onMemberChecked } />
       </Columns.Four>
 
     </Form.Field>
@@ -334,26 +334,26 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
       { getMembers(current, time, setHousehold, setClientProperty) }
 
       <Button
-        id={'addMember'}
+        id={ 'addMember' }
         basic
-        onClick={addMember}>
-        <Columns.One noMargin={true}>
+        onClick={ addMember }>
+        <Columns.One noMargin={ true }>
           <Icon
-            name={'plus'}
+            name={ 'plus' }
             circular
             inverted
-            color={'teal'} />
+            color={ 'teal' } />
         </Columns.One>
 
-        <Columns.Two noMargin={true}>
+        <Columns.Two noMargin={ true }>
           <Header
             as='h4'
-            color={'teal'}> Add a member 
+            color={ 'teal' }> Add a member 
           </Header>
         </Columns.Two>
 
-        <Columns.Three noMargin={true} />
-        <Columns.Four noMargin={true} />
+        <Columns.Three noMargin={ true } />
+        <Columns.Four noMargin={ true } />
       </Button>
 
     </div>
@@ -378,14 +378,14 @@ const HouseholdStep = function (props) {
   return (
     <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
-        title     = {'Household'}
-        clarifier = {'Information about the members of your household.'}
+        title     = { 'Household' }
+        clarifier = { 'Information about the members of your household.' }
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Next', func: props.nextStep }}>
         <HouseholdContent
-          setClientProperty={setTimeProp}
-          current={props.client.current}
-          time={'current'} />
+          setClientProperty={ setTimeProp }
+          current={ props.client.current }
+          time={ 'current' } />
       </FormPartsContainer>
     </Form>
   );

@@ -18,7 +18,7 @@ const StepBar = ({ steps, currentStepIndex, goToStep }) => {
     className='six'
     size='mini'
     ordered
-    items={cleanSteps} />);
+    items={ cleanSteps } />);
 };
 
 export default StepBar;
