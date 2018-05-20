@@ -20,10 +20,10 @@
       "react"
   ],
   "rules": {
+      "eol-last": ["warn", "always"],
       "babel/no-invalid-this": 1,
       "babel/semi": 1,
       "react/prop-types": 0,
-
       "object-curly-spacing": ["warn", "always", { "arraysInObjects": false, "objectsInObjects": false }],	
       "array-bracket-spacing": ["warn", "always"],
       "computed-property-spacing": ["warn", "always"],
