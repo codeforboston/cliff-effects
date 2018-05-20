@@ -20,8 +20,7 @@ import {
 test('getEveryMember()', () => {
   expect(getEveryMember([ 0, 1, 0 ], (val) => {
     return val === 0;
-  }
-  )).toHaveLength(2);
+  })).toHaveLength(2);
 });
 
 test('getEveryMember() empty result', () => {
