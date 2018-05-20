@@ -19,7 +19,8 @@ import {
 // getEveryMember(array, fn) = array.filter(fn)
 test('getEveryMember()', () => {
   expect(getEveryMember([ 0, 1, 0 ], (val) => {
-    return val === 0;}
+    return val === 0;
+  }
   )).toHaveLength(2);
 });
 
@@ -48,20 +49,20 @@ describe('head or spouse', () => {
 
   test('isHeadOrSpouse()', () => {
     headOrSpouse.forEach((member) => {
-      return expect(isHeadOrSpouse(member)).toBe(true);
+      expect(isHeadOrSpouse(member)).toBe(true);
     });
     notHeadOrSpouse.forEach((member) => {
-      return expect(isHeadOrSpouse(member)).toBe(false);
+      expect(isHeadOrSpouse(member)).toBe(false);
     });
   });
 
   // !isHeadOrSpouse()
   test('isNotHeadOrSpouse()', () => {
     headOrSpouse.forEach((member) => {
-      return expect(isNotHeadOrSpouse(member)).toBe(false);
+      expect(isNotHeadOrSpouse(member)).toBe(false);
     });
     notHeadOrSpouse.forEach((member) => {
-      return expect(isNotHeadOrSpouse(member)).toBe(true);
+      expect(isNotHeadOrSpouse(member)).toBe(true);
     });
   });
 
@@ -82,10 +83,10 @@ describe('dependents', () => {
 
   test('isDependent()', () => {
     dependents.forEach((member) => {
-      return expect(isDependent(member)).toBe(true);
+      expect(isDependent(member)).toBe(true);
     });
     notDependents.forEach((member) => {
-      return expect(isDependent(member)).toBe(false);
+      expect(isDependent(member)).toBe(false);
     });
   });
 
@@ -130,10 +131,10 @@ describe('under 13', () => {
 
   test('isUnder13()', () => {
     under13.forEach((member) => {
-      return expect(isUnder13(member)).toBe(true);
+      expect(isUnder13(member)).toBe(true);
     });
     over12.forEach((member) => {
-      return expect(isUnder13(member)).toBe(false);
+      expect(isUnder13(member)).toBe(false);
     });
   });
 
