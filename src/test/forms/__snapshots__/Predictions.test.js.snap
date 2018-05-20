@@ -19,7 +19,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         "name": "Reset",
       }
     }
-    title="Future Household Income"
+    title="What Might Happen?"
   >
     <IncomeForm
       future={
@@ -80,7 +80,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       as="h3"
       className="ui Header align centered"
     >
-      How will your income affect your future benefits?
+      How could your benefits change?
     </Header>
     <TabbedVisualizations
       client={
