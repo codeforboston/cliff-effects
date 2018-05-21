@@ -118,24 +118,24 @@ hlp.getGrossIncomeTestResult = function (client) {
 // SHELTER
 hlp.isHomeless = function(client) {
   // Worth abstracting, used a few places and may change
-  return client.shelter === 'homeless';
+  return client.housing === 'homeless';
 };
 
 /** @todo: What about housing voucher? */
 hlp.getNonUtilityCosts = function(client) {
-  var shelterCost = null;
+  var housingCost = null;
 
   if (hlp.isHomeless(client)) {
-    shelterCost = 0;
-  } else if (client.shelter === 'homeowner') {
-    shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
-  } else if (client.shelter === 'renter') {
-    shelterCost = client.rent;
-  } else if (client.shelter === 'voucher') {
-    shelterCost = client.rentShare;
+    housingCost = 0;
+  } else if (client.housing === 'homeowner') {
+    housingCost = client.mortgage + client.housingInsurance + client.propertyTax;
+  } else if (client.housing === 'renter') {
+    housingCost = client.rent;
+  } else if (client.housing === 'voucher') {
+    housingCost = client.rentShare;
   }
 
-  return shelterCost;
+  return housingCost;
 };
 
 hlp.getUtilityCostByBracket = function (client) {
@@ -161,12 +161,12 @@ hlp.getUtilityCostByBracket = function (client) {
   }
 };
 
-hlp.getTotalshelterCost = function (client) {
+hlp.getTotalhousingCost = function (client) {
 
-  var shelterCosts = hlp.getNonUtilityCosts(client),
+  var housingCosts = hlp.getNonUtilityCosts(client),
       utilityCosts = hlp.getUtilityCostByBracket(client);
 
-  return shelterCosts + utilityCosts;
+  return housingCosts + utilityCosts;
 };
 
 
@@ -222,7 +222,7 @@ hlp.getHalfAdjustedIncome = function(client) {
 };
 
 hlp.getRawShelterDeduction = function(client) {
-  var totalShelterCost    = hlp.getTotalshelterCost(client),
+  var totalShelterCost    = hlp.getTotalhousingCost(client),
       halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
       rawShelterDeduction = totalShelterCost - halfAdjustedIncome;
 
@@ -263,8 +263,8 @@ hlp.getAdjustedNotGrossIncome = function (client) {
 hlp.monthlyNetIncome = function(client) {
   var adjustedIncome        = hlp.getAdjustedNotGrossIncome(client),
       hasHomelessDeduction  = hlp.getHomelessDeduction(client),
-      shelterDeduction      = hlp.getShelterDeduction(client),
-      extraDeductions       = hasHomelessDeduction + shelterDeduction;
+      housingDeduction      = hlp.getShelterDeduction(client),
+      extraDeductions       = hasHomelessDeduction + housingDeduction;
 
   var afterDeductions = adjustedIncome - extraDeductions;
 

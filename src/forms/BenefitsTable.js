@@ -8,7 +8,7 @@ import { Table } from 'semantic-ui-react';
 
 // BENEFIT LOGIC
 import { getSNAPBenefits } from '../programs/federal/snap';
-import { getHousingBenefit } from '../programs/massachusetts/housing';
+import { getSection8Benefit } from '../programs/massachusetts/section8';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';
@@ -33,8 +33,8 @@ const BenefitsTable = function (props) {
   var SNAPBenefitCurrent  = curr.hasSnap ? Math.round(getSNAPBenefits(client, 'current')) : 0,
       SNAPBenefitFuture   = curr.hasSnap ? Math.round(getSNAPBenefits(client, 'future')) : 0,
       SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8BenefitCurrent  = curr.hasSection8 ? Math.round(getHousingBenefit(client, 'current')) : 0,
-      sec8BenefitFuture   = curr.hasSection8 ? Math.round(getHousingBenefit(client, 'future')) : 0,
+      sec8BenefitCurrent  = curr.hasSection8 ? Math.round(getSection8Benefit(client, 'current')) : 0,
+      sec8BenefitFuture   = curr.hasSection8 ? Math.round(getSection8Benefit(client, 'future')) : 0,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,

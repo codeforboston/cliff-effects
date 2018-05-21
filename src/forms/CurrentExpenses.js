@@ -89,7 +89,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
 
 const HousingDetails = function ({ current, type, time, setClientProperty }) {
 
-  let shelter = current.shelter,
+  let housing = current.housing,
       sharedProps = {
         timeState:         current,
         current:           current,
@@ -98,7 +98,7 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
         setClientProperty: setClientProperty,
       };
 
-  if (current.shelter === 'voucher') {
+  if (current.housing === 'voucher') {
     return (
       <div>
         <ContractRentField { ...sharedProps } />
@@ -107,10 +107,10 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
       </div>
     );
 
-  } else if (shelter === 'homeless') {
+  } else if (housing === 'homeless') {
     return null;
 
-  } else if (shelter === 'renter') {
+  } else if (housing === 'renter') {
     return (
       <div>
         <br />
@@ -119,7 +119,7 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
       </div>
     );
 
-  } else if (shelter === 'homeowner') {
+  } else if (housing === 'homeowner') {
     return (
       <div>
         <IntervalColumnHeadings type={ type } />
@@ -150,7 +150,7 @@ const HousingRadio = function ({ currentValue, label, time, setClientProperty })
   return (
     <Form.Field>
       <Radio
-        name={ 'shelter' }
+        name={ 'housing' }
         label={ label }
         value={ value }
         checked={ currentValue === value }
@@ -194,23 +194,23 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 
       <FormHeading>Housing</FormHeading>
 
-      { current.shelter === 'voucher'
+      { current.housing === 'voucher'
         ? null
         : <div>
           
           <Header as='h4'>What is your housing situation?</Header>
           <HousingRadio
-            currentValue={ current.shelter }
+            currentValue={ current.housing }
             label={ 'Homeless' }
             time={ time }
             setClientProperty={ ensureRouteAndValue } />
           <HousingRadio
-            currentValue={ current.shelter }
+            currentValue={ current.housing }
             label={ 'Renter' }
             time={ time }
             setClientProperty={ ensureRouteAndValue } />
           <HousingRadio
-            currentValue={ current.shelter }
+            currentValue={ current.housing }
             label={ 'Homeowner' }
             time={ time }
             setClientProperty={ ensureRouteAndValue } />

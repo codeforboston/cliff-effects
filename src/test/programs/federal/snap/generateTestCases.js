@@ -69,11 +69,11 @@ const unearnedIncomeSources = (changes) => {
 randomizers.push(unearnedIncomeSources);
 
 const possibleShelters = [ 'homeless', 'houseowner', 'renter', 'voucher' ];
-const shelters = (changes) => {
-  changes.shelter = sample(possibleShelters);
+const housings = (changes) => {
+  changes.housing = sample(possibleShelters);
   return changes;
 };
-randomizers.push(shelters);
+randomizers.push(housings);
 
 const possibleUtilityBrackets = [ 'Heating', 'Non-heating', 'Telephone', 'None' ];
 const utilityBrackets = (changes) => {
@@ -96,13 +96,13 @@ const utilityBrackets = (changes) => {
 };
 randomizers.push(utilityBrackets);
 
-const shelterFeeNames =
+const housingFeeNames =
   [ 'mortgage', 'propertyTax', 'housingInsurance', 'rent', 'rentShare' ];
-const shelterFees = (changes) => {
-  shelterFeeNames.forEach((name) => {return changes[ name ] = (Math.random() * 50) ** 2 + 200;});
+const housingFees = (changes) => {
+  housingFeeNames.forEach((name) => {return changes[ name ] = (Math.random() * 50) ** 2 + 200;});
   return changes;
 };
-randomizers.push(shelterFees);
+randomizers.push(housingFees);
 
 const disabledMedical = (changes) => {
   changes.disabledMedical = (Math.random() * 100) ** 2;

@@ -309,26 +309,26 @@ describe('SNAPhelpers', () => {
 
 
   /** @todo `.isHomeless()` should probably be an abstracted
-   *     shelter getter.  */
+   *     housing getter.  */
   // `SNAPhelpers.isHomeless()`
   describe('`.isHomeless( timeClient )` given a time-restricted client object', () => {
     let current;
     beforeEach(() => { current = cloneDeep(defaultCurrent); });
 
     it('that is "homeless", shoud return true', () => {
-      current.shelter = 'homeless';
+      current.housing = 'homeless';
       expect(SNAPhelpers.isHomeless(current)).toBe(true);
     });
     it('that is a "renter", should return false', () => {
-      current.shelter = 'renter';
+      current.housing = 'renter';
       expect(SNAPhelpers.isHomeless(current)).toBe(false);
     });
     it('that is a "voucher", should return false', () => {
-      current.shelter = 'voucher';
+      current.housing = 'voucher';
       expect(SNAPhelpers.isHomeless(current)).toBe(false);
     });
     it('that is a "homeowner", should return false', () => {
-      current.shelter = 'homeowner';
+      current.housing = 'homeowner';
       expect(SNAPhelpers.isHomeless(current)).toBe(false);
     });
   });
@@ -351,24 +351,24 @@ describe('SNAPhelpers', () => {
     });
 
     it('that is "homeless", shoud return 0', () => {
-      current.shelter = 'homeless';
+      current.housing = 'homeless';
       expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(0);
     });
     it('that is a "homeowner", should return only the sum of mortgage, housing insurance, and property taxes', () => {
-      current.shelter = 'homeowner';
+      current.housing = 'homeowner';
       expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(111);
     });
     it('that is a "renter", should return only the rent amount', () => {
-      current.shelter = 'renter';
+      current.housing = 'renter';
       expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(1000);
     });
     it('that is a "voucher", should return only the rent share (esp. not contract rent)', () => {
-      current.shelter = 'voucher';
+      current.housing = 'voucher';
       expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(100000);
     });
-    /** @todo Should a wrong shelter value to `.getNonUtilityCosts()` throw an error? */
+    /** @todo Should a wrong housing value to `.getNonUtilityCosts()` throw an error? */
     it('that is not an allowed value, should return null', () => {
-      current.shelter = 'wrong';
+      current.housing = 'wrong';
       expect(SNAPhelpers.getNonUtilityCosts(current)).toBe(null);
     });
   });
@@ -388,7 +388,7 @@ describe('SNAPhelpers', () => {
     let current;
     beforeEach(() => {
       current         = cloneDeep(defaultCurrent);
-      current.shelter = 'renter';
+      current.housing = 'renter';
     });
 
     it('that is "homeless", shoud return 0', () => {
@@ -438,7 +438,7 @@ describe('SNAPhelpers', () => {
 
   // May not need to be tested considering tests for utilities and
   // other expenses. This one just adds those two.
-  // `SNAPhelpers.getTotalshelterCost()`
+  // `SNAPhelpers.getTotalhousingCost()`
 
 
   /** @todo Rake tests - test a household with > 6 members */
@@ -589,34 +589,34 @@ describe('SNAPhelpers', () => {
 
   // `SNAPhelpers.getRawShelterDeduction()`
   describe('`.getRawShelterDeduction( timeClient )` given a time-restricted client object with', () => {
-    let current, getTotalshelterCost, getHalfAdjustedIncome;
+    let current, getTotalhousingCost, getHalfAdjustedIncome;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      getTotalshelterCost = jest.spyOn(SNAPhelpers, 'getTotalshelterCost');
+      getTotalhousingCost = jest.spyOn(SNAPhelpers, 'getTotalhousingCost');
       getHalfAdjustedIncome = jest.spyOn(SNAPhelpers, 'getHalfAdjustedIncome');
     });
     afterEach(() => {
-      getTotalshelterCost.mockRestore();
+      getTotalhousingCost.mockRestore();
       getHalfAdjustedIncome.mockRestore();
     });
 
-    it('a positive raw shelter deduction, it should return the deductions', () => {
-      const shelterCost = 100;
+    it('a positive raw housing deduction, it should return the deductions', () => {
+      const housingCost = 100;
       const adjustedIncome = 1;
-      getTotalshelterCost.mockReturnValue(shelterCost);
+      getTotalhousingCost.mockReturnValue(housingCost);
       getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
 
-      const rawDeduction = shelterCost - adjustedIncome;
+      const rawDeduction = housingCost - adjustedIncome;
       expect(SNAPhelpers.getRawShelterDeduction(current)).toEqual(rawDeduction);
     });
 
-    it('a negative raw shelter deduction, it should return zero', () => {
-      const shelterCost = 1;
+    it('a negative raw housing deduction, it should return zero', () => {
+      const housingCost = 1;
       const adjustedIncome = 100;
-      getTotalshelterCost.mockReturnValue(shelterCost);
+      getTotalhousingCost.mockReturnValue(housingCost);
       getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
 
-      const rawDeduction = shelterCost - adjustedIncome;
+      const rawDeduction = housingCost - adjustedIncome;
       expect(rawDeduction).toBeLessThan(0);
       expect(SNAPhelpers.getRawShelterDeduction(current)).toEqual(0);
     });
@@ -663,13 +663,13 @@ describe('SNAPhelpers', () => {
     });
 
     it('homeless, it should return the homeless deduction', () => {
-      current.shelter = 'homeless';
+      current.housing = 'homeless';
       expect(SNAPhelpers.getHomelessDeduction(current)).toEqual(SNAPData.HOMELESS_DEDUCTION);
     });
 
     it('not homeless, it should return zero', () => {
-      [ 'homeowner', 'renter', 'voucher' ].forEach((shelter) => {
-        current.shelter = shelter;
+      [ 'homeowner', 'renter', 'voucher' ].forEach((housing) => {
+        current.housing = housing;
         expect(SNAPhelpers.getHomelessDeduction(current)).toEqual(0);
       });
     });
@@ -728,20 +728,20 @@ describe('SNAPhelpers', () => {
     it('positive income after deductions, it should return that adjusted income', () => {
       const income = 1000;
       const homelessDeduction = 100;
-      const shelterDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction) ];
+      const housingDeduction = 1;
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(housingDeduction) ];
       
-      const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
+      const monthlyNetIncome = income - homelessDeduction - housingDeduction;
       expect(SNAPhelpers.monthlyNetIncome(current)).toEqual(monthlyNetIncome);
     });
 
     it('negative income after deductions, it should return 0', () => {
       const income = 0;
       const homelessDeduction = 100;
-      const shelterDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(shelterDeduction) ];
+      const housingDeduction = 1;
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(housingDeduction) ];
       
-      const monthlyNetIncome = income - homelessDeduction - shelterDeduction;
+      const monthlyNetIncome = income - homelessDeduction - housingDeduction;
       expect(monthlyNetIncome).toBeLessThan(0);
       expect(SNAPhelpers.monthlyNetIncome(current)).toEqual(0);
     });

@@ -46,7 +46,7 @@ import {
 * @todo Find out how close to 0/change the benefit amount needs to be in
 * order for the client to be warned.
 */
-const getHousingBenefit = function (client, timeframe) {
+const getSection8Benefit = function (client, timeframe) {
   /** @todo Just return number values */
 
   // Current subsidy MUST already be known in every case
@@ -64,7 +64,7 @@ const getHousingBenefit = function (client, timeframe) {
       newSubsidy  = contrRent - maxShare;
 
   return newSubsidy;
-};  // End getHousingBenefit
+};  // End getSection8Benefit
 
 
 var section8Helpers = {},
@@ -252,6 +252,6 @@ hlp.hasDsbOrEldHeadOrSpouse = function (client, timeframe) {
 
 
 export {
-  getHousingBenefit,
+  getSection8Benefit,
   section8Helpers,
 };
