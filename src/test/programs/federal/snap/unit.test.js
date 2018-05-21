@@ -438,7 +438,7 @@ describe('SNAPhelpers', () => {
 
   // May not need to be tested considering tests for utilities and
   // other expenses. This one just adds those two.
-  // `SNAPhelpers.getTotalhousingCost()`
+  // `SNAPhelpers.getTotalHousingCost()`
 
 
   /** @todo Rake tests - test a household with > 6 members */
@@ -587,70 +587,70 @@ describe('SNAPhelpers', () => {
   });
 
 
-  // `SNAPhelpers.getRawShelterDeduction()`
-  describe('`.getRawShelterDeduction( timeClient )` given a time-restricted client object with', () => {
-    let current, getTotalhousingCost, getHalfAdjustedIncome;
+  // `SNAPhelpers.getRawHousingDeduction()`
+  describe('`.getRawHousingDeduction( timeClient )` given a time-restricted client object with', () => {
+    let current, getTotalHousingCost, getHalfAdjustedIncome;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      getTotalhousingCost = jest.spyOn(SNAPhelpers, 'getTotalhousingCost');
+      getTotalHousingCost = jest.spyOn(SNAPhelpers, 'getTotalHousingCost');
       getHalfAdjustedIncome = jest.spyOn(SNAPhelpers, 'getHalfAdjustedIncome');
     });
     afterEach(() => {
-      getTotalhousingCost.mockRestore();
+      getTotalHousingCost.mockRestore();
       getHalfAdjustedIncome.mockRestore();
     });
 
     it('a positive raw housing deduction, it should return the deductions', () => {
       const housingCost = 100;
       const adjustedIncome = 1;
-      getTotalhousingCost.mockReturnValue(housingCost);
+      getTotalHousingCost.mockReturnValue(housingCost);
       getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
 
       const rawDeduction = housingCost - adjustedIncome;
-      expect(SNAPhelpers.getRawShelterDeduction(current)).toEqual(rawDeduction);
+      expect(SNAPhelpers.getRawHousingDeduction(current)).toEqual(rawDeduction);
     });
 
     it('a negative raw housing deduction, it should return zero', () => {
       const housingCost = 1;
       const adjustedIncome = 100;
-      getTotalhousingCost.mockReturnValue(housingCost);
+      getTotalHousingCost.mockReturnValue(housingCost);
       getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
 
       const rawDeduction = housingCost - adjustedIncome;
       expect(rawDeduction).toBeLessThan(0);
-      expect(SNAPhelpers.getRawShelterDeduction(current)).toEqual(0);
+      expect(SNAPhelpers.getRawHousingDeduction(current)).toEqual(0);
     });
   });
 
 
-  // `SNAPhelpers.getShelterDeduction()`
-  describe('`.getShelterDeduction( timeClient )` given a time-restricted client object with', () => {
-    let current, getRawShelterDeduction;
+  // `SNAPhelpers.getHousingDeduction()`
+  describe('`.getHousingDeduction( timeClient )` given a time-restricted client object with', () => {
+    let current, getRawHousingDeduction;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      getRawShelterDeduction = jest.spyOn(SNAPhelpers, 'getRawShelterDeduction');
+      getRawHousingDeduction = jest.spyOn(SNAPhelpers, 'getRawHousingDeduction');
     });
     afterEach(() => {
-      getRawShelterDeduction.mockRestore();
+      getRawHousingDeduction.mockRestore();
     });
 
     it('an elderly or disabled member, it should return the raw deduction', () => {
       current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
       const rawDeduction = 12;
-      getRawShelterDeduction.mockReturnValue(rawDeduction);
-      expect(SNAPhelpers.getShelterDeduction(current)).toEqual(rawDeduction);
+      getRawHousingDeduction.mockReturnValue(rawDeduction);
+      expect(SNAPhelpers.getHousingDeduction(current)).toEqual(rawDeduction);
     });
 
     it('a raw deduction under the cap, it should return the raw deduction', () => {
       const rawDeduction = SNAPData.SHELTER_DEDUCTION_CAP - 1;
-      getRawShelterDeduction.mockReturnValue(rawDeduction);
-      expect(SNAPhelpers.getShelterDeduction(current)).toEqual(rawDeduction);
+      getRawHousingDeduction.mockReturnValue(rawDeduction);
+      expect(SNAPhelpers.getHousingDeduction(current)).toEqual(rawDeduction);
     });
 
     it('a raw deduction above the cap, it should return the cap', () => {
       const rawDeduction = SNAPData.SHELTER_DEDUCTION_CAP + 1;
-      getRawShelterDeduction.mockReturnValue(rawDeduction);
-      expect(SNAPhelpers.getShelterDeduction(current)).toEqual(SNAPData.SHELTER_DEDUCTION_CAP);
+      getRawHousingDeduction.mockReturnValue(rawDeduction);
+      expect(SNAPhelpers.getHousingDeduction(current)).toEqual(SNAPData.SHELTER_DEDUCTION_CAP);
     });
   });
 
@@ -729,7 +729,7 @@ describe('SNAPhelpers', () => {
       const income = 1000;
       const homelessDeduction = 100;
       const housingDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(housingDeduction) ];
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction) ];
       
       const monthlyNetIncome = income - homelessDeduction - housingDeduction;
       expect(SNAPhelpers.monthlyNetIncome(current)).toEqual(monthlyNetIncome);
@@ -739,7 +739,7 @@ describe('SNAPhelpers', () => {
       const income = 0;
       const homelessDeduction = 100;
       const housingDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getShelterDeduction').mockReturnValue(housingDeduction) ];
+      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction) ];
       
       const monthlyNetIncome = income - homelessDeduction - housingDeduction;
       expect(monthlyNetIncome).toBeLessThan(0);

@@ -161,7 +161,7 @@ hlp.getUtilityCostByBracket = function (client) {
   }
 };
 
-hlp.getTotalhousingCost = function (client) {
+hlp.getTotalHousingCost = function (client) {
 
   var housingCosts = hlp.getNonUtilityCosts(client),
       utilityCosts = hlp.getUtilityCostByBracket(client);
@@ -221,17 +221,17 @@ hlp.getHalfAdjustedIncome = function(client) {
   return hlp.getAdjustedNotGrossIncome(client) * 0.50;
 };
 
-hlp.getRawShelterDeduction = function(client) {
-  var totalShelterCost    = hlp.getTotalhousingCost(client),
+hlp.getRawHousingDeduction = function(client) {
+  var totalHousingCost    = hlp.getTotalHousingCost(client),
       halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
-      rawShelterDeduction = totalShelterCost - halfAdjustedIncome;
+      rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
 
-  return Math.max(0, rawShelterDeduction);
+  return Math.max(0, rawHousingDeduction);
 };
 
-hlp.getShelterDeduction = function(client) {
+hlp.getHousingDeduction = function(client) {
 
-  var rawDeduction = hlp.getRawShelterDeduction(client);
+  var rawDeduction = hlp.getRawHousingDeduction(client);
 
   if (hlp.hasDisabledOrElderlyMember(client)) {
     return rawDeduction;
@@ -263,7 +263,7 @@ hlp.getAdjustedNotGrossIncome = function (client) {
 hlp.monthlyNetIncome = function(client) {
   var adjustedIncome        = hlp.getAdjustedNotGrossIncome(client),
       hasHomelessDeduction  = hlp.getHomelessDeduction(client),
-      housingDeduction      = hlp.getShelterDeduction(client),
+      housingDeduction      = hlp.getHousingDeduction(client),
       extraDeductions       = hasHomelessDeduction + housingDeduction;
 
   var afterDeductions = adjustedIncome - extraDeductions;

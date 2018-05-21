@@ -68,7 +68,7 @@ class VisitPage extends Component {
       },
       feedbackOpen: false,
       // Hack for MVP
-      oldShelter:   clone.current.housing,
+      oldHousing:   clone.current.housing,
       userChanged:  {},
       snippets:     getTextForLanguage('en'),
     };  // end this.state {}
@@ -95,7 +95,7 @@ class VisitPage extends Component {
     this.setState({
       currentStep: 1,
       client:      cloneDeep(CLIENT_DEFAULTS),
-      oldShelter:  CLIENT_DEFAULTS.current.housing,
+      oldHousing:  CLIENT_DEFAULTS.current.housing,
       isBlocking:  false,
       userChanged: {},
     });
@@ -164,17 +164,17 @@ class VisitPage extends Component {
     }
 
     // Hack for MVP (otherwise need dependency + history system)
-    let oldShelter = this.state.oldShelter;
+    let oldHousing = this.state.oldHousing;
     if (route === 'housing') {
       // client housing should be right now
-      oldShelter = client.current.housing;
+      oldHousing = client.current.housing;
     }
 
     if (client.current.hasSection8) {
       client.current.housing = 'voucher';
     } else {
       // Restore housing to previous value
-      client.current.housing = oldShelter;
+      client.current.housing = oldHousing;
     }
 
     client.future.housing = client.current.housing;
@@ -183,7 +183,7 @@ class VisitPage extends Component {
       return {
         client:      client,
         userChanged: userChanged,
-        oldShelter:  oldShelter,
+        oldHousing:  oldHousing,
         // Form has been changed, data should now be downloadable
         isBlocking:  true,
       };

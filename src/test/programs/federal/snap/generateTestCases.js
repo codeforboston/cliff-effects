@@ -68,9 +68,9 @@ const unearnedIncomeSources = (changes) => {
 };
 randomizers.push(unearnedIncomeSources);
 
-const possibleShelters = [ 'homeless', 'houseowner', 'renter', 'voucher' ];
+const possibleHousings = [ 'homeless', 'houseowner', 'renter', 'voucher' ];
 const housings = (changes) => {
-  changes.housing = sample(possibleShelters);
+  changes.housing = sample(possibleHousings);
   return changes;
 };
 randomizers.push(housings);
