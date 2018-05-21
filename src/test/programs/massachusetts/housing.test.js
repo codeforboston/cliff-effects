@@ -1,4 +1,4 @@
-import { getHousingBenefit, section8Helpers } from '../../../programs/massachusetts/housing';
+import { getSection8Benefit, section8Helpers } from '../../../programs/massachusetts/section8';
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
@@ -12,11 +12,11 @@ import { cloneDeep } from 'lodash';
 const defaultClient   = cloneDeep(CLIENT_DEFAULTS);
 const defaultCurrent  = defaultClient.current;
 
-// `getHousingBenefit()`
-describe('getHousingBenefit', () => {
+// `getSection8Benefit()`
+describe('getSection8Benefit', () => {
   it('should return housing benefit when given a timeframed client', () => {
     sampleClients.row3.future = cloneDeep(sampleClients.row3.current);
-    expect(getHousingBenefit(sampleClients.row3, 'current')).toEqual(0);
+    expect(getSection8Benefit(sampleClients.row3, 'current')).toEqual(0);
   });
 });
 

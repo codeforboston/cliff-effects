@@ -50,8 +50,8 @@ const CLIENT_DEFAULTS = {
     earnedBecauseOfAdultCare:      0,                // positive number
     disabledMedical:               0,                // positive number
     otherMedical:                  0,                // positive number
-    /** @todo Make shelter expense values more robust. */
-    shelter:                       'homeless',       // 'homeless', 'homeowner', 'renter', 'voucher'
+    /** @todo Make housing expense values more robust. */
+    housing:                       'homeless',       // 'homeless', 'homeowner', 'renter', 'voucher'
     contractRent:                  0,                // positive number
     rentShare:                     0,                // positive number
     rent:                          0,                // positive number

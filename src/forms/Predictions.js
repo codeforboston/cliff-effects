@@ -15,7 +15,7 @@ import {
 import { getTimeSetter } from '../utils/getTimeSetter';
 import { getBenefitTimeFrames, getIncomeTimeFrames } from '../utils/getTimeFrames';
 import { getSNAPBenefits } from '../programs/federal/snap';
-import { getHousingBenefit } from '../programs/massachusetts/housing';
+import { getSection8Benefit } from '../programs/massachusetts/section8';
 import {
   formatAxis,
   formatLabel,
@@ -71,7 +71,7 @@ const Chart = function({ client }) {
 
   var
       { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
-      { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getHousingBenefit),
+      { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getSection8Benefit),
       { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
 
   var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
