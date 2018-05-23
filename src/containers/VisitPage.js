@@ -70,7 +70,7 @@ class VisitPage extends Component {
       // Hack for MVP
       oldHousing:   clone.current.housing,
       userChanged:  {},
-      snippets:     getTextForLanguage('en'),
+      snippets:     props.snippets,
     };  // end this.state {}
 
     this.steps = [
