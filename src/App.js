@@ -26,7 +26,7 @@ class App extends Component {
 
   setLanguage = (inputProps) => {
     var snippets = getTextForLanguage(inputProps.value);
-    this.setState({ snippets: snippets });
+    this.setState({ language: inputProps.value, snippets: snippets });
   };
 
   render () {
