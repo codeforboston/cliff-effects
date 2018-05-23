@@ -13,9 +13,6 @@ import { cloneDeep } from 'lodash';
 // import { clientList } from '../config/dummyClients';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
-// Logic
-import { getTextForLanguage } from '../utils/getTextForLanguage';
-
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/ConfirmLeave';
@@ -133,10 +130,6 @@ class VisitPage extends Component {
 
   feedbackPrompt = () => {
     this.setState({ feedbackOpen: true });
-  };
-
-  setLanguage = (evnt, inputProps) => {
-    this.setState({ snippets: getTextForLanguage(inputProps.value) });
   };
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
