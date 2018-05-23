@@ -6,7 +6,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
   className="income-form flex-item flex-column"
 >
   <FormPartsContainer
-    clarifier="How much money would your household make in the future?"
+    clarifier={null}
     left={
       Object {
         "func": [Function],
@@ -80,7 +80,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       as="h3"
       className="ui Header align centered"
     >
-      How could your benefits change?
+      With the new pay, how could your benefits change?
     </Header>
     <TabbedVisualizations
       client={
