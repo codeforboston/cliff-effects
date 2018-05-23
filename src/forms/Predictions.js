@@ -59,7 +59,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
 				  setClientProperty={ setClientProperty }
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-          Earned income
+          How much money would you get paid in the future? (You can try different amounts)
       </CashFlowRow>
     </div>
   );
@@ -167,8 +167,8 @@ const TabbedVisualizations = ({ client }) => {
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
-        { menuItem: 'Summary', render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} },
-        { menuItem: 'Summary Chart', render: () => {return <Tab.Pane><Chart client={ client } /></Tab.Pane>;} },
+        { menuItem: 'Changes', render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} },
+        { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><Chart client={ client } /></Tab.Pane>;} },
         {
           menuItem: 'Stacked Incomes',
           render:   () => {return <Tab.Pane><GraphHolder
@@ -177,7 +177,7 @@ const TabbedVisualizations = ({ client }) => {
           </Tab.Pane>;}, 
         },
         {
-          menuItem: 'Benefit Changes',
+          menuItem: 'Benefit Programs',
           render:   () => {return <Tab.Pane><GraphHolder
             client={ client }
             Graph={ BenefitGraph } />
@@ -208,8 +208,8 @@ const PredictionsStep = function (props) {
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = 'Future Household Income'
-        clarifier = 'How much money would your household make in the future?'
+        title     = 'What Might Happen?'
+        clarifier = { null }
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Reset', func: props.resetClient }}>
         <IncomeForm
@@ -220,7 +220,7 @@ const PredictionsStep = function (props) {
         <Header
           as        ='h3'
           className ='ui Header align centered'>
-            How will your income affect your future benefits?
+            With the new pay, how could your benefits change?
         </Header>
         <TabbedVisualizations client={ props.client } />
       </FormPartsContainer>
