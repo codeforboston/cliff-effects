@@ -59,7 +59,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
 				  setClientProperty={ setClientProperty }
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-          What you might earn in the future
+          How much money would you get paid in the future? (You can try different amounts)
       </CashFlowRow>
     </div>
   );
@@ -209,7 +209,7 @@ const PredictionsStep = function (props) {
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'What Might Happen?'
-        clarifier = 'How much money would your household make in the future?'
+        clarifier = { null }
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Reset', func: props.resetClient }}>
         <IncomeForm
@@ -220,7 +220,7 @@ const PredictionsStep = function (props) {
         <Header
           as        ='h3'
           className ='ui Header align centered'>
-            How could your benefits change?
+            With the new pay, how could your benefits change?
         </Header>
         <TabbedVisualizations client={ props.client } />
       </FormPartsContainer>
