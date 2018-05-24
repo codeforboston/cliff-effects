@@ -2,6 +2,17 @@ export default {
 
   'langName':    'English',
   'langCode':    'en',
+  'HomePage': {
+    'h1': 'Cliff Effects Tool',
+    'h2': 'GUIDANCE PROTOYPE*',
+    'p': '*This is a prototype and should not be used to make financial decisions',
+    '/visit/54321/1': 'Get Started',
+    'about': 'Learn More',
+  },
+  'Footer': {
+    'Header': 'Cliff Effects Tool',
+    'p': 'Made with <Icon name="heart" size="small" /> by Code for Boston',
+  },
   'hasSection8': {
     'label': 'Do you have Section 8 Housing?',
     'hint':  'Section 8 provides rental housing assistance.',
