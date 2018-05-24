@@ -10,48 +10,48 @@ export default {
     'label': 'Do you have SNAP?',
     'hint':  'SNAP provides assistance with buying food',
   },
-  'hasEarnedIncome': {
-    'label': 'Do you have earned income?',
-    'hint':  'Earned income is income from wages or self-employment',
+  'earnedIncome': {
+    'label': 'Earned income',
+    'hint':  'Earned income is how much you and your family get paid from working',
   },
-  'hasTAFDC': {
-    'label': 'Do you have TAFDC?',
+  'TAFDC': {
+    'label': 'TAFDC',
     'hint':  'Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children',
   },
-  'hasSSI': {
-    'label': 'Do you have SSI?',
+  'SSI': {
+    'label': 'SSI',
     'hint':  'Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled',
   },
-  'hasSSDI': {
-    'label': 'Do you have SSDI?',
+  'SSDI': {
+    'label': 'SSDI',
     'hint':  'Social Security Disability Income is a federal program to help people with disabilities',
   },
-  'hasChildSupport': {
-    'label': 'Do you receive child support?',
+  'childSupport': {
+    'label': 'Child support recieved',
     'hint':  'Child support is money paid to you by a former spouse to help your child',
   },
-  'hasUnemployment': {
-    'label': 'Do you receive unemployment benefits?',
+  'unemployment': {
+    'label': 'Unemployment',
     'hint':  'Unemployment benefits provide income to people who have been laid off',
   },
-  'hasWorkersComp': {
-    'label': 'Do you receive Workers Compensation?',
-    'hint':  'Workers Compensation provides assistance for people who have been injured on the job',
+  'workersComp': {
+    'label': 'Worker\'s compensation',
+    'hint':  'Worker\'s Compensation provides assistance for people who have been injured on the job',
   },
-  'hasPension': {
-    'label': 'Do you have a pension?',
+  'pension': {
+    'label': 'Pension',
     'hint':  'A pension provides income to retirees, usually from their former employers',
   },
-  'hasSocialSecurity': {
-    'label': 'Do you have Social Security Income?',
+  'socialSecurity': {
+    'label': 'Social security',
     'hint':  'Social Security is a federal program that provides assistance to retirees',
   },
-  'hasAlimony': {
-    'label': 'Do you receive alimony?',
+  'alimony': {
+    'label': 'Alimony',
     'hint':  'Alimony is money paid by one spouse to the other after a divorce',
   },
-  'hasOtherIncome': {
-    'label': 'Do you have other income?',
+  'otherIncome': {
+    'label': 'Other income',
     'hint':  'Please note income you may have from sources that are not listed above',
   },
 
