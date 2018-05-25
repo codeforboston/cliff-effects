@@ -3,6 +3,6 @@
 import EN from './en';
 import ZH from './zh';
 
-var localizations = { en: EN, zh: ZH,};
+var localizations = { en: EN, zh: ZH };
 
 export { localizations };
