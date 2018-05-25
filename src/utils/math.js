@@ -41,10 +41,18 @@ const limit = function (initialVal, minMax) {
 
   var raw   = parseFloat(initialVal),
       value = raw;
-  if (typeof min === 'number' && !isNaN(min)) { value = Math.max(min, raw); }
-  if (typeof max === 'number' && !isNaN(max)) { value = Math.min(max, raw); }
+  
+  if (typeof min === 'number' && !isNaN(min)) { 
+    value = Math.max(min, raw); 
+  }
+  
+  if (typeof max === 'number' && !isNaN(max)) {
+    value = Math.min(max, raw); 
+  }
 
-  if (isNaN(value)) { value = 0; }
+  if (isNaN(value)) { 
+    value = 0; 
+  }
 
   return value;
 };  // End limit()
