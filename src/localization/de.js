@@ -2,6 +2,18 @@ export default {
 
     'langName':    'Deutsch',
     'langCode':    'de',
+    'HomePage': {
+      'appName': 'Cliff Effects Werkzeug',
+      'prototypeNote': 'Ein Prototyp für Beratungshilfe*',
+      'cautionaryNote': '*Dieses Werkzeug ist ein Prototyp.  Bitte diesen Prototyp nicht benutzen, Ihre Entsheidungen fest zu machen.',
+      'toFirstInputPage': 'Beginnen',
+      'toAboutPage': 'Mehr lernen',
+    },
+    'Footer': {
+      'header': 'Cliff Effects Tool',
+      'cfbCreditIntro': 'Mit ',
+      'cfbCredit': ' von Code for Boston gemacht',
+    },
     'hasSection8': {
       'label': 'Haben Sie Section 8 Housing?',
       'hint':  'Section 8 gibt Hilfe für die Miete',
@@ -20,11 +32,11 @@ export default {
     },
     'SSI': {
       'label': 'SSI',
-      'hint':  'SSI (Supplemental Security Income) ist ein Programm von der Bundesregierung, das finanzielle und medizinische Hilfe den Leuten gibt, die blind, behindert oder älter als 65 Jahre sind',
+      'hint':  'SSI (Supplemental Security Income) ist ein Programm von der amerikanischen Bundesregierung, das finanzielle und medizinische Hilfe den Leuten gibt, die blind, behindert oder älter als 65 Jahre sind',
     },
     'SSDI': {
       'label': 'SSDI',
-      'hint':  'SSDI (Social Security Disability Income) ist ein Program von der Bundesregierung, das behinderten Leuten hilft',
+      'hint':  'SSDI (Social Security Disability Income) ist ein Program von der amerikanischen Bundesregierung, das behinderten Leuten hilft',
     },
     'childSupport': {
       'label': 'Bekommene Kinderunterstützung',
@@ -44,7 +56,7 @@ export default {
     },
     'socialSecurity': {
       'label': 'Staatliche Rentenversicherung',
-      'hint':  'Staatliche Rentenversicherung ist ein Program von der Bundesregierung, das den Rentnern hilft',
+      'hint':  'Staatliche Rentenversicherung ist ein Program von der amerikanischen Bundesregierung, das den Rentnern hilft',
     },
     'alimony': {
       'label': 'Unterhaltszahlung',
