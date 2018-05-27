@@ -2,6 +2,18 @@ export default {
 
   'langName':    'English',
   'langCode':    'en',
+  'HomePage': {
+    'appName': 'Cliff Effects Tool',
+    'prototypeNote': 'GUIDANCE PROTOYPE*',
+    'cautionaryNote': '*This is a prototype and should not be used to make financial decisions',
+    'toFirstInputPage': 'Get Started',
+    'toAboutPage': 'Learn More',
+  },
+  'Footer': {
+    'header': 'Cliff Effects Tool',
+    'cfbCreditIntro': 'Made with ',
+    'cfbCredit': ' by Code for Boston',
+  },
   'hasSection8': {
     'label': 'Do you have Section 8 Housing?',
     'hint':  'Section 8 provides rental housing assistance.',
