@@ -10,13 +10,9 @@
   "env": {
     "browser": true
   },
-  "extends": [
-    "react-app",
-    "plugin:jest/recommended"
-  ],
+  "extends": "react-app",
   "plugins": [
     "babel",
-    "jest",
     "react"
   ],
   "rules": {
