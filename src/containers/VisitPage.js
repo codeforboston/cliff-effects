@@ -71,7 +71,26 @@ class VisitPage extends Component {
     };  // end this.state {}
 
     this.steps = [
-      { title: 'Current Benefits', form: CurrentBenefitsStep }, { title: 'Household', form: HouseholdStep }, { title: 'Income', form: CurrentIncomeStep }, { title: 'Expenses', form: CurrentExpensesStep }, { title: 'Predictions', form: PredictionsStep },//,
+      {
+        title: 'Current Benefits',
+        form:  CurrentBenefitsStep,
+      },
+      {
+        title: 'Household',
+        form:  HouseholdStep,
+      },
+      {
+        title: 'Income',
+        form:  CurrentIncomeStep,
+      },
+      {
+        title: 'Expenses',
+        form:  CurrentExpensesStep,
+      },
+      {
+        title: 'Predictions',
+        form:  PredictionsStep,
+      },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
 
@@ -218,6 +237,7 @@ class VisitPage extends Component {
   getCurrentStep = () => {
     var step = Math.max(1, Math.min(this.steps.length, this.state.currentStep)) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
+    var formSnippets = this.state.snippets[ this.steps[ step ].title ];
 
     return (
       <div>
@@ -233,7 +253,7 @@ class VisitPage extends Component {
           saveForm={ this.saveForm }
           resetClient={ this.resetClientPrompt }
           feedbackPrompt={ this.feedbackPrompt }
-          snippets={ this.state.snippets } />
+          snippets={ formSnippets } />
         <FeedbackAnytime feedbackPrompt={ this.feedbackPrompt } />
         <ResetAnytime resetClient={ this.resetClientPrompt } />
       </div>

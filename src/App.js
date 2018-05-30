@@ -42,7 +42,7 @@ class App extends Component {
                 return (
                   <Header
                     { ...props }
-                    snippets={ snippets } />); 
+                    snippets={ snippets } />);
               } } />
             <Route
               exact
@@ -51,7 +51,7 @@ class App extends Component {
                 return (
                   <HomePage
                     { ...props }
-                    snippets={ snippets } />); 
+                    snippets={ snippets.HomePage } />);
               } } />
             <Route
               path="/about"
@@ -59,7 +59,7 @@ class App extends Component {
                 return (
                   <AboutPage
                     { ...props }
-                    snippets={ snippets } />); 
+                    snippets={ snippets } />);
               } } />
             <Route
               path="/visit/:clientId/:visitId"
@@ -67,7 +67,7 @@ class App extends Component {
                 return (
                   <VisitPage
                     { ...props }
-                    snippets={ snippets } />); 
+                    snippets={ snippets } />);
               } } />
             <Route
               path="/visit/load"
@@ -75,7 +75,7 @@ class App extends Component {
                 return (
                   <VisitPage
                     { ...props }
-                    snippets={ snippets } />); 
+                    snippets={ snippets } />);
               } } />
             <Route
               path="/load"
@@ -83,11 +83,11 @@ class App extends Component {
                 return (
                   <VisitPage
                     { ...props }
-                    snippets={ snippets } />); 
+                    snippets={ snippets } />);
               } } />
           </div>
         </HashRouter>
-        <Footer snippets={ snippets } />
+        <Footer snippets={ snippets.Footer } />
       </div>
     );
   }

@@ -1,9 +1,13 @@
 /** Contains and exports all the languages */
 
+import DE from './de';
 import EN from './en';
 import ZH from './zh';
-import DE from './de';
 
-var localizations = { en: EN, zh: ZH, de: DE };
+var localizations = {
+  de: DE,
+  en: EN,
+  zh: ZH,
+};
 
 export { localizations };
