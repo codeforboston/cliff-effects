@@ -104,6 +104,7 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 
   return (
     <Button
+      type={ 'button' }
       basic={ !!basic }
       color={ color }
       icon={ iconName }
@@ -334,6 +335,7 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
       { getMembers(current, time, setHousehold, setClientProperty) }
 
       <Button
+        type={ 'button' }
         id={ 'addMember' }
         basic
         onClick={ addMember }>
@@ -348,7 +350,7 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
         <Columns.Two noMargin={ true }>
           <Header
             as='h4'
-            color={ 'teal' }> Add a member 
+            color={ 'teal' }> Add a member
           </Header>
         </Columns.Two>
 
