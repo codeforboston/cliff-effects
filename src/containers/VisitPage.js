@@ -72,24 +72,29 @@ class VisitPage extends Component {
 
     this.steps = [
       {
-        title: 'Current Benefits',
-        form:  CurrentBenefitsStep,
+        displayName: 'Current Benefits',
+        form:        CurrentBenefitsStep,
+        key:         'currentBenefits',
       },
       {
-        title: 'Household',
-        form:  HouseholdStep,
+        displayName: 'Household',
+        form:        HouseholdStep,
+        key:         'household',
       },
       {
-        title: 'Income',
-        form:  CurrentIncomeStep,
+        displayName: 'Income',
+        form:        CurrentIncomeStep,
+        key:         'currentIncome',
       },
       {
-        title: 'Expenses',
-        form:  CurrentExpensesStep,
+        displayName: 'Expenses',
+        form:        CurrentExpensesStep,
+        key:         'currentExpenses',
       },
       {
-        title: 'Predictions',
-        form:  PredictionsStep,
+        displayName: 'Predictions',
+        form:        PredictionsStep,
+        key:         'predictions',
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
@@ -237,7 +242,7 @@ class VisitPage extends Component {
   getCurrentStep = () => {
     var step = Math.max(1, Math.min(this.steps.length, this.state.currentStep)) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
-    var formSnippets = this.state.snippets[ this.steps[ step ].title ];
+    var formSnippets = this.state.snippets[ this.steps[ step ].key ];
 
     return (
       <div>
