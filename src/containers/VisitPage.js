@@ -72,29 +72,24 @@ class VisitPage extends Component {
 
     this.steps = [
       {
-        displayName: 'Current Benefits',
-        form:        CurrentBenefitsStep,
-        key:         'currentBenefits',
+        form: CurrentBenefitsStep,
+        key:  'currentBenefits',
       },
       {
-        displayName: 'Household',
-        form:        HouseholdStep,
-        key:         'household',
+        form: HouseholdStep,
+        key:  'household',
       },
       {
-        displayName: 'Income',
-        form:        CurrentIncomeStep,
-        key:         'currentIncome',
+        form: CurrentIncomeStep,
+        key:  'currentIncome',
       },
       {
-        displayName: 'Expenses',
-        form:        CurrentExpensesStep,
-        key:         'currentExpenses',
+        form: CurrentExpensesStep,
+        key:  'currentExpenses',
       },
       {
-        displayName: 'Predictions',
-        form:        PredictionsStep,
-        key:         'predictions',
+        form: PredictionsStep,
+        key:  'predictions',
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
@@ -305,7 +300,8 @@ class VisitPage extends Component {
             <StepBar
               currentStepIndex={ this.state.currentStep }
               steps={ this.steps }
-              goToStep={ this.goToStep } />
+              goToStep={ this.goToStep }
+              snippets={ this.state.snippets.stepBar } />
           </Responsive>
           <div
             className="flex-item flex-column"

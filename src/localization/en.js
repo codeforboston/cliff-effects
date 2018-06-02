@@ -22,6 +22,14 @@ export default {
   aboutPage: {},
 
   visitPage: {
+    stepBar: {
+      currentBenefits: 'Current Benefits',
+      household:       'Household',
+      currentIncome:   'Income',
+      currentExpenses: 'Expenses',
+      predictions:     'Predictions',
+    },
+
     currentBenefits: {
       hasSection8: {
         label: 'Do you have Section 8 Housing?',
