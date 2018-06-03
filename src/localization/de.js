@@ -19,7 +19,67 @@ export default {
     toAboutPage:      'Mehr lernen',
   },
 
-  aboutPage: {},
+  aboutPage: {
+    aboutPageHeader: 'Über dieses Cliff Effects Werkzeug',
+    whatForHeader:  'Wozu benutzt man dieses Werkzeug?',
+    whatForImportantNote: 'Wichtige Anmerkung: Diese Anwendung ist ein Minimum Viable Product ' + 
+    '(minimal überlebensfähiges Produkt).  Sie sollte nicht als das einzige Werkzeug ' + 
+    'benutzt werden, um die SNAP- oder Section-8- (oder irgendein anderes ' + 
+    'Sozialhilfeprogramm-) finanzielle Situation eines Klienten zu verstehen.',
+    whatFor1A:  'Dieses Werkzeug kann zeigen helfen, wie eine Einkommensveränderung ' + 
+    'sich auf die Sozialhilfe von SNAP und Section-8-Wohnungsgutschein auswirkt. ' + 
+    'Es wurde für die Sozialarbeiter an dem ',
+    whatFor1B:  ' gedacht, um ihnen zu helfen, die Veränderungen von den ' + 
+    'Klientenunterstützungen vorherzusehen.',
+    whyImportantHeader:  'Warum ist dieses Werkzeug wichtig?',
+    why1:  'Ein Cliff Effect sich ereignet, als eine kleine Veränderung von der ' + 
+    'Situation eines Haushalts (z.B. eine oberflächliche Lohnerhöhung) den Wert der ' + 
+    'Unterstützung in einer unangemessenen Weise senkt.  Die Familie arbeitet, um ' + 
+    'ihre Einkommen sich zu verbessern, aber am Ende bekommt sie einen Nettoverlust, ' + 
+    'der sie eigentlich in eine schwerere Situation stellt.  Diese Cliff Effects ' + 
+    'hindern viele Familien daran, das Bekommen von Sozialhilfe eigentlich zu enden.',
+    why2:  'Die Cliff Effects sind schwer vorherzusehen.  Die Interaktionen zwischen ' + 
+    'dem Einkommen, der Nummer von Personnen im Haushalt, vielen verschiedenen anderen ' + 
+    'Krieterien, und den Auswirkungen der Programmen selbst haben Auswirkungen ' + 
+    'aufeinander in unerwarteten Weisen.  Wir suchen Methoden, um dieses Problem sich ' + 
+    'mit der Komplexität zu befassen, und die Familien ihre Situationen besser zu ' + 
+    'verstehen und vorherzusehen.',
+    howToUseHeader:  'Wie benutze ich dieses Werkzeug?',
+    howToUse1:  'Gehen Sie Schritt für Schritt, Informationen über eines ' + 
+    'Klienten gegenwärtigen Unterstützungen, Haushalt, Einkommen, und andere wichtige ' + 
+    'Information in das Formular auszufüllen.  Diese Informationen werden benutzt ' + 
+    'werden, um die umgefähre Unterstützung vom Klienten vorherzusehen.  Als Sie ' + 
+    'zum Ende kommen, wechseln Sie den Betrag vom \'Einkommen in Zukunft\', um die ' + 
+    'daraus resultierende Veränderung des Unterstützungsbetrag zu sehen.  Zu dieser ' + 
+    'Zeit können Sie Auswirkungen für die Programmen SNAP und Section 8 Housing ' + 
+    'Voucher sehen.  Bitte bemerken Sie, daß die Vorhersagen sich vielleicht nicht ' + 
+    'direkt zu dem gegenwärtigen Unterstützungsbetrag eines Klienten passen.  Das ' + 
+    'Ziel der Anwendung ist der Betrag von dem Unterstützungswechsel, das sich ' + 
+    'ereignet, als es Einkommenwechsel gibt.',
+    howToUseRefreshNote:  'Bitte bemerken Sie, daß diese Anwendung die Benutzerdaten nicht ' + 
+    'behaltet.  Wenn Sie die Webseite wieder aufnehmen, wird Ihre Daten verloren ' + 
+    'werden.  Jedes Mal, wenn Sie die Anwendung verwenden, gibt die Anwendung Ihnen ' + 
+    'ein neues, leeres Formular.',
+    whoMadeThisHeader:  'Wer entwickelt diese Anwendung?',
+    whoMadeThis1A:  'Diese Anwendung ist ein Teil eines Projektes, das möglich mit ' + 
+    'dem Geben einen Open Door Grant (Zuschuß) von der Stiftung Boston Foundation an ' + 
+    'das ',
+    whoMadeThis1B:  ' an der University of Massachusetts Boston ist.  Das Center for ' + 
+    'Social Policy arbeitet mit den Organisationen ',
+    whoMadeThis1C:  ' und ',
+    whoMadeThis1D:  '.  Das Center for Social Policy ist der Hauptpartner für das ',
+    whoMadeThis1E:  '.',
+    whoMadeThis2A:  'Die Feiwilligen von ',
+    whoMadeThis2B:  ' erhalten die Codebasis auf ',
+    whoMadeThis2C:  ' aufrecht.  Für weitere Auskunft treten Sie bitte in Verbindung mit ',
+    whoMadeThis2D:  '.',
+    whoMadeThis3:  'Wir möchten den folgenden Freiwilligen von Code for Boston ' + 
+    'besonders danken: Annie LaCourt, Isaac Chansky, Michelle Bernstein, Alec Danaher, ' + 
+    'Sasha Maryl, Drew Love, Liani Lye, Andrew Cunningham, Liam Morley, Nick Francisci, ' + 
+    'Stephen Chin, Shameek Poddar, Will McIntosh, Andrew Seeder, Ben Lewis, Don Blair, ' + 
+    'Ethan Strominger, Nick Lee, Jonathan Marcus, Emily Wasserman, Ethan Blackwood, ' + 
+    'und Valerie Kenyon.',
+  },
 
   visitPage: {
     currentBenefits: {
