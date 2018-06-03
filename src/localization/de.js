@@ -69,7 +69,7 @@ export default {
     whoMadeThis1C:  ' und ',
     whoMadeThis1D:  '.  Das Center for Social Policy ist der Hauptpartner für das ',
     whoMadeThis1E:  '.',
-    whoMadeThis2A:  'Die Feiwilligen von ',
+    whoMadeThis2A:  'Die Freiwilligen von ',
     whoMadeThis2B:  ' erhalten die Codebasis auf ',
     whoMadeThis2C:  ' aufrecht.  Für weitere Auskunft treten Sie bitte in Verbindung mit ',
     whoMadeThis2D:  '.',
