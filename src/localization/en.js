@@ -1,28 +1,97 @@
 export default {
-  'hasSection8.label':       'Do you have Section 8 Housing?',
-  'hasSection8.hint':        'Section 8 provides rental housing assistance.',
-  'hasSnap.label':           'Do you have SNAP?',
-  'hasSnap.hint':            'SNAP provides assistance with buying food',
-  'hasEarnedIncome.label':   'Do you have earned income?',
-  'hasEarnedIncome.hint':    'Earned income is income from wages or self-employment',
-  'hasTAFDC.label':          'Do you have TAFDC?',
-  'hasTAFDC.hint':           'Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children',
-  'hasSSI.label':            'Do you have SSI?',
-  'hasSSI.hint':             'Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled',
-  'hasSSDI.label':           'Do you have SSDI?',
-  'hasSSDI.hint':            'Social Security Disability Income is a federal program to help people with disabilities',
-  'hasChildSupport.label':   'Do you receive child support?',
-  'hasChildSupport.hint':    'Child support is money paid to you by a former spouse to help your child',
-  'hasUnemployment.label':   'Do you receive unemployment benefits?',
-  'hasUnemployment.hint':    'Unemployment benefits provide income to people who have been laid off',
-  'hasWorkersComp.label':    'Do you receive Workers Compensation?',
-  'hasWorkersComp.hint':     'Workers Compensation provides assistance for people who have been injured on the job',
-  'hasPension.label':        'Do you have a pension?',
-  'hasPension.hint':         'A pension provides income to retirees, usually from their former employers',
-  'hasSocialSecurity.label': 'Do you have Social Security Income?',
-  'hasSocialSecurity.hint':  'Social Security is a federal program that provides assistance to retirees',
-  'hasAlimony.label':        'Do you receive alimony?',
-  'hasAlimony.hint':         'Alimony is money paid by one spouse to the other after a divorce',
-  'hasOtherIncome.label':    'Do you have other income?',
-  'hasOtherIncome.hint':     'Please note income you may have from sources that are not listed above',
+
+  langName: 'English',
+  langCode: 'en',
+
+  header: {},
+
+  footer: {
+    header:         'Cliff Effects Tool',
+    cfbCreditIntro: 'Made with ',
+    cfbCredit:      ' by Code for Boston',
+  },
+
+  homePage: {
+    appName:          'Cliff Effects Tool',
+    prototypeNote:    'GUIDANCE PROTOYPE*',
+    cautionaryNote:   '*This is a prototype and should not be used to make financial decisions',
+    toFirstInputPage: 'Get Started',
+    toAboutPage:      'Learn More',
+  },
+
+  aboutPage: {},
+
+  visitPage: {
+    stepBar: {
+      currentBenefits: 'Current Benefits',
+      household:       'Household',
+      currentIncome:   'Income',
+      currentExpenses: 'Expenses',
+      predictions:     'Predictions',
+    },
+
+    currentBenefits: {
+      hasSection8: {
+        label: 'Do you have Section 8 Housing?',
+        hint:  'Section 8 provides rental housing assistance.',
+      },
+      hasSnap: {
+        label: 'Do you have SNAP?',
+        hint:  'SNAP provides assistance with buying food',
+      },
+    },
+
+    household: {},
+
+    currentIncome: {
+      earnedIncome: {
+        label: 'Earned income',
+        hint:  'Earned income is how much you and your family get paid from working',
+      },
+      TAFDC: {
+        label: 'TAFDC',
+        hint:  'Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children',
+      },
+      SSI: {
+        label: 'SSI',
+        hint:  'Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled',
+      },
+      SSDI: {
+        label: 'SSDI',
+        hint:  'Social Security Disability Income is a federal program to help people with disabilities',
+      },
+      childSupport: {
+        label: 'Child support recieved',
+        hint:  'Child support is money paid to you by a former spouse to help your child',
+      },
+      unemployment: {
+        label: 'Unemployment',
+        hint:  'Unemployment benefits provide income to people who have been laid off',
+      },
+      workersComp: {
+        label: 'Worker\'s compensation',
+        hint:  'Worker\'s Compensation provides assistance for people who have been injured on the job',
+      },
+      pension: {
+        label: 'Pension',
+        hint:  'A pension provides income to retirees, usually from their former employers',
+      },
+      socialSecurity: {
+        label: 'Social security',
+        hint:  'Social Security is a federal program that provides assistance to retirees',
+      },
+      alimony: {
+        label: 'Alimony',
+        hint:  'Alimony is money paid by one spouse to the other after a divorce',
+      },
+      otherIncome: {
+        label: 'Other income',
+        hint:  'Please note income you may have from sources that are not listed above',
+      },
+    },
+
+    currentExpenses: {},
+
+    predictions: {},
+  },
 };

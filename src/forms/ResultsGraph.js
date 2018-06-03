@@ -5,7 +5,7 @@ import { Line } from 'react-chartjs-2';
 
 // Logic
 import { getSNAPBenefits } from '../programs/federal/snap';
-import { getHousingBenefit } from '../programs/massachusetts/housing';
+import { getSection8Benefit } from '../programs/massachusetts/section8';
 import {
   formatAxis,
   formatTitle,
@@ -99,7 +99,7 @@ getData.section8 = function (xRange, client, multiplier) {
   var data = xRange.map(function (income) {
     // New renting data
     client.future.earned  = income / multiplier;  // Turn it back into monthly
-    var monthlySubsidy        = getHousingBenefit(client, 'future');
+    var monthlySubsidy        = getSection8Benefit(client, 'future');
 
     // Prep for next loop
     // Will use current values to calculate new values

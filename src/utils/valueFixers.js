@@ -70,7 +70,7 @@ const valueFixers = {
   disabledMedical:               stringToNumber,
   otherMedical:                  stringToNumber,
   /** @todo When client has section 8, switch this to 'housingVoucher' */
-  shelter:                       returnSame,
+  housing:                       returnSame,
   contractRent:                  stringToNumber,
   rentShare:                     stringToNumber,
   rent:                          stringToNumber,

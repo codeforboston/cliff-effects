@@ -70,7 +70,9 @@ hlp.hasDisabledOrElderlyMember = function (client) {
 };
 
 hlp.hasDependentsOver12 = function (client) {
-  var isOver12 = function (member) { return !isUnder13(member); };
+  var isOver12 = function (member) { 
+    return !isUnder13(member); 
+  };
   var members = getEveryMember(getDependentsOfHousehold(client), isOver12);
   return members.length > 0;
 };
@@ -118,24 +120,24 @@ hlp.getGrossIncomeTestResult = function (client) {
 // SHELTER
 hlp.isHomeless = function(client) {
   // Worth abstracting, used a few places and may change
-  return client.shelter === 'homeless';
+  return client.housing === 'homeless';
 };
 
 /** @todo: What about housing voucher? */
 hlp.getNonUtilityCosts = function(client) {
-  var shelterCost = null;
+  var housingCost = null;
 
   if (hlp.isHomeless(client)) {
-    shelterCost = 0;
-  } else if (client.shelter === 'homeowner') {
-    shelterCost = client.mortgage + client.housingInsurance + client.propertyTax;
-  } else if (client.shelter === 'renter') {
-    shelterCost = client.rent;
-  } else if (client.shelter === 'voucher') {
-    shelterCost = client.rentShare;
+    housingCost = 0;
+  } else if (client.housing === 'homeowner') {
+    housingCost = client.mortgage + client.housingInsurance + client.propertyTax;
+  } else if (client.housing === 'renter') {
+    housingCost = client.rent;
+  } else if (client.housing === 'voucher') {
+    housingCost = client.rentShare;
   }
 
-  return shelterCost;
+  return housingCost;
 };
 
 hlp.getUtilityCostByBracket = function (client) {
@@ -161,12 +163,12 @@ hlp.getUtilityCostByBracket = function (client) {
   }
 };
 
-hlp.getTotalshelterCost = function (client) {
+hlp.getTotalHousingCost = function (client) {
 
-  var shelterCosts = hlp.getNonUtilityCosts(client),
+  var housingCosts = hlp.getNonUtilityCosts(client),
       utilityCosts = hlp.getUtilityCostByBracket(client);
 
-  return shelterCosts + utilityCosts;
+  return housingCosts + utilityCosts;
 };
 
 
@@ -221,17 +223,17 @@ hlp.getHalfAdjustedIncome = function(client) {
   return hlp.getAdjustedNotGrossIncome(client) * 0.50;
 };
 
-hlp.getRawShelterDeduction = function(client) {
-  var totalShelterCost    = hlp.getTotalshelterCost(client),
+hlp.getRawHousingDeduction = function(client) {
+  var totalHousingCost    = hlp.getTotalHousingCost(client),
       halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
-      rawShelterDeduction = totalShelterCost - halfAdjustedIncome;
+      rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
 
-  return Math.max(0, rawShelterDeduction);
+  return Math.max(0, rawHousingDeduction);
 };
 
-hlp.getShelterDeduction = function(client) {
+hlp.getHousingDeduction = function(client) {
 
-  var rawDeduction = hlp.getRawShelterDeduction(client);
+  var rawDeduction = hlp.getRawHousingDeduction(client);
 
   if (hlp.hasDisabledOrElderlyMember(client)) {
     return rawDeduction;
@@ -242,8 +244,12 @@ hlp.getShelterDeduction = function(client) {
 };
 
 hlp.getHomelessDeduction = function(client) {
-  if (hlp.isHomeless(client)) { return SNAPData.HOMELESS_DEDUCTION; }
-  else { return 0; }
+  if (hlp.isHomeless(client)) { 
+    return SNAPData.HOMELESS_DEDUCTION; 
+  }
+  else { 
+    return 0; 
+  }
 };
 
 
@@ -263,8 +269,8 @@ hlp.getAdjustedNotGrossIncome = function (client) {
 hlp.monthlyNetIncome = function(client) {
   var adjustedIncome        = hlp.getAdjustedNotGrossIncome(client),
       hasHomelessDeduction  = hlp.getHomelessDeduction(client),
-      shelterDeduction      = hlp.getShelterDeduction(client),
-      extraDeductions       = hasHomelessDeduction + shelterDeduction;
+      housingDeduction      = hlp.getHousingDeduction(client),
+      extraDeductions       = hasHomelessDeduction + housingDeduction;
 
   var afterDeductions = adjustedIncome - extraDeductions;
 

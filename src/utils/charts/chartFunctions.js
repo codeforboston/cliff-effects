@@ -23,7 +23,9 @@ const formatLabel =  function(tooltipItem, data) {
 
 const stackedTitle = function(tooltipItems, data) {
   const { index } = tooltipItems[ 0 ];
-  return toFancyMoneyStr(_.sumBy(data.datasets, (dataset) => {return dataset.data[ index ];}));
+  return toFancyMoneyStr(_.sumBy(data.datasets, (dataset) => {
+    return dataset.data[ index ];
+  }));
 };
 
 

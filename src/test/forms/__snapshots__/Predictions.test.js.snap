@@ -6,7 +6,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
   className="income-form flex-item flex-column"
 >
   <FormPartsContainer
-    clarifier="How much money would your household make in the future?"
+    clarifier={null}
     left={
       Object {
         "func": [Function],
@@ -19,7 +19,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         "name": "Reset",
       }
     }
-    title="Future Household Income"
+    title="What Might Happen?"
   >
     <IncomeForm
       future={
@@ -54,6 +54,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
               "m_role": "head",
             },
           ],
+          "housing": "homeless",
           "housingInsurance": 0,
           "mortgage": 0,
           "nonHeatElectricity": false,
@@ -64,7 +65,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           "propertyTax": 0,
           "rent": 0,
           "rentShare": 0,
-          "shelter": "homeless",
           "socialSecurity": 0,
           "unemployment": 0,
           "workersComp": 0,
@@ -80,7 +80,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       as="h3"
       className="ui Header align centered"
     >
-      How will your income affect your future benefits?
+      With the new pay, how could your benefits change?
     </Header>
     <TabbedVisualizations
       client={
@@ -116,6 +116,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
                 "m_role": "head",
               },
             ],
+            "housing": "homeless",
             "housingInsurance": 0,
             "mortgage": 0,
             "nonHeatElectricity": false,
@@ -126,7 +127,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "propertyTax": 0,
             "rent": 0,
             "rentShare": 0,
-            "shelter": "homeless",
             "socialSecurity": 0,
             "unemployment": 0,
             "workersComp": 0,
@@ -162,6 +162,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
                 "m_role": "head",
               },
             ],
+            "housing": "homeless",
             "housingInsurance": 0,
             "mortgage": 0,
             "nonHeatElectricity": false,
@@ -172,7 +173,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "propertyTax": 0,
             "rent": 0,
             "rentShare": 0,
-            "shelter": "homeless",
             "socialSecurity": 0,
             "unemployment": 0,
             "workersComp": 0,

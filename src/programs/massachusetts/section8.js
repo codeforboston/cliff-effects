@@ -46,7 +46,7 @@ import {
 * @todo Find out how close to 0/change the benefit amount needs to be in
 * order for the client to be warned.
 */
-const getHousingBenefit = function (client, timeframe) {
+const getSection8Benefit = function (client, timeframe) {
   /** @todo Just return number values */
 
   // Current subsidy MUST already be known in every case
@@ -64,7 +64,7 @@ const getHousingBenefit = function (client, timeframe) {
       newSubsidy  = contrRent - maxShare;
 
   return newSubsidy;
-};  // End getHousingBenefit
+};  // End getSection8Benefit
 
 
 var section8Helpers = {},
@@ -156,7 +156,9 @@ hlp.getAdjustedIncome = function (client, timeframe, net) {
   var disAndMed = hlp.getDisabledAndMedicalAllowancesSum(client, time, net);
   allowances.push(disAndMed);
   // #14 (yes, they mean head or spouse here)
-  if (hlp.hasDsbOrEldHeadOrSpouse(client, time)) { allowances.push(400 / 12); }
+  if (hlp.hasDsbOrEldHeadOrSpouse(client, time)) { 
+    allowances.push(400 / 12); 
+  }
 
   var total = sum(allowances),
       adj   = net - total;
@@ -177,7 +179,9 @@ hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
       netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
-  if (!hlp.hasAnyDsbOrElderly(client, time)) { return 0; }
+  if (!hlp.hasAnyDsbOrElderly(client, time)) { 
+    return 0; 
+  }
   // pg 5-30 to 5-31
   var handcpExpense       = client[ time ].disabledAssistance,  // #7
       assistanceRemainder = handcpExpense - netSubtractor,  // #9
@@ -185,7 +189,9 @@ hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
 
   // ----- Maybe Stop, #D ----- \\
   /** Only keep going if there's a disabled/elderly head or spouse (or sole member) */
-  if (!hlp.hasDsbOrEldHeadOrSpouse(client, time)) { return handicapAllowance; }
+  if (!hlp.hasDsbOrEldHeadOrSpouse(client, time)) { 
+    return handicapAllowance; 
+  }
 
   // ----- Medical Allowance #12 - 13 ----- \\
   let medicalExpenses = hlp.getMedicalExpenses(client, time);
@@ -194,7 +200,9 @@ hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
   var medAllowance = 0;
   // #13a, pg 5-32 bottom (5-33 to 5-34 example falls in here)
   // Note: #13 forgets the '>=' part and just says '>'
-  if (assistanceRemainder >= 0) { medAllowance = medicalExpenses; }
+  if (assistanceRemainder >= 0) { 
+    medAllowance = medicalExpenses; 
+  }
   // #13b; pg 5-33 middle /and/ pg 5-32 middle, above "special calcuations"
   // In both cases handcpExpense is >= 0 and can be safely added.
   else {
@@ -252,6 +260,6 @@ hlp.hasDsbOrEldHeadOrSpouse = function (client, timeframe) {
 
 
 export {
-  getHousingBenefit,
+  getSection8Benefit,
   section8Helpers,
 };

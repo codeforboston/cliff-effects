@@ -46,7 +46,7 @@ const CLIENT_ROW_N = {
     earnedBecauseOfAdultCare:       -----         positive number
     disabledMedical:                -----         positive number
     otherMedical:                   -----         positive number
-    shelter:                        COL-X         'homeless', 'homeowner', 'renter', 'housingVoucher'
+    housing:                        COL-X         'homeless', 'homeowner', 'renter', 'housingVoucher'
     contractRent:                   -----         positive number
     rentShare:                      -----         positive number
     rent:                           COL-AA        positive number
@@ -105,8 +105,8 @@ const CLIENT_ROW_N = {
 //     disabledMedical:                0,
 //     otherMedical:                   0,
 //     /** @todo When client has section 8, switch this to 'housingVoucher' */
-//     /** @todo Make shelter expense values more robust. */
-//     shelter:                        'homeless',
+//     /** @todo Make housing expense values more robust. */
+//     housing:                        'homeless',
 //     contractRent:                   0,
 //     rentShare:                      0,
 //     rent:                           0,
@@ -202,7 +202,7 @@ const CLIENT_ROW_3 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'renter',
+    housing:                       'renter',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          200,
@@ -263,7 +263,7 @@ const CLIENT_ROW_4 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'housingVoucher',
+    housing:                       'housingVoucher',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          395,
@@ -324,7 +324,7 @@ const CLIENT_ROW_5 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'renting',
+    housing:                       'renting',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          0,
@@ -385,7 +385,7 @@ const CLIENT_ROW_6 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'homeless',
+    housing:                       'homeless',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          0,
@@ -451,7 +451,7 @@ const CLIENT_ROW_7 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'renter',
+    housing:                       'renter',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          1212,
@@ -522,7 +522,7 @@ const CLIENT_ROW_8 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'housingVoucher',
+    housing:                       'housingVoucher',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          0,
@@ -584,7 +584,7 @@ const CLIENT_ROW_9 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'housingVoucher',
+    housing:                       'housingVoucher',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          240,
@@ -650,7 +650,7 @@ const CLIENT_ROW_10 = {
     earnedBecauseOfAdultCare:      0,
     disabledMedical:               0,
     otherMedical:                  0,
-    shelter:                       'housingVoucher',
+    housing:                       'housingVoucher',
     contractRent:                  0,
     rentShare:                     0,
     rent:                          910,
@@ -717,7 +717,7 @@ const CLIENT_ROW_10 = {
 //     earnedBecauseOfAdultCare:       0,
 //     disabledMedical:                0,
 //     otherMedical:                   0,
-//     shelter:                        'renter',
+//     housing:                        'renter',
 //     contractRent:                   0,
 //     rentShare:                      0,
 //     rent:                           0,

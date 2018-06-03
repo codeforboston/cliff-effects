@@ -13,9 +13,6 @@ import { cloneDeep } from 'lodash';
 // import { clientList } from '../config/dummyClients';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
-// Logic
-import { getTranslate } from '../utils/getTranslate';
-
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/ConfirmLeave';
@@ -68,13 +65,32 @@ class VisitPage extends Component {
       },
       feedbackOpen: false,
       // Hack for MVP
-      oldShelter:   clone.current.shelter,
+      oldHousing:   clone.current.housing,
       userChanged:  {},
-      translate:    getTranslate('en'),
+      snippets:     props.snippets,
     };  // end this.state {}
 
     this.steps = [
-      { title: 'Current Benefits', form: CurrentBenefitsStep }, { title: 'Household', form: HouseholdStep }, { title: 'Income', form: CurrentIncomeStep }, { title: 'Expenses', form: CurrentExpensesStep }, { title: 'Predictions', form: PredictionsStep },//,
+      {
+        form: CurrentBenefitsStep,
+        key:  'currentBenefits',
+      },
+      {
+        form: HouseholdStep,
+        key:  'household',
+      },
+      {
+        form: CurrentIncomeStep,
+        key:  'currentIncome',
+      },
+      {
+        form: CurrentExpensesStep,
+        key:  'currentExpenses',
+      },
+      {
+        form: PredictionsStep,
+        key:  'predictions',
+      },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
 
@@ -85,7 +101,7 @@ class VisitPage extends Component {
 
     const current = Object.assign(defaultClient.current, client.current);
     const future = Object.assign(defaultClient.future, client.future);
-    
+
     const nextClient = { current: current, future: future };
 
     this.setState({ client: nextClient });
@@ -95,7 +111,7 @@ class VisitPage extends Component {
     this.setState({
       currentStep: 1,
       client:      cloneDeep(CLIENT_DEFAULTS),
-      oldShelter:  CLIENT_DEFAULTS.current.shelter,
+      oldHousing:  CLIENT_DEFAULTS.current.housing,
       isBlocking:  false,
       userChanged: {},
     });
@@ -108,7 +124,10 @@ class VisitPage extends Component {
       this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      this.prompt((ok) => {return ok && this.resetClient();}, {
+      this.prompt((ok) => {
+        return ok && this.resetClient();
+      },
+      {
         leaveText: 'Reset',
         message:   'default',
       });
@@ -132,16 +151,14 @@ class VisitPage extends Component {
     this.setState({ feedbackOpen: true });
   };
 
-  setTranslate = (evnt, inputProps) => {
-    this.setState({ translate: getTranslate(inputProps.value) });
-  };
-
   changeClient = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
 
     var val = value;
-    if (typeof checked === 'boolean') { val = checked; }
+    if (typeof checked === 'boolean') {
+      val = checked;
+    }
 
     var client      = cloneDeep(this.state.client),
         userChanged = { ...this.state.userChanged },  // only 1 deep
@@ -154,23 +171,35 @@ class VisitPage extends Component {
     setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
-    if (time === 'future') { userChanged[ id ] = true; }
+    if (time === 'future') {
+      userChanged[ id ] = true;
+    }
 
     // Hack for MVP (otherwise need dependency + history system)
-    let oldShelter = this.state.oldShelter;
-    if (route === 'shelter') { oldShelter = client.current.shelter; }  // client shelter should be right now
-    if (client.current.hasSection8) { client.current.shelter = 'voucher'; }
-    // Restore shelter to previous value
-    else { client.current.shelter = oldShelter; }
-    client.future.shelter = client.current.shelter;
+    let oldHousing = this.state.oldHousing;
+    if (route === 'housing') {
+      // client housing should be right now
+      oldHousing = client.current.housing;
+    }
 
-    this.setState((prevState) => {return {
-      client:      client,
-      userChanged: userChanged,
-      oldShelter:  oldShelter,
-      // Form has been changed, data should now be downloadable
-      isBlocking:  true,
-    };});
+    if (client.current.hasSection8) {
+      client.current.housing = 'voucher';
+    } else {
+      // Restore housing to previous value
+      client.current.housing = oldHousing;
+    }
+
+    client.future.housing = client.current.housing;
+
+    this.setState((prevState) => {
+      return {
+        client:      client,
+        userChanged: userChanged,
+        oldHousing:  oldHousing,
+        // Form has been changed, data should now be downloadable
+        isBlocking:  true,
+      };
+    });
   };  // End onClientChange()
 
   saveForm = (exitAfterSave) => {
@@ -188,12 +217,16 @@ class VisitPage extends Component {
   };
 
   nextStep = () => {
-    this.setState((prevState) => {return { currentStep: prevState.currentStep + 1 };});
+    this.setState((prevState) => {
+      return { currentStep: prevState.currentStep + 1 };
+    });
     this.scrollToTop();
   };
 
   previousStep = () => {
-    this.setState((prevState) => {return { currentStep: prevState.currentStep - 1 };});
+    this.setState((prevState) => {
+      return { currentStep: prevState.currentStep - 1 };
+    });
     this.scrollToTop();
   };
 
@@ -204,6 +237,7 @@ class VisitPage extends Component {
   getCurrentStep = () => {
     var step = Math.max(1, Math.min(this.steps.length, this.state.currentStep)) - 1;   //keep it between 1 and 8 and convert to 0 index
     var FormSection = this.steps[ step ].form;
+    var formSnippets = this.state.snippets[ this.steps[ step ].key ];
 
     return (
       <div>
@@ -219,7 +253,7 @@ class VisitPage extends Component {
           saveForm={ this.saveForm }
           resetClient={ this.resetClientPrompt }
           feedbackPrompt={ this.feedbackPrompt }
-          translate={ this.state.translate } />
+          snippets={ formSnippets } />
         <FeedbackAnytime feedbackPrompt={ this.feedbackPrompt } />
         <ResetAnytime resetClient={ this.resetClientPrompt } />
       </div>
@@ -266,7 +300,8 @@ class VisitPage extends Component {
             <StepBar
               currentStepIndex={ this.state.currentStep }
               steps={ this.steps }
-              goToStep={ this.goToStep } />
+              goToStep={ this.goToStep }
+              snippets={ this.state.snippets.stepBar } />
           </Responsive>
           <div
             className="flex-item flex-column"
