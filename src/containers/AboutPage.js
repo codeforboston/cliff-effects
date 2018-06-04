@@ -3,11 +3,11 @@ import React from 'react';
 import { AboutContent } from '../components/AboutContent';
 import { PageLayout } from '../components/PageLayout';
 
-const AboutPage = () => {
+const AboutPage = ({ snippets }) => {
   return (
     <div>
       <PageLayout>
-        <AboutContent />
+        <AboutContent snippets={ snippets } />
       </PageLayout>
     </div>
   );
