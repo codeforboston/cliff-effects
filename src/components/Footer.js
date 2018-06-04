@@ -7,7 +7,15 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-const Footer = () => {
+import { InterpolatedText } from './InterpolatedText';
+
+const inlineComponents = {
+  heart: <Icon
+    name='heart'
+    size='small' />,
+};
+
+const Footer = ({ snippets }) => {
   return (
     <Segment
       inverted
@@ -23,11 +31,13 @@ const Footer = () => {
           <Grid.Column width={ 7 }>
             <Header
               as='h4'
-              inverted>Cliff Effects Tool
+              inverted>
+              { snippets.header }
             </Header>
-            <p>Made with <Icon
-              name='heart'
-              size='small' /> by Code for Boston
+            <p>
+              <InterpolatedText
+                template={ snippets.cfbCredit }
+                components={ inlineComponents } />
             </p>
           </Grid.Column>
         </Grid.Row>

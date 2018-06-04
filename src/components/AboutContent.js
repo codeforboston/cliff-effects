@@ -9,7 +9,7 @@ import { InterpolatedText } from '../components/InterpolatedText';
 
 const namesList = [ 'Annie LaCourt', 'Isaac Chansky', 'Michelle Bernstein', 'Alec Danaher', 'Sasha Maryl', 'Drew Love', 'Liani Lye', 'Andrew Cunningham', 'Liam Morley', 'Nick Francisci', 'Stephen Chin', 'Shameek Poddar', 'Will McIntosh', 'Andrew Seeder', 'Ben Lewis', 'Don Blair', 'Ethan Strominger', 'Nick Lee', 'Jonathan Marcus', 'Emily Wasserman', 'Ethan Blackwood', 'Valerie Kenyon' ];
 
-const inlineElements = {
+const inlineComponents = {
   importantNote:   <strong />,
   projectHope:     <ExternalLink href='http://www.prohope.org/'>Project Hope</ExternalLink>,
   refreshWarning:  <strong />,
@@ -37,12 +37,12 @@ const AboutContent = function ({ snippets }) {
       <Message>
         <InterpolatedText
           template={ snippets.whatForImportantNote }
-          elements={ inlineElements } />
+          componenets={ inlineComponents } />
       </Message>
       <p>
         <InterpolatedText
           template={ snippets.whatFor }
-          elements={ inlineElements } />
+          componenets={ inlineComponents } />
       </p>
 
       <Header as='h3'>{ snippets.whyHeader }</Header>
@@ -74,24 +74,24 @@ const AboutContent = function ({ snippets }) {
       <Message>
         <InterpolatedText
           template={ snippets.howToUseNote }
-          elements={ inlineElements } />
+          componenets={ inlineComponents } />
       </Message>
 
       <Header as='h3'>{ snippets.whoMadeThisHeader }</Header>
       <p>
         <InterpolatedText
           template={ snippets.whoMadeThis1 }
-          elements={ inlineElements } />
+          componenets={ inlineComponents } />
       </p>
       <p>
         <InterpolatedText
           template={ snippets.whoMadeThis2 }
-          elements={ inlineElements } />
+          componenets={ inlineComponents } />
       </p>
       <p>
         <InterpolatedText
           template={ snippets.whoMadeThis3 }
-          elements={ inlineElements } />
+          componenets={ inlineComponents } />
       </p>
 
     </div>

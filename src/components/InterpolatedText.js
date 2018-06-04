@@ -1,20 +1,20 @@
 import React from 'react';
 
-const InterpolatedText = function ({ template, elements }) {
+const InterpolatedText = function ({ template, components }) {
   return template.map((item) => {
     if (typeof(item) === 'string') {
       return item;
     }
 
-    if (!item.name || !elements[ item.name ]) {
+    if (!item.name || !components[ item.name ]) {
       return null;
     }
 
     if (item.text) {
       // replace inner text
-      return React.cloneElement(elements[ item.name ], { key: item.name }, item.text);
+      return React.cloneElement(components[ item.name ], { key: item.name }, item.text);
     } else {
-      return React.cloneElement(elements[ item.name ], { key: item.name });
+      return React.cloneElement(components[ item.name ], { key: item.name });
     }
   });
 };
