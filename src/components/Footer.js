@@ -7,7 +7,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-import { InterpolatedText } from './InterpolatedText';
+import { interpolateSnippets } from '../utils/interpolation';
 
 const inlineComponents = {
   heart: <Icon
@@ -16,6 +16,8 @@ const inlineComponents = {
 };
 
 const Footer = ({ snippets }) => {
+  snippets = interpolateSnippets(snippets, inlineComponents);
+
   return (
     <Segment
       inverted
@@ -34,11 +36,7 @@ const Footer = ({ snippets }) => {
               inverted>
               { snippets.header }
             </Header>
-            <p>
-              <InterpolatedText
-                template={ snippets.cfbCredit }
-                components={ inlineComponents } />
-            </p>
+            <p>{ snippets.cfbCredit }</p>
           </Grid.Column>
         </Grid.Row>
       </Grid>

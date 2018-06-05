@@ -3,7 +3,7 @@ import { Header, Message } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
 import { ExternalLink } from '../forms/formHelpers';
-import { InterpolatedText } from '../components/InterpolatedText';
+import { interpolateSnippets } from '../utils/interpolation';
 
 /** Todo simplify the process of creating content for the 'About' page */
 
@@ -23,6 +23,7 @@ const inlineComponents = {
 };
 
 const AboutContent = function ({ snippets }) {
+  snippets = interpolateSnippets(snippets, inlineComponents);
 
   return (
     <div>
@@ -34,16 +35,8 @@ const AboutContent = function ({ snippets }) {
       </Header>
 
       <Header as='h3'>{ snippets.whatForHeader }</Header>
-      <Message>
-        <InterpolatedText
-          template={ snippets.whatForImportantNote }
-          componenets={ inlineComponents } />
-      </Message>
-      <p>
-        <InterpolatedText
-          template={ snippets.whatFor }
-          componenets={ inlineComponents } />
-      </p>
+      <Message>{ snippets.whatForImportantNote }</Message>
+      <p>{ snippets.whatFor }</p>
 
       <Header as='h3'>{ snippets.whyHeader }</Header>
       <p>{ snippets.why1 }</p>
@@ -71,28 +64,12 @@ const AboutContent = function ({ snippets }) {
 
       <Header as='h3'>{ snippets.howToUseHeader }</Header>
       <p>{ snippets.howToUse }</p>
-      <Message>
-        <InterpolatedText
-          template={ snippets.howToUseNote }
-          componenets={ inlineComponents } />
-      </Message>
+      <Message>{ snippets.howToUseNote }</Message>
 
       <Header as='h3'>{ snippets.whoMadeThisHeader }</Header>
-      <p>
-        <InterpolatedText
-          template={ snippets.whoMadeThis1 }
-          componenets={ inlineComponents } />
-      </p>
-      <p>
-        <InterpolatedText
-          template={ snippets.whoMadeThis2 }
-          componenets={ inlineComponents } />
-      </p>
-      <p>
-        <InterpolatedText
-          template={ snippets.whoMadeThis3 }
-          componenets={ inlineComponents } />
-      </p>
+      <p>{ snippets.whoMadeThis1 }</p>
+      <p>{ snippets.whoMadeThis2 }</p>
+      <p>{ snippets.whoMadeThis3 }</p>
 
     </div>
   );
