@@ -132,7 +132,7 @@ const Chart = function({ client }) {
               beginAtZero: true,
               callback:    formatAxis,
             },
-          }, 
+          },
         ],
         xAxes: [
           {
@@ -174,14 +174,14 @@ const TabbedVisualizations = ({ client }) => {
           render:   () => {return <Tab.Pane><GraphHolder
             client={ client }
             Graph={ GrossGraph } />
-          </Tab.Pane>;}, 
+          </Tab.Pane>;},
         },
         {
           menuItem: 'Benefit Changes',
           render:   () => {return <Tab.Pane><GraphHolder
             client={ client }
             Graph={ BenefitGraph } />
-          </Tab.Pane>;}, 
+          </Tab.Pane>;},
         },
       ] } />
   );
@@ -211,7 +211,7 @@ const PredictionsStep = function (props) {
         title     = 'Future Household Income'
         clarifier = 'How much money would your household make in the future?'
         left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'Reset', func: props.resetClient }}>
+        right     = {{ name: 'New Client', func: props.resetClient }}>
         <IncomeForm
           setClientProperty ={ setTimeProp }
           future            ={ props.client.future }
