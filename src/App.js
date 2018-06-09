@@ -3,6 +3,7 @@ import {
   HashRouter,
   Route,
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import getUserConfirmation from './utils/getUserConfirmation';
 
@@ -34,6 +35,10 @@ class App extends Component {
 
     return (
       <div id='App'>
+        <Helmet>
+          <html lang={ snippets.langCode } />
+        </Helmet>
+
         <HashRouter getUserConfirmation={ getUserConfirmation }>
           <div id='HashRouter'>
             <Route
