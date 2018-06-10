@@ -69,11 +69,13 @@ class FeedbackPrompt extends React.Component {
   };
 
   render () {
-    const inputProps = (name) => {return {
-      name,
-      value:    this.state.formData[ name ] || '',
-      onChange: this.handleInputChange,
-    };};
+    const inputProps = (name) => {
+      return {
+        name,
+        value:    this.state.formData[ name ] || '',
+        onChange: this.handleInputChange,
+      };
+    };
 
     return (
       <Modal
