@@ -62,7 +62,9 @@ describe('SNAPhelpers', () => {
   describe('`.isElderlyOrDisabled( member )` given', () => {
     describe('a head of household', () => {
       let head;
-      beforeEach(() => { head = { m_age: 30, m_role: 'head', m_disabled: false }; });
+      beforeEach(() => { 
+        head = { m_age: 30, m_role: 'head', m_disabled: false }; 
+      });
 
       it('that is not disabled and under 60 should return false', () => {
         expect(SNAPhelpers.isElderlyOrDisabled(head)).toBe(false);
@@ -79,7 +81,9 @@ describe('SNAPhelpers', () => {
 
     describe('a spouse', () => {
       let spouse;
-      beforeEach(() => { spouse = { m_age: 30, m_role: 'spouse', m_disabled: false }; });
+      beforeEach(() => { 
+        spouse = { m_age: 30, m_role: 'spouse', m_disabled: false }; 
+      });
 
       it('that is not disabled and under 60 should return false', () => {
         expect(SNAPhelpers.isElderlyOrDisabled(spouse)).toBe(false);
@@ -95,7 +99,9 @@ describe('SNAPhelpers', () => {
     });
     describe('a regular member', () => {
       let member;
-      beforeEach(() => { member = { m_age: 30, m_role: 'member', m_disabled: false }; });
+      beforeEach(() => { 
+        member = { m_age: 30, m_role: 'member', m_disabled: false }; 
+      });
 
       it('that is not disabled and under 60 should return false', () => {
         expect(SNAPhelpers.isElderlyOrDisabled(member)).toBe(false);
@@ -116,7 +122,9 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.hasDisabledOrElderlyMember()`
   describe('`.hasDisabledOrElderlyMember( timeClient )` given a time-constrained client with a household containing', () => {
     let current;
-    beforeEach(() => { current = cloneDeep(defaultCurrent); });
+    beforeEach(() => { 
+      current = cloneDeep(defaultCurrent); 
+    });
 
     describe('a head of household', () => {
       it('that is not disabled and under 60 should return false', () => {
@@ -169,7 +177,9 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.hasDependentsOver12()`
   describe('`.hasDependentsOver12( timeClient )` given a time-constrained client with a household containing', () => {
     let current;
-    beforeEach(() => { current = cloneDeep(defaultCurrent); });
+    beforeEach(() => { 
+      current = cloneDeep(defaultCurrent); 
+    });
 
     describe('a head of household', () => {
 
@@ -192,7 +202,9 @@ describe('SNAPhelpers', () => {
 
     describe('a spouse', () => {
 
-      beforeEach(() => { current.household[ 1 ] = { m_age: 30, m_role: 'spouse', m_disabled: false }; });
+      beforeEach(() => { 
+        current.household[ 1 ] = { m_age: 30, m_role: 'spouse', m_disabled: false }; 
+      });
 
       it('that is not disabled or under 18 should return false', () => {
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
@@ -213,7 +225,9 @@ describe('SNAPhelpers', () => {
 
     describe('a regular member', () => {
 
-      beforeEach(() => { current.household[ 1 ] = { m_age: 30, m_role: 'member', m_disabled: false }; });
+      beforeEach(() => { 
+        current.household[ 1 ] = { m_age: 30, m_role: 'member', m_disabled: false }; 
+      });
 
       it('that is not disabled or under 18 should return false', () => {
         expect(SNAPhelpers.hasDependentsOver12(current)).toBe(false);
@@ -313,7 +327,9 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.isHomeless()`
   describe('`.isHomeless( timeClient )` given a time-restricted client object', () => {
     let current;
-    beforeEach(() => { current = cloneDeep(defaultCurrent); });
+    beforeEach(() => { 
+      current = cloneDeep(defaultCurrent); 
+    });
 
     it('that is "homeless", shoud return true', () => {
       current.housing = 'homeless';
@@ -548,8 +564,12 @@ describe('SNAPhelpers', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      UNDER13_CARE_EXPENSES.forEach((name) => {return current[ name ] = 1;});
-      OVER12_CARE_EXPENSES.forEach((name) => {return current[ name ] = 1;});
+      UNDER13_CARE_EXPENSES.forEach((name) => {
+        return current[ name ] = 1;
+      });
+      OVER12_CARE_EXPENSES.forEach((name) => {
+        return current[ name ] = 1;
+      });
     });
 
     it('no dependents, it should return 0', () => {
@@ -683,7 +703,9 @@ describe('SNAPhelpers', () => {
       current = cloneDeep(defaultCurrent);
     });
     afterEach(() => {
-      mocks.forEach((mock) => {return mock.mockRestore();});
+      mocks.forEach((mock) => {
+        return mock.mockRestore();
+      });
     });
 
     it('positive income after deductions, it should return that adjusted income', () => {
@@ -722,7 +744,9 @@ describe('SNAPhelpers', () => {
       current = cloneDeep(defaultCurrent);
     });
     afterEach(() => {
-      mocks.forEach((mock) => {return mock.mockRestore();});
+      mocks.forEach((mock) => {
+        return mock.mockRestore();
+      });
     });
 
     it('positive income after deductions, it should return that adjusted income', () => {
