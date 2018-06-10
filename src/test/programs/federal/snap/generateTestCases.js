@@ -99,6 +99,8 @@ const utilityBrackets = (changes) => {
   case 'Telephone':
     changes.phone = true;
     break;
+  default:
+    // do nothing
   }
   return changes;
 };
