@@ -39,7 +39,9 @@ class verticalLinePlugin {
     const xRange = this.xRange,
           income = this.income;
 
-    const i = xRange.findIndex((val) => {return income < val;});
+    const i = xRange.findIndex((val) => {
+      return income < val;
+    });
     const positionBetweenTwoPoints = (income - xRange[ i - 1 ]) / (xRange[ i ] - xRange[ i - 1 ]);
 
     const data = chart.getDatasetMeta(0).data;
@@ -261,7 +263,9 @@ class BenefitGraph extends Component {
         datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
-    if (datasets.length === 0) { return null; }
+    if (datasets.length === 0) {
+      return null;
+    }
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
@@ -343,8 +347,12 @@ class GraphHolder extends Component {
 
     // The ids later used to access all program-specific data and functions
     // Only active programs are added
-    if (current.hasSection8) { activePrograms.push('section8'); }
-    if (current.hasSnap)    { activePrograms.push('snap'); }
+    if (current.hasSection8) { 
+      activePrograms.push('section8');
+    }
+    if (current.hasSnap)    {
+      activePrograms.push('snap');
+    }
 
     return (
       <div className='graph-holder'>
