@@ -70,7 +70,9 @@ hlp.hasDisabledOrElderlyMember = function (client) {
 };
 
 hlp.hasDependentsOver12 = function (client) {
-  var isOver12 = function (member) { return !isUnder13(member); };
+  var isOver12 = function (member) { 
+    return !isUnder13(member); 
+  };
   var members = getEveryMember(getDependentsOfHousehold(client), isOver12);
   return members.length > 0;
 };
@@ -242,8 +244,12 @@ hlp.getHousingDeduction = function(client) {
 };
 
 hlp.getHomelessDeduction = function(client) {
-  if (hlp.isHomeless(client)) { return SNAPData.HOMELESS_DEDUCTION; }
-  else { return 0; }
+  if (hlp.isHomeless(client)) { 
+    return SNAPData.HOMELESS_DEDUCTION; 
+  }
+  else { 
+    return 0; 
+  }
 };
 
 
