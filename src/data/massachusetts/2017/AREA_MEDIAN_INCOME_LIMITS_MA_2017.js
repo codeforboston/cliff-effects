@@ -47,8 +47,8 @@ const noCalcs = function (data, numAdditional) {
   * limit for that area at http://www.huduser.gov/portal/datasets/il/il17/index.html'
   * (page does not exist)
   */ 
-  throw 'Area Median Income Limits for more than 8 household members cannot be'
-        + ' calculated here. See https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf';
+  throw new Error('Area Median Income Limits for more than 8 household members cannot be'
+        + ' calculated here. See https://www.huduser.gov/portal/datasets/il//il17/IncomeLimitsBriefingMaterial-FY17.pdf');
 };
 
 
