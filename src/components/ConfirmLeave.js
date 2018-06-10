@@ -12,7 +12,9 @@ class ConfirmLeave extends React.Component {
   static defaultProps = { isBlocking: true };
 
   confirm = (event) => {
-    if (!this.props.isBlocking) {return;} // do not block unload
+    if (!this.props.isBlocking) {
+      return; // do not block unload
+    } 
     return (event.returnValue = this.props.message || '');
   };
 
