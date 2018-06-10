@@ -171,17 +171,23 @@ const TabbedVisualizations = ({ client }) => {
         { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><Chart client={ client } /></Tab.Pane>;} },
         {
           menuItem: 'Stacked Incomes',
-          render:   () => {return <Tab.Pane><GraphHolder
-            client={ client }
-            Graph={ GrossGraph } />
-          </Tab.Pane>;}, 
+          render:   () => { return (
+            <Tab.Pane>
+              <GraphHolder
+                client={ client }
+                Graph={ GrossGraph } />
+            </Tab.Pane>
+          );},
         },
         {
           menuItem: 'Benefit Programs',
-          render:   () => {return <Tab.Pane><GraphHolder
-            client={ client }
-            Graph={ BenefitGraph } />
-          </Tab.Pane>;}, 
+          render:   () => { return (
+            <Tab.Pane>
+              <GraphHolder
+                client={ client }
+                Graph={ BenefitGraph } />
+            </Tab.Pane>
+          );}, 
         },
       ] } />
   );
