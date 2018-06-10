@@ -11,10 +11,14 @@ class RentShareField extends Component {
     var message = null, valid = true;
 
     let isPosNum = isPositiveNumber(ownValue);
-    if (!isPosNum) { valid = false; }
+    if (!isPosNum) { 
+      valid = false; 
+    }
     else {
       valid = ownValue <= this.props.timeState[ 'contractRent' ];
-      if (!valid) { message = 'Rent share must be less than contract rent'; }
+      if (!valid) { 
+        message = 'Rent share must be less than contract rent'; 
+      }
     }
 
     this.setState({ valid: valid, message: message });
@@ -59,10 +63,14 @@ class ContractRentField extends Component {
     var message = null, valid = true;
 
     let isPosNum = isPositiveNumber(ownValue);
-    if (!isPosNum) { valid = false; }
+    if (!isPosNum) { 
+      valid = false; 
+    }
     else {
       valid = ownValue >= this.props.timeState[ 'rentShare' ];
-      if (!valid) { message = 'Rent share must be less than contract rent'; }
+      if (!valid) { 
+        message = 'Rent share must be less than contract rent'; 
+      }
     }
 
     this.setState({ valid: valid, message: message });
