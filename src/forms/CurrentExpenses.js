@@ -196,7 +196,8 @@ const Housing = function ({ current, type, time, setClientProperty }) {
 
       { current.housing === 'voucher'
         ? null
-        : <div>
+        : 
+        <div>
           
           <Header as='h4'>What is your housing situation?</Header>
           <HousingRadio
@@ -215,7 +216,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
             time={ time }
             setClientProperty={ ensureRouteAndValue } />
 
-          </div>}
+        </div>}
 
       <HousingDetails { ...sharedProps } />
 
@@ -243,7 +244,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
   /** @todo Make an age-checking function to
    *     keep household data structure under 
    *     control in one place. */
-  var isOver12 = function (member) { return !isUnder13(member); };
+  var isOver12 = function (member) { 
+    return !isUnder13(member);
+  };
 
   // Won't include head or spouse
   var allDependents = getDependentMembers(household),
@@ -261,7 +264,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
     <div className='field-aligner two-column'>
 
       { under13.length > 0
-        ? <div>
+        ? 
+        <div>
           <FormHeading subheading = { 'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n' }>
             Reasonable Unreimbursed Non-Medical Child(ren) Care
           </FormHeading>
@@ -293,7 +297,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       }
 
       { current.hasSnap
-        ? <div>
+        ? 
+        <div>
           <FormHeading>Child Support</FormHeading>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
@@ -306,7 +311,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
 
       {/* Head or spouse can't be a dependent, so they don't count. */}
       { over12.length > 0
-        ? <div>
+        ? 
+        <div>
           <FormHeading subheading = { 'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n' }>
             Dependent Care of Persons Over 12 Years of Age
           </FormHeading>
@@ -328,7 +334,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       }
 
       { elderlyOrDisabled.length > 0
-        ? <div>
+        ? 
+        <div>
           <FormHeading>Unreimbursed Disabled/Handicapped/Elderly Assistance</FormHeading>
           <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
           <div>Examples of eligible disability assistance expenses:</div>
@@ -356,7 +363,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
         *     Appendix B, item (D) */}
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
-        ? <div>
+        ? 
+        <div>
           <FormHeading>Unreimbursed Medical Expenses</FormHeading>
           <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
           <ul>
