@@ -5,7 +5,7 @@ import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import * as cashflow from '../../../../utils/cashflow';
 import * as getGovData from '../../../../utils/getGovData';
 import {
-  UNEARNED_INCOME_SOURCES,
+  // UNEARNED_INCOME_SOURCES,
   UNDER13_CARE_EXPENSES,
   OVER12_CARE_EXPENSES,
 } from '../../../../data/massachusetts/name-cores';
@@ -396,10 +396,10 @@ describe('SNAPhelpers', () => {
   describe('`.getUtilityCostByBracket( timeClient )` given a time-restricted client object', () => {
 
     let climate = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
-        fuel    = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
+        // fuel    = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
         electric = SNAPData.UTILITY_COST_BRACKETS[ 'Non-heating' ],
-        phone   = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ],
-        none    = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
+        phone   = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ];
+        // none    = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
 
     let current;
     beforeEach(() => {
