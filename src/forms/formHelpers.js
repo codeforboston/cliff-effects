@@ -125,6 +125,23 @@ const BottomButtons = function({ left, right }) {
 };  // End BottomButtons() Component
 
 
+const Clarifier = function ({ children }) {
+
+  if (children) {
+    return (
+      <Header
+        as='h3'
+        textAlign='center'>
+        { children }
+      </Header>
+    );
+  } else {
+    return null;
+  }
+
+};  // End <Clarifier>
+
+
 /** Constructor for all the stuff that's supposed to go inside
 * the Form Component. Does not include the `<Form>` Component
 * as a container because it looks like that needs to be unique
@@ -156,14 +173,7 @@ const FormPartsContainer = function(props) {
           textAlign='center'>
           { props.title }
         </Header>
-        { !props.clarifier
-          ? null
-          : <Header
-            as='h3'
-            textAlign='center'>
-            { props.clarifier }
-            </Header>
-        }
+        <Clarifier>{ props.clarifier }</Clarifier>
 
         { props.children }
 
