@@ -125,9 +125,9 @@ const BottomButtons = function({ left, right }) {
 };  // End BottomButtons() Component
 
 
-const Clarifier = function ({ children }) {
+const Clarifier = function ({ shouldShow, children }) {
 
-  if (children) {
+  if (shouldShow) {
     return (
       <Header
         as='h3'
@@ -173,7 +173,9 @@ const FormPartsContainer = function(props) {
           textAlign='center'>
           { props.title }
         </Header>
-        <Clarifier>{ props.clarifier }</Clarifier>
+        <Clarifier shouldShow={ !!props.clarifier }>
+          { props.clarifier }
+        </Clarifier>
 
         { props.children }
 
