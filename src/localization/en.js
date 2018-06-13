@@ -1,6 +1,6 @@
 export default {
 
-  langname: 'English',
+  langName: 'English',
   langCode: 'en',
 
   header: {},
