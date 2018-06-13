@@ -10,7 +10,7 @@ import {
 import { interpolateSnippets } from '../utils/interpolation';
 
 const inlineComponents = {
-  heart: <Icon
+  __heartIcon__: <Icon
     name='heart'
     size='small' />,
 };

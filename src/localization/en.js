@@ -1,13 +1,13 @@
 export default {
 
-  langName: 'English',
+  langname: 'English',
   langCode: 'en',
 
   header: {},
 
   footer: {
     header:    'Cliff Effects Tool',
-    cfbCredit: [ 'Made with ', { name: 'heart' }, ' by Code for Boston' ],
+    cfbCredit: [ 'Made with ', { name: '__heartIcon__' }, ' by Code for Boston' ],
   },
 
   homePage: {
@@ -24,7 +24,7 @@ export default {
     whatForHeader:        'What is this tool for?',
     whatForImportantNote: [
       {
-        name: 'importantNote',
+        name: '__importantNote__',
         text: 'Important Note:',
       },
       ' This application is a minimum viable product. It should not be used as the sole tool' +
@@ -34,7 +34,7 @@ export default {
     whatFor: [
       'This tool can help show how a change in income affects how much someone receives in public assistance' +
       ' from SNAP and Section 8 Housing Voucher benefits. It was designed for the case managers at ',
-      { name: 'projectHope' },
+      { name: '__projectHope__' },
       ' with the aim of helping to predict changes in their clients\' benefits.',
     ],
 
@@ -64,7 +64,7 @@ export default {
     howToUseNote: [
       'Please note that this app does not store user data, so ',
       {
-        name: 'refreshWarning',
+        name: '__refreshWarning__',
         text: 'if you refresh the page the data you\'ve entered will be lost.',
       },
       ' Each time you go through the app, it\'s a clean slate.',
@@ -74,31 +74,31 @@ export default {
     whoMadeThis1:      [
       'This application is part of a project made possible by a Boston Foundation' +
       ' Open Door Grant to the University of Massachusetts Boston\'s ',
-      { name: 'csp' },
+      { name: '__centerForSocialPolicy__' },
       ', in close partnership with ',
-      { name: 'projectHope' },
+      { name: '__projectHope__' },
       ' and ',
-      { name: 'cfb' },
+      { name: '__codeForBoston__' },
       '. The Center for Social Policy is the lead partner for the ',
-      { name: 'solidGround' },
+      { name: '__onSolidGroundCoalition__' },
       '.',
     ],
     whoMadeThis2: [
       'The code base is being maintained on ',
-      { name: 'github' },
+      { name: '__github__' },
       ' by ',
-      { name: 'cfb' },
+      { name: '__codeForBoston__' },
       ' volunteers.' +
       ' For more information or to report a bug, please contact ',
-      { name: 'contactEmail' },
+      { name: '__contactEmail__' },
       '.',
     ],
     whoMadeThis3: [
       'Here\'s a special thank you to all the Code for Boston volunteers who' +
       ' brought you this application, especially ',
-      { name: 'namesExceptLast' },
+      { name: '__namesExceptLast__' },
       ', and ',
-      { name: 'lastName' },
+      { name: '__lastName__' },
       '.',
     ],
   },

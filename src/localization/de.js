@@ -1,13 +1,13 @@
 export default {
 
-  langName: 'Deutsch',
+  langname: 'Deutsch',
   langCode: 'de',
 
   header: {},
 
   footer: {
     header:    'Cliff Effects Tool',
-    cfbCredit: [ 'Mit ', { name: 'heart' }, ' von Code for Boston gemacht' ],
+    cfbCredit: [ 'Mit ', { name: '__heartIcon__' }, ' von Code for Boston gemacht' ],
   },
 
   homePage: {
