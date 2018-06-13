@@ -42,25 +42,33 @@ const Columns = {};
 // `noMargin` is a bit hacky, but it'll do for now
 Columns.One = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if (noMargin) { marginTop = 0; }
+  if (noMargin) { 
+    marginTop = 0; 
+  }
   return (<div style={{ ...columnStyle, marginTop: marginTop, width: '5em' }}> {children} </div>);
 };
 
 Columns.Two = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if (noMargin) { marginTop = 0; }
+  if (noMargin) { 
+    marginTop = 0; 
+  }
   return (<div style={{ ...columnStyle, marginTop: marginTop, width: '20em', textAlign: 'left', paddingLeft: '1em' }}> {children} </div>);
 };
 
 Columns.Three = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if (noMargin) { marginTop = 0; }
+  if (noMargin) { 
+    marginTop = 0; 
+  }
   return (<div style={{ ...columnStyle, marginTop: marginTop, width: '5em' }}> {children} </div>);
 };
 
 Columns.Four = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if (noMargin) { marginTop = 0; }
+  if (noMargin) {
+    marginTop = 0;
+  }
   return (<div style={{ ...columnStyle, marginTop: marginTop, width: '10em' }}> {children} </div>);
 };
 
@@ -214,7 +222,8 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
             className={ 'remove' }
             onClick={ removeMember }
             iconName={ 'remove' } />
-          : <span>{ household.length > 1
+          : 
+          <span>{ household.length > 1
             ? <Icon
               fitted
               name={ 'ban' }
