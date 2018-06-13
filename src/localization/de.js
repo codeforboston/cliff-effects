@@ -1,6 +1,6 @@
 export default {
 
-  langname: 'Deutsch',
+  langName: 'Deutsch',
   langCode: 'de',
 
   header: {},
