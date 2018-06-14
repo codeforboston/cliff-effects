@@ -6,9 +6,8 @@ export default {
   header: {},
 
   footer: {
-    header:         'Cliff Effects Tool',
-    cfbCreditIntro: 'Mit ',
-    cfbCredit:      ' von Code for Boston gemacht',
+    header:    'Cliff Effects Tool',
+    cfbCredit: [ 'Mit ', { name: '__heartIcon__' }, ' von Code for Boston gemacht' ],
   },
 
   homePage: {
