@@ -42,6 +42,10 @@ form .field-aligner {
   justify-content: center;
   flex-direction: column;
 }
+.logo{
+  justify-content: right;
+  float: right;
+}
 
 /*
 Used to fill vertical space.
