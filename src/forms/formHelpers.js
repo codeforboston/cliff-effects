@@ -159,12 +159,13 @@ const FormPartsContainer = function(props) {
         </Header>
         { !props.clarifier
           ? null
-          : 
-          <Header
-            as='h3'
-            textAlign='center'>
-            { props.clarifier }
-          </Header>
+          : (
+            <Header
+              as='h3'
+              textAlign='center'>
+              { props.clarifier }
+            </Header>
+          )
         }
 
         { props.children }
@@ -342,12 +343,13 @@ const RowMessage = function ({ validRow, message }) {
 
   var result = null;
   if (!validRow && message) {
-    result = 
-    <Label
-      basic
-      color='red'
-      pointing="left">{message}
-    </Label>;
+    result = (
+      <Label
+        basic
+        color='red'
+        pointing="left">{message}
+      </Label>
+    );
   }
 
   return result;
@@ -508,8 +510,7 @@ class ManagedNumberField extends Component {
     // Format correctly when neighbors are updated, if needed
     if (!focused) { 
       value = format(value); 
-    }
-    else { 
+    } else { 
       value = focusedVal; 
     }
 
