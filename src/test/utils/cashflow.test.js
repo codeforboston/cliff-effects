@@ -1,5 +1,5 @@
 // To test
-/** @todo Add  tests for getSimpleGrossIncomeMonthly, sumProps and add to utils/cashflow import statement below */
+/** @todo Add tests for other utils/cashflow functions. */
 import { getGrossUnearnedIncomeMonthly }  from '../../utils/cashflow';
 
 // Object of sample clients to use in these tests.
