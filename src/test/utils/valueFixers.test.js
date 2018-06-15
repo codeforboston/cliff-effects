@@ -1,4 +1,5 @@
-import { valueFixers, returnSame, stringToNumber, toBoolean } from '../../utils/valueFixers';
+/** @todo Implement test for valueFixers */
+import { /* valueFixers, */ returnSame, stringToNumber, toBoolean } from '../../utils/valueFixers';
 
 
 test('returnSame()', ()=>{
