@@ -1,11 +1,6 @@
-
 // To test
-import {
-  getDependentCostsMonthly,
-  getSimpleGrossIncomeMonthly,
-  getGrossUnearnedIncomeMonthly,
-  sumProps,
-} from '../../utils/cashflow';
+/** @todo Add  tests for getSimpleGrossIncomeMonthly, sumProps and add to utils/cashflow import statement below */
+import { getGrossUnearnedIncomeMonthly }  from '../../utils/cashflow';
 
 // Object of sample clients to use in these tests.
 import { sampleClients } from '../sampleClients';
