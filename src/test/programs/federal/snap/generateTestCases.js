@@ -76,14 +76,24 @@ const unearnedIncomeSources = (changes) => {
 };
 randomizers.push(unearnedIncomeSources);
 
-const possibleHousings = [ 'homeless', 'houseowner', 'renter', 'voucher' ];
+const possibleHousings = [
+  'homeless',
+  'houseowner',
+  'renter',
+  'voucher', 
+];
 const housings = (changes) => {
   changes.housing = sample(possibleHousings);
   return changes;
 };
 randomizers.push(housings);
 
-const possibleUtilityBrackets = [ 'Heating', 'Non-heating', 'Telephone', 'None' ];
+const possibleUtilityBrackets = [
+  'Heating',
+  'Non-heating',
+  'Telephone',
+  'None', 
+];
 const utilityBrackets = (changes) => {
   switch (sample(possibleUtilityBrackets)) {
   case 'Heating':
@@ -99,13 +109,21 @@ const utilityBrackets = (changes) => {
   case 'Telephone':
     changes.phone = true;
     break;
+  default:
+    // do nothing
   }
   return changes;
 };
 randomizers.push(utilityBrackets);
 
 const housingFeeNames =
-  [ 'mortgage', 'propertyTax', 'housingInsurance', 'rent', 'rentShare' ];
+  [
+    'mortgage',
+    'propertyTax',
+    'housingInsurance',
+    'rent',
+    'rentShare', 
+  ];
 const housingFees = (changes) => {
   housingFeeNames.forEach((name) => {
     return changes[ name ] = (Math.random() * 50) ** 2 + 200;

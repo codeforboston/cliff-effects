@@ -74,9 +74,18 @@ const Chart = function({ client }) {
       { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getSection8Benefit),
       { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
 
-  var snapData    = [ SNAPBenefitCurrent, SNAPBenefitFuture ],
-      housingData = [ sec8BenefitCurrent, sec8BenefitFuture ],
-      incomeData  = [ incomeCurrent, incomeFuture ];
+  var snapData    = [
+        SNAPBenefitCurrent,
+        SNAPBenefitFuture, 
+      ],
+      housingData = [
+        sec8BenefitCurrent,
+        sec8BenefitFuture, 
+      ],
+      incomeData  = [
+        incomeCurrent,
+        incomeFuture, 
+      ];
 
   const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
         SNAPName      = PROGRAM_CHART_VALUES.snap.name,
@@ -171,17 +180,27 @@ const TabbedVisualizations = ({ client }) => {
         { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><Chart client={ client } /></Tab.Pane>;} },
         {
           menuItem: 'Stacked Incomes',
-          render:   () => {return <Tab.Pane><GraphHolder
-            client={ client }
-            Graph={ GrossGraph } />
-          </Tab.Pane>;}, 
+          render:   () => {
+            return (
+              <Tab.Pane>
+                <GraphHolder
+                  client={ client }
+                  Graph={ GrossGraph } />
+              </Tab.Pane>
+            );
+          },
         },
         {
           menuItem: 'Benefit Programs',
-          render:   () => {return <Tab.Pane><GraphHolder
-            client={ client }
-            Graph={ BenefitGraph } />
-          </Tab.Pane>;}, 
+          render:   () => {
+            return (
+              <Tab.Pane>
+                <GraphHolder
+                  client={ client }
+                  Graph={ BenefitGraph } />
+              </Tab.Pane>
+            );
+          }, 
         },
       ] } />
   );

@@ -48,10 +48,11 @@ const MassiveButton = function ({ className, func, children }) {
  * Link that opens new tab
  */
 const ExternalLink = function ({ href, children }) {
-  return (<a
-    href={ href }
-    target='_blank'>{children}
-          </a>);
+  return (
+    <a
+      href={ href }
+      target='_blank'>{children}
+    </a>);
 };
 
 
@@ -158,11 +159,13 @@ const FormPartsContainer = function(props) {
         </Header>
         { !props.clarifier
           ? null
-          : <Header
-            as='h3'
-            textAlign='center'>
-            { props.clarifier }
+          : (
+            <Header
+              as='h3'
+              textAlign='center'>
+              { props.clarifier }
             </Header>
+          )
         }
 
         { props.children }
@@ -224,7 +227,9 @@ const MassiveToggle = function (props) {
 */
 const FormSubheading = function (props) {
 
-  if (!props.children) { return null; }
+  if (!props.children) { 
+    return null; 
+  }
 
   return (
     <div
@@ -247,7 +252,9 @@ const FormSubheading = function (props) {
 */
 const FormHeading = function ({ subheading, children }) {
 
-  if (!children) { return null; }
+  if (!children) { 
+    return null;
+  }
 
   return (
     <div className={ 'form-heading' } >
@@ -336,11 +343,13 @@ const RowMessage = function ({ validRow, message }) {
 
   var result = null;
   if (!validRow && message) {
-    result = <Label
-      basic
-      color='red'
-      pointing="left">{message}
-             </Label>;
+    result = (
+      <Label
+        basic
+        color='red'
+        pointing="left">{message}
+      </Label>
+    );
   }
 
   return result;
@@ -411,7 +420,9 @@ const ColumnHeading = function ({ type, colName, style, children }) {
 */
 const IntervalColumnHeadings = function ({ type }) {
 
-  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {return letter.toUpperCase();}) + ' Type',
+  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {
+        return letter.toUpperCase();
+      }) + ' Type',
       styles      = { fontSize: '14px' };
 
   return (
@@ -497,8 +508,11 @@ class ManagedNumberField extends Component {
     var { value, name, className, format }  = this.props;
 
     // Format correctly when neighbors are updated, if needed
-    if (!focused) { value = format(value); }
-    else            { value = focusedVal; }
+    if (!focused) { 
+      value = format(value); 
+    } else { 
+      value = focusedVal; 
+    }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */
     return (

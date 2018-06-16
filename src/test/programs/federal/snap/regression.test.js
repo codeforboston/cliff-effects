@@ -11,7 +11,10 @@ test('getSNAPBenefits() matches saved results', (done) => {
   const rl = readline.createInterface({ input: fs.createReadStream(path.resolve(__dirname, 'test-cases.txt')) });
 
   rl.on('line', (line) => {
-    const [ setupStr, expectedStr ] = line.split(';');
+    const [
+      setupStr,
+      expectedStr, 
+    ] = line.split(';');
     const client = cloneDeep(CLIENT_DEFAULTS);
     extend(client.current, JSON.parse(setupStr));
     expect(getSNAPBenefits(client, 'current')).toEqual(+expectedStr);

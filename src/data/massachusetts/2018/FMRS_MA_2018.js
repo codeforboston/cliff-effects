@@ -22,7 +22,7 @@
 var expirationDate = new Date(2018, 10, 1);
 
 const noCalcs = function (data, numAdditional) {
-	  throw 'Fair Market Rents for an apartment with more than 5 bedrooms have not been found.';
+	  throw new Error('Fair Market Rents for an apartment with more than 5 bedrooms have not been found.');
 };
 
 

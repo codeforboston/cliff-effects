@@ -2,7 +2,6 @@ const getgovdata = require('../../utils/getGovData');
 /** Test set up
 */
 const undefinedString = 'undefined';
-const numberTypeString = 'number';
 const stringString = 'string';
 
 /* Function used for testing yearlylimit function based on passed parameters
@@ -15,7 +14,7 @@ const stringString = 'string';
 const testYearlyLimit = function (testname, pguidelines, pitems, ppercent, expected) {
   test (testname + ' items: ' + pitems + ' / percent: ' + ppercent + ' / expected: ' + expected, () => 
   {
-    if (typeof(ppercent) === stringString && ppercent == undefinedString){ 
+    if (typeof(ppercent) === stringString && ppercent === undefinedString){ 
       expect(getgovdata.getLimitBySize(pguidelines, pitems)).toBe(expected);
     }
     else {

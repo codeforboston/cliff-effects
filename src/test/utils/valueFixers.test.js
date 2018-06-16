@@ -1,11 +1,20 @@
-import { valueFixers, returnSame, stringToNumber, toBoolean } from '../../utils/valueFixers';
+/** @todo Implement test for valueFixers */
+import { /* valueFixers, */ returnSame, stringToNumber, toBoolean } from '../../utils/valueFixers';
 
 
 test('returnSame()', ()=>{
 
   expect(returnSame(1)).toBe(1);
   expect(returnSame('A')).toBe('A');
-  expect(returnSame([ 2,3,4 ])).toEqual([ 2,3,4 ]);
+  expect(returnSame([
+    2,
+    3,
+    4, 
+  ])).toEqual([
+    2,
+    3,
+    4, 
+  ]);
 });
 
 test('stringToNumber()', ()=>{
