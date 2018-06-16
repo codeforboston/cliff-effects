@@ -4,8 +4,6 @@ import { Message } from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { getSNAPBenefits } from '../../programs/federal/snap';
-import { getSection8Benefit } from '../../programs/massachusetts/section8';
 import {
   formatAxis,
   formatTitle,
@@ -13,9 +11,6 @@ import {
   stackedTitle,
 } from '../../utils/charts/chartFormatting';
 import { getDatasets } from '../../utils/charts/getChartData';
-
-// Data
-import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 // Our Components
 import { FormPartsContainer } from '../formHelpers';
