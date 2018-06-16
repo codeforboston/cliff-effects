@@ -10,18 +10,18 @@ const formatAxis = function (label) {
   return label.toLocaleString('en-US');
 };
 
-const formatTitle = function (tooltipItems, data) {
-  var toFormat = data.labels[ tooltipItems[ 0 ].index ];
-  return toFancyMoneyStr(toFormat);
-};
-
 const formatLabel =  function(tooltipItem, data) {
   /* From https://github.com/chartjs/Chart.js/issues/2386 */
   return data.datasets[ tooltipItem.datasetIndex ].label
           + ': ' + toFancyMoneyStr(tooltipItem.yLabel);
 };
 
-const stackedTitle = function(tooltipItems, data) {
+const formatBenefitLinesTitle = function (tooltipItems, data) {
+  var toFormat = data.labels[ tooltipItems[ 0 ].index ];
+  return toFancyMoneyStr(toFormat);
+};
+
+const formatStackedTitle = function(tooltipItems, data) {
   const { index } = tooltipItems[ 0 ];
   return toFancyMoneyStr(_.sumBy(data.datasets, (dataset) => {
     return dataset.data[ index ];
@@ -33,7 +33,7 @@ const stackedTitle = function(tooltipItems, data) {
 export {
   toFancyMoneyStr,
   formatAxis,
-  formatTitle,
   formatLabel,
-  stackedTitle,
+  formatBenefitLinesTitle,
+  formatStackedTitle,
 };
