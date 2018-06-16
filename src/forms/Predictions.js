@@ -4,7 +4,7 @@ import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 import { BenefitsTable } from './BenefitsTable';
-import { BarGraph } from './output/BarGraph';
+import { StackedBarGraph } from './output/StackedBarGraph';
 import {
   GraphHolder,
   GrossGraph,
@@ -62,7 +62,7 @@ const TabbedVisualizations = ({ client }) => {
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
         { menuItem: 'Changes', render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} },
-        { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><BarGraph client={ client } /></Tab.Pane>;} },
+        { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;} },
         {
           menuItem: 'Stacked Incomes',
           render:   () => {

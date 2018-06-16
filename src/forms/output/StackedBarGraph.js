@@ -19,7 +19,16 @@ import {
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 
-const BarGraph = function({ client }) {
+/** Visual representation of the table
+*
+* Alternatives:
+* 1. Stacked area graph for two data points
+* 2. Line graph of difference of just total money coming in
+* 
+* @param {object} client - full client object, with current
+*     and future. All client props are needed.
+*/
+const StackedBarGraph = function({ client }) {
 
   var curr = client.current;
 
@@ -122,7 +131,7 @@ const BarGraph = function({ client }) {
     <Bar { ...stackedBarProps } />
   );
 
-};  // End <BarGraph>
+};  // End <StackedBarGraph>
 
 
-export { BarGraph };
+export { StackedBarGraph };
