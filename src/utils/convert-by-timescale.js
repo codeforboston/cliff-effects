@@ -70,9 +70,30 @@ var toWeeklyFrom = function (amount, startTimescale) {
   return converted;
 };  // End toWeeklyFrom()
 
+var timescaleMultipliers = {};
+
+timescaleMultipliers.fromYearly = {
+  'Weekly':  1 / 12 / (4 + 1 / 3),
+  'Monthly': 1 / 12,
+  'Yearly':  1,
+};
+
+timescaleMultipliers.fromMonthly = {
+  'Weekly':  1 / (4 + 1 / 3),
+  'Monthly': 1,
+  'Yearly':  12,
+};
+
+timescaleMultipliers.fromWeekly = {
+  'Weekly':  1,
+  'Monthly': (4 + 1 / 3),
+  'Yearly':  12,
+};
+
 
 export {
   toYearlyFrom,
   toMonthlyFrom,
   toWeeklyFrom,
+  timescaleMultipliers,
 };

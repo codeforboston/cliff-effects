@@ -4,6 +4,7 @@ import { Message } from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
+import { timescaleMultipliers } from '../../utils/convert-by-timescale';
 import {
   formatAxis,
   formatLabel,
@@ -17,14 +18,13 @@ import { FormPartsContainer } from '../formHelpers';
 import { GraphTimeButtons } from '../../components/GraphTimeButtons';
 import { VerticalLine } from './VerticalLine';
 
+// Data
+import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
-const MAX_X_MONTHLY = 100000 / 12;
-const MULTIPLIERS = {
-  'Weekly':  1 / (4 + 1 / 3),
-  'Monthly': 1,
-  'Yearly':  12,
-};
 
+const MAX_X_MONTHLY = PROGRAM_CHART_VALUES.limits.max,
+      // Graphs get things in monthly values, so we'll convert from there
+      MULTIPLIERS   = timescaleMultipliers.fromMonthly;
 
 // ===============
 // GRAPH DATA
