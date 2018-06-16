@@ -7,9 +7,9 @@ import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import {
   GraphHolder,
-  GrossGraph,
   BenefitGraph,
 } from './output/ResultsGraph';
+import { StackedAreaGraph } from './output/StackedAreaGraph';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
@@ -70,7 +70,7 @@ const TabbedVisualizations = ({ client }) => {
               <Tab.Pane>
                 <GraphHolder
                   client={ client }
-                  Graph={ GrossGraph } />
+                  Graph={ StackedAreaGraph } />
               </Tab.Pane>
             );
           },
