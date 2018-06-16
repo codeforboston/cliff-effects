@@ -29,6 +29,7 @@ const stackedTitle = function(tooltipItems, data) {
 };
 
 
+// For use by react-chartjs-2
 export {
   toFancyMoneyStr,
   formatAxis,

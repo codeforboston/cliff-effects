@@ -12,7 +12,7 @@ import {
   formatAxis,
   formatLabel,
   stackedTitle,
-} from '../../utils/charts/chartFunctions';
+} from '../../utils/charts/chartFormatting';
 
 // DATA
 // Colors and text for parts of the chart
