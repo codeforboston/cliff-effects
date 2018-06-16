@@ -11,7 +11,7 @@ import { getSection8Benefit } from '../../programs/massachusetts/section8';
 import {
   formatAxis,
   formatLabel,
-  stackedTitle,
+  formatStackedTitle,
 } from '../../utils/charts/chartFormatting';
 
 // DATA
@@ -119,7 +119,7 @@ const StackedBarGraph = function({ client }) {
       },
       tooltips: {
         callbacks: {
-          title: stackedTitle,
+          title: formatStackedTitle,
           label: formatLabel,
         },
       },
