@@ -95,20 +95,10 @@ getData.snap = function (xRange, client, multiplier) {
 
 getData.section8 = function (xRange, client, multiplier) {
 
-  client.current.contractRent = client.current.contractRent;
-  client.current.earned       = 0;
-
   var data = xRange.map(function (income) {
     // New renting data
     client.future.earned  = income / multiplier;  // Turn it back into monthly
-    var monthlySubsidy        = getSection8Benefit(client, 'future');
-
-    // Prep for next loop
-    // Will use current values to calculate new values
-    var newShare                  = client.current.contractRent - monthlySubsidy;
-    client.current.rentShare  = newShare;
-    client.current.earned     = client.future.earned;
-
+    var monthlySubsidy    = getSection8Benefit(client, 'future');
     return monthlySubsidy * multiplier;
   });
 
