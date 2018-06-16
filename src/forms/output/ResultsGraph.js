@@ -4,21 +4,21 @@ import { Message } from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { getSNAPBenefits } from '../programs/federal/snap';
-import { getSection8Benefit } from '../programs/massachusetts/section8';
+import { getSNAPBenefits } from '../../programs/federal/snap';
+import { getSection8Benefit } from '../../programs/massachusetts/section8';
 import {
   formatAxis,
   formatTitle,
   formatLabel,
   stackedTitle,
-} from '../utils/charts/chartFunctions';
+} from '../../utils/charts/chartFunctions';
 
 // Data
-import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
+import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 // Our Components
-import { FormPartsContainer } from './formHelpers';
-import { GraphTimeButtons } from '../components/GraphTimeButtons';
+import { FormPartsContainer } from '../formHelpers';
+import { GraphTimeButtons } from '../../components/GraphTimeButtons';
 
 const MAX_X_MONTHLY = 100000 / 12;
 const MULTIPLIERS = {

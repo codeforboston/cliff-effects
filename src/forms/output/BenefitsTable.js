@@ -7,8 +7,8 @@ import { Table } from 'semantic-ui-react';
 // this will do for now
 
 // BENEFIT LOGIC
-import { getSNAPBenefits } from '../programs/federal/snap';
-import { getSection8Benefit } from '../programs/massachusetts/section8';
+import { getSNAPBenefits } from '../../programs/federal/snap';
+import { getSection8Benefit } from '../../programs/massachusetts/section8';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';
