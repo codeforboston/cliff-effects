@@ -22,7 +22,7 @@
 
     "array-bracket-newline": ["warn", { "multiline": true }],
     "array-bracket-spacing": ["warn", "always"],
-    "array-element-newline": ["warn", { "multiline": true }],
+    "array-element-newline": ["warn", "always"],
     "arrow-body-style": ["warn", "always"],
     "arrow-parens": ["warn", "always"],
     "comma-dangle": ["warn", "always-multiline"],
