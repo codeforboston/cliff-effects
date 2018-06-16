@@ -150,7 +150,10 @@ const Role = function ({ member, setMember }) {
 
     margin = '-1em';
 
-    var options = [ { text: 'Spouse of Head of Household', value: 'spouse' }, { text: 'Child/Other Household Member', value: 'member' } ];
+    var options = [
+      { text: 'Spouse of Head of Household', value: 'spouse' },
+      { text: 'Child/Other Household Member', value: 'member' }, 
+    ];
 
     ThisRole = <Dropdown
       selection

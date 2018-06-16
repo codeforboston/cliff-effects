@@ -7,7 +7,11 @@ export default {
 
   footer: {
     header:    'Cliff Effects Tool',
-    cfbCredit: [ 'Made with ', { name: '__heartIcon__' }, ' by Code for Boston' ],
+    cfbCredit: [
+      'Made with ',
+      { name: '__heartIcon__' },
+      ' by Code for Boston', 
+    ],
   },
 
   homePage: {

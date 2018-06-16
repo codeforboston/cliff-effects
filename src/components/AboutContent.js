@@ -7,7 +7,30 @@ import { interpolateSnippets } from '../utils/interpolation';
 
 /** Todo simplify the process of creating content for the 'About' page */
 
-const namesList = [ 'Annie LaCourt', 'Isaac Chansky', 'Michelle Bernstein', 'Alec Danaher', 'Sasha Maryl', 'Drew Love', 'Liani Lye', 'Andrew Cunningham', 'Liam Morley', 'Nick Francisci', 'Stephen Chin', 'Shameek Poddar', 'Will McIntosh', 'Andrew Seeder', 'Ben Lewis', 'Don Blair', 'Ethan Strominger', 'Nick Lee', 'Jonathan Marcus', 'Emily Wasserman', 'Ethan Blackwood', 'Valerie Kenyon' ];
+const namesList = [
+  'Annie LaCourt',
+  'Isaac Chansky',
+  'Michelle Bernstein',
+  'Alec Danaher',
+  'Sasha Maryl',
+  'Drew Love',
+  'Liani Lye',
+  'Andrew Cunningham',
+  'Liam Morley',
+  'Nick Francisci',
+  'Stephen Chin',
+  'Shameek Poddar',
+  'Will McIntosh',
+  'Andrew Seeder',
+  'Ben Lewis',
+  'Don Blair',
+  'Ethan Strominger',
+  'Nick Lee',
+  'Jonathan Marcus',
+  'Emily Wasserman',
+  'Ethan Blackwood',
+  'Valerie Kenyon', 
+];
 
 const inlineComponents = {
   __importantNote__:          <strong />,

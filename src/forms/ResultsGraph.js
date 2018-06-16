@@ -57,7 +57,10 @@ class verticalLinePlugin {
     ctx.beginPath();
     ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
     ctx.lineWidth = 2;
-    ctx.setLineDash([ 5, 5 ]);
+    ctx.setLineDash([
+      5,
+      5, 
+    ]);
     ctx.moveTo(offset, scale.top);
     ctx.lineTo(offset, scale.bottom);
     ctx.stroke();

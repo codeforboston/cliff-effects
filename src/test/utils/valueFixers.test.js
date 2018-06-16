@@ -6,7 +6,15 @@ test('returnSame()', ()=>{
 
   expect(returnSame(1)).toBe(1);
   expect(returnSame('A')).toBe('A');
-  expect(returnSame([ 2,3,4 ])).toEqual([ 2,3,4 ]);
+  expect(returnSame([
+    2,
+    3,
+    4, 
+  ])).toEqual([
+    2,
+    3,
+    4, 
+  ]);
 });
 
 test('stringToNumber()', ()=>{

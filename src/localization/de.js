@@ -7,7 +7,11 @@ export default {
 
   footer: {
     header:    'Cliff Effects Tool',
-    cfbCredit: [ 'Mit ', { name: '__heartIcon__' }, ' von Code for Boston gemacht' ],
+    cfbCredit: [
+      'Mit ',
+      { name: '__heartIcon__' },
+      ' von Code for Boston gemacht', 
+    ],
   },
 
   homePage: {
@@ -99,9 +103,9 @@ export default {
       'Sasha Maryl, Drew Love, Liani Lye, Andrew Cunningham, Liam Morley, Nick Francisci, ' + 
       'Stephen Chin, Shameek Poddar, Will McIntosh, Andrew Seeder, Ben Lewis, Don Blair, ' + 
       'Ethan Strominger, Nick Lee, Jonathan Marcus, Emily Wasserman, Ethan Blackwood,',
-    whoMadeThis3And: ' und ',
+    whoMadeThis3And:       ' und ',
     whoMadeThis3FinalName: 'Valerie Kenyon',
-    whoMadeThisPeriod: '.',
+    whoMadeThisPeriod:     '.',
   },
 
   visitPage: {
