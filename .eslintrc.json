@@ -20,9 +20,8 @@
     "babel/semi": 1,
     "react/prop-types": 0,
 
-    "array-bracket-newline": ["warn", { "multiline": true }],
+    "array-bracket-newline": ["warn", "consistent"],
     "array-bracket-spacing": ["warn", "always"],
-    "array-element-newline": ["warn", { "multiline": true }],
     "arrow-body-style": ["warn", "always"],
     "arrow-parens": ["warn", "always"],
     "comma-dangle": ["warn", "always-multiline"],
