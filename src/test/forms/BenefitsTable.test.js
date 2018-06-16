@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { BenefitsTable } from '../../output/forms/BenefitsTable';
+import { BenefitsTable } from '../../forms/output/BenefitsTable';
 
 import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 
