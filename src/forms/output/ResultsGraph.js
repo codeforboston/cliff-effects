@@ -6,71 +6,23 @@ import { Line } from 'react-chartjs-2';
 // Logic
 import {
   formatAxis,
-  formatTitle,
   formatLabel,
-  stackedTitle,
+  formatBenefitLinesTitle,
+  formatStackedTitle,
 } from '../../utils/charts/chartFormatting';
 import { getDatasets } from '../../utils/charts/getChartData';
 
 // Our Components
 import { FormPartsContainer } from '../formHelpers';
 import { GraphTimeButtons } from '../../components/GraphTimeButtons';
+import { VerticalLine } from './VerticalLine';
+
 
 const MAX_X_MONTHLY = 100000 / 12;
 const MULTIPLIERS = {
   'Weekly':  1 / (4 + 1 / 3),
   'Monthly': 1,
   'Yearly':  12,
-};
-
-
-class verticalLinePlugin {
-
-  constructor () {
-    this.xRange = [];
-    this.income = 0;
-  }
-
-  afterDatasetsDraw = (chart) => {
-    const xRange = this.xRange,
-          income = this.income;
-
-    const i = xRange.findIndex((val) => {
-      return income < val;
-    });
-    const positionBetweenTwoPoints = (income - xRange[ i - 1 ]) / (xRange[ i ] - xRange[ i - 1 ]);
-
-    const data = chart.getDatasetMeta(0).data;
-    const prevX = data[ i - 1 ]._model.x;
-    const currX = data[ i ]._model.x;
-    const offset = Math.floor(positionBetweenTwoPoints * (currX - prevX) + prevX);
-
-    const ctx = chart.chart.ctx;
-    const scale = chart.scales[ 'y-axis-0' ];
-
-    ctx.save();
-
-    ctx.beginPath();
-    ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([
-      5,
-      5, 
-    ]);
-    ctx.moveTo(offset, scale.top);
-    ctx.lineTo(offset, scale.bottom);
-    ctx.stroke();
-
-    ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
-    ctx.textAlign = 'left';
-    const lineHeight = ctx.measureText('M').width * 1.2;
-    const xMargin = 5;
-    const yMargin = 200;
-    ctx.fillText('Future', offset + xMargin, yMargin);
-    ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
-
-    ctx.restore();
-  };
 };
 
 
@@ -88,7 +40,7 @@ class GrossGraph extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { verticalLine: new verticalLinePlugin() };
+    this.state = { verticalLine: new VerticalLine() };
   }
 
   render () {
@@ -158,7 +110,7 @@ class GrossGraph extends Component {
         },  // end `scales`
         tooltips: {
           callbacks: {
-            title: stackedTitle,
+            title: formatStackedTitle,
             label: formatLabel,
           },
         },  // end `tooltips`
@@ -177,7 +129,7 @@ class BenefitGraph extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { verticalLine: new verticalLinePlugin() };
+    this.state = { verticalLine: new VerticalLine() };
   }
 
   render () {
@@ -245,7 +197,7 @@ class BenefitGraph extends Component {
         },  // end `scales`
         tooltips: {
           callbacks: {
-            title: formatTitle,
+            title: formatBenefitLinesTitle,
             label: formatLabel,
           },
         },  // end `tooltips`
