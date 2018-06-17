@@ -2,13 +2,13 @@ import React from 'react';
 import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
+import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import {
   GraphHolder,
   GrossGraph,
-  BenefitGraph,
 } from './output/ResultsGraph';
 
 // COMPONENT HELPER FUNCTIONS
@@ -82,7 +82,7 @@ const TabbedVisualizations = ({ client }) => {
               <Tab.Pane>
                 <GraphHolder
                   client={ client }
-                  Graph={ BenefitGraph } />
+                  Graph={ BenefitsLineGraph } />
               </Tab.Pane>
             );
           },
