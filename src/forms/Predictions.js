@@ -3,13 +3,13 @@ import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
-import { BenefitsTable } from './BenefitsTable';
+import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import {
   GraphHolder,
   GrossGraph,
   BenefitGraph,
-} from './ResultsGraph';
+} from './output/ResultsGraph';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
