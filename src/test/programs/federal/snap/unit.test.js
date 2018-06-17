@@ -5,7 +5,7 @@ import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
 import * as cashflow from '../../../../utils/cashflow';
 import * as getGovData from '../../../../utils/getGovData';
 import {
-  UNEARNED_INCOME_SOURCES,
+  // UNEARNED_INCOME_SOURCES,
   UNDER13_CARE_EXPENSES,
   OVER12_CARE_EXPENSES,
 } from '../../../../data/massachusetts/name-cores';
@@ -395,11 +395,11 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getUtilityCostByBracket()`
   describe('`.getUtilityCostByBracket( timeClient )` given a time-restricted client object', () => {
 
-    let climate = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
-        fuel    = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
-        electric = SNAPData.UTILITY_COST_BRACKETS[ 'Non-heating' ],
-        phone   = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ],
-        none    = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
+    let climate   = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
+        // fuel      = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
+        electric  = SNAPData.UTILITY_COST_BRACKETS[ 'Non-heating' ],
+        phone     = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ],
+        none      = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
 
     let current;
     beforeEach(() => {
@@ -415,39 +415,45 @@ describe('SNAPhelpers', () => {
       special.phone               = true;
       expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(0);
     });
-    it('that has just climate control it should return the climate control amount', () => {
-      current.climateControl      = true;
-      expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
-    });
-    it('that has just fuel assistance it should return the climate control amount', () => {
-      current.fuelAssistance      = true;
-      expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
-    });
-    it('that has just electricity it should return the electricity amount', () => {
-      current.nonHeatElectricity  = true;
-      expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(electric);
-    });
-    it('that has just phone it should return the phone amount', () => {
-      current.phone               = true;
-      expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(phone);
-    });
-    it('that has all types of utilities it should return the climate control amount', () => {
-      current.climateControl      = true;
-      current.fuelAssistance      = true;
-      current.nonHeatElectricity  = true;
-      current.phone               = true;
-      expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
-    });
-    it('that has fuel assistance and other non-climate utiliites it should return the climate control amount', () => {
-      current.fuelAssistance      = true;
-      current.nonHeatElectricity  = true;
-      current.phone               = true;
-      expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
-    });
-    it('that has electricity and phone it should return the electricity amount', () => {
-      current.nonHeatElectricity  = true;
-      current.phone               = true;
-      expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(electric);
+
+    describe('for a renter', () => {
+      it('that has none of the utility expenses, it should return the zero utlities amount', () => {
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(none);
+      });
+      it('that has just climate control it should return the climate control amount', () => {
+        current.climateControl      = true;
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
+      });
+      it('that has just fuel assistance it should return the climate control amount', () => {
+        current.fuelAssistance      = true;
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
+      });
+      it('that has just electricity it should return the electricity amount', () => {
+        current.nonHeatElectricity  = true;
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(electric);
+      });
+      it('that has just phone it should return the phone amount', () => {
+        current.phone               = true;
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(phone);
+      });
+      it('that has all types of utilities it should return the climate control amount', () => {
+        current.climateControl      = true;
+        current.fuelAssistance      = true;
+        current.nonHeatElectricity  = true;
+        current.phone               = true;
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
+      });
+      it('that has fuel assistance and other non-climate utiliites it should return the climate control amount', () => {
+        current.fuelAssistance      = true;
+        current.nonHeatElectricity  = true;
+        current.phone               = true;
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(climate);
+      });
+      it('that has electricity and phone it should return the electricity amount', () => {
+        current.nonHeatElectricity  = true;
+        current.phone               = true;
+        expect(SNAPhelpers.getUtilityCostByBracket(current)).toEqual(electric);
+      });
     });
   });
 
@@ -688,7 +694,11 @@ describe('SNAPhelpers', () => {
     });
 
     it('not homeless, it should return zero', () => {
-      [ 'homeowner', 'renter', 'voucher' ].forEach((housing) => {
+      [
+        'homeowner',
+        'renter',
+        'voucher', 
+      ].forEach((housing) => {
         current.housing = housing;
         expect(SNAPhelpers.getHomelessDeduction(current)).toEqual(0);
       });
@@ -714,7 +724,13 @@ describe('SNAPhelpers', () => {
       const earnedIncomeDeduction = 1;
       const medicalDeduction = 1;
       const dependentCareDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross), jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction), jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction), jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction), jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction) ];
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross),
+        jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction),
+        jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction),
+        jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction),
+        jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction), 
+      ];
       
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
@@ -727,7 +743,13 @@ describe('SNAPhelpers', () => {
       const earnedIncomeDeduction = 1;
       const medicalDeduction = 1;
       const dependentCareDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross), jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction), jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction), jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction), jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction) ];
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedGross').mockReturnValue(adjustedGross),
+        jest.spyOn(SNAPhelpers, 'getStandardDeduction').mockReturnValue(standardDeduction),
+        jest.spyOn(SNAPhelpers, 'getEarnedIncomeDeduction').mockReturnValue(earnedIncomeDeduction),
+        jest.spyOn(SNAPhelpers, 'getMedicalDeduction').mockReturnValue(medicalDeduction),
+        jest.spyOn(SNAPhelpers, 'getDependentCareDeduction').mockReturnValue(dependentCareDeduction), 
+      ];
       
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
@@ -753,7 +775,11 @@ describe('SNAPhelpers', () => {
       const income = 1000;
       const homelessDeduction = 100;
       const housingDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction) ];
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
+        jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
+        jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction), 
+      ];
       
       const monthlyNetIncome = income - homelessDeduction - housingDeduction;
       expect(SNAPhelpers.monthlyNetIncome(current)).toEqual(monthlyNetIncome);
@@ -763,7 +789,11 @@ describe('SNAPhelpers', () => {
       const income = 0;
       const homelessDeduction = 100;
       const housingDeduction = 1;
-      mocks = [ jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income), jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction), jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction) ];
+      mocks = [
+        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
+        jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
+        jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction), 
+      ];
       
       const monthlyNetIncome = income - homelessDeduction - housingDeduction;
       expect(monthlyNetIncome).toBeLessThan(0);

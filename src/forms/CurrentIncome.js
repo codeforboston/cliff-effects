@@ -67,7 +67,7 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
 
       {/* All kinds of things need to be explained. */}
       {/* @todo Change 'labelInfo' to visible blurb at top */}
-  	  <CashFlowRow
+      <CashFlowRow
         { ...sharedProps }
         generic='earned'
         labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>

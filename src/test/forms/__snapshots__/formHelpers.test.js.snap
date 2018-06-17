@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManagedNumberField should match snapshot 1`] = `
+<FormInput
+  as={[Function]}
+  control={[Function]}
+  error={false}
+  onBlur={[Function]}
+  onChange={[Function]}
+  onFocus={[Function]}
+  type="number"
+/>
+`;
