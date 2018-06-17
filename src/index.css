@@ -263,3 +263,8 @@ form elements. */
 .ui.attached.menu>.item:first-child {
   border-bottom-left-radius: 0;
 }
+
+.button.ui.teal.large.button {
+  padding-left: .25em;
+  padding-right: .25em;
+}
