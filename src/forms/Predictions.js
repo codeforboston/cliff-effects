@@ -85,7 +85,7 @@ const TabbedVisualizations = ({ client }) => {
                   Graph={ BenefitGraph } />
               </Tab.Pane>
             );
-          }, 
+          },
         },
       ] } />
   );
@@ -115,7 +115,7 @@ const PredictionsStep = function (props) {
         title     = 'What Might Happen?'
         clarifier = { null }
         left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'Reset', func: props.resetClient }}>
+        right     = {{ name: 'New Client', func: props.resetClient }}>
         <IncomeForm
           setClientProperty ={ setTimeProp }
           future            ={ props.client.future }
@@ -133,3 +133,4 @@ const PredictionsStep = function (props) {
 };  // End FutureIncomeStep() Component
 
 export { PredictionsStep };
+                                              
