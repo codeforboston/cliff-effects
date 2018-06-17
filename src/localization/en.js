@@ -127,7 +127,19 @@ export default {
       },
     },
 
-    household: {},
+    household: {
+      householdHeader: 'Household',
+      householdIntro:  'Information about the members of your household.',
+      role:            'Role',
+      age:             'Age',
+      disabled:        'Disabled',
+      headOfHousehold: 'Head of Household',
+      addMember:       'Add a member',
+      spouse:          'Spouse of Head of Household',
+      childOther:      'Child/Other Household Member',
+      previous:        'Previous',
+      next:            'Next',
+    },
 
     currentIncome: {
       earnedIncome: {
