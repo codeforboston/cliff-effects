@@ -12,6 +12,10 @@ const PROGRAM_CHART_VALUES = {
     name:  'Section 8 Housing',
     color: 'rgba(206, 203, 61, 1)',
   },
+  limits: {
+    max: 100000 / 12,  // monthly amount
+    min: 0,
+  },
 };
 
 export { PROGRAM_CHART_VALUES };

@@ -4,134 +4,27 @@ import { Message } from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
 
 // Logic
-import { getSNAPBenefits } from '../../programs/federal/snap';
-import { getSection8Benefit } from '../../programs/massachusetts/section8';
+import { timescaleMultipliers } from '../../utils/convert-by-timescale';
 import {
   formatAxis,
-  formatTitle,
   formatLabel,
-  stackedTitle,
-} from '../../utils/charts/chartFunctions';
-
-// Data
-import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
+  formatBenefitLinesTitle,
+  formatStackedTitle,
+} from '../../utils/charts/chartFormatting';
+import { getDatasets } from '../../utils/charts/getChartData';
 
 // Our Components
 import { FormPartsContainer } from '../formHelpers';
 import { GraphTimeButtons } from '../../components/GraphTimeButtons';
+import { VerticalLine } from './VerticalLine';
 
-const MAX_X_MONTHLY = 100000 / 12;
-const MULTIPLIERS = {
-  'Weekly':  1 / (4 + 1 / 3),
-  'Monthly': 1,
-  'Yearly':  12,
-};
+// Data
+import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 
-class verticalLinePlugin {
-
-  constructor () {
-    this.xRange = [];
-    this.income = 0;
-  }
-
-  afterDatasetsDraw = (chart) => {
-    const xRange = this.xRange,
-          income = this.income;
-
-    const i = xRange.findIndex((val) => {
-      return income < val;
-    });
-    const positionBetweenTwoPoints = (income - xRange[ i - 1 ]) / (xRange[ i ] - xRange[ i - 1 ]);
-
-    const data = chart.getDatasetMeta(0).data;
-    const prevX = data[ i - 1 ]._model.x;
-    const currX = data[ i ]._model.x;
-    const offset = Math.floor(positionBetweenTwoPoints * (currX - prevX) + prevX);
-
-    const ctx = chart.chart.ctx;
-    const scale = chart.scales[ 'y-axis-0' ];
-
-    ctx.save();
-
-    ctx.beginPath();
-    ctx.strokeStyle = 'rgba(50, 50, 50, 0.5)';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([
-      5,
-      5, 
-    ]);
-    ctx.moveTo(offset, scale.top);
-    ctx.lineTo(offset, scale.bottom);
-    ctx.stroke();
-
-    ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
-    ctx.textAlign = 'left';
-    const lineHeight = ctx.measureText('M').width * 1.2;
-    const xMargin = 5;
-    const yMargin = 200;
-    ctx.fillText('Future', offset + xMargin, yMargin);
-    ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
-
-    ctx.restore();
-  };
-};
-
-
-
-var getData = {};
-
-getData.income = function (xRange, client, multiplier) {
-  return xRange;
-};  // End getData.income
-
-getData.snap = function (xRange, client, multiplier) {
-
-  var data = xRange.map(function (income) {
-    client.future.earned = income / multiplier;  // Turn it back into monthly
-    return getSNAPBenefits(client, 'future') * multiplier;
-  });
-
-  return data;
-};  // End getData.snap
-
-
-getData.section8 = function (xRange, client, multiplier) {
-
-  var data = xRange.map(function (income) {
-    // New renting data
-    client.future.earned  = income / multiplier;  // Turn it back into monthly
-    var monthlySubsidy    = getSection8Benefit(client, 'future');
-    return monthlySubsidy * multiplier;
-  });
-
-  return data;
-};  // End getData.section8()
-
-
-/** Returns the graph data formated in a way our graph library understands. */
-const getDatasets = function (xRange, client, multiplier, activePrograms, extraProps) {
-
-  var datasets = [];
-
-  for (let programi = 0; programi < activePrograms.length; programi++) {
-
-    let programName   = activePrograms[ programi ],
-        graphFrosting = PROGRAM_CHART_VALUES[ programName ];
-
-    datasets.push({
-      label:           graphFrosting.name,
-      backgroundColor: graphFrosting.color,
-      borderColor:     graphFrosting.color,
-      /** Need a new object so client's data doesn't get changed. */
-      data:            getData[ programName ](xRange, _.cloneDeep(client), multiplier),
-      ...extraProps[ programName ],
-    });
-  }  // end for programs in program chart values
-
-  return datasets;
-};  // End getDatasets()
-
+const MAX_X_MONTHLY = PROGRAM_CHART_VALUES.limits.max,
+      // Graphs get things in monthly values, so we'll convert from there
+      MULTIPLIERS   = timescaleMultipliers.fromMonthly;
 
 // ===============
 // GRAPH DATA
@@ -147,7 +40,7 @@ class GrossGraph extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { verticalLine: new verticalLinePlugin() };
+    this.state = { verticalLine: new VerticalLine() };
   }
 
   render () {
@@ -217,7 +110,7 @@ class GrossGraph extends Component {
         },  // end `scales`
         tooltips: {
           callbacks: {
-            title: stackedTitle,
+            title: formatStackedTitle,
             label: formatLabel,
           },
         },  // end `tooltips`
@@ -236,7 +129,7 @@ class BenefitGraph extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { verticalLine: new verticalLinePlugin() };
+    this.state = { verticalLine: new VerticalLine() };
   }
 
   render () {
@@ -304,7 +197,7 @@ class BenefitGraph extends Component {
         },  // end `scales`
         tooltips: {
           callbacks: {
-            title: formatTitle,
+            title: formatBenefitLinesTitle,
             label: formatLabel,
           },
         },  // end `tooltips`
