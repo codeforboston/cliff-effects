@@ -2,7 +2,7 @@ import React from 'react';
 import { Prompt } from 'react-router-dom';
 
 // React Router <Prompt> customization shenanigans
-import * as getUserConfirmation from '../utils/getUserConfirmation';
+import * as getUserConfirmation from '../../utils/getUserConfirmation';
 
 /**
  * Customize React Router on leave prompt to use <OnLeavePrompt>
