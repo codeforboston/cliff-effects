@@ -87,7 +87,7 @@ timescaleMultipliers.fromMonthly = {
 timescaleMultipliers.fromWeekly = {
   'Weekly':  1,
   'Monthly': (4 + 1 / 3),
-  'Yearly':  12,
+  'Yearly':  52,
 };
 
 
