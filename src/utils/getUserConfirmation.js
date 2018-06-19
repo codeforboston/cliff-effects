@@ -1,25 +1,42 @@
 import { getConfirmation as defaultConfirm } from 'history/DOMUtils';
 
-/*
-_history_, which is used by _React Router_, runs the function `getConfirmation()`
-everytime the user navigates away from the page. This is useful for adding `onunload`
-prompts.
+/**
+ * tl;dr:
+ * This is a wrapper that temporarily hijacks React history.
+ * 
+ * More details:
+ * _history_, which is used by _React Router_ (`HashRouter`
+ * in App.js), runs the function `getConfirmation()` every
+ * time the user navigates away from a React 'page'.
+ * Navigates to a different `Route`, that is. This is useful
+ * for adding `onunload`-like prompts.
+ * 
+ * We could do this in a way that would be persistent
+ * throughout the site, but that became too hard to follow.
+ * Instead we pass it down through `props`. When we're done
+ * hijacking, we restore the old history behavior. We only
+ * really use the non-default behavior, but we figure it's
+ * probably good practice to restore the default behavior
+ * when we're done with our special case.
+ */
 
-The problem is you can only customize the function on initialization. Which is where
-this module comes in. The default export simply calls a stored function which you can set
-using `exports.set()`. `exports.unset()` restores the default function from _history_.
-*/
+class Confirmer {
+  constructor () {
+    this.confirm = defaultConfirm;
+  };
 
-let confirm = defaultConfirm;
+  set = (func) => {
+    return this.confirm = func;
+  };
 
-export const set = (fn) => {
-  return confirm = fn;
-};
+  unset = () => {
+    return this.confirm = defaultConfirm;
+  };
 
-export const unset = () => {
-  return confirm = defaultConfirm;
-};
+  getConfirmation = (result, callback) => {
+    return this.confirm(result, callback);
+  };
 
-export default (result, callback) => {
-  return confirm(result, callback);
-};
+};  // End Confirm
+
+export { Confirmer };

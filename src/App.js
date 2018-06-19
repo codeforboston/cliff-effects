@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import getUserConfirmation from './utils/getUserConfirmation';
+import { Confirmer } from './utils/getUserConfirmation';
 
 import HomePage from './containers/HomePage';
 import AboutPage from './containers/AboutPage';
@@ -16,7 +16,6 @@ import Header from './components/Header';
 
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
-
 
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 class App extends Component {
@@ -33,13 +32,16 @@ class App extends Component {
   render () {
     var { snippets } = this.state;
 
+    // Confirms user navigation
+    var confirmer = new Confirmer();
+
     return (
       <div id='App'>
         <Helmet>
           <html lang={ snippets.langCode } />
         </Helmet>
 
-        <HashRouter getUserConfirmation={ getUserConfirmation }>
+        <HashRouter getUserConfirmation={ confirmer.getConfirmation }>
           <div id='HashRouter'>
             <Route
               path="/:rest+"
@@ -72,7 +74,8 @@ class App extends Component {
                 return (
                   <VisitPage
                     { ...props }
-                    snippets={ snippets.visitPage } />);
+                    confirmer = { confirmer }
+                    snippets  = { snippets.visitPage } />);
               } } />
             <Route
               path="/visit/load"
@@ -80,7 +83,8 @@ class App extends Component {
                 return (
                   <VisitPage
                     { ...props }
-                    snippets={ snippets.visitPage } />);
+                    confirmer = { confirmer }
+                    snippets  = { snippets.visitPage } />);
               } } />
             <Route
               path="/load"
@@ -88,7 +92,8 @@ class App extends Component {
                 return (
                   <VisitPage
                     { ...props }
-                    snippets={ snippets.visitPage } />);
+                    confirmer = { confirmer }
+                    snippets  = { snippets.visitPage } />);
               } } />
           </div>
         </HashRouter>

@@ -1,15 +1,16 @@
 import React from 'react';
 import { Prompt } from 'react-router-dom';
 
-// React Router <Prompt> customization shenanigans
-import * as getUserConfirmation from '../../utils/getUserConfirmation';
-
 /**
  * Customize React Router on leave prompt to use <OnLeavePrompt>
+ *
+ * Hijacks history to show a modal first before
+ * letting history take its course.
  * 
  * @param props {object}
  * @param props.prompt {function}
- * @param props.message {string} - Passed on to <OnLeavePrompt>
+ * @param props.message {string} - Passed indirectly to <OnLeavePrompt>
+ * @param props.confirmer {object} - For hijacking history
  * @param props.isBlocking {boolean} - Whether the prompt should be shown
  * 
  * @see OnLeavePrompt
@@ -17,13 +18,15 @@ import * as getUserConfirmation from '../../utils/getUserConfirmation';
  */
 class ReactRouterConfirmLeave extends React.Component {
   componentDidMount() {
+    var { confirmer, prompt } = this.props;
+
     const confirm = (message, callback) =>
-    {return this.props.prompt(callback, { message: message });};
-    getUserConfirmation.set(confirm);
+    {return prompt(callback, { message: message });};
+    confirmer.set(confirm);
   }
 
   componentWillUnmount() {
-    getUserConfirmation.unset();
+    this.props.confirmer.unset();
   }
 
   render() {
