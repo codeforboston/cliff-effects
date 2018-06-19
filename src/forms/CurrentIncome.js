@@ -11,7 +11,7 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 /**
 * @todo Figure out which programs need to know which types of incomes
 * and categorize/tag them accordingly.
-* 
+*
 * @todo Calc and store `client.currentUnearnedIncomeMonthly`. I think
 * we do still have to keep the other specific income soruces separate
 * as they're possibly used in other calculations.
@@ -20,7 +20,7 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 // ========================================
 // COMPONENTS
 // ========================================
-/** 
+/**
 * @todo Is it possible for id's to be the same as the text in the label?
 * @todo Stuff like interest of bank accounts? (unearned income?)
 * @todo Other assets (not counted in gross income? income categories?)
@@ -37,11 +37,11 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 */
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 const IncomeForm = function ({ current, time, setClientProperty }) {
@@ -75,43 +75,43 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='TAFDC'> TAFDC 
+        generic='TAFDC'> TAFDC
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='SSI'> SSI 
+        generic='SSI'> SSI
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='SSDI'> SSDI 
+        generic='SSDI'> SSDI
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='childSupportIn'> Child support received 
+        generic='childSupportIn'> Child support received
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='unemployment'> Unemployment 
+        generic='unemployment'> Unemployment
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='workersComp'> Worker’s comp 
+        generic='workersComp'> Worker’s comp
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='pension'> Pension 
+        generic='pension'> Pension
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='socialSecurity'> Social security 
+        generic='socialSecurity'> Social security
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='alimony'> Alimony 
+        generic='alimony'> Alimony
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='otherIncome'> Other income 
+        generic='otherIncome'> Other income
       </CashFlowRow>
       <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
 
@@ -122,11 +122,11 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
 
 
 /** @todo description
-* 
+*
 * @function
 * @param {object} props
 * @property {object} props.__ - explanation
-* 
+*
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
