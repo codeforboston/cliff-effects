@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CashFlowRow should match snapshot 1`] = `
+<CashFlowContainer
+  label="label"
+  message={null}
+  validRow={true}
+>
+  <ManagedNumberField
+    className="cashflow-column"
+    format={[Function]}
+    name="name"
+    onBlur={[Function]}
+    otherData={
+      Object {
+        "interval": "weekly",
+      }
+    }
+    store={[Function]}
+    validation={[Function]}
+    value={0}
+  />
+  <ManagedNumberField
+    className="cashflow-column"
+    format={[Function]}
+    name="name"
+    onBlur={[Function]}
+    otherData={
+      Object {
+        "interval": "monthly",
+      }
+    }
+    store={[Function]}
+    validation={[Function]}
+    value={0}
+  />
+  <ManagedNumberField
+    className="cashflow-column"
+    format={[Function]}
+    name="name"
+    onBlur={[Function]}
+    otherData={
+      Object {
+        "interval": "yearly",
+      }
+    }
+    store={[Function]}
+    validation={[Function]}
+    value={0}
+  />
+</CashFlowContainer>
+`;
