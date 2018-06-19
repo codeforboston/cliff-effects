@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
-// Our Components
-import { BenefitsLineGraph } from './BenefitsLineGraph';
-import { FormPartsContainer } from '../formHelpers';
+// CUSTOM COMPONENTS
 import { GraphTimeButtons } from '../../components/GraphTimeButtons';
-import { StackedAreaGraph } from './StackedAreaGraph';
 
 
 class GraphHolder extends Component {
@@ -50,28 +47,5 @@ class GraphHolder extends Component {
 
 };  // End <GraphHolder>
 
-
-const ResultsGraph = ({ client, previousStep, resetClient }) => {
-
-  return (
-    <div className = 'result-page flex-item flex-column'>
-      <FormPartsContainer
-        title     = { 'Graphs' }
-        left      = {{ name: 'Go Back', func: previousStep }}
-        right     = {{ name: 'Reset', func: resetClient }}>
-        <GraphHolder
-          client={ client }
-          Graph={ StackedAreaGraph } />
-        <GraphHolder
-          client={ client }
-          Graph={ BenefitsLineGraph } />
-      </FormPartsContainer>
-    </div>
-  );
-
-};  // End Results()
-
-
-export default ResultsGraph;
 
 export { GraphHolder };
