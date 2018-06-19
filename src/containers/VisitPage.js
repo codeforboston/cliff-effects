@@ -124,7 +124,7 @@ class VisitPage extends Component {
       this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      this.prompt((ok) => {
+      this.askForFeedback((ok) => {
         return ok && this.resetClient();
       },
       {
