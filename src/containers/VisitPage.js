@@ -147,7 +147,7 @@ class VisitPage extends Component {
     });
   };
 
-  feedbackPrompt = () => {
+  openFeedback = () => {
     this.setState({ feedbackOpen: true });
   };
 
@@ -252,9 +252,9 @@ class VisitPage extends Component {
           changeClient={ this.changeClient }
           saveForm={ this.saveForm }
           resetClient={ this.resetClientPrompt }
-          feedbackPrompt={ this.feedbackPrompt }
+          openFeedback={ this.openFeedback }
           snippets={ formSnippets } />
-        <FeedbackAnytime feedbackPrompt={ this.feedbackPrompt } />
+        <FeedbackAnytime openFeedback={ this.openFeedback } />
         <ResetAnytime resetClient={ this.resetClientPrompt } />
       </div>
     );
@@ -266,7 +266,7 @@ class VisitPage extends Component {
         <OnLeavePrompt
           { ...this.state.prompt }
           isBlocking={ this.state.isBlocking }
-          feedbackPrompt={ this.feedbackPrompt } />
+          openFeedback={ this.openFeedback } />
 
         <ReactRouterConfirmLeave
           message='default'

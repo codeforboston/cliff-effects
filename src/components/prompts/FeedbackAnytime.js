@@ -7,7 +7,7 @@ const FeedbackAnytime = function (props) {
   return (
     <div>
       <Button
-        onClick={ props.feedbackPrompt }
+        onClick={ props.openFeedback }
         type='button'
         color='teal'
         size='medium'
