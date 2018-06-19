@@ -227,8 +227,8 @@ const MassiveToggle = function (props) {
 */
 const FormSubheading = function (props) {
 
-  if (!props.children) { 
-    return null; 
+  if (!props.children) {
+    return null;
   }
 
   return (
@@ -252,7 +252,7 @@ const FormSubheading = function (props) {
 */
 const FormHeading = function ({ subheading, children }) {
 
-  if (!children) { 
+  if (!children) {
     return null;
   }
 
@@ -508,10 +508,10 @@ class ManagedNumberField extends Component {
     var { value, name, className, format }  = this.props;
 
     // Format correctly when neighbors are updated, if needed
-    if (!focused) { 
-      value = format(value); 
-    } else { 
-      value = focusedVal; 
+    if (!focused) {
+      value = format(value);
+    } else {
+      value = focusedVal;
     }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */
@@ -594,7 +594,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
       message={ null }>
       <ManagedNumberField
         { ...baseProps }
-        value     = { baseVal / 4.33 }
+        value     = { baseVal / (4 + 1 / 3) }
         otherData = {{ interval: 'weekly' }} />
       <ManagedNumberField
         { ...baseProps }
@@ -686,7 +686,7 @@ class ControlledRadioYesNo extends Component {
           <b>{this.props.labelText}</b>
 
         </Form.Field>
-       
+
       </div>
     );
   }
