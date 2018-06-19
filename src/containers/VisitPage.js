@@ -107,7 +107,12 @@ class VisitPage extends Component {
     this.setState({ client: nextClient });
   };
 
-  resetClient = () => {
+  resetClient = (shouldReset) => {
+
+    if (!shouldReset) {
+      return;
+    }
+
     this.setState({
       currentStep: 1,
       client:      cloneDeep(CLIENT_DEFAULTS),
@@ -115,6 +120,7 @@ class VisitPage extends Component {
       isBlocking:  false,
       userChanged: {},
     });
+
   };
 
   askToResetClient = () => {
@@ -124,21 +130,19 @@ class VisitPage extends Component {
       this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      this.askForFeedback((ok) => {
-        return ok && this.resetClient();
-      },
-      {
+      var promptData = {
         leaveText: 'Reset',
         message:   'default',
-      });
+      };
+      this.askForFeedback(this.resetClient, promptData);
     }
   };
 
   askForFeedback = (callback, promptProps) => {
 
-    var closePrompt = (ok) => {
+    var closePrompt = (isOk) => {
       this.setState({ prompt: { open: false }});
-      callback(ok);
+      callback(isOk);
     };
 
     this.setState({
@@ -282,7 +286,7 @@ class VisitPage extends Component {
           confirmer = { this.props.confirmer }
           isBlocking={ this.state.isBlocking } />
         <ErrorPrompt
-          callback={ (ok) => {return ok && this.resetClient();} }
+          callback={ this.resetClient }
           client={ this.state.client }
           header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
