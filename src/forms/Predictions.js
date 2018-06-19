@@ -3,7 +3,7 @@ import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
-import { GraphHolder } from './output/ResultsGraph';
+import { GraphHolder } from './output/GraphHolder';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
