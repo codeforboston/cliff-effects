@@ -117,7 +117,7 @@ class VisitPage extends Component {
     });
   };
 
-  resetClientPrompt = () => {
+  askToResetClient = () => {
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
@@ -259,11 +259,11 @@ class VisitPage extends Component {
           previousStep={ this.previousStep }
           changeClient={ this.changeClient }
           saveForm={ this.saveForm }
-          resetClient={ this.resetClientPrompt }
+          askToResetClient={ this.askToResetClient }
           openFeedback={ this.openFeedback }
           snippets={ formSnippets } />
         <FeedbackAnytime openFeedback={ this.openFeedback } />
-        <ResetAnytime resetClient={ this.resetClientPrompt } />
+        <ResetAnytime askToResetClient={ this.askToResetClient } />
       </div>
     );
   };  // End getCurrentStep()
