@@ -56,8 +56,9 @@ class VisitPage extends Component {
       isBlocking:          false,
       redirect:            false,
       client:              clone,
-      prompt:              {
-        open:      false,
+      // For `OnLeavePrompt`
+      promptData:          {
+        open:      false,  // Start as hidden
         message:   '',
         header:    '',
         leaveText: 'Reset',
@@ -140,13 +141,14 @@ class VisitPage extends Component {
 
   askForFeedback = (callback, promptProps) => {
 
+    // Function that will be called when user is done.
     var closePrompt = (isOk) => {
-      this.setState({ prompt: { open: false }});
+      this.setState({ promptData: { open: false }});
       callback(isOk);
     };
 
     this.setState({
-      prompt: {
+      promptData: {
         ...promptProps,
         open:     true,
         callback: closePrompt,
@@ -214,6 +216,7 @@ class VisitPage extends Component {
     });
   };  // End onClientChange()
 
+  // Implement once privacy and security are worked out
   saveForm = (exitAfterSave) => {
     alert('Form saved (not really, this is a placeholder).');
     if (exitAfterSave) {
@@ -276,7 +279,7 @@ class VisitPage extends Component {
     return (
       <div className='forms-container flex-item flex-column'>
         <OnLeavePrompt
-          { ...this.state.prompt }
+          { ...this.state.promptData }
           isBlocking={ this.state.isBlocking }
           openFeedback={ this.openFeedback } />
 
