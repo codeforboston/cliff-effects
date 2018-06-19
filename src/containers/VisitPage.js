@@ -15,13 +15,13 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
-import ConfirmLeave from '../components/ConfirmLeave';
-import ErrorPrompt from '../components/ErrorPrompt';
-import OnLeavePrompt from '../components/OnLeavePrompt';
-import ReactRouterConfirmLeave from '../components/ReactRouterConfirmLeave';
-import FeedbackPrompt from '../components/FeedbackPrompt';
-import { FeedbackAnytime } from '../components/FeedbackAnytime';
-import { ResetAnytime } from '../components/ResetAnytime';
+import ConfirmLeave from '../components/prompts/ConfirmLeave';
+import ErrorPrompt from '../components/prompts/ErrorPrompt';
+import OnLeavePrompt from '../components/prompts/OnLeavePrompt';
+import ReactRouterConfirmLeave from '../components/prompts/ReactRouterConfirmLeave';
+import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
+import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
+import { ResetAnytime } from '../components/prompts/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
@@ -271,6 +271,7 @@ class VisitPage extends Component {
         <ReactRouterConfirmLeave
           message='default'
           prompt={ this.prompt }
+          confirmer = { this.props.confirmer }
           isBlocking={ this.state.isBlocking } />
         <ErrorPrompt
           callback={ (ok) => {return ok && this.resetClient();} }

@@ -18,7 +18,7 @@ const roundMoney = function (val) {
 
 
 /** This is how we've seen it done in MA tables
- * 
+ *
  * @see Math was observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
  * @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
  */
@@ -30,7 +30,7 @@ const moneyToWholeNum = function (val) {
 /**
 * Turns a value into a float, limits it in between min and max, and
 * makes sure to return a number (not NaN).
-* 
+*
 * @todo Testing required
 */
 const limit = function (initialVal, minMax) {
@@ -41,17 +41,17 @@ const limit = function (initialVal, minMax) {
 
   var raw   = parseFloat(initialVal),
       value = raw;
-  
-  if (typeof min === 'number' && !isNaN(min)) { 
-    value = Math.max(min, raw); 
-  }
-  
-  if (typeof max === 'number' && !isNaN(max)) {
-    value = Math.min(max, raw); 
+
+  if (typeof min === 'number' && !isNaN(min)) {
+    value = Math.max(min, raw);
   }
 
-  if (isNaN(value)) { 
-    value = 0; 
+  if (typeof max === 'number' && !isNaN(max)) {
+    value = Math.min(max, raw);
+  }
+
+  if (isNaN(value)) {
+    value = 0;
   }
 
   return value;
@@ -62,8 +62,8 @@ var toMonthlyAmount = {};
 
 toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
-  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
-  var monthlyRaw  = weeklyVal * 4.33,
+  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
+  var monthlyRaw  = weeklyVal * (4 + 1 / 3),
       monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;
 
@@ -80,7 +80,7 @@ toMonthlyAmount.monthly = function (evnt, monthlyVal) {
 
 toMonthlyAmount.yearly = function (evnt, yearlyVal) {
 
-  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */ 
+  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
   var monthlyRaw  = (yearlyVal / 12),
       monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;

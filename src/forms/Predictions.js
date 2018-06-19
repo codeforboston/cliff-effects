@@ -1,29 +1,16 @@
 import React from 'react';
 import { Form, Divider, Header, Tab } from 'semantic-ui-react';
-import { Bar } from 'react-chartjs-2';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
-import { BenefitsTable } from './BenefitsTable';
-import {
-  GraphHolder,
-  GrossGraph,
-  BenefitGraph,
-} from './ResultsGraph';
+import { GraphHolder } from './output/GraphHolder';
+import { BenefitsTable } from './output/BenefitsTable';
+import { StackedBarGraph } from './output/StackedBarGraph';
+import { StackedAreaGraph } from './output/StackedAreaGraph';
+import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
-import { getBenefitTimeFrames, getIncomeTimeFrames } from '../utils/getTimeFrames';
-import { getSNAPBenefits } from '../programs/federal/snap';
-import { getSection8Benefit } from '../programs/massachusetts/section8';
-import {
-  formatAxis,
-  formatLabel,
-  stackedTitle,
-} from '../utils/charts/chartFunctions';
-
-// DATA
-import { PROGRAM_CHART_VALUES } from '../utils/charts/PROGRAM_CHART_VALUES';
 
 
 // ========================================
@@ -65,110 +52,6 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
   );
 };  // End IncomeForm() Component
 
-const Chart = function({ client }) {
-
-  var curr = client.current;
-
-  var
-      { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
-      { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getSection8Benefit),
-      { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
-
-  var snapData    = [
-        SNAPBenefitCurrent,
-        SNAPBenefitFuture, 
-      ],
-      housingData = [
-        sec8BenefitCurrent,
-        sec8BenefitFuture, 
-      ],
-      incomeData  = [
-        incomeCurrent,
-        incomeFuture, 
-      ];
-
-  const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
-        SNAPName      = PROGRAM_CHART_VALUES.snap.name,
-        section8Color = PROGRAM_CHART_VALUES.section8.color,
-        section8Name  = PROGRAM_CHART_VALUES.section8.name,
-        incomeColor   = PROGRAM_CHART_VALUES.income.color,
-        incomeName    = PROGRAM_CHART_VALUES.income.name;
-
-  var datasets = [
-    {
-      label:           incomeName,
-      backgroundColor: incomeColor,
-      data:            incomeData,
-      fill:            'origin',
-    },
-  ];
-
-  if (curr.hasSnap) {
-    datasets.push({
-      label:           SNAPName,
-      backgroundColor: SNAPColor,
-      data:            snapData,
-    });
-  }
-
-  if (curr.hasSection8) {
-    datasets.push({
-      label:           section8Name,
-      backgroundColor: section8Color,
-      data:            housingData,
-    });
-  }
-
-  const stackedBarProps = {
-    data: {
-      labels:   incomeData,
-      datasets: datasets,
-    },
-    options: {
-      title: {
-        display: true,
-        text:    'Money Coming In as Income Changes',
-      },
-      scales: {
-        yAxes: [
-          {
-            stacked:    true,
-            scaleLabel: {
-              display:     true,
-              labelString: 'Total Money Coming In ($)',
-            },
-            ticks: {
-              beginAtZero: true,
-              callback:    formatAxis,
-            },
-          }, 
-        ],
-        xAxes: [
-          {
-            stacked:    true,
-            scaleLabel: {
-              display:     true,
-              labelString: 'Monthly Income ($)',
-            },
-            ticks: { callback: formatAxis },
-          },
-        ],
-      },
-      tooltips: {
-        callbacks: {
-          title: stackedTitle,
-          label: formatLabel,
-        },
-      },
-    },
-  };
-
-
-  return (
-    <Bar { ...stackedBarProps } />
-  );
-
-};  // End <Chart>
 
 const TabbedVisualizations = ({ client }) => {
   return (
@@ -177,7 +60,7 @@ const TabbedVisualizations = ({ client }) => {
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
         { menuItem: 'Changes', render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} },
-        { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><Chart client={ client } /></Tab.Pane>;} },
+        { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;} },
         {
           menuItem: 'Stacked Incomes',
           render:   () => {
@@ -185,7 +68,7 @@ const TabbedVisualizations = ({ client }) => {
               <Tab.Pane>
                 <GraphHolder
                   client={ client }
-                  Graph={ GrossGraph } />
+                  Graph={ StackedAreaGraph } />
               </Tab.Pane>
             );
           },
@@ -197,10 +80,10 @@ const TabbedVisualizations = ({ client }) => {
               <Tab.Pane>
                 <GraphHolder
                   client={ client }
-                  Graph={ BenefitGraph } />
+                  Graph={ BenefitsLineGraph } />
               </Tab.Pane>
             );
-          }, 
+          },
         },
       ] } />
   );
@@ -230,7 +113,7 @@ const PredictionsStep = function (props) {
         title     = 'What Might Happen?'
         clarifier = { null }
         left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'Reset', func: props.resetClient }}>
+        right     = {{ name: 'New Client', func: props.resetClient }}>
         <IncomeForm
           setClientProperty ={ setTimeProp }
           future            ={ props.client.future }
@@ -248,3 +131,4 @@ const PredictionsStep = function (props) {
 };  // End FutureIncomeStep() Component
 
 export { PredictionsStep };
+                                              
