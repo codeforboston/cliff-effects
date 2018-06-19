@@ -19,7 +19,7 @@ import ConfirmLeave from '../components/prompts/ConfirmLeave';
 import ErrorPrompt from '../components/prompts/ErrorPrompt';
 import OnLeavePrompt from '../components/prompts/OnLeavePrompt';
 import ReactRouterConfirmLeave from '../components/prompts/ReactRouterConfirmLeave';
-import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
+import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
 import { ResetAnytime } from '../components/prompts/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
@@ -134,21 +134,29 @@ class VisitPage extends Component {
     }
   };
 
-  prompt = (callback, promptProps) => {
+  askForFeedback = (callback, promptProps) => {
+
+    var closePrompt = (ok) => {
+      this.setState({ prompt: { open: false }});
+      callback(ok);
+    };
+
     this.setState({
       prompt: {
         ...promptProps,
         open:     true,
-        callback: (ok) => {
-          this.setState({ prompt: { open: false }});
-          callback(ok);
-        },
+        callback: closePrompt,
       },
     });
+
   };
 
   openFeedback = () => {
     this.setState({ feedbackOpen: true });
+  };
+
+  closeFeedback = () => {
+    this.setState({ feedbackOpen: false });
   };
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -270,7 +278,7 @@ class VisitPage extends Component {
 
         <ReactRouterConfirmLeave
           message='default'
-          prompt={ this.prompt }
+          askForFeedback={ this.askForFeedback }
           confirmer = { this.props.confirmer }
           isBlocking={ this.state.isBlocking } />
         <ErrorPrompt
@@ -278,12 +286,12 @@ class VisitPage extends Component {
           client={ this.state.client }
           header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
-          prompt={ this.prompt } />
+          askForFeedback={ this.askForFeedback } />
 
         <ConfirmLeave isBlocking={ this.state.isBlocking } />
-        <FeedbackPrompt
+        <FeedbackForm
           isOpen={ this.state.feedbackOpen }
-          close={ () => { this.setState({ feedbackOpen: false }); } }
+          close={ this.closeFeedback }
           data={ this.state.client } />
 
         {this.state.redirect ?
