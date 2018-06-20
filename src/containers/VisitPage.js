@@ -108,7 +108,7 @@ class VisitPage extends Component {
     this.setState({ client: nextClient });
   };
 
-  resetClient = (shouldReset) => {
+  resetClientIfOk = (shouldReset) => {
 
     if (!shouldReset) {
       return;
@@ -135,7 +135,7 @@ class VisitPage extends Component {
         leaveText: 'Reset',
         message:   'default',
       };
-      this.askForFeedback(this.resetClient, promptData);
+      this.askForFeedback(this.resetClientIfOk, promptData);
     }
   };
 
@@ -289,7 +289,7 @@ class VisitPage extends Component {
           confirmer = { this.props.confirmer }
           isBlocking={ this.state.isBlocking } />
         <ErrorPrompt
-          callback={ this.resetClient }
+          callback={ this.resetClientIfOk }
           client={ this.state.client }
           header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
