@@ -116,11 +116,18 @@ export default {
       predictions:     'Predictions',
     },
 
+    formHelpers: {
+      type:    ' Type',
+      weekly:  'Weekly',
+      monthly: 'Monthly',
+      yearly:  'Yearly',
+      yes:     { label: 'Yes' },
+      no:      { label: 'No' },
+    },
+
     currentBenefits: {
       currentBenefits: 'Current Benefits',
       selectBenefits:  'Select the benefits you currently receive',
-      yes:             'Yes',
-      no:              'No',
       hasSection8:     {
         label: 'Do you have Section 8 Housing?',
         hint:  'Section 8 provides rental housing assistance.',
