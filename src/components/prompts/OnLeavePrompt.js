@@ -32,7 +32,15 @@ class OnLeavePrompt extends React.Component {
   };
 
   render() {
-    const { isBlocking, header, message, open, leaveText, stayText } = this.props;
+    const {
+      isBlocking,
+      header,
+      message,
+      open,
+      leaveText,
+      stayText,
+      openFeedback,
+    } = this.props;
 
     // If the user hasn't interacted with the form at all
     if (!isBlocking) {
@@ -59,7 +67,7 @@ class OnLeavePrompt extends React.Component {
           <Button onClick={ this.leave }>{realLeave}</Button>
           <Button onClick={ this.stay }>{realStay}</Button>
           <Button
-            onClick={ this.props.feedbackPrompt }
+            onClick={ openFeedback }
             primary>Submit Feedback
           </Button>
         </Modal.Actions>

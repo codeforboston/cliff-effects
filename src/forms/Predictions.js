@@ -113,7 +113,7 @@ const PredictionsStep = function (props) {
         title     = 'What Might Happen?'
         clarifier = { null }
         left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'New Client', func: props.resetClient }}>
+        right     = {{ name: 'New Client', func: props.askToResetClient }}>
         <IncomeForm
           setClientProperty ={ setTimeProp }
           future            ={ props.client.future }
