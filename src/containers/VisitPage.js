@@ -17,7 +17,7 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/prompts/ConfirmLeave';
 import ErrorPrompt from '../components/prompts/ErrorPrompt';
-import OnLeavePrompt from '../components/prompts/OnLeavePrompt';
+import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import ReactRouterConfirmLeave from '../components/prompts/ReactRouterConfirmLeave';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
@@ -56,7 +56,7 @@ class VisitPage extends Component {
       isBlocking:          false,
       redirect:            false,
       client:              clone,
-      // For `OnLeavePrompt`
+      // For `FeedbackPrompt`
       promptData:          {
         open:      false,  // Start as hidden
         message:   '',
@@ -278,7 +278,7 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <OnLeavePrompt
+        <FeedbackPrompt
           { ...this.state.promptData }
           isBlocking={ this.state.isBlocking }
           openFeedback={ this.openFeedback } />
