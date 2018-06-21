@@ -64,7 +64,7 @@ class VisitPage extends Component {
         leaveText: 'Reset',
         callback:  () => {},
       },
-      feedbackOpen: false,
+      shouldShowFeedback: false,
       // Hack for MVP
       oldHousing:   clone.current.housing,
       userChanged:  {},
@@ -158,11 +158,11 @@ class VisitPage extends Component {
   };
 
   openFeedback = () => {
-    this.setState({ feedbackOpen: true });
+    this.setState({ shouldShowFeedback: true });
   };
 
   closeFeedback = () => {
-    this.setState({ feedbackOpen: false });
+    this.setState({ shouldShowFeedback: false });
   };
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -297,7 +297,7 @@ class VisitPage extends Component {
 
         <ConfirmLeave isBlocking={ this.state.isBlocking } />
         <FeedbackForm
-          isOpen={ this.state.feedbackOpen }
+          isOpen={ this.state.shouldShowFeedback }
           close={ this.closeFeedback }
           data={ this.state.client } />
 
