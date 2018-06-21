@@ -66,9 +66,9 @@ class VisitPage extends Component {
       },
       shouldShowFeedback: false,
       // Hack for MVP
-      oldHousing:   clone.current.housing,
-      userChanged:  {},
-      snippets:     props.snippets,
+      oldHousing:         clone.current.housing,
+      userChanged:        {},
+      snippets:           props.snippets,
     };  // end this.state {}
 
     this.steps = [
