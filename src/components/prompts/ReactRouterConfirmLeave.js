@@ -15,12 +15,12 @@ import { Prompt } from 'react-router-dom';
  * 
  * @param props {object}
  * @param props.askForFeedback {function} - Right now we just trigger feedback
- * @param props.message {string} - Passed indirectly to `<OnLeavePrompt>`
- * @param props.confirmer {object} - For hijacking standard functionality
+ * @param props.message {FeedbackPrompt} - Passed indirectly to `<FeedbackPrompt>`
+ * @param props.confirmer {Confirmer} - For hijacking standard functionality
  * @param props.isBlocking {boolean} - If true, interrupt navigation
  * 
- * @see OnLeavePrompt
- * @see getUserConfirmation
+ * @see FeedbackPrompt
+ * @see Confirmer
  */
 class ReactRouterConfirmLeave extends React.Component {
   componentDidMount() {
