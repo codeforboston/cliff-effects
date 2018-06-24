@@ -28,6 +28,7 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
+//import ResultsGraph from '../forms/ResultsGraph';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
@@ -305,7 +306,8 @@ class VisitPage extends Component {
         {/* = LINKS? = */}
         {/* We should probably remove this. If we want to
          * do this we might do this a different way at this
-         * point. */}
+         * point. Perhaps a user's page should be a route
+         * in VisitPage? Like our form sections will be? */}
         {this.state.redirect ?
           <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } /> :
           false
