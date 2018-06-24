@@ -6,7 +6,6 @@ import React from 'react';
  *
  * @param props {object}
  * @param props.callback {onLeaveCallback}
- * @param props.message {string}
  * @param props.askForFeedback {function}
  */
 class ErrorPrompt extends React.Component {

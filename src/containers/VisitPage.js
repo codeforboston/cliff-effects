@@ -28,7 +28,6 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
-//import ResultsGraph from '../forms/ResultsGraph';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
@@ -135,9 +134,10 @@ class VisitPage extends Component {
     }
   };
 
-  askForFeedback = (callback, promptProps) => {
+  askForFeedback = (callback, promptText) => {
 
-    // Function that will be called when user is done.
+    // When user exits feedback prompt somehow, 
+    // close it before finishing the callback.
     var closePrompt = (isOk) => {
       this.setState({ promptData: { open: false }});
       callback(isOk);
@@ -145,7 +145,7 @@ class VisitPage extends Component {
 
     this.setState({
       promptData: {
-        ...promptProps,
+        ...promptText,
         open:     true,
         callback: closePrompt,
       },
@@ -274,32 +274,44 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
+
+        {/* = PROMPTS & PROMPT TRIGGERS = */}
+        {/* - Sometimes visible - */}
+        {/* Triggered by `FeedbackPrompt` & `FeedbackAnytime` */}
+        <FeedbackForm
+          isOpen={ this.state.feedbackFormRequested }
+          close={ this.closeFeedback }
+          data={ this.state.client } />
+        {/* Triggered by `ReactRouterConfirmLeave`,
+         *`ResetAnytime`, or `ErrorPrompt` */}
         <FeedbackPrompt
           { ...this.state.promptData }
           isBlocking={ this.state.isBlocking }
           openFeedback={ this.openFeedback } />
 
-        <ReactRouterConfirmLeave
-          message='default'
-          askForFeedback={ this.askForFeedback }
-          confirmer = { this.props.confirmer }
-          isBlocking={ this.state.isBlocking } />
+        {/* - Never visible - */}
         <ErrorPrompt
           callback={ this.resetClientIfOk }
           client={ this.state.client }
           askForFeedback={ this.askForFeedback } />
-
+        {/* Browser nav - reload/back/unload. */}
         <ConfirmLeave isBlocking={ this.state.isBlocking } />
-        <FeedbackForm
-          isOpen={ this.state.feedbackFormRequested }
-          close={ this.closeFeedback }
-          data={ this.state.client } />
+        {/* React nav buttons (Home/About) */}
+        <ReactRouterConfirmLeave
+          askForFeedback={ this.askForFeedback }
+          confirmer = { this.props.confirmer }
+          isBlocking={ this.state.isBlocking } />
 
+        {/* = LINKS? = */}
+        {/* We should probably remove this. If we want to
+         * do this we might do this a different way at this
+         * point. */}
         {this.state.redirect ?
           <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } /> :
           false
         }
 
+        {/* = SECTION = */}
         {/* `padding` here duplicates previous `<Grid>` styleing */}
         <Container
           className='flex-item flex-column'
