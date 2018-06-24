@@ -21,7 +21,7 @@ import { Button, Modal } from 'semantic-ui-react';
  * @param props.leaveText {string}
  * @param props.stayText {string}
  */
-class OnLeavePrompt extends React.Component {
+class FeedbackPrompt extends React.Component {
   leave = (event) => {
     event.preventDefault();
     this.props.callback(true);
@@ -76,4 +76,4 @@ class OnLeavePrompt extends React.Component {
   }
 }
 
-export default OnLeavePrompt;
+export default FeedbackPrompt;
