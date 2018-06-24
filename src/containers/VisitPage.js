@@ -124,17 +124,13 @@ class VisitPage extends Component {
 
   };
 
-  askToResetClient = () => {
+  askToResetClient = (promptData) => {
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
       this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      var promptData = {
-        leaveText: 'Reset',
-        message:   'default',
-      };
       this.askForFeedback(this.resetClientIfOk, promptData);
     }
   };
@@ -291,8 +287,6 @@ class VisitPage extends Component {
         <ErrorPrompt
           callback={ this.resetClientIfOk }
           client={ this.state.client }
-          header='There was an unexpected error. Do you want to submit feedback?'
-          leaveText='Reset'
           askForFeedback={ this.askForFeedback } />
 
         <ConfirmLeave isBlocking={ this.state.isBlocking } />
