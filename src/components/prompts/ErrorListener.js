@@ -8,7 +8,7 @@ import React from 'react';
  * @param props.callback {onLeaveCallback}
  * @param props.askForFeedback {function}
  */
-class ErrorPrompt extends React.Component {
+class ErrorListener extends React.Component {
   handleError = ({ error }) => {
     var promptData = {
       header:    'There was an unexpected error. Do you want to submit feedback?',
@@ -32,4 +32,4 @@ class ErrorPrompt extends React.Component {
   }
 }
 
-export default ErrorPrompt;
+export default ErrorListener;

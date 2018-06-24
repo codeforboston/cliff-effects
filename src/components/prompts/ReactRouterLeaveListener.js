@@ -21,7 +21,7 @@ import { Prompt } from 'react-router-dom';
  * @see FeedbackPrompt
  * @see Confirmer
  */
-class ReactRouterConfirmLeave extends React.Component {
+class ReactRouterLeaveListener extends React.Component {
   componentDidMount() {
 
     var { confirmer, askForFeedback } = this.props;
@@ -50,4 +50,4 @@ class ReactRouterConfirmLeave extends React.Component {
   }
 }
 
-export default ReactRouterConfirmLeave;
+export default ReactRouterLeaveListener;

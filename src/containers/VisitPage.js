@@ -15,9 +15,9 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
-import ConfirmLeave from '../components/prompts/ConfirmLeave';
-import ReactRouterConfirmLeave from '../components/prompts/ReactRouterConfirmLeave';
-import ErrorPrompt from '../components/prompts/ErrorPrompt';
+import BrowserLeaveListener from '../components/prompts/BrowserLeaveListener';
+import ReactRouterLeaveListener from '../components/prompts/ReactRouterLeaveListener';
+import ErrorListener from '../components/prompts/ErrorListener';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
@@ -278,27 +278,27 @@ class VisitPage extends Component {
 
         {/* = PROMPTS & PROMPT TRIGGERS = */}
         {/* - Sometimes visible - */}
+        {/* Triggered by `ReactRouterLeaveListener`,
+         *`ResetAnytime`, or `ErrorListener` */}
+        <FeedbackPrompt
+          { ...this.state.promptData }
+          isBlocking={ this.state.isBlocking }
+          openFeedback={ this.openFeedback } />
         {/* Triggered by `FeedbackPrompt` & `FeedbackAnytime` */}
         <FeedbackForm
           isOpen={ this.state.feedbackFormRequested }
           close={ this.closeFeedback }
           data={ this.state.client } />
-        {/* Triggered by `ReactRouterConfirmLeave`,
-         *`ResetAnytime`, or `ErrorPrompt` */}
-        <FeedbackPrompt
-          { ...this.state.promptData }
-          isBlocking={ this.state.isBlocking }
-          openFeedback={ this.openFeedback } />
 
         {/* - Never visible - */}
-        <ErrorPrompt
+        <ErrorListener
           callback={ this.resetClientIfOk }
           client={ this.state.client }
           askForFeedback={ this.askForFeedback } />
         {/* Browser nav - reload/back/unload. */}
-        <ConfirmLeave isBlocking={ this.state.isBlocking } />
+        <BrowserLeaveListener isBlocking={ this.state.isBlocking } />
         {/* React nav buttons (Home/About) */}
-        <ReactRouterConfirmLeave
+        <ReactRouterLeaveListener
           askForFeedback={ this.askForFeedback }
           confirmer = { this.props.confirmer }
           isBlocking={ this.state.isBlocking } />
