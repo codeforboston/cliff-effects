@@ -14,8 +14,7 @@ import { Prompt } from 'react-router-dom';
  * that to decide what to do next.
  * 
  * @param props {object}
- * @param props.askForFeedback {function} - Right now we just trigger feedback
- * @param props.message {FeedbackPrompt} - Passed indirectly to `<FeedbackPrompt>`
+ * @param props.askForFeedback {function} - Right now we always trigger feedback
  * @param props.confirmer {Confirmer} - For hijacking standard functionality
  * @param props.isBlocking {boolean} - If true, interrupt navigation
  * 
@@ -27,8 +26,9 @@ class ReactRouterConfirmLeave extends React.Component {
 
     var { confirmer, askForFeedback } = this.props;
 
-    const tempConfirm = (message, callback) => {
-      return askForFeedback(callback, { message: message });
+    const tempConfirm = (message, reactCallback) => {
+      // `message` is passed indirectly to `<FeedbackPrompt>`
+      return askForFeedback(reactCallback, { message: 'default' });
     };
     // Temporarily use our custom function
     confirmer.set(tempConfirm);
@@ -41,12 +41,12 @@ class ReactRouterConfirmLeave extends React.Component {
   }
 
   render() {
-    const { isBlocking, ...rest } = this.props;
-    // This is invisible and waits for the user
+    const { isBlocking } = this.props;
+    // This is always invisible and waits for the user
     // to navigate to a different React Page/Route
     return <Prompt
-      when={ isBlocking }
-      { ...rest } />;
+      when    = { isBlocking }
+      message = { 'fake message since this prop is required' } />;
   }
 }
 
