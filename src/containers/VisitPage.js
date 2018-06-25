@@ -16,9 +16,9 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/prompts/ConfirmLeave';
-import ErrorPrompt from '../components/prompts/ErrorPrompt';
-import OnLeavePrompt from '../components/prompts/OnLeavePrompt';
 import ReactRouterConfirmLeave from '../components/prompts/ReactRouterConfirmLeave';
+import ErrorPrompt from '../components/prompts/ErrorPrompt';
+import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
 import { ResetAnytime } from '../components/prompts/ResetAnytime';
@@ -56,7 +56,7 @@ class VisitPage extends Component {
       isBlocking:          false,
       redirect:            false,
       client:              clone,
-      // For `OnLeavePrompt`
+      // For `FeedbackPrompt`
       promptData:          {
         open:      false,  // Start as hidden
         message:   '',
@@ -64,11 +64,11 @@ class VisitPage extends Component {
         leaveText: 'Reset',
         callback:  () => {},
       },
-      feedbackOpen: false,
+      feedbackFormRequested: false,
       // Hack for MVP
-      oldHousing:   clone.current.housing,
-      userChanged:  {},
-      snippets:     props.snippets,
+      oldHousing:            clone.current.housing,
+      userChanged:           {},
+      snippets:              props.snippets,
     };  // end this.state {}
 
     this.steps = [
@@ -158,11 +158,11 @@ class VisitPage extends Component {
   };
 
   openFeedback = () => {
-    this.setState({ feedbackOpen: true });
+    this.setState({ feedbackFormRequested: true });
   };
 
   closeFeedback = () => {
-    this.setState({ feedbackOpen: false });
+    this.setState({ feedbackFormRequested: false });
   };
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -278,7 +278,7 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <OnLeavePrompt
+        <FeedbackPrompt
           { ...this.state.promptData }
           isBlocking={ this.state.isBlocking }
           openFeedback={ this.openFeedback } />
@@ -297,7 +297,7 @@ class VisitPage extends Component {
 
         <ConfirmLeave isBlocking={ this.state.isBlocking } />
         <FeedbackForm
-          isOpen={ this.state.feedbackOpen }
+          isOpen={ this.state.feedbackFormRequested }
           close={ this.closeFeedback }
           data={ this.state.client } />
 
