@@ -16,10 +16,10 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import ConfirmLeave from '../components/prompts/ConfirmLeave';
-import ErrorPrompt from '../components/prompts/ErrorPrompt';
-import OnLeavePrompt from '../components/prompts/OnLeavePrompt';
 import ReactRouterConfirmLeave from '../components/prompts/ReactRouterConfirmLeave';
+import ErrorPrompt from '../components/prompts/ErrorPrompt';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
+import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
 import { ResetAnytime } from '../components/prompts/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
@@ -56,18 +56,19 @@ class VisitPage extends Component {
       isBlocking:          false,
       redirect:            false,
       client:              clone,
-      prompt:              {
-        open:      false,
+      // For `FeedbackPrompt`
+      promptData:          {
+        open:      false,  // Start as hidden
         message:   '',
         header:    '',
         leaveText: 'Reset',
         callback:  () => {},
       },
-      feedbackOpen: false,
+      feedbackFormRequested: false,
       // Hack for MVP
-      oldHousing:   clone.current.housing,
-      userChanged:  {},
-      snippets:     props.snippets,
+      oldHousing:            clone.current.housing,
+      userChanged:           {},
+      snippets:              props.snippets,
     };  // end this.state {}
 
     this.steps = [
@@ -107,7 +108,12 @@ class VisitPage extends Component {
     this.setState({ client: nextClient });
   };
 
-  resetClient = () => {
+  resetClientIfOk = (shouldReset) => {
+
+    if (!shouldReset) {
+      return;
+    }
+
     this.setState({
       currentStep: 1,
       client:      cloneDeep(CLIENT_DEFAULTS),
@@ -115,40 +121,48 @@ class VisitPage extends Component {
       isBlocking:  false,
       userChanged: {},
     });
+
   };
 
-  resetClientPrompt = () => {
+  askToResetClient = () => {
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
       this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      this.prompt((ok) => {
-        return ok && this.resetClient();
-      },
-      {
+      var promptData = {
         leaveText: 'Reset',
         message:   'default',
-      });
+      };
+      this.askForFeedback(this.resetClientIfOk, promptData);
     }
   };
 
-  prompt = (callback, promptProps) => {
+  askForFeedback = (callback, promptProps) => {
+
+    // Function that will be called when user is done.
+    var closePrompt = (isOk) => {
+      this.setState({ promptData: { open: false }});
+      callback(isOk);
+    };
+
     this.setState({
-      prompt: {
+      promptData: {
         ...promptProps,
         open:     true,
-        callback: (ok) => {
-          this.setState({ prompt: { open: false }});
-          callback(ok);
-        },
+        callback: closePrompt,
       },
     });
+
   };
 
-  feedbackPrompt = () => {
-    this.setState({ feedbackOpen: true });
+  openFeedback = () => {
+    this.setState({ feedbackFormRequested: true });
+  };
+
+  closeFeedback = () => {
+    this.setState({ feedbackFormRequested: false });
   };
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -202,6 +216,7 @@ class VisitPage extends Component {
     });
   };  // End onClientChange()
 
+  // Implement once privacy and security are worked out
   saveForm = (exitAfterSave) => {
     alert('Form saved (not really, this is a placeholder).');
     if (exitAfterSave) {
@@ -251,11 +266,11 @@ class VisitPage extends Component {
           previousStep={ this.previousStep }
           changeClient={ this.changeClient }
           saveForm={ this.saveForm }
-          resetClient={ this.resetClientPrompt }
-          feedbackPrompt={ this.feedbackPrompt }
+          askToResetClient={ this.askToResetClient }
+          openFeedback={ this.openFeedback }
           snippets={ formSnippets } />
-        <FeedbackAnytime feedbackPrompt={ this.feedbackPrompt } />
-        <ResetAnytime resetClient={ this.resetClientPrompt } />
+        <FeedbackAnytime openFeedback={ this.openFeedback } />
+        <ResetAnytime askToResetClient={ this.askToResetClient } />
       </div>
     );
   };  // End getCurrentStep()
@@ -263,27 +278,27 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
-        <OnLeavePrompt
-          { ...this.state.prompt }
+        <FeedbackPrompt
+          { ...this.state.promptData }
           isBlocking={ this.state.isBlocking }
-          feedbackPrompt={ this.feedbackPrompt } />
+          openFeedback={ this.openFeedback } />
 
         <ReactRouterConfirmLeave
           message='default'
-          prompt={ this.prompt }
+          askForFeedback={ this.askForFeedback }
           confirmer = { this.props.confirmer }
           isBlocking={ this.state.isBlocking } />
         <ErrorPrompt
-          callback={ (ok) => {return ok && this.resetClient();} }
+          callback={ this.resetClientIfOk }
           client={ this.state.client }
           header='There was an unexpected error. Do you want to submit feedback?'
           leaveText='Reset'
-          prompt={ this.prompt } />
+          askForFeedback={ this.askForFeedback } />
 
         <ConfirmLeave isBlocking={ this.state.isBlocking } />
-        <FeedbackPrompt
-          isOpen={ this.state.feedbackOpen }
-          close={ () => { this.setState({ feedbackOpen: false }); } }
+        <FeedbackForm
+          isOpen={ this.state.feedbackFormRequested }
+          close={ this.closeFeedback }
           data={ this.state.client } />
 
         {this.state.redirect ?

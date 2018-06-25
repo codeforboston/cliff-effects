@@ -7,12 +7,12 @@ import React from 'react';
  * @param props {object}
  * @param props.callback {onLeaveCallback}
  * @param props.message {string}
- * @param props.prompt {prompt}
+ * @param props.askForFeedback {function}
  */
 class ErrorPrompt extends React.Component {
   handleError = ({ error }) => {
-    const { callback, prompt, ...promptProps } = this.props;
-    prompt(callback, promptProps);
+    const { callback, askForFeedback, ...promptProps } = this.props;
+    askForFeedback(callback, promptProps);
   };
 
   componentDidMount() {

@@ -7,7 +7,7 @@ const ResetAnytime = function (props) {
   return (
     <div>
       <Button
-        onClick={ props.resetClient }
+        onClick={ props.askToResetClient }
         type='button'
         color='teal'
         size='medium'
