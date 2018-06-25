@@ -117,12 +117,11 @@ export default {
     },
 
     formHelpers: {
-      type:    ' Type',
-      weekly:  'Weekly',
-      monthly: 'Monthly',
-      yearly:  'Yearly',
-      yes:     { label: 'Yes' },
-      no:      { label: 'No' },
+      weekly:   'Weekly',
+      monthly:  'Monthly',
+      yearly:   'Yearly',
+      yesLabel: { label: 'Yes' },
+      noLabel:  { label: 'No' },
     },
 
     currentBenefits: {
