@@ -38,6 +38,18 @@ import {
 // ========================================
 // COMPONENTS
 // ========================================
+const EarnedFrom = function ({ heading, cashflowProps, children }) {
+  console.log('heading:', heading)
+  return (
+    <div>
+      <FormHeading>{ heading }</FormHeading>
+      <CashFlowRowAfterConfirm { ...cashflowProps }>
+        { children }
+      </CashFlowRowAfterConfirm>
+    </div>
+  );
+};  // End EarnedFrom
+
 
 const Utilities = function ({ current, type, time, setClientProperty }) {
 
@@ -267,7 +279,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         ? 
         <div>
           <FormHeading subheading = { 'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n' }>
-            Reasonable Unreimbursed Non-Medical Child(ren) Care
+            Reasonable Unreimbursed Non-Medical Child Care
           </FormHeading>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
@@ -286,12 +298,16 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             { ...sharedProps }
             generic={ 'childOtherCare' }> Other care 
           </CashFlowRow>
-          <CashFlowRowAfterConfirm
-            { ...sharedProps }
-            generic={ 'earnedBecauseOfChildCare' }
-            confirmLabel={ 'Does childcare allow you to make additional income?' }>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by child care expenses
-          </CashFlowRowAfterConfirm>
+
+          <EarnedFrom
+            heading={ 'Pay You Got Because Of Childcare' }
+            cashflowProps={{
+              ...sharedProps,
+              generic:      'earnedBecauseOfChildCare',
+              confirmLabel: 'If you didn\'t have that childcare, would you make less money?',
+            }}>
+            How much less?
+          </EarnedFrom>
         </div>
         : null
       }
@@ -348,12 +364,16 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             { ...sharedProps }
             generic={ 'disabledAssistance' }> Disabled/Handicapped assistance 
           </CashFlowRow>
-          <CashFlowRowAfterConfirm
-            { ...sharedProps }
-            generic={ 'earnedBecauseOfAdultCare' }
-            confirmLabel={ 'Do assistance expenses allow you to make additional income?' }>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by assistance expenses
-          </CashFlowRowAfterConfirm>
+
+          <EarnedFrom
+            heading={ 'Pay You Got Because Of Extra Care' }
+            cashflowProps={{
+              ...sharedProps,
+              generic:      'earnedBecauseOfAdultCare',
+              confirmLabel: 'If you didn\'t have that assistance, would you make less money?',
+            }}>
+            How much less?
+          </EarnedFrom>
         </div>
         : null
       }
