@@ -120,8 +120,8 @@ export default {
       weekly:   'Weekly',
       monthly:  'Monthly',
       yearly:   'Yearly',
-      yesLabel: { label: 'Yes' },
-      noLabel:  { label: 'No' },
+      yesLabel: 'Yes',
+      noLabel:  'No',
     },
 
     currentBenefits: {
