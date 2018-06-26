@@ -39,7 +39,6 @@ import {
 // COMPONENTS
 // ========================================
 const EarnedFrom = function ({ heading, cashflowProps, children }) {
-  console.log('heading:', heading)
   return (
     <div>
       <FormHeading>{ heading }</FormHeading>
