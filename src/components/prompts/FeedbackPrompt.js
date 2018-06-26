@@ -28,20 +28,22 @@ class FeedbackPrompt extends React.Component {
   };
   stay = (event) => {
     event.preventDefault();
+    // As of 06/25/18, it goes to the first step
+    // of the form without resetting
     this.props.callback(false);
   };
 
   render() {
     const {
       isBlocking,
+      openFeedback,
       header,
       message,
-      open,
       leaveText,
       stayText,
-      openFeedback,
     } = this.props;
 
+    // Isn't this/shouldn't this be taken care of elsewhere?
     // If the user hasn't interacted with the form at all
     if (!isBlocking) {
       // just go ahead and leave without displaying prompt
@@ -58,7 +60,7 @@ class FeedbackPrompt extends React.Component {
     }
 
     return (
-      <Modal open={ open }>
+      <Modal open={ true }>
         <Modal.Header>{header || `Do you want to give feedback before you ${realLeave.toLowerCase()}?`}</Modal.Header>
         <Modal.Content>
           <p> {realMessage} </p>
