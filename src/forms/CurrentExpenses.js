@@ -299,13 +299,13 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </CashFlowRow>
 
           <EarnedFrom
-            heading={ 'Pay You Got Because Of Childcare' }
+            heading={ 'Effect of Childcare' }
             cashflowProps={{
               ...sharedProps,
               generic:      'earnedBecauseOfChildCare',
-              confirmLabel: 'If you didn\'t have that childcare, would you make less money?',
+              confirmLabel: 'If you didn\'t have that childcare, would it affect your current job?',
             }}>
-            How much less?
+            How much less would you make?
           </EarnedFrom>
         </div>
         : null
@@ -365,11 +365,11 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </CashFlowRow>
 
           <EarnedFrom
-            heading={ 'Pay You Got Because Of Extra Care' }
+            heading={ 'Effect of Assistance' }
             cashflowProps={{
               ...sharedProps,
               generic:      'earnedBecauseOfAdultCare',
-              confirmLabel: 'If you didn\'t have that assistance, would you make less money?',
+              confirmLabel: 'If you didn\'t have that assistance, would it affect your current job?',
             }}>
             How much less?
           </EarnedFrom>
