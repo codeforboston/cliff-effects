@@ -37,7 +37,7 @@
     "object-curly-newline": ["warn", { "multiline": true }],
     "object-curly-spacing": ["warn", "always", { "arraysInObjects": false, "objectsInObjects": false }],
     "object-property-newline": ["warn", { "allowAllPropertiesOnSameLine": true }],
-    "quotes": ["warn", "single"],
+    "quotes": ["warn", "single", { "allowTemplateLiterals": true }],
     "react/jsx-closing-bracket-location": ["warn", "after-props"],
     "react/jsx-closing-tag-location": ["warn"],
     "react/jsx-curly-spacing": ["warn", "always", { "spacing": { "objectLiterals": "never" }}],
