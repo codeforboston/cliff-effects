@@ -6,13 +6,17 @@ import React from 'react';
  *
  * @param props {object}
  * @param props.callback {onLeaveCallback}
- * @param props.message {string}
  * @param props.askForFeedback {function}
  */
-class ErrorPrompt extends React.Component {
+class ErrorListener extends React.Component {
   handleError = ({ error }) => {
-    const { callback, askForFeedback, ...promptProps } = this.props;
-    askForFeedback(callback, promptProps);
+    var promptData = {
+      header:    'There was an unexpected error. Do you want to submit feedback?',
+      leaveText: 'Reset',
+    };
+
+    const { callback, askForFeedback } = this.props;
+    askForFeedback(callback, promptData);
   };
 
   componentDidMount() {
@@ -28,4 +32,4 @@ class ErrorPrompt extends React.Component {
   }
 }
 
-export default ErrorPrompt;
+export default ErrorListener;
