@@ -299,11 +299,11 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </CashFlowRow>
 
           <EarnedFrom
-            heading={ 'Effect of Childcare' }
+            heading={ 'Effect of Child care' }
             cashflowProps={{
               ...sharedProps,
               generic:      'earnedBecauseOfChildCare',
-              confirmLabel: 'If you didn\'t have that childcare, would it affect your current job?',
+              confirmLabel: 'If you didn\'t have that child care, would it affect your current job?',
             }}>
             How much less would you make?
           </EarnedFrom>
@@ -371,7 +371,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
               generic:      'earnedBecauseOfAdultCare',
               confirmLabel: 'If you didn\'t have that assistance, would it affect your current job?',
             }}>
-            How much less?
+            How much less would you make?
           </EarnedFrom>
         </div>
         : null
