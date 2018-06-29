@@ -8,7 +8,7 @@ import React from 'react';
  * @param props.isBlocking {boolean} - Whether the component should block
  * @param props.message {string} - The message the browser shows, maybe
  */
-class ConfirmLeave extends React.Component {
+class BrowserLeaveListener extends React.Component {
   static defaultProps = { isBlocking: true };
 
   confirm = (event) => {
@@ -31,4 +31,4 @@ class ConfirmLeave extends React.Component {
   }
 }
 
-export default ConfirmLeave;
+export default BrowserLeaveListener;

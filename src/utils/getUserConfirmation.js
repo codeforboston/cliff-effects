@@ -33,8 +33,8 @@ class Confirmer {
     return this.confirm = defaultConfirm;
   };
 
-  getConfirmation = (result, callback) => {
-    return this.confirm(result, callback);
+  getConfirmation = (message, reactCallback) => {
+    return this.confirm(message, reactCallback);
   };
 
 };  // End Confirm

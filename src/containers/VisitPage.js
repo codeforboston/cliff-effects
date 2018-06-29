@@ -15,9 +15,9 @@ import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
-import ConfirmLeave from '../components/prompts/ConfirmLeave';
-import ReactRouterConfirmLeave from '../components/prompts/ReactRouterConfirmLeave';
-import ErrorPrompt from '../components/prompts/ErrorPrompt';
+import BrowserLeaveListener from '../components/prompts/BrowserLeaveListener';
+import ReactRouterLeaveListener from '../components/prompts/ReactRouterLeaveListener';
+import ErrorListener from '../components/prompts/ErrorListener';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
@@ -124,24 +124,21 @@ class VisitPage extends Component {
 
   };
 
-  askToResetClient = () => {
+  askToResetClient = (promptData) => {
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
       this.goToStep(1);
     } else {
       // Otherwise, suggest the user submit feedback
-      var promptData = {
-        leaveText: 'Reset',
-        message:   'default',
-      };
       this.askForFeedback(this.resetClientIfOk, promptData);
     }
   };
 
-  askForFeedback = (callback, promptProps) => {
+  askForFeedback = (callback, promptText) => {
 
-    // Function that will be called when user is done.
+    // When user exits feedback prompt somehow, 
+    // close it before finishing the callback.
     var closePrompt = (isOk) => {
       this.setState({ promptData: { open: false }});
       callback(isOk);
@@ -149,7 +146,7 @@ class VisitPage extends Component {
 
     this.setState({
       promptData: {
-        ...promptProps,
+        ...promptText,
         open:     true,
         callback: closePrompt,
       },
@@ -278,34 +275,45 @@ class VisitPage extends Component {
   render() {
     return (
       <div className='forms-container flex-item flex-column'>
+
+        {/* = PROMPTS & PROMPT TRIGGERS = */}
+        {/* - Sometimes visible - */}
+        {/* Triggered by `ReactRouterLeaveListener`,
+         *`ResetAnytime`, or `ErrorListener` */}
         <FeedbackPrompt
           { ...this.state.promptData }
           isBlocking={ this.state.isBlocking }
           openFeedback={ this.openFeedback } />
-
-        <ReactRouterConfirmLeave
-          message='default'
-          askForFeedback={ this.askForFeedback }
-          confirmer = { this.props.confirmer }
-          isBlocking={ this.state.isBlocking } />
-        <ErrorPrompt
-          callback={ this.resetClientIfOk }
-          client={ this.state.client }
-          header='There was an unexpected error. Do you want to submit feedback?'
-          leaveText='Reset'
-          askForFeedback={ this.askForFeedback } />
-
-        <ConfirmLeave isBlocking={ this.state.isBlocking } />
+        {/* Triggered by `FeedbackPrompt` & `FeedbackAnytime` */}
         <FeedbackForm
           isOpen={ this.state.feedbackFormRequested }
           close={ this.closeFeedback }
           data={ this.state.client } />
 
+        {/* - Never visible - */}
+        <ErrorListener
+          callback={ this.resetClientIfOk }
+          client={ this.state.client }
+          askForFeedback={ this.askForFeedback } />
+        {/* Browser nav - reload/back/unload. */}
+        <BrowserLeaveListener isBlocking={ this.state.isBlocking } />
+        {/* React nav buttons (Home/About) */}
+        <ReactRouterLeaveListener
+          askForFeedback={ this.askForFeedback }
+          confirmer = { this.props.confirmer }
+          isBlocking={ this.state.isBlocking } />
+
+        {/* = LINKS? = */}
+        {/* We should probably remove this. If we want to
+         * do this we might do this a different way at this
+         * point. Perhaps a user's page should be a route
+         * in VisitPage? Like our form sections will be? */}
         {this.state.redirect ?
           <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } /> :
           false
         }
 
+        {/* = SECTION = */}
         {/* `padding` here duplicates previous `<Grid>` styleing */}
         <Container
           className='flex-item flex-column'
