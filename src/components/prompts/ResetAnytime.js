@@ -4,10 +4,18 @@ import { Button } from 'semantic-ui-react';
 
 const ResetAnytime = function (props) {
 
+  var askToResetClient = function () {
+    var promptData = {
+      leaveText: 'Reset',
+      message:   'default',
+    };
+    props.askToResetClient(promptData);
+  };
+
   return (
     <div>
       <Button
-        onClick={ props.askToResetClient }
+        onClick={ askToResetClient }
         type='button'
         color='teal'
         size='medium'
