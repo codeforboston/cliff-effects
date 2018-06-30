@@ -35,15 +35,15 @@ import { CustomClient } from '../components/CustomClient';
 
 
 // Temporary for developing prompts
-const ShowIfTrue = function ({ shouldShow, children }) {
+const RenderIfTrue = function ({ shouldRender, children }) {
 
-  if (shouldShow) {
+  if (shouldRender) {
     return children;
   } else {
     return null;
   }
 
-}; // End <ShowIfTrue>
+}; // End <RenderIfTrue>
 
 
 class VisitPage extends Component {
@@ -317,37 +317,37 @@ class VisitPage extends Component {
         {/* - Sometimes visible - */}
         {/* Triggered by `ReactRouterLeaveListener`,
          *`ResetAnytime`, or `ErrorListener` */}
-        <ShowIfTrue shouldShow={ whichPrompts.FeedbackPrompt }>
+        <RenderIfTrue shouldRender={ whichPrompts.FeedbackPrompt }>
           <FeedbackPrompt
             { ...promptData }
             isBlocking={ isBlocking }
             openFeedback={ this.openFeedback } />
-        </ShowIfTrue>
+        </RenderIfTrue>
         {/* Triggered by `FeedbackPrompt` & `FeedbackAnytime` */}
-        <ShowIfTrue shouldShow={ whichPrompts.FeedbackForm }>
+        <RenderIfTrue shouldRender={ whichPrompts.FeedbackForm }>
           <FeedbackForm
             close={ this.closeFeedback }
             data={ client } />
-        </ShowIfTrue>
+        </RenderIfTrue>
 
         {/* - Never visible - */}
-        <ShowIfTrue shouldShow={ whichPrompts.ErrorListener }>
+        <RenderIfTrue shouldRender={ whichPrompts.ErrorListener }>
           <ErrorListener
             callback={ this.resetClientIfOk }
             client={ client }
             askForFeedback={ this.askForFeedback } />
-        </ShowIfTrue>
+        </RenderIfTrue>
         {/* Browser nav - reload/back/unload. */}
-        <ShowIfTrue shouldShow={ whichPrompts.BrowserLeaveListener }>
+        <RenderIfTrue shouldRender={ whichPrompts.BrowserLeaveListener }>
           <BrowserLeaveListener isBlocking={ isBlocking } />
-        </ShowIfTrue>
+        </RenderIfTrue>
         {/* React nav buttons (Home/About) */}
-        <ShowIfTrue shouldShow={ whichPrompts.ReactRouterLeaveListener }>
+        <RenderIfTrue shouldRender={ whichPrompts.ReactRouterLeaveListener }>
           <ReactRouterLeaveListener
             askForFeedback={ this.askForFeedback }
             confirmer = { this.props.confirmer }
             isBlocking={ isBlocking } />
-        </ShowIfTrue>
+        </RenderIfTrue>
 
         {/* = LINKS? = */}
         {/* We should probably remove this. If we want to
