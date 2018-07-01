@@ -33,20 +33,30 @@ import {
   isDisabled,
   isUnder13,
 } from '../utils/getMembers';
+import { getUnder13Expenses } from '../utils/cashflow';
 
 
 // ========================================
 // COMPONENTS
 // ========================================
-const EarnedFrom = function ({ heading, cashflowProps, children }) {
-  return (
-    <div>
-      <FormHeading>{ heading }</FormHeading>
+const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
+
+  if (hasExpenses) {
+
+    // Because we're familiar with the benefit code, we
+    // happen to know these values don't need to be reset
+    // to 0, even if the client erases childcare expenses.
+    // Not sure if that's a great general practice, though.
+    return (
       <CashFlowRowAfterConfirm { ...cashflowProps }>
         { children }
       </CashFlowRowAfterConfirm>
-    </div>
-  );
+    );
+
+  } else {
+    return null;
+  }
+
 };  // End EarnedFrom
 
 
@@ -299,8 +309,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </CashFlowRow>
 
           <EarnedFrom
-            heading={ 'Effect of Child care' }
-            cashflowProps={{
+            hasExpenses   ={ getUnder13Expenses(current) !== 0 }
+            cashflowProps ={{
               ...sharedProps,
               generic:      'earnedBecauseOfChildCare',
               confirmLabel: 'If you didn\'t have that child care, would it affect your current job?',
@@ -365,8 +375,8 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
           </CashFlowRow>
 
           <EarnedFrom
-            heading={ 'Effect of Assistance' }
-            cashflowProps={{
+            hasExpenses   ={ current.disabledAssistance !== 0 }
+            cashflowProps ={{
               ...sharedProps,
               generic:      'earnedBecauseOfAdultCare',
               confirmLabel: 'If you didn\'t have that assistance, would it affect your current job?',
