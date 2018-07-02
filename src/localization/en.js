@@ -197,6 +197,8 @@ export default {
         label: 'Other income',
         hint:  'Please note income you may have from sources that are not listed above',
       },
+      previous: 'Previous',
+      next:     'Next',
     },
 
     currentExpenses: {
@@ -221,8 +223,8 @@ export default {
           label: 'Other care',
           hint:  'How much do you pay for other child care?',
         },
-        earnedBecauseOfChildCare: 'Does child care allow you to make additional income?',
-        ifYes:                    'Income made possible by childcare expenses',
+        doEarnBecauseOfChildCare: 'Does child care allow you to make additional income?',
+        earnedBecauseOfChildCare: 'Income made possible by childcare expenses',
       },
       childSupport: {
         sectionHeading:      'Child Support',
@@ -239,8 +241,8 @@ export default {
           label: 'Your Monthly Rent Share (how much of the total rent you have to pay)',
           hint:  'How much of the total rent you have to pay',
         },
-        subheading:     'Which of these utilities do you pay for?',
-        climateControl: {
+        utilitiesSubheading: 'Which of these utilities do you pay for?',
+        climateControl:      {
           label: 'Heating or cooling (e.g. A/C during summer)',
           hint:  'How much do you pay if you have a separate bill for heating and/or cooling',
         },
@@ -257,6 +259,8 @@ export default {
           hint:      'Fuel Assistance helps you pay for heating fuel',
         },
       },
+      previous: 'Previous',
+      next:     'Next',
     },
 
     predictions: {},
