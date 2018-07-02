@@ -1,10 +1,12 @@
 import React from 'react';
+import logo from '../images/logo.svg';
 
 import {
   Grid,
   Header,
   Icon,
   Segment,
+  Image
 } from 'semantic-ui-react';
 
 const Footer = () => {
@@ -20,7 +22,7 @@ const Footer = () => {
         inverted
         stackable>
         <Grid.Row>
-          <Grid.Column width={ 7 }>
+          <Grid.Column width={ 4 } floated='left' left>
             <Header
               as='h4'
               inverted>Cliff Effects Tool
@@ -30,6 +32,15 @@ const Footer = () => {
               size='small' /> by Code for Boston
             </p>
           </Grid.Column>
+          <a
+            
+            href="http://www.codeforboston.org"
+            target="_blank"
+            rel="noopener noreferrer"><Image
+              src={ logo }
+              size='small' 
+              floated='right'/>
+          </a>
         </Grid.Row>
       </Grid>
     </Segment>
