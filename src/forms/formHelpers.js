@@ -12,6 +12,7 @@ import {
   Grid,
   // Input,
   Checkbox,
+  Icon,
 } from 'semantic-ui-react';
 
 // UTILITIES
@@ -690,7 +691,28 @@ class ControlledRadioYesNo extends Component {
       </div>
     );
   }
-}
+};
+
+
+var AttentionArrow = function () {
+
+  return (
+    <span className={ 'attention-arrow' }>
+      <Icon
+        className = { 'attention-font' }
+        fitted
+        name      = { 'angle right' }
+        size      = { 'big' } />
+      <Icon
+        className = { 'attention-font' }
+        fitted
+        name      = { 'angle right' }
+        size      = { 'big' } />
+    </span>
+  );
+
+};  // End AttentionArrow
+
 
 /** @todo Separate into different files? */
 export {
@@ -701,5 +723,5 @@ export {
   RowMessage,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
   CashFlowRow, MonthlyCashFlowRow, CashFlowContainer,
-  ControlledRadioYesNo,
+  ControlledRadioYesNo, AttentionArrow,
 };

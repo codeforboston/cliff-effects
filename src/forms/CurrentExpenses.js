@@ -14,6 +14,7 @@ import {
   IntervalColumnHeadings,
   CashFlowRow,
   ControlledRadioYesNo,
+  AttentionArrow,
 } from './formHelpers';
 import {
   ContractRentField,
@@ -48,9 +49,12 @@ const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
     // to 0, even if the client erases childcare expenses.
     // Not sure if that's a great general practice, though.
     return (
-      <CashFlowRowAfterConfirm { ...cashflowProps }>
-        { children }
-      </CashFlowRowAfterConfirm>
+      <div className= { 'earned-from' }>
+        <AttentionArrow/>
+        <CashFlowRowAfterConfirm { ...cashflowProps }>
+          { children }
+        </CashFlowRowAfterConfirm>
+      </div>
     );
 
   } else {

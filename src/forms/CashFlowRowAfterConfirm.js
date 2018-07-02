@@ -78,7 +78,7 @@ class CashFlowRowAfterConfirm extends React.Component {
 
     return (
 
-      <div>
+      <div style={{ display: 'inline-block' }}>
 
         <ControlledRadioYesNo
           labelText = { confirmLabel }

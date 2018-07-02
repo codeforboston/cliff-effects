@@ -195,6 +195,25 @@ buttons are put on the left side. */
   display: flex;
 }
 
+.ui.form .earned-from .field {
+  margin-bottom: 0;
+}
+
+.earned-from {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+i.icon.attention-font {
+  color: #f2711c;
+  font-weight: 600;
+}
+
+.attention-arrow {
+  margin-right: 1em;
+}
+
 /* Give padding between elements, but not at the start
 so it can be in-line with other form components.
 Unfortunately, we haven't found a great way to keep
