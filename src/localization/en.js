@@ -197,9 +197,74 @@ export default {
         label: 'Other income',
         hint:  'Please note income you may have from sources that are not listed above',
       },
+      previous: 'Previous',
+      next:     'Next',
     },
 
-    currentExpenses: {},
+    currentExpenses: {
+      header:                          'Current Household Expenses',
+      unreimbursedNonMedicalChildCare: {
+        sectionHeading:    'Reasonable Unreimbursed Non-Medical Child(ren) Care',
+        subheading:        'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.',
+        columnExpenseType: 'Expense',
+        childDirectCare:   {
+          label: 'Direct care costs',
+          hint:  'How much do you pay for child care out of pocket?',
+        },
+        childBeforeAndAfterSchoolCare: {
+          label: 'Before- and after-school care',
+          hint:  'How much do you pay for child care for times before or after school?',
+        },
+        childTransportation: {
+          label: 'Transportation costs',
+          hint:  'How much do you pay for transportation?',
+        },
+        childOtherCare: {
+          label: 'Other care',
+          hint:  'How much do you pay for other child care?',
+        },
+        doEarnBecauseOfChildCare: 'Does child care allow you to make additional income?',
+        earnedBecauseOfChildCare: 'Income made possible by childcare expenses',
+      },
+      childSupport: {
+        sectionHeading:      'Child Support',
+        columnExpenseType:   'Expense',
+        childSupportPaidOut: {
+          legallyObligated: 'Legally obligated',
+          childSupport:     ' child support',
+        },
+      },
+      housing: {
+        sectionHeading:      'Housing',
+        monthlyContractRent: {
+          label: 'Monthly Contract Rent (the total rent for your apartment)',
+          hint:  'The total rent for your apartment',
+        },
+        monthlyRentShare: {
+          label: 'Your Monthly Rent Share (how much of the total rent you have to pay)',
+          hint:  'How much of the total rent you have to pay',
+        },
+        utilitiesSubheading: 'Which of these utilities do you pay for?',
+        climateControl:      {
+          label: 'Heating or cooling (e.g. A/C during summer)',
+          hint:  'How much do you pay if you have a separate bill for heating and/or cooling',
+        },
+        nonHeatElectricity: {
+          label: 'Electricity for non-heating purposes',
+          hint:  'How much do you pay for any electric usage (other than for heat)',
+        },
+        phone: {
+          label: 'Telephone service',
+          hint:  'How much do you pay for basic telephone service',
+        },
+        fuelAssistance: {
+          labelText: 'Do you get Fuel Assistance?',
+          hint:      'Fuel Assistance helps you pay for heating fuel',
+        },
+      },
+      previous: 'Previous',
+      next:     'Next',
+    },
 
     predictions: {},
   },
