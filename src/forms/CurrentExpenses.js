@@ -317,7 +317,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             cashflowProps ={{
               ...sharedProps,
               generic:      'earnedBecauseOfChildCare',
-              confirmLabel: 'If you didn\'t have that child care, would it affect your current job?',
+              confirmLabel: `If you didn't have that child care, would it change how much money you can bring home?`,
             }}>
             How much less would you make?
           </EarnedFrom>
@@ -383,7 +383,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             cashflowProps ={{
               ...sharedProps,
               generic:      'earnedBecauseOfAdultCare',
-              confirmLabel: 'If you didn\'t have that assistance, would it affect your current job?',
+              confirmLabel: `If you didn't have that assistance, would it change how much money you can bring home?`,
             }}>
             How much less would you make?
           </EarnedFrom>
