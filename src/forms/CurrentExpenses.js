@@ -50,7 +50,7 @@ const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
     // Not sure if that's a great general practice, though.
     return (
       <div className= { 'earned-from' }>
-        <AttentionArrow/>
+        <AttentionArrow />
         <CashFlowRowAfterConfirm { ...cashflowProps }>
           { children }
         </CashFlowRowAfterConfirm>
