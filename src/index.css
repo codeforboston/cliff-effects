@@ -193,25 +193,31 @@ input[type=number]::-webkit-outer-spin-button {
 buttons are put on the left side. */
 .radio-yes-no {
   display: flex;
+  margin-bottom: 1rem;
 }
 
-.ui.form .earned-from .field {
+.ui.form .radio-yes-no .field {
   margin-bottom: 0;
 }
 
 .earned-from {
   display: flex;
-  align-items: center;
-  margin-bottom: 1em;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
-i.icon.attention-font {
+.ui.form i.icon.attention-font {
   color: #f2711c;
   font-weight: 600;
 }
 
 .attention-arrow {
-  margin-right: 1em;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.attention-arrow i.fitted.attention-font {
+  line-height: .6em;
 }
 
 /* Give padding between elements, but not at the start
