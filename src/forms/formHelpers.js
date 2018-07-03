@@ -490,8 +490,6 @@ class ManagedNumberField extends Component {
   };
 
   handleChange = (evnt, inputProps) => {
-    console.log('evnt: ', evnt);
-    console.log('inputProps: ', inputProps);
     var { validation, store, otherData } = this.props;
     var { value } = inputProps,
         valid   = validation(value);
