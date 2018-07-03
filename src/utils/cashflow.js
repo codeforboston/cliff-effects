@@ -33,6 +33,19 @@ const getDependentCostsMonthly = function (client) {
 };  // End getDependentCostsMonthly()
 
 
+/**
+ * Client's total MONTHLY costs for dependents under 13
+ *     (does not include child support paid out).
+ * 
+ * @function
+ * @param {object} client - `current` or `future` property of client data
+ * @returns {number}
+ */
+const getUnder13Expenses = function (client) {
+  return sumProps(client, UNDER13_CARE_EXPENSES);
+};  // End getUnder13Expenses()
+
+
 // ==================================
 // STRAIGHT UP INCOME
 // ==================================
@@ -87,6 +100,7 @@ const sumProps = function (obj, props) {
 
 export {
   getDependentCostsMonthly,
+  getUnder13Expenses,
   getSimpleGrossIncomeMonthly,
   getGrossUnearnedIncomeMonthly,
   sumProps,

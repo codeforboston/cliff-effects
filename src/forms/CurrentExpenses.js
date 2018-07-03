@@ -14,6 +14,7 @@ import {
   IntervalColumnHeadings,
   CashFlowRow,
   ControlledRadioYesNo,
+  AttentionArrow,
 } from './formHelpers';
 import {
   ContractRentField,
@@ -33,11 +34,35 @@ import {
   isDisabled,
   isUnder13,
 } from '../utils/getMembers';
+import { getUnder13Expenses } from '../utils/cashflow';
 
 
 // ========================================
 // COMPONENTS
 // ========================================
+const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
+
+  if (hasExpenses) {
+
+    // Because we're familiar with the benefit code, we
+    // happen to know these values don't need to be reset
+    // to 0, even if the client erases childcare expenses.
+    // Not sure if that's a great general practice, though.
+    return (
+      <div className= { 'earned-from' }>
+        <AttentionArrow />
+        <CashFlowRowAfterConfirm { ...cashflowProps }>
+          { children }
+        </CashFlowRowAfterConfirm>
+      </div>
+    );
+
+  } else {
+    return null;
+  }
+
+};  // End EarnedFrom
+
 
 const Utilities = function ({ current, type, time, setClientProperty }) {
 
@@ -267,7 +292,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
         ? 
         <div>
           <FormHeading subheading = { 'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n' }>
-            Reasonable Unreimbursed Non-Medical Child(ren) Care
+            Reasonable Unreimbursed Non-Medical Child Care
           </FormHeading>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
@@ -286,12 +311,16 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             { ...sharedProps }
             generic={ 'childOtherCare' }> Other care 
           </CashFlowRow>
-          <CashFlowRowAfterConfirm
-            { ...sharedProps }
-            generic={ 'earnedBecauseOfChildCare' }
-            confirmLabel={ 'Does childcare allow you to make additional income?' }>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by child care expenses
-          </CashFlowRowAfterConfirm>
+
+          <EarnedFrom
+            hasExpenses   ={ getUnder13Expenses(current) !== 0 }
+            cashflowProps ={{
+              ...sharedProps,
+              generic:      'earnedBecauseOfChildCare',
+              confirmLabel: `If you didn't have that child care, would it change how much pay you can bring home?`,
+            }}>
+            How much less would you make?
+          </EarnedFrom>
         </div>
         : null
       }
@@ -348,12 +377,16 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             { ...sharedProps }
             generic={ 'disabledAssistance' }> Disabled/Handicapped assistance 
           </CashFlowRow>
-          <CashFlowRowAfterConfirm
-            { ...sharedProps }
-            generic={ 'earnedBecauseOfAdultCare' }
-            confirmLabel={ 'Do assistance expenses allow you to make additional income?' }>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by assistance expenses
-          </CashFlowRowAfterConfirm>
+
+          <EarnedFrom
+            hasExpenses   ={ current.disabledAssistance !== 0 }
+            cashflowProps ={{
+              ...sharedProps,
+              generic:      'earnedBecauseOfAdultCare',
+              confirmLabel: `If you didn't have that assistance, would it change how much pay you can bring home?`,
+            }}>
+            How much less would you make?
+          </EarnedFrom>
         </div>
         : null
       }
