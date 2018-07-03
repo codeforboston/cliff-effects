@@ -486,7 +486,6 @@ class ManagedNumberField extends Component {
   };
 
   handleBlur = (evnt) => {
-    this.props.onBlur(evnt);
     this.setState({ focused: false, valid: true });
   };
 
