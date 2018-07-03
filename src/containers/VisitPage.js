@@ -33,6 +33,19 @@ import StepBar from '../components/StepBar';
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
 
+
+// Temporary for developing prompts
+const RenderIfTrue = function ({ shouldRender, children }) {
+
+  if (shouldRender) {
+    return children;
+  } else {
+    return null;
+  }
+
+}; // End <RenderIfTrue>
+
+
 class VisitPage extends Component {
   constructor(props) {
     super(props);
@@ -58,17 +71,25 @@ class VisitPage extends Component {
       client:              clone,
       // For `FeedbackPrompt`
       promptData:          {
-        open:      false,  // Start as hidden
         message:   '',
         header:    '',
         leaveText: 'Reset',
         callback:  () => {},
       },
-      feedbackFormRequested: false,
+      whichPrompts: {
+        FeedbackForm:             false,
+        FeedbackPrompt:           false,
+        // will only be true for first form section
+        BrowserLeaveListener:     true,
+        // will only be true for first form section. Combine with above?
+        ReactRouterLeaveListener: true,
+        // will always be true. Include for consistency?
+        ErrorListener:            true,
+      },
       // Hack for MVP
-      oldHousing:            clone.current.housing,
-      userChanged:           {},
-      snippets:              props.snippets,
+      oldHousing:  clone.current.housing,
+      userChanged: {},
+      snippets:    props.snippets,
     };  // end this.state {}
 
     this.steps = [
@@ -135,19 +156,28 @@ class VisitPage extends Component {
     }
   };
 
+  setPrompt = (promptName, value) => {
+    var newPromptVals = { ...this.state.whichPrompts };
+    newPromptVals[ promptName ] = value;
+    this.setState({ whichPrompts: newPromptVals });
+  };
+
   askForFeedback = (callback, promptText) => {
 
     // When user exits feedback prompt somehow, 
     // close it before finishing the callback.
     var closePrompt = (isOk) => {
-      this.setState({ promptData: { open: false }});
+      this.setPrompt('FeedbackPrompt', false);
       callback(isOk);
     };
 
     this.setState({
+      whichPrompts: {
+        ...this.state.whichPrompts,
+        FeedbackPrompt: true,
+      },
       promptData: {
         ...promptText,
-        open:     true,
         callback: closePrompt,
       },
     });
@@ -155,11 +185,11 @@ class VisitPage extends Component {
   };
 
   openFeedback = () => {
-    this.setState({ feedbackFormRequested: true });
+    this.setPrompt('FeedbackForm', true);
   };
 
   closeFeedback = () => {
-    this.setState({ feedbackFormRequested: false });
+    this.setPrompt('FeedbackForm', false);
   };
 
   changeClient = (evnt, { route, name, value, checked, time }) => {
@@ -273,6 +303,13 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
+    var {
+      client,
+      whichPrompts,
+      promptData,
+      isBlocking,
+    } = this.state;
+
     return (
       <div className='forms-container flex-item flex-column'>
 
@@ -280,28 +317,37 @@ class VisitPage extends Component {
         {/* - Sometimes visible - */}
         {/* Triggered by `ReactRouterLeaveListener`,
          *`ResetAnytime`, or `ErrorListener` */}
-        <FeedbackPrompt
-          { ...this.state.promptData }
-          isBlocking={ this.state.isBlocking }
-          openFeedback={ this.openFeedback } />
+        <RenderIfTrue shouldRender={ whichPrompts.FeedbackPrompt }>
+          <FeedbackPrompt
+            { ...promptData }
+            isBlocking={ isBlocking }
+            openFeedback={ this.openFeedback } />
+        </RenderIfTrue>
         {/* Triggered by `FeedbackPrompt` & `FeedbackAnytime` */}
-        <FeedbackForm
-          isOpen={ this.state.feedbackFormRequested }
-          close={ this.closeFeedback }
-          data={ this.state.client } />
+        <RenderIfTrue shouldRender={ whichPrompts.FeedbackForm }>
+          <FeedbackForm
+            close={ this.closeFeedback }
+            data={ client } />
+        </RenderIfTrue>
 
         {/* - Never visible - */}
-        <ErrorListener
-          callback={ this.resetClientIfOk }
-          client={ this.state.client }
-          askForFeedback={ this.askForFeedback } />
+        <RenderIfTrue shouldRender={ whichPrompts.ErrorListener }>
+          <ErrorListener
+            callback={ this.resetClientIfOk }
+            client={ client }
+            askForFeedback={ this.askForFeedback } />
+        </RenderIfTrue>
         {/* Browser nav - reload/back/unload. */}
-        <BrowserLeaveListener isBlocking={ this.state.isBlocking } />
+        <RenderIfTrue shouldRender={ whichPrompts.BrowserLeaveListener }>
+          <BrowserLeaveListener isBlocking={ isBlocking } />
+        </RenderIfTrue>
         {/* React nav buttons (Home/About) */}
-        <ReactRouterLeaveListener
-          askForFeedback={ this.askForFeedback }
-          confirmer = { this.props.confirmer }
-          isBlocking={ this.state.isBlocking } />
+        <RenderIfTrue shouldRender={ whichPrompts.ReactRouterLeaveListener }>
+          <ReactRouterLeaveListener
+            askForFeedback={ this.askForFeedback }
+            confirmer = { this.props.confirmer }
+            isBlocking={ isBlocking } />
+        </RenderIfTrue>
 
         {/* = LINKS? = */}
         {/* We should probably remove this. If we want to

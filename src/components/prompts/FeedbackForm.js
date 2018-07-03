@@ -80,7 +80,7 @@ class FeedbackPrompt extends React.Component {
     return (
       <Modal
         size='large'
-        open={ this.props.isOpen }
+        open={ true }
         onClose={ this.close }
         closeOnDimmerClick={ false }
         closeOnEscape={ false }
