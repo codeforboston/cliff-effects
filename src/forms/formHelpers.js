@@ -475,7 +475,7 @@ class ManagedNumberField extends Component {
   }  // End constructor()
 
   //change form to blank string after click, before input
-  handleFocus = (evnt, inputProps) => {
+  handleFocus = (evnt) => {
     // This makes sure that only zeroes and blanks get reset
     var { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
@@ -491,6 +491,8 @@ class ManagedNumberField extends Component {
   };
 
   handleChange = (evnt, inputProps) => {
+    console.log('evnt: ', evnt);
+    console.log('inputProps: ', inputProps);
     var { validation, store, otherData } = this.props;
     var { value } = inputProps,
         valid   = validation(value);
