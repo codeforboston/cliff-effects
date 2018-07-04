@@ -91,7 +91,7 @@ test('should change local and app state correctly when user inputs empty string'
 
   // Define the test case here
   const userInput = '';
-  mockValidation.mockReturnValue(false);
+  mockValidation.mockReturnValue(true);
 
   const wrapper = shallow(
     <ManagedNumberField
@@ -109,7 +109,7 @@ test('should change local and app state correctly when user inputs empty string'
 
   // changes to this.state's focusedVal and valid variables
   expect(wrapper.state('focusedVal')).toBe(userInput);
-  expect(wrapper.state('valid')).toBe(false);
+  expect(wrapper.state('valid')).toBe(true);
 });
 
 test('should change local and app state correctly when user inputs negative number', () => {
