@@ -528,8 +528,7 @@ class ManagedNumberField extends Component {
         className = { className }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
-        onBlur    = { this.handleBlur }
-        type      = { 'number' } />
+        onBlur    = { this.handleBlur } />
     );
   }  // End render()
 
