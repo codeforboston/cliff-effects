@@ -54,7 +54,7 @@ test('should set focused state to false on blur', () => {
       value={ value } />
   );
   wrapper.setState({ focused: true });
-  wrapper.find('FormInput').simulate('blur', {});
+  wrapper.find('FormInput').simulate('blur', { target: { value }});
   expect(wrapper.state('focused')).toBe(false);
 });
 

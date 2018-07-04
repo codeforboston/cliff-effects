@@ -488,6 +488,13 @@ class ManagedNumberField extends Component {
 
   handleBlur = (evnt) => {
     this.props.onBlur(evnt);
+    // If field is empty string, set value to be 0 so that a user can clear the field
+    var { store, otherData } = this.props;
+    var value = evnt.target.value;
+    if (value.length === 0) {
+      store(evnt, { value: '0' }, otherData);
+    }
+    // Set local state for blur
     this.setState({ focused: false, valid: true });
   };
 
@@ -498,8 +505,6 @@ class ManagedNumberField extends Component {
 
     if (valid) {
       store(evnt, inputProps, otherData);
-    } else if (value.length === 0) {  // treat empty string as 0
-      store(evnt, { ...inputProps, value: '0' }, otherData);
     }
     this.setState({ focusedVal: value, valid: valid });
   };  // End handleChange()
