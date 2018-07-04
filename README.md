@@ -1,5 +1,4 @@
-# cliff-effects
-
+# cliff-effects [![TravisCI](https://travis-ci.org/codeforboston/cliff-effects.svg?style=shield)](https://travis-ci.org/codeforboston/cliff-effects)
 > **cliff effect**: You are a person on government benefits, and you get a raise.  You're making more money!  But now that your income is higher, you don't make the cutoff for the benefits you receive.  Even though you're taking home more money, your situation is worse. Some of your benefits drop to nothing, or almost nothing. You've fallen off "the cliff."
 
 We are building the Cliff Effects webapp to help* [Project Hope](http://www.prohope.org/about/) case managers make quantifiable predictions about their clients' potential cliff effects - and advise their clients accordingly.
