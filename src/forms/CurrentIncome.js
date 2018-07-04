@@ -44,7 +44,7 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 *
 * @returns Component
 */
-const IncomeForm = function ({ current, time, setClientProperty }) {
+const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
 
   var type = 'income';
 
@@ -66,53 +66,65 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
       <IntervalColumnHeadings type={ type } />
 
       {/* All kinds of things need to be explained. */}
-      {/* @todo Change 'labelInfo' to visible blurb at top */}
+      {/* @todo Change 'labelInfo' to visible blurb at top - delete below labelInfo? */}
+      
       <CashFlowRow
         { ...sharedProps }
         generic='earned'
         labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-          Earned income
+        { snippets.earnedIncome.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='TAFDC'> TAFDC
+        generic='TAFDC'> 
+        { snippets.TAFDC.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='SSI'> SSI
+        generic='SSI'> 
+        { snippets.SSI.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='SSDI'> SSDI
+        generic='SSDI'>
+        { snippets.SSI.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='childSupportIn'> Child support received
+        generic='childSupportIn'>
+        { snippets.childSupport.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='unemployment'> Unemployment
+        generic='unemployment'> 
+        { snippets.unemployment.label }      
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='workersComp'> Worker’s comp
+        generic='workersComp'> 
+        { snippets.workersComp.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='pension'> Pension
+        generic='pension'>
+        { snippets.pension.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='socialSecurity'> Social security
+        generic='socialSecurity'>
+        { snippets.socialSecurity.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='alimony'> Alimony
+        generic='alimony'> 
+        { snippets.alimony.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='otherIncome'> Other income
+        generic='otherIncome'>
+        { snippets.otherIncome.label }
       </CashFlowRow>
+      {/** @todo Change "This prototype..." to snippets.thisPrototype after changing en.js */ }
       <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
 
     </div>
@@ -133,8 +145,12 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
 const CurrentIncomeStep = function (props) {
 
   const setTimeProp = getTimeSetter('current', props.changeClient);
+  const snippets = props.snippets;
 
-  /** @todo Are these titles accurate now? */
+  /** @todo Are these titles accurate now? 
+   * @todo Change phrase after title to snippets.title after changing en.js?
+   * @todo Change phrase after clarifier to snippets.clarifier after changing en.js?
+  */
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
@@ -145,7 +161,8 @@ const CurrentIncomeStep = function (props) {
         <IncomeForm
           setClientProperty={ setTimeProp }
           current={ props.client.current }
-          time={ 'current' } />
+          time={ 'current' }
+          snippets={ snippets } />
       </FormPartsContainer>
     </Form>
   );
