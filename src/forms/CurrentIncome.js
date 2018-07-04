@@ -124,7 +124,9 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
         generic='otherIncome'>
         { snippets.otherIncome.label }
       </CashFlowRow>
-      {/** @todo Change "This prototype..." to snippets.thisPrototype after changing en.js */ }
+      {/** @todo Change "This prototype..." to snippets.incomePrototypeCalcuationHelp after changing en.js 
+        * This message is buried.  What does it mean?
+      */ }
       <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
 
     </div>
@@ -142,6 +144,11 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
+/** @todo  Make currentIncomeStep compatible with CurrentBenefitsStep? 
+ *         currentBenefits looks like this:
+ *         const CurrentBenefitsStep = ({ changeClient, nextStep, client, snippets })
+ * Which one is correct?
+*/
 const CurrentIncomeStep = function (props) {
 
   const setTimeProp = getTimeSetter('current', props.changeClient);
