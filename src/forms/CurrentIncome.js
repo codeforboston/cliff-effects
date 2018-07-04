@@ -70,8 +70,7 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
       
       <CashFlowRow
         { ...sharedProps }
-        generic='earned'
-        labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+        generic='earned'>
         { snippets.earnedIncome.label }
       </CashFlowRow>
       <CashFlowRow
