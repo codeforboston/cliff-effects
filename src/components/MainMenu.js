@@ -2,12 +2,10 @@ import React from 'react';
 import {
   // Button,
   Container,
-  Image,
   Menu,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { BetaWarning } from './BetaWarning';
-import logo from '../images/logo.svg';
 
 
 const MainMenu = function (props) {
@@ -17,15 +15,7 @@ const MainMenu = function (props) {
         inverted
         secondary
         size='large'>
-        <Menu.Item>
-          <a
-            href="http://www.codeforboston.org"
-            target="_blank"
-            rel="noopener noreferrer"><Image
-              src={ logo }
-              size='tiny' />
-          </a>
-        </Menu.Item>
+        
         <Menu.Item><Link to="/">Home</Link></Menu.Item>
         <Menu.Item><Link to="/about">About</Link></Menu.Item>
         <Menu.Item position='right'>
