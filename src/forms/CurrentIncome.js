@@ -127,7 +127,7 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
       {/** @todo Change "This prototype..." to snippets.incomePrototypeCalcuationHelp after changing en.js 
         * This message is buried.  What does it mean?
       */ }
-      <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
+      <Form.Field>{ snippets.bottomText }</Form.Field>
 
     </div>
   );  // end return
@@ -144,25 +144,20 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-/** @todo  Make currentIncomeStep compatible with CurrentBenefitsStep? 
+/** @todo  Make currentIncomeStep compatible with CurrentBenefitsStep
  *         currentBenefits looks like this:
  *         const CurrentBenefitsStep = ({ changeClient, nextStep, client, snippets })
- * Which one is correct?
 */
 const CurrentIncomeStep = function (props) {
 
   const setTimeProp = getTimeSetter('current', props.changeClient);
   const snippets = props.snippets;
 
-  /** @todo Are these titles accurate now? 
-   * @todo Change phrase after title to snippets.title after changing en.js?
-   * @todo Change phrase after clarifier to snippets.clarifier after changing en.js?
-  */
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = 'Current Household Income'
-        clarifier = 'Income that you collected in the past 12 months.'
+        title     = { snippets.title }
+        clarifier = { snippets.clarifier}
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Next', func: props.nextStep }}>
         <IncomeForm
