@@ -66,7 +66,6 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
       <IntervalColumnHeadings type={ type } />
 
       {/* All kinds of things need to be explained. */}
-      {/* @todo Change 'labelInfo' to visible blurb at top - delete below labelInfo? */}
       
       <CashFlowRow
         { ...sharedProps }
@@ -123,9 +122,6 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
         generic='otherIncome'>
         { snippets.otherIncome.label }
       </CashFlowRow>
-      {/** @todo Change "This prototype..." to snippets.incomePrototypeCalcuationHelp after changing en.js 
-        * This message is buried.  What does it mean?
-      */ }
       <Form.Field>{ snippets.bottomText }</Form.Field>
 
     </div>
