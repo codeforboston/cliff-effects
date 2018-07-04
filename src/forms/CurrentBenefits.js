@@ -74,8 +74,8 @@ const CurrentBenefitsStep = ({ changeClient, nextStep, client, snippets }) => {
       size='massive'
       className='household-size-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { 'Current Benefits' }
-        clarifier = { 'Select the benefits you currently receive.' }
+        title     = { snippets.currentBenefits }
+        clarifier = { snippets.selectBenefits }
         right     = {{ name: 'Next', func: nextStep }}>
         <CurrentBenefitsContent
           setClientProperty = { setTimeProp }
