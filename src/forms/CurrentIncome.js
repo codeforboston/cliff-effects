@@ -145,7 +145,6 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
 */
 const CurrentIncomeStep = function (props) {
 
-  /* Check */
   const setTimeProp = getTimeSetter('current', props.changeClient);
   const snippets = props.snippets;
 
