@@ -145,14 +145,15 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
 */
 const CurrentIncomeStep = function (props) {
 
+  /* Check */
   const setTimeProp = getTimeSetter('current', props.changeClient);
   const snippets = props.snippets;
 
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.title }
-        clarifier = { snippets.clarifier}
+        title     = { snippets.incomeHeader }
+        clarifier = { snippets.incomeClarifier }
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Next', func: props.nextStep }}>
         <IncomeForm
