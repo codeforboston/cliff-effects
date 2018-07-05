@@ -506,6 +506,9 @@ class ManagedNumberField extends Component {
     if (valid) {
       store(evnt, inputProps, otherData);
     }
+    else if (value.length === 0) {  // treat empty string as 0
+      store(evnt, { ...inputProps, value: '0' }, otherData);
+    }
     this.setState({ focusedVal: value, valid: valid });
   };  // End handleChange()
 
