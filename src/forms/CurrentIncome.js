@@ -151,8 +151,8 @@ const CurrentIncomeStep = function (props) {
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.incomeHeader }
-        clarifier = { snippets.incomeClarifier }
+        title     = { snippets.title }
+        clarifier = { snippets.clarifier }
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Next', func: props.nextStep }}>
         <IncomeForm
