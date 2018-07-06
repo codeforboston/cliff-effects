@@ -59,19 +59,20 @@ test('should set focused state to false on blur', () => {
 });
 
 test('should change local and app state correctly when user inputs positive number', () => {
-  const mockValidation = jest.fn();
+  const mockValidator = jest.fn();
   const mockStore = jest.fn();
 
   // Define the test case here
   const userInput = 5;
-  mockValidation.mockReturnValue(true);
+  mockValidator.mockReturnValue(true);
 
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
       otherData={ null }
       store={ mockStore }
-      validation={ mockValidation }
+      storeValidator={ mockValidator }
+      displayValidator={ mockValidator }
       value={ 0 } />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput });
@@ -86,19 +87,20 @@ test('should change local and app state correctly when user inputs positive numb
 });
 
 test('should change local and app state correctly when user inputs empty string', () => {
-  const mockValidation = jest.fn();
+  const mockValidator = jest.fn();
   const mockStore = jest.fn();
 
   // Define the test case here
   const userInput = '';
-  mockValidation.mockReturnValue(true);
+  mockValidator.mockReturnValue(true);
 
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
       otherData={ null }
       store={ mockStore }
-      validation={ mockValidation }
+      displayValidator={ mockValidator }
+      storeValidator={ mockValidator }
       value={ 0 } />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput });
@@ -113,19 +115,20 @@ test('should change local and app state correctly when user inputs empty string'
 });
 
 test('should change local and app state correctly when user inputs negative number', () => {
-  const mockValidation = jest.fn();
+  const mockValidator = jest.fn();
   const mockStore = jest.fn();
 
   // Define the test case here
   const userInput = -6;
-  mockValidation.mockReturnValue(false);
+  mockValidator.mockReturnValue(false);
 
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
       otherData={ null }
       store={ mockStore }
-      validation={ mockValidation }
+      displayValidator={ mockValidator }
+      storeValidator={ mockValidator }
       value={ 0 } />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MonthlyCashFlowRow } from './formHelpers';
 
-import { isPositiveNumber } from '../utils/validators';
+import { isNonNegNumber } from '../utils/validators';
 
 
 class RentShareField extends Component {
@@ -10,7 +10,7 @@ class RentShareField extends Component {
   validation = (ownValue) => {
     var message = null, valid = true;
 
-    let isPosNum = isPositiveNumber(ownValue);
+    let isPosNum = isNonNegNumber(ownValue);
     if (!isPosNum) { 
       valid = false; 
     }
@@ -62,7 +62,7 @@ class ContractRentField extends Component {
   validation = (ownValue) => {
     var message = null, valid = true;
 
-    let isPosNum = isPositiveNumber(ownValue);
+    let isPosNum = isNonNegNumber(ownValue);
     if (!isPosNum) { 
       valid = false; 
     }
@@ -112,7 +112,7 @@ const PlainRentRow = function ({ timeState, setClientProperty }) {
 
   const inputProps = {
           name:       'rent',
-          validation: isPositiveNumber,
+          validation: isNonNegNumber,
           onBlur:     function () {},
         },
         rowProps = {
