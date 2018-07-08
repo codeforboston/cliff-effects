@@ -20,6 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "deploy": "npm run build&&gh-pages -d build",
     "generateSNAPTests": "./node_modules/.bin/babel-node src/test/programs/federal/snap/generateTestCases",
