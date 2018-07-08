@@ -122,7 +122,7 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
         generic='otherIncome'>
         { snippets.otherIncome.label }
       </CashFlowRow>
-      <Form.Field>{ snippets.bottomText }</Form.Field>
+      <Form.Field>{ snippets.explainSnapCalculation }</Form.Field>
 
     </div>
   );  // end return
