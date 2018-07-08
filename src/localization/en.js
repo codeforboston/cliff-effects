@@ -156,7 +156,7 @@ export default {
       title:                  'Current Household Income',
       clarifier:              'Income that you collected in the past 12 months.',
       explainSnapCalculation: 'This prototype will attempt to make its own calculations for SNAP amount',
-      earnedIncome: {
+      earnedIncome:           {
         label: 'Earned income',
         hint:  'Earned income is how much you and your family get paid from working',
       },
