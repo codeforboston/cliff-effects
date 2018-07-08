@@ -8,6 +8,7 @@ exports[`CashFlowRow should match snapshot 1`] = `
 >
   <ManagedNumberField
     className="cashflow-column"
+    displayValidator={[Function]}
     format={[Function]}
     name="name"
     onBlur={[Function]}
@@ -17,11 +18,12 @@ exports[`CashFlowRow should match snapshot 1`] = `
       }
     }
     store={[Function]}
-    validation={[Function]}
+    storeValidator={[Function]}
     value={0}
   />
   <ManagedNumberField
     className="cashflow-column"
+    displayValidator={[Function]}
     format={[Function]}
     name="name"
     onBlur={[Function]}
@@ -31,11 +33,12 @@ exports[`CashFlowRow should match snapshot 1`] = `
       }
     }
     store={[Function]}
-    validation={[Function]}
+    storeValidator={[Function]}
     value={0}
   />
   <ManagedNumberField
     className="cashflow-column"
+    displayValidator={[Function]}
     format={[Function]}
     name="name"
     onBlur={[Function]}
@@ -45,7 +48,7 @@ exports[`CashFlowRow should match snapshot 1`] = `
       }
     }
     store={[Function]}
-    validation={[Function]}
+    storeValidator={[Function]}
     value={0}
   />
 </CashFlowContainer>

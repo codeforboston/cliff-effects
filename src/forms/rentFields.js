@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { MonthlyCashFlowRow } from './formHelpers';
 
-import { isPositiveNumber } from '../utils/validators';
+import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 
 
 class RentShareField extends Component {
   state = { valid: true, message: null };
 
-  validation = (ownValue) => {
+  storeValidator = (ownValue) => {
     var message = null, valid = true;
 
-    let isPosNum = isPositiveNumber(ownValue);
-    if (!isPosNum) { 
-      valid = false; 
+    let isPosNum = isNonNegNumber(ownValue);
+    if (!isPosNum) {
+      valid = false;
     }
     else {
       valid = ownValue <= this.props.timeState[ 'contractRent' ];
-      if (!valid) { 
-        message = 'Rent share must be less than contract rent'; 
+      if (!valid) {
+        message = 'Rent share must be less than contract rent';
       }
     }
 
@@ -34,9 +34,10 @@ class RentShareField extends Component {
           { valid, message } = this.state;
 
     const inputProps = {
-            name:       'rentShare',
-            validation: this.validation,
-            onBlur:     this.onBlur,
+            name:             'rentShare',
+            displayValidator: hasOnlyNonNegNumberChars,
+            storeValidator:   this.storeValidator,
+            onBlur:           this.onBlur,
           },
           rowProps = {
             label:    'Your Monthly Rent Share (how much of the total rent you have to pay)',
@@ -59,17 +60,17 @@ class RentShareField extends Component {
 class ContractRentField extends Component {
   state = { valid: true, message: null };
 
-  validation = (ownValue) => {
+  storeValidator = (ownValue) => {
     var message = null, valid = true;
 
-    let isPosNum = isPositiveNumber(ownValue);
-    if (!isPosNum) { 
-      valid = false; 
+    let isPosNum = isNonNegNumber(ownValue);
+    if (!isPosNum) {
+      valid = false;
     }
     else {
       valid = ownValue >= this.props.timeState[ 'rentShare' ];
-      if (!valid) { 
-        message = 'Rent share must be less than contract rent'; 
+      if (!valid) {
+        message = 'Rent share must be less than contract rent';
       }
     }
 
@@ -86,9 +87,10 @@ class ContractRentField extends Component {
           { valid, message } = this.state;
 
     const inputProps = {
-            name:       'contractRent',
-            validation: this.validation,
-            onBlur:     this.onBlur,
+            name:             'contractRent',
+            displayValidator: hasOnlyNonNegNumberChars,
+            storeValidator:   this.storeValidator,
+            onBlur:           this.onBlur,
           },
           rowProps = {
             label:    'Monthly Contract Rent (the total rent for your apartment)',
@@ -111,9 +113,10 @@ class ContractRentField extends Component {
 const PlainRentRow = function ({ timeState, setClientProperty }) {
 
   const inputProps = {
-          name:       'rent',
-          validation: isPositiveNumber,
-          onBlur:     function () {},
+          name:             'rent',
+          displayValidator: hasOnlyNonNegNumberChars,
+          storeValidator:   isNonNegNumber,
+          onBlur:           function () {},
         },
         rowProps = {
           label:    'Monthly Rent',
