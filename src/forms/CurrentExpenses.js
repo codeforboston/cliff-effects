@@ -260,7 +260,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
  * 
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, setClientProperty }) {
+const ExpensesFormContent = function ({ current, time, setClientProperty, snippets }) {
 
   let type        = 'expense',
       household   = current.household,
@@ -291,7 +291,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       { under13.length > 0
         ? 
         <div>
-          <FormHeading subheading = { 'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n' }>
+          <FormHeading subheading = { snippets.childDefinition }>
             Reasonable Unreimbursed Non-Medical Child Care
           </FormHeading>
           <IntervalColumnHeadings type={ type } />
@@ -455,21 +455,22 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
   * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client }) {
+const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client, snippets }) {
 
   const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { 'Current Household Expenses' }
-        clarifier = { null }
+        title     = { snippets.title }
+        clarifier = { snippets.clarifier }
         left      = {{ name: 'Previous', func: previousStep }}
         right     = {{ name: 'Next', func: nextStep }}>
         <ExpensesFormContent
           setClientProperty={ setTimeProp }
           current={ client.current }
-          time={ 'current' } />
+          time={ 'current' }
+          snippets={ snippets } />
       </FormPartsContainer>
     </Form>
   );
