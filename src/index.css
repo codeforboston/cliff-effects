@@ -76,7 +76,7 @@ Used to fill vertical space.
   padding-left: 1em !important;
 }
 
-.ui.form .cashflow .cashflow-column .ui.input input[type="number"] {
+.ui.form .cashflow .cashflow-column .ui.input input {
   text-align: right;
   width: 7em;
   display: inline-block;

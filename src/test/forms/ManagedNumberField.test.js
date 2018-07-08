@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { ManagedNumberField } from '../../forms/formHelpers';
+import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../../utils/validators';
 
 test('ManagedNumberField should match snapshot', () => {
   const wrapper = shallow(
@@ -59,19 +60,20 @@ test('should set focused state to false on blur', () => {
 });
 
 test('should change local and app state correctly when user inputs positive number', () => {
-  const mockValidation = jest.fn();
+  const mockValidator = jest.fn();
   const mockStore = jest.fn();
 
   // Define the test case here
   const userInput = 5;
-  mockValidation.mockReturnValue(true);
+  mockValidator.mockReturnValue(true);
 
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
       otherData={ null }
       store={ mockStore }
-      validation={ mockValidation }
+      storeValidator={ mockValidator }
+      displayValidator={ mockValidator }
       value={ 0 } />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput });
@@ -86,19 +88,20 @@ test('should change local and app state correctly when user inputs positive numb
 });
 
 test('should change local and app state correctly when user inputs empty string', () => {
-  const mockValidation = jest.fn();
+  const mockValidator = jest.fn();
   const mockStore = jest.fn();
 
   // Define the test case here
   const userInput = '';
-  mockValidation.mockReturnValue(false);
+  mockValidator.mockReturnValue(true);
 
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
       otherData={ null }
       store={ mockStore }
-      validation={ mockValidation }
+      displayValidator={ mockValidator }
+      storeValidator={ mockValidator }
       value={ 0 } />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput });
@@ -109,33 +112,40 @@ test('should change local and app state correctly when user inputs empty string'
 
   // changes to this.state's focusedVal and valid variables
   expect(wrapper.state('focusedVal')).toBe(userInput);
-  expect(wrapper.state('valid')).toBe(false);
+  expect(wrapper.state('valid')).toBe(true);
 });
 
 test('should change local and app state correctly when user inputs negative number', () => {
-  const mockValidation = jest.fn();
   const mockStore = jest.fn();
 
+  var mockDisplayValidator = jest.fn();
+  mockDisplayValidator.mockImplementation(hasOnlyNonNegNumberChars);
+
+  var mockStoreValidator = jest.fn();
+  mockStoreValidator.mockImplementation(isNonNegNumber);
+
   // Define the test case here
-  const userInput = -6;
-  mockValidation.mockReturnValue(false);
+  const userInput1 = 6;
+  const userInput2 = -6;
 
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
       otherData={ null }
       store={ mockStore }
-      validation={ mockValidation }
+      displayValidator={ mockDisplayValidator }
+      storeValidator={ mockStoreValidator }
       value={ 0 } />
   );
-  wrapper.find('FormInput').simulate('change', {}, { value: userInput });
+  wrapper.find('FormInput').simulate('change', {}, { value: userInput1 });
+  wrapper.find('FormInput').simulate('change', {}, { value: userInput2 });
 
   // expect that the store has not been called
-  expect(mockStore).not.toHaveBeenCalled();
+  expect(mockStore.mock.calls).toHaveLength(1);
 
   // changes to this.state's focusedVal and valid variables
-  expect(wrapper.state('focusedVal')).toBe(userInput);
-  expect(wrapper.state('valid')).toBe(false);
+  expect(wrapper.state('focusedVal')).toBe(userInput1);
+  expect(wrapper.state('valid')).toBe(true);
 });
 
 test('should set FormInput error state properly when valid condition changes', () => {

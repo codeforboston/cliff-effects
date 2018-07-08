@@ -18,7 +18,10 @@ import {
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
-import { isPositiveWholeNumber } from '../utils/validators';
+import {
+  isNonNegWholeNumber,
+  hasOnlyNonNegWholeNumberChars,
+} from '../utils/validators';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';
@@ -42,24 +45,24 @@ const Columns = {};
 // `noMargin` is a bit hacky, but it'll do for now
 Columns.One = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if (noMargin) { 
-    marginTop = 0; 
+  if (noMargin) {
+    marginTop = 0;
   }
   return (<div style={{ ...columnStyle, marginTop: marginTop, width: '5em' }}> {children} </div>);
 };
 
 Columns.Two = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if (noMargin) { 
-    marginTop = 0; 
+  if (noMargin) {
+    marginTop = 0;
   }
   return (<div style={{ ...columnStyle, marginTop: marginTop, width: '20em', textAlign: 'left', paddingLeft: '1em' }}> {children} </div>);
 };
 
 Columns.Three = function ({ noMargin, children }) {
   var marginTop = columnStyle.marginTop;
-  if (noMargin) { 
-    marginTop = 0; 
+  if (noMargin) {
+    marginTop = 0;
   }
   return (<div style={{ ...columnStyle, marginTop: marginTop, width: '5em' }}> {children} </div>);
 };
@@ -225,7 +228,7 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
             className={ 'remove' }
             onClick={ removeMember }
             iconName={ 'remove' } />
-          : 
+          :
           <span>{ household.length > 1
             ? <Icon
               fitted
@@ -246,13 +249,14 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 
       <Columns.Three>
         <ManagedNumberField
-          value      = { member.m_age }
-          name       = { 'm_age' }
-          className  = { time + ' member-age ' + time }
-          validation = { isPositiveWholeNumber }
-          format     = { function (value) { return value; } }
-          store      = { onMemberChange }
-          onBlur     = { function () { return true; } } />
+          value            = { member.m_age }
+          name             = { 'm_age' }
+          className        = { time + ' member-age ' + time }
+          displayValidator = { hasOnlyNonNegWholeNumberChars }
+          storeValidator   = { isNonNegWholeNumber }
+          format           = { function (value) { return value; } }
+          store            = { onMemberChange }
+          onBlur           = { function () { return true; } } />
       </Columns.Three>
 
       <Columns.Four>

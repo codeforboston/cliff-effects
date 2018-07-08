@@ -17,7 +17,7 @@ import {
 
 // UTILITIES
 import { toMonthlyAmount } from '../utils/math';
-import { isPositiveNumber } from '../utils/validators';
+import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
 
 
@@ -488,25 +488,30 @@ class ManagedNumberField extends Component {
 
   handleBlur = (evnt) => {
     this.props.onBlur(evnt);
-    // If field is empty string, set value to be 0 so that a user can clear the field
-    var { store, otherData } = this.props;
-    var value = evnt.target.value;
-    if (value.length === 0) {
-      store(evnt, { value: '0' }, otherData);
-    }
+
     // Set local state for blur
     this.setState({ focused: false, valid: true });
   };
 
   handleChange = (evnt, inputProps) => {
-    var { validation, store, otherData } = this.props;
-    var { value } = inputProps,
-        valid   = validation(value);
+    var { displayValidator, storeValidator, store, otherData } = this.props;
+    var focusedVal = inputProps.value;
+
+    // If doesn't pass display validator, don't store and don't change focusedVal
+    if (!displayValidator(inputProps.value)) {
+      return;
+    }
+
+    if (focusedVal.length === 0) {
+      // If field contains an empty string, set value to be 0 (visible on blur)
+      inputProps.value = '0';
+    }
+    var valid = storeValidator(inputProps.value);
 
     if (valid) {
       store(evnt, inputProps, otherData);
     }
-    this.setState({ focusedVal: value, valid: valid });
+    this.setState({ focusedVal: focusedVal, valid: valid });
   };  // End handleChange()
 
   render() {
@@ -529,8 +534,7 @@ class ManagedNumberField extends Component {
         className = { className }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
-        onBlur    = { this.handleBlur }
-        type      = { 'number' } />
+        onBlur    = { this.handleBlur } />
     );
   }  // End render()
 
@@ -585,12 +589,13 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
    */
   var baseVal   = timeState[ generic ],
       baseProps = {
-        name:       generic,
-        className:  'cashflow-column',
-        store:      updateClient,
-        validation: isPositiveNumber,
-        format:     toMoneyStr,
-        onBlur:     function () { return true; },
+        name:             generic,
+        className:        'cashflow-column',
+        store:            updateClient,
+        displayValidator: hasOnlyNonNegNumberChars,
+        storeValidator:   isNonNegNumber,
+        format:           toMoneyStr,
+        onBlur:           function () { return true; },
       };
 
   return (
@@ -620,7 +625,7 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
 const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty, rowProps }) {
 
   inputProps = {
-    ...inputProps, // name, validation, and onBlur
+    ...inputProps, // name, validators, and onBlur
     className: 'cashflow-column',
     format:    toMoneyStr,
     store:     setClientProperty,
