@@ -291,25 +291,29 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
       { under13.length > 0
         ? 
         <div>
-          <FormHeading subheading = { snippets.childDefinition }>
-            Reasonable Unreimbursed Non-Medical Child Care
+          <FormHeading subheading = { snippets.unreimbursedNonMedicalChildCare.subheading }>
+            { snippets.unreimbursedNonMedicalChildCare.sectionHeading }
           </FormHeading>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childDirectCare' }> Direct care costs 
+            generic={ 'childDirectCare' }> 
+            { snippets.unreimbursedNonMedicalChildCare.childDirectCare.label }
           </CashFlowRow>
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childBeforeAndAfterSchoolCare' }> Before- and after-school care 
+            generic={ 'childBeforeAndAfterSchoolCare' }>
+            { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.label}
           </CashFlowRow>
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childTransportation' }> Transportation costs 
+            generic={ 'childTransportation' }> 
+            { snippets.unreimbursedNonMedicalChildCare.childTransportation.label }
           </CashFlowRow>
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childOtherCare' }> Other care 
+            generic={ 'childOtherCare' }> 
+            { snippets.unreimbursedNonMedicalChildCare.childOtherCare.label }
           </CashFlowRow>
 
           <EarnedFrom

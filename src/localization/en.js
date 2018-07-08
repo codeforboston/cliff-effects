@@ -153,8 +153,8 @@ export default {
     },
 
     currentIncome: {
-      title:        'Current Household Income',
-      clarifier:    'Income that you collected in the past 12 months.',
+      title:                  'Current Household Income',
+      clarifier:              'Income that you collected in the past 12 months.',
       explainSnapCalculation: 'This prototype will attempt to make its own calculations for SNAP amount',
       earnedIncome: {
         label: 'Earned income',
@@ -205,7 +205,7 @@ export default {
     },
 
     currentExpenses: {
-      header:                          'Current Household Expenses',
+      title:                           'Current Household Expenses',
       unreimbursedNonMedicalChildCare: {
         sectionHeading:    'Reasonable Unreimbursed Non-Medical Child(ren) Care',
         subheading:        'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.',
