@@ -123,7 +123,7 @@ class FeedbackPrompt extends React.Component {
             onClick={ this.submit }
             loading={ this.state.submitting }
             disabled={ this.state.submitting }
-            primary>Submit
+            color='teal'>Submit
           </Button>
         </Modal.Actions>
       </Modal>
