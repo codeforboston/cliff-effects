@@ -284,13 +284,14 @@ class VisitPage extends Component {
 
   render() {
 
-    var prevData  = null,
+    var snippets  = this.state.snippets,
+        prevData  = null,
         nextData  = null,
         stepIndex = this.getCurrentStepIndex();
 
     if (stepIndex !== 0) {
       prevData = {
-        text:    `Previous`,
+        text:    snippets[ `previous_v1.0` ],
         onClick: this.previousStep,
       };
     }
@@ -299,14 +300,14 @@ class VisitPage extends Component {
     if (stepIndex !== (this.steps.length - 1)) {
       // use normal 'next' data
       nextData = {
-        text:    `Next`,
+        text:    snippets[ `next_v1.0` ],
         onClick: this.nextStep,
       };
 
     // Otherwise, set up to reset client
     } else {
       nextData = {
-        text:    `New Client`,
+        text:    snippets[ `newClient_v1.0` ],
         onClick: this.askToResetClient,
       };
     }
