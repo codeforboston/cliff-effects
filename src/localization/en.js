@@ -205,7 +205,7 @@ export default {
     },
 
     currentExpenses: {
-      header:                          'Current Household Expenses',
+      title:                           'Current Household Expenses',
       unreimbursedNonMedicalChildCare: {
         sectionHeading:    'Reasonable Unreimbursed Non-Medical Child(ren) Care',
         subheading:        'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.',
