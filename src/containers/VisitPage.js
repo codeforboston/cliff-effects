@@ -256,7 +256,7 @@ class VisitPage extends Component {
     return limitedByMax - 1;
   };
 
-  getCurrentStep = (prevData, nextData) => {
+  getCurrentStep = () => {
     var stepIndex = this.getCurrentStepIndex();
     var FormSection = this.steps[ stepIndex ].form;
     var formSnippets = this.state.snippets[ this.steps[ stepIndex ].key ];
@@ -369,7 +369,7 @@ class VisitPage extends Component {
           <div
             className="flex-item flex-column"
             style={{ padding: '14px 0' }}>
-            {this.getCurrentStep(prevData, nextData)}
+            {this.getCurrentStep()}
           </div>
 
           <FormBottomRow
