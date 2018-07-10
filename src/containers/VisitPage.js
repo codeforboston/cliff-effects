@@ -248,8 +248,10 @@ class VisitPage extends Component {
 
   getCurrentStep = () => {
     var step = Math.max(1, Math.min(this.steps.length, this.state.currentStep)) - 1;   //keep it between 1 and 8 and convert to 0 index
-    var FormSection = this.steps[ step ].form;
-    var formSnippets = this.state.snippets[ this.steps[ step ].key ];
+    var FormSection  = this.steps[ step ].form,
+        snippets     = this.state.snippets,
+        formSnippets = snippets[ this.steps[ step ].key ];
+    formSnippets.langCode = snippets.langCode;
 
     return (
       <div>

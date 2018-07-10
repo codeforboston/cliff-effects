@@ -4,21 +4,28 @@ import React from 'react';
 import { mapValues } from 'lodash';
 
 /** Interpolate components into a single text block (specified as an array) */
-const interpolateText = function (template, components) {
+const interpolateText = function (template, components, langCode) {
   return template.map((item) => {
     if (typeof(item) === 'string') {
-      return item;
+      return <span lang={ langCode }>{ item }</span>;
     }
 
+    // Maybe this should create a warning in the console
     if (!item.name || !components[ item.name ]) {
       return null;
     }
 
+    var props = {
+      key:  item.name,
+      lang: langCode,
+    };
+
     if (item.text) {
       // replace inner text
-      return React.cloneElement(components[ item.name ], { key: item.name }, item.text);
+      return React.cloneElement(components[ item.name ], props, item.text);
     } else {
-      return React.cloneElement(components[ item.name ], { key: item.name });
+      // otherwise just add the required key and the language code
+      return React.cloneElement(components[ item.name ], props);
     }
   });
 };
@@ -28,12 +35,12 @@ const interpolateSnippets = function (snippets, components) {
   return mapValues(snippets, (value) => {
     if (typeof(value) === 'string') {
       // plain translated string
-      return value;
+      return <span lang={ snippets.langCode }>{ value }</span>;
     }
 
     if (Array.isArray(value)) {
       // template for interpolation
-      return interpolateText(value, components);
+      return interpolateText(value, components, snippets.langCode);
     }
 
     // else: value is a nested object
