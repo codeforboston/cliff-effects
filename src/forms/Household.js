@@ -140,22 +140,22 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 *
 * @returns Component
 */
-const Role = function ({ member, setMember }) {
+const Role = function ({ member, setMember, snippets }) {
 
   var ThisRole  = null,
       margin   = '0';
 
   if (member.index === 0) {
 
-    ThisRole  = <span>Head of Household</span>;
+    ThisRole  = <span>{ snippets.headOfHousehold }</span>;
 
   } else if (member.index === 1) {
 
     margin = '-1em';
 
     var options = [
-      { text: 'Spouse of Head of Household', value: 'spouse' },
-      { text: 'Child/Other Household Member', value: 'member' },
+      { text: snippets.spouse, value: 'spouse' },
+      { text: snippets.childOther, value: 'member' }, 
     ];
 
     ThisRole = <Dropdown
@@ -167,7 +167,7 @@ const Role = function ({ member, setMember }) {
 
   } else {
 
-    ThisRole = <span>Child/Other Household Member</span>;
+    ThisRole = <span>{ snippets.childOther }</span>;
 
   }
 
@@ -189,7 +189,7 @@ const Role = function ({ member, setMember }) {
 *
 * @returns Component
 */
-const MemberField = function ({ household, time, setHousehold, setClientProperty }, indx) {
+const MemberField = function ({ household, time, setHousehold, setClientProperty, snippets }, indx) {
 
   var member      = household[ indx ],
       routeStart  = 'household/' + indx + '/';
@@ -243,7 +243,8 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
       <Columns.Two>
         <Role
           member={ member }
-          setMember={ onMemberChange } />
+          setMember={ onMemberChange }
+          snippets={ snippets } />
       </Columns.Two>
 
       <Columns.Three>
@@ -279,7 +280,7 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 *
 * @returns Component
 */
-const getMembers = function (current, time, setHousehold, setClientProperty) {
+const getMembers = function (current, time, setHousehold, setClientProperty, snippets) {
 
   var household = current.household,
       props     = {
@@ -287,6 +288,7 @@ const getMembers = function (current, time, setHousehold, setClientProperty) {
         time:              time,
         setHousehold:      setHousehold,
         setClientProperty: setClientProperty,
+        snippets:          snippets,
       };
 
   var mems = [];
@@ -309,7 +311,7 @@ const getMembers = function (current, time, setHousehold, setClientProperty) {
 *
 * @returns Component
 */
-const HouseholdContent = function ({ current, time, setClientProperty }) {
+const HouseholdContent = function ({ current, time, setClientProperty, snippets }) {
 
   // Don't mutate state properties
   var household = cloneDeep(current.household);
@@ -343,12 +345,12 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
     <div className='field-aligner two-column'>
       <div style={{ marginBottom: '.5em' }}>
         <ColumnHeader columnNum='One' />
-        <ColumnHeader columnNum='Two'>Role</ColumnHeader>
-        <ColumnHeader columnNum='Three'>Age</ColumnHeader>
-        <ColumnHeader columnNum='Four'>Disabled</ColumnHeader>
+        <ColumnHeader columnNum='Two'> { snippets.role }</ColumnHeader>
+        <ColumnHeader columnNum='Three'>{ snippets.age }</ColumnHeader>
+        <ColumnHeader columnNum='Four'>{ snippets.disabled }</ColumnHeader>
       </div>
 
-      { getMembers(current, time, setHousehold, setClientProperty) }
+      { getMembers(current, time, setHousehold, setClientProperty, snippets) }
 
       <Button
         type={ 'button' }
@@ -366,7 +368,8 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
         <Columns.Two noMargin={ true }>
           <Header
             as='h4'
-            color={ 'teal' }> Add a member
+            color={ 'teal' }> 
+            { snippets.addMember }
           </Header>
         </Columns.Two>
 
@@ -392,18 +395,20 @@ const HouseholdContent = function ({ current, time, setClientProperty }) {
 const HouseholdStep = function (props) {
 
   const setTimeProp = getTimeSetter('current', props.changeClient);
+  const snippets = props.snippets;
 
   return (
     <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
-        title     = { 'Household' }
-        clarifier = { 'Information about the members of your household.' }
+        title     = { snippets.title }
+        clarifier = { snippets.clarifier }
         left      = {{ name: 'Previous', func: props.previousStep }}
         right     = {{ name: 'Next', func: props.nextStep }}>
         <HouseholdContent
           setClientProperty={ setTimeProp }
           current={ props.client.current }
-          time={ 'current' } />
+          time={ 'current' }
+          snippets={ snippets } />
       </FormPartsContainer>
     </Form>
   );
