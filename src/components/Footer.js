@@ -1,10 +1,12 @@
 import React from 'react';
+import logo from '../images/logo.svg';
 
 import {
   Grid,
   Header,
   Icon,
   Segment,
+  Image
 } from 'semantic-ui-react';
 
 import { interpolateSnippets } from '../utils/interpolation';
@@ -30,7 +32,7 @@ const Footer = ({ snippets }) => {
         inverted
         stackable>
         <Grid.Row>
-          <Grid.Column width={ 7 }>
+          <Grid.Column width={ 4 } floated='left'>
             <Header
               as='h4'
               inverted>
@@ -38,6 +40,15 @@ const Footer = ({ snippets }) => {
             </Header>
             <p>{ snippets.cfbCredit }</p>
           </Grid.Column>
+          <a
+            
+            href="http://www.codeforboston.org"
+            target="_blank"
+            rel="noopener noreferrer"><Image
+              src={ logo }
+              size='small' 
+              floated='right'/>
+          </a>
         </Grid.Row>
       </Grid>
     </Segment>

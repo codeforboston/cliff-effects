@@ -14,6 +14,7 @@ import {
   IntervalColumnHeadings,
   CashFlowRow,
   ControlledRadioYesNo,
+  AttentionArrow,
 } from './formHelpers';
 import {
   ContractRentField,
@@ -33,11 +34,35 @@ import {
   isDisabled,
   isUnder13,
 } from '../utils/getMembers';
+import { getUnder13Expenses } from '../utils/cashflow';
 
 
 // ========================================
 // COMPONENTS
 // ========================================
+const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
+
+  if (hasExpenses) {
+
+    // Because we're familiar with the benefit code, we
+    // happen to know these values don't need to be reset
+    // to 0, even if the client erases childcare expenses.
+    // Not sure if that's a great general practice, though.
+    return (
+      <div className= { 'earned-from' }>
+        <AttentionArrow />
+        <CashFlowRowAfterConfirm { ...cashflowProps }>
+          { children }
+        </CashFlowRowAfterConfirm>
+      </div>
+    );
+
+  } else {
+    return null;
+  }
+
+};  // End EarnedFrom
+
 
 const Utilities = function ({ current, type, time, setClientProperty }) {
 
@@ -235,7 +260,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
  * 
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, setClientProperty }) {
+const ExpensesFormContent = function ({ current, time, setClientProperty, snippets }) {
 
   let type        = 'expense',
       household   = current.household,
@@ -266,32 +291,40 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
       { under13.length > 0
         ? 
         <div>
-          <FormHeading subheading = { 'A "child" is a person 12 or younger. Don\'t include amounts that are paid for by other benefit programs.\n' }>
-            Reasonable Unreimbursed Non-Medical Child(ren) Care
+          <FormHeading subheading = { snippets.unreimbursedNonMedicalChildCare.subheading }>
+            { snippets.unreimbursedNonMedicalChildCare.sectionHeading }
           </FormHeading>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childDirectCare' }> Direct care costs 
+            generic={ 'childDirectCare' }> 
+            { snippets.unreimbursedNonMedicalChildCare.childDirectCare.label }
           </CashFlowRow>
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childBeforeAndAfterSchoolCare' }> Before- and after-school care 
+            generic={ 'childBeforeAndAfterSchoolCare' }>
+            { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.label}
           </CashFlowRow>
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childTransportation' }> Transportation costs 
+            generic={ 'childTransportation' }> 
+            { snippets.unreimbursedNonMedicalChildCare.childTransportation.label }
           </CashFlowRow>
           <CashFlowRow
             { ...sharedProps }
-            generic={ 'childOtherCare' }> Other care 
+            generic={ 'childOtherCare' }> 
+            { snippets.unreimbursedNonMedicalChildCare.childOtherCare.label }
           </CashFlowRow>
-          <CashFlowRowAfterConfirm
-            { ...sharedProps }
-            generic={ 'earnedBecauseOfChildCare' }
-            confirmLabel={ 'Does childcare allow you to make additional income?' }>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by child care expenses
-          </CashFlowRowAfterConfirm>
+
+          <EarnedFrom
+            hasExpenses   ={ getUnder13Expenses(current) !== 0 }
+            cashflowProps ={{
+              ...sharedProps,
+              generic:      'earnedBecauseOfChildCare',
+              confirmLabel: `If you didn't have that child care, would it change how much pay you can bring home?`,
+            }}>
+            How much less would you make?
+          </EarnedFrom>
         </div>
         : null
       }
@@ -348,12 +381,16 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
             { ...sharedProps }
             generic={ 'disabledAssistance' }> Disabled/Handicapped assistance 
           </CashFlowRow>
-          <CashFlowRowAfterConfirm
-            { ...sharedProps }
-            generic={ 'earnedBecauseOfAdultCare' }
-            confirmLabel={ 'Do assistance expenses allow you to make additional income?' }>
-            <span style={{ textDecoration: 'underline' }}>Income</span> made possible by assistance expenses
-          </CashFlowRowAfterConfirm>
+
+          <EarnedFrom
+            hasExpenses   ={ current.disabledAssistance !== 0 }
+            cashflowProps ={{
+              ...sharedProps,
+              generic:      'earnedBecauseOfAdultCare',
+              confirmLabel: `If you didn't have that assistance, would it change how much pay you can bring home?`,
+            }}>
+            How much less would you make?
+          </EarnedFrom>
         </div>
         : null
       }
@@ -422,21 +459,22 @@ const ExpensesFormContent = function ({ current, time, setClientProperty }) {
   * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client }) {
+const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client, snippets }) {
 
   const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { 'Current Household Expenses' }
-        clarifier = { null }
+        title     = { snippets.title }
+        clarifier = { snippets.clarifier }
         left      = {{ name: 'Previous', func: previousStep }}
         right     = {{ name: 'Next', func: nextStep }}>
         <ExpensesFormContent
           setClientProperty={ setTimeProp }
           current={ client.current }
-          time={ 'current' } />
+          time={ 'current' }
+          snippets={ snippets } />
       </FormPartsContainer>
     </Form>
   );
