@@ -459,7 +459,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
   * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client, snippets }) {
+const CurrentExpensesStep = function ({ changeClient, navData, client, snippets }) {
 
   const setTimeProp = getTimeSetter('current', changeClient);
 
@@ -467,7 +467,8 @@ const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, cl
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
         title     = { snippets.title }
-        clarifier = { snippets.clarifier }>
+        clarifier = { snippets.clarifier }
+        navData   = { navData }>
         <ExpensesFormContent
           setClientProperty={ setTimeProp }
           current={ client.current }

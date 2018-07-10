@@ -392,19 +392,19 @@ const HouseholdContent = function ({ current, time, setClientProperty, snippets 
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const HouseholdStep = function (props) {
+const HouseholdStep = function ({ changeClient, navData, client, snippets }) {
 
-  const setTimeProp = getTimeSetter('current', props.changeClient);
-  const snippets = props.snippets;
+  const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
     <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
         title     = { snippets.title }
-        clarifier = { snippets.clarifier }>
+        clarifier = { snippets.clarifier }
+        navData   = { navData }>
         <HouseholdContent
           setClientProperty={ setTimeProp }
-          current={ props.client.current }
+          current={ client.current }
           time={ 'current' }
           snippets={ snippets } />
       </FormPartsContainer>

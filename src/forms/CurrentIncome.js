@@ -130,19 +130,20 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const CurrentIncomeStep = function (props) {
+const CurrentIncomeStep = function ({ changeClient, navData, client, snippets }) {
 
-  const setTimeProp = getTimeSetter('current', props.changeClient);
+  const setTimeProp = getTimeSetter('current', changeClient);
 
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'Current Household Income'
-        clarifier = 'Income that you collected in the past 12 months.'>
+        clarifier = 'Income that you collected in the past 12 months.'
+        navData   = { navData }>
         <IncomeForm
           setClientProperty={ setTimeProp }
-          current={ props.client.current }
+          current={ client.current }
           time={ 'current' } />
       </FormPartsContainer>
     </Form>

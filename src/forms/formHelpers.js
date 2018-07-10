@@ -8,7 +8,7 @@ import {
   Form,
   Label,
   Radio,
-  // Input,
+  Divider,
   Checkbox,
   Icon,
 } from 'semantic-ui-react';
@@ -155,7 +155,7 @@ const FormBottomRow = function({ left, middle, right }) {
 *
 * @returns Component
 */
-const FormPartsContainer = function(props) {
+const FormPartsContainer = function({ title, clarifier, children, navData }) {
   return (
     <Segment
       padded='very'
@@ -167,22 +167,25 @@ const FormPartsContainer = function(props) {
           as='h1'
           color='teal'
           textAlign='center'>
-          { props.title }
+          { title }
         </Header>
-        { !props.clarifier
+        { !clarifier
           ? null
           : (
             <Header
               as='h3'
               textAlign='center'>
-              { props.clarifier }
+              { clarifier }
             </Header>
           )
         }
 
-        { props.children }
+        { children }
 
       </Segment>
+
+      <Divider />
+      <FormBottomRow { ...navData } />
 
     </Segment>
   );

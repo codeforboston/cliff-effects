@@ -102,19 +102,20 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @returns {object} Component
  */
-const PredictionsStep = function (props) {
+const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
 
-  const setTimeProp = getTimeSetter('future', props.changeClient);
+  const setTimeProp = getTimeSetter('future', changeClient);
 
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'What Might Happen?'
-        clarifier = { null }>
+        clarifier = { null }
+        navData   = { navData }>
         <IncomeForm
           setClientProperty ={ setTimeProp }
-          future            ={ props.client.future }
+          future            ={ client.future }
           time              ={ 'future' } />
         <Divider className='ui section divider hidden' />
         <Header
@@ -122,7 +123,7 @@ const PredictionsStep = function (props) {
           className ='ui Header align centered'>
             With the new pay, how could your benefits change?
         </Header>
-        <TabbedVisualizations client={ props.client } />
+        <TabbedVisualizations client={ client } />
       </FormPartsContainer>
     </Form>
   );

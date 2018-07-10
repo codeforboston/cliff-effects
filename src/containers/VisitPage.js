@@ -28,7 +28,6 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
-import { FormBottomRow } from '../forms/formHelpers';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
@@ -256,7 +255,7 @@ class VisitPage extends Component {
     return limitedByMax - 1;
   };
 
-  getCurrentStep = () => {
+  getCurrentStep = (navData) => {
     var stepIndex = this.getCurrentStepIndex();
     var FormSection = this.steps[ stepIndex ].form;
     var formSnippets = this.state.snippets[ this.steps[ stepIndex ].key ];
@@ -269,8 +268,7 @@ class VisitPage extends Component {
         <FormSection
           currentStep={ this.state.currentStep }
           client={ this.state.client }
-          nextStep={ this.nextStep }
-          previousStep={ this.previousStep }
+          navData={ navData }
           changeClient={ this.changeClient }
           saveForm={ this.saveForm }
           askToResetClient={ this.askToResetClient }
@@ -311,6 +309,12 @@ class VisitPage extends Component {
         onClick: this.askToResetClient,
       };
     }
+
+    var navData = {
+      left:   prevData,
+      middle: null,
+      right:  nextData,
+    };
 
 
     return (
@@ -370,15 +374,8 @@ class VisitPage extends Component {
           <div
             className="flex-item flex-column"
             style={{ padding: '14px 0' }}>
-            {this.getCurrentStep()}
+            { this.getCurrentStep(navData) }
           </div>
-
-          <FormBottomRow
-            left   = { prevData }
-            middle = { null }
-            right  = { nextData } 
-            // Just for rerender atm to remove 'active' button appearance
-            key    = { stepIndex } />
 
         </Container>
       </div>

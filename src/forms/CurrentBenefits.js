@@ -64,7 +64,7 @@ const CurrentBenefitsContent = ({ current, setClientProperty, snippets }) => {
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ changeClient, nextStep, client, snippets }) => {
+const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
 
   /** @todo Abstract `getTimeSetter()` use to VisitPage.js? */
   const setTimeProp = getTimeSetter('current', changeClient);
@@ -75,7 +75,8 @@ const CurrentBenefitsStep = ({ changeClient, nextStep, client, snippets }) => {
       className='household-size-form flex-item flex-column'>
       <FormPartsContainer
         title     = { snippets.currentBenefits }
-        clarifier = { snippets.selectBenefits }>
+        clarifier = { snippets.selectBenefits }
+        navData   = { navData }>
         <CurrentBenefitsContent
           setClientProperty = { setTimeProp }
           current           = { client.current }
