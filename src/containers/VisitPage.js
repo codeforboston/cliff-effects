@@ -28,7 +28,7 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
-//import ResultsGraph from '../forms/ResultsGraph';
+import { FormBottomRow } from '../forms/formHelpers';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
@@ -246,10 +246,20 @@ class VisitPage extends Component {
     this.setState({ currentStep: index });
   };
 
-  getCurrentStep = () => {
-    var step = Math.max(1, Math.min(this.steps.length, this.state.currentStep)) - 1;   //keep it between 1 and 8 and convert to 0 index
-    var FormSection = this.steps[ step ].form;
-    var formSnippets = this.state.snippets[ this.steps[ step ].key ];
+  getCurrentStepIndex = () => {
+    // Keep it between 1 and 8
+    var numSteps      = this.steps.length,
+        currStepIndex = this.state.currentStep,
+        limitedByMin  = Math.min(numSteps, currStepIndex),
+        limitedByMax  = Math.max(1, limitedByMin);
+    // Convert to 0 index
+    return limitedByMax - 1;
+  };
+
+  getCurrentStep = (prevData, nextData) => {
+    var stepIndex = this.getCurrentStepIndex();
+    var FormSection = this.steps[ stepIndex ].form;
+    var formSnippets = this.state.snippets[ this.steps[ stepIndex ].key ];
 
     return (
       <div>
@@ -273,6 +283,35 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
+
+    var prevData  = null,
+        nextData  = null,
+        stepIndex = this.getCurrentStepIndex();
+
+    if (stepIndex !== 0) {
+      prevData = {
+        text:    `Previous`,
+        onClick: this.previousStep,
+      };
+    }
+
+    // If it's not the last step
+    if (stepIndex !== (this.steps.length - 1)) {
+      // use normal 'next' data
+      nextData = {
+        text:    `Next`,
+        onClick: this.nextStep,
+      };
+
+    // Otherwise, set up to reset client
+    } else {
+      nextData = {
+        text:    `New Client`,
+        onClick: this.askToResetClient,
+      };
+    }
+
+
     return (
       <div className='forms-container flex-item flex-column'>
 
@@ -330,8 +369,16 @@ class VisitPage extends Component {
           <div
             className="flex-item flex-column"
             style={{ padding: '14px 0' }}>
-            {this.getCurrentStep()}
+            {this.getCurrentStep(prevData, nextData)}
           </div>
+
+          <FormBottomRow
+            left   = { prevData }
+            middle = { null }
+            right  = { nextData } 
+            // Just for rerender atm to remove 'active' button appearance
+            key    = { stepIndex } />
+
         </Container>
       </div>
     );

@@ -5,11 +5,9 @@ import {
   Button,
   Header,
   Segment,
-  Divider,
   Form,
   Label,
   Radio,
-  Grid,
   // Input,
   Checkbox,
   Icon,
@@ -25,26 +23,6 @@ import { toMoneyStr } from '../utils/prettifiers';
 // GENERIC COMPONENTS
 // ========================================
 
-/** Returns a component with a massive teal button
- *
- */
-const MassiveButton = function ({ className, func, children }) {
-
-  className = (className || '') + ' massive-button';
-  return (
-    <Button
-      fluid
-      type='button'
-      color='teal'
-      size='large'
-      className={ className }
-      onClick={ func }>
-      { children }
-    </Button>
-  );
-
-};  // End MassiveButton(<>)
-
 /**
  * Link that opens new tab
  */
@@ -57,74 +35,107 @@ const ExternalLink = function ({ href, children }) {
 };
 
 
-/** Returns a Grid Column containing a button of the style used
-* to navigate backwards and forwards through steps of the form.
+/** For styling spacing between elements when needed.
+* @returns Component
+*/
+const SpaceHolder = function () {
+  return (<div className = { `space-holder` } />);
+};
+
+
+/** A big button for the bottom row of form sections
 *
 * @function
 * @param {object} props
-* @property {object} props.func - A function that is run when the
-* button is clicked.
-* @property {string} props.name - The text to be displayed on
-* the button.
+* @property {buttonProps} props.children - React children
+* @property {buttonProps} props.buttonProps - Props to
+*     override any default props that need to be overridden
 *
 * @returns Component
 */
-const BottomButton = function(props){
-  return (
-    <Grid.Column
-      className={ 'large-bottom-button' }
-      width={ 3 }>
-      <MassiveButton { ...props } />
-    </Grid.Column>
-  );
-};  // End BottomButton() Component
+const BottomButton = function ({ children, ...buttonProps }) {
 
-/** The row containing the 'Previous' and 'Next' buttons at the
-* bottom of each form page.
+  const overriddenDefaults = {
+    style:     { flexBasis: `118.3px` },
+    type:      `button`,
+    color:     `teal`,
+    size:      `large`,
+    className: `form-bottom-button`,
+    ...buttonProps,
+  };
+
+  return (
+    <Button { ...overriddenDefaults }>{ children }</Button>
+  );
+};  // End <BottomButton>
+
+
+/** The row containing the big buttons at the bottom of each
+*     form section, such as 'Previous', 'Next', and 'New Client'.
+* 
+* @object buttonProps
+* @property text {string} - Text to show on the button.
+* @property onClick {function} - Optional function to run on button click.
 *
 * @function
-* @param {object} propsContainer - Containing the `props` object in
-* another object seemed to be the only way to pass on `props`.
-* @property {object} propsContainer.props - Properties needed
-* for the functional aspects of the Component. @todo Move the
-* functions `previousStep()` and `nextStep()` into here if possible.
-* @property {object} propsContainer.props.previousStep() - Function
-* that goes back to the previous form element.
-* @property {object} propsContainer.props.nextStep() - Function
-* that goes forward to the next form element.
-*
-* @todo Use this somehow for the first page and last page too,
-* but then hide the 'previous' and the 'next' respectively? Or
-* split those into their own Components?
+* @param {object} props - One object for each button
+* @property {buttonProps} props.left
+* @property {buttonProps} props.middle
+* @property {buttonProps} props.right
 *
 * @returns Component
 */
-const BottomButtons = function({ left, right }) {
-  const flexItemStyle = { flexBasis: '118.3px' };
-  const buttonProps = { style: flexItemStyle, type: 'button', color: 'teal', size: 'large' };
+const FormBottomRow = function({ left, middle, right }) {
+
+  var Left    = <SpaceHolder key = { 'left' } />,
+      Middle  = <SpaceHolder key = { 'middle' } />,
+      Right   = <SpaceHolder key = { 'right' } />;
+
+  if (left) {
+    Left = (
+      <BottomButton
+        key = { 'left' }
+        onClick = { left.onClick }>
+        { left.text }
+      </BottomButton>
+    );
+  }
+
+  // Considering having a non-button as a label
+  // for the page. Not sure how to preserve the
+  // same style.
+  if (middle) {
+    Middle = (<div key = { 'middle' }>{ middle.text }</div>);
+  }
+
+  if (right) {
+    Right = (
+      <BottomButton
+        key = { 'right' }
+        onClick = { right.onClick }>
+        { right.text }
+      </BottomButton>
+    );
+  }
+
+  var children = [
+    Left,
+    // Needed for first form section where there's no
+    // 'Prev' button.
+    Middle,
+    Right,
+  ];
+
+  /** @todo Move styles to CSS */
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      { left ?
-        <Button
-          { ...buttonProps }
-          onClick={ left.func }>
-          { left.name }
-        </Button>
-        :
-        <div style={ flexItemStyle } />
-      }
-      { right ?
-        <Button
-          { ...buttonProps }
-          onClick={ right.func }>
-          { right.name }
-        </Button>
-        :
-        <div style={ flexItemStyle } />
-      }
+    <div
+      className = { `form-section-bottom-row` }
+      style     = {{ display: `flex`, justifyContent: `space-between` }}>
+      { children }
     </div>
   );
-};  // End BottomButtons() Component
+
+}; // End <BottomFormRow>
 
 
 /** Constructor for all the stuff that's supposed to go inside
@@ -172,12 +183,6 @@ const FormPartsContainer = function(props) {
         { props.children }
 
       </Segment>
-      <Divider />
-      <BottomButtons
-        left={ props.left }
-        right={ props.right }
-        next={ props.next }
-        prev={ props.prev } />
 
     </Segment>
   );
@@ -726,8 +731,9 @@ var AttentionArrow = function () {
 
 /** @todo Separate into different files? */
 export {
-  ExternalLink,
-  BottomButtons, FormPartsContainer, BottomButton,
+  ExternalLink, SpaceHolder,
+  BottomButton, FormBottomRow,
+  FormPartsContainer,
   MassiveToggle, FormSubheading, FormHeading,
   InlineLabelInfo,
   RowMessage,
