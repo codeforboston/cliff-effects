@@ -487,12 +487,6 @@ class ManagedNumberField extends Component {
   };
 
   handleBlur = (evnt) => {
-<<<<<<< HEAD
-=======
-    this.props.onBlur(evnt);
-
-    // Set local state for blur
->>>>>>> dev
     this.setState({ focused: false, valid: true });
   };
 
@@ -598,7 +592,6 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
         displayValidator: hasOnlyNonNegNumberChars,
         storeValidator:   isNonNegNumber,
         format:           toMoneyStr,
-        onBlur:           function () { return true; },
       };
 
   return (
