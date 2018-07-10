@@ -7,18 +7,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
 >
   <FormPartsContainer
     clarifier={null}
-    left={
-      Object {
-        "func": [Function],
-        "name": "Previous",
-      }
-    }
-    right={
-      Object {
-        "func": undefined,
-        "name": "New Client",
-      }
-    }
     title="What Might Happen?"
   >
     <IncomeForm

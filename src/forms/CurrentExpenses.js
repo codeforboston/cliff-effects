@@ -467,9 +467,7 @@ const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, cl
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
         title     = { snippets.title }
-        clarifier = { snippets.clarifier }
-        left      = {{ name: 'Previous', func: previousStep }}
-        right     = {{ name: 'Next', func: nextStep }}>
+        clarifier = { snippets.clarifier }>
         <ExpensesFormContent
           setClientProperty={ setTimeProp }
           current={ client.current }

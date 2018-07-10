@@ -401,9 +401,7 @@ const HouseholdStep = function (props) {
     <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
         title     = { snippets.title }
-        clarifier = { snippets.clarifier }
-        left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'Next', func: props.nextStep }}>
+        clarifier = { snippets.clarifier }>
         <HouseholdContent
           setClientProperty={ setTimeProp }
           current={ props.client.current }

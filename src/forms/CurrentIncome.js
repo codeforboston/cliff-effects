@@ -139,9 +139,7 @@ const CurrentIncomeStep = function (props) {
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'Current Household Income'
-        clarifier = 'Income that you collected in the past 12 months.'
-        left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'Next', func: props.nextStep }}>
+        clarifier = 'Income that you collected in the past 12 months.'>
         <IncomeForm
           setClientProperty={ setTimeProp }
           current={ props.client.current }

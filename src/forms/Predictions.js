@@ -111,9 +111,7 @@ const PredictionsStep = function (props) {
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'What Might Happen?'
-        clarifier = { null }
-        left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'New Client', func: props.askToResetClient }}>
+        clarifier = { null }>
         <IncomeForm
           setClientProperty ={ setTimeProp }
           future            ={ props.client.future }
