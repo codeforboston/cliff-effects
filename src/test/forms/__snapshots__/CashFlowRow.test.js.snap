@@ -11,7 +11,6 @@ exports[`CashFlowRow should match snapshot 1`] = `
     displayValidator={[Function]}
     format={[Function]}
     name="name"
-    onBlur={[Function]}
     otherData={
       Object {
         "interval": "weekly",
@@ -26,7 +25,6 @@ exports[`CashFlowRow should match snapshot 1`] = `
     displayValidator={[Function]}
     format={[Function]}
     name="name"
-    onBlur={[Function]}
     otherData={
       Object {
         "interval": "monthly",
@@ -41,7 +39,6 @@ exports[`CashFlowRow should match snapshot 1`] = `
     displayValidator={[Function]}
     format={[Function]}
     name="name"
-    onBlur={[Function]}
     otherData={
       Object {
         "interval": "yearly",

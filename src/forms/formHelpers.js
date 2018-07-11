@@ -484,7 +484,7 @@ class ManagedNumberField extends Component {
   }  // End constructor()
 
   //change form to blank string after click, before input
-  handleFocus = (evnt, inputProps) => {
+  handleFocus = (evnt) => {
     // This makes sure that only zeroes and blanks get reset
     var { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
@@ -495,9 +495,6 @@ class ManagedNumberField extends Component {
   };
 
   handleBlur = (evnt) => {
-    this.props.onBlur(evnt);
-
-    // Set local state for blur
     this.setState({ focused: false, valid: true });
   };
 
@@ -603,7 +600,6 @@ const CashFlowRow = function ({ generic, timeState, setClientProperty, children 
         displayValidator: hasOnlyNonNegNumberChars,
         storeValidator:   isNonNegNumber,
         format:           toMoneyStr,
-        onBlur:           function () { return true; },
       };
 
   return (
