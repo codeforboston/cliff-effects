@@ -88,7 +88,7 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
       <CashFlowRow
         { ...sharedProps }
         generic='SSDI'>
-        { snippets.SSI.label }
+        { snippets.SSDI.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
