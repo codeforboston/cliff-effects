@@ -40,10 +40,10 @@ import { getTimeSetter } from '../utils/getTimeSetter';
  *
  * @function
  * @param {object} props - See below
- * @property {object} current - Client current info.
- * @param {string} time - 'current' or 'future'
- * @property {function} setClientProperty - Updates state upstream.
- * @property {function} snippets - Uses user chosen language-specific
+ * @property {object} props.current - Client current info.
+ * @property {string} props.time - 'current' or 'future'
+ * @property {function} props.setClientProperty - Updates state upstream.
+ * @property {function} props.snippets - Uses user chosen language-specific
  *
 * @returns Component
 */
@@ -139,8 +139,8 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
  * @param {object} props - See below.
  * @property {function} props.changeClient - Updates state upstream.
  * @property {object} props.navData  - properties for two buttons and middle compponent TBD 
- * @param {object} client - JSON object with future and current values.
- * @property {function} snippets - Uses user chosen language-specific
+ * @property {object} props.client - JSON object with future and current values.
+ * @property {function} props.snippets - Uses user chosen language-specific
 *
 * @returns Component
 */
