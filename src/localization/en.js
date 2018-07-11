@@ -132,7 +132,7 @@ export default {
         hint:  'Section 8 provides rental housing assistance.',
       },
       hasSnap: {
-        label: 'Do you have SNAP?',
+        label: 'Do you have SNAP (Supplemental Nutrition Assistance Program)?',
         hint:  'SNAP provides assistance with buying food',
       },
       next: 'Next',
