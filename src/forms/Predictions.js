@@ -102,9 +102,9 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @returns {object} Component
  */
-const PredictionsStep = function (props) {
+const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
 
-  const setTimeProp = getTimeSetter('future', props.changeClient);
+  const setTimeProp = getTimeSetter('future', changeClient);
 
   /** @todo Are these titles accurate now? */
   return (
@@ -112,11 +112,10 @@ const PredictionsStep = function (props) {
       <FormPartsContainer
         title     = 'What Might Happen?'
         clarifier = { null }
-        left      = {{ name: 'Previous', func: props.previousStep }}
-        right     = {{ name: 'New Client', func: props.askToResetClient }}>
+        navData   = { navData }>
         <IncomeForm
           setClientProperty ={ setTimeProp }
-          future            ={ props.client.future }
+          future            ={ client.future }
           time              ={ 'future' } />
         <Divider className='ui section divider hidden' />
         <Header
@@ -124,7 +123,7 @@ const PredictionsStep = function (props) {
           className ='ui Header align centered'>
             With the new pay, how could your benefits change?
         </Header>
-        <TabbedVisualizations client={ props.client } />
+        <TabbedVisualizations client={ client } />
       </FormPartsContainer>
     </Form>
   );

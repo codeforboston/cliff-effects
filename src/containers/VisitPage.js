@@ -28,7 +28,6 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
-//import ResultsGraph from '../forms/ResultsGraph';
 
 // Dev Components
 import { CustomClient } from '../components/CustomClient';
@@ -246,12 +245,22 @@ class VisitPage extends Component {
     this.setState({ currentStep: index });
   };
 
-  getCurrentStep = () => {
-    var step = Math.max(1, Math.min(this.steps.length, this.state.currentStep)) - 1;   //keep it between 1 and 8 and convert to 0 index
-    var FormSection  = this.steps[ step ].form,
-        snippets     = this.state.snippets,
-        formSnippets = snippets[ this.steps[ step ].key ];
+  getCurrentStepIndex = () => {
+    // Keep it between 1 and 8
+    var numSteps      = this.steps.length,
+        currStepIndex = this.state.currentStep,
+        limitedByMin  = Math.min(numSteps, currStepIndex),
+        limitedByMax  = Math.max(1, limitedByMin);
+    // Convert to 0 index
+    return limitedByMax - 1;
+  };
+
+  getCurrentStep = (navData) => {
+    var stepIndex = this.getCurrentStepIndex();
+    var FormSection = this.steps[ stepIndex ].form;
+    var formSnippets = this.state.snippets[ this.steps[ stepIndex ].key ];
     formSnippets.langCode = snippets.langCode;
+
 
     return (
       <div>
@@ -261,8 +270,7 @@ class VisitPage extends Component {
         <FormSection
           currentStep={ this.state.currentStep }
           client={ this.state.client }
-          nextStep={ this.nextStep }
-          previousStep={ this.previousStep }
+          navData={ navData }
           changeClient={ this.changeClient }
           saveForm={ this.saveForm }
           askToResetClient={ this.askToResetClient }
@@ -275,6 +283,42 @@ class VisitPage extends Component {
   };  // End getCurrentStep()
 
   render() {
+
+    var snippets  = this.state.snippets,
+        prevData  = null,
+        nextData  = null,
+        stepIndex = this.getCurrentStepIndex();
+
+    if (stepIndex !== 0) {
+      prevData = {
+        text:    snippets[ `previous_v1.0` ],
+        onClick: this.previousStep,
+      };
+    }
+
+    // If it's not the last step
+    if (stepIndex !== (this.steps.length - 1)) {
+      // use normal 'next' data
+      nextData = {
+        text:    snippets[ `next_v1.0` ],
+        onClick: this.nextStep,
+      };
+
+    // Otherwise, set up to reset client
+    } else {
+      nextData = {
+        text:    snippets[ `newClient_v1.0` ],
+        onClick: this.askToResetClient,
+      };
+    }
+
+    var navData = {
+      left:   prevData,
+      middle: null,
+      right:  nextData,
+    };
+
+
     return (
       <div className='forms-container flex-item flex-column'>
 
@@ -332,8 +376,9 @@ class VisitPage extends Component {
           <div
             className="flex-item flex-column"
             style={{ padding: '14px 0' }}>
-            {this.getCurrentStep()}
+            { this.getCurrentStep(navData) }
           </div>
+
         </Container>
       </div>
     );
