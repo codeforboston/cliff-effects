@@ -259,7 +259,7 @@ class VisitPage extends Component {
     var stepIndex = this.getCurrentStepIndex();
     var FormSection = this.steps[ stepIndex ].form;
     var formSnippets = this.state.snippets[ this.steps[ stepIndex ].key ];
-    formSnippets.langCode = snippets.langCode;
+    formSnippets.langCode = this.state.snippets.langCode;
 
 
     return (
