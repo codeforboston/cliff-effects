@@ -37,14 +37,17 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 */
 
 /** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
+ *
+ * @function
+ * @param {object} props - See below
+ * @property {object} current - Client current info.
+ * @param {string} time - 'current' or 'future'
+ * @property {function} setClientProperty - Updates state upstream.
+ * @property {function} snippets - Uses user chosen language-specific
+ *
 * @returns Component
 */
-const IncomeForm = function ({ current, time, setClientProperty }) {
+const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
 
   var type = 'income';
 
@@ -66,54 +69,63 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
       <IntervalColumnHeadings type={ type } />
 
       {/* All kinds of things need to be explained. */}
-      {/* @todo Change 'labelInfo' to visible blurb at top */}
+      
       <CashFlowRow
         { ...sharedProps }
-        generic='earned'
-        labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-          Earned income
+        generic='earned'>
+        { snippets.earnedIncome.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='TAFDC'> TAFDC
+        generic='TAFDC'> 
+        { snippets.TAFDC.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='SSI'> SSI
+        generic='SSI'> 
+        { snippets.SSI.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='SSDI'> SSDI
+        generic='SSDI'>
+        { snippets.SSI.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='childSupportIn'> Child support received
+        generic='childSupportIn'>
+        { snippets.childSupport.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='unemployment'> Unemployment
+        generic='unemployment'> 
+        { snippets.unemployment.label }      
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='workersComp'> Worker’s comp
+        generic='workersComp'> 
+        { snippets.workersComp.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='pension'> Pension
+        generic='pension'>
+        { snippets.pension.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='socialSecurity'> Social security
+        generic='socialSecurity'>
+        { snippets.socialSecurity.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='alimony'> Alimony
+        generic='alimony'> 
+        { snippets.alimony.label }
       </CashFlowRow>
       <CashFlowRow
         { ...sharedProps }
-        generic='otherIncome'> Other income
+        generic='otherIncome'>
+        { snippets.otherIncome.label }
       </CashFlowRow>
-      <Form.Field>This prototype will attempt to make its own calculations for SNAP amount</Form.Field>
+      <Form.Field>{ snippets.explainSnapCalculation }</Form.Field>
 
     </div>
   );  // end return
@@ -122,29 +134,33 @@ const IncomeForm = function ({ current, time, setClientProperty }) {
 
 
 /** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
+ *
+ * @function
+ * @param {object} props - See below.
+ * @property {function} props.changeClient - Updates state upstream.
+ * @property {object} props.navData  - properties for two buttons and middle compponent TBD 
+ * @param {object} client - JSON object with future and current values.
+ * @property {function} snippets - Uses user chosen language-specific
 *
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
+
 const CurrentIncomeStep = function ({ changeClient, navData, client, snippets }) {
 
   const setTimeProp = getTimeSetter('current', changeClient);
 
-  /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = 'Current Household Income'
-        clarifier = 'Income that you collected in the past 12 months.'
+        title     = { snippets.title }
+        clarifier = { snippets.clarifier }
         navData   = { navData }>
         <IncomeForm
           setClientProperty={ setTimeProp }
           current={ client.current }
-          time={ 'current' } />
+          time={ 'current' }
+          snippets={ snippets } />
       </FormPartsContainer>
     </Form>
   );
