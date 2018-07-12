@@ -8,7 +8,7 @@
 
 ### Replicate:
 
-1. 2. 3.
+1.  2.  3.
 
 <!-- What would you expect to happen when someone performs those steps? -->
 
