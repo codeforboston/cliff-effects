@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Household step component renders as snapshot correctly 1`] = `
+<Form
+  as="form"
+  className="current-household-size-form flex-column flex-item"
+>
+  <FormPartsContainer
+    clarifier="Information about the members of your household."
+    navData={
+      Object {
+        "left": Object {
+          "onClick": [Function],
+          "text": "Previous",
+        },
+        "middle": null,
+        "right": Object {
+          "onClick": [Function],
+          "text": "Next",
+        },
+      }
+    }
+    title="Household"
+  >
+    <HouseholdContent
+      current={
+        Object {
+          "SSDI": 0,
+          "SSI": 0,
+          "TAFDC": 0,
+          "adultDirectCare": 0,
+          "adultOtherCare": 0,
+          "adultTransportation": 0,
+          "alimony": 0,
+          "childBeforeAndAfterSchoolCare": 0,
+          "childDirectCare": 0,
+          "childOtherCare": 0,
+          "childSupportIn": 0,
+          "childSupportPaidOut": 0,
+          "childTransportation": 0,
+          "climateControl": false,
+          "contractRent": 0,
+          "disabledAssistance": 0,
+          "disabledMedical": 0,
+          "earned": 0,
+          "earnedBecauseOfAdultCare": 0,
+          "earnedBecauseOfChildCare": 0,
+          "fuelAssistance": false,
+          "hasSection8": false,
+          "hasSnap": false,
+          "household": Array [
+            Object {
+              "m_age": 30,
+              "m_disabled": false,
+              "m_role": "head",
+            },
+          ],
+          "housing": "homeless",
+          "housingInsurance": 0,
+          "mortgage": 0,
+          "nonHeatElectricity": false,
+          "otherIncome": 0,
+          "otherMedical": 0,
+          "pension": 0,
+          "phone": false,
+          "propertyTax": 0,
+          "rent": 0,
+          "rentShare": 0,
+          "socialSecurity": 0,
+          "unemployment": 0,
+          "workersComp": 0,
+        }
+      }
+      setClientProperty={[Function]}
+      snippets={
+        Object {
+          "addMember": "Add a member",
+          "age": "Age",
+          "childOther": "Child/Other Household Member",
+          "clarifier": "Information about the members of your household.",
+          "disabled": "Disabled",
+          "headOfHousehold": "Head of Household",
+          "next": "Next",
+          "previous": "Previous",
+          "role": "Role",
+          "spouse": "Spouse of Head of Household",
+          "title": "Household",
+        }
+      }
+      time="current"
+    />
+  </FormPartsContainer>
+</Form>
+`;
