@@ -11,10 +11,7 @@
     "browser": true
   },
   "extends": "react-app",
-  "plugins": [
-    "babel",
-    "react"
-  ],
+  "plugins": ["babel", "react"],
   "rules": {
     "babel/no-invalid-this": 1,
     "babel/semi": 1,
@@ -30,17 +27,32 @@
     "curly": ["warn", "all"],
     "eol-last": ["warn", "always"],
     "func-style": ["warn", "expression"],
-    "indent": ["warn", 2, { "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
+    "indent": [
+      "warn",
+      2,
+      { "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }
+    ],
     "key-spacing": ["warn", { "align": "value" }],
     "keyword-spacing": ["warn", { "before": true, "after": true }],
     "max-statements-per-line": ["warn", { "max": 1 }],
     "object-curly-newline": ["warn", { "multiline": true }],
-    "object-curly-spacing": ["warn", "always", { "arraysInObjects": false, "objectsInObjects": false }],
-    "object-property-newline": ["warn", { "allowAllPropertiesOnSameLine": true }],
+    "object-curly-spacing": [
+      "warn",
+      "always",
+      { "arraysInObjects": false, "objectsInObjects": false }
+    ],
+    "object-property-newline": [
+      "warn",
+      { "allowAllPropertiesOnSameLine": true }
+    ],
     "quotes": ["warn", "single", { "allowTemplateLiterals": true }],
     "react/jsx-closing-bracket-location": ["warn", "after-props"],
     "react/jsx-closing-tag-location": ["warn"],
-    "react/jsx-curly-spacing": ["warn", "always", { "spacing": { "objectLiterals": "never" }}],
+    "react/jsx-curly-spacing": [
+      "warn",
+      "always",
+      { "spacing": { "objectLiterals": "never" } }
+    ],
     "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
     "react/jsx-max-props-per-line": ["warn", { "maximum": 1 }],
     "react/jsx-tag-spacing": ["warn"],

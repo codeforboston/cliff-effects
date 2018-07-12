@@ -25,7 +25,7 @@
     "gh-pages": "gh-pages -d build/",
     "generateSNAPTests": "babel-node src/test/programs/federal/snap/generateTestCases",
     "lint:eslint": "eslint src",
-    "lint:prettier": "prettier --list-difference *.md"
+    "lint:prettier": "prettier --list-different '**/*.{md,json}'"
   },
   "homepage": "https://codeforboston.github.io/cliff-effects",
   "devDependencies": {
