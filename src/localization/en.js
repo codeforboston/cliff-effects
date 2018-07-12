@@ -58,7 +58,7 @@ export default {
     benefitsLinkText: 'Breakdown of different benefits offered in MA',
 
     howToUseHeader: 'How do I use this tool?',
-    howtoUse:       'Go step-by-step to add information about a client\'s current benefits,' +
+    howToUse:       'Go step-by-step to add information about a client\'s current benefits,' +
       ' household, income, and other relevant information. This information will be used to' +
       ' predict the client\'s approximate benefit amount. When you reach the end, change the' +
       ' \'Future Income\' amount to see how a change in earned income will cause a change in' +
