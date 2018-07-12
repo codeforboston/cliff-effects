@@ -41,8 +41,7 @@ export default {
     
     linkText1: `Ein zweiminutenlanges Video über Cliff Effects`,
     linkText2: `Manche Quantitative Szenarios, die Cliff Effects demonstrieren`,
-    linkText3: `Eine Aufgliederung von verschiedenen Sozialhilfeprogrammen im Bundesstaat ` +
-      `Massachusetts`,
+    linkText3: `Eine Aufgliederung von verschiedenen Sozialhilfeprogrammen im Bundesstaat Massachusetts`,
     
     howToUseHeader: `Wie benutze ich dieses Werkzeug?`,
     
