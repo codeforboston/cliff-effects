@@ -41,7 +41,7 @@ export default {
 
     whyHeader: `Why is this tool important?`,
     why1:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. The household is working to increase what they earn, but they end up with a net loss that actually puts them further behind. These cliff effects prevent many families from actually getting off of public assistance programs.`,
-    why2: `Cliff effects are also difficult to predict. The interactions between income, household s impact each other in unexpected ways. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
+    why2:      `Cliff effects are also difficult to predict. The interactions between income, household s impact each other in unexpected ways. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
 
     videoLinkText:    `Two-minute video describing cliff effects`,
     quantLinkText:    `Quantitative scenarios demonstrating cliff effects`,
@@ -49,7 +49,7 @@ export default {
 
     howToUseHeader: `How do I use this tool?`,
     howToUse:       `Go step-by-step to add information about a client's current benefits, household, income, and other relevant information. This information will be used to predict the client's approximate benefit amount. When you reach the end, change the 'Future Income' amount to see how a change in earned income will cause a change in benefit amount. Currently, the SNAP and Section 8 Housing Voucher programs are both available. Note that predictions may not directly match up with a client’s current benefit amount. The app’s focus is the amount of change that occurs in benefits when there are changes in earned income.`,
-    howToUseNote: [
+    howToUseNote:   [
       `Please note that this app does not store user data, so `,
       {
         name: `__refreshWarning__`,
