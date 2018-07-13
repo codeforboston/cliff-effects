@@ -37,7 +37,7 @@ export default {
     ],
     whatFor: [
       'This tool can help show how a change in income affects how much someone receives in public assistance' +
-      ' from SNAP and Section 8 Housing Voucher benefits. It was designed for the case managers at ',
+      ' from SNAP (Supplemental Nutrition Assistance Program) and Section 8 Housing Voucher benefits. It was designed for the case managers at ',
       { name: '__projectHope__' },
       ' with the aim of helping to predict changes in their clients\' benefits.',
     ],
