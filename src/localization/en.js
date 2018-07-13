@@ -34,7 +34,7 @@ export default {
       `This application is a minimum viable product. It should not be used as the sole tool to understand a client's SNAP or Section 8 financial situation, or for any other public assistance program.`,
     ],
     whatFor: [
-      `This tool can help show how a change in income affects how much someone receives in public assistance from SNAP and Section 8 Housing Voucher benefits. It was designed for the case managers at `,
+      `This tool can help show how a change in income affects how much someone receives in public assistance from SNAP (Supplemental Nutrition Assistance Program) and Section 8 Housing Voucher benefits. It was designed for the case managers at `,
       { name: `__projectHope__` },
       ` with the aim of helping to predict changes in their clients' benefits.`,
     ],
