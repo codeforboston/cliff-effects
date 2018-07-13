@@ -5,20 +5,25 @@ import { mapValues } from 'lodash';
 
 /** Interpolate components into a single text block (specified as an array) */
 const interpolateText = function (template, components, langCode) {
+  var count = 0;
+
   return template.map((item) => {
+
+    count++;
+
+    var props = {
+      key:  item.name || count,
+      lang: langCode,
+    };
+
     if (typeof(item) === 'string') {
-      return <span lang={ langCode }>{ item }</span>;
+      return <span { ...props }>{ item }</span>;
     }
 
     // Maybe this should create a warning in the console
     if (!item.name || !components[ item.name ]) {
       return null;
     }
-
-    var props = {
-      key:  item.name,
-      lang: langCode,
-    };
 
     if (item.text) {
       // replace inner text
@@ -32,10 +37,18 @@ const interpolateText = function (template, components, langCode) {
 
 /** Recursively interpolate each template in a snippets object */
 const interpolateSnippets = function (snippets, components) {
+  var count = 0;
+
   return mapValues(snippets, (value) => {
+    count++;
+    var props = {
+      key:  count,
+      lang: snippets.langCode,
+    };
+
     if (typeof(value) === 'string') {
       // plain translated string
-      return <span lang={ snippets.langCode }>{ value }</span>;
+      return (<span { ...props }>{ value }</span>);
     }
 
     if (Array.isArray(value)) {
