@@ -19,7 +19,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test",
-    "test:coverage": "CI=true react-scripts test --coverage",
+    "test:coverage": "cross-env CI=true react-scripts test --coverage",
     "eject": "react-scripts eject",
     "deploy": "run -s build gh-pages",
     "gh-pages": "gh-pages -d build/",
