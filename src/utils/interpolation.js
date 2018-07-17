@@ -3,16 +3,17 @@
 import React from 'react';
 import { mapValues } from 'lodash';
 
+// To make sure all keys are unique
+var count = 0;
+
 /** Interpolate components into a single text block (specified as an array) */
 const interpolateText = function (template, components, langCode) {
-  var count = 0;
-
   return template.map((item) => {
 
     count++;
 
     var props = {
-      key:  item.name || count,
+      key:  item.name || langCode + count,
       lang: langCode,
     };
 
@@ -37,13 +38,14 @@ const interpolateText = function (template, components, langCode) {
 
 /** Recursively interpolate each template in a snippets object */
 const interpolateSnippets = function (snippets, components) {
-  var count = 0;
-
   return mapValues(snippets, (value) => {
+
     count++;
+    var langCode = snippets.langCode;
+
     var props = {
-      key:  count,
-      lang: snippets.langCode,
+      key:  langCode + count,
+      lang: langCode,
     };
 
     if (typeof(value) === 'string') {
@@ -53,7 +55,7 @@ const interpolateSnippets = function (snippets, components) {
 
     if (Array.isArray(value)) {
       // template for interpolation
-      return interpolateText(value, components, snippets.langCode);
+      return interpolateText(value, components, langCode);
     }
 
     // else: value is a nested object
