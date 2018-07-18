@@ -459,7 +459,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
   * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, client, snippets }) {
+const CurrentExpensesStep = function ({ changeClient, navData, client, snippets }) {
 
   const setTimeProp = getTimeSetter('current', changeClient);
 
@@ -468,8 +468,7 @@ const CurrentExpensesStep = function ({ changeClient, previousStep, nextStep, cl
       <FormPartsContainer
         title     = { snippets.title }
         clarifier = { snippets.clarifier }
-        left      = {{ name: 'Previous', func: previousStep }}
-        right     = {{ name: 'Next', func: nextStep }}>
+        navData   = { navData }>
         <ExpensesFormContent
           setClientProperty={ setTimeProp }
           current={ client.current }

@@ -7,16 +7,17 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
 >
   <FormPartsContainer
     clarifier={null}
-    left={
+    navData={
       Object {
-        "func": [Function],
-        "name": "Previous",
-      }
-    }
-    right={
-      Object {
-        "func": undefined,
-        "name": "New Client",
+        "left": Object {
+          "onClick": [Function],
+          "text": "Previous",
+        },
+        "middle": null,
+        "right": Object {
+          "onClick": [Function],
+          "text": "New Client",
+        },
       }
     }
     title="What Might Happen?"

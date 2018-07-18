@@ -51,7 +51,6 @@ test('should set focused state to false on blur', () => {
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      onBlur={ () => {} }
       value={ value } />
   );
   wrapper.setState({ focused: true });

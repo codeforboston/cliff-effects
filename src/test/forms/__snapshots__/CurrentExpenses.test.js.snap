@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expenses step component renders as snapshot correctly 1`] = `
+<Form
+  as="form"
+  className="expense-form flex-item flex-column"
+>
+  <FormPartsContainer
+    navData={
+      Object {
+        "left": Object {
+          "onClick": [Function],
+          "text": "Previous",
+        },
+        "middle": null,
+        "right": Object {
+          "onClick": [Function],
+          "text": "Next",
+        },
+      }
+    }
+    title="Current Household Expenses"
+  >
+    <ExpensesFormContent
+      current={
+        Object {
+          "SSDI": 0,
+          "SSI": 0,
+          "TAFDC": 0,
+          "adultDirectCare": 0,
+          "adultOtherCare": 0,
+          "adultTransportation": 0,
+          "alimony": 0,
+          "childBeforeAndAfterSchoolCare": 0,
+          "childDirectCare": 0,
+          "childOtherCare": 0,
+          "childSupportIn": 0,
+          "childSupportPaidOut": 0,
+          "childTransportation": 0,
+          "climateControl": false,
+          "contractRent": 0,
+          "disabledAssistance": 0,
+          "disabledMedical": 0,
+          "earned": 0,
+          "earnedBecauseOfAdultCare": 0,
+          "earnedBecauseOfChildCare": 0,
+          "fuelAssistance": false,
+          "hasSection8": false,
+          "hasSnap": false,
+          "household": Array [
+            Object {
+              "m_age": 30,
+              "m_disabled": false,
+              "m_role": "head",
+            },
+          ],
+          "housing": "homeless",
+          "housingInsurance": 0,
+          "mortgage": 0,
+          "nonHeatElectricity": false,
+          "otherIncome": 0,
+          "otherMedical": 0,
+          "pension": 0,
+          "phone": false,
+          "propertyTax": 0,
+          "rent": 0,
+          "rentShare": 0,
+          "socialSecurity": 0,
+          "unemployment": 0,
+          "workersComp": 0,
+        }
+      }
+      setClientProperty={[Function]}
+      snippets={
+        Object {
+          "childSupport": Object {
+            "childSupportPaidOut": Object {
+              "childSupport": " child support",
+              "legallyObligated": "Legally obligated",
+            },
+            "columnExpenseType": "Expense",
+            "sectionHeading": "Child Support",
+          },
+          "housing": Object {
+            "climateControl": Object {
+              "hint": "How much do you pay if you have a separate bill for heating and/or cooling",
+              "label": "Heating or cooling (e.g. A/C during summer)",
+            },
+            "fuelAssistance": Object {
+              "hint": "Fuel Assistance helps you pay for heating fuel",
+              "labelText": "Do you get Fuel Assistance?",
+            },
+            "monthlyContractRent": Object {
+              "hint": "The total rent for your apartment",
+              "label": "Monthly Contract Rent (the total rent for your apartment)",
+            },
+            "monthlyRentShare": Object {
+              "hint": "How much of the total rent you have to pay",
+              "label": "Your Monthly Rent Share (how much of the total rent you have to pay)",
+            },
+            "nonHeatElectricity": Object {
+              "hint": "How much do you pay for any electric usage (other than for heat)",
+              "label": "Electricity for non-heating purposes",
+            },
+            "phone": Object {
+              "hint": "How much do you pay for basic telephone service",
+              "label": "Telephone service",
+            },
+            "sectionHeading": "Housing",
+            "utilitiesSubheading": "Which of these utilities do you pay for?",
+          },
+          "next": "Next",
+          "previous": "Previous",
+          "title": "Current Household Expenses",
+          "unreimbursedNonMedicalChildCare": Object {
+            "childBeforeAndAfterSchoolCare": Object {
+              "hint": "How much do you pay for child care for times before or after school?",
+              "label": "Before- and after-school care",
+            },
+            "childDirectCare": Object {
+              "hint": "How much do you pay for child care out of pocket?",
+              "label": "Direct care costs",
+            },
+            "childOtherCare": Object {
+              "hint": "How much do you pay for other child care?",
+              "label": "Other care",
+            },
+            "childTransportation": Object {
+              "hint": "How much do you pay for transportation?",
+              "label": "Transportation costs",
+            },
+            "columnExpenseType": "Expense",
+            "doEarnBecauseOfChildCare": "Does child care allow you to make additional income?",
+            "earnedBecauseOfChildCare": "Income made possible by childcare expenses",
+            "sectionHeading": "Reasonable Unreimbursed Non-Medical Child(ren) Care",
+            "subheading": "A \\"child\\" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.",
+          },
+        }
+      }
+      time="current"
+    />
+  </FormPartsContainer>
+</Form>
+`;

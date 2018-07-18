@@ -6,7 +6,7 @@ import {
   Header,
   Icon,
   Segment,
-  Image
+  Image,
 } from 'semantic-ui-react';
 
 import { interpolateSnippets } from '../utils/interpolation';
@@ -32,7 +32,9 @@ const Footer = ({ snippets }) => {
         inverted
         stackable>
         <Grid.Row>
-          <Grid.Column width={ 4 } floated='left'>
+          <Grid.Column
+            width={ 4 }
+            floated='left'>
             <Header
               as='h4'
               inverted>
@@ -47,7 +49,7 @@ const Footer = ({ snippets }) => {
             rel="noopener noreferrer"><Image
               src={ logo }
               size='small' 
-              floated='right'/>
+              floated='right' />
           </a>
         </Grid.Row>
       </Grid>

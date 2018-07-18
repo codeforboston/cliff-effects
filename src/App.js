@@ -49,7 +49,7 @@ class App extends Component {
                 return (
                   <Header
                     { ...props }
-                    snippets={ snippets.header } />);
+                    snippets={{ ...snippets.header, langCode: snippets.langCode }} />);
               } } />
             <Route
               exact
@@ -58,7 +58,7 @@ class App extends Component {
                 return (
                   <HomePage
                     { ...props }
-                    snippets={ snippets.homePage } />);
+                    snippets={{ ...snippets.homePage, langCode: snippets.langCode }} />);
               } } />
             <Route
               path="/about"
@@ -66,7 +66,7 @@ class App extends Component {
                 return (
                   <AboutPage
                     { ...props }
-                    snippets={ snippets.aboutPage } />);
+                    snippets={{ ...snippets.aboutPage, langCode: snippets.langCode }} />);
               } } />
             <Route
               path="/visit/:clientId/:visitId"
@@ -75,7 +75,7 @@ class App extends Component {
                   <VisitPage
                     { ...props }
                     confirmer = { confirmer }
-                    snippets  = { snippets.visitPage } />);
+                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
               } } />
             <Route
               path="/visit/load"
@@ -84,7 +84,7 @@ class App extends Component {
                   <VisitPage
                     { ...props }
                     confirmer = { confirmer }
-                    snippets  = { snippets.visitPage } />);
+                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
               } } />
             <Route
               path="/load"
@@ -93,11 +93,11 @@ class App extends Component {
                   <VisitPage
                     { ...props }
                     confirmer = { confirmer }
-                    snippets  = { snippets.visitPage } />);
+                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
               } } />
           </div>
         </HashRouter>
-        <Footer snippets={ snippets.footer } />
+        <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
       </div>
     );
   }
