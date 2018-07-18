@@ -7,6 +7,19 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
 >
   <FormPartsContainer
     clarifier={null}
+    navData={
+      Object {
+        "left": Object {
+          "onClick": [Function],
+          "text": "Previous",
+        },
+        "middle": null,
+        "right": Object {
+          "onClick": [Function],
+          "text": "New Client",
+        },
+      }
+    }
     title="What Might Happen?"
   >
     <IncomeForm

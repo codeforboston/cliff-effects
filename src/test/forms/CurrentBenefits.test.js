@@ -1,26 +1,26 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { PredictionsStep } from '../../forms/Predictions';
+import { CurrentBenefitsStep } from '../../forms/CurrentBenefits';
 
 import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import snippets from '../../localization/en.js';
 
-test('Prediction component renders as snapshot correctly', () => {
+test('Benefits step component renders as snapshot correctly', () => {
   const navData = {
-          left:   { text: 'Previous', onClick: jest.fn() },
+          left:   null,
           middle: null,
-          right:  { text: 'New Client', onClick: jest.fn() },
+          right:  { text: 'Next', onClick: jest.fn() },
         },
         changeClient     = jest.fn(),
         saveForm         = jest.fn(),
         askToResetClient = jest.fn(),
         openFeedback     = jest.fn(),
-        formSnippets     = snippets.visitPage.predictions;
+        formSnippets     = snippets.visitPage.currentBenefits;
 
   const wrapper = shallow(
-    <PredictionsStep
-      currentStep       = { 5 }
+    <CurrentBenefitsStep
+      currentStep       = { 1 }
       client            = { CLIENT_DEFAULTS }
       navData           = { navData }
       changeClient      = { changeClient }
