@@ -397,7 +397,6 @@ const HouseholdStep = function ({ changeClient, navData, client, snippets }) {
   const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
-    <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
         title     = { snippets.title }
         clarifier = { snippets.clarifier }
@@ -408,7 +407,6 @@ const HouseholdStep = function ({ changeClient, navData, client, snippets }) {
           time={ 'current' }
           snippets={ snippets } />
       </FormPartsContainer>
-    </Form>
   );
 
 };  // End HouseholdStep()

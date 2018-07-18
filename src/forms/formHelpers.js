@@ -157,6 +157,9 @@ const FormBottomRow = function({ left, middle, right }) {
 */
 const FormPartsContainer = function({ title, clarifier, children, navData }) {
   return (
+    <Form
+    size='massive'
+    className='household-size-form flex-item flex-column'>
     <Segment
       padded='very'
       className="flex-item flex-column">
@@ -188,6 +191,7 @@ const FormPartsContainer = function({ title, clarifier, children, navData }) {
       <FormBottomRow { ...navData } />
 
     </Segment>
+    </Form>
   );
 };  // End FormPartsContainer() Component
 

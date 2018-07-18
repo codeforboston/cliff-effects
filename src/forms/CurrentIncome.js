@@ -151,7 +151,6 @@ const CurrentIncomeStep = function ({ changeClient, navData, client, snippets })
   const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
-    <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = { snippets.title }
         clarifier = { snippets.clarifier }
@@ -162,7 +161,6 @@ const CurrentIncomeStep = function ({ changeClient, navData, client, snippets })
           time={ 'current' }
           snippets={ snippets } />
       </FormPartsContainer>
-    </Form>
   );
 
 };  // End CurrentIncomeStep()
