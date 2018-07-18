@@ -10,13 +10,13 @@ export default {
     cfbCredit: [
       `Made with `,
       { name: `__heartIcon__` },
-      ` by Code for Boston`, 
+      ` by Code for Boston`,
     ],
   },
 
   homePage: {
     appName:          `Cliff Effects Tool`,
-    prototypeNote:    `GUIDANCE PROTOYPE*`,
+    prototypeNote:    `GUIDANCE PROTOTYPE*`,
     cautionaryNote:   `*This is a prototype and should not be used to make financial decisions`,
     toFirstInputPage: `Get Started`,
     toAboutPage:      `Learn More`,
