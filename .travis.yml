@@ -22,7 +22,6 @@ env:
 before_script: 
   - if [[ $TEST_TYPE == 'lint:eslint' ]]; then yarn build; fi
 
->>>>>>> fbb9e29... Parallel travis tasks
 script:
   # Run testing or linting depending on the environment.
   - yarn $TEST_TYPE
