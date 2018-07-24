@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Income step component renders as snapshot correctly 1`] = `
+<Form
+  as="form"
+  className="income-form flex-item flex-column"
+>
+  <FormPartsContainer
+    clarifier="Income that you collected in the past 12 months."
+    navData={
+      Object {
+        "left": Object {
+          "onClick": [Function],
+          "text": "Previous",
+        },
+        "middle": null,
+        "right": Object {
+          "onClick": [Function],
+          "text": "Next",
+        },
+      }
+    }
+    title="Current Household Income"
+  >
+    <IncomeForm
+      current={
+        Object {
+          "SSDI": 0,
+          "SSI": 0,
+          "TAFDC": 0,
+          "adultDirectCare": 0,
+          "adultOtherCare": 0,
+          "adultTransportation": 0,
+          "alimony": 0,
+          "childBeforeAndAfterSchoolCare": 0,
+          "childDirectCare": 0,
+          "childOtherCare": 0,
+          "childSupportIn": 0,
+          "childSupportPaidOut": 0,
+          "childTransportation": 0,
+          "climateControl": false,
+          "contractRent": 0,
+          "disabledAssistance": 0,
+          "disabledMedical": 0,
+          "earned": 0,
+          "earnedBecauseOfAdultCare": 0,
+          "earnedBecauseOfChildCare": 0,
+          "fuelAssistance": false,
+          "hasSection8": false,
+          "hasSnap": false,
+          "household": Array [
+            Object {
+              "m_age": 30,
+              "m_disabled": false,
+              "m_role": "head",
+            },
+          ],
+          "housing": "homeless",
+          "housingInsurance": 0,
+          "mortgage": 0,
+          "nonHeatElectricity": false,
+          "otherIncome": 0,
+          "otherMedical": 0,
+          "pension": 0,
+          "phone": false,
+          "propertyTax": 0,
+          "rent": 0,
+          "rentShare": 0,
+          "socialSecurity": 0,
+          "unemployment": 0,
+          "workersComp": 0,
+        }
+      }
+      setClientProperty={[Function]}
+      snippets={
+        Object {
+          "SSDI": Object {
+            "hint": "Social Security Disability Income is a federal program to help people with disabilities",
+            "label": "SSDI",
+          },
+          "SSI": Object {
+            "hint": "Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled",
+            "label": "SSI",
+          },
+          "TAFDC": Object {
+            "hint": "Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children",
+            "label": "TAFDC",
+          },
+          "alimony": Object {
+            "hint": "Alimony is money paid by one spouse to the other after a divorce",
+            "label": "Alimony",
+          },
+          "childSupport": Object {
+            "hint": "Child support is money paid to you by a former spouse to help your child",
+            "label": "Child support recieved",
+          },
+          "clarifier": "Income that you collected in the past 12 months.",
+          "earnedIncome": Object {
+            "hint": "Earned income is how much you and your family get paid from working",
+            "label": "Earned income",
+          },
+          "explainSnapCalculation": "This prototype will attempt to make its own calculations for SNAP amount",
+          "next": "Next",
+          "otherIncome": Object {
+            "hint": "Please note income you may have from sources that are not listed above",
+            "label": "Other income",
+          },
+          "pension": Object {
+            "hint": "A pension provides income to retirees, usually from their former employers",
+            "label": "Pension",
+          },
+          "previous": "Previous",
+          "socialSecurity": Object {
+            "hint": "Social Security is a federal program that provides assistance to retirees",
+            "label": "Social security",
+          },
+          "title": "Current Household Income",
+          "unemployment": Object {
+            "hint": "Unemployment benefits provide income to people who have been laid off",
+            "label": "Unemployment",
+          },
+          "workersComp": Object {
+            "hint": "Worker's Compensation provides assistance for people who have been injured on the job",
+            "label": "Worker's compensation",
+          },
+        }
+      }
+      time="current"
+    />
+  </FormPartsContainer>
+</Form>
+`;
