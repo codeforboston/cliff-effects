@@ -13,9 +13,9 @@ import {
   FormHeading,
   IntervalColumnHeadings,
   CashFlowRow,
-  ControlledRadioYesNo,
   AttentionArrow,
 } from './formHelpers';
+import { ControlledRadioYesNo } from './inputs';
 import {
   ContractRentField,
   RentShareField,

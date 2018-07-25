@@ -13,8 +13,8 @@ import {
 import {
   FormPartsContainer,
   ColumnHeading,
-  ManagedNumberField,
 } from './formHelpers';
+import { ManagedNumberField } from './inputs';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
