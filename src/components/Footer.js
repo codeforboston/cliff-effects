@@ -4,22 +4,11 @@ import logo from '../images/logo.svg';
 import {
   Grid,
   Header,
-  Icon,
   Segment,
   Image,
 } from 'semantic-ui-react';
 
-import { interpolateSnippets } from '../utils/interpolation';
-
-const inlineComponents = {
-  __heartIcon__: <Icon
-    name='heart'
-    size='small' />,
-};
-
 const Footer = ({ snippets }) => {
-  snippets = interpolateSnippets(snippets, inlineComponents);
-
   return (
     <Segment
       inverted
@@ -43,12 +32,12 @@ const Footer = ({ snippets }) => {
             <p>{ snippets.cfbCredit }</p>
           </Grid.Column>
           <a
-            
+
             href="http://www.codeforboston.org"
             target="_blank"
             rel="noopener noreferrer"><Image
               src={ logo }
-              size='small' 
+              size='small'
               floated='right' />
           </a>
         </Grid.Row>
