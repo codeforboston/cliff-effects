@@ -225,62 +225,6 @@ const MassiveToggle = function (props) {
 };  // End MassiveToggle{} Component
 
 
-/** A clearer way than a ternary operator to have a possible
-* subheader. Also, clearer for separate styling
-*
-* @function
-* @param {object} props
-* @property {object} props.children - Contents of this element
-*
-* @returns Component
-*/
-const FormSubheading = function (props) {
-
-  if (!props.children) {
-    return null;
-  }
-
-  return (
-    <div
-      className = { 'form-subheading' }
-      style={{ display: 'block', textAlign: 'left' }}>
-      { props.children }
-    </div>
-  );
-
-};  // End FormSubheading{} Component
-
-
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-const FormHeading = function ({ subheading, children }) {
-
-  if (!children) {
-    return null;
-  }
-
-  return (
-    <div className={ 'form-heading' } >
-      <div /> {/** div here to make sure header margin doesn\'t collapse */}
-      <Header
-        as='h3'
-        style={{ display: 'inline-block' }}>
-        { children }
-      </Header>
-      <FormSubheading>{subheading}</FormSubheading>
-      <br />
-    </div>
-  );
-
-};  // End FormHeading{} Component
-
-
 /** @todo description
 *
 * @function
@@ -396,71 +340,6 @@ const RowMessage = function ({ validRow, message }) {
 //     className='right-column'
 //     name='Earned Income' placeholder='Earned Income'
 //   />
-
-
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-const ColumnHeading = function ({ type, colName, style, children }) {
-  var classes = type + '-column cashflow-column header ' + colName;
-  return (
-    <Header
-      as='h4'
-      className={ classes }
-      style={ style }
-      color='teal'>{children}
-    </Header>
-  );
-};  // End ColumnHeading()
-
-
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-const IntervalColumnHeadings = function ({ type }) {
-
-  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {
-        return letter.toUpperCase();
-      }) + ' Type',
-      styles      = { fontSize: '14px' };
-
-  return (
-    <div style={{ display: 'inline-block' }}>
-      <ColumnHeading
-        type={ type }
-        colName='weekly'
-        style={ styles }>Weekly
-      </ColumnHeading>
-      <ColumnHeading
-        type={ type }
-        colName='monthly'
-        style={ styles }>Monthly
-      </ColumnHeading>
-      <ColumnHeading
-        type={ type }
-        colName='yearly'
-        style={ styles }>Yearly
-      </ColumnHeading>
-      <ColumnHeading
-        type={ type }
-        colName={ type }
-        style={ styles }
-        columnTitle={ columnTitle }>{columnTitle}
-      </ColumnHeading>
-    </div>
-  );
-
-};  // End IntervalColumnHeadings{} Component
 
 
 /**
@@ -733,10 +612,10 @@ export {
   ExternalLink, SpaceHolder,
   BottomButton, FormBottomRow,
   FormPartsContainer,
-  MassiveToggle, FormSubheading, FormHeading,
+  MassiveToggle,
   InlineLabelInfo,
   RowMessage,
-  IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
+  ManagedNumberField,
   CashFlowRow, MonthlyCashFlowRow, CashFlowContainer,
   ControlledRadioYesNo, AttentionArrow,
 };

@@ -12,9 +12,9 @@ import {
 // PROJECT COMPONENTS
 import {
   FormPartsContainer,
-  ColumnHeading,
   ManagedNumberField,
 } from './formHelpers';
+import { ColumnHeading } from '../components/headings';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
