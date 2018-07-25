@@ -7,8 +7,7 @@
 /coverage
 
 # production
-build/*
-!build/netlify.toml
+/build
 
 
 # misc
