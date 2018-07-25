@@ -4,8 +4,8 @@ node_js:
 cache:
   directories:
     - node_modules
-install:
-  - npm install -g codecov
+# Note: travis defaults used for install
+# If custom install desired, include `npm install`
 script:
   - npm run build
   - npm test -- --coverage && codecov

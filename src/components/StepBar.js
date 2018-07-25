@@ -7,7 +7,6 @@ const StepBar = ({ steps, currentStepIndex, goToStep, snippets }) => {
 
   steps.forEach((step, index) => {
     var newStep = { title: snippets[ step.key ] };
-    newStep.completed = index < currentStepIndex;
     newStep.active = index === (currentStepIndex - 1);
     newStep.onClick = (e) => {
       goToStep(index + 1); 
