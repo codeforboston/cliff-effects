@@ -64,8 +64,8 @@ export default {
     whoMadeThis2C: ` aufrecht. Für weitere Auskunft treten Sie bitte in Verbindung mit `,
     whoMadeThis2D: `.`,
     
-    whoMadeThis3Intro: `Wir möchten den folgenden Freiwilligen von Code for Boston besonders danken: `,
-    whoMadeThis3Names: `Annie LaCourt, Isaac Chansky, Michelle Bernstein, Alec Danaher, Sasha Maryl, Drew Love, Liani Lye, Andrew Cunningham, Liam Morley, Nick Francisci, Stephen Chin, Shameek Poddar, Will McIntosh, Andrew Seeder, Ben Lewis, Don Blair, Ethan Strominger, Nick Lee, Jonathan Marcus, Emily Wasserman, Ethan Blackwood,`,
+    whoMadeThis3Intro:     `Wir möchten den folgenden Freiwilligen von Code for Boston besonders danken: `,
+    whoMadeThis3Names:     `Annie LaCourt, Isaac Chansky, Michelle Bernstein, Alec Danaher, Sasha Maryl, Drew Love, Liani Lye, Andrew Cunningham, Liam Morley, Nick Francisci, Stephen Chin, Shameek Poddar, Will McIntosh, Andrew Seeder, Ben Lewis, Don Blair, Ethan Strominger, Nick Lee, Jonathan Marcus, Emily Wasserman, Ethan Blackwood,`,
     whoMadeThis3And:       ` und `,
     whoMadeThis3FinalName: `Valerie Kenyon`,
     whoMadeThisPeriod:     `.`,
