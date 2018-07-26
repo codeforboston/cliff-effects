@@ -9,7 +9,6 @@ import {
   Label,
   Radio,
   Divider,
-  Checkbox,
   Icon,
 } from 'semantic-ui-react';
 
@@ -135,7 +134,7 @@ const FormBottomRow = function({ left, middle, right }) {
     </div>
   );
 
-}; // End <BottomFormRow>
+}; // End <FormBottomRow>
 
 
 /** Constructor for all the stuff that's supposed to go inside
@@ -190,39 +189,6 @@ const FormPartsContainer = function({ title, clarifier, children, navData }) {
     </Segment>
   );
 };  // End FormPartsContainer() Component
-
-
-/** Toggle with size='massive'
-*
-* @function
-* @param {object} props - sent from attributes of parent element
-* @property {string} props.label - Text displayed next to toggle
-* @property {string} props.value - Should reflect state change and
-* will be displayed as the value. Flow goes:
-* user input > state > value > visual feedback
-* @property {object} props.setClientProperty - Function that changes page
-* state (changes the "source of truth")
-* @property {string} props.name - The key of the client property that
-* will be saved and will be used to fill in the field's value.
-*
-* @returns Component
-*/
-const MassiveToggle = function (props) {
-
-  /** @todo Switch props.setClientProperty to props.onChange everywhere */
-  return (
-    <Form.Field
-      className='massive-toggle'
-      toggle
-      label={ props.label }
-      checked={ props.checked || props.value }
-      onChange={ props.onChange || props.setClientProperty }
-      name={ props.name || props.name }
-      control={ Checkbox }
-      size='massive' />
-  );
-
-};  // End MassiveToggle{} Component
 
 
 /** A clearer way than a ternary operator to have a possible
@@ -281,74 +247,12 @@ const FormHeading = function ({ subheading, children }) {
 };  // End FormHeading{} Component
 
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-const InlineLabelInfo = function (props) {
-
-  var labelInfoDisplay = ' hidden'; // Will be '' in future
-
-  // return (
-  //   <div className = { 'label-info info-revealer' + labelInfoDisplay } style = {{
-  //     position: 'relative', top: '-0.5em',
-  //     marginLeft: '1em', padding: '0.1em 0.2em',
-  //     textAlign: 'left', verticalAlign: 'middle',
-  //     border: '1px solid black'
-  //   }}>
-  //     <div className='info-indicator'>i</div>
-  //     <div className='info-tooltip'>{props.children}</div>
-  //   </div>
-  // );
-
-  return (
-    <div
-      className = { 'label-info' + labelInfoDisplay }
-      style = {{ marginLeft: '1em' }}>
-      { props.children }
-    </div>
-  );
-
-};  // End InlineLabelInfo{} Component
-
-// Possible tooltip version of labels:
-// (could be made official in the Row creator with conditionals)
-// <label>Earned Income
-//   <style type='display on hover handled in css'></style>
-//   <div
-//     className={ 'info-revealer' }
-//     style={{
-//       position: 'relative',
-//       display: 'inline-block',
-//       fontSize: '10px',
-//       border: '1px solid black',
-//       margin: '1em',
-//       top: '-0.5em',
-//       textAlign: 'center',
-//       width: '1.6em',
-//       height: '1.6em'
-//     }}>
-//     <div style={{ position: 'relative', top: '-0.2em' }}>i</div>
-//     <div
-//       className={ 'info-tooltip' }
-//       style={{ position: 'absolute', padding: '.2em' }}
-//     >
-//       Weekly income = hourly wage times average number of work hours per week
-//     </div>
-//   </div>
-// </label>
-
-
 // ========================================
 // INPUT CONTAINER COMPONENTS
 // ========================================
 
 /** Adds an option for an 'invalid input' message to the right of the last element */
-const RowMessage = function ({ validRow, message }) {
+const InvalidMessage = function ({ validRow, message }) {
 
   var result = null;
   if (!validRow && message) {
@@ -362,7 +266,7 @@ const RowMessage = function ({ validRow, message }) {
   }
 
   return result;
-};  // End <RowMessage>
+};  // End <InvalidMessage>
 
 
 // ========================================
@@ -555,7 +459,7 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
       <div className={ 'cashflow-column cashflow-column-last-child' }>
         <label>{label}</label>
       </div>
-      <RowMessage
+      <InvalidMessage
         validRow={ validRow }
         message={ message } />
     </Form.Field>
@@ -725,7 +629,7 @@ var AttentionArrow = function () {
     </span>
   );
 
-};  // End AttentionArrow
+};  // End <AttentionArrow>
 
 
 /** @todo Separate into different files? */
@@ -733,9 +637,8 @@ export {
   ExternalLink, SpaceHolder,
   BottomButton, FormBottomRow,
   FormPartsContainer,
-  MassiveToggle, FormSubheading, FormHeading,
-  InlineLabelInfo,
-  RowMessage,
+  FormSubheading, FormHeading,
+  InvalidMessage,
   IntervalColumnHeadings, ColumnHeading, ManagedNumberField,
   CashFlowRow, MonthlyCashFlowRow, CashFlowContainer,
   ControlledRadioYesNo, AttentionArrow,
