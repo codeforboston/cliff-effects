@@ -98,6 +98,9 @@ Used to fill vertical space.
 .label-info { display: inline; }
 .label-info.hidden { display: none; }
 
+.button.ui.large.big-button {
+  flex-basis: 130px;
+}
 
 .massive-toggle .ui.toggle.checkbox input~label:before {
     background-color: rgba(0, 0, 0, 0.23);
@@ -287,9 +290,4 @@ form elements. */
 /* In semantic-ui-react `.attached` is not included */
 .ui.attached.menu>.item:first-child {
   border-bottom-left-radius: 0;
-}
-
-.button.ui.teal.large.button {
-  padding-left: .25em;
-  padding-right: .25em;
 }
