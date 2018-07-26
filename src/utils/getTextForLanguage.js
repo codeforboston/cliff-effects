@@ -1,8 +1,12 @@
 /** Returns a translator based on the language given */
+
+// TRANSFORMER FUNCTIONS
 import { mergeWith } from 'lodash';
+import { interpolateSnippets } from './interpolation.js';
 
 // DATA
 import { localizations } from '../localization/all';
+import inlineComponents from '../localization/inlineComponents';
 const english = localizations.en;  // unforunately, we need a default language
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
@@ -21,18 +25,21 @@ const mergeCustomizer = function (objValue, srcValue) {
  */
 const getTextForLanguage = function (langName) {
 
+  let snippetsTemplate;
   if (localizations[ langName ]) {
 
     // deeply merge the object containing snippets in langName with English,
     // so that we fall back to English if a particular field is missing.
-    return mergeWith({}, english, localizations[ langName ], mergeCustomizer);
+    snippetsTemplate = mergeWith({}, english, localizations[ langName ], mergeCustomizer);
 
   } else {
 
     console.warn('There\'s no localization for ' + langName + '. Defaulting to English.');
-    return english;
+    snippetsTemplate = english;
 
   }
+
+  return interpolateSnippets(snippetsTemplate, inlineComponents);
 
 };  // End getTextForLanguage()
 
