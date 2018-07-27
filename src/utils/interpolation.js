@@ -51,15 +51,15 @@ const interpolateSnippets = function (snippets, components) {
     if (typeof(value) === 'string') {
       // plain translated string
       return (<span { ...props }>{ value }</span>);
-    }
-
-    if (Array.isArray(value)) {
+    } else if (Array.isArray(value)) {
       // template for interpolation
       return interpolateText(value, components, langCode);
+    } else {
+      // else: value is a nested object
+      value.langCode = langCode;
+      return interpolateSnippets(value, components);
     }
-
-    // else: value is a nested object
-    return interpolateSnippets(value, components);
+    
   });
 };
 
