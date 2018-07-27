@@ -12,9 +12,9 @@ import {
   FormPartsContainer,
   FormHeading,
   IntervalColumnHeadings,
-  CashFlowRow,
   AttentionArrow,
 } from './formHelpers';
+import { CashFlowRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 import {
   ContractRentField,

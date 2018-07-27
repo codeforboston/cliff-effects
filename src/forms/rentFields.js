@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MonthlyCashFlowRow } from './formHelpers';
+import { MonthlyCashFlowRow } from './cashflow';
 
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 

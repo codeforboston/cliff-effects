@@ -3,7 +3,8 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import { FormPartsContainer, IntervalColumnHeadings, CashFlowRow } from './formHelpers';
+import { FormPartsContainer, IntervalColumnHeadings } from './formHelpers';
+import { CashFlowRow } from './cashflow';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';
