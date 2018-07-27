@@ -10,12 +10,14 @@ import {
 // PROJECT COMPONENTS
 import {
   FormPartsContainer,
-  FormHeading,
-  IntervalColumnHeadings,
   CashFlowRow,
   AttentionArrow,
 } from './formHelpers';
 import { ControlledRadioYesNo } from './inputs';
+import {
+  ContentH1,
+  IntervalColumnHeadings,
+} from '../components/headings';
 import {
   ContractRentField,
   RentShareField,
@@ -217,7 +219,7 @@ const Housing = function ({ current, type, time, setClientProperty }) {
   return (
     <div>
 
-      <FormHeading>Housing</FormHeading>
+      <ContentH1>Housing</ContentH1>
 
       { current.housing === 'voucher'
         ? null
@@ -291,9 +293,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
       { under13.length > 0
         ? 
         <div>
-          <FormHeading subheading = { snippets.unreimbursedNonMedicalChildCare.subheading }>
+          <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.subheading }>
             { snippets.unreimbursedNonMedicalChildCare.sectionHeading }
-          </FormHeading>
+          </ContentH1>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
             { ...sharedProps }
@@ -332,7 +334,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
       { current.hasSnap
         ? 
         <div>
-          <FormHeading>Child Support</FormHeading>
+          <ContentH1>Child Support</ContentH1>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
             { ...sharedProps }
@@ -346,9 +348,9 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
       { over12.length > 0
         ? 
         <div>
-          <FormHeading subheading = { 'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n' }>
+          <ContentH1 subheading = { 'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n' }>
             Dependent Care of Persons Over 12 Years of Age
-          </FormHeading>
+          </ContentH1>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
             { ...sharedProps }
@@ -369,7 +371,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
       { elderlyOrDisabled.length > 0
         ? 
         <div>
-          <FormHeading>Unreimbursed Disabled/Handicapped/Elderly Assistance</FormHeading>
+          <ContentH1>Unreimbursed Disabled/Handicapped/Elderly Assistance</ContentH1>
           <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
           <div>Examples of eligible disability assistance expenses:</div>
           <ul>
@@ -402,7 +404,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
         ? 
         <div>
-          <FormHeading>Unreimbursed Medical Expenses</FormHeading>
+          <ContentH1>Unreimbursed Medical Expenses</ContentH1>
           <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
           <ul>
             <li>The orthodontist expenses for a child’s braces.</li>
