@@ -10,11 +10,9 @@ import {
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import {
-  FormPartsContainer,
-  ManagedNumberField,
-} from './formHelpers';
+import { FormPartsContainer } from './formHelpers';
 import { ColumnHeading } from '../components/headings';
+import { ManagedNumberField } from './inputs';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';

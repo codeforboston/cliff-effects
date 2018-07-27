@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ManagedNumberField } from '../../forms/formHelpers';
+import { ManagedNumberField } from '../../forms/inputs';
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../../utils/validators';
 
 test('ManagedNumberField should match snapshot', () => {

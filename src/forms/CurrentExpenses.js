@@ -11,9 +11,9 @@ import {
 import {
   FormPartsContainer,
   CashFlowRow,
-  ControlledRadioYesNo,
   AttentionArrow,
 } from './formHelpers';
+import { ControlledRadioYesNo } from './inputs';
 import {
   ContentH1,
   IntervalColumnHeadings,
