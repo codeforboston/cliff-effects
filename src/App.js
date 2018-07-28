@@ -21,7 +21,7 @@ import { getTextForLanguage } from './utils/getTextForLanguage';
 class App extends Component {
   constructor (props) {
     super(props);
-    this.state = { language: 'de', snippets: getTextForLanguage('de') };
+    this.state = { language: 'en', snippets: getTextForLanguage('en') };
   }
 
   setLanguage = (inputProps) => {
