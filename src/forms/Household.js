@@ -10,10 +10,8 @@ import {
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import {
-  FormPartsContainer,
-  ColumnHeading,
-} from './formHelpers';
+import { FormPartsContainer } from './formHelpers';
+import { ColumnHeading } from '../components/headings';
 import { ManagedNumberField } from './inputs';
 
 // COMPONENT HELPER FUNCTIONS

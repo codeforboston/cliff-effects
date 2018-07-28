@@ -2,7 +2,8 @@ import React from 'react';
 import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import { FormPartsContainer, IntervalColumnHeadings } from './formHelpers';
+import { FormPartsContainer } from './formHelpers';
+import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
 import { BenefitsTable } from './output/BenefitsTable';
