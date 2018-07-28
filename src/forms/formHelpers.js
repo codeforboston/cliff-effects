@@ -156,10 +156,11 @@ const FormBottomRow = function({ left, middle, right }) {
 * @returns Component
 */
 const FormPartsContainer = function({ title, clarifier, children, navData }) {
+  const formClass = title.toLowerCase().replace(' ', '-');
   return (
     <Form
     size='massive'
-    className='household-size-form flex-item flex-column'>
+    className= { formClass + `-section flex-item flex-column` }>
     <Segment
       padded='very'
       className="flex-item flex-column">
