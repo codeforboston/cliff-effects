@@ -71,9 +71,6 @@ const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
   const setTimeProp = getTimeSetter('current', changeClient);
 
   return (
-    <Form
-      size='massive'
-      className='household-size-form flex-item flex-column'>
       <FormPartsContainer
         title     = { snippets.currentBenefits }
         clarifier = { snippets.selectBenefits }
@@ -83,8 +80,6 @@ const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
           current           = { client.current }
           snippets          = { snippets } />
       </FormPartsContainer>
-
-    </Form>
   );
 
 };  // End CurrentBenefitsStep()

@@ -109,7 +109,6 @@ const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
 
   /** @todo Are these titles accurate now? */
   return (
-    <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
         title     = 'What Might Happen?'
         clarifier = { null }
@@ -126,7 +125,6 @@ const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
         </Header>
         <TabbedVisualizations client={ client } />
       </FormPartsContainer>
-    </Form>
   );
 };  // End FutureIncomeStep() Component
 

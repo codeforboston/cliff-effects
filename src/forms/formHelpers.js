@@ -132,38 +132,43 @@ const FormBottomRow = function({ left, middle, right }) {
 * @returns Component
 */
 const FormPartsContainer = function({ title, clarifier, children, navData }) {
+  const formClass = title.toLowerCase().replace(' ', '-');
   return (
-    <Segment
-      padded='very'
-      className="flex-item flex-column">
+    <Form
+      size='massive'
+      className= { formClass + `-section flex-item flex-column` }>
       <Segment
-        basic={ true }
-        className="flex-item">
-        <Header
-          as='h1'
-          color='teal'
-          textAlign='center'>
-          { title }
-        </Header>
-        { !clarifier
-          ? null
-          : (
-            <Header
-              as='h3'
-              textAlign='center'>
-              { clarifier }
-            </Header>
-          )
-        }
+        padded='very'
+        className="flex-item flex-column">
+        <Segment
+          basic={ true }
+          className="flex-item">
+          <Header
+            as='h1'
+            color='teal'
+            textAlign='center'>
+            { title }
+          </Header>
+          { !clarifier
+            ? null
+            : (
+              <Header
+                as='h3'
+                textAlign='center'>
+                { clarifier }
+              </Header>
+            )
+          }
 
-        { children }
+          { children }
+
+        </Segment>
+
+        <Divider />
+        <FormBottomRow { ...navData } />
 
       </Segment>
-
-      <Divider />
-      <FormBottomRow { ...navData } />
-
-    </Segment>
+    </Form>
   );
 };  // End FormPartsContainer() Component
 
