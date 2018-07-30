@@ -4,22 +4,13 @@ import {
   // Generic Form stuff
   Header,
   Segment,
-  Form,
   Label,
   Divider,
   Icon,
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import {
-  BigButton,
-  ManagedNumberField,
-} from './inputs';
-
-// UTILITIES
-import { toMonthlyAmount } from '../utils/math';
-import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
-import { toMoneyStr } from '../utils/prettifiers';
+import { BigButton } from './inputs';
 
 
 // ========================================
@@ -190,140 +181,6 @@ const InvalidMessage = function ({ validRow, message }) {
 };  // End <InvalidMessage>
 
 
-// ========================================
-// MONEY ON INTERVALS COLUMNS COMPONENTS
-// ========================================
-
-// Ideas of how to handle a different styling situation (if the designers switch columns)
-
-// If we want more control over placement, we may look into this:
-// <Grid textAlign='center' verticalAlign='middle'>
-//   <Grid.Row className='inputs-in-right-column'>
-//     <Grid.Column className='left-label'>
-//       <label>Earned Income</label>
-//     </Grid.Column>
-//     <Grid.Column className='right-input'>
-//       <Input type='number'/>
-//     </Grid.Column>
-//   </Grid.Row>
-// </Grid>
-
-// <Form.Field inline>
-//   <span className='column-1-header'>Income Source</span>
-//   <div className='right-column'>
-//     <span className='Weekly'>Income Source</span>
-//     <span className='Monthly'>Income Source</span>
-//     <span className='Yearly'>Income Source</span>
-//   </div>
-//   <Input
-//     type='number'
-//     onChange={props.setClientProperty}
-//     className='right-column'
-//     name='Earned Income' placeholder='Earned Income'
-//   />
-
-
-const CashFlowContainer = function ({ children, label, validRow, message }) {
-  return (
-    <Form.Field
-      inline
-      className={ 'cashflow' }>
-      { children }
-      <div className={ 'cashflow-column cashflow-column-last-child' }>
-        <label>{label}</label>
-      </div>
-      <InvalidMessage
-        validRow={ validRow }
-        message={ message } />
-    </Form.Field>
-  );
-};  // End <CashFlowContainer>
-
-
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
-/** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
-      use `includes` array to include only certain columns perhaps */
-const CashFlowRow = function ({ generic, timeState, setClientProperty, children }) {
-
-  var updateClient = function (evnt, inputProps, data) {
-    var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
-        obj     = { name: generic, value: monthly };
-    setClientProperty(evnt, obj);
-  };
-
-  /** baseVal
-   * Get the time ('future' or 'current') monthly value unless there is
-   *     none, in which case, get the 'current' monthly cash flow value
-   *     (to prefill future values with 'current' ones if needed).
-   *
-   * @var
-   *
-   * @todo Add some kind of UI indication when it's the same as the 'current'
-   *     value. What if some of the row's values are the same and some are
-   *     different?
-   */
-  var baseVal   = timeState[ generic ],
-      baseProps = {
-        name:             generic,
-        className:        'cashflow-column',
-        store:            updateClient,
-        displayValidator: hasOnlyNonNegNumberChars,
-        storeValidator:   isNonNegNumber,
-        format:           toMoneyStr,
-      };
-
-  return (
-    <CashFlowContainer
-      label={ children }
-      validRow={ true }
-      message={ null }>
-      <ManagedNumberField
-        { ...baseProps }
-        value     = { baseVal / (4 + 1 / 3) }
-        otherData = {{ interval: 'weekly' }} />
-      <ManagedNumberField
-        { ...baseProps }
-        value     = { baseVal }
-        otherData = {{ interval: 'monthly' }} />
-      <ManagedNumberField
-        { ...baseProps }
-        value     = { baseVal * 12 }
-        otherData = {{ interval: 'yearly' }} />
-    </CashFlowContainer>
-  );
-
-};  // End CashFlowRow{} Component
-
-
-/** CashflowRow with only a monthly value. */
-const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty, rowProps }) {
-
-  inputProps = {
-    ...inputProps, // name, validators, and onBlur
-    className: 'cashflow-column',
-    format:    toMoneyStr,
-    store:     setClientProperty,
-  };
-
-  return (
-    <CashFlowContainer { ...rowProps }>
-      <ManagedNumberField
-        { ...inputProps }
-        value={ baseValue }
-        otherData={{ interval: 'monthly' }} />
-    </CashFlowContainer>
-  );
-
-};  // End <MonthlyCashFlowRow>
-
-
 var AttentionArrow = function () {
 
   return (
@@ -350,6 +207,5 @@ export {
   FormBottomRow,
   FormPartsContainer,
   InvalidMessage,
-  CashFlowRow, MonthlyCashFlowRow, CashFlowContainer,
   AttentionArrow,
 };

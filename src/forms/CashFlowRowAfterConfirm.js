@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CashFlowRow } from './formHelpers';
+import { CashFlowRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 
 const IncomeField = (props) => {
