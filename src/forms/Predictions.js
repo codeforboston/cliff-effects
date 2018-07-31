@@ -45,7 +45,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
         timeState={ future }
 				  type={ type }
 				  time={ time }
-				  setClientProperty={ setClientProperty }
+				  onChange={ setClientProperty }
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           How much money would you get paid in the future? (You can try different amounts)

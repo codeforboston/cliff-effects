@@ -122,6 +122,7 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
         current:           current,
         type:              type,
         time:              time,
+        onChange:          setClientProperty,
         setClientProperty: setClientProperty,
       };
 
@@ -266,7 +267,13 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
 
   let type        = 'expense',
       household   = current.household,
-      sharedProps = { timeState: current, type: type, time: time, setClientProperty: setClientProperty };
+      sharedProps = {
+        timeState:         current,
+        type:              type,
+        time:              time,
+        onChange:          setClientProperty,
+        setClientProperty: setClientProperty,
+      };
 
   /** @todo Make an age-checking function to
    *     keep household data structure under 

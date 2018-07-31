@@ -47,19 +47,19 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
  * @property {object} props.generic - Base name for the client property that
  *     needs to be updated (now the code has changed, this may be a misnomer)
  * @property {object} props.timeState - Client, either future values or current values
- * @property {object} props.setClientProperty - Updates client state
+ * @property {object} props.onChange - Updates client state
  * @property {object} props.children - Text for the row label
  *
  * @returns Component
  */
 /** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
       use `includes` array to include only certain columns perhaps. */
-const CashFlowRow = function ({ generic, timeState, setClientProperty, children }) {
+const CashFlowRow = function ({ generic, timeState, onChange, children }) {
 
   var updateClient = function (evnt, inputProps, data) {
     var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
         obj     = { name: generic, value: monthly };
-    setClientProperty(evnt, obj);
+    onChange(evnt, obj);
   };
 
   /** baseVal

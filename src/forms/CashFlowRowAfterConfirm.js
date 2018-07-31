@@ -48,24 +48,24 @@ class CashFlowRowAfterConfirm extends React.Component {
   };
 
   hideField(evt) {
-    const { generic, setClientProperty, timeState } = this.props;
+    const { generic, onChange, timeState } = this.props;
 
     this.setState({
       showField:   false,
       storedValue: timeState[ generic ],
     });
 
-    setClientProperty(evt, {
+    onChange(evt, {
       name:  generic,
       value: 0,
     });
   }
 
   showField(evt) {
-    const { generic, setClientProperty } = this.props;
+    const { generic, onChange } = this.props;
     const { storedValue } = this.state;
 
-    setClientProperty(evt, {
+    onChange(evt, {
       name:  generic,
       value: storedValue,
     });

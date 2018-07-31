@@ -56,10 +56,10 @@ const IncomeForm = function ({ current, time, changeClient, snippets }) {
   };  // End ensureFuture()
 
   var sharedProps = {
-    timeState:    current,
-    time:         time,
-    type:         type,
-    changeClient: ensureFuture,
+    timeState: current,
+    time:      time,
+    type:      type,
+    onChange:  ensureFuture,
   };
 
   return (

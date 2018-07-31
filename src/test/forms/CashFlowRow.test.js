@@ -8,7 +8,7 @@ test('CashFlowRow should match snapshot', () => {
     <CashFlowRow
       generic='name'
       timeState={{ name: 0 }}
-      setClientProperty={ () => {} } >
+      onChange={ () => {} } >
       label
     </CashFlowRow>
   );
@@ -21,7 +21,7 @@ test('Second ManagedNumberField child should have value of timeState[ generic ]'
     <CashFlowRow
       generic='name'
       timeState={{ name: monthlyVal }}
-      setClientProperty={ () => {} } />
+      onChange={ () => {} } />
   );
   const monthlyInput = wrapper.childAt(1);
   expect(monthlyInput.prop('value')).toBe(monthlyVal);
@@ -33,7 +33,7 @@ test('First ManagedNumberField child should have weekly value', () => {
     <CashFlowRow
       generic='name'
       timeState={{ name: monthlyVal }}
-      setClientProperty={ () => {} } />
+      onChange={ () => {} } />
   );
   const weeklyInput = wrapper.childAt(0);
   expect(weeklyInput.prop('value')).toBeCloseTo(monthlyVal / (4 + 1 / 3));
@@ -45,19 +45,19 @@ test('Third ManagedNumberField child should have yearly value', () => {
     <CashFlowRow
       generic='name'
       timeState={{ name: monthlyVal }}
-      setClientProperty={ () => {} } />
+      onChange={ () => {} } />
   );
   const yearlyInput = wrapper.childAt(2);
   expect(yearlyInput.prop('value')).toBeCloseTo(monthlyVal * 12);
 });
 
-test('setClientProperty gets called correctly when each value is changed', () => {
+test('onChange gets called correctly when each value is changed', () => {
   const mockSetClientProperty = jest.fn();
   const wrapper = shallow(
     <CashFlowRow
       generic='name'
       timeState={{ name: 200.0 }}
-      setClientProperty={ mockSetClientProperty } />
+      onChange={ mockSetClientProperty } />
   );
 
   const multipliers = [

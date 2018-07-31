@@ -7,14 +7,14 @@ import { FormPartsContainer } from './formHelpers';
 import { ControlledRadioYesNo } from './inputs';
 
 
-const LocalizedRadioYesNo = function ({ snippets, checked, name, changeClient }) {
+const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
 
   return (
     <ControlledRadioYesNo
       checked   = { checked }
       labelText = { snippets[ name ][ 'label' ] }
       name      = { name }
-      onChange  = { changeClient } />
+      onChange  = { onChange } />
   );
 };
 
@@ -34,8 +34,8 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, changeClient })
 const CurrentBenefitsContent = ({ current, changeClient, snippets }) => {
 
   var sharedProps = {
-    changeClient: changeClient,
-    snippets:     snippets,
+    onChange: changeClient,
+    snippets: snippets,
   };
 
   return (
