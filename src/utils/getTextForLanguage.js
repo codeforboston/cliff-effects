@@ -7,7 +7,9 @@ import { interpolateSnippets } from './interpolation.js';
 // DATA
 import { localizations } from '../localization/all';
 import inlineComponents from '../localization/inlineComponents';
-const english = localizations.en;  // unforunately, we need a default language
+
+// interpolate components into English snippets:
+const interpolatedEnglish = interpolateSnippets(localizations.en, inlineComponents);
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
  * (to avoid arrays of English strings being mixed with arrays of translated
@@ -24,23 +26,20 @@ const mergeCustomizer = function (objValue, srcValue) {
  * doesn't exist, it warns the coder and returns English.
  */
 const getTextForLanguage = function (langName) {
+  if (langName === 'en') {
+    return interpolatedEnglish;
 
-  let snippetsTemplate;
-  if (localizations[ langName ]) {
-
+  } else if (localizations[ langName ]) {
+    const interpolatedSnippets = interpolateSnippets(localizations[ langName ], inlineComponents);
+    
     // deeply merge the object containing snippets in langName with English,
     // so that we fall back to English if a particular field is missing.
-    snippetsTemplate = mergeWith({}, english, localizations[ langName ], mergeCustomizer);
+    return mergeWith({}, interpolatedEnglish, interpolatedSnippets, mergeCustomizer);
 
   } else {
-
     console.warn('There\'s no localization for ' + langName + '. Defaulting to English.');
-    snippetsTemplate = english;
-
+    return interpolatedEnglish;
   }
-
-  return interpolateSnippets(snippetsTemplate, inlineComponents);
-
 };  // End getTextForLanguage()
 
 

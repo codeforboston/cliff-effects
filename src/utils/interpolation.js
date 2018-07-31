@@ -38,7 +38,7 @@ const interpolateText = function (template, components, langCode) {
 
 /** Recursively interpolate each template in a snippets object */
 const interpolateSnippets = function (snippets, components) {
-  return mapValues(snippets, (value) => {
+  return mapValues(snippets, (value, key) => {
 
     count++;
     var langCode = snippets.langCode;
@@ -48,7 +48,10 @@ const interpolateSnippets = function (snippets, components) {
       lang: langCode,
     };
 
-    if (typeof(value) === 'string') {
+    if (key === 'langCode') {
+      // don't wrap the langCode, it's just metadata
+      return value;
+    } else if (typeof(value) === 'string') {
       // plain translated string
       return (<span { ...props }>{ value }</span>);
     } else if (Array.isArray(value)) {
@@ -59,7 +62,7 @@ const interpolateSnippets = function (snippets, components) {
       value.langCode = langCode;
       return interpolateSnippets(value, components);
     }
-    
+
   });
 };
 

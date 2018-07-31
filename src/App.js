@@ -30,7 +30,7 @@ class App extends Component {
   };
 
   render () {
-    var { snippets } = this.state;
+    var { language, snippets } = this.state;
 
     // Confirms user navigation
     var confirmer = new Confirmer();
@@ -38,7 +38,7 @@ class App extends Component {
     return (
       <div id='App'>
         <Helmet>
-          <html lang={ snippets.langCode } />
+          <html lang={ language } />
         </Helmet>
 
         <HashRouter getUserConfirmation={ confirmer.getConfirmation }>
