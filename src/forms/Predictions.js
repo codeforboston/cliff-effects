@@ -22,12 +22,12 @@ import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 * @property {object} props.future Client future/predictive data.
 * @property {string} props.time Used in class names. Meant to make
 *     this more easily decoupled in future.
-* @property {function} props.setClientProperty Update client state
+* @property {function} props.changeClient Update client state
 *     values.
 *
 * @returns {class} Component
 */
-const IncomeForm = function ({ future, time, setClientProperty }) {
+const IncomeForm = function ({ future, time, changeClient }) {
 
   var type = 'income';
 
@@ -42,7 +42,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
         timeState={ future }
 				  type={ type }
 				  time={ time }
-				  onChange={ setClientProperty }
+				  onChange={ changeClient }
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           How much money would you get paid in the future? (You can try different amounts)
@@ -111,9 +111,9 @@ const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
         clarifier = { null }
         navData   = { navData }>
         <IncomeForm
-          setClientProperty ={ changeClient }
-          future            ={ client.future }
-          time              ={ 'future' } />
+          changeClient = { changeClient }
+          future       = { client.future }
+          time         = { 'future' } />
         <Divider className='ui section divider hidden' />
         <Header
           as        ='h3'
