@@ -112,18 +112,18 @@ const CashFlowRow = function ({ generic, timeState, onChange, children }) {
  * @param {object} props
  * @property {object} props.inputProps - Key name, validators, and onBlur
  * @property {object} props.baseValue - Start value of field?
- * @property {object} props.setClientProperty - Updates client state
+ * @property {object} props.onChange - Updates client state
  * @property {object} props.rowProps - `label`, `validRow`, `message`
  *
  * @returns Component
  */
-const MonthlyCashFlowRow = function ({ inputProps, baseValue, setClientProperty, rowProps }) {
+const MonthlyCashFlowRow = function ({ inputProps, baseValue, onChange, rowProps }) {
 
   inputProps = {
     ...inputProps, // name, validators, and onBlur
     className: 'cashflow-column',
     format:    toMoneyStr,
-    store:     setClientProperty,
+    store:     onChange,
   };
 
   return (

@@ -63,7 +63,7 @@ const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
 };  // End EarnedFrom
 
 
-const Utilities = function ({ current, type, time, setClientProperty }) {
+const Utilities = function ({ current, type, time, onChange }) {
 
   let climate     = current.climateControl,
       electricity = current.nonHeatElectricity,
@@ -72,7 +72,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
 
   let setChecked = function (evnt, inputProps) {
     var obj = { ...inputProps, value: inputProps.checked };
-    setClientProperty(evnt, obj);
+    onChange(evnt, obj);
   };  // End setChecked()
 
   return (
@@ -103,7 +103,7 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
         labelText = { 'Do you get Fuel Assistance?' }
         checked   = { fuelAssist }
         name      = { 'fuelAssistance' }
-        onChange  = { setClientProperty } />
+        onChange  = { onChange } />
 
     </div>
 
@@ -111,16 +111,15 @@ const Utilities = function ({ current, type, time, setClientProperty }) {
 };  // End Utilities(<>)
 
 
-const HousingDetails = function ({ current, type, time, setClientProperty }) {
+const HousingDetails = function ({ current, type, time, changeClient }) {
 
   let housing = current.housing,
       sharedProps = {
-        timeState:         current,
-        current:           current,
-        type:              type,
-        time:              time,
-        onChange:          setClientProperty,
-        setClientProperty: setClientProperty,
+        timeState: current,
+        current:   current,
+        type:      type,
+        time:      time,
+        onChange:  changeClient,
       };
 
   if (current.housing === 'voucher') {
@@ -168,7 +167,7 @@ const HousingDetails = function ({ current, type, time, setClientProperty }) {
 };  // End HousingDetails(<>)
 
 
-const HousingRadio = function ({ currentValue, label, time, setClientProperty }) {
+const HousingRadio = function ({ currentValue, label, time, onChange }) {
 
   var value = label.toLowerCase();
 
@@ -179,7 +178,7 @@ const HousingRadio = function ({ currentValue, label, time, setClientProperty })
         label={ label }
         value={ value }
         checked={ currentValue === value }
-        onChange={ setClientProperty } />
+        onChange={ onChange } />
     </Form.Field>
   );
 
@@ -192,26 +191,26 @@ const HousingRadio = function ({ currentValue, label, time, setClientProperty })
  * @param {object} props.current - Client data of current user circumstances
  * @param {string} props.type - 'expense' or 'income', etc., for classes
  * @param {string} props.time - 'current' or 'future'
- * @param {function} props.setClientProperty - Sets state values
+ * @param {function} props.changeClient - Sets state values
  * 
  * @returns React element
  */
-const Housing = function ({ current, type, time, setClientProperty }) {
+const Housing = function ({ current, type, time, changeClient }) {
 
   // We're using a bunch of radio buttons. Since `checked` is defined
-  // in Radio components, `setClientProperty()` would store it, but we
+  // in Radio components, `changeClient()` would store it, but we
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed. */
   let ensureRouteAndValue = function (evnt, inputProps) {
     var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
-    setClientProperty(evnt, obj);
+    changeClient(evnt, obj);
   };
 
   let sharedProps = {
-    current:           current,
-    type:              type,
-    time:              time,
-    setClientProperty: ensureRouteAndValue,
+    current:      current,
+    type:         type,
+    time:         time,
+    changeClient: ensureRouteAndValue,
   };
 
   return (
@@ -229,17 +228,17 @@ const Housing = function ({ current, type, time, setClientProperty }) {
             currentValue={ current.housing }
             label={ 'Homeless' }
             time={ time }
-            setClientProperty={ ensureRouteAndValue } />
+            onChange = { ensureRouteAndValue } />
           <HousingRadio
             currentValue={ current.housing }
             label={ 'Renter' }
             time={ time }
-            setClientProperty={ ensureRouteAndValue } />
+            onChange = { ensureRouteAndValue } />
           <HousingRadio
             currentValue={ current.housing }
             label={ 'Homeowner' }
             time={ time }
-            setClientProperty={ ensureRouteAndValue } />
+            onChange = { ensureRouteAndValue } />
 
         </div>}
 
@@ -256,20 +255,19 @@ const Housing = function ({ current, type, time, setClientProperty }) {
  * @param {object} props
  * @param {object} props.current - Client data of current user circumstances
  * @param {object} props.time - 'current' or 'future'
- * @param {object} props.setClientProperty - Sets state values
+ * @param {object} props.changeClient - Sets state values
  * 
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, setClientProperty, snippets }) {
+const ExpensesFormContent = function ({ current, time, changeClient, snippets }) {
 
   let type        = 'expense',
       household   = current.household,
       sharedProps = {
-        timeState:         current,
-        type:              type,
-        time:              time,
-        onChange:          setClientProperty,
-        setClientProperty: setClientProperty,
+        timeState: current,
+        type:      type,
+        time:      time,
+        onChange:  changeClient,
       };
 
   /** @todo Make an age-checking function to
@@ -438,7 +436,7 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
         current={ current }
         time={ time }
         type={ type }
-        setClientProperty={ setClientProperty } />
+        changeClient = { changeClient } />
     </div>
   );
 
@@ -474,7 +472,7 @@ const CurrentExpensesStep = function ({ changeClient, navData, client, snippets 
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <ExpensesFormContent
-          setClientProperty={ changeClient }
+          changeClient = { changeClient }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />

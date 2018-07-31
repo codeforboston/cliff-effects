@@ -30,7 +30,7 @@ class RentShareField extends Component {
   };
 
   render() {
-    const { timeState, setClientProperty } = this.props,
+    const { timeState, onChange } = this.props,
           { valid, message } = this.state;
 
     const inputProps = {
@@ -50,7 +50,7 @@ class RentShareField extends Component {
         inputProps        = { inputProps }
         baseValue         = { timeState[ 'rentShare' ] }
         includes          = { [ 'monthly' ] }
-        setClientProperty = { setClientProperty }
+        onChange          = { onChange }
         rowProps          = { rowProps } />
     );
   }
@@ -83,7 +83,7 @@ class ContractRentField extends Component {
   };
 
   render() {
-    const { timeState, setClientProperty } = this.props,
+    const { timeState, onChange } = this.props,
           { valid, message } = this.state;
 
     const inputProps = {
@@ -103,14 +103,14 @@ class ContractRentField extends Component {
         inputProps        = { inputProps }
         baseValue         = { timeState[ 'contractRent' ] }
         includes          = { [ 'monthly' ] }
-        setClientProperty = { setClientProperty }
+        onChange          = { onChange }
         rowProps          = { rowProps } />
     );
   }
 };  // End <ContractRentField>
 
 
-const PlainRentRow = function ({ timeState, setClientProperty }) {
+const PlainRentRow = function ({ timeState, onChange }) {
 
   const inputProps = {
           name:             'rent',
@@ -129,7 +129,7 @@ const PlainRentRow = function ({ timeState, setClientProperty }) {
       inputProps        = { inputProps }
       baseValue         = { timeState[ 'rent' ] }
       includes          = { [ 'monthly' ] }
-      setClientProperty = { setClientProperty }
+      onChange          = { onChange }
       rowProps          = { rowProps } />
   );
 
