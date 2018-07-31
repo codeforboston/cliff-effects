@@ -18,6 +18,7 @@ matrix:
     env: TEST_TYPE=test
   - node_js: node 
     env: TEST_TYPE=test:coverage
+  allow_failures:
   - node_js: node
     env: TEST_TYPE=lint:eslint
   - node_js: node
