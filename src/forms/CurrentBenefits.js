@@ -6,9 +6,6 @@ import { Form } from 'semantic-ui-react';
 import { FormPartsContainer } from './formHelpers';
 import { ControlledRadioYesNo } from './inputs';
 
-// COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
-
 
 const LocalizedRadioYesNo = function ({ snippets, checked, name, changeClient }) {
 

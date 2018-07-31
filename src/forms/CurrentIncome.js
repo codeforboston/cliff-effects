@@ -7,9 +7,6 @@ import { FormPartsContainer } from './formHelpers';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowRow } from './cashflow';
 
-// COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
-
 /**
 * @todo Figure out which programs need to know which types of incomes
 * and categorize/tag them accordingly.
