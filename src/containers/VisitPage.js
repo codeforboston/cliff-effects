@@ -72,24 +72,29 @@ class VisitPage extends Component {
 
     this.steps = [
       {
-        form: CurrentBenefitsStep,
-        key:  'currentBenefits',
+        form:         CurrentBenefitsStep,
+        key:          'currentBenefits',
+        changeClient: this.changeCurrent,
       },
       {
-        form: HouseholdStep,
-        key:  'household',
+        form:         HouseholdStep,
+        key:          'household',
+        changeClient: this.changeCurrent,
       },
       {
-        form: CurrentIncomeStep,
-        key:  'currentIncome',
+        form:         CurrentIncomeStep,
+        key:          'currentIncome',
+        changeClient: this.changeCurrent,
       },
       {
-        form: CurrentExpensesStep,
-        key:  'currentExpenses',
+        form:         CurrentExpensesStep,
+        key:          'currentExpenses',
+        changeClient: this.changeCurrent,
       },
       {
-        form: PredictionsStep,
-        key:  'predictions',
+        form:         PredictionsStep,
+        key:          'predictions',
+        changeClient: this.changeFuture,
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
@@ -212,6 +217,16 @@ class VisitPage extends Component {
     });
   };  // End onClientChange()
 
+  changeCurrent = (evnt, data) => {
+    data.time = 'current';
+    this.changeClient(evnt, data);
+  };
+
+  changeFuture = (evnt, data) => {
+    data.time = 'future';
+    this.changeClient(evnt, data);
+  };
+
   // Implement once privacy and security are worked out
   saveForm = (exitAfterSave) => {
     alert('Form saved (not really, this is a placeholder).');
@@ -256,9 +271,11 @@ class VisitPage extends Component {
   };
 
   getCurrentStep = (navData) => {
-    var stepIndex = this.getCurrentStepIndex();
-    var FormSection = this.steps[ stepIndex ].form;
-    var formSnippets = this.state.snippets[ this.steps[ stepIndex ].key ];
+    var stepIndex    = this.getCurrentStepIndex(),
+        step         = this.steps[ stepIndex ],
+        FormSection  = step.form,
+        formSnippets = this.state.snippets[ step.key ];
+    /** @todo With new interpolation, is this needed anymore? */
     formSnippets.langCode = this.state.snippets.langCode;
 
 
@@ -271,7 +288,7 @@ class VisitPage extends Component {
           currentStep={ this.state.currentStep }
           client={ this.state.client }
           navData={ navData }
-          changeClient={ this.changeClient }
+          changeClient={ step.changeClient }
           saveForm={ this.saveForm }
           askToResetClient={ this.askToResetClient }
           openFeedback={ this.openFeedback }

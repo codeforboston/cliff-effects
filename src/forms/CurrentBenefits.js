@@ -6,18 +6,18 @@ import { Form } from 'semantic-ui-react';
 import { FormPartsContainer } from './formHelpers';
 import { ControlledRadioYesNo } from './inputs';
 
-// COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
+// // COMPONENT HELPER FUNCTIONS
+// import { getTimeSetter } from '../utils/getTimeSetter';
 
 
-const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
+const LocalizedRadioYesNo = function ({ snippets, checked, name, changeClient }) {
 
   return (
     <ControlledRadioYesNo
       checked   = { checked }
       labelText = { snippets[ name ][ 'label' ] }
       name      = { name }
-      onChange  = { onChange } />
+      onChange  = { changeClient } />
   );
 };
 
@@ -34,20 +34,23 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
  *
  * @returns {object} Component
  */
-const CurrentBenefitsContent = ({ current, setClientProperty, snippets }) => {
+const CurrentBenefitsContent = ({ current, changeClient, snippets }) => {
+
+  var sharedProps = {
+    changeClient: changeClient,
+    snippets:     snippets,
+  };
 
   return (
     <div >
       <LocalizedRadioYesNo
+        { ...sharedProps }
         checked   = { current.hasSection8 }
-        name      = { 'hasSection8' }
-        onChange  = { setClientProperty }
-        snippets  = { snippets } />
+        name      = { 'hasSection8' } />
       <LocalizedRadioYesNo
+        { ...sharedProps }
         checked   = { current.hasSnap }
-        name      = { 'hasSnap' }
-        onChange  = { setClientProperty }
-        snippets  = { snippets } />
+        name      = { 'hasSnap' } />
     </div>
   );  // end return
 
@@ -67,9 +70,6 @@ const CurrentBenefitsContent = ({ current, setClientProperty, snippets }) => {
  */
 const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
 
-  /** @todo Abstract `getTimeSetter()` use to VisitPage.js? */
-  const setTimeProp = getTimeSetter('current', changeClient);
-
   return (
     <Form
       size='massive'
@@ -79,9 +79,9 @@ const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
         clarifier = { snippets.selectBenefits }
         navData   = { navData }>
         <CurrentBenefitsContent
-          setClientProperty = { setTimeProp }
-          current           = { client.current }
-          snippets          = { snippets } />
+          changeClient = { changeClient }
+          current      = { client.current }
+          snippets     = { snippets } />
       </FormPartsContainer>
 
     </Form>
