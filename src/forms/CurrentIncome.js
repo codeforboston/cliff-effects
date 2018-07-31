@@ -44,25 +44,25 @@ import { getTimeSetter } from '../utils/getTimeSetter';
  * @param {object} props - See below
  * @property {object} props.current - Client current info.
  * @property {string} props.time - 'current' or 'future'
- * @property {function} props.setClientProperty - Updates state upstream.
+ * @property {function} props.changeClient - Updates state upstream.
  * @property {function} props.snippets - Uses user chosen language-specific
  *
 * @returns Component
 */
-const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
+const IncomeForm = function ({ current, time, changeClient, snippets }) {
 
   var type = 'income';
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFuture = function (evnt, inputProps) {
-    setClientProperty(evnt, { ...inputProps, fillFuture: true });
+    changeClient(evnt, { ...inputProps, fillFuture: true });
   };  // End ensureFuture()
 
   var sharedProps = {
-    timeState:         current,
-    time:              time,
-    type:              type,
-    setClientProperty: ensureFuture,
+    timeState:    current,
+    time:         time,
+    type:         type,
+    changeClient: ensureFuture,
   };
 
   return (
@@ -150,8 +150,6 @@ const IncomeForm = function ({ current, time, setClientProperty, snippets }) {
 
 const CurrentIncomeStep = function ({ changeClient, navData, client, snippets }) {
 
-  const setTimeProp = getTimeSetter('current', changeClient);
-
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
@@ -159,7 +157,7 @@ const CurrentIncomeStep = function ({ changeClient, navData, client, snippets })
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <IncomeForm
-          setClientProperty={ setTimeProp }
+          changeClient = { changeClient }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />

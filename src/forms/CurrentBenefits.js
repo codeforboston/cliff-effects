@@ -6,8 +6,8 @@ import { Form } from 'semantic-ui-react';
 import { FormPartsContainer } from './formHelpers';
 import { ControlledRadioYesNo } from './inputs';
 
-// // COMPONENT HELPER FUNCTIONS
-// import { getTimeSetter } from '../utils/getTimeSetter';
+// COMPONENT HELPER FUNCTIONS
+import { getTimeSetter } from '../utils/getTimeSetter';
 
 
 const LocalizedRadioYesNo = function ({ snippets, checked, name, changeClient }) {
@@ -28,7 +28,7 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, changeClient })
  * @function
  * @param {object} props See below.
  * @property {object} props.current Client current info.
- * @property {function} props.setClientProperty Updates state upstream.
+ * @property {function} props.changeClient Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
