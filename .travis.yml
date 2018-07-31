@@ -6,7 +6,8 @@ before_install:
 
 cache:
   directories:
-    - node_modules
+    - $TRAVIS_BUILD_DIR/node_modules
+    - $HOME/.nvm
 # Note: travis defaults used for install
 # If custom install desired, include `npm install`
 
