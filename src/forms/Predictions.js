@@ -11,9 +11,6 @@ import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
 import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 
-// COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
-
 
 // ========================================
 // COMPONENTS
@@ -106,8 +103,6 @@ const TabbedVisualizations = ({ client }) => {
  */
 const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
 
-  const setTimeProp = getTimeSetter('future', changeClient);
-
   /** @todo Are these titles accurate now? */
   return (
     <Form className = 'income-form flex-item flex-column'>
@@ -116,7 +111,7 @@ const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
         clarifier = { null }
         navData   = { navData }>
         <IncomeForm
-          setClientProperty ={ setTimeProp }
+          setClientProperty ={ changeClient }
           future            ={ client.future }
           time              ={ 'future' } />
         <Divider className='ui section divider hidden' />

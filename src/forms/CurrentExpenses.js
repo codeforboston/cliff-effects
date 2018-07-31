@@ -25,9 +25,6 @@ import {
 } from './rentFields';
 import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
 
-// COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
-
 // LOGIC
 import {
   getEveryMember,
@@ -470,8 +467,6 @@ const ExpensesFormContent = function ({ current, time, setClientProperty, snippe
 // `props` is a cloned version of the original props. References broken.
 const CurrentExpensesStep = function ({ changeClient, navData, client, snippets }) {
 
-  const setTimeProp = getTimeSetter('current', changeClient);
-
   return (
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
@@ -479,7 +474,7 @@ const CurrentExpensesStep = function ({ changeClient, navData, client, snippets 
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <ExpensesFormContent
-          setClientProperty={ setTimeProp }
+          setClientProperty={ changeClient }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />
