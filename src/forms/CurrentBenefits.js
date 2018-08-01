@@ -7,14 +7,14 @@ import { FormPartsContainer } from './formHelpers';
 import { ControlledRadioYesNo } from './inputs';
 
 
-const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
+const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientValue }) {
 
   return (
     <ControlledRadioYesNo
-      checked   = { checked }
-      labelText = { snippets[ name ][ 'label' ] }
-      name      = { name }
-      onChange  = { onChange } />
+      checked            = { checked }
+      labelText          = { snippets[ name ][ 'label' ] }
+      name               = { name }
+      updateClientValue = { updateClientValue } />
   );
 };
 
@@ -25,17 +25,17 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
  * @function
  * @param {object} props See below.
  * @property {object} props.current Client current info.
- * @property {function} props.updateClientValues Updates state upstream.
+ * @property {function} props.updateClientValue Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsContent = ({ current, updateClientValues, snippets }) => {
+const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
 
   var sharedProps = {
-    onChange: updateClientValues,
-    snippets: snippets,
+    updateClientValue: updateClientValue,
+    snippets:           snippets,
   };
 
   return (
@@ -57,7 +57,7 @@ const CurrentBenefitsContent = ({ current, updateClientValues, snippets }) => {
  *
  * @function
  * @param {object} props See below.
- * @property {function} props.updateClientValues Updates state upstream.
+ * @property {function} props.updateClientValue Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  * @property {object} props.client JSON object with future and current values.
@@ -65,7 +65,7 @@ const CurrentBenefitsContent = ({ current, updateClientValues, snippets }) => {
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ updateClientValues, navData, client, snippets }) => {
+const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) => {
 
   return (
     <Form
@@ -76,7 +76,7 @@ const CurrentBenefitsStep = ({ updateClientValues, navData, client, snippets }) 
         clarifier = { snippets.selectBenefits }
         navData   = { navData }>
         <CurrentBenefitsContent
-          updateClientValues = { updateClientValues }
+          updateClientValue = { updateClientValue }
           current      = { client.current }
           snippets     = { snippets } />
       </FormPartsContainer>

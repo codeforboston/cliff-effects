@@ -22,12 +22,12 @@ import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 * @property {object} props.future Client future/predictive data.
 * @property {string} props.time Used in class names. Meant to make
 *     this more easily decoupled in future.
-* @property {function} props.updateClientValues Update client state
+* @property {function} props.updateClientValue Update client state
 *     values.
 *
 * @returns {class} Component
 */
-const IncomeForm = function ({ future, time, updateClientValues }) {
+const IncomeForm = function ({ future, time, updateClientValue }) {
 
   var type = 'income';
 
@@ -42,7 +42,7 @@ const IncomeForm = function ({ future, time, updateClientValues }) {
         timeState={ future }
 				  type={ type }
 				  time={ time }
-				  onChange={ updateClientValues }
+				  updateClientValue = { updateClientValue }
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           How much money would you get paid in the future? (You can try different amounts)
@@ -92,7 +92,7 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @function
  * @param {object} props See below.
- * @property {function} props.updateClientValues Updates state upstream.
+ * @property {function} props.updateClientValue Updates state upstream.
  * @property {function} props.translate Uses user chosen language-specific
  *    snippets.
  * @property {object} props.client JSON object with future and current values.
@@ -101,7 +101,7 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @returns {object} Component
  */
-const PredictionsStep = function ({ updateClientValues, navData, client, snippets }) {
+const PredictionsStep = function ({ updateClientValue, navData, client, snippets }) {
 
   /** @todo Are these titles accurate now? */
   return (
@@ -111,7 +111,7 @@ const PredictionsStep = function ({ updateClientValues, navData, client, snippet
         clarifier = { null }
         navData   = { navData }>
         <IncomeForm
-          updateClientValues = { updateClientValues }
+          updateClientValue = { updateClientValue }
           future       = { client.future }
           time         = { 'future' } />
         <Divider className='ui section divider hidden' />

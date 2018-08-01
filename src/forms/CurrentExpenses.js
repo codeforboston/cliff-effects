@@ -63,7 +63,7 @@ const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
 };  // End EarnedFrom
 
 
-const Utilities = function ({ current, type, time, onChange }) {
+const Utilities = function ({ current, type, time, updateClientValue }) {
 
   let climate     = current.climateControl,
       electricity = current.nonHeatElectricity,
@@ -72,7 +72,7 @@ const Utilities = function ({ current, type, time, onChange }) {
 
   let setChecked = function (evnt, inputProps) {
     var obj = { ...inputProps, value: inputProps.checked };
-    onChange(evnt, obj);
+    updateClientValue(evnt, obj);
   };  // End setChecked()
 
   return (
@@ -100,10 +100,10 @@ const Utilities = function ({ current, type, time, onChange }) {
       <br />
       <br />
       <ControlledRadioYesNo
-        labelText = { 'Do you get Fuel Assistance?' }
-        checked   = { fuelAssist }
-        name      = { 'fuelAssistance' }
-        onChange  = { onChange } />
+        labelText          = { 'Do you get Fuel Assistance?' }
+        checked            = { fuelAssist }
+        name               = { 'fuelAssistance' }
+        updateClientValue = { updateClientValue } />
 
     </div>
 
@@ -111,15 +111,15 @@ const Utilities = function ({ current, type, time, onChange }) {
 };  // End Utilities(<>)
 
 
-const HousingDetails = function ({ current, type, time, updateClientValues }) {
+const HousingDetails = function ({ current, type, time, updateClientValue }) {
 
   let housing = current.housing,
       sharedProps = {
-        timeState: current,
-        current:   current,
-        type:      type,
-        time:      time,
-        onChange:  updateClientValues,
+        timeState:          current,
+        current:            current,
+        type:               type,
+        time:               time,
+        updateClientValue: updateClientValue,
       };
 
   if (current.housing === 'voucher') {
@@ -167,7 +167,7 @@ const HousingDetails = function ({ current, type, time, updateClientValues }) {
 };  // End HousingDetails(<>)
 
 
-const HousingRadio = function ({ currentValue, label, time, onChange }) {
+const HousingRadio = function ({ currentValue, label, time, updateClientValue }) {
 
   var value = label.toLowerCase();
 
@@ -178,7 +178,7 @@ const HousingRadio = function ({ currentValue, label, time, onChange }) {
         label={ label }
         value={ value }
         checked={ currentValue === value }
-        onChange={ onChange } />
+        onChange = { updateClientValue } />
     </Form.Field>
   );
 
@@ -191,26 +191,26 @@ const HousingRadio = function ({ currentValue, label, time, onChange }) {
  * @param {object} props.current - Client data of current user circumstances
  * @param {string} props.type - 'expense' or 'income', etc., for classes
  * @param {string} props.time - 'current' or 'future'
- * @param {function} props.updateClientValues - Sets state values
+ * @param {function} props.updateClientValue - Sets state values
  * 
  * @returns React element
  */
-const Housing = function ({ current, type, time, updateClientValues }) {
+const Housing = function ({ current, type, time, updateClientValue }) {
 
   // We're using a bunch of radio buttons. Since `checked` is defined
-  // in Radio components, `updateClientValues()` would store it, but we
+  // in Radio components, `updateClientValue()` would store it, but we
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed. */
   let ensureRouteAndValue = function (evnt, inputProps) {
     var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
-    updateClientValues(evnt, obj);
+    updateClientValue(evnt, obj);
   };
 
   let sharedProps = {
-    current:      current,
-    type:         type,
-    time:         time,
-    updateClientValues: ensureRouteAndValue,
+    current:            current,
+    type:               type,
+    time:               time,
+    updateClientValue: ensureRouteAndValue,
   };
 
   return (
@@ -228,17 +228,17 @@ const Housing = function ({ current, type, time, updateClientValues }) {
             currentValue={ current.housing }
             label={ 'Homeless' }
             time={ time }
-            onChange = { ensureRouteAndValue } />
+            updateClientValue = { ensureRouteAndValue } />
           <HousingRadio
             currentValue={ current.housing }
             label={ 'Renter' }
             time={ time }
-            onChange = { ensureRouteAndValue } />
+            updateClientValue = { ensureRouteAndValue } />
           <HousingRadio
             currentValue={ current.housing }
             label={ 'Homeowner' }
             time={ time }
-            onChange = { ensureRouteAndValue } />
+            updateClientValue = { ensureRouteAndValue } />
 
         </div>}
 
@@ -255,19 +255,19 @@ const Housing = function ({ current, type, time, updateClientValues }) {
  * @param {object} props
  * @param {object} props.current - Client data of current user circumstances
  * @param {object} props.time - 'current' or 'future'
- * @param {object} props.updateClientValues - Sets state values
+ * @param {object} props.updateClientValue - Sets state values
  * 
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, updateClientValues, snippets }) {
+const ExpensesFormContent = function ({ current, time, updateClientValue, snippets }) {
 
   let type        = 'expense',
       household   = current.household,
       sharedProps = {
-        timeState: current,
-        type:      type,
-        time:      time,
-        onChange:  updateClientValues,
+        timeState:          current,
+        type:               type,
+        time:               time,
+        updateClientValue: updateClientValue,
       };
 
   /** @todo Make an age-checking function to
@@ -436,7 +436,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValues, snipp
         current={ current }
         time={ time }
         type={ type }
-        updateClientValues = { updateClientValues } />
+        updateClientValue = { updateClientValue } />
     </div>
   );
 
@@ -455,7 +455,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValues, snipp
 /** 
   * @function
   * @param {object} props
-  * @param {function} props.updateClientValues - Setting client state
+  * @param {function} props.updateClientValue - Setting client state
   * @param {function} props.previousStep - Go to previous form step
   * @param {function} props.nextStep - Go to next form step
   * @param {object} props.client - Object will all the data for calculating benefits
@@ -463,7 +463,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValues, snipp
   * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ({ updateClientValues, navData, client, snippets }) {
+const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
     <Form className = 'expense-form flex-item flex-column'>
@@ -472,7 +472,7 @@ const CurrentExpensesStep = function ({ updateClientValues, navData, client, sni
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <ExpensesFormContent
-          updateClientValues = { updateClientValues }
+          updateClientValue = { updateClientValue }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />

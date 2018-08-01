@@ -137,7 +137,7 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
         }
       }
       time="current"
-      updateClientValues={[Function]}
+      updateClientValue={[Function]}
     />
   </FormPartsContainer>
 </Form>

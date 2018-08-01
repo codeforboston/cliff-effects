@@ -41,25 +41,25 @@ import { CashFlowRow } from './cashflow';
  * @param {object} props - See below
  * @property {object} props.current - Client current info.
  * @property {string} props.time - 'current' or 'future'
- * @property {function} props.updateClientValues - Updates state upstream.
+ * @property {function} props.updateClientValue - Updates state upstream.
  * @property {function} props.snippets - Uses user chosen language-specific
  *
 * @returns Component
 */
-const IncomeForm = function ({ current, time, updateClientValues, snippets }) {
+const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
 
   var type = 'income';
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFuture = function (evnt, inputProps) {
-    updateClientValues(evnt, { ...inputProps, fillFuture: true });
+    updateClientValue(evnt, { ...inputProps, fillFuture: true });
   };  // End ensureFuture()
 
   var sharedProps = {
-    timeState: current,
-    time:      time,
-    type:      type,
-    onChange:  ensureFuture,
+    timeState:          current,
+    time:               time,
+    type:               type,
+    updateClientValue: ensureFuture,
   };
 
   return (
@@ -136,7 +136,7 @@ const IncomeForm = function ({ current, time, updateClientValues, snippets }) {
  *
  * @function
  * @param {object} props - See below.
- * @property {function} props.updateClientValues - Updates state upstream.
+ * @property {function} props.updateClientValue - Updates state upstream.
  * @property {object} props.navData  - properties for two buttons and middle compponent TBD 
  * @property {object} props.client - JSON object with future and current values.
  * @property {function} props.snippets - Uses user chosen language-specific
@@ -145,7 +145,7 @@ const IncomeForm = function ({ current, time, updateClientValues, snippets }) {
 */
 // `props` is a cloned version of the original props. References broken.
 
-const CurrentIncomeStep = function ({ updateClientValues, navData, client, snippets }) {
+const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
     <Form className = 'income-form flex-item flex-column'>
@@ -154,7 +154,7 @@ const CurrentIncomeStep = function ({ updateClientValues, navData, client, snipp
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <IncomeForm
-          updateClientValues = { updateClientValues }
+          updateClientValue = { updateClientValue }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />

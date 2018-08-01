@@ -84,7 +84,7 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
           "selectBenefits": "Select the benefits you currently receive",
         }
       }
-      updateClientValues={[Function]}
+      updateClientValue={[Function]}
     />
   </FormPartsContainer>
 </Form>

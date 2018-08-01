@@ -47,19 +47,19 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
  * @property {object} props.generic - Base name for the client property that
  *     needs to be updated (now the code has changed, this may be a misnomer)
  * @property {object} props.timeState - Client, either future values or current values
- * @property {object} props.onChange - Updates client state
+ * @property {object} props.updateClientValue - Updates client state
  * @property {object} props.children - Text for the row label
  *
  * @returns Component
  */
 /** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
       use `includes` array to include only certain columns perhaps. */
-const CashFlowRow = function ({ generic, timeState, onChange, children }) {
+const CashFlowRow = function ({ generic, timeState, updateClientValue, children }) {
 
   var updateClient = function (evnt, inputProps, data) {
     var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
         obj     = { name: generic, value: monthly };
-    onChange(evnt, obj);
+    updateClientValue(evnt, obj);
   };
 
   /** baseVal
@@ -112,18 +112,18 @@ const CashFlowRow = function ({ generic, timeState, onChange, children }) {
  * @param {object} props
  * @property {object} props.inputProps - Key name, validators, and onBlur
  * @property {object} props.baseValue - Start value of field?
- * @property {object} props.onChange - Updates client state
+ * @property {object} props.updateClientValue - Updates client state
  * @property {object} props.rowProps - `label`, `validRow`, `message`
  *
  * @returns Component
  */
-const MonthlyCashFlowRow = function ({ inputProps, baseValue, onChange, rowProps }) {
+const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue, rowProps }) {
 
   inputProps = {
     ...inputProps, // name, validators, and onBlur
     className: 'cashflow-column',
     format:    toMoneyStr,
-    store:     onChange,
+    store:     updateClientValue,
   };
 
   return (

@@ -72,7 +72,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         }
       }
       time="future"
-      updateClientValues={[Function]}
+      updateClientValue={[Function]}
     />
     <Divider
       className="ui section divider hidden"
