@@ -8,8 +8,8 @@ import { interpolateSnippets } from './interpolation.js';
 import { localizations } from '../localization/all';
 import inlineComponents from '../localization/inlineComponents';
 
-// interpolate components into English snippets:
-const interpolatedEnglish = interpolateSnippets(localizations.en, inlineComponents);
+// store interpolated and (if necessary) merged snippets objects
+let finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
  * (to avoid arrays of English strings being mixed with arrays of translated
@@ -25,21 +25,22 @@ const mergeCustomizer = function (objValue, srcValue) {
  * the text snippets of that language. If that language
  * doesn't exist, it warns the coder and returns English.
  */
-const getTextForLanguage = function (langName) {
-  if (langName === 'en') {
-    return interpolatedEnglish;
+const getTextForLanguage = function (langCode) {
+  if (!localizations[ langCode ]) {
+    console.warn('There\'s no localization for ' + langCode + '. Defaulting to English.');
+    langCode = 'en';
+  }
 
-  } else if (localizations[ langName ]) {
-    const interpolatedSnippets = interpolateSnippets(localizations[ langName ], inlineComponents);
-    
+  if (!finishedSnippets[ langCode ]) {
+    // interpolate snippets and merge with English (filling in any gaps)
+    const interpolatedSnippets = interpolateSnippets(localizations[ langCode ], inlineComponents);
+
     // deeply merge the object containing snippets in langName with English,
     // so that we fall back to English if a particular field is missing.
-    return mergeWith({}, interpolatedEnglish, interpolatedSnippets, mergeCustomizer);
-
-  } else {
-    console.warn('There\'s no localization for ' + langName + '. Defaulting to English.');
-    return interpolatedEnglish;
+    finishedSnippets[ langCode ] =  mergeWith({}, finishedSnippets.en, interpolatedSnippets, mergeCustomizer);
   }
+
+  return finishedSnippets[ langCode ];
 };  // End getTextForLanguage()
 
 
