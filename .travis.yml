@@ -18,11 +18,13 @@ matrix:
     env: TEST_TYPE=test
   - node_js: node 
     env: TEST_TYPE=test:coverage
-  allow_failures:
   - node_js: node
     env: TEST_TYPE=lint:eslint
   - node_js: node
     env: TEST_TYPE=lint:prettier
+  allow_failures:
+    - env: TEST_TYPE=lint:eslint
+    - env: TEST_TYPE=lint:prettier
 
 before_script: 
   - if [[ $TEST_TYPE == 'lint:eslint' ]]; then yarn build; fi
