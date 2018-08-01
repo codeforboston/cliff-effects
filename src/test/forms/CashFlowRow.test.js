@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { CashFlowRow } from '../../forms/formHelpers';
+import { CashFlowRow } from '../../forms/cashflow';
 
 test('CashFlowRow should match snapshot', () => {
   const wrapper = shallow(

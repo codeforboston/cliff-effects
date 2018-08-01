@@ -21,7 +21,7 @@ import { getTextForLanguage } from './utils/getTextForLanguage';
 class App extends Component {
   constructor (props) {
     super(props);
-    this.state = { language: 'en', snippets: getTextForLanguage('en') };
+    this.state = { langCode: 'en', snippets: getTextForLanguage('en') };
   }
 
   setLanguage = (inputProps) => {
@@ -30,7 +30,7 @@ class App extends Component {
   };
 
   render () {
-    var { snippets } = this.state;
+    var { langCode, snippets } = this.state;
 
     // Confirms user navigation
     var confirmer = new Confirmer();
@@ -38,7 +38,7 @@ class App extends Component {
     return (
       <div id='App'>
         <Helmet>
-          <html lang={ snippets.langCode } />
+          <html lang={ langCode } />
         </Helmet>
 
         <HashRouter getUserConfirmation={ confirmer.getConfirmation }>

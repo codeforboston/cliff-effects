@@ -1,9 +1,15 @@
 /** Returns a translator based on the language given */
+
+// TRANSFORMER FUNCTIONS
 import { mergeWith } from 'lodash';
+import { interpolateSnippets } from './interpolation.js';
 
 // DATA
 import { localizations } from '../localization/all';
-const english = localizations.en;  // unforunately, we need a default language
+import inlineComponents from '../localization/inlineComponents';
+
+// store interpolated and (if necessary) merged snippets objects
+let finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
  * (to avoid arrays of English strings being mixed with arrays of translated
@@ -19,21 +25,22 @@ const mergeCustomizer = function (objValue, srcValue) {
  * the text snippets of that language. If that language
  * doesn't exist, it warns the coder and returns English.
  */
-const getTextForLanguage = function (langName) {
+const getTextForLanguage = function (langCode) {
+  if (!localizations[ langCode ]) {
+    console.warn('There\'s no localization for ' + langCode + '. Defaulting to English.');
+    langCode = 'en';
+  }
 
-  if (localizations[ langName ]) {
+  if (!finishedSnippets[ langCode ]) {
+    // interpolate snippets and merge with English (filling in any gaps)
+    const interpolatedSnippets = interpolateSnippets(localizations[ langCode ], inlineComponents);
 
     // deeply merge the object containing snippets in langName with English,
     // so that we fall back to English if a particular field is missing.
-    return mergeWith({}, english, localizations[ langName ], mergeCustomizer);
-
-  } else {
-
-    console.warn('There\'s no localization for ' + langName + '. Defaulting to English.');
-    return english;
-
+    finishedSnippets[ langCode ] =  mergeWith({}, finishedSnippets.en, interpolatedSnippets, mergeCustomizer);
   }
 
+  return finishedSnippets[ langCode ];
 };  // End getTextForLanguage()
 
 

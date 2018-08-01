@@ -3,7 +3,8 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import { FormPartsContainer, ControlledRadioYesNo } from './formHelpers';
+import { FormPartsContainer } from './formHelpers';
+import { ControlledRadioYesNo } from './inputs';
 
 // COMPONENT HELPER FUNCTIONS
 import { getTimeSetter } from '../utils/getTimeSetter';

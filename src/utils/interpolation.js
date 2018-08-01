@@ -3,22 +3,28 @@
 import React from 'react';
 import { mapValues } from 'lodash';
 
+// To make sure all keys are unique
+var count = 0;
+
 /** Interpolate components into a single text block (specified as an array) */
 const interpolateText = function (template, components, langCode) {
   return template.map((item) => {
+
+    count++;
+
+    var props = {
+      key:  item.name || langCode + count,
+      lang: langCode,
+    };
+
     if (typeof(item) === 'string') {
-      return <span lang={ langCode }>{ item }</span>;
+      return <span { ...props }>{ item }</span>;
     }
 
     // Maybe this should create a warning in the console
     if (!item.name || !components[ item.name ]) {
       return null;
     }
-
-    var props = {
-      key:  item.name,
-      lang: langCode,
-    };
 
     if (item.text) {
       // replace inner text
@@ -32,19 +38,31 @@ const interpolateText = function (template, components, langCode) {
 
 /** Recursively interpolate each template in a snippets object */
 const interpolateSnippets = function (snippets, components) {
-  return mapValues(snippets, (value) => {
-    if (typeof(value) === 'string') {
+  return mapValues(snippets, (value, key) => {
+
+    count++;
+    var langCode = snippets.langCode;
+
+    var props = {
+      key:  langCode + count,
+      lang: langCode,
+    };
+
+    if (key === 'langCode') {
+      // don't wrap the langCode, it's just metadata
+      return value;
+    } else if (typeof(value) === 'string') {
       // plain translated string
-      return <span lang={ snippets.langCode }>{ value }</span>;
-    }
-
-    if (Array.isArray(value)) {
+      return (<span { ...props }>{ value }</span>);
+    } else if (Array.isArray(value)) {
       // template for interpolation
-      return interpolateText(value, components, snippets.langCode);
+      return interpolateText(value, components, langCode);
+    } else {
+      // else: value is a nested object
+      value.langCode = langCode;
+      return interpolateSnippets(value, components);
     }
 
-    // else: value is a nested object
-    return interpolateSnippets(value, components);
   });
 };
 

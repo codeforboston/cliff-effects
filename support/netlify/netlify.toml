@@ -1,0 +1,7 @@
+# COMMENT: These are two redirect rules with all the fields expanded
+# COMMENT: This is an expanded syntax for rules that won't fit in one line
+[[redirects]]
+  from = "/cliff-effects/*"
+  to = "/:splat"
+  status = 301
+  force = false
