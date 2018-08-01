@@ -23,7 +23,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     title="What Might Happen?"
   >
     <IncomeForm
-      changeClient={[Function]}
       future={
         Object {
           "SSDI": 0,
@@ -73,6 +72,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         }
       }
       time="future"
+      updateClientValues={[Function]}
     />
     <Divider
       className="ui section divider hidden"

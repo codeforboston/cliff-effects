@@ -74,27 +74,27 @@ class VisitPage extends Component {
       {
         form:         CurrentBenefitsStep,
         key:          'currentBenefits',
-        changeClient: this.changeCurrent,
+        updateClientValues: this.changeCurrent,
       },
       {
         form:         HouseholdStep,
         key:          'household',
-        changeClient: this.changeCurrent,
+        updateClientValues: this.changeCurrent,
       },
       {
         form:         CurrentIncomeStep,
         key:          'currentIncome',
-        changeClient: this.changeCurrent,
+        updateClientValues: this.changeCurrent,
       },
       {
         form:         CurrentExpensesStep,
         key:          'currentExpenses',
-        changeClient: this.changeCurrent,
+        updateClientValues: this.changeCurrent,
       },
       {
         form:         PredictionsStep,
         key:          'predictions',
-        changeClient: this.changeFuture,
+        updateClientValues: this.changeFuture,
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
@@ -166,7 +166,7 @@ class VisitPage extends Component {
     this.setState({ feedbackFormRequested: false });
   };
 
-  changeClient = (evnt, { route, name, value, checked, time }) => {
+  updateClientValues = (evnt, { route, name, value, checked, time }) => {
 
     route = route || name;
 
@@ -219,12 +219,12 @@ class VisitPage extends Component {
 
   changeCurrent = (evnt, data) => {
     data.time = 'current';
-    this.changeClient(evnt, data);
+    this.updateClientValues(evnt, data);
   };
 
   changeFuture = (evnt, data) => {
     data.time = 'future';
-    this.changeClient(evnt, data);
+    this.updateClientValues(evnt, data);
   };
 
   // Implement once privacy and security are worked out
@@ -288,7 +288,7 @@ class VisitPage extends Component {
           currentStep={ this.state.currentStep }
           client={ this.state.client }
           navData={ navData }
-          changeClient={ step.changeClient }
+          updateClientValues={ step.updateClientValues }
           saveForm={ this.saveForm }
           askToResetClient={ this.askToResetClient }
           openFeedback={ this.openFeedback }

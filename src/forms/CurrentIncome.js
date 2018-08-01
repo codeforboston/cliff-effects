@@ -41,18 +41,18 @@ import { CashFlowRow } from './cashflow';
  * @param {object} props - See below
  * @property {object} props.current - Client current info.
  * @property {string} props.time - 'current' or 'future'
- * @property {function} props.changeClient - Updates state upstream.
+ * @property {function} props.updateClientValues - Updates state upstream.
  * @property {function} props.snippets - Uses user chosen language-specific
  *
 * @returns Component
 */
-const IncomeForm = function ({ current, time, changeClient, snippets }) {
+const IncomeForm = function ({ current, time, updateClientValues, snippets }) {
 
   var type = 'income';
 
   /** Makes sure values are propagated to 'future' properties if needed */
   var ensureFuture = function (evnt, inputProps) {
-    changeClient(evnt, { ...inputProps, fillFuture: true });
+    updateClientValues(evnt, { ...inputProps, fillFuture: true });
   };  // End ensureFuture()
 
   var sharedProps = {
@@ -136,7 +136,7 @@ const IncomeForm = function ({ current, time, changeClient, snippets }) {
  *
  * @function
  * @param {object} props - See below.
- * @property {function} props.changeClient - Updates state upstream.
+ * @property {function} props.updateClientValues - Updates state upstream.
  * @property {object} props.navData  - properties for two buttons and middle compponent TBD 
  * @property {object} props.client - JSON object with future and current values.
  * @property {function} props.snippets - Uses user chosen language-specific
@@ -145,7 +145,7 @@ const IncomeForm = function ({ current, time, changeClient, snippets }) {
 */
 // `props` is a cloned version of the original props. References broken.
 
-const CurrentIncomeStep = function ({ changeClient, navData, client, snippets }) {
+const CurrentIncomeStep = function ({ updateClientValues, navData, client, snippets }) {
 
   return (
     <Form className = 'income-form flex-item flex-column'>
@@ -154,7 +154,7 @@ const CurrentIncomeStep = function ({ changeClient, navData, client, snippets })
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <IncomeForm
-          changeClient = { changeClient }
+          updateClientValues = { updateClientValues }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />

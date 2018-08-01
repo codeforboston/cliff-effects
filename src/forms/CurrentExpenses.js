@@ -111,7 +111,7 @@ const Utilities = function ({ current, type, time, onChange }) {
 };  // End Utilities(<>)
 
 
-const HousingDetails = function ({ current, type, time, changeClient }) {
+const HousingDetails = function ({ current, type, time, updateClientValues }) {
 
   let housing = current.housing,
       sharedProps = {
@@ -119,7 +119,7 @@ const HousingDetails = function ({ current, type, time, changeClient }) {
         current:   current,
         type:      type,
         time:      time,
-        onChange:  changeClient,
+        onChange:  updateClientValues,
       };
 
   if (current.housing === 'voucher') {
@@ -191,26 +191,26 @@ const HousingRadio = function ({ currentValue, label, time, onChange }) {
  * @param {object} props.current - Client data of current user circumstances
  * @param {string} props.type - 'expense' or 'income', etc., for classes
  * @param {string} props.time - 'current' or 'future'
- * @param {function} props.changeClient - Sets state values
+ * @param {function} props.updateClientValues - Sets state values
  * 
  * @returns React element
  */
-const Housing = function ({ current, type, time, changeClient }) {
+const Housing = function ({ current, type, time, updateClientValues }) {
 
   // We're using a bunch of radio buttons. Since `checked` is defined
-  // in Radio components, `changeClient()` would store it, but we
+  // in Radio components, `updateClientValues()` would store it, but we
   // want the value, so get rid of checked.
   /** Makes sure values are propagated to 'current' properties if needed. */
   let ensureRouteAndValue = function (evnt, inputProps) {
     var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
-    changeClient(evnt, obj);
+    updateClientValues(evnt, obj);
   };
 
   let sharedProps = {
     current:      current,
     type:         type,
     time:         time,
-    changeClient: ensureRouteAndValue,
+    updateClientValues: ensureRouteAndValue,
   };
 
   return (
@@ -255,11 +255,11 @@ const Housing = function ({ current, type, time, changeClient }) {
  * @param {object} props
  * @param {object} props.current - Client data of current user circumstances
  * @param {object} props.time - 'current' or 'future'
- * @param {object} props.changeClient - Sets state values
+ * @param {object} props.updateClientValues - Sets state values
  * 
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, changeClient, snippets }) {
+const ExpensesFormContent = function ({ current, time, updateClientValues, snippets }) {
 
   let type        = 'expense',
       household   = current.household,
@@ -267,7 +267,7 @@ const ExpensesFormContent = function ({ current, time, changeClient, snippets })
         timeState: current,
         type:      type,
         time:      time,
-        onChange:  changeClient,
+        onChange:  updateClientValues,
       };
 
   /** @todo Make an age-checking function to
@@ -436,7 +436,7 @@ const ExpensesFormContent = function ({ current, time, changeClient, snippets })
         current={ current }
         time={ time }
         type={ type }
-        changeClient = { changeClient } />
+        updateClientValues = { updateClientValues } />
     </div>
   );
 
@@ -455,7 +455,7 @@ const ExpensesFormContent = function ({ current, time, changeClient, snippets })
 /** 
   * @function
   * @param {object} props
-  * @param {function} props.changeClient - Setting client state
+  * @param {function} props.updateClientValues - Setting client state
   * @param {function} props.previousStep - Go to previous form step
   * @param {function} props.nextStep - Go to next form step
   * @param {object} props.client - Object will all the data for calculating benefits
@@ -463,7 +463,7 @@ const ExpensesFormContent = function ({ current, time, changeClient, snippets })
   * @returns React element
   */
 // `props` is a cloned version of the original props. References broken.
-const CurrentExpensesStep = function ({ changeClient, navData, client, snippets }) {
+const CurrentExpensesStep = function ({ updateClientValues, navData, client, snippets }) {
 
   return (
     <Form className = 'expense-form flex-item flex-column'>
@@ -472,7 +472,7 @@ const CurrentExpensesStep = function ({ changeClient, navData, client, snippets 
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <ExpensesFormContent
-          changeClient = { changeClient }
+          updateClientValues = { updateClientValues }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />

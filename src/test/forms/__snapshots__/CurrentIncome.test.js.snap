@@ -23,7 +23,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
     title="Current Household Income"
   >
     <IncomeForm
-      changeClient={[Function]}
       current={
         Object {
           "SSDI": 0,
@@ -126,6 +125,7 @@ exports[`Income step component renders as snapshot correctly 1`] = `
         }
       }
       time="current"
+      updateClientValues={[Function]}
     />
   </FormPartsContainer>
 </Form>

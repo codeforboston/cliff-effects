@@ -23,7 +23,6 @@ exports[`Household step component renders as snapshot correctly 1`] = `
     title="Household"
   >
     <HouseholdContent
-      changeClient={[Function]}
       current={
         Object {
           "SSDI": 0,
@@ -88,6 +87,7 @@ exports[`Household step component renders as snapshot correctly 1`] = `
         }
       }
       time="current"
+      updateClientValues={[Function]}
     />
   </FormPartsContainer>
 </Form>

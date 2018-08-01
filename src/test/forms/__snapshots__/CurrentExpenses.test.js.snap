@@ -22,7 +22,6 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
     title="Current Household Expenses"
   >
     <ExpensesFormContent
-      changeClient={[Function]}
       current={
         Object {
           "SSDI": 0,
@@ -138,6 +137,7 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
         }
       }
       time="current"
+      updateClientValues={[Function]}
     />
   </FormPartsContainer>
 </Form>

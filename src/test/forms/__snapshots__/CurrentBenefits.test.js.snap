@@ -21,7 +21,6 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
     title="Current Benefits"
   >
     <CurrentBenefitsContent
-      changeClient={[Function]}
       current={
         Object {
           "SSDI": 0,
@@ -85,6 +84,7 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
           "selectBenefits": "Select the benefits you currently receive",
         }
       }
+      updateClientValues={[Function]}
     />
   </FormPartsContainer>
 </Form>

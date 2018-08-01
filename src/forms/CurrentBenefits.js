@@ -25,16 +25,16 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
  * @function
  * @param {object} props See below.
  * @property {object} props.current Client current info.
- * @property {function} props.changeClient Updates state upstream.
+ * @property {function} props.updateClientValues Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsContent = ({ current, changeClient, snippets }) => {
+const CurrentBenefitsContent = ({ current, updateClientValues, snippets }) => {
 
   var sharedProps = {
-    onChange: changeClient,
+    onChange: updateClientValues,
     snippets: snippets,
   };
 
@@ -57,7 +57,7 @@ const CurrentBenefitsContent = ({ current, changeClient, snippets }) => {
  *
  * @function
  * @param {object} props See below.
- * @property {function} props.changeClient Updates state upstream.
+ * @property {function} props.updateClientValues Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  * @property {object} props.client JSON object with future and current values.
@@ -65,7 +65,7 @@ const CurrentBenefitsContent = ({ current, changeClient, snippets }) => {
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
+const CurrentBenefitsStep = ({ updateClientValues, navData, client, snippets }) => {
 
   return (
     <Form
@@ -76,7 +76,7 @@ const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
         clarifier = { snippets.selectBenefits }
         navData   = { navData }>
         <CurrentBenefitsContent
-          changeClient = { changeClient }
+          updateClientValues = { updateClientValues }
           current      = { client.current }
           snippets     = { snippets } />
       </FormPartsContainer>
