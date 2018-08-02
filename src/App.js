@@ -95,6 +95,11 @@ class App extends Component {
                     confirmer = { confirmer }
                     snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
               } } />
+            <Route
+              path="/docs"
+              render={ ({ location }) => {
+                window.location = `./docs/index.html${ location.hash }`;
+              } } />
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
