@@ -70,7 +70,6 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
           "workersComp": 0,
         }
       }
-      setClientProperty={[Function]}
       snippets={
         Object {
           "childSupport": Object {
@@ -138,6 +137,7 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
         }
       }
       time="current"
+      updateClientValue={[Function]}
     />
   </FormPartsContainer>
 </Form>

@@ -43,7 +43,7 @@ const BigButton = function ({ children, ...buttonProps }) {
  *     be unique from all other radio names on the page.
  * @property {bool} props.checked - `true` if 'yes' is selected
  *     `false` if 'no' is selected. Change will be sent out.
- * @property {function} props.onChange - is given event and adjusted
+ * @property {function} props.updateClientValue - is given event and adjusted
  *     input element props object. Adjustment is to make sure
  *     the property `checked` is under control since there are
  *     issues further up the line.
@@ -60,7 +60,7 @@ class ControlledRadioYesNo extends Component {
       checked: inputProps.label === 'Yes',
     };
 
-    this.props.onChange(e, obj);
+    this.props.updateClientValue(e, obj);
   }
 
 

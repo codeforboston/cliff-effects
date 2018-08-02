@@ -6,18 +6,15 @@ import { Form } from 'semantic-ui-react';
 import { FormPartsContainer } from './formHelpers';
 import { ControlledRadioYesNo } from './inputs';
 
-// COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
 
-
-const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
+const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientValue }) {
 
   return (
     <ControlledRadioYesNo
-      checked   = { checked }
-      labelText = { snippets[ name ][ 'label' ] }
-      name      = { name }
-      onChange  = { onChange } />
+      checked            = { checked }
+      labelText          = { snippets[ name ][ 'label' ] }
+      name               = { name }
+      updateClientValue = { updateClientValue } />
   );
 };
 
@@ -28,26 +25,29 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, onChange }) {
  * @function
  * @param {object} props See below.
  * @property {object} props.current Client current info.
- * @property {function} props.setClientProperty Updates state upstream.
+ * @property {function} props.updateClientValue Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsContent = ({ current, setClientProperty, snippets }) => {
+const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
+
+  var sharedProps = {
+    updateClientValue: updateClientValue,
+    snippets:           snippets,
+  };
 
   return (
     <div >
       <LocalizedRadioYesNo
+        { ...sharedProps }
         checked   = { current.hasSection8 }
-        name      = { 'hasSection8' }
-        onChange  = { setClientProperty }
-        snippets  = { snippets } />
+        name      = { 'hasSection8' } />
       <LocalizedRadioYesNo
+        { ...sharedProps }
         checked   = { current.hasSnap }
-        name      = { 'hasSnap' }
-        onChange  = { setClientProperty }
-        snippets  = { snippets } />
+        name      = { 'hasSnap' } />
     </div>
   );  // end return
 
@@ -57,7 +57,7 @@ const CurrentBenefitsContent = ({ current, setClientProperty, snippets }) => {
  *
  * @function
  * @param {object} props See below.
- * @property {function} props.changeClient Updates state upstream.
+ * @property {function} props.updateClientValue Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  * @property {object} props.client JSON object with future and current values.
@@ -65,10 +65,7 @@ const CurrentBenefitsContent = ({ current, setClientProperty, snippets }) => {
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
-
-  /** @todo Abstract `getTimeSetter()` use to VisitPage.js? */
-  const setTimeProp = getTimeSetter('current', changeClient);
+const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) => {
 
   return (
     <Form
@@ -79,9 +76,9 @@ const CurrentBenefitsStep = ({ changeClient, navData, client, snippets }) => {
         clarifier = { snippets.selectBenefits }
         navData   = { navData }>
         <CurrentBenefitsContent
-          setClientProperty = { setTimeProp }
-          current           = { client.current }
-          snippets          = { snippets } />
+          updateClientValue = { updateClientValue }
+          current      = { client.current }
+          snippets     = { snippets } />
       </FormPartsContainer>
 
     </Form>

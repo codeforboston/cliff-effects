@@ -48,24 +48,24 @@ class CashFlowRowAfterConfirm extends React.Component {
   };
 
   hideField(evt) {
-    const { generic, setClientProperty, timeState } = this.props;
+    const { generic, updateClientValue, timeState } = this.props;
 
     this.setState({
       showField:   false,
       storedValue: timeState[ generic ],
     });
 
-    setClientProperty(evt, {
+    updateClientValue(evt, {
       name:  generic,
       value: 0,
     });
   }
 
   showField(evt) {
-    const { generic, setClientProperty } = this.props;
+    const { generic, updateClientValue } = this.props;
     const { storedValue } = this.state;
-
-    setClientProperty(evt, {
+    
+    updateClientValue(evt, {
       name:  generic,
       value: storedValue,
     });
@@ -82,10 +82,10 @@ class CashFlowRowAfterConfirm extends React.Component {
       <div style={{ display: 'inline-block' }}>
 
         <ControlledRadioYesNo
-          labelText = { confirmLabel }
-          checked   = { showField }
-          name      = { 'confirm_' + generic }
-          onChange  = { this.handleChange } />
+          labelText          = { confirmLabel }
+          checked            = { showField }
+          name               = { 'confirm_' + generic }
+          updateClientValue = { this.handleChange } />
         
         {showField && <IncomeField
           generic={ generic }

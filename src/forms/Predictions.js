@@ -11,9 +11,6 @@ import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
 import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 
-// COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
-
 
 // ========================================
 // COMPONENTS
@@ -25,12 +22,12 @@ import { getTimeSetter } from '../utils/getTimeSetter';
 * @property {object} props.future Client future/predictive data.
 * @property {string} props.time Used in class names. Meant to make
 *     this more easily decoupled in future.
-* @property {function} props.setClientProperty Update client state
+* @property {function} props.updateClientValue Update client state
 *     values.
 *
 * @returns {class} Component
 */
-const IncomeForm = function ({ future, time, setClientProperty }) {
+const IncomeForm = function ({ future, time, updateClientValue }) {
 
   var type = 'income';
 
@@ -45,7 +42,7 @@ const IncomeForm = function ({ future, time, setClientProperty }) {
         timeState={ future }
 				  type={ type }
 				  time={ time }
-				  setClientProperty={ setClientProperty }
+				  updateClientValue = { updateClientValue }
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           How much money would you get paid in the future? (You can try different amounts)
@@ -95,7 +92,7 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @function
  * @param {object} props See below.
- * @property {function} props.changeClient Updates state upstream.
+ * @property {function} props.updateClientValue Updates state upstream.
  * @property {function} props.translate Uses user chosen language-specific
  *    snippets.
  * @property {object} props.client JSON object with future and current values.
@@ -104,9 +101,7 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @returns {object} Component
  */
-const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
-
-  const setTimeProp = getTimeSetter('future', changeClient);
+const PredictionsStep = function ({ updateClientValue, navData, client, snippets }) {
 
   /** @todo Are these titles accurate now? */
   return (
@@ -116,9 +111,9 @@ const PredictionsStep = function ({ changeClient, navData, client, snippets }) {
         clarifier = { null }
         navData   = { navData }>
         <IncomeForm
-          setClientProperty ={ setTimeProp }
-          future            ={ client.future }
-          time              ={ 'future' } />
+          updateClientValue = { updateClientValue }
+          future       = { client.future }
+          time         = { 'future' } />
         <Divider className='ui section divider hidden' />
         <Header
           as        ='h3'

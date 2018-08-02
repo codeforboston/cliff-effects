@@ -15,7 +15,6 @@ import { ColumnHeading } from '../components/headings';
 import { ManagedNumberField } from './inputs';
 
 // COMPONENT HELPER FUNCTIONS
-import { getTimeSetter } from '../utils/getTimeSetter';
 import {
   isNonNegWholeNumber,
   hasOnlyNonNegWholeNumberChars,
@@ -187,7 +186,7 @@ const Role = function ({ member, setMember, snippets }) {
 *
 * @returns Component
 */
-const MemberField = function ({ household, time, setHousehold, setClientProperty, snippets }, indx) {
+const MemberField = function ({ household, time, setHousehold, updateClientValue, snippets }, indx) {
 
   var member      = household[ indx ],
       routeStart  = 'household/' + indx + '/';
@@ -197,14 +196,14 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
   var onMemberChange = function (evnt, inputProps) {
     var route = routeStart + inputProps.name;
     var data  = { route: route, value: inputProps.value };
-    setClientProperty(evnt, data);
+    updateClientValue(evnt, data);
   };
 
 
   var onMemberChecked = function (evnt, inputProps) {
     var route = routeStart + inputProps.name;
     var data  = { route: route, value: inputProps.checked };
-    setClientProperty(evnt, data);
+    updateClientValue(evnt, data);
   };
 
 
@@ -278,15 +277,15 @@ const MemberField = function ({ household, time, setHousehold, setClientProperty
 *
 * @returns Component
 */
-const getMembers = function (current, time, setHousehold, setClientProperty, snippets) {
+const getMembers = function (current, time, setHousehold, updateClientValue, snippets) {
 
   var household = current.household,
       props     = {
-        household:         household,
-        time:              time,
-        setHousehold:      setHousehold,
-        setClientProperty: setClientProperty,
-        snippets:          snippets,
+        household:    household,
+        time:         time,
+        setHousehold: setHousehold,
+        updateClientValue: updateClientValue,
+        snippets:     snippets,
       };
 
   var mems = [];
@@ -309,7 +308,7 @@ const getMembers = function (current, time, setHousehold, setClientProperty, sni
 *
 * @returns Component
 */
-const HouseholdContent = function ({ current, time, setClientProperty, snippets }) {
+const HouseholdContent = function ({ current, time, updateClientValue, snippets }) {
 
   // Don't mutate state properties
   var household = cloneDeep(current.household);
@@ -322,7 +321,7 @@ const HouseholdContent = function ({ current, time, setClientProperty, snippets 
       value: newHousehold,
     };
 
-    setClientProperty(evnt, obj);
+    updateClientValue(evnt, obj);
 
   };  // End setHousehold()
 
@@ -348,7 +347,7 @@ const HouseholdContent = function ({ current, time, setClientProperty, snippets 
         <ColumnHeader columnNum='Four'>{ snippets.disabled }</ColumnHeader>
       </div>
 
-      { getMembers(current, time, setHousehold, setClientProperty, snippets) }
+      { getMembers(current, time, setHousehold, updateClientValue, snippets) }
 
       <Button
         type={ 'button' }
@@ -390,9 +389,7 @@ const HouseholdContent = function ({ current, time, setClientProperty, snippets 
 * @returns Component
 */
 // `props` is a cloned version of the original props. References broken.
-const HouseholdStep = function ({ changeClient, navData, client, snippets }) {
-
-  const setTimeProp = getTimeSetter('current', changeClient);
+const HouseholdStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
     <Form className='current-household-size-form flex-column flex-item'>
@@ -401,7 +398,7 @@ const HouseholdStep = function ({ changeClient, navData, client, snippets }) {
         clarifier = { snippets.clarifier }
         navData   = { navData }>
         <HouseholdContent
-          setClientProperty={ setTimeProp }
+          updateClientValue = { updateClientValue }
           current={ client.current }
           time={ 'current' }
           snippets={ snippets } />
