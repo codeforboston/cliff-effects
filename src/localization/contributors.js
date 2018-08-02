@@ -15,6 +15,7 @@ export default [
   'Will McIntosh',
   'Andrew Seeder',
   'Ben Lewis',
+  'Yingtong Zhao',
   'Don Blair',
   'Ethan Strominger',
   'Nick Lee',

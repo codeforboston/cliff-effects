@@ -12,7 +12,7 @@ test('Prediction component renders as snapshot correctly', () => {
           middle: null,
           right:  { text: 'New Client', onClick: jest.fn() },
         },
-        changeClient     = jest.fn(),
+        updateClientValue     = jest.fn(),
         saveForm         = jest.fn(),
         askToResetClient = jest.fn(),
         openFeedback     = jest.fn(),
@@ -23,7 +23,7 @@ test('Prediction component renders as snapshot correctly', () => {
       currentStep       = { 5 }
       client            = { CLIENT_DEFAULTS }
       navData           = { navData }
-      changeClient      = { changeClient }
+      updateClientValue      = { updateClientValue }
       saveForm          = { saveForm }
       askToResetClient  = { askToResetClient }
       openFeedback      = { openFeedback }

@@ -69,7 +69,6 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
           "workersComp": 0,
         }
       }
-      setClientProperty={[Function]}
       snippets={
         Object {
           "currentBenefits": "Current Benefits",
@@ -85,6 +84,7 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
           "selectBenefits": "Select the benefits you currently receive",
         }
       }
+      updateClientValue={[Function]}
     />
   </FormPartsContainer>
 </Form>

@@ -12,7 +12,7 @@ test('Benefits step component renders as snapshot correctly', () => {
           middle: null,
           right:  { text: 'Next', onClick: jest.fn() },
         },
-        changeClient     = jest.fn(),
+        updateClientValue     = jest.fn(),
         saveForm         = jest.fn(),
         askToResetClient = jest.fn(),
         openFeedback     = jest.fn(),
@@ -23,7 +23,7 @@ test('Benefits step component renders as snapshot correctly', () => {
       currentStep       = { 1 }
       client            = { CLIENT_DEFAULTS }
       navData           = { navData }
-      changeClient      = { changeClient }
+      updateClientValue      = { updateClientValue }
       saveForm          = { saveForm }
       askToResetClient  = { askToResetClient }
       openFeedback      = { openFeedback }
