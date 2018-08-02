@@ -52,9 +52,9 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
  *
  * @returns Component
  */
-/** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
+/** @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
       use `includes` array to include only certain columns perhaps. */
-const CashFlowRow = function ({ generic, timeState, updateClientValue, children }) {
+const CashFlowInputsRow = function ({ generic, timeState, updateClientValue, children }) {
 
   var updateClient = function (evnt, inputProps, data) {
     var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
@@ -103,7 +103,7 @@ const CashFlowRow = function ({ generic, timeState, updateClientValue, children 
     </CashFlowContainer>
   );
 
-};  // End CashFlowRow{} Component
+};  // End CashFlowInputsRow{} Component
 
 
 /** One row for _one_ cash flow input - a monthly value
@@ -155,7 +155,7 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
 
 
 export {
-  CashFlowRow,
+  CashFlowInputsRow,
   MonthlyCashFlowRow,
   CashFlowContainer,
 };
