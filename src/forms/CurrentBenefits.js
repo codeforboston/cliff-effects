@@ -35,7 +35,7 @@ const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
 
   var sharedProps = {
     updateClientValue: updateClientValue,
-    snippets:           snippets,
+    snippets:          snippets,
   };
 
   return (

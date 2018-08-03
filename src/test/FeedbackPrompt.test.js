@@ -1,10 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import {
-  HashRouter,
-  Route,
-} from 'react-router-dom';
 
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 
@@ -18,9 +14,9 @@ test('A feedback prompt should match the snapshot', () => {
 
   const wrapper = shallow(
     <FeedbackPrompt
-    { ...promptData }
-    isBlocking={ isBlocking }
-    openFeedback={ jest.fn() } />
-  )
+      { ...promptData }
+      isBlocking={ isBlocking }
+      openFeedback={ jest.fn() } />
+  );
   expect(wrapper).toMatchSnapshot();
 });
