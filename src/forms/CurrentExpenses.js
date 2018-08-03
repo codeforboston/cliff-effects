@@ -115,10 +115,10 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
 
   let housing = current.housing,
       sharedProps = {
-        timeState:          current,
-        current:            current,
-        type:               type,
-        time:               time,
+        timeState:         current,
+        current:           current,
+        type:              type,
+        time:              time,
         updateClientValue: updateClientValue,
       };
 
@@ -207,9 +207,9 @@ const Housing = function ({ current, type, time, updateClientValue }) {
   };
 
   let sharedProps = {
-    current:            current,
-    type:               type,
-    time:               time,
+    current:           current,
+    type:              type,
+    time:              time,
     updateClientValue: ensureRouteAndValue,
   };
 
@@ -264,9 +264,9 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
   let type        = 'expense',
       household   = current.household,
       sharedProps = {
-        timeState:          current,
-        type:               type,
-        time:               time,
+        timeState:         current,
+        type:              type,
+        time:              time,
         updateClientValue: updateClientValue,
       };
 
