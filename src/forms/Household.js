@@ -281,11 +281,11 @@ const getMembers = function (current, time, setHousehold, updateClientValue, sni
 
   var household = current.household,
       props     = {
-        household:    household,
-        time:         time,
-        setHousehold: setHousehold,
+        household:         household,
+        time:              time,
+        setHousehold:      setHousehold,
         updateClientValue: updateClientValue,
-        snippets:     snippets,
+        snippets:          snippets,
       };
 
   var mems = [];
