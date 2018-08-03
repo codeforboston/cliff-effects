@@ -24,6 +24,7 @@ import {
   PlainRentRow,
 } from './rentFields';
 import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
+import { ExpensesOther } from './ExpensesOther';
 
 // LOGIC
 import {
@@ -437,6 +438,8 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         time={ time }
         type={ type }
         updateClientValue = { updateClientValue } />
+
+      <ExpensesOther { ...sharedProps } />
     </div>
   );
 

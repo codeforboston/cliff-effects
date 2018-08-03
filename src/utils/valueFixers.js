@@ -81,6 +81,16 @@ const valueFixers = {
   nonHeatElectricity:            returnSame,
   phone:                         returnSame,
   fuelAssistance:                toBoolean,
+  otherExpensesFood:             stringToNumber,
+  otherExpensesUtilities:        stringToNumber,
+  otherExpensesCable:            stringToNumber,
+  otherExpensesMedical:          stringToNumber,
+  otherExpensesTransport:        stringToNumber,
+  otherExpensesCareProducts:     stringToNumber,
+  otherExpensesClothes:          stringToNumber,
+  otherExpensesPhone:            stringToNumber,
+  otherExpensesEntertainment:    stringToNumber,
+  otherExpensesOther:            stringToNumber,
 
 };  // end valueFixers
 

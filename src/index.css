@@ -60,6 +60,10 @@ Used to fill vertical space.
   justify-content: center;
 }
 
+#cliff-effects-tool .form .cashflow-display {
+  margin-bottom: 1em;
+}
+
 .ui.form h4.ui.header.cashflow-column,
 .ui.form .cashflow .cashflow-column {
   display: inline-block;
@@ -68,18 +72,33 @@ Used to fill vertical space.
   text-align: center;
 }
 
+.ui.form h4.ui.header.cashflow-column {
+  margin-top: 0;
+}
+
+#cliff-effects-tool .form .cashflow .cashflow-column.output-number,
+#cliff-effects-tool .form .cashflow .cashflow-column.output-number input {
+  text-align: right;
+  width: 7em;
+  display: inline-block;
+}
+
+#cliff-effects-tool .form .cashflow .cashflow-column.output-number {
+  margin-bottom: 0;
+}
+
+#cliff-effects-tool .form .cashflow-display .cashflow-column.output-number {
+  padding-right: 1em;
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
 .ui.form h4.ui.header.cashflow-column:last-child,
 .ui.form .cashflow .cashflow-column:last-child,
 .ui.form .cashflow .cashflow-column-last-child {
   text-align: left;
   width: auto;
   padding-left: 1em !important;
-}
-
-.ui.form .cashflow .cashflow-column .ui.input input {
-  text-align: right;
-  width: 7em;
-  display: inline-block;
 }
 
 /* One of these two groups */

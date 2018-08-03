@@ -12,6 +12,9 @@ import {
   UNEARNED_INCOME_SOURCES,
   UNDER13_CARE_EXPENSES,
   OVER12_CARE_EXPENSES,
+  ALL_MEDICAL_EXPENSES,
+  NON_TRANSPORT_DEPENDENT_COSTS,
+  TRANSPORT_DEPENDENT_COSTS,
 } from '../data/massachusetts/name-cores';
 
 // ==================================
@@ -44,6 +47,26 @@ const getDependentCostsMonthly = function (client) {
 const getUnder13Expenses = function (client) {
   return sumProps(client, UNDER13_CARE_EXPENSES);
 };  // End getUnder13Expenses()
+
+
+const getOver12Expenses = function (client) {
+  return sumProps(client, OVER12_CARE_EXPENSES);
+};  // End getOver13Expenses()
+
+
+const getMedicalExpenses = function (client) {
+  return sumProps(client, ALL_MEDICAL_EXPENSES);
+};  // End getMedicalExpenses()
+
+
+const getNonTransportCareCosts = function (client) {
+  return sumProps(client, NON_TRANSPORT_DEPENDENT_COSTS);
+};  // End getNonTransportationCareCosts()
+
+
+const getTransportDependentCosts = function (client) {
+  return sumProps(client, TRANSPORT_DEPENDENT_COSTS);
+};  // End getTransportDependentCosts()
 
 
 // ==================================
@@ -101,6 +124,10 @@ const sumProps = function (obj, props) {
 export {
   getDependentCostsMonthly,
   getUnder13Expenses,
+  getOver12Expenses,
+  getMedicalExpenses,
+  getNonTransportCareCosts,
+  getTransportDependentCosts,
   getSimpleGrossIncomeMonthly,
   getGrossUnearnedIncomeMonthly,
   sumProps,
