@@ -60,6 +60,10 @@ Used to fill vertical space.
   justify-content: center;
 }
 
+#cliff-effects-tool .show-on-yes {
+  display: inline-block;
+}
+
 #cliff-effects-tool .form .cashflow-display {
   margin-bottom: 1em;
 }

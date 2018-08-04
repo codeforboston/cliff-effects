@@ -91,6 +91,7 @@ const valueFixers = {
   otherExpensesPhone:            stringToNumber,
   otherExpensesEntertainment:    stringToNumber,
   otherExpensesOther:            stringToNumber,
+  wantsToSeeOtherExpenses:       toBoolean,
 
 };  // end valueFixers
 

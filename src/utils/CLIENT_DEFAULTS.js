@@ -72,6 +72,7 @@ const CLIENT_DEFAULTS = {
     otherExpensesPhone:            0,                // postitive number
     otherExpensesEntertainment:    0,                // postitive number
     otherExpensesOther:            0,                // postitive number
+    wantsToSeeOtherExpenses:       false,            // boolean
   },
 
   // Note: A `future` value will default to the client's `current` value until a user changes it explicitly
