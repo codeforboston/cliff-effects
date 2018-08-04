@@ -59,6 +59,12 @@ const ALL_MEDICAL_EXPENSES  = [
   `otherMedical`,
 ].concat(DISABLED_CARE);
 
+const HOMEOWNER_COSTS = [
+  `mortgage`,
+  `housingInsurance`,
+  `propertyTax`,
+];
+
 
 export {
   UNEARNED_INCOME_SOURCES,
@@ -70,4 +76,5 @@ export {
   NON_TRANSPORT_DEPENDENT_COSTS,
   DISABLED_CARE,
   ALL_MEDICAL_EXPENSES,
+  HOMEOWNER_COSTS,
 };

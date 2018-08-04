@@ -15,10 +15,11 @@ import {
   ALL_MEDICAL_EXPENSES,
   NON_TRANSPORT_DEPENDENT_COSTS,
   TRANSPORT_DEPENDENT_COSTS,
+  HOMEOWNER_COSTS,
 } from '../data/massachusetts/name-cores';
 
 // ==================================
-// DEDUCTIONS
+// DEPENDENTS
 // ==================================
 /** 
  * Total MONTHLY dependent costs, including for those under and over
@@ -67,6 +68,23 @@ const getNonTransportCareCosts = function (client) {
 const getTransportDependentCosts = function (client) {
   return sumProps(client, TRANSPORT_DEPENDENT_COSTS);
 };  // End getTransportDependentCosts()
+
+
+// ==================================
+// OTHER EXPENSES
+// ==================================
+const getHousingCosts = function (client) {
+  var housing = client.housing;
+  if (housing === `homeless`) {
+    return 0;
+  } else if (housing === `voucher`) {
+    return client.rentShare;
+  } else if (housing === `renter`) {
+    return client.rent;
+  } else if (housing === `homeowner`) {
+    return sumProps(client, HOMEOWNER_COSTS);
+  }
+};  // End getHousingCosts()
 
 
 // ==================================
@@ -128,6 +146,7 @@ export {
   getMedicalExpenses,
   getNonTransportCareCosts,
   getTransportDependentCosts,
+  getHousingCosts,
   getSimpleGrossIncomeMonthly,
   getGrossUnearnedIncomeMonthly,
   sumProps,

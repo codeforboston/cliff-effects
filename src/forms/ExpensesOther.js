@@ -13,6 +13,7 @@ import {
   getMedicalExpenses,
   getNonTransportCareCosts,
   getTransportDependentCosts,
+  getHousingCosts,
 } from '../utils/cashflow';
 
 
@@ -47,6 +48,7 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
   };
 
   var housing            = timeState.housing,
+      housingCosts       = getHousingCosts(timeState),
       dependentCare      = getNonTransportCareCosts(timeState),
       dependentTransport = getTransportDependentCosts(timeState),
       medExpenses        = getMedicalExpenses(timeState);
@@ -57,29 +59,12 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
 
       {/* Is this complexity really required? Can we just
       * have children and include a warning in the docs? */}
-      <RenderIfTrue shouldRender = { housing === `voucher` }>
+      <RenderIfTrue shouldRender = { housingCosts > 0 }>
         {() => { return (
           <CashFlowDisplayRow
             timeState = { timeState }
-            generic   = { `rentShare` }> Rent payment
-          </CashFlowDisplayRow>
-        );}}
-      </RenderIfTrue>
-
-      <RenderIfTrue shouldRender = { housing === `renter` }>
-        {() => { return (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            generic   = { `rent` }> Rent
-          </CashFlowDisplayRow>
-        );}}
-      </RenderIfTrue>
-
-      <RenderIfTrue shouldRender = { housing === `homeowner` }>
-        {() => { return (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            generic   = { `mortgage` }> Mortgage
+            value     = { housingCosts }
+            generic   = { `housingCosts` }> Payments for housing
           </CashFlowDisplayRow>
         );}}
       </RenderIfTrue>
