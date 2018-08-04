@@ -78,6 +78,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           "rentShare": 0,
           "socialSecurity": 0,
           "unemployment": 0,
+          "wantsToSeeOtherExpenses": false,
           "workersComp": 0,
         }
       }
@@ -150,6 +151,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "rentShare": 0,
             "socialSecurity": 0,
             "unemployment": 0,
+            "wantsToSeeOtherExpenses": false,
             "workersComp": 0,
           },
           "future": Object {
@@ -206,6 +208,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "rentShare": 0,
             "socialSecurity": 0,
             "unemployment": 0,
+            "wantsToSeeOtherExpenses": false,
             "workersComp": 0,
           },
         }

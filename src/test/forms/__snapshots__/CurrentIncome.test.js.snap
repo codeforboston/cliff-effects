@@ -78,6 +78,7 @@ exports[`Income step component renders as snapshot correctly 1`] = `
           "rentShare": 0,
           "socialSecurity": 0,
           "unemployment": 0,
+          "wantsToSeeOtherExpenses": false,
           "workersComp": 0,
         }
       }
