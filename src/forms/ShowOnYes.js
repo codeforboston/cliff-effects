@@ -18,12 +18,6 @@ import { ContentH1 } from '../components/headings';
  * @returns {object} Component
  */
 class ShowOnYes extends React.Component {
-  constructor (props) {
-    super(props);
-    
-    const show = props.clientPartial[ props.propName ];
-    this.state = { showChildren: show };
-  }
 
   handleChange = (evt, inputProps) => {
 
@@ -37,8 +31,6 @@ class ShowOnYes extends React.Component {
 
   showChildren = (evt) => {
     const { propName, updateClientValue } = this.props;
-    this.setState({ showChildren: true });
-    
     updateClientValue(evt, {
       name:  propName,
       value: true,
@@ -47,8 +39,6 @@ class ShowOnYes extends React.Component {
 
   hideChildren = (evt) => {
     const { propName, updateClientValue } = this.props;
-    this.setState({ showChildren: false });
-
     updateClientValue(evt, {
       name:  propName,
       value: false,
@@ -59,8 +49,15 @@ class ShowOnYes extends React.Component {
   // a function instead that would return a heading
   // and contents.
   render() {
-    const { question, propName, heading, children } = this.props;
-    const { showChildren } = this.state;
+    const {
+      clientPartial,
+      propName,
+      question,
+      heading,
+      children
+    } = this.props;
+
+    const showChildren = clientPartial[ propName ];
 
     return (
       <div className = { `show-on-yes` }>
@@ -78,5 +75,6 @@ class ShowOnYes extends React.Component {
     );
   }
 }
+
 
 export { ShowOnYes };
