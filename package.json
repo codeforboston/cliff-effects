@@ -12,6 +12,7 @@
     "react-helmet": "^5.2.0",
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
+    "react-scripts": "^1.1.4",
     "semantic-ui-css": "2.2.12",
     "semantic-ui-react": "^0.75.1"
   },
@@ -54,7 +55,6 @@
     "gh-pages": "^1.2.0",
     "npm-run-all": "^4.1.3",
     "prettier": "^1.13.7",
-    "react-scripts": "^1.1.4",
     "react-test-renderer": "^16.3.2"
   },
   "description": "help Project Hope case managers make quantifiable predictions about their clients' potential cliff effects",
