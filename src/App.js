@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   HashRouter,
   Route,
+  Switch
 } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -51,50 +52,52 @@ class App extends Component {
                     { ...props }
                     snippets={{ ...snippets.header, langCode: snippets.langCode }} />);
               } } />
-            <Route
-              exact
-              path="/"
-              component={ (props) => {
-                return (
-                  <HomePage
-                    { ...props }
-                    snippets={{ ...snippets.homePage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/about"
-              component={ (props) => {
-                return (
-                  <AboutPage
-                    { ...props }
-                    snippets={{ ...snippets.aboutPage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/visit/:clientId/:visitId"
-              component={ (props) => {
-                return (
-                  <VisitPage
-                    { ...props }
-                    confirmer = { confirmer }
-                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/visit/load"
-              component={ (props) => {
-                return (
-                  <VisitPage
-                    { ...props }
-                    confirmer = { confirmer }
-                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/load"
-              component={ (props) => {
-                return (
-                  <VisitPage
-                    { ...props }
-                    confirmer = { confirmer }
-                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
-              } } />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={ (props) => {
+                  return (
+                    <HomePage
+                      { ...props }
+                      snippets={{ ...snippets.homePage, langCode: snippets.langCode }} />);
+                } } />
+              <Route
+                path="/about"
+                component={ (props) => {
+                  return (
+                    <AboutPage
+                      { ...props }
+                      snippets={{ ...snippets.aboutPage, langCode: snippets.langCode }} />);
+                } } />
+              <Route
+                path="/visit/:clientId/:visitId"
+                component={ (props) => {
+                  return (
+                    <VisitPage
+                      { ...props }
+                      confirmer = { confirmer }
+                      snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
+                } } />
+              <Route
+                path="/visit/load"
+                component={ (props) => {
+                  return (
+                    <VisitPage
+                      { ...props }
+                      confirmer = { confirmer }
+                      snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
+                } } />
+              <Route
+                path="/load"
+                component={ (props) => {
+                  return (
+                    <VisitPage
+                      { ...props }
+                      confirmer = { confirmer }
+                      snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
+                } } />
+            </Switch>
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
