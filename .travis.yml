@@ -1,9 +1,5 @@
 language: node_js
 
-before_install:
-  # Export the C++11 compiler.
-  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then export CXX=g++-4.8; fi
-
 cache:
   directories:
     - $TRAVIS_BUILD_DIR/node_modules
