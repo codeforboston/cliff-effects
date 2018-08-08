@@ -91,15 +91,18 @@ const CashFlowRow = function ({ generic, timeState, updateClientValue, children 
       <ManagedNumberField
         { ...baseProps }
         value     = { baseVal / (4 + 1 / 3) }
-        otherData = {{ interval: 'weekly' }} />
+        otherData = {{ interval: 'weekly' }} 
+        maximum   = { 19230.76 } />
       <ManagedNumberField
         { ...baseProps }
         value     = { baseVal }
-        otherData = {{ interval: 'monthly' }} />
+        otherData = {{ interval: 'monthly' }}
+        maximum   = { 83333.33 } />
       <ManagedNumberField
         { ...baseProps }
         value     = { baseVal * 12 }
-        otherData = {{ interval: 'yearly' }} />
+        otherData = {{ interval: 'yearly' }}
+        maximum   = { 999999.99 } />
     </CashFlowContainer>
   );
 
