@@ -21,13 +21,15 @@
     "test": "cross-env CI=true react-scripts test",
     "test:coverage": "cross-env CI=true react-scripts test --coverage",
     "eject": "react-scripts eject",
-    "deploy": "run -s build gh-pages",
+    "deploy": "run-s --print-label build gh-pages",
     "gh-pages": "gh-pages -d build/",
     "generateSNAPTests": "babel-node src/test/programs/federal/snap/generateTestCases",
     "lint:eslint": "eslint src",
     "lint:prettier": "prettier --list-different '**/*.{md,json}'",
+    "lint": "run-p --print-label lint:**",
     "fix:eslint": "eslint src --fix",
-    "fix:prettier": "prettier --write '**/*.{md,json}'"
+    "fix:prettier": "prettier --write '**/*.{md,json}'",
+    "fix": "run-p --print-label fix:**"
   },
   "homepage": "https://codeforboston.github.io/cliff-effects",
   "devDependencies": {
