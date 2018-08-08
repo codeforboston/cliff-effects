@@ -9,9 +9,7 @@ import {
 
 // PROJECT COMPONENTS
 import FormPartsContainer from './FormPartsContainer';
-import {
-  AttentionArrow,
-} from './formHelpers';
+import { AttentionArrow } from './formHelpers';
 import { CashFlowRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 import {
