@@ -8,7 +8,9 @@
 
 ### Replicate:
 
-1.  2.  3.
+1.  <!-- Step 1 to Replicate the bug -->
+2.  <!-- Step 2 to Replicate the bug -->
+3.  <!-- Step 3 to Replicate the bug -->
 
 <!-- What would you expect to happen when someone performs those steps? -->
 
