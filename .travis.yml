@@ -1,11 +1,30 @@
 language: node_js
-node_js:
-  - 8
+
 cache:
   directories:
-    - node_modules
+    - $TRAVIS_BUILD_DIR/node_modules
+    - $HOME/.nvm
 # Note: travis defaults used for install
 # If custom install desired, include `npm install`
+
+# Do two runs, one for testing and one for linting.
+matrix:
+  include:
+  - node_js: 8
+    env: TEST_TYPE=test
+  - node_js: node 
+    env: TEST_TYPE=test:coverage
+  - node_js: node
+    env: TEST_TYPE=lint:eslint
+  - node_js: node
+    env: TEST_TYPE=lint:prettier
+  allow_failures:
+    - env: TEST_TYPE=lint:eslint
+    - env: TEST_TYPE=lint:prettier
+
+before_script: 
+  - if [[ $TEST_TYPE == 'lint:eslint' ]]; then yarn build; fi
+
 script:
-  - npm run build
-  - npm test -- --coverage && codecov
+  # Run testing or linting depending on the environment.
+  - npm run $TEST_TYPE
