@@ -24,6 +24,7 @@ import {
   PlainRentRow,
 } from './rentFields';
 import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
+import { HeadingWithDetail } from '../components/details';
 
 // LOGIC
 import {
@@ -373,13 +374,17 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       { elderlyOrDisabled.length > 0
         ? 
         <div>
-          <ContentH1>Unreimbursed Disabled/Handicapped/Elderly Assistance</ContentH1>
-          <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
-          <div>Examples of eligible disability assistance expenses:</div>
-          <ul>
-            <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
-            <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
-          </ul>
+          <HeadingWithDetail>
+            <ContentH1>Unreimbursed Disabled/Handicapped/Elderly Assistance</ContentH1>
+            <div>
+              <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
+              <div>Examples of eligible disability assistance expenses:</div>
+              <ul>
+                <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
+                <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
+              </ul>
+            </div>
+          </HeadingWithDetail>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
             { ...sharedProps }
@@ -406,19 +411,24 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
         ? 
         <div>
-          <ContentH1>Unreimbursed Medical Expenses</ContentH1>
-          <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
-          <ul>
-            <li>The orthodontist expenses for a child’s braces.</li>
-            <li>Services of doctors and health care professionals.</li>
-            <li>Services of health care facilities.</li>
-            <li>Medical insurance premiums. </li>
-            <li>Prescription/non-prescription medicines (prescribed by a physician).</li>
-            <li>Transportation to treatment (cab fare, bus fare, mileage).</li>
-            <li>Dental expenses, eyeglasses, hearing aids, batteries.</li>
-            <li>Live-in or periodic medical assistance.</li>
-            <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
-          </ul>
+
+          <HeadingWithDetail>
+            <ContentH1>Unreimbursed Medical Expenses</ContentH1>
+            <div>
+              <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
+              <ul>
+                <li>The orthodontist expenses for a child’s braces.</li>
+                <li>Services of doctors and health care professionals.</li>
+                <li>Services of health care facilities.</li>
+                <li>Medical insurance premiums. </li>
+                <li>Prescription/non-prescription medicines (prescribed by a physician).</li>
+                <li>Transportation to treatment (cab fare, bus fare, mileage).</li>
+                <li>Dental expenses, eyeglasses, hearing aids, batteries.</li>
+                <li>Live-in or periodic medical assistance.</li>
+                <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
+              </ul>
+            </div>
+          </HeadingWithDetail>
           <IntervalColumnHeadings type={ type } />
           <CashFlowRow
             { ...sharedProps }
