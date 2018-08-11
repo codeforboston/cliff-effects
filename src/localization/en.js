@@ -254,6 +254,10 @@ export default {
       next:     `Next`,
     },
 
-    predictions: {},
+    predictions: {
+      title:                `What Might Happen?`,
+      futureIncomeQuestion: `How much money would you get paid in the future? (You can try different amounts)`,
+      chartsHeader:         `With the new pay, how could your benefits change?`,
+    },
   },
 };
