@@ -255,9 +255,13 @@ export default {
     },
 
     predictions: {
-      title:                `What Might Happen?`,
-      futureIncomeQuestion: `How much money would you get paid in the future? (You can try different amounts)`,
-      chartsHeader:         `With the new pay, how could your benefits change?`,
+      title:                   `What Might Happen?`,
+      futureIncomeQuestion:    `How much money would you get paid in the future? (You can try different amounts)`,
+      tabTitleChanges:         `Changes`,
+      tabTitleChangesChart:    `Changes Chart`,
+      tabTitleStackedIncomes:  `Stacked Incomes`,
+      tabTitleBenefitPrograms: `Benefit Programs`,
+      chartsHeader:            `With the new pay, how could your benefits change?`,
     },
   },
 };
