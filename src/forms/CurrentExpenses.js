@@ -8,10 +8,8 @@ import {
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import {
-  FormPartsContainer,
-  AttentionArrow,
-} from './formHelpers';
+import FormPartsContainer from './FormPartsContainer';
+import { AttentionArrow } from './formHelpers';
 import { CashFlowRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 import {
