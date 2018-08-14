@@ -26,7 +26,7 @@ export default {
   aboutPage: {
     'aboutPageHeader_v1.0': `關於懸崖效應工具`,
 
-    'whatForHeader_v1.0':   `這個工具用來做什麽？`,
+    'whatForHeader_v1.0':        `這個工具用來做什麽？`,
     'whatForImportantNote_v1.0': [
       {
         name: `__importantNote__`,
@@ -42,7 +42,7 @@ export default {
 
     'whyHeader_v1.0': `這個工具爲什麽重要？`,
     'why1_v1.0':      `懸崖效應發生于一個家庭經濟情況的微小改變，比如少額漲薪，不成比例地降低其補助額度。此家庭在試著增加其收入水平，卻實際上損失了收入，從而使其處在更大劣勢。這樣的懸崖效應阻止很多家庭離開公共補助項目。`,
-    'why2_v1.0': `此外，懸崖效應也非常難預測。收入、家庭大小、其它因素、甚至項目本身，都可能意料不到地互相影響。我們在探索簡化這個難題的方式，從而幫助家庭更好理解和預測其自我狀況。`,
+    'why2_v1.0':      `此外，懸崖效應也非常難預測。收入、家庭大小、其它因素、甚至項目本身，都可能意料不到地互相影響。我們在探索簡化這個難題的方式，從而幫助家庭更好理解和預測其自我狀況。`,
 
     'videoLinkText_v1.0':    `懸崖效應兩分鐘介紹視頻`,
     'quantLinkText_v1.0':    `用量化情景説明懸崖效應`,
@@ -50,7 +50,7 @@ export default {
 
     'howToUseHeader_v1.0': `我要怎麽用這個工具？`,
     'howtoUse_v1.0':       `一步步添加有關客戶目前補助、住宅、收入以及其他的信息。此信息會被用來預測客戶的大約補助額度。當您完成這些信息，改變“未來收入”額度以計算此收入變化對補助額度的影響。目前本程序支持 SNAP 以及 Section 8 住宅項目。請注意客戶目前補助額度的預測不一定準確。此程序的主要目標是以收入變化預測補助額度的對應變化。`,
-    'howToUseNote_v1.0': [
+    'howToUseNote_v1.0':   [
       `請注意：本程序不會保存任何用戶信息。`,
       {
         name: `__refreshWarning__`,
@@ -113,7 +113,7 @@ export default {
     currentBenefits: {
       'currentBenefits_v1.0': `目前補助`,
       'selectBenefits_v1.0':  `請選擇您目前獲得的補助`,
-      'hasSection8_v1.0': {
+      'hasSection8_v1.0':     {
         label: `您是否擁有 Section 8 住房補貼？`,
         hint:  `Section 8 爲租房提供補貼。`,
       },

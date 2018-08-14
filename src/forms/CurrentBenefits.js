@@ -3,7 +3,7 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import { FormPartsContainer } from './formHelpers';
+import FormPartsContainer from './FormPartsContainer';
 import { ControlledRadioYesNo } from './inputs';
 
 
@@ -35,7 +35,7 @@ const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
 
   var sharedProps = {
     updateClientValue: updateClientValue,
-    snippets:           snippets,
+    snippets:          snippets,
   };
 
   return (

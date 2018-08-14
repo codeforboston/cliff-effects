@@ -3,7 +3,7 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import { FormPartsContainer } from './formHelpers';
+import FormPartsContainer from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowRow } from './cashflow';
 
@@ -56,9 +56,9 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
   };  // End ensureFuture()
 
   var sharedProps = {
-    timeState:          current,
-    time:               time,
-    type:               type,
+    timeState:         current,
+    time:              time,
+    type:              type,
     updateClientValue: ensureFuture,
   };
 

@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import { FormPartsContainer } from './formHelpers';
+import FormPartsContainer from './FormPartsContainer';
 import { ColumnHeading } from '../components/headings';
 import { ManagedNumberField } from './inputs';
 
@@ -281,11 +281,11 @@ const getMembers = function (current, time, setHousehold, updateClientValue, sni
 
   var household = current.household,
       props     = {
-        household:    household,
-        time:         time,
-        setHousehold: setHousehold,
+        household:         household,
+        time:              time,
+        setHousehold:      setHousehold,
         updateClientValue: updateClientValue,
-        snippets:     snippets,
+        snippets:          snippets,
       };
 
   var mems = [];
