@@ -138,4 +138,10 @@ const FormPartsContainer = function({ title, clarifier, children, navData }) {
     </Segment>
   );
 };  // End FormPartsContainer() Component
-export default FormPartsContainer;
+
+
+export {
+  SpaceHolder,
+  FormBottomRow,
+  FormPartsContainer,
+};
