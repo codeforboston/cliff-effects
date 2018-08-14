@@ -14,6 +14,8 @@ import VisitPage from './containers/VisitPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
+import DocsPage from './docs/DocsPage';
+
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
 
@@ -97,9 +99,7 @@ class App extends Component {
               } } />
             <Route
               path="/docs"
-              render={ ({ location }) => {
-                window.location = `./docs/index.html${ location.hash }`;
-              } } />
+              component={ DocsPage } />
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
