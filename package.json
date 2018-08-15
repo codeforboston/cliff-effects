@@ -18,11 +18,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && cp -r docs build",
+    "build": "npm run docs && react-scripts build && cp -r docs build",
     "test": "react-scripts test",
     "coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
-    "deploy": "npm run docs && npm run build && gh-pages -d build",
+    "deploy": "npm run build && gh-pages -d build",
     "generateSNAPTests": "./node_modules/.bin/babel-node src/test/programs/federal/snap/generateTestCases",
     "lint": "./node_modules/.bin/eslint src --fix",
     "docs": "./node_modules/.bin/documentation build src/index.js -f html -o docs"
