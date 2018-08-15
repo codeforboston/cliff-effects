@@ -5,22 +5,7 @@ import {
   Label,
   Icon,
 } from 'semantic-ui-react';
-
-// ========================================
-// GENERIC COMPONENTS
-// ========================================
-
-/**
- * Link that opens new tab
- */
-const ExternalLink = function ({ href, children }) {
-  return (
-    <a
-      href={ href }
-      target='_blank'>{children}
-    </a>);
-};
-
+import { ExternalLink } from './../components/ExternalLink';
 
 // ========================================
 // INPUT CONTAINER COMPONENTS
