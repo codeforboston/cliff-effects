@@ -14,8 +14,6 @@ import VisitPage from './containers/VisitPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
-import DocsPage from './docs/DocsPage';
-
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
 
@@ -97,9 +95,16 @@ class App extends Component {
                     confirmer = { confirmer }
                     snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
               } } />
+              
+            {/* Currently only works on published build */}
             <Route
               path="/docs"
-              component={ DocsPage } />
+              component={
+                <iframe
+                  id="docsFrame"
+                  title="Cliff Effects Docs"
+                  src="/docs/index.html" />
+              } />
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
