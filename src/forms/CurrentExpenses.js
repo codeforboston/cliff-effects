@@ -12,7 +12,7 @@ import {
   FormPartsContainer,
   AttentionArrow,
 } from './formHelpers';
-import { CashFlowRow } from './cashflow';
+import { CashFlowInputsRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 import {
   ContentH1,
@@ -24,6 +24,8 @@ import {
   PlainRentRow,
 } from './rentFields';
 import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
+import { ExpensesOther } from './ExpensesOther';
+import { ShowOnYes } from './ShowOnYes';
 
 // LOGIC
 import {
@@ -147,18 +149,18 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
     return (
       <div>
         <IntervalColumnHeadings type={ type } />
-        <CashFlowRow
+        <CashFlowInputsRow
           { ...sharedProps }
           generic={ 'mortgage' }> Mortgage 
-        </CashFlowRow>
-        <CashFlowRow
+        </CashFlowInputsRow>
+        <CashFlowInputsRow
           { ...sharedProps }
           generic={ 'housingInsurance' }> Insurance Costs 
-        </CashFlowRow>
-        <CashFlowRow
+        </CashFlowInputsRow>
+        <CashFlowInputsRow
           { ...sharedProps }
           generic={ 'propertyTax' }> Property Tax 
-        </CashFlowRow>
+        </CashFlowInputsRow>
         <Utilities { ...sharedProps } />
       </div>
     );
@@ -299,26 +301,26 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             { snippets.unreimbursedNonMedicalChildCare.sectionHeading }
           </ContentH1>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childDirectCare' }> 
             { snippets.unreimbursedNonMedicalChildCare.childDirectCare.label }
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childBeforeAndAfterSchoolCare' }>
             { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.label}
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childTransportation' }> 
             { snippets.unreimbursedNonMedicalChildCare.childTransportation.label }
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childOtherCare' }> 
             { snippets.unreimbursedNonMedicalChildCare.childOtherCare.label }
-          </CashFlowRow>
+          </CashFlowInputsRow>
 
           <EarnedFrom
             hasExpenses   ={ getUnder13Expenses(current) !== 0 }
@@ -338,10 +340,10 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         <div>
           <ContentH1>Child Support</ContentH1>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support 
-          </CashFlowRow>
+          </CashFlowInputsRow>
         </div>
         : null
       }
@@ -354,18 +356,18 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             Dependent Care of Persons Over 12 Years of Age
           </ContentH1>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'adultDirectCare' }> Direct care costs 
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'adultTransportation' }> Transportation costs 
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'adultOtherCare' }> Other care 
-          </CashFlowRow>
+          </CashFlowInputsRow>
         </div>
         : null
       }
@@ -381,10 +383,10 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
           </ul>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'disabledAssistance' }> Disabled/Handicapped assistance 
-          </CashFlowRow>
+          </CashFlowInputsRow>
 
           <EarnedFrom
             hasExpenses   ={ current.disabledAssistance !== 0 }
@@ -420,14 +422,14 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
           </ul>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic='disabledMedical'> Disabled/Elderly medical expenses 
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic='otherMedical'> Medical expenses of other members 
-          </CashFlowRow>
+          </CashFlowInputsRow>
         </div>
         : null
       }
@@ -437,6 +439,15 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         time={ time }
         type={ type }
         updateClientValue = { updateClientValue } />
+
+      <ShowOnYes
+        clientPartial = { current }
+        propName = { `wantsToSeeOtherExpenses` }
+        updateClientValue = { updateClientValue }
+        question = { `Do you want to enter your other expenses so you can see if you need to make a different plan?` }
+        heading = { `Other Expenses` }>
+        <ExpensesOther { ...sharedProps } />
+      </ShowOnYes>
     </div>
   );
 

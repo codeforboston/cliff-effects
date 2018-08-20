@@ -4,7 +4,7 @@ import { Form, Divider, Header, Tab } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './formHelpers';
 import { IntervalColumnHeadings } from '../components/headings';
-import { CashFlowRow } from './cashflow';
+import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
@@ -38,7 +38,7 @@ const IncomeForm = function ({ future, time, updateClientValue }) {
   return (
     <div className='field-aligner two-column'>
       <IntervalColumnHeadings type={ type } />
-      <CashFlowRow
+      <CashFlowInputsRow
         timeState={ future }
 				  type={ type }
 				  time={ time }
@@ -46,7 +46,7 @@ const IncomeForm = function ({ future, time, updateClientValue }) {
 				  generic='earned'
 				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           How much money would you get paid in the future? (You can try different amounts)
-      </CashFlowRow>
+      </CashFlowInputsRow>
     </div>
   );
 };  // End IncomeForm() Component

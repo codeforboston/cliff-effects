@@ -168,7 +168,7 @@ class ManagedNumberField extends Component {
         error     = { !valid }
         value     = { value }
         name      = { name }
-        className = { className }
+        className = { className + ` output-number` }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
         onBlur    = { this.handleBlur } />

@@ -12,10 +12,14 @@ import {
   UNEARNED_INCOME_SOURCES,
   UNDER13_CARE_EXPENSES,
   OVER12_CARE_EXPENSES,
+  ALL_MEDICAL_EXPENSES,
+  NON_TRANSPORT_DEPENDENT_COSTS,
+  TRANSPORT_DEPENDENT_COSTS,
+  HOMEOWNER_COSTS,
 } from '../data/massachusetts/name-cores';
 
 // ==================================
-// DEDUCTIONS
+// DEPENDENTS
 // ==================================
 /** 
  * Total MONTHLY dependent costs, including for those under and over
@@ -44,6 +48,43 @@ const getDependentCostsMonthly = function (client) {
 const getUnder13Expenses = function (client) {
   return sumProps(client, UNDER13_CARE_EXPENSES);
 };  // End getUnder13Expenses()
+
+
+const getOver12Expenses = function (client) {
+  return sumProps(client, OVER12_CARE_EXPENSES);
+};  // End getOver13Expenses()
+
+
+const getMedicalExpenses = function (client) {
+  return sumProps(client, ALL_MEDICAL_EXPENSES);
+};  // End getMedicalExpenses()
+
+
+const getNonTransportCareCosts = function (client) {
+  return sumProps(client, NON_TRANSPORT_DEPENDENT_COSTS);
+};  // End getNonTransportationCareCosts()
+
+
+const getTransportDependentCosts = function (client) {
+  return sumProps(client, TRANSPORT_DEPENDENT_COSTS);
+};  // End getTransportDependentCosts()
+
+
+// ==================================
+// OTHER EXPENSES
+// ==================================
+const getHousingCosts = function (client) {
+  var housing = client.housing;
+  if (housing === `homeless`) {
+    return 0;
+  } else if (housing === `voucher`) {
+    return client.rentShare;
+  } else if (housing === `renter`) {
+    return client.rent;
+  } else if (housing === `homeowner`) {
+    return sumProps(client, HOMEOWNER_COSTS);
+  }
+};  // End getHousingCosts()
 
 
 // ==================================
@@ -101,6 +142,11 @@ const sumProps = function (obj, props) {
 export {
   getDependentCostsMonthly,
   getUnder13Expenses,
+  getOver12Expenses,
+  getMedicalExpenses,
+  getNonTransportCareCosts,
+  getTransportDependentCosts,
+  getHousingCosts,
   getSimpleGrossIncomeMonthly,
   getGrossUnearnedIncomeMonthly,
   sumProps,
