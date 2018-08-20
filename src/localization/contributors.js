@@ -23,4 +23,5 @@ export default [
   'Emily Wasserman',
   'Ethan Blackwood',
   'Valerie Kenyon',
+  'Robert Christie',
 ];

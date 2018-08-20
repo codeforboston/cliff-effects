@@ -286,6 +286,18 @@ form elements. */
 }
 
 
+/* FUNCTIONAL */
+.has-details {
+  display: inline-block;
+}
+
+i.icon.details-icon {
+  padding-left: .5em;
+  padding-right: 1em;
+  font-size: 1.2em;
+}
+
+
 /* =============== */
 /* PREDICTIONS (manual theme implementation) */
 /* =============== */
