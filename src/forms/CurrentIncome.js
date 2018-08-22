@@ -5,7 +5,7 @@ import { Form } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
-import { CashFlowRow } from './cashflow';
+import { CashFlowInputsRow } from './cashflow';
 
 /**
 * @todo Figure out which programs need to know which types of incomes
@@ -69,61 +69,61 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
 
       {/* All kinds of things need to be explained. */}
       
-      <CashFlowRow
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='earned'>
         { snippets.earnedIncome.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='TAFDC'> 
         { snippets.TAFDC.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='SSI'> 
         { snippets.SSI.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='SSDI'>
         { snippets.SSDI.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='childSupportIn'>
         { snippets.childSupport.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='unemployment'> 
         { snippets.unemployment.label }      
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='workersComp'> 
         { snippets.workersComp.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='pension'>
         { snippets.pension.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='socialSecurity'>
         { snippets.socialSecurity.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='alimony'> 
         { snippets.alimony.label }
-      </CashFlowRow>
-      <CashFlowRow
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
         { ...sharedProps }
         generic='otherIncome'>
         { snippets.otherIncome.label }
-      </CashFlowRow>
+      </CashFlowInputsRow>
       <Form.Field>{ snippets.explainSnapCalculation }</Form.Field>
 
     </div>

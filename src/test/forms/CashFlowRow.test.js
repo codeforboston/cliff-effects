@@ -1,16 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { CashFlowRow } from '../../forms/cashflow';
+import { CashFlowInputsRow } from '../../forms/cashflow';
 
-test('CashFlowRow should match snapshot', () => {
+test('CashFlowInputsRow should match snapshot', () => {
   const wrapper = shallow(
-    <CashFlowRow
+    <CashFlowInputsRow
       generic='name'
       timeState={{ name: 0 }}
       updateClientValue={ () => {} } >
       label
-    </CashFlowRow>
+    </CashFlowInputsRow>
   );
   expect(wrapper).toMatchSnapshot();
 });
@@ -18,7 +18,7 @@ test('CashFlowRow should match snapshot', () => {
 test('Second ManagedNumberField child should have value of timeState[ generic ]', () => {
   const monthlyVal = 200.0;
   const wrapper = shallow(
-    <CashFlowRow
+    <CashFlowInputsRow
       generic='name'
       timeState={{ name: monthlyVal }}
       updateClientValue={ () => {} } />
@@ -30,7 +30,7 @@ test('Second ManagedNumberField child should have value of timeState[ generic ]'
 test('First ManagedNumberField child should have weekly value', () => {
   const monthlyVal = 200.0;
   const wrapper = shallow(
-    <CashFlowRow
+    <CashFlowInputsRow
       generic='name'
       timeState={{ name: monthlyVal }}
       updateClientValue={ () => {} } />
@@ -42,7 +42,7 @@ test('First ManagedNumberField child should have weekly value', () => {
 test('Third ManagedNumberField child should have yearly value', () => {
   const monthlyVal = 200.0;
   const wrapper = shallow(
-    <CashFlowRow
+    <CashFlowInputsRow
       generic='name'
       timeState={{ name: monthlyVal }}
       updateClientValue={ () => {} } />
@@ -54,7 +54,7 @@ test('Third ManagedNumberField child should have yearly value', () => {
 test('updateClientValue gets called correctly when each value is changed', () => {
   const mockSetClientProperty = jest.fn();
   const wrapper = shallow(
-    <CashFlowRow
+    <CashFlowInputsRow
       generic='name'
       timeState={{ name: 200.0 }}
       updateClientValue={ mockSetClientProperty } />
