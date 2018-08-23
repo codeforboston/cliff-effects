@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Header, Tab } from 'semantic-ui-react';
+import { Form, Divider, Header, Tab, Message, Button } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -10,7 +10,6 @@ import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
 import { BenefitsLineGraph } from './output/BenefitsLineGraph';
-
 
 // ========================================
 // COMPONENTS
@@ -101,7 +100,7 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @returns {object} Component
  */
-const PredictionsStep = function ({ updateClientValue, navData, client, snippets }) {
+const PredictionsStep = function ({ updateClientValue, navData, client, snippets, openFeedback }) {
 
   /** @todo Are these titles accurate now? */
   return (
@@ -120,6 +119,18 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           className ='ui Header align centered'>
             With the new pay, how could your benefits change?
         </Header>
+        <Message visible warning style={{ 'textAlign': 'center' }}>
+          This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
+          <Button
+            fluid
+            color='teal'
+            style={{ 'display': 'block',
+                    'marginLeft': 'auto',
+                    'marginRight': 'auto',
+                    'marginTop': '10px',
+                    'maxWidth': '400px' }}
+            onClick={openFeedback}>Submit Feedback</Button>
+        </Message>
         <TabbedVisualizations client={ client } />
       </FormPartsContainer>
     </Form>
