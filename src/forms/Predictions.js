@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Header, Tab, Message, Button } from 'semantic-ui-react';
+import { Form, Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -51,16 +51,34 @@ const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
 };  // End IncomeForm() Component
 
 
-const TabbedVisualizations = ({ client }) => {
+const TabbedVisualizations = ({ client, snippets }) => {
   return (
   // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
-        { menuItem: 'Changes', render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} },
-        { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;} },
+        { 
+          menuItem: (
+            <Menu.Item key={ snippets.tabTitleChanges.props.children }>
+              { snippets.tabTitleChanges }
+            </Menu.Item>
+          ),
+          render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} 
+        },
+        { 
+          menuItem: (
+            <Menu.Item key={ snippets.tabTitleChangesChart.props.children }>
+              { snippets.tabTitleChangesChart }
+            </Menu.Item>
+          ),  
+          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;} 
+        },
         {
-          menuItem: 'Stacked Incomes',
+          menuItem: (
+            <Menu.Item key={ snippets.tabTitleStackedIncomes.props.children }>
+              { snippets.tabTitleStackedIncomes }
+            </Menu.Item>
+          ),
           render:   () => {
             return (
               <Tab.Pane>
@@ -72,7 +90,11 @@ const TabbedVisualizations = ({ client }) => {
           },
         },
         {
-          menuItem: 'Benefit Programs',
+          menuItem: (
+            <Menu.Item key={ snippets.tabTitleBenefitPrograms.props.children }>
+              { snippets.tabTitleBenefitPrograms }
+            </Menu.Item>
+          ),
           render:   () => {
             return (
               <Tab.Pane>
@@ -139,7 +161,9 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
             { snippets.submitFeedback }
           </Button>
         </Message>
-        <TabbedVisualizations client={ client } />
+        <TabbedVisualizations 
+          client   = { client }
+          snippets = { snippets } />
       </FormPartsContainer>
     </Form>
   );
