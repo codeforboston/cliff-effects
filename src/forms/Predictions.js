@@ -26,7 +26,7 @@ import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 *
 * @returns {class} Component
 */
-const IncomeForm = function ({ future, time, updateClientValue }) {
+const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
 
   var type = 'income';
 
@@ -44,7 +44,7 @@ const IncomeForm = function ({ future, time, updateClientValue }) {
         updateClientValue = { updateClientValue }
         generic='earned'
         labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-          How much money would you get paid in the future? (You can try different amounts)
+          { snippets.futureIncomeQuestion }
       </CashFlowInputsRow>
     </div>
   );
@@ -111,8 +111,9 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         navData   = { navData }>
         <IncomeForm
           updateClientValue = { updateClientValue }
-          future       = { client.future }
-          time         = { 'future' } />
+          future            = { client.future }
+          time              = { 'future' } 
+          snippets          = { snippets } />
         <Divider className='ui section divider hidden' />
         <Header
           as        ='h3'
