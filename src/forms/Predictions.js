@@ -106,7 +106,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = 'What Might Happen?'
+        title     = { snippets.title }
         clarifier = { null }
         navData   = { navData }>
         <IncomeForm
@@ -117,13 +117,13 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         <Header
           as        ='h3'
           className ='ui Header align centered'>
-            With the new pay, how could your benefits change?
+            { snippets.chartsHeader }
         </Header>
         <Message
           visible
           warning
           style={{ 'textAlign': 'center' }}>
-          This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
+          { snippets.warningMessage }
           <Button
             fluid
             color='teal'
@@ -134,7 +134,8 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
               'marginTop':   '10px',
               'maxWidth':    '400px', 
             }}
-            onClick={ openFeedback }>Submit Feedback
+            onClick={ openFeedback }>
+            { snippets.submitFeedback }
           </Button>
         </Message>
         <TabbedVisualizations client={ client } />

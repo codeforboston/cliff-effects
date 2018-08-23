@@ -262,6 +262,8 @@ export default {
       tabTitleStackedIncomes:  `Stacked Incomes`,
       tabTitleBenefitPrograms: `Benefit Programs`,
       chartsHeader:            `With the new pay, how could your benefits change?`,
+      warningMessage:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
+      submitFeedback:          `Submit Feedback`,
     },
   },
 };
