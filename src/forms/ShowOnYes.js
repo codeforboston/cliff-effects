@@ -54,7 +54,7 @@ class ShowOnYes extends React.Component {
       propName,
       question,
       heading,
-      children
+      children,
     } = this.props;
 
     const showChildren = clientPartial[ propName ];
