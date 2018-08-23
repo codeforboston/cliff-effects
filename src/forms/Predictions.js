@@ -119,17 +119,23 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           className ='ui Header align centered'>
             With the new pay, how could your benefits change?
         </Header>
-        <Message visible warning style={{ 'textAlign': 'center' }}>
+        <Message
+          visible
+          warning
+          style={{ 'textAlign': 'center' }}>
           This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
           <Button
             fluid
             color='teal'
-            style={{ 'display': 'block',
-                    'marginLeft': 'auto',
-                    'marginRight': 'auto',
-                    'marginTop': '10px',
-                    'maxWidth': '400px' }}
-            onClick={openFeedback}>Submit Feedback</Button>
+            style={{
+              'display':     'block',
+              'marginLeft':  'auto',
+              'marginRight': 'auto',
+              'marginTop':   '10px',
+              'maxWidth':    '400px', 
+            }}
+            onClick={ openFeedback }>Submit Feedback
+          </Button>
         </Message>
         <TabbedVisualizations client={ client } />
       </FormPartsContainer>
