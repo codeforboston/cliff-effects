@@ -1,6 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import {
   Segment,
   Header,
