@@ -7,9 +7,12 @@ import { Helmet } from 'react-helmet';
 
 import { Confirmer } from './utils/getUserConfirmation';
 
+// CUSTOM COMPONENTS
 import HomePage from './containers/HomePage';
 import AboutPage from './containers/AboutPage';
 import VisitPage from './containers/VisitPage';
+// Development HUD
+import { DevSwitch } from './containers/DevSwitch';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -21,12 +24,20 @@ import { getTextForLanguage } from './utils/getTextForLanguage';
 class App extends Component {
   constructor (props) {
     super(props);
-    this.state = { langCode: 'en', snippets: getTextForLanguage('en') };
+    this.state = {
+      langCode: 'en',
+      snippets: getTextForLanguage('en'),
+      devMode:  `off`,
+    };
   }
 
   setLanguage = (inputProps) => {
     var snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
+  };
+
+  setDev = (devMode) => {
+    this.setState({ devMode: devMode });
   };
 
   render () {
@@ -106,6 +117,17 @@ class App extends Component {
                     title="Cliff Effects Docs"
                     src="/docs/index.html" />);
               } } />
+
+            {/* For managing our development HUD */}
+            <Route
+              path = { `/dev` }
+              component={ (props) => { return (
+                <DevSwitch
+                  { ...props }
+                  setDev  = { this.setDev }
+                  devMode = { this.state.devMode } />
+              ); } } />
+
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
