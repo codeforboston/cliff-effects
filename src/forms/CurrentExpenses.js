@@ -23,8 +23,9 @@ import {
 } from './rentFields';
 import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
 import { HeadingWithDetail } from '../components/details';
-import { ExpensesOther } from './ExpensesOther';
-import { ShowOnYes } from './ShowOnYes';
+// Premature feature temporarily hidden to avoid messy revert
+// import { ExpensesOther } from './ExpensesOther';
+// import { ShowOnYes } from './ShowOnYes';
 
 // LOGIC
 import {
@@ -448,14 +449,16 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         type={ type }
         updateClientValue = { updateClientValue } />
 
-      <ShowOnYes
-        clientPartial = { current }
-        propName = { `wantsToSeeOtherExpenses` }
-        updateClientValue = { updateClientValue }
-        question = { `Do you want to enter your other expenses so you can see if you need to make a different plan?` }
-        heading = { `Other Expenses` }>
-        <ExpensesOther { ...sharedProps } />
-      </ShowOnYes>
+      {/* Premature feature temporarily hidden to avoid messy revert
+        <ShowOnYes
+          clientPartial = { current }
+          propName = { `wantsToSeeOtherExpenses` }
+          updateClientValue = { updateClientValue }
+          question = { `Do you want to enter your other expenses so you can see if you need to make a different plan?` }
+          heading = { `Other Expenses` }>
+          <ExpensesOther { ...sharedProps } />
+        </ShowOnYes>
+      */}
     </div>
   );
 
