@@ -19,23 +19,23 @@ import { Form, Message } from 'semantic-ui-react';
  */
 class CustomClient extends React.Component {
   state = {
-    client: null,
+    toLoad: null,  // parsed json
     error:  null,
     json:   '',
   };
 
-  loadClient = (client) => {
-    if (client === null) {
+  loadClient = (toLoad) => {
+    if (toLoad === null) {
       return;
     }
 
     this.setState({
-      client: null,
+      toLoad: null,
       error:  null,
       json:   '',
     });
 
-    this.props.loadClient({ client: client });
+    this.props.loadClient({ toLoad: toLoad });
   };
 
   reset = () => {
@@ -43,9 +43,9 @@ class CustomClient extends React.Component {
   };
 
   submit = (event) => {
-    const { client } = this.state;
+    const { toLoad } = this.state;
     event.preventDefault();
-    this.loadClient(client);
+    this.loadClient(toLoad);
   };
 
   handleChange = (_event, inputProps) => {
@@ -53,13 +53,13 @@ class CustomClient extends React.Component {
     try {
       const newClient = JSON.parse(value);
       this.setState({
-        client: newClient,
+        toLoad: newClient,
         error:  null,
         json:   value,
       });
     } catch (error) {
       this.setState({
-        client: null,
+        toLoad: null,
         error:  error,
         json:   value,
       });
@@ -67,10 +67,7 @@ class CustomClient extends React.Component {
   };
 
   render() {
-    if (!this.props.mayLoadCustomClient) {
-      return null;
-    }
-    const { client, error, json } = this.state;
+    const { toLoad, error, json } = this.state;
 
     return (
       <Form
@@ -90,7 +87,7 @@ class CustomClient extends React.Component {
         <div className = { `load-buttons` }>
           <Form.Button
             type={ 'submit' }
-            disabled={ client === null }>
+            disabled={ toLoad === null }>
             Import Data
           </Form.Button>
           <Form.Button

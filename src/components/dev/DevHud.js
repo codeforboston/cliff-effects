@@ -39,9 +39,8 @@ const DevMenu = function ({ devProps, funcs, data }) {
       <Menu.Item header>> Client</Menu.Item>
       <Menu.Item>
         <CustomClient
-          mayLoadCustomClient = { true }
-          loadClient          = { funcs.loadClient }
-          toRestore           = { data.defaultClient } />
+          loadClient = { funcs.loadClient }
+          toRestore  = { data.default } />
       </Menu.Item>
     </div>
   );
@@ -70,9 +69,9 @@ class DevHud extends Component {
         setDev = props.funcs.setDev;
 
     if (props.devProps.english) {
-      setDev('english', false);
+      setDev(`english`, false);
     } else {
-      setDev('english', true);
+      setDev(`english`, true);
     }
   };
 
@@ -81,9 +80,9 @@ class DevHud extends Component {
         setDev = props.funcs.setDev;
 
     if (props.devProps.nonEnglish) {
-      setDev('nonEnglish', false);
+      setDev(`nonEnglish`, false);
     } else {
-      setDev('nonEnglish', true);
+      setDev(`nonEnglish`, true);
     }
   };
 

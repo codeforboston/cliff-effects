@@ -40,6 +40,10 @@ class App extends Component {
         nonEnglish: true,
         load:       true,
       },
+      clients: {
+        default: defaults,
+        loaded:  defaults,
+      },
       devData:    { defaultClient: defaults },
       // This data doesn't get updated from user inputs
       clientData: defaults,
@@ -75,17 +79,14 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
-  loadClient = ({ client }) => {
+  loadClient = ({ toLoad }) => {
     this.setState((prevState) => {
 
-      const defaults = cloneDeep(prevState.devData.defaultClient),
-            newData  = cloneDeep(client),
-            current  = Object.assign(defaults.current, newData.current),
-            future   = Object.assign(defaults.future, newData.future);
+      const clients  = cloneDeep(prevState.clients),
+            defaults = cloneDeep(clients.default),
+            newData  = Object.assign(defaults, toLoad);
 
-      const nextClient = { current: current, future: future };
-
-      return { clientData: nextClient };
+      return { clients: { ...clients, loaded: newData }};
     });
   };
 
@@ -94,8 +95,8 @@ class App extends Component {
       langCode,
       snippets,
       devProps,
-      devData,
-      clientData,
+      // devData,
+      clients,
     } = this.state;
 
     // Confirms user navigation
@@ -104,7 +105,8 @@ class App extends Component {
         devFuncs  = {
           setDev:     this.setDev,
           loadClient: this.loadClient,
-        };
+        },
+        clientData = clients.loaded;
 
     return (
       <div
@@ -182,7 +184,7 @@ class App extends Component {
             <DevHud
               devProps = { devProps }
               funcs    = { devFuncs }
-              data     = { devData } />
+              data     = {{ default: clients.default }} />
             : null
         }
 
