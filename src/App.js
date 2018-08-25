@@ -11,12 +11,15 @@ import { Confirmer } from './utils/getUserConfirmation';
 import HomePage from './containers/HomePage';
 import AboutPage from './containers/AboutPage';
 import VisitPage from './containers/VisitPage';
+import Footer from './components/Footer';
+import Header from './components/Header';
+
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
 import { DevHud } from './components/dev/DevHud';
-
-import Footer from './components/Footer';
-import Header from './components/Header';
+// Object Manipulation
+import { cloneDeep } from 'lodash';
+import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
@@ -25,6 +28,9 @@ import { getTextForLanguage } from './utils/getTextForLanguage';
 class App extends Component {
   constructor (props) {
     super(props);
+
+    var defaults = cloneDeep(CLIENT_DEFAULTS);
+
     this.state = {
       langCode: `de`,
       snippets: getTextForLanguage(`de`),
@@ -32,7 +38,11 @@ class App extends Component {
         dev:        true,
         english:    true,
         nonEnglish: true,
+        load:       true,
       },
+      devData:    { defaultClient: defaults },
+      // This data doesn't get updated from user inputs
+      clientData: defaults,
     };
   }
 
@@ -65,16 +75,36 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
+  loadClient = ({ client }) => {
+    this.setState((prevState) => {
+
+      const defaults = cloneDeep(prevState.devData.defaultClient),
+            newData  = cloneDeep(client),
+            current  = Object.assign(defaults.current, newData.current),
+            future   = Object.assign(defaults.future, newData.future);
+
+      const nextClient = { current: current, future: future };
+
+      return { clientData: nextClient };
+    });
+  };
+
   render () {
     var {
       langCode,
       snippets,
       devProps,
+      devData,
+      clientData,
     } = this.state;
 
     // Confirms user navigation
     var confirmer = new Confirmer(),
-        classes   = this.propsToClasses(devProps);
+        classes   = this.propsToClasses(devProps),
+        devFuncs  = {
+          setDev:     this.setDev,
+          loadClient: this.loadClient,
+        };
 
     return (
       <div
@@ -117,26 +147,9 @@ class App extends Component {
                 return (
                   <VisitPage
                     { ...props }
-                    confirmer = { confirmer }
-                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/visit/load"
-              component={ (props) => {
-                return (
-                  <VisitPage
-                    { ...props }
-                    confirmer = { confirmer }
-                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/load"
-              component={ (props) => {
-                return (
-                  <VisitPage
-                    { ...props }
-                    confirmer = { confirmer }
-                    snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
+                    confirmer  = { confirmer }
+                    snippets   = {{ ...snippets.visitPage, langCode: snippets.langCode }}
+                    clientData = { clientData } />);
               } } />
 
             {/* Currently only works on published build */}
@@ -167,8 +180,9 @@ class App extends Component {
         {
           devProps.dev ?
             <DevHud
-              setDev   = { this.setDev }
-              devProps = { devProps } />
+              devProps = { devProps }
+              funcs    = { devFuncs }
+              data     = { devData } />
             : null
         }
 

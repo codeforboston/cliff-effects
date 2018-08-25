@@ -1,5 +1,6 @@
 import React from 'react';
-import { Divider, Form, Message } from 'semantic-ui-react';
+import { Form, Message } from 'semantic-ui-react';
+
 
 /**
  * Load previous session from object.
@@ -23,9 +24,7 @@ class CustomClient extends React.Component {
     json:   '',
   };
 
-  submit = (event) => {
-    const { client } = this.state;
-    event.preventDefault();
+  loadClient = (client) => {
     if (client === null) {
       return;
     }
@@ -35,7 +34,18 @@ class CustomClient extends React.Component {
       error:  null,
       json:   '',
     });
+
     this.props.loadClient({ client: client });
+  };
+
+  reset = () => {
+    this.loadClient(this.props.toRestore);
+  };
+
+  submit = (event) => {
+    const { client } = this.state;
+    event.preventDefault();
+    this.loadClient(client);
   };
 
   handleChange = (_event, inputProps) => {
@@ -77,12 +87,17 @@ class CustomClient extends React.Component {
           error
           header={ 'JSON Parse Failed!' }
           content={ error && error.message } />
-        <Form.Button
-          type={ 'submit' }
-          disabled={ client === null }>
-          Import Data
-        </Form.Button>
-        <Divider />
+        <div className = { `load-buttons` }>
+          <Form.Button
+            type={ 'submit' }
+            disabled={ client === null }>
+            Import Data
+          </Form.Button>
+          <Form.Button
+            onClick = { this.reset }>
+            Reset
+          </Form.Button>
+        </div>
       </Form>
     );
   }

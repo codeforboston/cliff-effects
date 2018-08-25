@@ -7,28 +7,41 @@ import {
 
 // PROJECT COMPONENTS
 import { HeadingWithDetail } from '../details';
+// Dev components
+import { CustomClient } from '../CustomClient';
 
 
-const DevMenu = function ({ devProps, funcs }) {
+const DevMenu = function ({ devProps, funcs, data }) {
 
+  /** @todo If there are enough dev features for it,
+   *    make menu categories collapsible. */
   return (
     <div>
+      <Menu.Item header>> Snippets</Menu.Item>
       <Menu.Item>
         <Checkbox
-          label   = { `Mark English snippets` }
-          checked = { devProps.english }
+          label    = { `Mark English snippets` }
+          checked  = { devProps.english }
           onChange = { funcs.english } />
       </Menu.Item>
       <Menu.Item>
         <HeadingWithDetail>
           <Checkbox
-            label   = { `Mark non-English snippets` }
-            checked = { devProps.nonEnglish }
+            label    = { `Mark non-English snippets` }
+            checked  = { devProps.nonEnglish }
             onChange = { funcs.nonEnglish } />
           <span>
             Note: text that doesn't have an underline (for reasons) has no snippets.
           </span>
         </HeadingWithDetail>
+      </Menu.Item>
+
+      <Menu.Item header>> Client</Menu.Item>
+      <Menu.Item>
+        <CustomClient
+          mayLoadCustomClient = { true }
+          loadClient          = { funcs.loadClient }
+          toRestore           = { data.defaultClient } />
       </Menu.Item>
     </div>
   );
@@ -37,41 +50,56 @@ const DevMenu = function ({ devProps, funcs }) {
 
 class DevHud extends Component {
 
-  state = { hiderText: `Hide` };
+  state = {
+    hiderText:  `^ --- Hide --- ^`,
+    toHideText: `^ --- Hide --- ^`,
+  };
 
   toggleHiding = () => {
     this.setState((prevState) => {
-      if (prevState.hiderText === `Hide`) {
-        return { hiderText: `Show dev HUD` };
+      if (prevState.hiderText === prevState.toHideText) {
+        return { hiderText: `v --- Show dev HUD --- v` };
       } else {
-        return { hiderText: `Hide` };
+        return { hiderText: prevState.toHideText };
       }
     });
   };
 
   toggleEnglish = () => {
-    if (this.props.devProps.english) {
-      this.props.setDev('english', false);
+    var props  = this.props,
+        setDev = props.funcs.setDev;
+
+    if (props.devProps.english) {
+      setDev('english', false);
     } else {
-      this.props.setDev('english', true);
+      setDev('english', true);
     }
   };
 
   toggleNonEnglish = () => {
-    if (this.props.devProps.nonEnglish) {
-      this.props.setDev('nonEnglish', false);
+    var props  = this.props,
+        setDev = props.funcs.setDev;
+
+    if (props.devProps.nonEnglish) {
+      setDev('nonEnglish', false);
     } else {
-      this.props.setDev('nonEnglish', true);
+      setDev('nonEnglish', true);
     }
   };
 
   render () {
 
     var hiderText = this.state.hiderText,
-        hidden    = hiderText !== `Hide`,
-        funcs     = {
+        hidden    = hiderText !== this.state.toHideText,
+        {
+          devProps,
+          funcs,
+          data,
+        } = this.props,
+        devFuncs     = {
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
+          loadClient: funcs.loadClient,
         };
 
     return (
@@ -81,13 +109,14 @@ class DevHud extends Component {
         vertical>
         { !hidden ?
           <DevMenu 
-            devProps = { this.props.devProps }
-            funcs    = { funcs } />
+            devProps = { devProps }
+            funcs    = { devFuncs }
+            data     = { data } />
           : null
         }
         <Button
           className = { `hide` }
-          onClick = { this.toggleHiding }>
+          onClick   = { this.toggleHiding }>
           { hiderText }
         </Button>
       </Menu>

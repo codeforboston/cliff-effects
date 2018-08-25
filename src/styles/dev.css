@@ -30,6 +30,11 @@
   white-space: nowrap;
 }
 
+.dev .load-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .dev .message {
   white-space: pre-wrap;
 }
