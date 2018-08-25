@@ -59,7 +59,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
       panes={ [
         { 
           menuItem: (
-            <Menu.Item key={ snippets.tabTitleChanges.props.children }>
+            <Menu.Item key="tab1">
               { snippets.tabTitleChanges }
             </Menu.Item>
           ),
@@ -67,7 +67,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
         },
         { 
           menuItem: (
-            <Menu.Item key={ snippets.tabTitleChangesChart.props.children }>
+            <Menu.Item key="tab2">
               { snippets.tabTitleChangesChart }
             </Menu.Item>
           ),  
@@ -75,7 +75,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
         },
         {
           menuItem: (
-            <Menu.Item key={ snippets.tabTitleStackedIncomes.props.children }>
+            <Menu.Item key="tab3">
               { snippets.tabTitleStackedIncomes }
             </Menu.Item>
           ),
@@ -91,7 +91,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
         },
         {
           menuItem: (
-            <Menu.Item key={ snippets.tabTitleBenefitPrograms.props.children }>
+            <Menu.Item key="tab4">
               { snippets.tabTitleBenefitPrograms }
             </Menu.Item>
           ),
