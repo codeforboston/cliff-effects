@@ -44,9 +44,6 @@ class App extends Component {
         default: defaults,
         loaded:  defaults,
       },
-      devData:    { defaultClient: defaults },
-      // This data doesn't get updated from user inputs
-      clientData: defaults,
     };
   }
 
@@ -95,7 +92,6 @@ class App extends Component {
       langCode,
       snippets,
       devProps,
-      // devData,
       clients,
     } = this.state;
 
