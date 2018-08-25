@@ -18,6 +18,14 @@
   height: 2em;
 }
 
+.dev .checkbox {
+  white-space: nowrap;
+}
+
+.dev .message {
+  white-space: pre-wrap;
+}
+
 .dev.english .snippet[lang="en"] {
   color: red;
   text-decoration: underline red double;

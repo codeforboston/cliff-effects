@@ -47,9 +47,10 @@ class App extends Component {
 
   setDev = (key, value) => {
     this.setState((prevState) => {
-      var props = prevState.dev;
+      var props = prevState.devProps;
       if (props[ key ] !== value) {
-        return { dev: { ...props, [ key ]: value }};
+        var newProps = { ...props, [ key ]: value };
+        return { devProps: newProps };
       }
     });
   };

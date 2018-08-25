@@ -48,7 +48,7 @@ class HeadingWithDetail extends Component {
     }
 
     return (
-      <div>
+      <div className = { `heading-with-detail` }>
         <div className={ `has-details` }>{ top }</div>
         <Icon
           name      = { iconName }
