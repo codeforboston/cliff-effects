@@ -4,12 +4,20 @@
 }
 
 #App .dev-hud {
-  position: absolute;
+  pointer-events: none;
+  position: fixed;
   align-self: flex-end;
   min-height: 0px;
   width: fit-content;
   display: flex;
   flex-direction: column;
+  background: rgba(255, 255, 255, .7);
+}
+
+.dev-hud input,
+.dev-hud button,
+.dev-hud .heading-with-detail i {
+  pointer-events: all;
 }
 
 .dev-hud .ui.hide {
