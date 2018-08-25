@@ -6,30 +6,30 @@ import {
 } from 'semantic-ui-react';
 
 
-const DevSwitch = function ({ setDev, devMode, history }) {
+const DevSwitch = function ({ setDev, devProps, history }) {
 
   var turnOn = function () {
-    setDev(`on`);
+    setDev(`dev`, true);
     history.goBack();
   };
 
   var turnOff = function () {
-    setDev(`off`);
+    setDev(`dev`, false);
     history.goBack();
   };
 
   return (
     <Segment
-      style = {{ margin: `10px` }}
+      className = { `dev-switch` }
       textAlign = { `center` } >
       <Header>Dev Mode</Header>
       <Button
-        disabled = { devMode === `on` }
+        disabled = { devProps.dev }
         onClick  = { turnOn }>
         On
       </Button>
       <Button
-        disabled = { devMode === `off` }
+        disabled = { !devProps.dev }
         onClick  = { turnOff }>
         Off
       </Button>

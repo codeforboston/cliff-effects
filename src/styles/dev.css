@@ -1,4 +1,8 @@
 
+#App .dev-switch {
+  margin: 1em;
+}
+
 #App .dev-hud {
   position: absolute;
   align-self: flex-end;
@@ -14,6 +18,12 @@
   height: 2em;
 }
 
-.dev *[lang="en"] {
+.dev.english .snippet[lang="en"] {
   color: red;
+  text-decoration: underline red double;
+}
+
+.dev.nonEnglish .snippet:not([lang="en"]) {
+  color: blue;
+  text-decoration: underline blue;
 }

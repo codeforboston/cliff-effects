@@ -26,9 +26,13 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      langCode: 'en',
-      snippets: getTextForLanguage('en'),
-      devMode:  `on`,
+      langCode: `de`,
+      snippets: getTextForLanguage(`de`),
+      devProps: {
+        dev:        true,
+        english:    true,
+        nonEnglish: true,
+      },
     };
   }
 
@@ -37,27 +41,47 @@ class App extends Component {
     this.setState({ language: inputProps.value, snippets: snippets });
   };
 
-  setDev = (devMode) => {
+  setDevMode = (devMode) => {
     this.setState({ devMode: devMode });
   };
 
+  setDev = (key, value) => {
+    this.setState((prevState) => {
+      var props = prevState.dev;
+      if (props[ key ] !== value) {
+        return { dev: { ...props, [ key ]: value }};
+      }
+    });
+  };
+
+  propsToClasses (obj) {
+    var classes = ``;
+    for (let key in obj) {
+      if (obj[ key ] === true) {
+        classes += ` ` + key;
+      }
+    }
+    return classes;
+  };  // End propsToClasses()
+
   render () {
-    var { langCode, snippets } = this.state;
+    var {
+      langCode,
+      snippets,
+      devProps,
+    } = this.state;
 
     // Confirms user navigation
-    var confirmer = new Confirmer();
+    var confirmer = new Confirmer(),
+        classes   = this.propsToClasses(devProps);
 
     return (
-      <div id='App'>
+      <div
+        id = { `App` }
+        className = { classes }>
         <Helmet>
           <html lang={ langCode } />
         </Helmet>
-
-        {
-          this.state.devMode === `on` ?
-            <DevHud />
-            : null
-        }
 
         <HashRouter getUserConfirmation={ confirmer.getConfirmation }>
           <div id='HashRouter'>
@@ -131,13 +155,21 @@ class App extends Component {
               component={ (props) => { return (
                 <DevSwitch
                   { ...props }
-                  setDev  = { this.setDev }
-                  devMode = { this.state.devMode } />
+                  setDev   = { this.setDev }
+                  devProps = { devProps } />
               ); } } />
 
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
+
+        {
+          devProps.dev ?
+            <DevHud
+              setDev   = { this.setDev }
+              devProps = { devProps } />
+            : null
+        }
 
       </div>
     );
