@@ -21,7 +21,7 @@ const DevSwitch = function ({ setDev, devProps, history }) {
   return (
     <Segment
       className = { `dev-switch` }
-      textAlign = { `center` } >
+      textAlign = { `center` }>
       <Header>Dev Mode</Header>
       <Button
         disabled = { devProps.dev }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Menu,
   Checkbox,
-  Message,
   Button,
 } from 'semantic-ui-react';
 
@@ -79,7 +78,7 @@ class DevHud extends Component {
       <Menu
         className = { `dev-hud` }
         compact
-        vertical >
+        vertical>
         { !hidden ?
           <DevMenu 
             devProps = { this.props.devProps }
@@ -88,7 +87,7 @@ class DevHud extends Component {
         }
         <Button
           className = { `hide` }
-          onClick = { this.toggleHiding } >
+          onClick = { this.toggleHiding }>
           { hiderText }
         </Button>
       </Menu>
