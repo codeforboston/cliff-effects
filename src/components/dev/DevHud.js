@@ -3,6 +3,7 @@ import {
   Menu,
   Checkbox,
   Button,
+  Dropdown,
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -10,8 +11,24 @@ import { HeadingWithDetail } from '../details';
 // Dev components
 import { CustomClient } from '../CustomClient';
 
+// DATA
+import { localizations } from '../../localization/all';
 
-const DevMenu = function ({ devProps, funcs, data }) {
+
+const DevMenu = function ({ devProps, funcs, data, state }) {
+
+  var langs    = localizations,
+      langOpts = [];
+
+  for (let key in langs) {
+    var snips = langs[ key ],
+        lang  = {
+          text:  snips.langName,
+          key:   snips.langCode,
+          value: snips.langCode,
+        };
+    langOpts.push(lang);
+  }
 
   /** @todo If there are enough dev features for it,
    *    make menu categories collapsible. */
@@ -34,6 +51,16 @@ const DevMenu = function ({ devProps, funcs, data }) {
             Note: text that doesn't have an underline (for reasons) has no snippets.
           </span>
         </HeadingWithDetail>
+      </Menu.Item>
+      <Menu.Item>
+        <Dropdown
+          fluid
+          search
+          selection
+          scrolling
+          defaultValue = { state.langCode }
+          options      = { langOpts }
+          onChange     = { funcs.setLanguage } />
       </Menu.Item>
 
       <Menu.Item header>> Client</Menu.Item>
@@ -94,11 +121,12 @@ class DevHud extends Component {
           devProps,
           funcs,
           data,
+          state,
         } = this.props,
         devFuncs     = {
+          ...funcs,
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
-          loadClient: funcs.loadClient,
         };
 
     return (
@@ -110,7 +138,8 @@ class DevHud extends Component {
           <DevMenu 
             devProps = { devProps }
             funcs    = { devFuncs }
-            data     = { data } />
+            data     = { data }
+            state    = { state } />
           : null
         }
         <Button

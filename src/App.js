@@ -17,6 +17,7 @@ import Header from './components/Header';
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
 import { DevHud } from './components/dev/DevHud';
+
 // Object Manipulation
 import { cloneDeep } from 'lodash';
 import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
@@ -47,7 +48,7 @@ class App extends Component {
     };
   }
 
-  setLanguage = (inputProps) => {
+  setLanguage = (evnt, inputProps) => {
     var snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
   };
@@ -99,8 +100,9 @@ class App extends Component {
     var confirmer = new Confirmer(),
         classes   = this.propsToClasses(devProps),
         devFuncs  = {
-          setDev:     this.setDev,
-          loadClient: this.loadClient,
+          setDev:      this.setDev,
+          loadClient:  this.loadClient,
+          setLanguage: this.setLanguage,
         },
         clientData = clients.loaded;
 
@@ -180,7 +182,8 @@ class App extends Component {
             <DevHud
               devProps = { devProps }
               funcs    = { devFuncs }
-              data     = {{ default: clients.default }} />
+              data     = {{ default: clients.default }}
+              state    = { this.state } />
             : null
         }
 
