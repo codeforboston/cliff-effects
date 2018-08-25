@@ -1,9 +1,6 @@
 language: node_js
 node_js:
   - 8
-cache:
-  directories:
-    - node_modules
 # Note: travis defaults used for install
 # If custom install desired, include `npm install`
 script:

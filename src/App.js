@@ -52,6 +52,7 @@ class App extends Component {
                     { ...props }
                     snippets={{ ...snippets.header, langCode: snippets.langCode }} />);
               } } />
+
             <Switch>
               <Route
                 exact
@@ -97,7 +98,19 @@ class App extends Component {
                       confirmer = { confirmer }
                       snippets  = {{ ...snippets.visitPage, langCode: snippets.langCode }} />);
                 } } />
+
+              {/* Currently only works on published build */}
+              <Route
+                path="/docs"
+                component={ () => {
+                  return (
+                    <iframe
+                      id="docsFrame"
+                      title="Cliff Effects Docs"
+                      src="/docs/index.html" />);
+                } } />
             </Switch>
+
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />

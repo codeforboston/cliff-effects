@@ -8,11 +8,9 @@ import {
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import {
-  FormPartsContainer,
-  AttentionArrow,
-} from './formHelpers';
-import { CashFlowRow } from './cashflow';
+import { FormPartsContainer } from './FormPartsContainer';
+import { AttentionArrow } from './formHelpers';
+import { CashFlowInputsRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 import {
   ContentH1,
@@ -24,6 +22,9 @@ import {
   PlainRentRow,
 } from './rentFields';
 import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
+import { HeadingWithDetail } from '../components/details';
+import { ExpensesOther } from './ExpensesOther';
+import { ShowOnYes } from './ShowOnYes';
 
 // LOGIC
 import {
@@ -147,18 +148,18 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
     return (
       <div>
         <IntervalColumnHeadings type={ type } />
-        <CashFlowRow
+        <CashFlowInputsRow
           { ...sharedProps }
           generic={ 'mortgage' }> Mortgage 
-        </CashFlowRow>
-        <CashFlowRow
+        </CashFlowInputsRow>
+        <CashFlowInputsRow
           { ...sharedProps }
           generic={ 'housingInsurance' }> Insurance Costs 
-        </CashFlowRow>
-        <CashFlowRow
+        </CashFlowInputsRow>
+        <CashFlowInputsRow
           { ...sharedProps }
           generic={ 'propertyTax' }> Property Tax 
-        </CashFlowRow>
+        </CashFlowInputsRow>
         <Utilities { ...sharedProps } />
       </div>
     );
@@ -299,26 +300,26 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             { snippets.unreimbursedNonMedicalChildCare.sectionHeading }
           </ContentH1>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childDirectCare' }> 
             { snippets.unreimbursedNonMedicalChildCare.childDirectCare.label }
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childBeforeAndAfterSchoolCare' }>
             { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.label}
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childTransportation' }> 
             { snippets.unreimbursedNonMedicalChildCare.childTransportation.label }
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childOtherCare' }> 
             { snippets.unreimbursedNonMedicalChildCare.childOtherCare.label }
-          </CashFlowRow>
+          </CashFlowInputsRow>
 
           <EarnedFrom
             hasExpenses   ={ getUnder13Expenses(current) !== 0 }
@@ -338,10 +339,10 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         <div>
           <ContentH1>Child Support</ContentH1>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support 
-          </CashFlowRow>
+          </CashFlowInputsRow>
         </div>
         : null
       }
@@ -354,18 +355,18 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             Dependent Care of Persons Over 12 Years of Age
           </ContentH1>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'adultDirectCare' }> Direct care costs 
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'adultTransportation' }> Transportation costs 
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'adultOtherCare' }> Other care 
-          </CashFlowRow>
+          </CashFlowInputsRow>
         </div>
         : null
       }
@@ -373,18 +374,22 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       { elderlyOrDisabled.length > 0
         ? 
         <div>
-          <ContentH1>Unreimbursed Disabled/Handicapped/Elderly Assistance</ContentH1>
-          <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
-          <div>Examples of eligible disability assistance expenses:</div>
-          <ul>
-            <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
-            <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
-          </ul>
+          <HeadingWithDetail>
+            <ContentH1>Unreimbursed Disabled/Handicapped/Elderly Assistance</ContentH1>
+            <div>
+              <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
+              <div>Examples of eligible disability assistance expenses:</div>
+              <ul>
+                <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
+                <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
+              </ul>
+            </div>
+          </HeadingWithDetail>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'disabledAssistance' }> Disabled/Handicapped assistance 
-          </CashFlowRow>
+          </CashFlowInputsRow>
 
           <EarnedFrom
             hasExpenses   ={ current.disabledAssistance !== 0 }
@@ -406,28 +411,33 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0)
         ? 
         <div>
-          <ContentH1>Unreimbursed Medical Expenses</ContentH1>
-          <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
-          <ul>
-            <li>The orthodontist expenses for a child’s braces.</li>
-            <li>Services of doctors and health care professionals.</li>
-            <li>Services of health care facilities.</li>
-            <li>Medical insurance premiums. </li>
-            <li>Prescription/non-prescription medicines (prescribed by a physician).</li>
-            <li>Transportation to treatment (cab fare, bus fare, mileage).</li>
-            <li>Dental expenses, eyeglasses, hearing aids, batteries.</li>
-            <li>Live-in or periodic medical assistance.</li>
-            <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
-          </ul>
+
+          <HeadingWithDetail>
+            <ContentH1>Unreimbursed Medical Expenses</ContentH1>
+            <div>
+              <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
+              <ul>
+                <li>The orthodontist expenses for a child’s braces.</li>
+                <li>Services of doctors and health care professionals.</li>
+                <li>Services of health care facilities.</li>
+                <li>Medical insurance premiums. </li>
+                <li>Prescription/non-prescription medicines (prescribed by a physician).</li>
+                <li>Transportation to treatment (cab fare, bus fare, mileage).</li>
+                <li>Dental expenses, eyeglasses, hearing aids, batteries.</li>
+                <li>Live-in or periodic medical assistance.</li>
+                <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
+              </ul>
+            </div>
+          </HeadingWithDetail>
           <IntervalColumnHeadings type={ type } />
-          <CashFlowRow
+          <CashFlowInputsRow
             { ...sharedProps }
             generic='disabledMedical'> Disabled/Elderly medical expenses 
-          </CashFlowRow>
-          <CashFlowRow
+          </CashFlowInputsRow>
+          <CashFlowInputsRow
             { ...sharedProps }
             generic='otherMedical'> Medical expenses of other members 
-          </CashFlowRow>
+          </CashFlowInputsRow>
         </div>
         : null
       }
@@ -437,6 +447,15 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         time={ time }
         type={ type }
         updateClientValue = { updateClientValue } />
+
+      <ShowOnYes
+        clientPartial = { current }
+        propName = { `wantsToSeeOtherExpenses` }
+        updateClientValue = { updateClientValue }
+        question = { `Do you want to enter your other expenses so you can see if you need to make a different plan?` }
+        heading = { `Other Expenses` }>
+        <ExpensesOther { ...sharedProps } />
+      </ShowOnYes>
     </div>
   );
 

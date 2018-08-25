@@ -1,18 +1,18 @@
 import React from 'react';
 
-import { CashFlowRow } from './cashflow';
+import { CashFlowInputsRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 
 const IncomeField = (props) => {
   return (
-    <CashFlowRow
+    <CashFlowInputsRow
       { ...props }
       type={ 'income' } />
   );
 };
 
 /**
- * Query the user before presenting a CashFlowRow
+ * Query the user before presenting a CashFlowInputsRow
  * 
  * @todo Update params
  * @todo Can we remove the requirement for jsdoc object descriptions?
@@ -25,7 +25,7 @@ const IncomeField = (props) => {
  * 
  * @returns {object} Component
  * @extends React.Component
- * @see CashFlowRow
+ * @see CashFlowInputsRow
  */
 class CashFlowRowAfterConfirm extends React.Component {
   constructor(props) {

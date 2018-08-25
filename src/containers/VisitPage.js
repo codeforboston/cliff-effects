@@ -379,6 +379,7 @@ class VisitPage extends Component {
         {/* = SECTION = */}
         {/* `padding` here duplicates previous `<Grid>` styleing */}
         <Container
+          id = { `cliff-effects-tool` }
           className='flex-item flex-column'
           style={{ padding: '42px 0' }}>
           <Responsive
