@@ -13,6 +13,7 @@ import AboutPage from './containers/AboutPage';
 import VisitPage from './containers/VisitPage';
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
+import { DevHud } from './components/dev/DevHud';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -27,7 +28,7 @@ class App extends Component {
     this.state = {
       langCode: 'en',
       snippets: getTextForLanguage('en'),
-      devMode:  `off`,
+      devMode:  `on`,
     };
   }
 
@@ -51,6 +52,12 @@ class App extends Component {
         <Helmet>
           <html lang={ langCode } />
         </Helmet>
+
+        {
+          this.state.devMode === `on` ?
+            <DevHud />
+            : null
+        }
 
         <HashRouter getUserConfirmation={ confirmer.getConfirmation }>
           <div id='HashRouter'>
@@ -131,6 +138,7 @@ class App extends Component {
           </div>
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
+
       </div>
     );
   }

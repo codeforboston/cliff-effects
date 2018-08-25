@@ -1,0 +1,19 @@
+
+#App .dev-hud {
+  position: absolute;
+  align-self: flex-end;
+  min-height: 0px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-hud .ui.hide {
+  margin: 0;
+  padding: 0.5em;
+  height: 2em;
+}
+
+.dev *[lang="en"] {
+  color: red;
+}
