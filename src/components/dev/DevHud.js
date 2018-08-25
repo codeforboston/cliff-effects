@@ -39,7 +39,7 @@ const DevMenu = function ({ devProps, funcs, data }) {
       <Menu.Item header>> Client</Menu.Item>
       <Menu.Item>
         <CustomClient
-          loadClient = { funcs.loadClient }
+          load       = { funcs.loadClient }
           toRestore  = { data.default } />
       </Menu.Item>
     </div>

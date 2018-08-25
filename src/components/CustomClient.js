@@ -3,17 +3,18 @@ import { Form, Message } from 'semantic-ui-react';
 
 
 /**
- * Load previous session from object.
- * @callback loadClient
- * @param {object} clientContainer - Object containing previous session as `client`.
+ * Propagate data from JSON object.
+ * @callback load
+ * @param {object} toLoad - Parsed JSON object to use.
+ * @todo Change to just 'load'? Change this component
+ *     to a more generic `<Load>`.
  */
 
 /**
- * Form which loads previous session from JSON.
+ * Accept data from a JSON object and send it back.
  * 
  * @param {object} props
- * @param {boolean} props.mayLoadCustomClient - Whether form should be visible
- * @param {loadClient} props.loadClient
+ * @param {load} props.load
  * 
  * @extends React.Component
  */
@@ -24,7 +25,7 @@ class CustomClient extends React.Component {
     json:   '',
   };
 
-  loadClient = (toLoad) => {
+  load = (toLoad) => {
     if (toLoad === null) {
       return;
     }
@@ -35,17 +36,17 @@ class CustomClient extends React.Component {
       json:   '',
     });
 
-    this.props.loadClient({ toLoad: toLoad });
+    this.props.load({ toLoad: toLoad });
   };
 
   reset = () => {
-    this.loadClient(this.props.toRestore);
+    this.load(this.props.toRestore);
   };
 
   submit = (event) => {
     const { toLoad } = this.state;
     event.preventDefault();
-    this.loadClient(toLoad);
+    this.load(toLoad);
   };
 
   handleChange = (_event, inputProps) => {
