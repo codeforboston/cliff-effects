@@ -39,11 +39,11 @@ const IncomeForm = function ({ future, time, updateClientValue }) {
       <IntervalColumnHeadings type={ type } />
       <CashFlowInputsRow
         timeState={ future }
-				  type={ type }
-				  time={ time }
-				  updateClientValue = { updateClientValue }
-				  generic='earned'
-				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+        type={ type }
+        time={ time }
+        updateClientValue = { updateClientValue }
+        generic='earned'
+        labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           How much money would you get paid in the future? (You can try different amounts)
       </CashFlowInputsRow>
     </div>
