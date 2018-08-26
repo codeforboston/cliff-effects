@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   HashRouter,
   Route,
+  Switch
 } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -124,54 +125,57 @@ class App extends Component {
                     { ...props }
                     snippets={{ ...snippets.header, langCode: snippets.langCode }} />);
               } } />
-            <Route
-              exact
-              path="/"
-              component={ (props) => {
-                return (
-                  <HomePage
-                    { ...props }
-                    snippets={{ ...snippets.homePage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/about"
-              component={ (props) => {
-                return (
-                  <AboutPage
-                    { ...props }
-                    snippets={{ ...snippets.aboutPage, langCode: snippets.langCode }} />);
-              } } />
-            <Route
-              path="/visit/:clientId/:visitId"
-              component={ (props) => {
-                return (
-                  <VisitPage
-                    { ...props }
-                    confirmer  = { confirmer }
-                    snippets   = {{ ...snippets.visitPage, langCode: snippets.langCode }}
-                    clientData = { clientData } />);
-              } } />
 
-            {/* Currently only works on published build */}
-            <Route
-              path="/docs"
-              component={ () => {
-                return (
-                  <iframe
-                    id="docsFrame"
-                    title="Cliff Effects Docs"
-                    src="/docs/index.html" />);
-              } } />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={ (props) => {
+                  return (
+                    <HomePage
+                      { ...props }
+                      snippets={{ ...snippets.homePage, langCode: snippets.langCode }} />);
+                } } />
+              <Route
+                path="/about"
+                component={ (props) => {
+                  return (
+                    <AboutPage
+                      { ...props }
+                      snippets={{ ...snippets.aboutPage, langCode: snippets.langCode }} />);
+                } } />
+              <Route
+                path="/visit/:clientId/:visitId"
+                component={ (props) => {
+                  return (
+                    <VisitPage
+                      { ...props }
+                      confirmer  = { confirmer }
+                      snippets   = {{ ...snippets.visitPage, langCode: snippets.langCode }}
+                      clientData = { clientData } />);
+                } } />
 
-            {/* For managing our development HUD */}
-            <Route
-              path = { `/dev` }
-              component={ (props) => { return (
-                <DevSwitch
-                  { ...props }
-                  setDev   = { this.setDev }
-                  devProps = { devProps } />
-              ); } } />
+              {/* Currently only works on published build */}
+              <Route
+                path="/docs"
+                component={ () => {
+                  return (
+                    <iframe
+                      id="docsFrame"
+                      title="Cliff Effects Docs"
+                      src="/docs/index.html" />);
+                } } />
+
+              {/* For managing our development HUD */}
+              <Route
+                path = { `/dev` }
+                component={ (props) => { return (
+                  <DevSwitch
+                    { ...props }
+                    setDev   = { this.setDev }
+                    devProps = { devProps } />
+                ); } } />
+            </Switch>
 
           </div>
         </HashRouter>
