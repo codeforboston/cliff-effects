@@ -147,6 +147,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           warning
           style={{ 'textAlign': 'center' }}>
           { snippets.warningMessage }
+          <br />
           <Button
             fluid
             color='teal'
