@@ -94,6 +94,35 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     >
       With the new pay, how could your benefits change?
     </Header>
+    <Message
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+      visible={true}
+      warning={true}
+    >
+      This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+      <br />
+      <Button
+        as="button"
+        color="teal"
+        fluid={true}
+        onClick={[Function]}
+        style={
+          Object {
+            "display": "block",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": "10px",
+            "maxWidth": "400px",
+          }
+        }
+      >
+        Submit Feedback
+      </Button>
+    </Message>
     <TabbedVisualizations
       client={
         Object {

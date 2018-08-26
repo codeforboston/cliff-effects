@@ -456,6 +456,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         heading = { `Other Expenses` }>
         <ExpensesOther { ...sharedProps } />
       </ShowOnYes>
+
     </div>
   );
 
