@@ -36,6 +36,10 @@ class App extends Component {
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
+      clients: {
+        default: defaults,
+        loaded:  defaults,
+      },
       // All these should be bools. For now, at least.
       // They get added as classes. May want to rethink.
       devProps: {
@@ -43,10 +47,6 @@ class App extends Component {
         english:    true,
         nonEnglish: true,
         load:       true,
-      },
-      clients: {
-        default: defaults,
-        loaded:  defaults,
       },
     };
   };  // End constructor()
