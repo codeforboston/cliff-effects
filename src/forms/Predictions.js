@@ -44,7 +44,7 @@ const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
         updateClientValue = { updateClientValue }
         generic='earned'
         labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-          { snippets.futureIncomeQuestion_v1 }
+        { snippets.futureIncomeQuestion_v1 }
       </CashFlowInputsRow>
     </div>
   );
@@ -63,7 +63,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
               { snippets.tabTitleChanges_v1 }
             </Menu.Item>
           ),
-          render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} 
+          render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;}, 
         },
         { 
           menuItem: (
@@ -71,7 +71,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
               { snippets.tabTitleChangesChart_v1 }
             </Menu.Item>
           ),  
-          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;} 
+          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;}, 
         },
         {
           menuItem: (
@@ -79,7 +79,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
               { snippets.tabTitleStackedIncomes_v1 }
             </Menu.Item>
           ),
-          render:   () => {
+          render: () => {
             return (
               <Tab.Pane>
                 <GraphHolder
@@ -95,7 +95,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
               { snippets.tabTitleBenefitPrograms_v1 }
             </Menu.Item>
           ),
-          render:   () => {
+          render: () => {
             return (
               <Tab.Pane>
                 <GraphHolder
@@ -140,7 +140,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         <Header
           as        ='h3'
           className ='ui Header align centered'>
-            { snippets.chartsHeader_v1 }
+          { snippets.chartsHeader_v1 }
         </Header>
         <Message
           visible
