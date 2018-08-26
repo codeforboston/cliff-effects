@@ -82,6 +82,19 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           "workersComp": 0,
         }
       }
+      snippets={
+        Object {
+          "chartsHeader": "With the new pay, how could your benefits change?",
+          "futureIncomeQuestion": "How much money would you get paid in the future? (You can try different amounts)",
+          "submitFeedback": "Submit Feedback",
+          "tabTitleBenefitPrograms": "Benefit Programs",
+          "tabTitleChanges": "Changes",
+          "tabTitleChangesChart": "Changes Chart",
+          "tabTitleStackedIncomes": "Stacked Incomes",
+          "title": "What Might Happen?",
+          "warningMessage": "This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.",
+        }
+      }
       time="future"
       updateClientValue={[Function]}
     />
@@ -240,6 +253,19 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             "wantsToSeeOtherExpenses": false,
             "workersComp": 0,
           },
+        }
+      }
+      snippets={
+        Object {
+          "chartsHeader": "With the new pay, how could your benefits change?",
+          "futureIncomeQuestion": "How much money would you get paid in the future? (You can try different amounts)",
+          "submitFeedback": "Submit Feedback",
+          "tabTitleBenefitPrograms": "Benefit Programs",
+          "tabTitleChanges": "Changes",
+          "tabTitleChangesChart": "Changes Chart",
+          "tabTitleStackedIncomes": "Stacked Incomes",
+          "title": "What Might Happen?",
+          "warningMessage": "This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.",
         }
       }
     />
