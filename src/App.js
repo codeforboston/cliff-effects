@@ -34,10 +34,12 @@ class App extends Component {
     var defaults = cloneDeep(CLIENT_DEFAULTS);
 
     this.state = {
-      langCode: `de`,
-      snippets: getTextForLanguage(`de`),
+      langCode: `en`,
+      snippets: getTextForLanguage(`en`),
+      // All these should be bools. For now, at least.
+      // They get added as classes. May want to rethink.
       devProps: {
-        dev:        true,
+        dev:        false,
         english:    true,
         nonEnglish: true,
         load:       true,
@@ -47,15 +49,11 @@ class App extends Component {
         loaded:  defaults,
       },
     };
-  }
+  };  // End constructor()
 
   setLanguage = (evnt, inputProps) => {
     var snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
-  };
-
-  setDevMode = (devMode) => {
-    this.setState({ devMode: devMode });
   };
 
   setDev = (key, value) => {
@@ -66,7 +64,18 @@ class App extends Component {
         return { devProps: newProps };
       }
     });
-  };
+  };  // End setDev()
+
+  loadClient = ({ toLoad }) => {
+    this.setState((prevState) => {
+
+      const clients  = cloneDeep(prevState.clients),
+            defaults = cloneDeep(clients.default),
+            newData  = Object.assign(defaults, toLoad);
+
+      return { clients: { ...clients, loaded: newData }};
+    });
+  };  // End loadClient()
 
   propsToClasses (obj) {
     var classes = ``;
@@ -78,17 +87,6 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
-  loadClient = ({ toLoad }) => {
-    this.setState((prevState) => {
-
-      const clients  = cloneDeep(prevState.clients),
-            defaults = cloneDeep(clients.default),
-            newData  = Object.assign(defaults, toLoad);
-
-      return { clients: { ...clients, loaded: newData }};
-    });
-  };
-
   render () {
     var {
       langCode,
@@ -97,8 +95,7 @@ class App extends Component {
       clients,
     } = this.state;
 
-    // Confirms user navigation
-    var confirmer = new Confirmer(),
+    var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
         classes   = this.propsToClasses(devProps),
         devFuncs  = {
           setDev:      this.setDev,
@@ -174,7 +171,7 @@ class App extends Component {
                     { ...props }
                     setDev   = { this.setDev }
                     devProps = { devProps } />
-                ); } } />
+                );} } />
             </Switch>
 
           </div>
@@ -193,7 +190,8 @@ class App extends Component {
 
       </div>
     );
-  }
+  };  // End render()
 }
+
 
 export default App;
