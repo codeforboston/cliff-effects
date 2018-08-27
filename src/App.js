@@ -14,6 +14,8 @@ import AboutPage from './containers/AboutPage';
 import VisitPage from './containers/VisitPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
+// sort of a component
+import { doIfTrue } from './components/doIfTrue';
 
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
@@ -36,7 +38,7 @@ class App extends Component {
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
-      clients: {
+      clients:  {
         default: defaults,
         loaded:  defaults,
       },
@@ -178,15 +180,13 @@ class App extends Component {
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
 
-        {
-          devProps.dev ?
-            <DevHud
-              devProps = { devProps }
-              funcs    = { devFuncs }
-              data     = {{ default: clients.default }}
-              state    = { this.state } />
-            : null
-        }
+        { doIfTrue(devProps.dev === true, (
+          <DevHud
+            devProps = { devProps }
+            funcs    = { devFuncs }
+            data     = {{ default: clients.default }}
+            state    = { this.state } />
+        ))}
 
       </div>
     );
