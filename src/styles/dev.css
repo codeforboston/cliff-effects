@@ -1,0 +1,50 @@
+
+#App .dev-switch {
+  margin: 1em;
+}
+
+#App .dev-hud {
+  pointer-events: none;
+  position: fixed;
+  align-self: flex-end;
+  min-height: 0px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, .7);
+}
+
+.dev-hud input,
+.dev-hud button,
+.dev-hud .heading-with-detail i {
+  pointer-events: all;
+}
+
+.dev-hud .ui.hide {
+  margin: 0;
+  padding: 0.5em;
+  height: 2em;
+}
+
+.dev .checkbox {
+  white-space: nowrap;
+}
+
+.dev .load-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dev .message {
+  white-space: pre-wrap;
+}
+
+.dev.english .snippet[lang="en"] {
+  color: red;
+  text-decoration: underline red double;
+}
+
+.dev.nonEnglish .snippet:not([lang="en"]) {
+  color: blue;
+  text-decoration: underline blue;
+}
