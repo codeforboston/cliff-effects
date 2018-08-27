@@ -48,7 +48,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
             checked  = { devProps.nonEnglish }
             onChange = { funcs.nonEnglish } />
           <span>
-            Note: text that doesn't have an underline (for reasons) has no snippets.
+            Note: text that doesn&apos;t have an underline (for reasons) has no snippets.
           </span>
         </HeadingWithDetail>
       </Menu.Item>
