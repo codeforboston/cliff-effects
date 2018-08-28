@@ -21,8 +21,13 @@ class FeedbackPrompt extends React.Component {
   handleInputChange = (event) => {
     // Source: https://reactjs.org/docs/forms.html#controlled-components
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+    let value;
+    if (target.type === 'checkbox') {
+      value = target.checked;
+    } else {
+      value = target.value;
+    }
 
     this.setState({ formData: Object.assign({}, this.state.formData, { [ name ]: value }) });
   };

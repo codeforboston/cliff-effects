@@ -22,7 +22,9 @@ export default {
   __lastName__:               <span>{ contributors[ contributors.length - 1 ] }</span>,
 
   // Footer
-  __heartIcon__: <Icon
-    name='heart'
-    size='small' />,
+  __heartIcon__: (
+    <Icon
+      name='heart'
+      size='small' />
+  ),
 };
