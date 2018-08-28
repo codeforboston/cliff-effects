@@ -120,7 +120,7 @@ class VisitPage extends Component {
 
   askForFeedback = (callback, promptText) => {
 
-    // When user exits feedback prompt somehow, 
+    // When user exits feedback prompt somehow,
     // close it before finishing the callback.
     var closePrompt = (isOk) => {
       this.setState({ promptData: { open: false }});
@@ -346,10 +346,11 @@ class VisitPage extends Component {
          * do this we might do this a different way at this
          * point. Perhaps a user's page should be a route
          * in VisitPage? Like our form sections will be? */}
-        {this.state.redirect ?
-          <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } /> :
+        { this.state.redirect ? (
+          <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } />
+        ) : (
           false
-        }
+        ) }
 
         {/* = SECTION = */}
         {/* `padding` here duplicates previous `<Grid>` styleing */}

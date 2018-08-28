@@ -62,7 +62,7 @@ class ShowOnYes extends React.Component {
     return (
       <div className = { `show-on-yes` }>
 
-      	<ContentH1>{ heading }</ContentH1>
+        <ContentH1>{ heading }</ContentH1>
         <ControlledRadioYesNo
           labelText         = { question }
           checked           = { showChildren }
