@@ -52,9 +52,9 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
  *
  * @returns Component
  */
-/** @todo Find elegant way to combine CashFlowRow and MonthlyCashFlowRow
+/** @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
       use `includes` array to include only certain columns perhaps. */
-const CashFlowRow = function ({ generic, timeState, updateClientValue, children }) {
+const CashFlowInputsRow = function ({ generic, timeState, updateClientValue, children }) {
 
   var updateClient = function (evnt, inputProps, data) {
     var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
@@ -106,7 +106,37 @@ const CashFlowRow = function ({ generic, timeState, updateClientValue, children 
     </CashFlowContainer>
   );
 
-};  // End CashFlowRow{} Component
+};  // End CashFlowInputsRow{} Component
+
+
+const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
+
+  var baseVal      = value || timeState[ generic ],
+      colClassName = `cashflow-column`,
+      weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
+      monthly      = toMoneyStr(baseVal),
+      yearly       = toMoneyStr(baseVal * 12);
+
+  /** @todo Make label a link to the input row */
+  return (
+    <div className = { `cashflow cashflow-display` }>
+      <div className = { colClassName + ` ` + generic + ` output-number` } >
+        { weekly }
+      </div>
+      <div className = { colClassName + ` ` + generic + ` output-number` } >
+        { monthly }
+      </div>
+      <div className = { colClassName + ` ` + generic + ` output-number` } >
+        { yearly }
+      </div>
+      <div className = { colClassName + ` cashflow-column-last-child` }>
+        <label>{ children }</label>
+      </div>
+
+    </div>
+  );
+
+};  // End <CashFlowDisplayRow>
 
 
 /** One row for _one_ cash flow input - a monthly value
@@ -158,7 +188,8 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
 
 
 export {
-  CashFlowRow,
-  MonthlyCashFlowRow,
   CashFlowContainer,
+  CashFlowInputsRow,
+  CashFlowDisplayRow,
+  MonthlyCashFlowRow,
 };

@@ -20,7 +20,7 @@ const SpaceHolder = function () {
 
 /** The row containing the big buttons at the bottom of each
 *     form section, such as 'Previous', 'Next', and 'New Client'.
-* 
+*
 * @object buttonProps
 * @property text {string} - Text to show on the button.
 * @property onClick {function} - Optional function to run on button click.
@@ -117,16 +117,15 @@ const FormPartsContainer = function({ title, clarifier, children, navData }) {
           textAlign='center'>
           { title }
         </Header>
-        { !clarifier
-          ? null
-          : (
-            <Header
-              as='h3'
-              textAlign='center'>
-              { clarifier }
-            </Header>
-          )
-        }
+        { !clarifier ? (
+          null
+        ) : (
+          <Header
+            as='h3'
+            textAlign='center'>
+            { clarifier }
+          </Header>
+        ) }
 
         { children }
 
@@ -138,4 +137,10 @@ const FormPartsContainer = function({ title, clarifier, children, navData }) {
     </Segment>
   );
 };  // End FormPartsContainer() Component
-export default FormPartsContainer;
+
+
+export {
+  SpaceHolder,
+  FormBottomRow,
+  FormPartsContainer,
+};

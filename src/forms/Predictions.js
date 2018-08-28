@@ -1,16 +1,15 @@
 import React from 'react';
-import { Form, Divider, Header, Tab } from 'semantic-ui-react';
+import { Form, Divider, Header, Tab, Message, Button } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-import FormPartsContainer from './FormPartsContainer';
+import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
-import { CashFlowRow } from './cashflow';
+import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
 import { BenefitsLineGraph } from './output/BenefitsLineGraph';
-
 
 // ========================================
 // COMPONENTS
@@ -38,15 +37,15 @@ const IncomeForm = function ({ future, time, updateClientValue }) {
   return (
     <div className='field-aligner two-column'>
       <IntervalColumnHeadings type={ type } />
-      <CashFlowRow
+      <CashFlowInputsRow
         timeState={ future }
-				  type={ type }
-				  time={ time }
-				  updateClientValue = { updateClientValue }
-				  generic='earned'
-				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+        type={ type }
+        time={ time }
+        updateClientValue = { updateClientValue }
+        generic='earned'
+        labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
           How much money would you get paid in the future? (You can try different amounts)
-      </CashFlowRow>
+      </CashFlowInputsRow>
     </div>
   );
 };  // End IncomeForm() Component
@@ -101,7 +100,7 @@ const TabbedVisualizations = ({ client }) => {
  *
  * @returns {object} Component
  */
-const PredictionsStep = function ({ updateClientValue, navData, client, snippets }) {
+const PredictionsStep = function ({ updateClientValue, navData, client, snippets, openFeedback }) {
 
   /** @todo Are these titles accurate now? */
   return (
@@ -120,6 +119,24 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           className ='ui Header align centered'>
             With the new pay, how could your benefits change?
         </Header>
+        <Message
+          visible
+          warning
+          style={{ 'textAlign': 'center' }}>
+          This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
+          <Button
+            fluid
+            color='teal'
+            style={{
+              'display':     'block',
+              'marginLeft':  'auto',
+              'marginRight': 'auto',
+              'marginTop':   '10px',
+              'maxWidth':    '400px', 
+            }}
+            onClick={ openFeedback }>Submit Feedback
+          </Button>
+        </Message>
         <TabbedVisualizations client={ client } />
       </FormPartsContainer>
     </Form>
