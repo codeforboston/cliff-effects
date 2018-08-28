@@ -60,6 +60,10 @@ Used to fill vertical space.
   justify-content: center;
 }
 
+.heading-with-detail {
+  white-space: nowrap;
+}
+
 #cliff-effects-tool .show-on-yes {
   display: inline-block;
 }
