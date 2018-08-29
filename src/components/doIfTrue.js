@@ -1,20 +1,14 @@
-/* If `bool` is `true`, run and return the given
- *     function or return the give component.
+/* If `bool` is `true`, return the given component,
+ *     otherwise returns `null`.
  *
  * @param {boolean} bool If `true`, do what is desired.
- * @param {object} toDo Function or Component to run or
- *     return if conditions are met.
+ * @param {object} toDo Component to return if
+ *     condition is met.
  */
 const doIfTrue = function (bool, toDo) {
 
   if (bool === true) {
-
-    if (typeof toDo === `function`) {
-      return toDo();
-    } else {  // If it's a Component
-      return toDo;
-    }
-
+    return toDo;
   } else {
     return null;
   }
