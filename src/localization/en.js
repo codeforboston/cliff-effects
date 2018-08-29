@@ -255,13 +255,15 @@ export default {
     },
 
     predictions: {
-      title:                   `What Might Happen?`,
-      futureIncomeQuestion:    `How much money would you get paid in the future? (You can try different amounts)`,
-      tabTitleChanges:         `Changes`,
-      tabTitleChangesChart:    `Changes Chart`,
-      tabTitleStackedIncomes:  `Stacked Incomes`,
-      tabTitleBenefitPrograms: `Benefit Programs`,
-      chartsHeader:            `With the new pay, how could your benefits change?`,
+      title_v1:                   `What Might Happen?`,
+      futureIncomeQuestion_v1:    `How much money would you get paid in the future? (You can try different amounts)`,
+      tabTitleChanges_v1:         `Changes`,
+      tabTitleChangesChart_v1:    `Changes Chart`,
+      tabTitleStackedIncomes_v1:  `Stacked Incomes`,
+      tabTitleBenefitPrograms_v1: `Benefit Programs`,
+      chartsHeader_v1:            `With the new pay, how could your benefits change?`,
+      warningMessage_v1:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
+      submitFeedback_v1:          `Submit Feedback`,
     },
   },
 };
