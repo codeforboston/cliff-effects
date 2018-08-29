@@ -219,7 +219,7 @@ export default {
         columnExpenseType:   `Expense`,
         childSupportPaidOut: {
           legallyObligated: `Legally obligated`,
-          childSupport:     ` child support`,
+          childSupport:     ` child support paid out`,
         },
       },
       housing: {
