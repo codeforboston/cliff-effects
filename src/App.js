@@ -15,7 +15,7 @@ import VisitPage from './containers/VisitPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
 // sort of a component
-import { doIfTrue } from './components/doIfTrue';
+import { renderIfTrue } from './components/renderIfTrue';
 
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
@@ -180,7 +180,7 @@ class App extends Component {
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
 
-        { doIfTrue(devProps.dev === true, (
+        { renderIfTrue(devProps.dev === true, (
           <DevHud
             devProps = { devProps }
             funcs    = { devFuncs }
