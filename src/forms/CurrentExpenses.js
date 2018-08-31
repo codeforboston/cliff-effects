@@ -21,11 +21,10 @@ import {
   RentShareField,
   PlainRentRow,
 } from './rentFields';
-import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
 import { HeadingWithDetail } from '../components/details';
 // Premature feature temporarily hidden to avoid messy revert
 // import { ExpensesOther } from './ExpensesOther';
-// import { ShowOnYes } from './ShowOnYes';
+import { ShowOnYes } from './ShowOnYes';
 
 // LOGIC
 import {
@@ -41,20 +40,34 @@ import { getUnder13Expenses } from '../utils/cashflow';
 // ========================================
 // COMPONENTS
 // ========================================
-const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
+const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
+
+  var reset = function (evnt) {
+    var { name, update } = propData;
+
+    update(evnt, {
+      name:  name,
+      value: 0,
+    });
+  };
 
   if (hasExpenses) {
 
-    // Because we're familiar with the benefit code, we
-    // happen to know these values don't need to be reset
-    // to 0, even if the client erases childcare expenses.
-    // Not sure if that's a great general practice, though.
+    var { name, client } = propData;
+    var showProps = {
+      propName: name,
+      show:     client[ name ] > 0,
+      question: label,
+      heading:  null,
+      onNo:     reset,
+    };
+
     return (
       <div className= { 'earned-from' }>
         <AttentionArrow />
-        <CashFlowRowAfterConfirm { ...cashflowProps }>
-          { children }
-        </CashFlowRowAfterConfirm>
+        <ShowOnYes { ...showProps }>
+          { CashFlowRow }
+        </ShowOnYes>
       </div>
     );
 
@@ -321,14 +334,21 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses   ={ getUnder13Expenses(current) !== 0 }
-            cashflowProps ={{
-              ...sharedProps,
-              generic:      'earnedBecauseOfChildCare',
-              confirmLabel: `If you didn't have that child care, would it change how much pay you can bring home?`,
-            }}>
-            How much less would you make?
-          </EarnedFrom>
+            hasExpenses = { getUnder13Expenses(current) !== 0 }
+            label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
+            propData = {{
+              client: current,
+              name:   `earnedBecauseOfChildCare`,
+              update: updateClientValue,
+            }}
+            CashFlowRow = {
+              <CashFlowInputsRow
+                { ...sharedProps }
+                generic = { `earnedBecauseOfChildCare` }>
+                { `How much less would you make?` }
+              </CashFlowInputsRow>
+            } />
+
         </div>
       ) : (
         null
@@ -391,14 +411,21 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses   ={ current.disabledAssistance !== 0 }
-            cashflowProps ={{
-              ...sharedProps,
-              generic:      'earnedBecauseOfAdultCare',
-              confirmLabel: `If you didn't have that assistance, would it change how much pay you can bring home?`,
-            }}>
-          How much less would you make?
-          </EarnedFrom>
+            hasExpenses = { getUnder13Expenses(current) !== 0 }
+            label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
+            propData = {{
+              client: current,
+              name:   `earnedBecauseOfAdultCare`,
+              update: updateClientValue,
+            }}
+            CashFlowRow = {
+              <CashFlowInputsRow
+                { ...sharedProps }
+                generic = { `earnedBecauseOfAdultCare` }>
+                { `How much less would you make?` }
+              </CashFlowInputsRow>
+            } />
+
         </div>
       ) : (
         null
