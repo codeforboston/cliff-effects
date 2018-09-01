@@ -42,6 +42,8 @@ import { getUnder13Expenses } from '../utils/cashflow';
 // ========================================
 const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
+  /** @todo Save amount temporarily when 'source'
+   *      amount is set to 0. */
   var reset = function (evnt) {
     var { name, update } = propData;
 

@@ -12,8 +12,8 @@ import { ContentH1 } from '../components/headings';
  * @param {string} props.propName Client prop name for unique radio input id.
  * @param {string} props.heading Heading for this section.
  * @param {object} props.children Components to be revealed.
- * @param {function} props.onYes Run when 'Yes' is selected.
- * @param {function} props.onNo Run when 'No' is selected.
+ * @param {function} [props.onYes] Run when 'Yes' is selected.
+ * @param {function} [props.onNo] Run when 'No' is selected.
  *
  * @returns {object} Component
  */
