@@ -58,7 +58,7 @@ class ShowOnYes extends React.Component {
       question,
       heading,
       children,
-      ...rest,
+      ...rest
     } = this.props;
 
     var show = this.state.show;

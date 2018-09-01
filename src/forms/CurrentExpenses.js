@@ -63,7 +63,7 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
       heading:  null,
       onNo:     reset,
       // `<Surrounder>` props
-      Left:     <AttentionArrow/>,
+      Left:     <AttentionArrow />,
     };
 
     return (
