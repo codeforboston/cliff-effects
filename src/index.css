@@ -223,7 +223,6 @@ input[type=number]::-webkit-outer-spin-button {
 buttons are put on the left side. */
 .radio-yes-no {
   display: flex;
-  margin-bottom: 1rem;
 }
 
 .ui.form .radio-yes-no .field {
@@ -246,8 +245,10 @@ buttons are put on the left side. */
   margin-right: 1rem;
 }
 
-.attention-arrow i.fitted.attention-font {
-  line-height: .6em;
+.attention-arrow i.fitted.attention-font:before {
+  /* Not sure where this style came from, but has to be fixed
+  * for vertical center alignment. */
+  line-height: normal;
 }
 
 /* Give padding between elements, but not at the start
@@ -329,4 +330,29 @@ i.icon.details-icon {
 /* In semantic-ui-react `.attached` is not included */
 .ui.attached.menu>.item:first-child {
   border-bottom-left-radius: 0;
+}
+
+
+/* =============== */
+/* LAYOUT */
+/* =============== */
+.question-spacer {
+  display: block;
+  height: 1em;
+}
+
+.surrounder .horizontal,
+.surrounder .vertical {
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: center;
+}
+
+.surrounder .horizontal {
+  flex-direction: row;
+}
+
+.surrounder .vertical {
+  flex-direction: column;
 }
