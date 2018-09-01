@@ -36,7 +36,7 @@ class App extends Component {
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
-      clients: {
+      clients:  {
         default: defaults,
         loaded:  defaults,
       },
