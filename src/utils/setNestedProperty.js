@@ -1,5 +1,5 @@
 import { valueFixers } from './valueFixers';
-import { sideEffects } from './sideEffects';
+import { getSideEffects } from './getSideEffects';
 
 const setNestedProperty = function ({ route, value, time }, { current, future }, previouslySetByUser) {
 
@@ -10,7 +10,7 @@ const setNestedProperty = function ({ route, value, time }, { current, future },
     var newEvent = { type: time, name: itemID, value: value };
     setValidCurrent(newEvent, current);
     setValidFuture(newEvent, future, previouslySetByUser);
-    doSideEffects({ current, future, itemID });
+    applySideEffects({ current, future, itemID });
 
   } else {
     // Get this key or index and remove it from list
@@ -19,7 +19,7 @@ const setNestedProperty = function ({ route, value, time }, { current, future },
       future:  future[ itemID ],
     };
     setNestedProperty({ route, value, time }, next, previouslySetByUser);
-    doSideEffects({ current, future, itemID });
+    applySideEffects({ current, future, itemID });
   }
 
 };  // End setNestedProperty()
@@ -54,10 +54,10 @@ const setValidFuture = function (evnt, newFuture, setByUser) {
  * @param {object} future
  * @param {string} itemID
  */
-const doSideEffects = function ({ current, future, itemID }) {
+const applySideEffects = function ({ current, future, itemID }) {
 
-  var addToCurrent = sideEffects[ itemID ](current),
-      addToFuture  = sideEffects[ itemID ](future);
+  var addToCurrent = getSideEffects(current, itemID),
+      addToFuture  = getSideEffects(future, itemID);
   Object.assign(current, addToCurrent);
   Object.assign(future, addToFuture);
 
@@ -73,5 +73,5 @@ export {
   setNestedProperty,
   setValidCurrent,
   setValidFuture,
-  doSideEffects,
+  applySideEffects,
 };
