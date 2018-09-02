@@ -84,6 +84,20 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
+          "benefitsTable": Object {
+            "columnBenefit_v1": "Benefit",
+            "columnCurrentBenefits_v1": "Current Benefits",
+            "columnDifference_v1": "Difference",
+            "columnNewEstimate_v1": "New Estimate",
+            "dollarSign_v1": "$",
+            "perMonth_v1": " / month",
+            "rowIncome_v1": "Income",
+            "rowNetTotal_v1": "Net Total",
+            "rowSNAP_v1": "SNAP",
+            "rowSection8_v1": "Section 8 Housing",
+            "rowTotalBenefits_v1": "Total Benefits",
+            "title_v1": "Changes",
+          },
           "chartsHeader_v1": "With the new pay, how could your benefits change?",
           "futureIncomeQuestion_v1": "How much money would you get paid in the future? (You can try different amounts)",
           "submitFeedback_v1": "Submit Feedback",
@@ -257,6 +271,20 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
+          "benefitsTable": Object {
+            "columnBenefit_v1": "Benefit",
+            "columnCurrentBenefits_v1": "Current Benefits",
+            "columnDifference_v1": "Difference",
+            "columnNewEstimate_v1": "New Estimate",
+            "dollarSign_v1": "$",
+            "perMonth_v1": " / month",
+            "rowIncome_v1": "Income",
+            "rowNetTotal_v1": "Net Total",
+            "rowSNAP_v1": "SNAP",
+            "rowSection8_v1": "Section 8 Housing",
+            "rowTotalBenefits_v1": "Total Benefits",
+            "title_v1": "Changes",
+          },
           "chartsHeader_v1": "With the new pay, how could your benefits change?",
           "futureIncomeQuestion_v1": "How much money would you get paid in the future? (You can try different amounts)",
           "submitFeedback_v1": "Submit Feedback",
