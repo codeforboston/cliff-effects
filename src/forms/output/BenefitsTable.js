@@ -30,6 +30,8 @@ const BenefitsTable = function (props) {
   var client = cloneDeep(props.client),
       curr   = client.current;
 
+  var snippets = props.snippets;
+
   var SNAPBenefitCurrent =  0,
       SNAPBenefitFuture  =  0,
       sec8BenefitCurrent = 0,
@@ -195,19 +197,19 @@ const BenefitsTable = function (props) {
           <Table.Row >
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>Benefit
+              width={ 3 }>{ snippets.columnBenefit_v1 }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>Current Benefits
+              width={ 3 }>{ snippets.columnCurrentBenefits_v1 }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>New Estimate
+              width={ 3 }>{ snippets.columnNewEstimate_v1 }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>Difference
+              width={ 3 }>{ snippets.columnDifference_v1 }
             </Table.Cell>
           </Table.Row>
         </Table.Header>
