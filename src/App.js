@@ -36,18 +36,18 @@ class App extends Component {
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
-      clients: {
+      clients:  {
         default: defaults,
         loaded:  defaults,
       },
       // All these should be bools. For now, at least.
       // They get added as classes. May want to rethink.
-      devProps: {
+      devProps: this.getPreviousDev({
         dev:        false,
         english:    true,
         nonEnglish: true,
-        load:       true,
-      },
+        loadClient:       true,
+      }),
     };
   };  // End constructor()
 
@@ -58,9 +58,13 @@ class App extends Component {
 
   setDev = (key, value) => {
     this.setState((prevState) => {
+
       var props = prevState.devProps;
       if (props[ key ] !== value) {
+
         var newProps = { ...props, [ key ]: value };
+        localStorage[ key ] = value;
+        
         return { devProps: newProps };
       }
     });
@@ -76,6 +80,22 @@ class App extends Component {
       return { clients: { ...clients, loaded: newData }};
     });
   };  // End loadClient()
+
+  getPreviousDev (defaults) {
+
+    var devProps = {};
+    for (let key in defaults) {
+
+      var local = localStorage[ key ];
+      if (localStorage[ key ] !== undefined) {
+        devProps[ key ] = local === `true`;
+      } else {
+        devProps[ key ] = defaults[ key ];
+      }
+    }  // end for defaults
+
+    return devProps;
+  };
 
   propsToClasses (obj) {
     var classes = ``;
