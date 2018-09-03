@@ -20,7 +20,7 @@ import { ContentH1 } from '../components/headings';
 class ShowOnYes extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { show: props.show || false };
+    this.state = { show: props.showAtStart || false };
   }
 
   handleChange = (evt, inputProps) => {

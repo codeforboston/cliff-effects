@@ -57,11 +57,11 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
     var { name, client } = propData;
     var showProps = {
-      propName: name,
-      show:     client[ name ] > 0,
-      question: label,
-      heading:  null,
-      onNo:     reset,
+      propName:    name,
+      showAtStart: client[ name ] > 0,
+      question:    label,
+      heading:     null,
+      onNo:        reset,
     };
 
     return (
