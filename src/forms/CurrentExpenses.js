@@ -63,6 +63,8 @@ import { getUnder13Expenses } from '../utils/cashflow';
  *     client data.
  * @param {function} props.propData update Updates client
  *     values
+ * 
+ * @returns Value that React can render
  */
 const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
