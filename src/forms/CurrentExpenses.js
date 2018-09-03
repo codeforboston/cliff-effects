@@ -413,7 +413,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses = { getUnder13Expenses(current) !== 0 }
+            hasExpenses = { client.disabledAssistance !== 0 }
             label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
             propData = {{
               client: current,
