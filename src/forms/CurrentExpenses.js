@@ -45,23 +45,23 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
   /** @todo Save amount temporarily when 'source'
    *      amount is set to 0. */
   var reset = function (evnt) {
-    var { name, update } = propData;
+    var { childPropName, update } = propData;
 
     update(evnt, {
-      name:  name,
+      name:  childPropName,
       value: 0,
     });
   };
 
   if (hasExpenses) {
 
-    var { name, client } = propData;
+    var { childPropName, client } = propData;
     var showProps = {
-      propName:    name,
-      showAtStart: client[ name ] > 0,
-      question:    label,
-      heading:     null,
-      onNo:        reset,
+      propName:            childPropName,
+      showChildrenAtStart: client[ childPropName ] > 0,
+      question:            label,
+      heading:             null,
+      onNo:                reset,
     };
 
     return (
@@ -339,9 +339,9 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             hasExpenses = { getUnder13Expenses(current) !== 0 }
             label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
             propData = {{
-              client: current,
-              name:   `earnedBecauseOfChildCare`,
-              update: updateClientValue,
+              client:        current,
+              childPropName: `earnedBecauseOfChildCare`,
+              update:        updateClientValue,
             }}
             CashFlowRow = {
               <CashFlowInputsRow
@@ -413,12 +413,12 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses = { client.disabledAssistance !== 0 }
+            hasExpenses = { current.disabledAssistance !== 0 }
             label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
             propData = {{
-              client: current,
-              name:   `earnedBecauseOfAdultCare`,
-              update: updateClientValue,
+              client:        current,
+              childPropName: `earnedBecauseOfAdultCare`,
+              update:        updateClientValue,
             }}
             CashFlowRow = {
               <CashFlowInputsRow
