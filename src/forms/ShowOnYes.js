@@ -8,8 +8,10 @@ import { ContentH1 } from '../components/headings';
  * Yes/No radio buttons. 'Yes' reveals the given Component(s)
  *
  * @param {object} props
+ * @param {string} props.showChildrenAtStart Whether to start with the
+ *     given children as showing or hidden.
+ * @param {string} props.childName Child name for unique radio input id.
  * @param {string} props.question Yes/no question for user to answer.
- * @param {string} props.propName Client prop name for unique radio input id.
  * @param {string} props.heading Heading for this section.
  * @param {object} props.children Components to be revealed.
  * @param {function} [props.onYes] Run when 'Yes' is selected.
@@ -53,7 +55,7 @@ class ShowOnYes extends React.Component {
   render() {
 
     const {
-      propName,
+      childName,
       question,
       heading,
       children,
@@ -68,7 +70,7 @@ class ShowOnYes extends React.Component {
         <ControlledRadioYesNo
           labelText         = { question }
           checked           = { show }
-          name              = { 'confirm_' + propName }
+          name              = { 'confirm_' + childName }
           updateClientValue = { this.handleChange } />
         
         {show ? (

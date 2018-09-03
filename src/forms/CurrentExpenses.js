@@ -57,7 +57,7 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
     var { childPropName, client } = propData;
     var showProps = {
-      propName:            childPropName,
+      childName:           childPropName,
       showChildrenAtStart: client[ childPropName ] > 0,
       question:            label,
       heading:             null,
