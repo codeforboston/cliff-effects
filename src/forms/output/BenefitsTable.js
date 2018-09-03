@@ -94,16 +94,19 @@ const BenefitsTable = function (props) {
 
 
   const SNAPBenefitRow = function(props){
-    if (!clone.current.hasSnap) {
+    let client = props.client;
+    let snippets = props.snippets
+
+    if (!client.current.hasSnap) {
       return (null);
     }
 
     return (
       <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>SNAP</Table.Cell>
-        <Table.Cell textAlign='right'>${SNAPBenefitCurrent} / month</Table.Cell>
-        <Table.Cell textAlign='right'>${SNAPBenefitFuture} / month</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } ${ Math.abs(SNAPDiff) } / month</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>{ snippets.rowSNAP_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {SNAPBenefitCurrent} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {SNAPBenefitFuture} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.dollarSign_v1 } { Math.abs(SNAPDiff) } { snippets.perMonth_v1 }</Table.Cell>
       </Table.Row>
     );
   };
@@ -216,7 +219,9 @@ const BenefitsTable = function (props) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow client={ clone } />
+          <SNAPBenefitRow 
+            client={ clone }
+            snippets={ snippets } />
           <Sec8BenefitRow client={ clone } />
           <TotalBenefitsRow client={ clone } />
           <IncomeRow />
