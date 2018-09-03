@@ -33,10 +33,18 @@ class App extends Component {
 
     var defaults = cloneDeep(CLIENT_DEFAULTS);
 
+    // Development variables are the only things stored
+    var localDev = localStorage.getItem(`cliffEffectsDevProps`);
+    if (typeof localDev !== `string`) {
+      localDev = {};
+    } else {
+      localDev = JSON.parse(localDev);
+    }
+
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
-      clients: {
+      clients:  {
         default: defaults,
         loaded:  defaults,
       },
@@ -46,7 +54,8 @@ class App extends Component {
         dev:        false,
         english:    true,
         nonEnglish: true,
-        load:       true,
+        loadClient: true,
+        ...localDev,
       },
     };
   };  // End constructor()
@@ -58,9 +67,13 @@ class App extends Component {
 
   setDev = (key, value) => {
     this.setState((prevState) => {
+
       var props = prevState.devProps;
       if (props[ key ] !== value) {
+
         var newProps = { ...props, [ key ]: value };
+        localStorage.setItem(`cliffEffectsDevProps`, JSON.stringify(newProps));
+        
         return { devProps: newProps };
       }
     });
