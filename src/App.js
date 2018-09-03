@@ -14,6 +14,8 @@ import AboutPage from './containers/AboutPage';
 import VisitPage from './containers/VisitPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
+// sort of a component
+import { renderIfTrue } from './components/renderIfTrue';
 
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
@@ -191,15 +193,13 @@ class App extends Component {
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
 
-        {
-          devProps.dev ?
-            <DevHud
-              devProps = { devProps }
-              funcs    = { devFuncs }
-              data     = {{ default: clients.default }}
-              state    = { this.state } />
-            : null
-        }
+        { renderIfTrue(devProps.dev === true, (
+          <DevHud
+            devProps = { devProps }
+            funcs    = { devFuncs }
+            data     = {{ default: clients.default }}
+            state    = { this.state } />
+        ))}
 
       </div>
     );
