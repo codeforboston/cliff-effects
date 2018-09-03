@@ -40,6 +40,30 @@ import { getUnder13Expenses } from '../utils/cashflow';
 // ========================================
 // COMPONENTS
 // ========================================
+
+/** Renders a yes/no choice that will reveal the cash
+ *     flow component given when the user selects 'yes'.
+ * 
+ * @note: We added this extra step between the user and
+ * the input because people kept skipping that question.
+ * 
+ * @param {object} props
+ * @param {bool} props.hasExpenses True if client has any
+ *     expenses here that could affect their income.
+ * @param {object} props.CashFlowRow To be rendered if user
+ *     chooses 'yes'.
+ * @param {string || object} props.label To be rendered as
+ *     the yes/no question.
+ * @param {object} props.propData Data for the prop changed
+ *     by the given cash flow component. (move component in
+ *     here?)
+ * @param {string} props.propData.childPropName Name of cash
+ *     flow client prop to be updated.
+ * @param {object} props.propData client Current or future
+ *     client data.
+ * @param {function} props.propData update Updates client
+ *     values
+ */
 const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   /** @todo Save amount temporarily when 'source'
