@@ -346,8 +346,8 @@ i.icon.details-icon {
 .surrounder .vertical {
   display: flex;
   justify-content: space-between;
-  align-content: space-between;
-  align-items: center;
+  align-content: stretch;
+  align-items: stretch;
 }
 
 .surrounder .horizontal {
