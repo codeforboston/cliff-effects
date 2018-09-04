@@ -71,11 +71,11 @@ class ShowOnYes extends React.Component {
         <ContentH1>{ heading }</ContentH1>
 
         <Surrounder { ...rest } >
-        <ControlledRadioYesNo
-          labelText         = { question }
-          checked           = { show }
-          name              = { 'confirm_' + childName }
-          updateClientValue = { this.handleChange } />
+          <ControlledRadioYesNo
+            labelText         = { question }
+            checked           = { show }
+            name              = { 'confirm_' + childName }
+            updateClientValue = { this.handleChange } />
         </Surrounder>
         
         {show ? (
