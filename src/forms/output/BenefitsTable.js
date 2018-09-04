@@ -25,12 +25,10 @@ const getSignSymbol = function (num) {
 };  // End getSignSymbol()
 
 
-const BenefitsTable = function (props) {
+const BenefitsTable = function ({ client, snippets }) {
 
-  var clone = cloneDeep(props.client),
-      curr   = clone.current;
-
-  var snippets = props.snippets;
+  var clone = cloneDeep(client);
+  var curr = clone.current;
 
   var sec8BenefitCurrent = 0,
       sec8BenefitFuture  = 0,
@@ -93,9 +91,7 @@ const BenefitsTable = function (props) {
         };
 
 
-  const SNAPBenefitRow = function(props){
-    let client = props.client;
-    let snippets = props.snippets
+  const SNAPBenefitRow = function({ client, snippets }){
 
     if (!client.current.hasSnap) {
       return (null);
@@ -104,15 +100,15 @@ const BenefitsTable = function (props) {
     return (
       <Table.Row>
         <Table.Cell style={ rowHeaderStyle }>{ snippets.rowSNAP_v1 }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {SNAPBenefitCurrent} { snippets.perMonth_v1 }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {SNAPBenefitFuture} { snippets.perMonth_v1 }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.dollarSign_v1 } { Math.abs(SNAPDiff) } { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 }{SNAPBenefitCurrent} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 }{SNAPBenefitFuture} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.dollarSign_v1 }{ Math.abs(SNAPDiff) } { snippets.perMonth_v1 }</Table.Cell>
       </Table.Row>
     );
   };
 
-  const Sec8BenefitRow  = function(props){
-    if (!clone.current.hasSection8) {
+  const Sec8BenefitRow  = function({ client }){
+    if (!client.current.hasSection8) {
       return (null);
     }
 
@@ -126,8 +122,8 @@ const BenefitsTable = function (props) {
     );
   };
 
-  const TotalBenefitsRow = function(props){
-    if (!clone.current.hasSnap || !clone.current.hasSection8) {
+  const TotalBenefitsRow = function({ client }){
+    if (!client.current.hasSnap || !client.current.hasSection8) {
       return (null);
     }
 
