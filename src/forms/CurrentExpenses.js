@@ -40,28 +40,54 @@ import { getUnder13Expenses } from '../utils/cashflow';
 // ========================================
 // COMPONENTS
 // ========================================
+
+/** Renders a yes/no choice that will reveal the cash
+ *     flow component given when the user selects 'yes'.
+ * 
+ * @note: We added this extra step between the user and
+ * the input because people kept skipping that question.
+ * 
+ * @param {object} props
+ * @param {bool} props.hasExpenses True if client has any
+ *     expenses here that could affect their income.
+ * @param {object} props.CashFlowRow To be rendered if user
+ *     chooses 'yes'.
+ * @param {string || object} props.label To be rendered as
+ *     the yes/no question.
+ * @param {object} props.propData Data for the prop changed
+ *     by the given cash flow component. (move component in
+ *     here?)
+ * @param {string} props.propData.childPropName Name of cash
+ *     flow client prop to be updated.
+ * @param {object} props.propData client Current or future
+ *     client data.
+ * @param {function} props.propData update Updates client
+ *     values
+ * 
+ * @returns Value that React can render
+ */
 const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   /** @todo Save amount temporarily when 'source'
    *      amount is set to 0. */
   var reset = function (evnt) {
-    var { name, update } = propData;
+    var { childPropName, update } = propData;
 
     update(evnt, {
-      name:  name,
+      name:  childPropName,
       value: 0,
     });
   };
 
   if (hasExpenses) {
 
-    var { name, client } = propData;
+    var { childPropName, client } = propData;
     var showProps = {
-      propName: name,
-      show:     client[ name ] > 0,
-      question: label,
-      heading:  null,
-      onNo:     reset,
+      childName:           childPropName,
+      showChildrenAtStart: client[ childPropName ] > 0,
+      question:            label,
+      heading:             null,
+      onNo:                reset,
       // `<Surrounder>` props
       Left:     <AttentionArrow />,
     };
@@ -340,9 +366,9 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
             hasExpenses = { getUnder13Expenses(current) !== 0 }
             label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
             propData = {{
-              client: current,
-              name:   `earnedBecauseOfChildCare`,
-              update: updateClientValue,
+              client:        current,
+              childPropName: `earnedBecauseOfChildCare`,
+              update:        updateClientValue,
             }}
             CashFlowRow = {
               <CashFlowInputsRow
@@ -414,12 +440,12 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses = { getUnder13Expenses(current) !== 0 }
+            hasExpenses = { current.disabledAssistance !== 0 }
             label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
             propData = {{
-              client: current,
-              name:   `earnedBecauseOfAdultCare`,
-              update: updateClientValue,
+              client:        current,
+              childPropName: `earnedBecauseOfAdultCare`,
+              update:        updateClientValue,
             }}
             CashFlowRow = {
               <CashFlowInputsRow
