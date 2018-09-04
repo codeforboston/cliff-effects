@@ -21,11 +21,10 @@ import {
   RentShareField,
   PlainRentRow,
 } from './rentFields';
-import CashFlowRowAfterConfirm from './CashFlowRowAfterConfirm';
 import { HeadingWithDetail } from '../components/details';
 // Premature feature temporarily hidden to avoid messy revert
 // import { ExpensesOther } from './ExpensesOther';
-// import { ShowOnYes } from './ShowOnYes';
+import { ShowOnYes } from './ShowOnYes';
 
 // LOGIC
 import {
@@ -41,20 +40,62 @@ import { getUnder13Expenses } from '../utils/cashflow';
 // ========================================
 // COMPONENTS
 // ========================================
-const EarnedFrom = function ({ hasExpenses, cashflowProps, children }) {
+
+/** Renders a yes/no choice that will reveal the cash
+ *     flow component given when the user selects 'yes'.
+ * 
+ * @note: We added this extra step between the user and
+ * the input because people kept skipping that question.
+ * 
+ * @param {object} props
+ * @param {bool} props.hasExpenses True if client has any
+ *     expenses here that could affect their income.
+ * @param {object} props.CashFlowRow To be rendered if user
+ *     chooses 'yes'.
+ * @param {string || object} props.label To be rendered as
+ *     the yes/no question.
+ * @param {object} props.propData Data for the prop changed
+ *     by the given cash flow component. (move component in
+ *     here?)
+ * @param {string} props.propData.childPropName Name of cash
+ *     flow client prop to be updated.
+ * @param {object} props.propData client Current or future
+ *     client data.
+ * @param {function} props.propData update Updates client
+ *     values
+ * 
+ * @returns Value that React can render
+ */
+const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
+
+  /** @todo Save amount temporarily when 'source'
+   *      amount is set to 0. */
+  var reset = function (evnt) {
+    var { childPropName, update } = propData;
+
+    update(evnt, {
+      name:  childPropName,
+      value: 0,
+    });
+  };
 
   if (hasExpenses) {
 
-    // Because we're familiar with the benefit code, we
-    // happen to know these values don't need to be reset
-    // to 0, even if the client erases childcare expenses.
-    // Not sure if that's a great general practice, though.
+    var { childPropName, client } = propData;
+    var showProps = {
+      childName:           childPropName,
+      showChildrenAtStart: client[ childPropName ] > 0,
+      question:            label,
+      heading:             null,
+      onNo:                reset,
+    };
+
     return (
       <div className= { 'earned-from' }>
         <AttentionArrow />
-        <CashFlowRowAfterConfirm { ...cashflowProps }>
-          { children }
-        </CashFlowRowAfterConfirm>
+        <ShowOnYes { ...showProps }>
+          { CashFlowRow }
+        </ShowOnYes>
       </div>
     );
 
@@ -321,14 +362,21 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses   ={ getUnder13Expenses(current) !== 0 }
-            cashflowProps ={{
-              ...sharedProps,
-              generic:      'earnedBecauseOfChildCare',
-              confirmLabel: `If you didn't have that child care, would it change how much pay you can bring home?`,
-            }}>
-            How much less would you make?
-          </EarnedFrom>
+            hasExpenses = { getUnder13Expenses(current) !== 0 }
+            label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
+            propData = {{
+              client:        current,
+              childPropName: `earnedBecauseOfChildCare`,
+              update:        updateClientValue,
+            }}
+            CashFlowRow = {
+              <CashFlowInputsRow
+                { ...sharedProps }
+                generic = { `earnedBecauseOfChildCare` }>
+                { `How much less would you make?` }
+              </CashFlowInputsRow>
+            } />
+
         </div>
       ) : (
         null
@@ -391,14 +439,21 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses   ={ current.disabledAssistance !== 0 }
-            cashflowProps ={{
-              ...sharedProps,
-              generic:      'earnedBecauseOfAdultCare',
-              confirmLabel: `If you didn't have that assistance, would it change how much pay you can bring home?`,
-            }}>
-          How much less would you make?
-          </EarnedFrom>
+            hasExpenses = { current.disabledAssistance !== 0 }
+            label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
+            propData = {{
+              client:        current,
+              childPropName: `earnedBecauseOfAdultCare`,
+              update:        updateClientValue,
+            }}
+            CashFlowRow = {
+              <CashFlowInputsRow
+                { ...sharedProps }
+                generic = { `earnedBecauseOfAdultCare` }>
+                { `How much less would you make?` }
+              </CashFlowInputsRow>
+            } />
+
         </div>
       ) : (
         null

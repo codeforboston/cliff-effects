@@ -1,13 +1,16 @@
 import { valueFixers } from './valueFixers';
+import { getSideEffects } from './getSideEffects';
 
 const setNestedProperty = function ({ route, value, time }, { current, future }, previouslySetByUser) {
-  
+
   var itemID = route.shift();
+
   if (route.length <= 0) {
-    // console.log( value );
+
     var newEvent = { type: time, name: itemID, value: value };
     setValidCurrent(newEvent, current);
     setValidFuture(newEvent, future, previouslySetByUser);
+    applySideEffects({ current, future, itemID });
 
   } else {
     // Get this key or index and remove it from list
@@ -16,6 +19,7 @@ const setNestedProperty = function ({ route, value, time }, { current, future },
       future:  future[ itemID ],
     };
     setNestedProperty({ route, value, time }, next, previouslySetByUser);
+    applySideEffects({ current, future, itemID });
   }
 
 };  // End setNestedProperty()
@@ -42,5 +46,32 @@ const setValidFuture = function (evnt, newFuture, setByUser) {
   return newFuture;
 };  // End setValidFuture()
 
+/** Trigger functions that could affect other client
+ *     values. Run after other client properties have
+ *     been set.
+ * 
+ * @param {object} current
+ * @param {object} future
+ * @param {string} itemID
+ */
+const applySideEffects = function ({ current, future, itemID }) {
 
-export { setNestedProperty };
+  var addToCurrent = getSideEffects(current, itemID),
+      addToFuture  = getSideEffects(future, itemID);
+  Object.assign(current, addToCurrent);
+  Object.assign(future, addToFuture);
+
+  return {
+    current: current,
+    future:  future,
+    itemID:  itemID,
+  };
+};
+
+
+export {
+  setNestedProperty,
+  setValidCurrent,
+  setValidFuture,
+  applySideEffects,
+};
