@@ -105,17 +105,17 @@ const BenefitsTable = function ({ client, snippets }) {
     );
   };
 
-  const Sec8BenefitRow  = function({ client }){
+  const Sec8BenefitRow  = function({ client, snippets }){
     if (!client.current.hasSection8) {
       return (null);
     }
 
     return (
       <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>Section 8 Housing</Table.Cell>
-        <Table.Cell textAlign='right'>${sec8BenefitCurrent} / month</Table.Cell>
-        <Table.Cell textAlign='right'>${sec8BenefitFuture} / month</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } ${ Math.abs(sec8Diff) } / month</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>{ snippets.rowSection8_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {sec8BenefitCurrent} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {sec8BenefitFuture} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } { snippets.dollarSign_v1 } { Math.abs(sec8Diff) } { snippets.perMonth_v1 }</Table.Cell>
       </Table.Row>
     );
   };
@@ -216,7 +216,9 @@ const BenefitsTable = function ({ client, snippets }) {
           <SNAPBenefitRow 
             client={ clonedClient }
             snippets={ snippets } />
-          <Sec8BenefitRow client={ clonedClient } />
+          <Sec8BenefitRow 
+            client={ clonedClient }
+            snippets={ snippets } />
           <TotalBenefitsRow client={ clonedClient } />
           <IncomeRow />
           <TotalsRow />
