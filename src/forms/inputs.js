@@ -131,7 +131,7 @@ class ManagedNumberField extends Component {
   };
 
   handleChange = (evnt, inputProps) => {
-    var { displayValidator, storeValidator, store, otherData } = this.props;
+    var { displayValidator, storeValidator, store, otherData, maximum } = this.props;
     var focusedVal = inputProps.value;
 
     // If doesn't pass display validator, don't store and don't change focusedVal
@@ -143,6 +143,14 @@ class ManagedNumberField extends Component {
       // If field contains an empty string, set value to be 0 (visible on blur)
       inputProps.value = '0';
     }
+
+    if(maximum) {
+      // Enforce maximum value
+      if (Boolean(parseFloat(focusedVal)) && focusedVal > maximum) {
+        inputProps.value = maximum;
+      }
+    }
+
     var valid = storeValidator(inputProps.value);
 
     if (valid) {
@@ -152,14 +160,21 @@ class ManagedNumberField extends Component {
   };  // End handleChange()
 
   render() {
-    var { valid, focused, focusedVal }      = this.state;
-    var { value, name, className, format }  = this.props;
+    var { valid, focused, focusedVal }              = this.state;
+    var { value, name, className, format, maximum } = this.props;
 
     // Format correctly when neighbors are updated, if needed
     if (!focused) {
       value = format(value);
     } else {
       value = focusedVal;
+    }
+
+    if(maximum) {
+      // Enforce maximum value
+      if (Boolean(value) && value > maximum) {
+        value = maximum;
+      }
     }
 
     /** @todo Different class for something 'future' that has a current value that isn't 0 */

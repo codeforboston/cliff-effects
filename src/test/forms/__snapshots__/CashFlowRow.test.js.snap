@@ -10,6 +10,7 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     className="cashflow-column"
     displayValidator={[Function]}
     format={[Function]}
+    maximum={19230.76}
     name="name"
     otherData={
       Object {
@@ -24,6 +25,7 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     className="cashflow-column"
     displayValidator={[Function]}
     format={[Function]}
+    maximum={83333.33}
     name="name"
     otherData={
       Object {
@@ -38,6 +40,7 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     className="cashflow-column"
     displayValidator={[Function]}
     format={[Function]}
+    maximum={999999.99}
     name="name"
     otherData={
       Object {

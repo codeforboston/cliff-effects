@@ -255,7 +255,8 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
           storeValidator   = { isNonNegWholeNumber }
           format           = { function (value) { return value; } }
           store            = { onMemberChange }
-          onBlur           = { function () { return true; } } />
+          onBlur           = { function () { return true; } }
+          maximum          = { 999 } />
       </Columns.Three>
 
       <Columns.Four>
