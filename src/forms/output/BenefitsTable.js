@@ -25,10 +25,10 @@ const getSignSymbol = function (num) {
 };  // End getSignSymbol()
 
 
-const BenefitsTable = function (props) {
+const BenefitsTable = function ({ client, snippets }) {
 
-  var client = cloneDeep(props.client),
-      curr   = client.current;
+  var clonedClient = cloneDeep(client);
+  var curr = clonedClient.current;
 
   var SNAPBenefitCurrent =  0,
       SNAPBenefitFuture  =  0,
@@ -36,13 +36,13 @@ const BenefitsTable = function (props) {
       sec8BenefitFuture  = 0;
 
   if (curr.hasSnap) {
-    SNAPBenefitCurrent = Math.round(getSNAPBenefits(client, 'current'));
-    SNAPBenefitFuture  = Math.round(getSNAPBenefits(client, 'future'));
+    SNAPBenefitCurrent = Math.round(getSNAPBenefits(clonedClient, 'current'));
+    SNAPBenefitFuture  = Math.round(getSNAPBenefits(clonedClient, 'future'));
   }
 
   if (curr.hasSection8) {
-    sec8BenefitCurrent = Math.round(getSection8Benefit(client, 'current'));
-    sec8BenefitFuture  = Math.round(getSection8Benefit(client, 'future'));
+    sec8BenefitCurrent = Math.round(getSection8Benefit(clonedClient, 'current'));
+    sec8BenefitFuture  = Math.round(getSection8Benefit(clonedClient, 'future'));
   }
 
   var SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
@@ -51,7 +51,7 @@ const BenefitsTable = function (props) {
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
       totalDiff           = SNAPDiff + sec8Diff,
       incomeCurrent       = Math.round(curr.earned),
-      incomeFuture        = Math.round(client.future.earned),
+      incomeFuture        = Math.round(clonedClient.future.earned),
       incomeDiff          = incomeFuture - incomeCurrent,
       netCurrent          = totalBenefitCurrent + incomeCurrent,
       netFuture           = totalBenefitFuture + incomeFuture,
@@ -89,37 +89,38 @@ const BenefitsTable = function (props) {
         };
 
 
-  const SNAPBenefitRow = function(props){
+  const SNAPBenefitRow = function({ client, snippets }){
+
     if (!client.current.hasSnap) {
       return (null);
     }
 
     return (
       <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>SNAP</Table.Cell>
-        <Table.Cell textAlign='right'>${SNAPBenefitCurrent} / month</Table.Cell>
-        <Table.Cell textAlign='right'>${SNAPBenefitFuture} / month</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } ${ Math.abs(SNAPDiff) } / month</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>{ snippets.rowSNAP_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {SNAPBenefitCurrent} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {SNAPBenefitFuture} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.dollarSign_v1 } { Math.abs(SNAPDiff) } { snippets.perMonth_v1 }</Table.Cell>
       </Table.Row>
     );
   };
 
-  const Sec8BenefitRow  = function(props){
+  const Sec8BenefitRow  = function({ client, snippets }){
     if (!client.current.hasSection8) {
       return (null);
     }
 
     return (
       <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>Section 8 Housing</Table.Cell>
-        <Table.Cell textAlign='right'>${sec8BenefitCurrent} / month</Table.Cell>
-        <Table.Cell textAlign='right'>${sec8BenefitFuture} / month</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } ${ Math.abs(sec8Diff) } / month</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>{ snippets.rowSection8_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {sec8BenefitCurrent} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.dollarSign_v1 } {sec8BenefitFuture} { snippets.perMonth_v1 }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } { snippets.dollarSign_v1 } { Math.abs(sec8Diff) } { snippets.perMonth_v1 }</Table.Cell>
       </Table.Row>
     );
   };
 
-  const TotalBenefitsRow = function(props){
+  const TotalBenefitsRow = function({ client }){
     if (!client.current.hasSnap || !client.current.hasSection8) {
       return (null);
     }
@@ -195,26 +196,30 @@ const BenefitsTable = function (props) {
           <Table.Row >
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>Benefit
+              width={ 3 }>{ snippets.columnBenefit_v1 }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>Current Benefits
+              width={ 3 }>{ snippets.columnCurrentBenefits_v1 }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>New Estimate
+              width={ 3 }>{ snippets.columnNewEstimate_v1 }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>Difference
+              width={ 3 }>{ snippets.columnDifference_v1 }
             </Table.Cell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow client={ client } />
-          <Sec8BenefitRow client={ client } />
-          <TotalBenefitsRow client={ client } />
+          <SNAPBenefitRow 
+            client={ clonedClient }
+            snippets={ snippets } />
+          <Sec8BenefitRow 
+            client={ clonedClient }
+            snippets={ snippets } />
+          <TotalBenefitsRow client={ clonedClient } />
           <IncomeRow />
           <TotalsRow />
         </Table.Body>
