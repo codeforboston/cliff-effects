@@ -122,7 +122,7 @@ const BenefitsTable = function ({ client, snippets }) {
     );
   };
 
-  const TotalBenefitsRow = function({ client }){
+  const TotalBenefitsRow = function({ client, snippets }){
     if (!client.current.hasSnap || !client.current.hasSection8) {
       return (null);
     }
@@ -132,22 +132,22 @@ const BenefitsTable = function ({ client, snippets }) {
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowHeaderStyle }>Total Benefits
+          style={ totalsRowHeaderStyle }>{ snippets.rowTotalBenefits_v1 }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>${totalBenefitCurrent} / month
+          style={ totalsRowStyle }>{ snippets.dollarSign_v1 }{totalBenefitCurrent} { snippets.perMonth_v1 }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>${totalBenefitFuture} / month
+          style={ totalsRowStyle }>{ snippets.dollarSign_v1 }{totalBenefitFuture} { snippets.perMonth_v1 }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } ${ Math.abs(totalDiff) } / month
+          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } { snippets.dollarSign_v1 }{ Math.abs(totalDiff) } { snippets.perMonth_v1 }
         </Table.Cell>
       </Table.Row>
     );
@@ -221,7 +221,9 @@ const BenefitsTable = function ({ client, snippets }) {
           <Sec8BenefitRow 
             client={ clone }
             snippets={ snippets } />
-          <TotalBenefitsRow client={ clone } />
+          <TotalBenefitsRow 
+            client={ clone } 
+            snippets={ snippets } />
           <IncomeRow />
           <TotalsRow />
         </Table.Body>
