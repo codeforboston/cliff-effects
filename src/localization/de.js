@@ -6,7 +6,12 @@ export default {
   header: {},
 
   footer: {
-    header:    `Cliff Effects Tool`,
+    header: [
+      {
+        name: `__githubRepoLink__`,
+        text: `Cliff Effects Werkzeug`,
+      },
+    ],
     cfbCredit: [
       `Mit `,
       { name: `__heartIcon__` },
