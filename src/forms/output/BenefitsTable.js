@@ -164,28 +164,28 @@ const BenefitsTable = function ({ client, snippets }) {
     );
   };
 
-  const TotalsRow = function (props) {
+  const TotalsRow = function ({ snippets }) {
     return (
       <Table.Row style={{ border: 'none' }}>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowHeaderStyle }>Net Total
+          style={ totalsRowHeaderStyle }>{ snippets.rowNetTotal_v1}
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>${netCurrent} / month
+          style={ totalsRowStyle }>{ snippets.dollarSign_v1 }{netCurrent} { snippets.perMonth_v1 }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>${netFuture} / month
+          style={ totalsRowStyle }>{ snippets.dollarSign_v1 }{netFuture} { snippets.perMonth_v1 }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } ${ Math.abs(netDiff) } / month
+          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } { snippets.dollarSign_v1 }{ Math.abs(netDiff) } { snippets.perMonth_v1 }
         </Table.Cell>
       </Table.Row>
     );
@@ -225,7 +225,7 @@ const BenefitsTable = function ({ client, snippets }) {
             client={ clone } 
             snippets={ snippets } />
           <IncomeRow snippets={ snippets } />
-          <TotalsRow />
+          <TotalsRow snippets={ snippets } />
         </Table.Body>
       </Table>
     </div>
