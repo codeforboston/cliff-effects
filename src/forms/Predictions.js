@@ -68,7 +68,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
               <Tab.Pane>
                 <BenefitsTable
                   client={ client }
-                  snippets={ snippets.benefitsTable } />
+                  snippets={ snippets } />
               </Tab.Pane>
             );
           },

@@ -10,7 +10,7 @@ test('Benefits table renders correctly', () => {
   const rendered = renderer.create(
     <BenefitsTable 
       client={ CLIENT_DEFAULTS } 
-      snippets={ snippets.visitPage.predictions.benefitsTable } />
+      snippets={ snippets.visitPage.predictions } />
   );
   expect(rendered.toJSON()).toMatchSnapshot();
 });
