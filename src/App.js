@@ -80,7 +80,9 @@ class App extends Component {
     this.setState({ language: inputProps.value, snippets: snippets });
   };
 
-  /** Set the value of a specified key in the app state's devProps
+  /** Set the value of a specified key in the app state's devProps.
+   * These keys should only be set to boolean values (@todo enforce only allowing boolean values?).
+   * Keys with a value of true are added (later, not in this function) as classes to the app's main element.
    * @param {string} key - The key whose value is to be changed in the app state's devProps
    * @param {boolean} value - The value to be set for the given key in the app state's devProps
    */
