@@ -78,7 +78,7 @@ getData.section8 = function (xRange, client, multiplier) {
 /**
  * @param {array} xRange All income values to be included.
  */
-const putInBenefitData = function (xRange, clone, multiplier, benefitDatasets) {
+const insertBenefitData = function (xRange, clone, multiplier, benefitDatasets) {
 
   // Don't loop if there's nothing to do
   if (benefitDatasets.length === 0) {
@@ -111,7 +111,7 @@ const putInBenefitData = function (xRange, clone, multiplier, benefitDatasets) {
   }  // end for all incomes
 
   return benefitDatasets;
-};  // End putInBenefitData()
+};  // End insertBenefitData()
 
 
 /** Returns the graph data formated in a way our graph library understands.
@@ -144,7 +144,7 @@ const getDatasets = function (xRange, client, multiplier, activeBenefits, extraP
   }  // end for benefits (in correct order)
 
   // Mutates each `.data` prop for each benefit
-  putInBenefitData(xRange, clone, multiplier, datasets);
+  insertBenefitData(xRange, clone, multiplier, datasets);
 
   return datasets;
 };  // End getDatasets()
@@ -154,5 +154,6 @@ export {
   benefitOrder,
   getBenefit,
   getData,
+  insertBenefitData,
   getDatasets,
 };
