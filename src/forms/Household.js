@@ -152,7 +152,7 @@ const Role = function ({ member, setMember, snippets }) {
 
     var options = [
       { text: snippets.spouse, value: 'spouse' },
-      { text: snippets.childOther, value: 'member' }, 
+      { text: snippets.childOther, value: 'member' },
     ];
 
     ThisRole = <Dropdown
@@ -220,21 +220,23 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
       key={ indx }>
 
       <Columns.One>
-        { indx > 0
-          ? <MemberButton
+        { indx > 0 ? (
+          <MemberButton
             className={ 'remove' }
             onClick={ removeMember }
             iconName={ 'remove' } />
-          :
-          <span>{ household.length > 1
-            ? <Icon
-              fitted
-              name={ 'ban' }
-              style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
-            : null
-          }
+        ) : (
+          <span>
+            { household.length > 1 ? (
+              <Icon
+                fitted
+                name={ 'ban' }
+                style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+            ) : (
+              null
+            ) }
           </span>
-        }
+        ) }
       </Columns.One>
 
       <Columns.Two>
@@ -328,9 +330,12 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
 
   var addMember = function (evnt, inputProps) {
 
-    var member = household.length === 1
-      ? { m_age: 30, m_role: 'spouse', m_disabled: false }
-      : { m_age: 12, m_role: 'member', m_disabled: false };
+    var member;
+    if (household.length === 1) {
+      member = { m_age: 30, m_role: 'spouse', m_disabled: false };
+    } else {
+      member = { m_age: 12, m_role: 'member', m_disabled: false };
+    }
 
     household.push(member);
     setHousehold(evnt, household);
@@ -365,7 +370,7 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
         <Columns.Two noMargin={ true }>
           <Header
             as='h4'
-            color={ 'teal' }> 
+            color={ 'teal' }>
             { snippets.addMember }
           </Header>
         </Columns.Two>

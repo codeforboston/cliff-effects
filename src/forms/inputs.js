@@ -65,6 +65,7 @@ class ControlledRadioYesNo extends Component {
 
 
   render(){
+
     return (
       <div className="radio-yes-no">
 

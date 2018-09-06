@@ -6,7 +6,12 @@ export default {
   header: {},
 
   footer: {
-    header:         `Cliff Effects Tool`,
+    header: [
+      {
+        name: `__githubRepoLink__`,
+        text: `Cliff Effects Herriamienta`,
+      },
+    ],
     cfbCreditIntro: `Made with `,
     cfbCredit:      ` by Code for Boston`,
   },

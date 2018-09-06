@@ -29,34 +29,24 @@ import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 
-// Dev Components
-import { CustomClient } from '../components/CustomClient';
-
 class VisitPage extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
-
-    var { location, match } = this.props;
-
-    // @todo use visitId to upload last file if possible?
-    var wantLoad = false;
-    if (location.pathname.indexOf('/load') !== -1) {
-      wantLoad = true;
-    }
-
-    var clone = cloneDeep(CLIENT_DEFAULTS);
+    var {
+      match,
+      clientData,
+    } = this.props;
 
     this.state = {
-      clientInfo:          match.params.clientId,
-      visitId:             match.params.visitId,
-      mayLoadCustomClient: wantLoad,
-      currentStep:         1,
-      isBlocking:          false,
-      redirect:            false,
-      client:              clone,
+      clientInfo:  match.params.clientId,
+      visitId:     match.params.visitId,
+      currentStep: 1,
+      isBlocking:  false,
+      redirect:    false,
+      client:      clientData,
       // For `FeedbackPrompt`
-      promptData:          {
+      promptData:  {
         open:      false,  // Start as hidden
         message:   '',
         header:    '',
@@ -65,7 +55,7 @@ class VisitPage extends Component {
       },
       feedbackFormRequested: false,
       // Hack for MVP
-      oldHousing:            clone.current.housing,
+      oldHousing:            clientData.current.housing,
       userChanged:           {},
       snippets:              props.snippets,
     };  // end this.state {}
@@ -101,17 +91,6 @@ class VisitPage extends Component {
 
   };  // End constructor()
 
-  loadClient = ({ client }) => {
-    const defaultClient = cloneDeep(CLIENT_DEFAULTS);
-
-    const current = Object.assign(defaultClient.current, client.current);
-    const future = Object.assign(defaultClient.future, client.future);
-
-    const nextClient = { current: current, future: future };
-
-    this.setState({ client: nextClient });
-  };
-
   resetClientIfOk = (shouldReset) => {
 
     if (!shouldReset) {
@@ -141,7 +120,7 @@ class VisitPage extends Component {
 
   askForFeedback = (callback, promptText) => {
 
-    // When user exits feedback prompt somehow, 
+    // When user exits feedback prompt somehow,
     // close it before finishing the callback.
     var closePrompt = (isOk) => {
       this.setState({ promptData: { open: false }});
@@ -278,12 +257,8 @@ class VisitPage extends Component {
     /** @todo With new interpolation, is this needed anymore? */
     formSnippets.langCode = this.state.snippets.langCode;
 
-
     return (
       <div>
-        <CustomClient
-          mayLoadCustomClient={ this.state.mayLoadCustomClient }
-          loadClient={ this.loadClient } />
         <FormSection
           currentStep={ this.state.currentStep }
           client={ this.state.client }
@@ -371,10 +346,11 @@ class VisitPage extends Component {
          * do this we might do this a different way at this
          * point. Perhaps a user's page should be a route
          * in VisitPage? Like our form sections will be? */}
-        {this.state.redirect ?
-          <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } /> :
+        { this.state.redirect ? (
+          <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } />
+        ) : (
           false
-        }
+        ) }
 
         {/* = SECTION = */}
         {/* `padding` here duplicates previous `<Grid>` styleing */}
