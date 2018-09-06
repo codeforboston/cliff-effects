@@ -28,8 +28,13 @@ import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
 
+/** App component; main top-level component of the app */
 // Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
 class App extends Component {
+  /**
+   * Create App component instance
+   * @param {object} props - React props passed to the App component
+   */
   constructor (props) {
     super(props);
 
@@ -62,11 +67,19 @@ class App extends Component {
     };
   };  // End constructor()
 
+  /** Set the language of the app
+   * @param {object} evnt - An event object, which is not actually used in the function but is passed in by Semantic UI React input components
+   * @param {object} inputProps - An object representing the properties of the Semantic UI React input component which triggered the language change
+  */
   setLanguage = (evnt, inputProps) => {
     var snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
   };
 
+  /** Set the value of a specified key in the app state's devProps
+   * @param {string} key - The key whose value is to be changed in the app state's devProps
+   * @param {boolean} value - The value to be set for the given key in the app state's devProps
+   */
   setDev = (key, value) => {
     this.setState((prevState) => {
 
@@ -81,6 +94,9 @@ class App extends Component {
     });
   };  // End setDev()
 
+  /** Load an individual client's data @techExpertisePlease from what source? Where does toLoad come from?
+   * @param {object} toLoad - An object representing the client data to be loaded @techExpertisePlease does this have a specific shape? Or format (ie is it JSON or something?)
+   */
   loadClient = ({ toLoad }) => {
     this.setState((prevState) => {
 
@@ -92,6 +108,9 @@ class App extends Component {
     });
   };  // End loadClient()
 
+  /** Convert an object (ie devProps object) to a... string? @techExpertisePlease not too familiar with backticks and template literals... is this a string being created? Or a template? Or something else?
+   * @param {object} - the object to be converted to a... string? @techExpertisePlease not too familiar with backticks and template literals... is this a string being created? Or a template? Or something else?
+  */
   propsToClasses (obj) {
     var classes = ``;
     for (let key in obj) {
@@ -102,6 +121,7 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
+  /** Render the App component */
   render () {
     var {
       langCode,
