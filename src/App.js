@@ -71,9 +71,9 @@ class App extends Component {
     };
   };  // End constructor()
 
-  /** Set the language of the app
-   * @param {object} evnt - An event object, which is not actually used in the function but is passed in by Semantic UI React input components
-   * @param {object} inputProps - An object representing the properties of the Semantic UI React input component which triggered the language change
+  /** Set the human language of the app (ie the language in which the UI will display text for users to read, NOT the coding language).
+   * @param {object} evnt - An event object, which is not actually used in the function but is passed in by Semantic UI React input components.
+   * @param {object} inputProps - An object representing the properties of the Semantic UI React input component which triggered the language change.
   */
   setLanguage = (evnt, inputProps) => {
     var snippets = getTextForLanguage(inputProps.value);
