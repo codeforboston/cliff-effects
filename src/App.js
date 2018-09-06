@@ -28,8 +28,11 @@ import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
 
-/** App component; main top-level component of the app */
-// Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
+/** App component; main top-level component of the app.
+ * You can hange the HashRouter tags in the App class declaration (below if you are viewing this comment in the source code) to Router tags to turn off hash routing; only used to be compatible with GitHub Pages.
+ * The App component also manages the Dev HUD.
+ * The App component also manages the header and footer that appear on every page except the home page.
+ * The App component sends in the initial client values */
 class App extends Component {
   /**
    * Create App component instance
