@@ -60,7 +60,7 @@ Used to fill vertical space.
   justify-content: center;
 }
 
-.heading-with-detail {
+.heading-with-detail .middle {
   white-space: nowrap;
 }
 
