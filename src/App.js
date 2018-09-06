@@ -35,8 +35,9 @@ import { getTextForLanguage } from './utils/getTextForLanguage';
  * The App component sends in the initial client values */
 class App extends Component {
   /**
-   * Create App component instance
-   * @param {object} props - React props passed to the App component
+   * Create App component instance.
+   * @techExpertisePlease @knod referenced some [confusing state property handling](https://github.com/codeforboston/cliff-effects/pull/736#discussion_r215761120), anyone with the know-how wanna tackle explaining that?
+   * @param {object} props - React props passed to the App component. These props are only used in the `super(props)` call, and not in the rest of the function.
    */
   constructor (props) {
     super(props);
