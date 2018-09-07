@@ -100,8 +100,9 @@ class App extends Component {
     });
   };  // End setDev()
 
-  /** Load an individual client's data @techExpertisePlease from what source? Where does toLoad come from?
-   * @param {object} toLoad - An object representing the client data to be loaded @techExpertisePlease does this have a specific shape? Or format (ie is it JSON or something?)
+  /** Load an individual client's data.
+   * The client data to load comes from a text input field in the Dev HUD
+   * @param {object} toLoad - A JSON object representing the client data to be loaded. Must match the client data format (See {@link CLIENT_DEFAULTS} for an example of the correct client data format)
    */
   loadClient = ({ toLoad }) => {
     this.setState((prevState) => {
