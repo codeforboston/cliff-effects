@@ -28,6 +28,6 @@ export default {
       size='small' />
   ),
   __githubRepoLink__: <ExternalLink
-    href='https://github.com/codeforboston/cliff-effects'
-    as={ 'content' } />,
+    className = { `neutral-link` }
+    href      = { `https://github.com/codeforboston/cliff-effects` } />,
 };
