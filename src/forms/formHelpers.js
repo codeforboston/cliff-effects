@@ -4,6 +4,7 @@ import {
   // Generic Form stuff
   Label,
   Icon,
+  Container,
 } from 'semantic-ui-react';
 
 // ========================================
@@ -13,12 +14,15 @@ import {
 /**
  * Link that opens new tab
  */
-const ExternalLink = function ({ href, children }) {
+const ExternalLink = function ({ href, children, ...otherProps }) {
   return (
-    <a
+    <Container
       href={ href }
-      target='_blank'>{children}
-    </a>);
+      target='_blank'
+      { ...otherProps }>
+      {children}
+    </Container>
+  );
 };
 
 
