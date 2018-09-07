@@ -28,8 +28,17 @@ import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
 
-// Change HashRouter tags below to Router tags to turn off hash routing; only used to be compatible with GitHub Pages
+/** App component; main top-level component of the app.
+ * You can hange the HashRouter tags in the App class declaration (below if you are viewing this comment in the source code) to Router tags to turn off hash routing; only used to be compatible with GitHub Pages.
+ * The App component also manages the Dev HUD.
+ * The App component also manages the header and footer that appear on every page except the home page.
+ * The App component sends in the initial client values */
 class App extends Component {
+  /**
+   * Create App component instance.
+   * @techExpertisePlease @knod referenced some [confusing state property handling](https://github.com/codeforboston/cliff-effects/pull/736#discussion_r215761120), anyone with the know-how wanna tackle explaining that?
+   * @param {object} props - React props passed to the App component. These props are only used in the `super(props)` call, and not in the rest of the function.
+   */
   constructor (props) {
     super(props);
 
@@ -62,11 +71,21 @@ class App extends Component {
     };
   };  // End constructor()
 
+  /** Set the human language of the app (ie the language in which the UI will display text for users to read, NOT the coding language).
+   * @param {object} evnt - An event object, which is not actually used in the function but is passed in by Semantic UI React input components.
+   * @param {object} inputProps - An object representing the properties of the Semantic UI React input component which triggered the language change.
+  */
   setLanguage = (evnt, inputProps) => {
     var snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
   };
 
+  /** Set the value of a specified key in the app state's devProps.
+   * These keys should only be set to boolean values (@todo enforce only allowing boolean values?).
+   * Keys with a value of true are added (later, not in this function) as classes to the app's main element.
+   * @param {string} key - The key whose value is to be changed in the app state's devProps
+   * @param {boolean} value - The value to be set for the given key in the app state's devProps
+   */
   setDev = (key, value) => {
     this.setState((prevState) => {
 
@@ -81,6 +100,10 @@ class App extends Component {
     });
   };  // End setDev()
 
+  /** Load an individual client's data.
+   * The client data to load comes from a text input field in the Dev HUD
+   * @param {object} toLoad - A JSON object representing the client data to be loaded. Must match the client data format (See {@link CLIENT_DEFAULTS} for an example of the correct client data format)
+   */
   loadClient = ({ toLoad }) => {
     this.setState((prevState) => {
 
@@ -92,6 +115,9 @@ class App extends Component {
     });
   };  // End loadClient()
 
+  /** Convert an object (ie devProps object) to a... string? @techExpertisePlease not too familiar with backticks and template literals... is this a string being created? Or a template? Or something else?
+   * @param {object} - the object to be converted to a... string? @techExpertisePlease not too familiar with backticks and template literals... is this a string being created? Or a template? Or something else?
+  */
   propsToClasses (obj) {
     var classes = ``;
     for (let key in obj) {
@@ -102,6 +128,7 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
+  /** Render the App component */
   render () {
     var {
       langCode,
