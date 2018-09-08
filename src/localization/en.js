@@ -269,6 +269,41 @@ export default {
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
       warningMessage_v1:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
       submitFeedback_v1:          `Submit Feedback`,
+      // added the following snippets Friday 2018_9_7
+      // Benefits Table:
+      benefitsTableTitle_v1:      `Changes`,
+      columnBenefit_v1:           `Benefit`,
+      columnCurrentBenefits_v1:   `Current Benefits`,
+      columnNewEstimate_v1:       `New Estimate`,
+      columnDifference_v1:        `Difference`,
+      rowSNAP_v1:                 `SNAP`,
+      rowSection8_v1:             `Section 8 Housing`,
+      rowTotalBenefits_v1:        `Total Benefits`,
+      rowIncome_v1:               `Income`,
+      rowNetTotal_v1:             `Net Total`,
+      perMonth_v1:                ` / month`,
+      dollarSign_v1:              `$`,
+      // Stacked Bar Graph:
+      stackedBarGraphTitle_v1:    `Changes Chart`,
+      moneyInAsIncomeChanges_v1:  `Money Coming In as Income Changes`,
+      // Stacked Area Graph:
+      stackedAreaGraphTitle_v1:   `Stacked Incomes`,
+      allMoneyComingIn_v1:        `All Money Coming In as Income Changes`,
+      // Benefit Programs Graph, showing benefit programs as lines not areas:
+      benefitProgramsTitle_v1:    `Individual Benefit Amounts for Household as Income Changes`,
+      benefitValue_v1:            `Benefit Value ($)`,
+      // Snippets that are used in more than one chart, table, or graph:
+      totalMoney_v1:              `Total Money Coming In ($)`,
+      weeklyIncome_v1:            `Weekly Income ($)`,
+      monthlyIncome_v1:           `Monthly Income ($)`,
+      yearlyIncome_v1:            `Yearly Income ($)`,
+      hasIncome_v1:               `Income`,
+      hasSNAP_v1:                 `SNAP`,
+      hasSection8_v1:             `Section 8`,
+      futureIncomeLine_v1:        `Future Income`,
+      buttonWeekly_v1:            `Weekly`,
+      buttonMonthly_v1:           `Monthly`,
+      buttonYearly_v1:            `Yearly`,
     },
   },
 };
