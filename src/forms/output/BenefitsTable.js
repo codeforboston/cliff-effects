@@ -43,7 +43,6 @@ const BenefitsTable = function (props) {
   }
 
   if (curr.hasSnap) {
-    console.log(clone.future.rentShare);
     SNAPBenefitCurrent = Math.round(getSNAPBenefits(clone, 'current'));
     SNAPBenefitFuture  = Math.round(getSNAPBenefits(clone, 'future'));
   }
