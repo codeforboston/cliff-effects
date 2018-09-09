@@ -5,9 +5,10 @@ import {
 } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
-// Object Manipulation
+// DATA MANAGEMENT
 import { setNestedProperty } from '../utils/setNestedProperty';
 import { cloneDeep } from 'lodash';
+import { convertForUpdate } from '../utils/convertForUpdate';
 
 // Data
 // import { clientList } from '../config/dummyClients';
@@ -145,14 +146,7 @@ class VisitPage extends Component {
     this.setState({ feedbackFormRequested: false });
   };
 
-  updateClientValue = (evnt, { route, name, value, checked, time }) => {
-
-    route = route || name;
-
-    var val = value;
-    if (typeof checked === 'boolean') {
-      val = checked;
-    }
+  updateClientValue = ({ route, value, time }) => {
 
     var client      = cloneDeep(this.state.client),
         userChanged = { ...this.state.userChanged },  // only 1 deep
@@ -160,7 +154,7 @@ class VisitPage extends Component {
         future      = client.future,
         routeList   = route.split('/'),
         id          = routeList[ 0 ],  // `routeList` gets mutated
-        newEvent    = { time: time, route: routeList, value: val };
+        newEvent    = { time: time, route: routeList, value: value };
 
     setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
@@ -191,6 +185,7 @@ class VisitPage extends Component {
         userChanged: userChanged,
         oldHousing:  oldHousing,
         // Form has been changed, data should now be downloadable
+        // Warning sign for leaving forms should be shown
         isBlocking:  true,
       };
     });
@@ -198,12 +193,14 @@ class VisitPage extends Component {
 
   changeCurrent = (evnt, data) => {
     data.time = 'current';
-    this.updateClientValue(evnt, data);
+    var newData = convertForUpdate(data);
+    this.updateClientValue(newData);
   };
 
   changeFuture = (evnt, data) => {
     data.time = 'future';
-    this.updateClientValue(evnt, data);
+    var newData = convertForUpdate(data);
+    this.updateClientValue(newData);
   };
 
   // Implement once privacy and security are worked out
