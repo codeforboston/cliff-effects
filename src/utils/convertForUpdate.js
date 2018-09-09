@@ -1,7 +1,7 @@
 /**
  *
  */
-const convertForUpdate = function ({ name, route, value, checked }) {
+const convertForUpdate = function ({ name, route, value, checked, ...otherProps }) {
 
   var val = value;
   if (typeof checked === `boolean`) {
@@ -9,6 +9,7 @@ const convertForUpdate = function ({ name, route, value, checked }) {
   }
 
   var forUpdate = {
+    ...otherProps,
     route: route || name,
     value: val,
   };
