@@ -75,14 +75,31 @@ getData.section8 = function (xRange, client, multiplier) {
   return data;
 };  // End getData.section8()
 
-/**
+/** Mutates `benefitDatasets` items to push new data onto
+ *     their `.data` prop.
+ * 
+ * @todo Research how to jsdoc arrays of objects
+ *
  * @param {array} xRange All income values to be included.
+ * @param {object} clone Clone of the client object
+ * @param {object} clone.future
+ * @param {object} clone.client
+ * @param {float} multiplier Adjusts income and data
+ *     values (meant to adjust to weekly, monthly, and yearly amounts)
+ * @param {array} benefitDatasets List of datasets, one for
+ *     each benefit.
+ * @param {object} benefitDatasets[n]
+ * @param {string} benefitDatasets[n].name Name of the benefit
+ * @param {array} benefitDatasets[n].data List to which output
+ *     will be pushed.
+ * 
+ * @returns undefined
  */
 const insertBenefitData = function (xRange, clone, multiplier, benefitDatasets) {
 
   // Don't loop if there's nothing to do
   if (benefitDatasets.length === 0) {
-    return benefitDatasets;
+    return;
   }
 
   // Otherwise, loop over incomes
@@ -110,7 +127,7 @@ const insertBenefitData = function (xRange, clone, multiplier, benefitDatasets) 
 
   }  // end for all incomes
 
-  return benefitDatasets;
+  return;
 };  // End insertBenefitData()
 
 
