@@ -121,7 +121,7 @@ const insertBenefitData = function (xRange, clone, multiplier, benefitDatasets) 
       // Mutate the clone in whatever way is appropriate for
       // that program.
       let newPropValues = funcs.getProps(clone, monthlyAmount);
-      Object.assign(clone, newPropValues);
+      Object.assign(clone.future, newPropValues);
 
     }  // end for each benefit, in order
 
