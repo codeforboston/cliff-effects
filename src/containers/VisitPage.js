@@ -148,15 +148,13 @@ class VisitPage extends Component {
 
   updateClientValue = ({ route, value, time }) => {
 
-    var client      = cloneDeep(this.state.client),
+    var clone       = cloneDeep(this.state.client),
         userChanged = { ...this.state.userChanged },  // only 1 deep
-        current     = client.current,
-        future      = client.future,
         routeList   = route.split('/'),
         id          = routeList[ 0 ],  // `routeList` gets mutated
         newEvent    = { time: time, route: routeList, value: value };
 
-    setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
+    setNestedProperty(newEvent, clone, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
     if (time === 'future') {
@@ -166,22 +164,22 @@ class VisitPage extends Component {
     // Hack for MVP (otherwise need dependency + history system)
     let oldHousing = this.state.oldHousing;
     if (route === 'housing') {
-      // client housing should be right now
-      oldHousing = client.current.housing;
+      // clone housing should be right now
+      oldHousing = clone.current.housing;
     }
 
-    if (client.current.hasSection8) {
-      client.current.housing = 'voucher';
+    if (clone.current.hasSection8) {
+      clone.current.housing = 'voucher';
     } else {
       // Restore housing to previous value
-      client.current.housing = oldHousing;
+      clone.current.housing = oldHousing;
     }
 
-    client.future.housing = client.current.housing;
+    clone.future.housing = clone.current.housing;
 
     this.setState((prevState) => {
       return {
-        client:      client,
+        client:      clone,
         userChanged: userChanged,
         oldHousing:  oldHousing,
         // Form has been changed, data should now be downloadable
