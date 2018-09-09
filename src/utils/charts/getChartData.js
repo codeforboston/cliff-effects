@@ -31,7 +31,7 @@ var getBenefit = {
   section8: {
     getSubsidy: getSection8Benefit,
     getProps:   function (client, newSubsidy) {
-      return { rentShare: newSubsidy };
+      return { rentShare: client.future.contractRent - newSubsidy };
     },
   },
   snap: {

@@ -39,7 +39,7 @@ const BenefitsTable = function (props) {
     sec8BenefitCurrent     = Math.round(getSection8Benefit(clone, 'current'));
     sec8BenefitFuture      = Math.round(getSection8Benefit(clone, 'future'));
     // Mutate clone for correct SNAP values
-    clone.future.rentShare = sec8BenefitFuture;
+    clone.future.rentShare = (clone.future.contractRent - sec8BenefitFuture);
   }
 
   if (curr.hasSnap) {

@@ -41,7 +41,7 @@ const StackedBarGraph = function({ client }) {
       } = getBenefitTimeFrames(clone, 'hasSection8', getSection8Benefit);
 
   // Mutate clone for correct SNAP calculations
-  clone.future.rentShare = sec8BenefitFuture;
+  clone.future.rentShare = (clone.future.contractRent - sec8BenefitFuture);
 
   var {
         benefitCurrent: SNAPBenefitCurrent,
