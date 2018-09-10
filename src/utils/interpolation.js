@@ -13,8 +13,9 @@ const interpolateText = function (template, components, langCode) {
     count++;
 
     var props = {
-      key:  item.name || langCode + count,
-      lang: langCode,
+      key:       item.name || langCode + count,
+      lang:      langCode,
+      className: `snippet`,
     };
 
     if (typeof(item) === 'string') {
@@ -44,8 +45,9 @@ const interpolateSnippets = function (snippets, components) {
     var langCode = snippets.langCode;
 
     var props = {
-      key:  langCode + count,
-      lang: langCode,
+      key:       langCode + count,
+      lang:      langCode,
+      className: `snippet`,
     };
 
     if (key === 'langCode') {

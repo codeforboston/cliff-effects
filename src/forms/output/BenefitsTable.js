@@ -30,11 +30,22 @@ const BenefitsTable = function (props) {
   var client = cloneDeep(props.client),
       curr   = client.current;
 
-  var SNAPBenefitCurrent  = curr.hasSnap ? Math.round(getSNAPBenefits(client, 'current')) : 0,
-      SNAPBenefitFuture   = curr.hasSnap ? Math.round(getSNAPBenefits(client, 'future')) : 0,
-      SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8BenefitCurrent  = curr.hasSection8 ? Math.round(getSection8Benefit(client, 'current')) : 0,
-      sec8BenefitFuture   = curr.hasSection8 ? Math.round(getSection8Benefit(client, 'future')) : 0,
+  var SNAPBenefitCurrent =  0,
+      SNAPBenefitFuture  =  0,
+      sec8BenefitCurrent = 0,
+      sec8BenefitFuture  = 0;
+
+  if (curr.hasSnap) {
+    SNAPBenefitCurrent = Math.round(getSNAPBenefits(client, 'current'));
+    SNAPBenefitFuture  = Math.round(getSNAPBenefits(client, 'future'));
+  }
+
+  if (curr.hasSection8) {
+    sec8BenefitCurrent = Math.round(getSection8Benefit(client, 'current'));
+    sec8BenefitFuture  = Math.round(getSection8Benefit(client, 'future'));
+  }
+
+  var SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,

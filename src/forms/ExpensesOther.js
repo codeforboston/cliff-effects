@@ -92,11 +92,11 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `otherExpensesTransport` }>
-        {
-          dependentTransport > 0 ?
-            `Money you spend on other transportation`
-            : `Money you spend on transportation`
-        }
+        { dependentTransport > 0 ? (
+          `Money you spend on other transportation`
+        ) : (
+          `Money you spend on transportation`
+        ) }
       </CashFlowInputsRow>
 
       <RenderIfTrue shouldRender = { medExpenses > 0 }>
@@ -112,15 +112,15 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `otherExpensesMedical` }>
-        {
-          medExpenses > 0 ?
-            `Money you spend because of other medical problems`
-            : `Money you spend because of medical problems`
-        }
+        { medExpenses > 0 ? (
+          `Money you spend because of other medical problems`
+        ) : (
+          `Money you spend because of medical problems`
+        ) }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ `otherExpensesFood` }> Money you spend on food 
+        generic={ `otherExpensesFood` }> Money you spend on food
       </CashFlowInputsRow>
       {/* Utilities are complicated because the housing
       * voucher could be taking them into account and
