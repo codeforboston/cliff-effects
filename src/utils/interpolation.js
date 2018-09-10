@@ -27,12 +27,16 @@ const interpolateText = function (template, components, langCode) {
       return null;
     }
 
+    // Item is component
+    var component = components[ item.name ];
+    props.className = props.className + ` ` + component.props.className;
+
     if (item.text) {
       // replace inner text
-      return React.cloneElement(components[ item.name ], props, item.text);
+      return React.cloneElement(component, props, item.text);
     } else {
       // otherwise just add the required key and the language code
-      return React.cloneElement(components[ item.name ], props);
+      return React.cloneElement(component, props);
     }
   });
 };

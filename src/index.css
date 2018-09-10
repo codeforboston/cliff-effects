@@ -43,6 +43,13 @@ form .field-aligner {
   flex-direction: column;
 }
 
+
+/* Fixing (currently) link styles */
+.neutral-link {
+  color: white;
+}
+
+
 /*
 Used to fill vertical space.
 `height: 100%` doesn't work with Flexbox on Mobile Safari.
