@@ -5,6 +5,9 @@ import {
   Message,
 } from 'semantic-ui-react';
 
+// PROJECT COMPONENTS
+import { Surrounder } from '../components/Surrounder';
+
 
 /** Really it's a top component that has a question mark
  *    next to it followed by a bottom one that starts
@@ -49,17 +52,24 @@ class HeadingWithDetail extends Component {
 
     return (
       <div className = { `heading-with-detail` }>
-        <div className={ `has-details` }>{ top }</div>
-        <Icon
-          name      = { iconName }
-          color     = { iconColor }
-          className = { `details-icon` }
-          onClick   = { this.toggleDetails } />
-        <Transition
-          visible   = { showDetails }
-          animation = { `slide down` }>
-          <Message>{ details }</Message>
-        </Transition>
+        
+        <Surrounder
+          Right = {
+            <Icon
+              name      = { iconName }
+              color     = { iconColor }
+              className = { `details-icon` }
+              onClick   = { this.toggleDetails } />
+          }
+          Bottom = {
+            <Transition
+              visible   = { showDetails }
+              animation = { `slide down` }>
+              <Message>{ details }</Message>
+            </Transition>
+          }>
+          <div className={ `has-details` }>{ top }</div>
+        </Surrounder>
       </div>
     );
   };

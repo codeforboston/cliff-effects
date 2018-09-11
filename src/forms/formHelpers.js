@@ -13,12 +13,15 @@ import {
 /**
  * Link that opens new tab
  */
-const ExternalLink = function ({ href, children }) {
+const ExternalLink = function ({ href, children, ...otherProps }) {
   return (
     <a
-      href={ href }
-      target='_blank'>{children}
-    </a>);
+      href   = { href }
+      target = { `_blank` }
+      { ...otherProps }>
+      {children}
+    </a>
+  );
 };
 
 
