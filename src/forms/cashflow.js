@@ -10,7 +10,6 @@ import { InvalidMessage } from './formHelpers';
 import { toMonthlyAmount } from '../utils/math';
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
-import ChartComponent from 'react-chartjs-2';
 
 
 /** Contains cash flow inputs, their label, and any user feedback
@@ -40,6 +39,10 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
   );
 };  // End <CashFlowContainer>
 
+/** Maximum input value of yearly income allowed in the textbox,
+ * monthly/daily will be scaled
+ */
+const maximum_value_yearly = 999999.99;
 
 /** One row for cash flow inputs - weekly, monthly, yearly
  *
@@ -56,26 +59,25 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
 class CashFlowInputsRow extends Component {
   constructor(props) {
     super(props);
-    this.state = { message:'' }
+    this.state = { message: '' };
     // Bind the validator to set message
     this.cashFlowStoreValidator = this.cashFlowStoreValidator.bind(this);
   }
 
   // Special store validator that handles maximums and sets error message
   cashFlowStoreValidator(max) {
-    return function (str) {
-      if(!isNonNegNumber) {
+    return (str) => {
+      if (!isNonNegNumber(str)) {
         this.setState({ message: 'Invalid number format' });
         return false;
       }
-      else if(parseFloat(str) > max) {
-        this.setState({ message: 'The input number exceeds the maximum of $999,999.99/yr' });
+      else if (parseFloat(str) > max) {
+        this.setState({ message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
         return false;
       }
       this.setState({ message: '' });
-      this.state.message = ''
       return true;
-    }.bind(this); // bind this too
+    };
   }
 
   render() {
@@ -116,15 +118,18 @@ class CashFlowInputsRow extends Component {
         label={ children }
         validRow={ !this.state.message }
         message={ this.state.message }>
-        <ManagedNumberField storeValidator={cashFlowStoreValidator(19230.76)}
+        <ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
           { ...baseProps }
           value     = { baseVal / (4 + 1 / 3) }
           otherData = {{ interval: 'weekly' }} />
-        <ManagedNumberField storeValidator={cashFlowStoreValidator(83333.33)}
+        <ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 12) }
           { ...baseProps }
           value     = { baseVal }
           otherData = {{ interval: 'monthly' }} />
-        <ManagedNumberField storeValidator={cashFlowStoreValidator(999999.99)}
+        <ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly) }
           { ...baseProps }
           value     = { baseVal * 12 }
           otherData = {{ interval: 'yearly' }} />
