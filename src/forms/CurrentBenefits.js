@@ -44,6 +44,7 @@ const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
         { ...sharedProps }
         checked   = { current.hasSection8 }
         name      = { 'hasSection8' } />
+      <div className = { `question-spacer` } />
       <LocalizedRadioYesNo
         { ...sharedProps }
         checked   = { current.hasSnap }

@@ -88,11 +88,12 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
       question:            label,
       heading:             null,
       onNo:                reset,
+      // `<Surrounder>` props
+      Left:                <AttentionArrow />,
     };
 
     return (
       <div className= { 'earned-from' }>
-        <AttentionArrow />
         <ShowOnYes { ...showProps }>
           { CashFlowRow }
         </ShowOnYes>

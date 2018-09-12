@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 
-import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
+import FeedbackPrompt from '../../../components/prompts/FeedbackPrompt';
 
 test('A feedback prompt should match the snapshot', () => {
   let isBlocking = true;

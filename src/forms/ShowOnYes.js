@@ -3,6 +3,7 @@ import React from 'react';
 // PROJECT COMPONENTS
 import { ControlledRadioYesNo } from './inputs';
 import { ContentH1 } from '../components/headings';
+import { Surrounder } from '../components/Surrounder';
 
 /**
  * Yes/No radio buttons. 'Yes' reveals the given Component(s)
@@ -59,6 +60,7 @@ class ShowOnYes extends React.Component {
       question,
       heading,
       children,
+      ...rest
     } = this.props;
 
     var show = this.state.show;
@@ -67,11 +69,14 @@ class ShowOnYes extends React.Component {
       <div className = { `show-on-yes` }>
 
         <ContentH1>{ heading }</ContentH1>
-        <ControlledRadioYesNo
-          labelText         = { question }
-          checked           = { show }
-          name              = { 'confirm_' + childName }
-          updateClientValue = { this.handleChange } />
+
+        <Surrounder { ...rest } >
+          <ControlledRadioYesNo
+            labelText         = { question }
+            checked           = { show }
+            name              = { 'confirm_' + childName }
+            updateClientValue = { this.handleChange } />
+        </Surrounder>
         
         {show ? (
           children

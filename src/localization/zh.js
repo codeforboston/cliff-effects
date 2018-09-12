@@ -7,7 +7,12 @@ export default {
   header: {},
 
   footer: {
-    'header_v1.0':    `懸崖效應工具`,
+    header: [
+      {
+        name: `__githubRepoLink__`,
+        text: `懸崖效應工具`,
+      },
+    ],
     'cfbCredit_v1.0': [
       `由 Code for Boston 用 `,
       { name: `__heartIcon__` },

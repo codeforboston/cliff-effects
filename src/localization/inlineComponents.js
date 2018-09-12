@@ -27,4 +27,7 @@ export default {
       name='heart'
       size='small' />
   ),
+  __githubRepoLink__: <ExternalLink
+    className = { `neutral-link` }
+    href      = { `https://github.com/codeforboston/cliff-effects` } />,
 };
