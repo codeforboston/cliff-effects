@@ -170,7 +170,7 @@ const BenefitsTable = function ({ client, snippets }) {
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowHeaderStyle }>{ snippets.rowNetTotal_v1}
+          style={ totalsRowHeaderStyle }>{ snippets.rowNetTotal_v1 }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
