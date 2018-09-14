@@ -26,22 +26,7 @@ form .field-aligner {
   flex-direction: column;
 }
 
-#HomePage {
-  background-image: url(./images/splash.svg) !important;
-  background-size: cover !important;
-  flex: 1 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
-#HomeContent {
-  flex: 1 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
 
 
 /* Fixing (currently) link styles */
@@ -379,11 +364,27 @@ i.icon.details-icon {
 
 /* HomePage.js styles */
 
+#HomePage {
+  background-image: url(./images/splash.svg) !important;
+  background-size: cover !important;
+  flex: 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#HomeContent {
+  flex: 1 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 #HomePage button {
   background-color: #c8e7e5;
-  color: #4d4d4d;
+  color: #465050;
   font-size: 1.5em;
-  margin-left: 1.5em;
 }
 
 #HomePage button:hover {
@@ -405,6 +406,14 @@ i.icon.details-icon {
   margin-bottom: 3em;
 }
 
+.hb-left {
+  margin-left: 1.5em;
+}
+
+.hb-right {
+ margin-right: 1.5em;
+}
+
 .headings h1 {
   color: #efefef;
   font-size: 5em;
@@ -417,6 +426,10 @@ i.icon.details-icon {
   margin-top: -15px;
   margin-right: 45px;
   text-align: right;
+}
+
+.main-wrapper {
+  display: inline-block;
 }
 
 
