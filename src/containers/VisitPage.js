@@ -63,27 +63,32 @@ class VisitPage extends Component {
     this.steps = [
       {
         form:              CurrentBenefitsStep,
-        key:               'currentBenefits',
+        formSnippetsKey:   'currentBenefits',
+        titleSnippetKey:   'currentBenefits_v1',
         updateClientValue: this.changeCurrent,
       },
       {
         form:              HouseholdStep,
-        key:               'household',
+        formSnippetsKey:   'household',
+        titleSnippetKey:   'household_v1',        
         updateClientValue: this.changeCurrent,
       },
       {
         form:              CurrentIncomeStep,
-        key:               'currentIncome',
+        formSnippetsKey:   'currentIncome',
+        titleSnippetKey:   'currentIncome_v1',
         updateClientValue: this.changeCurrent,
       },
       {
         form:              CurrentExpensesStep,
-        key:               'currentExpenses',
+        formSnippetsKey:   'currentExpenses',
+        titleSnippetKey:   'currentExpenses_v1',
         updateClientValue: this.changeCurrent,
       },
       {
         form:              PredictionsStep,
-        key:               'predictions',
+        formSnippetsKey:   'predictions',
+        titleSnippetKey:   'predictions_v1',
         updateClientValue: this.changeFuture,
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
@@ -253,7 +258,7 @@ class VisitPage extends Component {
     var stepIndex    = this.getCurrentStepIndex(),
         step         = this.steps[ stepIndex ],
         FormSection  = step.form,
-        formSnippets = this.state.snippets[ step.key ];
+        formSnippets = this.state.snippets[ step.formSnippetsKey ];
     /** @todo With new interpolation, is this needed anymore? */
     formSnippets.langCode = this.state.snippets.langCode;
 
@@ -283,7 +288,7 @@ class VisitPage extends Component {
 
     if (stepIndex !== 0) {
       prevData = {
-        text:    snippets[ `previous_v1.0` ],
+        text:    snippets.previous_v1,
         onClick: this.previousStep,
       };
     }
@@ -292,14 +297,14 @@ class VisitPage extends Component {
     if (stepIndex !== (this.steps.length - 1)) {
       // use normal 'next' data
       nextData = {
-        text:    snippets[ `next_v1.0` ],
+        text:    snippets.next_v1,
         onClick: this.nextStep,
       };
 
     // Otherwise, set up to reset client
     } else {
       nextData = {
-        text:    snippets[ `newClient_v1.0` ],
+        text:    snippets.newClient_v1,
         onClick: this.askToResetClient,
       };
     }
