@@ -20,11 +20,11 @@ export default {
   },
 
   homePage: {
-    appName:          `Cliff Effects Tool`,
-    prototypeNote:    `GUIDANCE PROTOTYPE*`,
-    cautionaryNote:   `*This is a prototype and should not be used to make financial decisions`,
-    toFirstInputPage: `Get Started`,
-    toAboutPage:      `Learn More`,
+    appName_v1:          `Cliff Effects Tool`,
+    prototypeNote_v1:    `GUIDANCE PROTOTYPE*`,
+    cautionaryNote_v1:   `*This is a prototype and should not be used to make financial decisions`,
+    toFirstInputPage_v1: `Get Started`,
+    toAboutPage_v1:      `Learn More`,
   },
 
   aboutPage: {
