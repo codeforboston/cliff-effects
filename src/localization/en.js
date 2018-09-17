@@ -94,9 +94,9 @@ export default {
   },
 
   visitPage: {
-    'previous_v1.0':  `Previous`,
-    'next_v1.0':      `Next`,
-    'newClient_v1.0': `New Client`,
+    'previous_v1':  `Previous`,
+    'next_v1':      `Next`,
+    'newClient_v1': `New Client`,
 
     stepBar: {
       currentBenefits: `Current Benefits`,
