@@ -63,27 +63,32 @@ class VisitPage extends Component {
     this.steps = [
       {
         form:              CurrentBenefitsStep,
-        key:               'currentBenefits',
+        formSnippetsKey:   'currentBenefits',
+        titleSnippetKey:   'currentBenefits_v1',
         updateClientValue: this.changeCurrent,
       },
       {
         form:              HouseholdStep,
-        key:               'household',
+        formSnippetsKey:   'household',
+        titleSnippetKey:   'household_v1',        
         updateClientValue: this.changeCurrent,
       },
       {
         form:              CurrentIncomeStep,
-        key:               'currentIncome',
+        formSnippetsKey:   'currentIncome',
+        titleSnippetKey:   'currentIncome_v1',
         updateClientValue: this.changeCurrent,
       },
       {
         form:              CurrentExpensesStep,
-        key:               'currentExpenses',
+        formSnippetsKey:   'currentExpenses',
+        titleSnippetKey:   'currentExpenses_v1',
         updateClientValue: this.changeCurrent,
       },
       {
         form:              PredictionsStep,
-        key:               'predictions',
+        formSnippetsKey:   'predictions',
+        titleSnippetKey:   'predictions_v1',
         updateClientValue: this.changeFuture,
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
@@ -253,7 +258,7 @@ class VisitPage extends Component {
     var stepIndex    = this.getCurrentStepIndex(),
         step         = this.steps[ stepIndex ],
         FormSection  = step.form,
-        formSnippets = this.state.snippets[ step.key ];
+        formSnippets = this.state.snippets[ step.formSnippetsKey ];
     /** @todo With new interpolation, is this needed anymore? */
     formSnippets.langCode = this.state.snippets.langCode;
 
