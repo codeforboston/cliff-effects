@@ -6,13 +6,13 @@ export default {
   header: {},
 
   footer: {
-    header: [
+    header_v1: [
       {
         name: `__githubRepoLink__`,
         text: `Cliff Effects Tool`,
       },
     ],
-    cfbCredit: [
+    cfbCredit_v1: [
       `Made with `,
       { name: `__heartIcon__` },
       ` by Code for Boston`,
