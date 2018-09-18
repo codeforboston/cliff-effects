@@ -75,7 +75,7 @@ class App extends Component {
 
         var newProps = { ...props, [ key ]: value };
         localStorage.setItem(`cliffEffectsDevProps`, JSON.stringify(newProps));
-        
+
         return { devProps: newProps };
       }
     });
@@ -165,17 +165,6 @@ class App extends Component {
                       confirmer  = { confirmer }
                       snippets   = {{ ...snippets.visitPage, langCode: snippets.langCode }}
                       clientData = { clientData } />);
-                } } />
-
-              {/* Currently only works on published build */}
-              <Route
-                path="/docs"
-                component={ () => {
-                  return (
-                    <iframe
-                      id="docsFrame"
-                      title="Cliff Effects Docs"
-                      src="/docs/index.html" />);
                 } } />
 
               {/* For managing our development HUD */}

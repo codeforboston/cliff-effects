@@ -101,7 +101,7 @@ class ControlledRadioYesNo extends Component {
  * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
  *
  * @param {Object} props
- * @param {number || string} props.value - Valid client value
+ * @param {number | string} props.value - Valid client value
  * @param {string} props.name - For HTML name property
  * @param {string} props.className - HTML class names
  * @param {*} [props.otherData] - Sent back to `store()`
