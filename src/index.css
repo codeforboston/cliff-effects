@@ -361,7 +361,6 @@ i.icon.details-icon {
   margin-bottom: 1em;
 }
 
-
 /* HomePage.js styles */
 
 #HomePage {
@@ -392,18 +391,17 @@ i.icon.details-icon {
   background-color: #005855;
 }
 
-#HomePage p {
-  color: #efefef;
-  text-align: center;
-  font-size: 1em;
-}
-
-
 .center-contents {
   display: flex;
   justify-content: space-around;
   margin-top: 3em;
   margin-bottom: 3em;
+}
+
+.home-disclaimer {
+  color: #efefef;
+  text-align: center;
+  font-size: 1em;
 }
 
 .hb-left {
@@ -431,6 +429,8 @@ i.icon.details-icon {
 .main-wrapper {
   display: inline-block;
 }
+
+
 
 
 
