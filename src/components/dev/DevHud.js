@@ -14,6 +14,7 @@ import { CustomClient } from '../CustomClient';
 // DATA
 import { localizations } from '../../localization/all';
 
+import { LocalizationReport } from './LocalizationReport.js';
 
 const DevMenu = function ({ devProps, funcs, data, state }) {
 
@@ -69,6 +70,8 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
           load       = { funcs.loadClient }
           toRestore  = { data.default } />
       </Menu.Item>
+
+      <LocalizationReport />
     </div>
   );
 };  // End <DevMenu>
