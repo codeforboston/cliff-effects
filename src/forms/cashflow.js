@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React from 'react';
+import React, { Component } from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -39,71 +39,102 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
   );
 };  // End <CashFlowContainer>
 
+/** Maximum input value of yearly income allowed in the textbox,
+ * monthly/daily will be scaled
+ */
+const maximum_value_yearly = 999999.99;
 
 /** One row for cash flow inputs - weekly, monthly, yearly
  *
- * @function
  * @param {object} props
  * @property {object} props.generic - Base name for the client property that
  *     needs to be updated (now the code has changed, this may be a misnomer)
  * @property {object} props.timeState - Client, either future values or current values
  * @property {object} props.updateClientValue - Updates client state
  * @property {object} props.children - Text for the row label
- *
- * @returns Component
+ * 
  */
 /** @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
       use `includes` array to include only certain columns perhaps. */
-const CashFlowInputsRow = function ({ generic, timeState, updateClientValue, children }) {
+class CashFlowInputsRow extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { message: '' };
+  }
 
-  var updateClient = function (evnt, inputProps, data) {
-    var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
-        obj     = { name: generic, value: monthly };
-    updateClientValue(evnt, obj);
-  };
+  // Special store validator that handles maximums and sets error message
+  cashFlowStoreValidator = (max) => {
+    return (str) => {
+      if (!isNonNegNumber(str)) {
+        this.setState({ message: 'Invalid number format' });
+        return false;
+      }
+      else if (parseFloat(str) > max) {
+        this.setState({ message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
+        return false;
+      }
+      this.setState({ message: '' });
+      return true;
+    };
+  }
 
-  /** baseVal
-   * Get the time ('future' or 'current') monthly value unless there is
-   *     none, in which case, get the 'current' monthly cash flow value
-   *     (to prefill future values with 'current' ones if needed).
-   *
-   * @var
-   *
-   * @todo Add some kind of UI indication when it's the same as the 'current'
-   *     value. What if some of the row's values are the same and some are
-   *     different?
-   */
-  var baseVal   = timeState[ generic ],
-      baseProps = {
-        name:             generic,
-        className:        'cashflow-column',
-        store:            updateClient,
-        displayValidator: hasOnlyNonNegNumberChars,
-        storeValidator:   isNonNegNumber,
-        format:           toMoneyStr,
-      };
+  render() {
+    var { generic, timeState, updateClientValue, children } = this.props;
 
-  return (
-    <CashFlowContainer
-      label={ children }
-      validRow={ true }
-      message={ null }>
-      <ManagedNumberField
-        { ...baseProps }
-        value     = { baseVal / (4 + 1 / 3) }
-        otherData = {{ interval: 'weekly' }} />
-      <ManagedNumberField
-        { ...baseProps }
-        value     = { baseVal }
-        otherData = {{ interval: 'monthly' }} />
-      <ManagedNumberField
-        { ...baseProps }
-        value     = { baseVal * 12 }
-        otherData = {{ interval: 'yearly' }} />
-    </CashFlowContainer>
-  );
+    var updateClient = function (evnt, inputProps, data) {
+      var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
+          obj     = { name: generic, value: monthly };
+      updateClientValue(evnt, obj);
+    };
+  
+    
+  
+    /** baseVal
+     * Get the time ('future' or 'current') monthly value unless there is
+     *     none, in which case, get the 'current' monthly cash flow value
+     *     (to prefill future values with 'current' ones if needed).
+     *
+     * @var
+     *
+     * @todo Add some kind of UI indication when it's the same as the 'current'
+     *     value. What if some of the row's values are the same and some are
+     *     different?
+     */
+    var baseVal   = timeState[ generic ],
+        baseProps = {
+          name:             generic,
+          className:        'cashflow-column',
+          store:            updateClient,
+          displayValidator: hasOnlyNonNegNumberChars,
+          format:           toMoneyStr,
+        };
 
-};  // End CashFlowInputsRow{} Component
+    var cashFlowStoreValidator = this.cashFlowStoreValidator;
+  
+    return (
+      <CashFlowContainer
+        label={ children }
+        validRow={ !this.state.message }
+        message={ this.state.message }>
+        <ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
+          { ...baseProps }
+          value     = { baseVal / (4 + 1 / 3) }
+          otherData = {{ interval: 'weekly' }} />
+        <ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 12) }
+          { ...baseProps }
+          value     = { baseVal }
+          otherData = {{ interval: 'monthly' }} />
+        <ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly) }
+          { ...baseProps }
+          value     = { baseVal * 12 }
+          otherData = {{ interval: 'yearly' }} />
+      </CashFlowContainer>
+    );
+  }
+}
 
 
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
