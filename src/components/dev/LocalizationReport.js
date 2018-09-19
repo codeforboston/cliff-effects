@@ -31,16 +31,24 @@ const ReportItem = function ({ keyPath, test, locKey, pass }) {
 };
 
 
+const ReportListItems = function ({ keyPath, test, locKey, pass }) {
+  return (
+    <ReportItem
+      key     = { keyPath }
+      keyPath = { keyPath }
+      test    = { test }
+      locKey  = { locKey }
+      pass    = { pass } />
+  );
+};
+
+
 const ReportList = function ({ results }) {
   return (
     <List>
-      {
+      { 
         results.map((filteredResult) => {
-          return (
-            <ReportItem
-              key = { filteredResult.keyPath }
-              { ...filteredResult } />
-          );
+          return <ReportListItems { ...filteredResult } />;
         })
       }
     </List>
