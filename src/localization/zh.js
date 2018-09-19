@@ -1,6 +1,5 @@
 export default {
 
-  version: '2',
   langName: `中文`,   // Change this to the name of your language (written in your language)
   langCode: `zh`,
 
