@@ -1,0 +1,23 @@
+body {
+
+}
+
+.redirect-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15rem;
+  margin-bottom: 8rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+header, footer {
+  background-color: #00B5AD;
+  color: #fff;
+  text-align: center;
+  padding: 3rem;
+}

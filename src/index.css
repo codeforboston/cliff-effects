@@ -9,6 +9,7 @@ form .field-aligner {
   text-align: left;
 }
 
+/* App.js styles */
 #App {
   min-height: 100%;
   display: flex;
