@@ -9,7 +9,7 @@ import {
   Modal,
 } from 'semantic-ui-react';
 import _ from 'lodash';
-import { getKeyPathsArray } from '../../utils/objectHelper';
+import { getKeyPathsArray, getKeyPathStrings } from '../../utils/objectKeyPaths';
 
 // DATA
 import { localizations } from '../../localization/all';
@@ -64,7 +64,7 @@ class LocalizationReport extends Component {
     let localizationKeys = Object.keys(localizations);
     const enIndex = localizationKeys.indexOf('en');
 
-    // Initilize out state if EN localization exists
+    // Initilize our state if EN localization exists
     if (enIndex !== -1) {
       // Remove EN from our keys to loop over
       localizationKeys.splice(enIndex, 1);
@@ -91,9 +91,9 @@ class LocalizationReport extends Component {
 
     if (modelLocKey !== null && compareLocKey !== null) {
       // Get the key paths from the model (EN) localization
-      const modelKeyPaths = getKeyPathsArray(localizations[ modelLocKey ]);
+      const modelKeyPaths = getKeyPathsArray(localizations[ modelLocKey ], false);
      
-      // Loop through all non-en localizations
+      // Loop through all model (EN) key paths
       let requiredKeyPathResults = modelKeyPaths.map((keyPath) => {
         let keyPathAsStr = keyPath.join('.');
         let keyExistsInLoc = _.has(localizations[ compareLocKey ], keyPath);
@@ -106,15 +106,36 @@ class LocalizationReport extends Component {
         };
       });
 
+      /*
+      * Find keys in the model that don't exist in our model with any version.
+      * 
+      * So if DE has about.myKey_v2 and EN has about.myKey_v5, we don't want to include a
+      * message saying to remove about.myKey_v2, since the above checks will indicate that 
+      * this key is simply out of date.
+      * 
+      * However, if DE has about.myKey_v2, we essentially want to check EN for 
+      * about.myKey_v{any version}. If none is found then we display a message.  To do this, 
+      * we'll strip all versions before doing our checks.
+      */
+       
+      // Get the key paths from the model (EN) localization, but without any version numbers
+      const modelKeyPathStringsNoVer = getKeyPathStrings(getKeyPathsArray(localizations[ modelLocKey ], true));
+     
       // Get the key paths from the localization we're comparing against EN
-      const compareKeyPaths = getKeyPathsArray(localizations[ compareLocKey ]);
+      const compareKeyPaths = getKeyPathsArray(localizations[ compareLocKey ], false);
       
-      // Get any keys paths that should not be in the localization we're comparing to our model 
+      // Find any keys paths that shouldn't be in the localization we're comparing to our model 
       // We won't return passing checks, since requiredKeyPathResults effectively includes those
       let extraKeyPathResults = compareKeyPaths.reduce((extraKeyPaths, keyPath) => {
         let keyPathAsStr = keyPath.join('.');
-        let keyExistsInLoc = _.has(localizations[ modelLocKey ], keyPath);
-
+       
+        // If this keyPath has a version number, remove it so we can compare against the model key 
+        // paths which have had their versions removed
+        let keyPathAsStrNoVer = keyPathAsStr.split('_v')[ 0 ];
+        let keyExistsInLoc = _.findIndex(modelKeyPathStringsNoVer, (modelKeyPath) => {
+          return modelKeyPath === keyPathAsStrNoVer ? true : false;
+        }) === -1 ? false : true ;
+        
         if (!keyExistsInLoc) {
           extraKeyPaths.push({
             keyPath: keyPathAsStr,
