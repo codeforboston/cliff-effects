@@ -9,7 +9,17 @@ const sleep = (ms) => {
   });
 };
 
+let originalTimeout;
+
 describe('renderIfTrue returns', () => {
+  beforeEach(() => {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 6 * 60 * 1000;
+  });
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+  });
 
   test('given component on `true` condition', async () => {
     const rendered = renderer.create(
@@ -21,7 +31,7 @@ describe('renderIfTrue returns', () => {
         returnedStr = JSON.stringify(returned.toJSON());
     await sleep(5 * 60 * 1000);
     expect(renderedStr).toEqual(returnedStr);
-  }, 6 * 60 * 1000);
+  });
 
   test('null on `false` condition', () => {
     const rendered = renderer.create(
