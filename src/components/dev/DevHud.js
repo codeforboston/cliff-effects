@@ -71,7 +71,9 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
           toRestore  = { data.default } />
       </Menu.Item>
 
-      <LocalizationReport />
+      <Menu.Item>
+        <LocalizationReport />
+      </Menu.Item>
     </div>
   );
 };  // End <DevMenu>

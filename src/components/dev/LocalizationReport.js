@@ -5,7 +5,6 @@ import {
   Form,
   Icon,
   List,
-  Menu,
   Modal,
 } from 'semantic-ui-react';
 import _ from 'lodash';
@@ -180,75 +179,73 @@ class LocalizationReport extends Component {
     ];
 
     return (
-      <Menu.Item>
-        <Modal
-          trigger={ <Button onClick={ this.toggleModalOpen }>Localization Report</Button> }
-          open={ this.state.modalOpen }
-          onClose={ this.toggleModalOpen }
-          closeIcon>
-          <Modal.Header>
-            Localization Report
-          </Modal.Header>
-          <Modal.Content>
-            <Modal.Description>
-              <p>
-                This report indicates whether keys in the 'en' localization file are present in 
-                your chosen localization.  It will also list any keys in your chosen localization 
-                which should be removed.
+      <Modal
+        trigger={ <Button onClick={ this.toggleModalOpen }>Localization Report</Button> }
+        open={ this.state.modalOpen }
+        onClose={ this.toggleModalOpen }
+        closeIcon>
+        <Modal.Header>
+          Localization Report
+        </Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <p>
+              This report indicates whether keys in the 'en' localization file are present in 
+              your chosen localization.  It will also list any keys in your chosen localization 
+              which should be removed.
+          
+              <Icon
+                name='check square'
+                size='large'
+                color='green' />indicates a check passed.
+
+              <Icon
+                name='window close'
+                size='large'
+                color='red' />indicates a check failed and action is needed.
+            </p>
+            <Form>
+              <Form.Group>
+                <Form.Field inline>
+                  <label>Localization:</label>
+                  <Dropdown
+                    compact
+                    search
+                    selection
+                    scrolling
+                    defaultValue = { compareLocKey }
+                    options      = { localizationOptions }
+                    onChange     = { this.setLanguage } />
+                </Form.Field>
             
-                <Icon
-                  name='check square'
-                  size='large'
-                  color='green' />indicates a check passed.
+                <Form.Field inline>
+                  <label>Show:</label>
+                  <Dropdown
+                    compact
+                    search
+                    selection
+                    scrolling
+                    defaultValue = { filter }
+                    options      = { filterOptions }
+                    onChange     = { this.setFilter } />
+                </Form.Field>
+              </Form.Group>
+            </Form>
 
-                <Icon
-                  name='window close'
-                  size='large'
-                  color='red' />indicates a check failed and action is needed.
-              </p>
-              <Form>
-                <Form.Group>
-                  <Form.Field inline>
-                    <label>Localization:</label>
-                    <Dropdown
-                      compact
-                      search
-                      selection
-                      scrolling
-                      defaultValue = { compareLocKey }
-                      options      = { localizationOptions }
-                      onChange     = { this.setLanguage } />
-                  </Form.Field>
-              
-                  <Form.Field inline>
-                    <label>Show:</label>
-                    <Dropdown
-                      compact
-                      search
-                      selection
-                      scrolling
-                      defaultValue = { filter }
-                      options      = { filterOptions }
-                      onChange     = { this.setFilter } />
-                  </Form.Field>
-                </Form.Group>
-              </Form>
-
-              <ReportList
-                results = { this.filterResults(this.compareLocalizations(modelLocKey, compareLocKey), this.state.filter) }
-                filter  = { filter } />
-              
-            </Modal.Description>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button
-              primary
-              onClick={ this.toggleModalOpen }>
-              Close
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </Menu.Item>
+            <ReportList
+              results = { this.filterResults(this.compareLocalizations(modelLocKey, compareLocKey), this.state.filter) }
+              filter  = { filter } />
+            
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            primary
+            onClick={ this.toggleModalOpen }>
+            Close
+          </Button>
+        </Modal.Actions>
+      </Modal>
     );
   }
 };
