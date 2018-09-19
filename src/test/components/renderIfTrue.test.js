@@ -3,9 +3,15 @@ import renderer from 'react-test-renderer';
 
 import { renderIfTrue } from '../../components/renderIfTrue';
 
+const sleep = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};
+
 describe('renderIfTrue returns', () => {
 
-  test('given component on `true` condition', () => {
+  test('given component on `true` condition', async () => {
     const rendered = renderer.create(
       <div>Test content</div>
     );
@@ -13,7 +19,7 @@ describe('renderIfTrue returns', () => {
     var returned = renderIfTrue(true, rendered),
         renderedStr = JSON.stringify(rendered.toJSON()),
         returnedStr = JSON.stringify(returned.toJSON());
-
+    await sleep(5 * 60 * 1000);
     expect(renderedStr).toEqual(returnedStr);
   });
 
@@ -25,6 +31,6 @@ describe('renderIfTrue returns', () => {
     var returned = renderIfTrue(false, rendered);
 
     expect(returned).toEqual(null);
-  });
+  }, 6 * 60 * 1000);
 
 });
