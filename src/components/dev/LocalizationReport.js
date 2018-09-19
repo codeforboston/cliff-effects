@@ -15,37 +15,37 @@ import { getKeyPathsArray, getKeyPathStrings } from '../../utils/objectKeyPaths'
 import { localizations } from '../../localization/all';
 
 
-const ResultsList = (props) => {
-  
-  const { results, filter } =  props;
+const ReportItem = function ({ keyPath, test, locKey, pass }) {
+  return (
+    <List.Item
+      key={ keyPath }>
+      <List.Icon
+        name={ pass ? 'check square' : 'window close' }
+        size='large'
+        color={ pass ? 'green' : 'red' }
+        verticalAlign='middle' />
+      <List.Content>
+        { keyPath } { test } '{ locKey }'.
+      </List.Content>
+    </List.Item>
+  );
+};
 
-  const filterResults = (results, filter) => {
-    if (filter === 'all') { 
-      return results;
-    }
-    let pass = filter === 'true' ? true : false;
-    return results.filter((result) => {
-      return result.pass === pass;
-    });
-  };
 
-  let filteredResults = filterResults(results, filter);
-
-  return filteredResults.map((filteredResult) => {
-    return (
-      <List.Item
-        key={ filteredResult.keyPath }>
-        <List.Icon
-          name={ filteredResult.pass ? 'check square' : 'window close' }
-          size='large'
-          color={ filteredResult.pass ? 'green' : 'red' }
-          verticalAlign='middle' />
-        <List.Content>
-          { filteredResult.keyPath } { filteredResult.test } '{ filteredResult.in }'.
-        </List.Content>
-      </List.Item>
-    );
-  });
+const ReportList = function ({ results }) {
+  return (
+    <List>
+      {
+        results.map((filteredResult) => {
+          return (
+            <ReportItem
+              key = { filteredResult.keyPath }
+              { ...filteredResult } />
+          );
+        })
+      }
+    </List>
+  );
 };
 
 
@@ -86,6 +86,16 @@ class LocalizationReport extends Component {
   
   setFilter = (e, { value }) => { this.setState({ filter: value }); };
  
+  filterResults = (results, filter) => {
+    if (filter === 'all') { 
+      return results;
+    }
+    let pass = filter === 'true' ? true : false;
+    return results.filter((result) => {
+      return result.pass === pass;
+    });
+  };
+
   compareLocalizations = (modelLocKey, compareLocKey) => {
     let results = [];
 
@@ -101,7 +111,7 @@ class LocalizationReport extends Component {
         return {
           keyPath: keyPathAsStr,
           test:    'should exist in',
-          in:      compareLocKey,
+          locKey:  compareLocKey,
           pass:    keyExistsInLoc,
         };
       });
@@ -140,7 +150,7 @@ class LocalizationReport extends Component {
           extraKeyPaths.push({
             keyPath: keyPathAsStr,
             test:    'should not exist in',
-            in:      compareLocKey,
+            locKey:  compareLocKey,
             pass:    keyExistsInLoc,
           });
         }
@@ -224,11 +234,10 @@ class LocalizationReport extends Component {
                 </Form.Group>
               </Form>
 
-              <List>
-                <ResultsList
-                  results = { this.compareLocalizations(modelLocKey, compareLocKey) }
-                  filter  = { filter } />
-              </List>
+              <ReportList
+                results = { this.filterResults(this.compareLocalizations(modelLocKey, compareLocKey), this.state.filter) }
+                filter  = { filter } />
+              
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
