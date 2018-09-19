@@ -57,7 +57,7 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
         // Append this key to the base path array
         let newBase = [ 
           ...base,
-          ...[ cleanedKey ],
+          cleanedKey,
         ];
         pathsArr.push(newBase);
 
