@@ -60,12 +60,10 @@ class CashFlowInputsRow extends Component {
   constructor(props) {
     super(props);
     this.state = { message: '' };
-    // Bind the validator to set message
-    this.cashFlowStoreValidator = this.cashFlowStoreValidator.bind(this);
   }
 
   // Special store validator that handles maximums and sets error message
-  cashFlowStoreValidator(max) {
+  cashFlowStoreValidator = (max) => {
     return (str) => {
       if (!isNonNegNumber(str)) {
         this.setState({ message: 'Invalid number format' });
