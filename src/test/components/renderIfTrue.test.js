@@ -14,7 +14,7 @@ let originalTimeout;
 describe('renderIfTrue returns', () => {
   beforeEach(() => {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 6 * 60 * 1000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 11 * 60 * 1000;
   });
 
   afterEach(() => {
@@ -29,7 +29,7 @@ describe('renderIfTrue returns', () => {
     var returned = renderIfTrue(true, rendered),
         renderedStr = JSON.stringify(rendered.toJSON()),
         returnedStr = JSON.stringify(returned.toJSON());
-    await sleep(5 * 60 * 1000);
+    await sleep(10 * 60 * 1000);
     expect(renderedStr).toEqual(returnedStr);
   });
 
