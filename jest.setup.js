@@ -1,0 +1,1 @@
+jest.setTimeout(6 * 60 * 1000); // eslint-disable-line

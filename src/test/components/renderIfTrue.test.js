@@ -31,6 +31,6 @@ describe('renderIfTrue returns', () => {
     var returned = renderIfTrue(false, rendered);
 
     expect(returned).toEqual(null);
-  }, 6 * 60 * 1000);
+  });
 
 });
