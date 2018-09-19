@@ -21,7 +21,7 @@ describe('renderIfTrue returns', () => {
         returnedStr = JSON.stringify(returned.toJSON());
     await sleep(5 * 60 * 1000);
     expect(renderedStr).toEqual(returnedStr);
-  });
+  }, 6 * 60 * 1000);
 
   test('null on `false` condition', () => {
     const rendered = renderer.create(
