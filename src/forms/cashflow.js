@@ -76,7 +76,7 @@ class CashFlowInputsRow extends Component {
       this.setState({ message: '' });
       return true;
     };
-  }
+  };
 
   render() {
     var { generic, timeState, updateClientValue, children } = this.props;
