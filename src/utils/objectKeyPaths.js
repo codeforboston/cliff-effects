@@ -5,8 +5,8 @@
  * @function
  * @name getKeyPathsArray
  * @param {object} obj - The object to be converted.
- * @param {boolean} stripVersions - Flag to indicate whether to remove localization version numbers from keys myKey_v1.0 becomes myKey.
- * @param {array} base - Array of keys to prepended.  Used for recursion, usually not passed in your call
+ * @param {boolean} [stripVersions=false] - Flag to indicate whether to remove localization version numbers from keys (myKey_v1.0 becomes myKey).
+ * @param {array} [base=[ ]] - Used for recursion, usually not passed in initial call. Keys to prepend to each child key.
  * @return {array} Array containing arrays of object keys as strings
  * 
  * @example
@@ -50,6 +50,25 @@
  * console.log(_.get(objToCompare, pathsArray[0])); // { b: '1' }
  * console.log(_.get(objToCompare, pathsArray[1])); // 1
  * console.log(_.get(objToCompare, pathsArray[2])); // undefined
+ * 
+ * // Removing versions from keys
+ * const pathsArrayWithoutVersions = getKeyPathsArray(objToCompare, true) = {
+ *   a: { b_v1: '1' },
+ *   e: {
+ *     f: {
+ *       g: { 'h_v3.0': '' },
+ *     },
+ *   },
+ * };
+ * console.log(pathsArrayWithoutVersions;
+ * // [
+ * //   [ 'a' ],
+ * //   [ 'a', 'b' ],
+ * //   [ 'e' ],
+ * //   [ 'e', 'f' ],
+ * //   [ 'e', 'f', 'g' ],
+ * //   [ 'e', 'f', 'g', 'h' ]
+ * // ]
  */
 const getKeyPathsArray = (obj, stripVersions, base = []) => {
   // Array to contain our keys paths (if any)
