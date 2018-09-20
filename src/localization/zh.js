@@ -30,7 +30,7 @@ export default {
   aboutPage: {
     'aboutPageHeader_v1': `關於懸崖效應工具`,
 
-    'whatForHeader_v1':   `這個工具用來做什麽？`,
+    'whatForHeader_v1':        `這個工具用來做什麽？`,
     'whatForImportantNote_v1': [
       {
         name: `__importantNote__`,
@@ -46,7 +46,7 @@ export default {
 
     'whyHeader_v1': `這個工具爲什麽重要？`,
     'why1_v1':      `懸崖效應發生于一個家庭經濟情況的微小改變，比如少額漲薪，不成比例地降低其補助額度。此家庭在試著增加其收入水平，卻實際上損失了收入，從而使其處在更大劣勢。這樣的懸崖效應阻止很多家庭離開公共補助項目。`,
-    'why2_v1': `此外，懸崖效應也非常難預測。收入、家庭大小、其它因素、甚至項目本身，都可能意料不到地互相影響。我們在探索簡化這個難題的方式，從而幫助家庭更好理解和預測其自我狀況。`,
+    'why2_v1':      `此外，懸崖效應也非常難預測。收入、家庭大小、其它因素、甚至項目本身，都可能意料不到地互相影響。我們在探索簡化這個難題的方式，從而幫助家庭更好理解和預測其自我狀況。`,
 
     'videoLinkText_v1':    `懸崖效應兩分鐘介紹視頻`,
     'quantLinkText_v1':    `用量化情景説明懸崖效應`,
@@ -54,7 +54,7 @@ export default {
 
     'howToUseHeader_v1': `我要怎麽用這個工具？`,
     'howtoUse_v1':       `一步步添加有關客戶目前補助、住宅、收入以及其他的信息。此信息會被用來預測客戶的大約補助額度。當您完成這些信息，改變“未來收入”額度以計算此收入變化對補助額度的影響。目前本程序支持 SNAP 以及 Section 8 住宅項目。請注意客戶目前補助額度的預測不一定準確。此程序的主要目標是以收入變化預測補助額度的對應變化。`,
-    'howToUseNote_v1': [
+    'howToUseNote_v1':   [
       `請注意：本程序不會保存任何用戶信息。`,
       {
         name: `__refreshWarning__`,
@@ -117,7 +117,7 @@ export default {
     currentBenefits: {
       'currentBenefits_v1': `目前補助`,
       'selectBenefits_v1':  `請選擇您目前獲得的補助`,
-      'hasSection8_v1': {
+      'hasSection8_v1':     {
         label: `您是否擁有 Section 8 住房補貼？`,
         hint:  `Section 8 爲租房提供補貼。`,
       },
@@ -125,8 +125,8 @@ export default {
         label: `您是否擁有糧食券 (SNAP)？`,
         hint:  `輔助營養援助計畫(糧食劵，SNAP)爲購買食品提供補貼`,
       },
-      'previous_v1':        `上一頁`,
-      'next_v1':            `下一頁`,
+      'previous_v1': `上一頁`,
+      'next_v1':     `下一頁`,
     },
 
     household: {
@@ -193,12 +193,12 @@ export default {
         label: `其它收入`,
         hint:  `請列出你所擁有的但爲在上方列出的收入`,
       },
-      'previous_v1':        `上一頁`,
-      'next_v1':            `下一頁`,
+      'previous_v1': `上一頁`,
+      'next_v1':     `下一頁`,
     },
 
     currentExpenses: {
-      'title_v1':                    `當前家庭支出`,
+      'title_v1':                      `當前家庭支出`,
       'unreimbursedNonMedCare_v1':     `合理非医疗未偿金`,
       'unreimbursedSubheading_v1':     `“兒童”指12嵗及以下兒童。請勿包括已被其他補償項目支付的資金。`,
       'columnExpenseType_v1':          `支出`,
@@ -244,39 +244,39 @@ export default {
       'warningMessage_v1':          `此工具當前處在測試狀態，所以這些數據不一定準確。如果此數據和真實數據確實有偏差，請發表建議來幫助我們。`,
       'submitFeedback_v1':          `發送建議`,
 
-      'benefitsTableTitle_v1':      `收入變化`,
-      'columnBenefit_v1':           `補助`,
-      'columnCurrentBenefits_v1':   `現有補助額`,
-      'columnNewEstimate_v1':       `預計新補助額`,
-      'columnDifference_v1':        `差額`,
-      'rowSNAP_v1':                 `SNAP 糧食劵`,
-      'rowSection8_v1':             `Section 8 住房`,
-      'rowTotalBenefits_v1':        `補助總額`,
-      'rowIncome_v1':               `收入`,
-      'rowNetTotal_v1':             `净總額`,
-      'perMonth_v1':                ` /月`,
-      'dollarSign_v1':              `$`,
+      'benefitsTableTitle_v1':    `收入變化`,
+      'columnBenefit_v1':         `補助`,
+      'columnCurrentBenefits_v1': `現有補助額`,
+      'columnNewEstimate_v1':     `預計新補助額`,
+      'columnDifference_v1':      `差額`,
+      'rowSNAP_v1':               `SNAP 糧食劵`,
+      'rowSection8_v1':           `Section 8 住房`,
+      'rowTotalBenefits_v1':      `補助總額`,
+      'rowIncome_v1':             `收入`,
+      'rowNetTotal_v1':           `净總額`,
+      'perMonth_v1':              ` /月`,
+      'dollarSign_v1':            `$`,
 
-      'stackedBarGraphTitle_v1':    `收入變化表`,
-      'moneyInAsIncomeChanges_v1':  `净收入`,
+      'stackedBarGraphTitle_v1':   `收入變化表`,
+      'moneyInAsIncomeChanges_v1': `净收入`,
 
-      'stackedAreaGraphTitle_v1':   `堆叠收入表`,
-      'allMoneyComingIn_v1':        `净收入總額`,
+      'stackedAreaGraphTitle_v1': `堆叠收入表`,
+      'allMoneyComingIn_v1':      `净收入總額`,
 
-      'benefitProgramsTitle_v1':    `單獨補助額度，根據家庭收入變化`,
-      'benefitValue_v1':            `補助額度 ($)`,
+      'benefitProgramsTitle_v1': `單獨補助額度，根據家庭收入變化`,
+      'benefitValue_v1':         `補助額度 ($)`,
 
-      'totalMoney_v1':              `總收入 ($)`,
-      'weeklyIncome_v1':            `周收入 ($)`,
-      'monthlyIncome_v1':           `月收入 ($)`,
-      'yearlyIncome_v1':            `年收入 ($)`,
-      'hasIncome_v1':               `收入`,
-      'hasSNAP_v1':                 `SNAP 糧食劵`,
-      'hasSection8_v1':             `Section 8 住房`,
-      'futureIncomeLine_v1':        `未來收入`,
-      'buttonWeekly_v1':            `每周`,
-      'buttonMonthly_v1':           `每月`,
-      'buttonYearly_v1':            `每年`,
+      'totalMoney_v1':       `總收入 ($)`,
+      'weeklyIncome_v1':     `周收入 ($)`,
+      'monthlyIncome_v1':    `月收入 ($)`,
+      'yearlyIncome_v1':     `年收入 ($)`,
+      'hasIncome_v1':        `收入`,
+      'hasSNAP_v1':          `SNAP 糧食劵`,
+      'hasSection8_v1':      `Section 8 住房`,
+      'futureIncomeLine_v1': `未來收入`,
+      'buttonWeekly_v1':     `每周`,
+      'buttonMonthly_v1':    `每月`,
+      'buttonYearly_v1':     `每年`,
     },
   },
 };
