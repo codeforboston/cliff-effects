@@ -26,9 +26,9 @@ const Footer = ({ snippets }) => {
             <Header
               as='h4'
               inverted>
-              { snippets.header }
+              { snippets.header_v1 }
             </Header>
-            <p>{ snippets.cfbCredit }</p>
+            <p>{ snippets.cfbCredit_v1 }</p>
           </Grid.Column>
           <a
 
