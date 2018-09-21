@@ -1,35 +1,75 @@
-/*
-Usage:
+/**
+ * Recursive function that returns an object's keys as an array of arrays.  Can be 
+ * used with lodash's Array methods such as _.get() and _.has().  Created to help 
+ * find missing and/or extraneous keys in localization objects. 
+ * @function
+ * @name getKeyPathsArray
+ * @param {object} obj - The object to be converted.
+ * @param {boolean} [stripVersions=false] - Flag to indicate whether to remove localization version numbers from keys (myKey_v1.0 becomes myKey).
+ * @param {array} [base=[ ]] - Used for recursion, usually not passed in initial call. Keys to prepend to each child key.
+ * @return {array} Array containing arrays of object keys as strings
+ * 
+ * @example
+ * const objModel = {
+ *   a: { b: '1' },
+ *   c: 2,
+ *   d: [ 1, 2, 3, ],
+ *   e: {
+ *     f: {
+ *       g: { h: '' },
+ *       i: '',
+ *     },
+ *   },
+ * };
+ * const pathsArray = getKeyPathsArray(objModel);
+ * 
+ * console.log(pathsArray);
+ * // [
+ * //   [ 'a' ],
+ * //   [ 'a', 'b' ],
+ * //   [ 'c' ],
+ * //   [ 'd' ],
+ * //   [ 'e' ],
+ * //   [ 'e', 'f' ],
+ * //   [ 'e', 'f', 'g' ],
+ * //   [ 'e', 'f', 'g', 'h' ],
+ * //   [ 'e', 'f', 'i' ]
+ * // ]
+ * 
+ * const objToCompare = {
+ *   a: { b: '1' },
+ *   e: {
+ *     f: {
+ *       g: { h: '' },
+ *     },
+ *   },
+ * };
 
-const objToCheck = {
-  a: { b: '1' },
-  c: 2,
-  d: [ 1, 2, 3, ],
-  e: {
-    f: {
-      g: { h: '' },
-      i: '',
-    },
-  },
-};
-const pathsArray = getKeyPathsArray(objToCheck);
-console.log('pathsArray', pathsArray);
-
-Console output:
-
-[
-  [ 'a' ],
-  [ 'a', 'b' ],
-  [ 'c' ],
-  [ 'd' ],
-  [ 'e' ],
-  [ 'e', 'f' ],
-  [ 'e', 'f', 'g' ],
-  [ 'e', 'f', 'g', 'h' ],
-  [ 'e', 'f', 'i' ]
-]
-*/
-
+ * console.log(_.has(objToCompare, pathsArray[2])); // false
+ * console.log(_.has(objToCompare, pathsArray[8])); // true
+ * console.log(_.get(objToCompare, pathsArray[0])); // { b: '1' }
+ * console.log(_.get(objToCompare, pathsArray[1])); // 1
+ * console.log(_.get(objToCompare, pathsArray[2])); // undefined
+ * 
+ * // Removing versions from keys
+ * const pathsArrayWithoutVersions = getKeyPathsArray(objToCompare, true) = {
+ *   a: { b_v1: '1' },
+ *   e: {
+ *     f: {
+ *       g: { 'h_v3.0': '' },
+ *     },
+ *   },
+ * };
+ * console.log(pathsArrayWithoutVersions;
+ * // [
+ * //   [ 'a' ],
+ * //   [ 'a', 'b' ],
+ * //   [ 'e' ],
+ * //   [ 'e', 'f' ],
+ * //   [ 'e', 'f', 'g' ],
+ * //   [ 'e', 'f', 'g', 'h' ]
+ * // ]
+ */
 const getKeyPathsArray = (obj, stripVersions, base = []) => {
   // Array to contain our keys paths (if any)
   let pathsArr = [];
@@ -77,16 +117,34 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
 };
 
 
-/*
-* Convert key path array to an array of strings
-* [
-*   [ 'e', 'f', 'g', 'h' ],
-* ]
-* becomes 
-* [ 
-*   'e.f.g.h',
-* ]
-*/
+/**
+ * Convert key path array to an array of '.'-delimited strings.
+ * @function
+ * @name getKeyPathStrings
+ * @param {object} keyPathsArr - Key paths array returned by getKeyPathsArray() 
+ * @return {array} New array of key strings
+ * 
+ * @example
+ * const keyPathsArray = [
+ *   [ 'a' ],
+ *   [ 'a', 'b' ],
+ *   [ 'e' ],
+ *   [ 'e', 'f' ],
+ *   [ 'e', 'f', 'g' ],
+ *   [ 'e', 'f', 'g', 'h' ],
+ * ];
+ * 
+ * const keyPathsAsStrings = getKeyPathStrings(keyPathsArray);
+ * console.log(keyPathsAsStrings);
+ * // [ 
+ * //   'a',
+ * //   'a.b',
+ * //   'e',
+ * //   'e.f',
+ * //   'e.f.g',
+ * //   'e.f.g.h'
+ * // ]
+ */
 const getKeyPathStrings = (keyPathsArr) => {
   return keyPathsArr.map((keyPath) => { 
     return keyPath.join('.');

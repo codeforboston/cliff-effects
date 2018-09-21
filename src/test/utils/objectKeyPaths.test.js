@@ -21,8 +21,31 @@ describe('getKeyPathsArray()', () => {
     expect(getKeyPathsArray(obj)).toEqual(result);
   });
 
+  test('prop w/ empty object should return empty array', () => {
+    expect(getKeyPathsArray({})).toEqual([]);
+  });
+
   test('prop w/ object value should return array of key arrays', () => {
     expect(getKeyPathsArray({ a: { b: '' }})).toEqual([
+      [ 'a' ],
+      [
+        'a',
+        'b',
+      ],
+    ]);
+  });
+
+  test('prop w/ version should have version removed when stripVersions flag is set', () => {
+    expect(getKeyPathsArray({ a_v1: '' }, true)).toEqual([ [ 'a' ] ]);
+    expect(getKeyPathsArray({ 'a_v1.0': '' }, true)).toEqual([ [ 'a' ] ]);
+    expect(getKeyPathsArray({ a: { b_v1: '' }}, true)).toEqual([
+      [ 'a' ],
+      [
+        'a',
+        'b',
+      ],
+    ]);
+    expect(getKeyPathsArray({ a: { 'b_v1.0': '' }}, true)).toEqual([
       [ 'a' ],
       [
         'a',
