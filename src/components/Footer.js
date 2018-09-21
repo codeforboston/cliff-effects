@@ -10,10 +10,9 @@ import {
 
 const Footer = ({ snippets }) => {
   return (
-    <Segment
+    <Segment className="footer_segment"
       inverted
       vertical
-      style={{ padding: '2em 0em' }}
       color='teal'>
       <Grid
         container
