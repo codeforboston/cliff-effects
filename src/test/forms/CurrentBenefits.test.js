@@ -9,8 +9,7 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
-var snips = getTextForLanguage(`en`);
-
+var snippets = getTextForLanguage(`en`);
 test('Benefits step component renders as snapshot correctly', () => {
   const navData = {
           left:   null,
@@ -21,7 +20,7 @@ test('Benefits step component renders as snapshot correctly', () => {
         saveForm         = jest.fn(),
         askToResetClient = jest.fn(),
         openFeedback     = jest.fn(),
-        formSnippets     = snips.visitPage.currentBenefits;
+        formSnippets     = snippets.visitPage.currentBenefits;
 
   const wrapper = shallow(
     <CurrentBenefitsStep

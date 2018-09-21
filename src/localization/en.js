@@ -121,7 +121,6 @@ export default {
       hasSection8Hint_v1:  `Section 8 provides rental housing assistance.`,
       hasSnapLabel_v1:     `Do you have SNAP?`,
       hasSnapHint_v1:      `SNAP provides assistance with buying food`,
-      next:                `Next`,
     },
 
     household: {
