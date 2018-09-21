@@ -10,7 +10,8 @@ import {
 
 const Footer = ({ snippets }) => {
   return (
-    <Segment className="footer_segment"
+    <Segment
+      className = { `footer_segment` }
       inverted
       vertical
       color='teal'>
@@ -26,9 +27,9 @@ const Footer = ({ snippets }) => {
             <Header
               as='h4'
               inverted>
-              { snippets.header_v1 }
+              { snippets.i_header }
             </Header>
-            <p>{ snippets.cfbCredit_v1 }</p>
+            <p>{ snippets.i_cfbCredit }</p>
           </Grid.Column>
           <a
 
