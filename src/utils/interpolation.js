@@ -61,7 +61,7 @@ const interpolateSnippets = function (snippets, components) {
 
     if (key === 'langCode') {
       // don't wrap the langCode, it's just metadata
-      named[ newKey ] = value;
+      named[ key ] = value;
     } else if (typeof(value) === 'string') {
       // plain translated string
       named[ newKey ] = (<span { ...props }>{ value }</span>);
@@ -71,7 +71,7 @@ const interpolateSnippets = function (snippets, components) {
     } else {
       // else: value is a nested object
       value.langCode = langCode;
-      named[ newKey ] = interpolateSnippets(value, components);
+      named[ key ] = interpolateSnippets(value, components);
     }
 
   }  // end for every key in snippets
