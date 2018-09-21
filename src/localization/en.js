@@ -94,16 +94,16 @@ export default {
   },
 
   visitPage: {
-    'previous_v1.0':  `Previous`,
-    'next_v1.0':      `Next`,
-    'newClient_v1.0': `New Client`,
+    'previous_v1':  `Previous`,
+    'next_v1':      `Next`,
+    'newClient_v1': `New Client`,
 
     stepBar: {
-      currentBenefits: `Current Benefits`,
-      household:       `Household`,
-      currentIncome:   `Income`,
-      currentExpenses: `Expenses`,
-      predictions:     `Predictions`,
+      currentBenefits_v1: `Current Benefits`,
+      household_v1:       `Household`,
+      currentIncome_v1:   `Income`,
+      currentExpenses_v1: `Expenses`,
+      predictions_v1:     `Predictions`,
     },
 
     formHelpers: {
