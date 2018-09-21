@@ -63,7 +63,15 @@ const TabbedVisualizations = ({ client, snippets }) => {
               { snippets.tabTitleChanges_v1 }
             </Menu.Item>
           ),
-          render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;}, 
+          render: () => {
+            return (
+              <Tab.Pane>
+                <BenefitsTable
+                  client={ client }
+                  snippets={ snippets } />
+              </Tab.Pane>
+            );
+          },
         },
         { 
           menuItem: (

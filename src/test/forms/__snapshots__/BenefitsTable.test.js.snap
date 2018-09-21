@@ -113,7 +113,8 @@ exports[`Benefits table renders correctly 1`] = `
           className="right aligned"
         >
           
-           $
+           
+          $
           0
            / month
         </td>
@@ -182,7 +183,8 @@ exports[`Benefits table renders correctly 1`] = `
           }
         >
           
-           $
+           
+          $
           0
            / month
         </td>
