@@ -7,7 +7,14 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
   size="massive"
 >
   <FormPartsContainer
-    clarifier="Select the benefits you currently receive"
+    clarifier={
+      <span
+        className="snippet"
+        lang="en"
+      >
+        Select the benefits you currently receive
+      </span>
+    }
     navData={
       Object {
         "left": null,
@@ -18,7 +25,14 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
         },
       }
     }
-    title="Current Benefits"
+    title={
+      <span
+        className="snippet"
+        lang="en"
+      >
+        Current Benefits
+      </span>
+    }
   >
     <CurrentBenefitsContent
       current={
@@ -82,17 +96,91 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
-          "currentBenefits": "Current Benefits",
-          "hasSection8": Object {
-            "hint": "Section 8 provides rental housing assistance.",
-            "label": "Do you have Section 8 Housing?",
-          },
-          "hasSnap": Object {
-            "hint": "SNAP provides assistance with buying food",
-            "label": "Do you have SNAP?",
-          },
-          "next": "Next",
-          "selectBenefits": "Select the benefits you currently receive",
+          "currentBenefits_v1": <span
+            className="snippet"
+            lang="en"
+        >
+            Current Benefits
+        </span>,
+          "hasSection8Hint_v1": <span
+            className="snippet"
+            lang="en"
+        >
+            Section 8 provides rental housing assistance.
+        </span>,
+          "hasSection8Label_v1": <span
+            className="snippet"
+            lang="en"
+        >
+            Do you have Section 8 Housing?
+        </span>,
+          "hasSnapHint_v1": <span
+            className="snippet"
+            lang="en"
+        >
+            SNAP provides assistance with buying food
+        </span>,
+          "hasSnapLabel_v1": <span
+            className="snippet"
+            lang="en"
+        >
+            Do you have SNAP?
+        </span>,
+          "i_currentBenefits": <span
+            className="snippet"
+            lang="en"
+        >
+            Current Benefits
+        </span>,
+          "i_hasSection8Hint": <span
+            className="snippet"
+            lang="en"
+        >
+            Section 8 provides rental housing assistance.
+        </span>,
+          "i_hasSection8Label": <span
+            className="snippet"
+            lang="en"
+        >
+            Do you have Section 8 Housing?
+        </span>,
+          "i_hasSnapHint": <span
+            className="snippet"
+            lang="en"
+        >
+            SNAP provides assistance with buying food
+        </span>,
+          "i_hasSnapLabel": <span
+            className="snippet"
+            lang="en"
+        >
+            Do you have SNAP?
+        </span>,
+          "i_next": <span
+            className="snippet"
+            lang="en"
+        >
+            Next
+        </span>,
+          "i_selectBenefits": <span
+            className="snippet"
+            lang="en"
+        >
+            Select the benefits you currently receive
+        </span>,
+          "langCode": "en",
+          "next": <span
+            className="snippet"
+            lang="en"
+        >
+            Next
+        </span>,
+          "selectBenefits_v1": <span
+            className="snippet"
+            lang="en"
+        >
+            Select the benefits you currently receive
+        </span>,
         }
       }
       updateClientValue={[Function]}

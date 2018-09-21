@@ -4,7 +4,12 @@ import { shallow } from 'enzyme';
 import { CurrentBenefitsStep } from '../../forms/CurrentBenefits';
 
 import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
-import snippets from '../../localization/en.js';
+
+// LOCALIZATION
+import { getTextForLanguage } from '../../utils/getTextForLanguage';
+
+
+var snips = getTextForLanguage(`en`);
 
 test('Benefits step component renders as snapshot correctly', () => {
   const navData = {
@@ -16,7 +21,7 @@ test('Benefits step component renders as snapshot correctly', () => {
         saveForm         = jest.fn(),
         askToResetClient = jest.fn(),
         openFeedback     = jest.fn(),
-        formSnippets     = snippets.visitPage.currentBenefits;
+        formSnippets     = snips.visitPage.currentBenefits;
 
   const wrapper = shallow(
     <CurrentBenefitsStep
