@@ -2,7 +2,7 @@ import React from 'react';
 import { Step } from 'semantic-ui-react';
 
 const StepBar = ({ steps, currentStepIndex, goToStep, snippets }) => {
-console.log(snippets);
+
   var cleanSteps = [];
 
   steps.forEach((step, index) => {
