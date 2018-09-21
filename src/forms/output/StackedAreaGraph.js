@@ -47,22 +47,22 @@ class StackedAreaGraph extends Component {
     const { client, timescale, activePrograms } = this.props;
     const multiplier = multipliers[ timescale ];
 
-    // Adjust to time-interval, round to hundreds
-    // var max       = Math.ceil((MAX_X_MONTHLY * multiplier) / 100) * 100,
-    var max       = Math.ceil((limits.max * multiplier) / 100) * 100,
-        interval  = Math.ceil((max / 100) / 10) * 10;
-
     var withIncome    = activePrograms.slice();
     withIncome.unshift('income');
 
-    var xRange        = _.range(limits.min, max, interval),
+    // Adjust to time-interval, round to hundreds
+    var income        = client.future.earned * multiplier,
+        max           = Math.max(income, limits.max * multiplier),
+        xMax          = Math.ceil(max / 100) * 100,
+        xMin          = Math.ceil(limits.min * multiplier / 100) * 100,
+        interval      = Math.ceil(((xMax - xMin) / 100) / 10) * 10,
+        xRange        = _.range(xMin, xMax + interval, interval),
         extraProps    = { income: { fill: 'origin' }},
         datasets      = getDatasets(xRange, client, multiplier, withIncome, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var income  = client.future.earned * multiplier,
-        hack    = this.state.verticalLine;
+    var hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
@@ -117,6 +117,7 @@ class StackedAreaGraph extends Component {
         },  // end `tooltips`
       },  // end `options`
       plugins: [ this.state.verticalLine ],
+      redraw:  true,
     };  // end `stackedAreaProps`
 
     return (
