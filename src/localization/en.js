@@ -99,11 +99,11 @@ export default {
     newClient_v1: `New Client`,
 
     stepBar: {
-      currentBenefits: `Current Benefits`,
-      household:       `Household`,
-      currentIncome:   `Income`,
-      currentExpenses: `Expenses`,
-      predictions:     `Predictions`,
+      currentBenefitsv_1: `Current Benefits`,
+      householdv_1:       `Household`,
+      currentIncomev_1:   `Income`,
+      currentExpensesv_1: `Expenses`,
+      predictionsv_1:     `Predictions`,
     },
 
     formHelpers: {
