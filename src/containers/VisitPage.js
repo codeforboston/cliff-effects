@@ -278,7 +278,7 @@ class VisitPage extends Component {
 
     if (stepIndex !== 0) {
       prevData = {
-        text:    snippets[ `previous_v1.0` ],
+        text:    snippets[ `previous_v1` ],
         onClick: this.previousStep,
       };
     }
@@ -287,14 +287,14 @@ class VisitPage extends Component {
     if (stepIndex !== (this.steps.length - 1)) {
       // use normal 'next' data
       nextData = {
-        text:    snippets[ `next_v1.0` ],
+        text:    snippets[ `next_v1` ],
         onClick: this.nextStep,
       };
 
     // Otherwise, set up to reset client
     } else {
       nextData = {
-        text:    snippets[ `newClient_v1.0` ],
+        text:    snippets[ `newClient_v1` ],
         onClick: this.askToResetClient,
       };
     }
