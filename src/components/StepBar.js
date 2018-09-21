@@ -2,11 +2,11 @@ import React from 'react';
 import { Step } from 'semantic-ui-react';
 
 const StepBar = ({ steps, currentStepIndex, goToStep, snippets }) => {
-
+console.log(snippets);
   var cleanSteps = [];
 
   steps.forEach((step, index) => {
-    var newStep = { title: { content: snippets[ step.key ] }};
+    var newStep = { title: { content: snippets[ `i_` + step.key ] }};
     newStep.active = index === (currentStepIndex - 1);
     newStep.onClick = (e) => {
       goToStep(index + 1);
