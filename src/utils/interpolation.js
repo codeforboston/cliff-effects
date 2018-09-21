@@ -43,7 +43,40 @@ const interpolateText = function (template, components, langCode) {
 
 /** Recursively interpolate each template in a snippets object */
 const interpolateSnippets = function (snippets, components) {
-  return mapValues(snippets, (value, key) => {
+  var named        = {},
+      versionRegex = /_v\d+$/;
+
+  for (let key in snippets) {
+    let newKey = `i_` + key.replace(versionRegex, ``),
+        value = snippets[ key ];
+
+    count++;
+    var langCode = snippets.langCode;
+
+    var props = {
+      key:       langCode + count,
+      lang:      langCode,
+      className: `snippet`,
+    };
+
+    if (key === 'langCode') {
+      // don't wrap the langCode, it's just metadata
+      named[ newKey ] = value;
+    } else if (typeof(value) === 'string') {
+      // plain translated string
+      named[ newKey ] = (<span { ...props }>{ value }</span>);
+    } else if (Array.isArray(value)) {
+      // template for interpolation
+      named[ newKey ] = interpolateText(value, components, langCode);
+    } else {
+      // else: value is a nested object
+      value.langCode = langCode;
+      named[ newKey ] = interpolateSnippets(value, components);
+    }
+
+  }  // end for every key in snippets
+
+  var old = mapValues(snippets, (value, key) => {
 
     count++;
     var langCode = snippets.langCode;
@@ -70,6 +103,9 @@ const interpolateSnippets = function (snippets, components) {
     }
 
   });
+
+  return { ...named, ...old };
 };
+
 
 export { interpolateText, interpolateSnippets };
