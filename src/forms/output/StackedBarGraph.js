@@ -3,16 +3,11 @@ import { Bar } from 'react-chartjs-2';
 
 // COMPONENT HELPER FUNCTIONS
 import {
-  getBenefitTimeFrames,
-  getIncomeTimeFrames,
-} from '../../utils/getTimeFrames';
-import { getSNAPBenefits } from '../../programs/federal/snap';
-import { getSection8Benefit } from '../../programs/massachusetts/section8';
-import {
   formatAxis,
   formatLabel,
   formatStackedTitle,
 } from '../../utils/charts/chartFormatting';
+import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
 // DATA
 // Colors and text for parts of the chart
@@ -34,69 +29,56 @@ import { cloneDeep } from 'lodash';
 const StackedBarGraph = function({ client }) {
 
   var clone = cloneDeep(client),
-      curr  = clone.current,
-      {
-        benefitCurrent: sec8BenefitCurrent,
-        benefitFuture:  sec8BenefitFuture,
-      } = getBenefitTimeFrames(clone, 'hasSection8', getSection8Benefit);
+      curr  = clone.current;
 
-  // Mutate clone for correct SNAP calculations
-  clone.future.rentShare = (clone.future.contractRent - sec8BenefitFuture);
-
-  var {
-        benefitCurrent: SNAPBenefitCurrent,
-        benefitFuture:  SNAPBenefitFuture,
-      } = getBenefitTimeFrames(clone, 'hasSnap', getSNAPBenefits),
-      { incomeCurrent, incomeFuture } = getIncomeTimeFrames(clone);
-
-  var snapData    = [
-        SNAPBenefitCurrent,
-        SNAPBenefitFuture, 
-      ],
-      housingData = [
-        sec8BenefitCurrent,
-        sec8BenefitFuture, 
-      ],
-      incomeData  = [
-        incomeCurrent,
-        incomeFuture, 
-      ];
-
-  const SNAPColor     = PROGRAM_CHART_VALUES.snap.color,
-        SNAPName      = PROGRAM_CHART_VALUES.snap.name,
-        section8Color = PROGRAM_CHART_VALUES.section8.color,
-        section8Name  = PROGRAM_CHART_VALUES.section8.name,
-        incomeColor   = PROGRAM_CHART_VALUES.income.color,
-        incomeName    = PROGRAM_CHART_VALUES.income.name;
-
-  var datasets = [
-    {
-      label:           incomeName,
-      backgroundColor: incomeColor,
-      data:            incomeData,
-      fill:            'origin',
-    },
-  ];
-
-  if (curr.hasSnap) {
-    datasets.push({
-      label:           SNAPName,
-      backgroundColor: SNAPColor,
-      data:            snapData,
-    });
-  }
+  var allData         = {},
+      activeBenefits  = [ `income` ];
 
   if (curr.hasSection8) {
-    datasets.push({
-      label:           section8Name,
-      backgroundColor: section8Color,
-      data:            housingData,
-    });
+    activeBenefits.push(`section8`);
   }
+
+  if (curr.hasSnap) {
+    activeBenefits.push(`snap`);
+  }
+
+  var currentCalcData = {
+    activeBenefits: activeBenefits,
+    dataToAddTo:    allData,
+    clientToChange: clone,
+    timeframe:      `current`,
+  };
+  applyAndPushBenefits (currentCalcData);
+
+  // Add to the `current` data already there
+  var futureCalcData = {
+    activeBenefits: activeBenefits,
+    dataToAddTo:    allData,
+    clientToChange: clone,
+    timeframe:      `future`,
+  };
+  applyAndPushBenefits (futureCalcData);
+
+  var datasets = [];
+  for (let bName of activeBenefits) {
+
+    let frosting = PROGRAM_CHART_VALUES[ bName ],
+        data     = {
+          label:           frosting.name,
+          backgroundColor: frosting.color,
+          data:            allData[ bName ],
+        };
+
+    if (bName === `income`) {
+      data.fill = `origin`;
+    }
+
+    datasets.push(data);
+  }  // end for each benefit in order
 
   const stackedBarProps = {
     data: {
-      labels:   incomeData,
+      labels:   allData.income,
       datasets: datasets,
     },
     options: {

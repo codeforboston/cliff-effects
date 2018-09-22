@@ -41,6 +41,8 @@ var benefitOps = {
  *     handed in. It builds up the data for each
  *     benefit.
  *
+ * WARNING: Benefits use monthly values for their calculations
+ *
  * @param {array} activeBenefits List of benefits the caller wants calculated
  * @param {object} dataToAddTo Contains or will contain arrays, for each
  *     benefit. Data will be pushed onto those arrays.

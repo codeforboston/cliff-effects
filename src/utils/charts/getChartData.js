@@ -52,6 +52,9 @@ const getChartData = function (incomes, multiplier, client, activeBenefitsInOrde
 
   for (let incomei = 0; incomei < incomes.length; incomei++) {
     let income = incomes[ incomei ];
+    // May be worth looking at how incomes are being
+    // created and whether they need to use the
+    // multiplier as early as they do.
     clone.future.earned = income / multiplier;
 
     // Collect datasets in `allData`. Mutates `clone` and `allData`.
