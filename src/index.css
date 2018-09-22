@@ -10,6 +10,12 @@ body {
   height:  100%;
 }
 
+/* AboutContent.js styles */
+
+.ac-header {
+  font-size: 4em;
+}
+
 /* App.js styles */
 #App {
   min-height: 100%;
