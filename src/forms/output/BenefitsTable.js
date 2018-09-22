@@ -2,13 +2,8 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 
-// CUSTOM COMPONENTS
-// Both the table and graph should just be added to a results page, but
-// this will do for now
-
 // BENEFIT LOGIC
-import { getSNAPBenefits } from '../../programs/federal/snap';
-import { getSection8Benefit } from '../../programs/massachusetts/section8';
+import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';
@@ -30,21 +25,52 @@ const BenefitsTable = function ({ client, snippets }) {
   var clone = cloneDeep(client);
   var curr = clone.current;
 
+  var allData         = {},
+      activeBenefits  = [ `income` ];
+
+  if (curr.hasSection8) {
+    activeBenefits.push(`section8`);
+  }
+
+  if (curr.hasSnap) {
+    activeBenefits.push(`snap`);
+  }
+
+  var currentCalcData = {
+    activeBenefits: activeBenefits,
+    dataToAddTo:    allData,
+    clientToChange: clone,
+    timeframe:      `current`,
+  };
+  applyAndPushBenefits (currentCalcData);
+
+  // Add to the `current` data already there
+  var futureCalcData = {
+    activeBenefits: activeBenefits,
+    dataToAddTo:    allData,
+    clientToChange: clone,
+    timeframe:      `future`,
+  };
+  applyAndPushBenefits (futureCalcData);
+
+  // @todo Abstract getting values for each row
+  var income   = allData.income,
+      section8 = allData.section8,
+      snap     = allData.snap;
+
   var sec8BenefitCurrent = 0,
       sec8BenefitFuture  = 0,
       SNAPBenefitCurrent = 0,
       SNAPBenefitFuture  = 0;
 
   if (curr.hasSection8) {
-    sec8BenefitCurrent     = Math.round(getSection8Benefit(clone, 'current'));
-    sec8BenefitFuture      = Math.round(getSection8Benefit(clone, 'future'));
-    // Mutate clone for correct SNAP values
-    clone.future.rentShare = (clone.future.contractRent - sec8BenefitFuture);
+    sec8BenefitCurrent     = Math.round(section8[ 0 ]);
+    sec8BenefitFuture      = Math.round(section8[ 1 ]);
   }
 
   if (curr.hasSnap) {
-    SNAPBenefitCurrent = Math.round(getSNAPBenefits(clone, 'current'));
-    SNAPBenefitFuture  = Math.round(getSNAPBenefits(clone, 'future'));
+    SNAPBenefitCurrent = Math.round(snap[ 0 ]);
+    SNAPBenefitFuture  = Math.round(snap[ 1 ]);
   }
 
   var SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
@@ -52,8 +78,8 @@ const BenefitsTable = function ({ client, snippets }) {
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
       totalDiff           = SNAPDiff + sec8Diff,
-      incomeCurrent       = Math.round(curr.earned),
-      incomeFuture        = Math.round(clone.future.earned),
+      incomeCurrent       = Math.round(income[ 0 ]),
+      incomeFuture        = Math.round(income[ 1 ]),
       incomeDiff          = incomeFuture - incomeCurrent,
       netCurrent          = totalBenefitCurrent + incomeCurrent,
       netFuture           = totalBenefitFuture + incomeFuture,
