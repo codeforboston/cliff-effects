@@ -145,9 +145,9 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       <br />
       <ControlledRadioYesNo
         labelText          = { 'Do you get Fuel Assistance?' }
-        checked            = { fuelAssist }
+        value              = { fuelAssist }
         name               = { 'fuelAssistance' }
-        updateClientValue = { updateClientValue } />
+        updateClientValue  = { updateClientValue } />
 
     </div>
 

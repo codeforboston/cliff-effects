@@ -5,9 +5,10 @@ import {
 } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
-// Object Manipulation
+// DATA MANAGEMENT
 import { setNestedProperty } from '../utils/setNestedProperty';
 import { cloneDeep } from 'lodash';
+import { convertForUpdate } from '../utils/convertForUpdate';
 
 // Data
 // import { clientList } from '../config/dummyClients';
@@ -145,24 +146,15 @@ class VisitPage extends Component {
     this.setState({ feedbackFormRequested: false });
   };
 
-  updateClientValue = (evnt, { route, name, value, checked, time }) => {
+  updateClientValue = ({ route, value, time }) => {
 
-    route = route || name;
-
-    var val = value;
-    if (typeof checked === 'boolean') {
-      val = checked;
-    }
-
-    var client      = cloneDeep(this.state.client),
+    var clone       = cloneDeep(this.state.client),
         userChanged = { ...this.state.userChanged },  // only 1 deep
-        current     = client.current,
-        future      = client.future,
         routeList   = route.split('/'),
         id          = routeList[ 0 ],  // `routeList` gets mutated
-        newEvent    = { time: time, route: routeList, value: val };
+        newEvent    = { time: time, route: routeList, value: value };
 
-    setNestedProperty(newEvent, { current, future }, this.state.userChanged[ id ]);
+    setNestedProperty(newEvent, clone, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
     if (time === 'future') {
@@ -172,25 +164,26 @@ class VisitPage extends Component {
     // Hack for MVP (otherwise need dependency + history system)
     let oldHousing = this.state.oldHousing;
     if (route === 'housing') {
-      // client housing should be right now
-      oldHousing = client.current.housing;
+      // clone housing should be right now
+      oldHousing = clone.current.housing;
     }
 
-    if (client.current.hasSection8) {
-      client.current.housing = 'voucher';
+    if (clone.current.hasSection8) {
+      clone.current.housing = 'voucher';
     } else {
       // Restore housing to previous value
-      client.current.housing = oldHousing;
+      clone.current.housing = oldHousing;
     }
 
-    client.future.housing = client.current.housing;
+    clone.future.housing = clone.current.housing;
 
     this.setState((prevState) => {
       return {
-        client:      client,
+        client:      clone,
         userChanged: userChanged,
         oldHousing:  oldHousing,
         // Form has been changed, data should now be downloadable
+        // Warning sign for leaving forms should be shown
         isBlocking:  true,
       };
     });
@@ -198,12 +191,14 @@ class VisitPage extends Component {
 
   changeCurrent = (evnt, data) => {
     data.time = 'current';
-    this.updateClientValue(evnt, data);
+    var newData = convertForUpdate(data);
+    this.updateClientValue(newData);
   };
 
   changeFuture = (evnt, data) => {
     data.time = 'future';
-    this.updateClientValue(evnt, data);
+    var newData = convertForUpdate(data);
+    this.updateClientValue(newData);
   };
 
   // Implement once privacy and security are worked out
@@ -283,7 +278,7 @@ class VisitPage extends Component {
 
     if (stepIndex !== 0) {
       prevData = {
-        text:    snippets[ `previous_v1.0` ],
+        text:    snippets[ `previous_v1` ],
         onClick: this.previousStep,
       };
     }
@@ -292,14 +287,14 @@ class VisitPage extends Component {
     if (stepIndex !== (this.steps.length - 1)) {
       // use normal 'next' data
       nextData = {
-        text:    snippets[ `next_v1.0` ],
+        text:    snippets[ `next_v1` ],
         onClick: this.nextStep,
       };
 
     // Otherwise, set up to reset client
     } else {
       nextData = {
-        text:    snippets[ `newClient_v1.0` ],
+        text:    snippets[ `newClient_v1` ],
         onClick: this.askToResetClient,
       };
     }
