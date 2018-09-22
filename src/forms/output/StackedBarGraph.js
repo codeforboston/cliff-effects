@@ -59,26 +59,30 @@ const StackedBarGraph = function({ client }) {
   };
   applyAndPushBenefits (futureCalcData);
 
-  var datasets = [];
+  var datasets    = [],
+      moneyLabels = [];
   for (let bName of activeBenefits) {
 
     let frosting = PROGRAM_CHART_VALUES[ bName ],
-        data     = {
+        dataset  = {
           label:           frosting.name,
           backgroundColor: frosting.color,
           data:            allData[ bName ],
         };
 
     if (bName === `income`) {
-      data.fill = `origin`;
+      dataset.fill = `origin`;
+      for (let amount of dataset.data) {
+        moneyLabels.push(Math.round(amount));
+      }
     }
 
-    datasets.push(data);
+    datasets.push(dataset);
   }  // end for each benefit in order
 
   const stackedBarProps = {
     data: {
-      labels:   allData.income,
+      labels:   moneyLabels,
       datasets: datasets,
     },
     options: {
