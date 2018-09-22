@@ -1,6 +1,6 @@
 // LOGIC
-import { getSection8Benefit } from '../../programs/massachusetts/section8';
-import { getSNAPBenefits } from '../../programs/federal/snap';
+import { getSection8Benefit } from './massachusetts/section8';
+import { getSNAPBenefits } from './federal/snap';
 
 
 // For development
@@ -36,7 +36,7 @@ var benefitOps = {
 // End for development
 
 
-/** 'getBenefits' by a more useful name. Mutates
+/** 'getBenefits' by a now more accurate name. Mutates
  *     two objects - the client and data objects
  *     handed in. It builds up the data for each
  *     benefit.
@@ -44,13 +44,13 @@ var benefitOps = {
  * @param {array} activeBenefits List of benefits the caller wants calculated
  * @param {object} dataToAddTo Contains or will contain arrays, for each
  *     benefit. Data will be pushed onto those arrays.
- * @param {object} clientToChange Client data, both 'current' and 'future',
- *     which will be mutated as each benefit affects its values for the
- *     next benefit.
+ * @param {object} clientToChange Full client data, both 'current' and
+ *     'future', which will be mutated as each benefit affects its values
+ *     for the next benefit.
  * @param {string} timeframe Either 'current' or 'future', whichever is
  *     supposed to be calculated.
  */
-const applyAndPushBenefits = function (activeBenefits, dataToAddTo, clientToChange, timeframe) {
+const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToChange, timeframe }) {
   for (let benefiti = 0; benefiti < benefitsInOrder.length; benefiti ++) {
 
     let benefitName = benefitsInOrder[ benefiti ];

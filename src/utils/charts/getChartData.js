@@ -2,175 +2,86 @@ import _ from 'lodash';
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 // LOGIC
-import { getSection8Benefit } from '../../programs/massachusetts/section8';
-import { getSNAPBenefits } from '../../programs/federal/snap';
+import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
 
-/** Order in which benefits must be run to affect
- *     each other correctly. @todo Store this
- *     where it can be easily edited by non-coders
- */
-var benefitOrder = [
-  `income`,
-  `section8`,
-  `snap`,
-];
-
-/** Container for functions so we can access them
- *     as we iterate.
- */
-var getBenefit = {
-  income: {
-    getSubsidy: function (client, timeframe) {
-      return client.future.earned;
-    },
-    getProps: function () {
-      return {};
-    },
-  },
-  section8: {
-    getSubsidy: getSection8Benefit,
-    getProps:   function (client, newSubsidy) {
-      return { rentShare: client.future.contractRent - newSubsidy };
-    },
-  },
-  snap: {
-    getSubsidy: getSNAPBenefits,
-    getProps:   function (client, newSubsidy) {
-      return {};
-    },
-  },
-};
-
-/** Returns various arrays of values over change in income */
-var getData = {};
-
-getData.income = function (xRange, client, multiplier) {
-  return xRange;
-};  // End getData.income
-
-getData.snap = function (xRange, client, multiplier) {
-
-  var data = xRange.map(function (income) {
-    client.future.earned = income / multiplier;  // Turn it back into monthly
-    return getSNAPBenefits(client, 'future') * multiplier;
-  });
-
-  return data;
-};  // End getData.snap
-
-
-getData.section8 = function (xRange, client, multiplier) {
-
-  // How the heck did I calculate subsidy amount for the past
-  // considering I only know the current subsidy amount? I'm
-  // worried about that.
-  var data = xRange.map(function (income) {
-    // New renting data
-    client.future.earned  = income / multiplier;  // Turn it back into monthly
-    var monthlySubsidy    = getSection8Benefit(client, 'future');
-    return monthlySubsidy * multiplier;
-  });
-
-  return data;
-};  // End getData.section8()
-
-/** Mutates `benefitDatasets` items to push new data onto
- *     their `.data` prop.
- * 
- * @todo Research how to jsdoc arrays of objects
+/** Returns the graph data formated in a way our graph
+ *     library understands.
  *
- * @param {array} xRange All income values to be included.
- * @param {object} clone Clone of the client object
- * @param {object} clone.future
- * @param {object} clone.client
- * @param {float} multiplier Adjusts income and data
- *     values (meant to adjust to weekly, monthly, and yearly amounts)
- * @param {array} benefitDatasets List of datasets, one for
- *     each benefit.
- * @param {object} benefitDatasets[n]
- * @param {string} benefitDatasets[n].name Name of the benefit
- * @param {array} benefitDatasets[n].data List to which output
- *     will be pushed.
+ * @todo Change `activeBenefitsInOrder` to an array of
+ *     objects with a `name` prop that already contain
+ *     graph frosting? Shouldn't each graph take care
+ *     of its own frosting?
  * 
- * @returns undefined
- */
-const insertBenefitData = function (xRange, clone, multiplier, benefitDatasets) {
-
-  // Don't loop if there's nothing to do
-  if (benefitDatasets.length === 0) {
-    return;
-  }
-
-  // Otherwise, loop over incomes
-  for (var incomei = 0; incomei < xRange.length; incomei++) {
-    var income = xRange[ incomei ];
-    clone.future.earned = income / multiplier;
-
-    // Datasets need to be in correct order for benefits to
-    // affect each other corrrectly.
-    for (let benefiti = 0; benefiti < benefitDatasets.length; benefiti++) {
-
-      let dataset = benefitDatasets[ benefiti ],
-          name    = dataset.benefitName,
-          funcs   = getBenefit[ name ];
-
-      let monthlyAmount = funcs.getSubsidy(clone, `future`);
-      dataset.data.push(monthlyAmount * multiplier);
-
-      // Mutate the clone in whatever way is appropriate for
-      // that program.
-      let newPropValues = funcs.getProps(clone, monthlyAmount);
-      Object.assign(clone.future, newPropValues);
-
-    }  // end for each benefit, in order
-
-  }  // end for all incomes
-
-  return;
-};  // End insertBenefitData()
-
-
-/** Returns the graph data formated in a way our graph library understands.
- * 
+ * @param {array} incomes
+ * @param {number} multiplier Number to convert from the
+ *     given time interval to monthly and back again -
+ *     benefit calculations are done with monthly values.
+ * @param {object} client Full client data, `current` and
+ *     `future` to be cloned, not mutated.
+ * @param {array} activeBenefitsInOrder Array of strings
+ *     of names of benefits in the order that we want them
+ *     to show up in the graph.
+ * @param {object} extraGraphProps Extra graph frosting on top of base frosting
  * @param {array} activeBenefits List of active benefits. @todo - use object instead?
  * */
-const getDatasets = function (xRange, client, multiplier, activeBenefits, extraProps) {
+const getChartData = function (incomes, multiplier, client, activeBenefitsInOrder, extraGraphProps) {
+  // Change client data to include object with array
+  // of benefits in the order we want?
 
-  // Don't want to change actual client's data
-  var clone    = _.cloneDeep(client),
-      datasets = [];
+  // Should activeBenefits be an array of objects, each
+  // with their graph props and a name that's then used
+  // to get benefits' data in the right order?
+  // [{name: `income`, ...}, {name: `section8`, ...}]
+  // Existing `name` prop would be changed to `label`
 
-  for (let benefiti = 0; benefiti < benefitOrder.length; benefiti++) {
+  // Active benefits should include 'income' if want it
 
-    let benefitName = benefitOrder[ benefiti ];
+  // Shorter name now that we've clearly expressed what it is
+  var benefits = activeBenefitsInOrder;
 
-    if (activeBenefits.indexOf(benefitName) > -1) {
+  var benefitDatasets = [],
+      allData         = {},  // each active benefit will have data in here
+      clone           = _.cloneDeep(client),
+      benefitCalcData = {
+        activeBenefits: benefits,
+        dataToAddTo:    allData,
+        clientToChange: clone,
+        timeframe:      `future`,
+      };
 
-      var graphFrosting = PROGRAM_CHART_VALUES[ benefitName ];
+  for (let incomei = 0; incomei < incomes.length; incomei++) {
+    let income = incomes[ incomei ];
+    clone.future.earned = income / multiplier;
 
-      datasets.push({
-        benefitName:     benefitName,
-        label:           graphFrosting.name,
-        backgroundColor: graphFrosting.color,
-        borderColor:     graphFrosting.color,
-        data:            [],  // Will be populated later
-        ...extraProps[ benefitName ],  // Override other props
-      });
-    }
-  }  // end for benefits (in correct order)
+    // Collect datasets in `allData`. Mutates `clone` and `allData`.
+    applyAndPushBenefits(benefitCalcData);
 
-  // Mutates each `.data` prop for each benefit
-  insertBenefitData(xRange, clone, multiplier, datasets);
+    // Adjust money amount to correct time interval (weekly, monthly, or yearly)
+    for (let benefiti = 0; benefiti < benefits.length; benefiti++) {
+      let benefitName = benefits[ benefiti ],
+          val = allData[ benefitName ][ incomei ] * multiplier;
+      allData[ benefitName ][ incomei ] = val;
+    }  // end for all active benefits
+  }  // end for all incomes
 
-  return datasets;
-};  // End getDatasets()
+  // Return in the same order as it was asked for
+  for (let benefiti = 0; benefiti < benefits.length; benefiti++) {
+    let benefitName   = benefits[ benefiti ],
+        graphFrosting = PROGRAM_CHART_VALUES[ benefitName ];
+
+    // All the graph info for that benefit
+    benefitDatasets.push({
+      label:           graphFrosting.name,
+      backgroundColor: graphFrosting.color,
+      borderColor:     graphFrosting.color,
+      data:            allData[ benefitName ],
+      ...extraGraphProps[ benefitName ],  // Override other props
+    });
+  }
+
+  return benefitDatasets;
+};  // End getChartData()
 
 
-export {
-  benefitOrder,
-  getBenefit,
-  getData,
-  insertBenefitData,
-  getDatasets,
-};
+export { getChartData };
