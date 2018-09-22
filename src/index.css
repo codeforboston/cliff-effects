@@ -42,6 +42,12 @@ body {
   padding: 1em 0em;
 }
 
+/* PageLayout.js styles */
+
+.pl-segment {
+  padding: 8em 0em;
+}
+
 form .field-aligner {
   display: inline-block;
   text-align: left;
