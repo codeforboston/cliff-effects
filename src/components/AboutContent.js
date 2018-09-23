@@ -11,7 +11,7 @@ const AboutContent = function ({ snippets }) {
     <div>
 
       <Header className="ac-header"
-        as='h1'
+        as='h1'>
         { snippets.aboutPageHeader_v1 }
       </Header>
 
