@@ -18,6 +18,9 @@ import {
 // Colors and text for parts of the chart
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
+// OBJECT MANIPULATION
+import { cloneDeep } from 'lodash';
+
 
 /** Visual representation of the table
 *
@@ -30,12 +33,21 @@ import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 */
 const StackedBarGraph = function({ client }) {
 
-  var curr = client.current;
+  var clone = cloneDeep(client),
+      curr  = clone.current,
+      {
+        benefitCurrent: sec8BenefitCurrent,
+        benefitFuture:  sec8BenefitFuture,
+      } = getBenefitTimeFrames(clone, 'hasSection8', getSection8Benefit);
 
-  var
-      { benefitCurrent: SNAPBenefitCurrent, benefitFuture: SNAPBenefitFuture } = getBenefitTimeFrames(client, 'hasSnap', getSNAPBenefits),
-      { benefitCurrent: sec8BenefitCurrent, benefitFuture: sec8BenefitFuture } = getBenefitTimeFrames(client, 'hasSection8', getSection8Benefit),
-      { incomeCurrent, incomeFuture } = getIncomeTimeFrames(client);
+  // Mutate clone for correct SNAP calculations
+  clone.future.rentShare = (clone.future.contractRent - sec8BenefitFuture);
+
+  var {
+        benefitCurrent: SNAPBenefitCurrent,
+        benefitFuture:  SNAPBenefitFuture,
+      } = getBenefitTimeFrames(clone, 'hasSnap', getSNAPBenefits),
+      { incomeCurrent, incomeFuture } = getIncomeTimeFrames(clone);
 
   var snapData    = [
         SNAPBenefitCurrent,

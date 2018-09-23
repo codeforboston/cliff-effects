@@ -6,8 +6,13 @@ export default {
   header: {},
 
   footer: {
-    header:    `Cliff Effects Tool`,
-    cfbCredit: [
+    header_v1: [
+      {
+        name: `__githubRepoLink__`,
+        text: `Cliff Effects Tool`,
+      },
+    ],
+    cfbCredit_v1: [
       `Made with `,
       { name: `__heartIcon__` },
       ` by Code for Boston`,
@@ -15,41 +20,41 @@ export default {
   },
 
   homePage: {
-    appName:          `Cliff Effects Tool`,
-    prototypeNote:    `GUIDANCE PROTOTYPE*`,
-    cautionaryNote:   `*This is a prototype and should not be used to make financial decisions`,
-    toFirstInputPage: `Get Started`,
-    toAboutPage:      `Learn More`,
+    appName_v1:          `Cliff Effects Tool`,
+    prototypeNote_v1:    `GUIDANCE PROTOTYPE*`,
+    cautionaryNote_v1:   `*This is a prototype and should not be used to make financial decisions`,
+    toFirstInputPage_v1: `Get Started`,
+    toAboutPage_v1:      `Learn More`,
   },
 
   aboutPage: {
-    aboutPageHeader: `About the Cliff Effects Tool`,
+    aboutPageHeader_v1: `About the Cliff Effects Tool`,
 
-    whatForHeader:        `What is this tool for?`,
-    whatForImportantNote: [
+    whatForHeader_v1:        `What is this tool for?`,
+    whatForImportantNote_v1: [
       {
         name: `__importantNote__`,
         text: `Important Note:`,
       },
       `This application is a minimum viable product. It should not be used as the sole tool to understand a client's SNAP or Section 8 financial situation, or for any other public assistance program.`,
     ],
-    whatFor: [
+    whatFor_v2: [
       `This tool can help show how a change in income affects how much someone receives in public assistance from SNAP (Supplemental Nutrition Assistance Program) and Section 8 Housing Voucher benefits. It was designed for the case managers at `,
       { name: `__projectHope__` },
       ` with the aim of helping to predict changes in their clients' benefits.`,
     ],
 
-    whyHeader: `Why is this tool important?`,
-    why1:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. The household is working to increase what they earn, but they end up with a net loss that actually puts them further behind. These cliff effects prevent many families from actually getting off of public assistance programs.`,
-    why2:      `Cliff effects are also difficult to predict. The interactions between income, household size, many other criteria, as well as the effects of the programs themselves impact each other in unexpected ways. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
+    whyHeader_v1: `Why is this tool important?`,
+    why1_v1:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. The household is working to increase what they earn, but they end up with a net loss that actually puts them further behind. These cliff effects prevent many families from actually getting off of public assistance programs.`,
+    why2_v1:      `Cliff effects are also difficult to predict. The interactions between income, household size, many other criteria, as well as the effects of the programs themselves impact each other in unexpected ways. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
 
-    videoLinkText:    `Two-minute video describing cliff effects`,
-    quantLinkText:    `Quantitative scenarios demonstrating cliff effects`,
-    benefitsLinkText: `Breakdown of different benefits offered in MA`,
+    videoLinkText_v1:    `Two-minute video describing cliff effects`,
+    quantLinkText_v1:    `Quantitative scenarios demonstrating cliff effects`,
+    benefitsLinkText_v1: `Breakdown of different benefits offered in MA`,
 
-    howToUseHeader: `How do I use this tool?`,
-    howToUse:       `Go step-by-step to add information about a client's current benefits, household, income, and other relevant information. This information will be used to predict the client's approximate benefit amount. When you reach the end, change the 'Future Income' amount to see how a change in earned income will cause a change in benefit amount. Currently, the SNAP and Section 8 Housing Voucher programs are both available. Note that predictions may not directly match up with a client’s current benefit amount. The app’s focus is the amount of change that occurs in benefits when there are changes in earned income.`,
-    howToUseNote:   [
+    howToUseHeader_v1: `How do I use this tool?`,
+    howToUse_v1:       `Go step-by-step to add information about a client's current benefits, household, income, and other relevant information. This information will be used to predict the client's approximate benefit amount. When you reach the end, change the 'Future Income' amount to see how a change in earned income will cause a change in benefit amount. Currently, the SNAP and Section 8 Housing Voucher programs are both available. Note that predictions may not directly match up with a client’s current benefit amount. The app’s focus is the amount of change that occurs in benefits when there are changes in earned income.`,
+    howToUseNote_v1:   [
       `Please note that this app does not store user data, so `,
       {
         name: `__refreshWarning__`,
@@ -58,8 +63,8 @@ export default {
       ` Each time you go through the app, it's a clean slate.`,
     ],
 
-    whoMadeThisHeader: `Who is behind this?`,
-    whoMadeThis1:      [
+    whoMadeThisHeader_v1: `Who is behind this?`,
+    whoMadeThis1_v1:      [
       `This application is part of a project made possible by a Boston Foundation Open Door Grant to the University of Massachusetts Boston's `,
       { name: `__centerForSocialPolicy__` },
       `, in close partnership with `,
@@ -70,7 +75,7 @@ export default {
       { name: `__onSolidGroundCoalition__` },
       `.`,
     ],
-    whoMadeThis2: [
+    whoMadeThis2_v1: [
       `The code base is being maintained on `,
       { name: `__github__` },
       ` by `,
@@ -79,7 +84,7 @@ export default {
       { name: `__contactEmail__` },
       `.`,
     ],
-    whoMadeThis3: [
+    whoMadeThis3_v1: [
       `Here's a special thank you to all the Code for Boston volunteers who brought you this application, especially `,
       { name: `__namesExceptLast__` },
       `, and `,
@@ -89,16 +94,16 @@ export default {
   },
 
   visitPage: {
-    'previous_v1.0':  `Previous`,
-    'next_v1.0':      `Next`,
-    'newClient_v1.0': `New Client`,
+    previous_v1:  `Previous`,
+    next_v1:      `Next`,
+    newClient_v1: `New Client`,
 
     stepBar: {
-      currentBenefits: `Current Benefits`,
-      household:       `Household`,
-      currentIncome:   `Income`,
-      currentExpenses: `Expenses`,
-      predictions:     `Predictions`,
+      currentBenefits_v1: `Current Benefits`,
+      household_v1:       `Household`,
+      currentIncome_v1:   `Income`,
+      currentExpenses_v1: `Expenses`,
+      predictions_v1:     `Predictions`,
     },
 
     formHelpers: {
@@ -110,17 +115,12 @@ export default {
     },
 
     currentBenefits: {
-      currentBenefits: `Current Benefits`,
-      selectBenefits:  `Select the benefits you currently receive`,
-      hasSection8:     {
-        label: `Do you have Section 8 Housing?`,
-        hint:  `Section 8 provides rental housing assistance.`,
-      },
-      hasSnap: {
-        label: `Do you have SNAP?`,
-        hint:  `SNAP provides assistance with buying food`,
-      },
-      next: `Next`,
+      currentBenefits_v1:  `Current Benefits`,
+      selectBenefits_v1:   `Select the benefits you currently receive`,
+      hasSection8Label_v1: `Do you have Section 8 Housing?`,
+      hasSection8Hint_v1:  `Section 8 provides rental housing assistance.`,
+      hasSnapLabel_v1:     `Do you have SNAP?`,
+      hasSnapHint_v1:      `SNAP provides assistance with buying food`,
     },
 
     household: {
@@ -264,6 +264,19 @@ export default {
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
       warningMessage_v1:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
       submitFeedback_v1:          `Submit Feedback`,
+
+      benefitsTableTitle_v1:    `Changes`,
+      columnBenefit_v1:         `Benefit`,
+      columnCurrentBenefits_v1: `Current Benefits`,
+      columnNewEstimate_v1:     `New Estimate`,
+      columnDifference_v1:      `Difference`,
+      rowSNAP_v1:               `SNAP`,
+      rowSection8_v1:           `Section 8 Housing`,
+      rowTotalBenefits_v1:      `Total Benefits`,
+      rowIncome_v1:             `Income`,
+      rowNetTotal_v1:           `Net Total`,
+      perMonth_v1:              ` / month`,
+      dollarSign_v1:            `$`,
     },
   },
 };

@@ -44,7 +44,7 @@ const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
         updateClientValue = { updateClientValue }
         generic='earned'
         labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-        { snippets.futureIncomeQuestion_v1 }
+        { snippets.i_futureIncomeQuestion }
       </CashFlowInputsRow>
     </div>
   );
@@ -60,15 +60,23 @@ const TabbedVisualizations = ({ client, snippets }) => {
         { 
           menuItem: (
             <Menu.Item key="tab1">
-              { snippets.tabTitleChanges_v1 }
+              { snippets.i_tabTitleChanges }
             </Menu.Item>
           ),
-          render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;}, 
+          render: () => {
+            return (
+              <Tab.Pane>
+                <BenefitsTable
+                  client={ client }
+                  snippets={ snippets } />
+              </Tab.Pane>
+            );
+          },
         },
         { 
           menuItem: (
             <Menu.Item key="tab2">
-              { snippets.tabTitleChangesChart_v1 }
+              { snippets.i_tabTitleChangesChart }
             </Menu.Item>
           ),  
           render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;}, 
@@ -76,7 +84,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
         {
           menuItem: (
             <Menu.Item key="tab3">
-              { snippets.tabTitleStackedIncomes_v1 }
+              { snippets.i_tabTitleStackedIncomes }
             </Menu.Item>
           ),
           render: () => {
@@ -92,7 +100,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
         {
           menuItem: (
             <Menu.Item key="tab4">
-              { snippets.tabTitleBenefitPrograms_v1 }
+              { snippets.i_tabTitleBenefitPrograms }
             </Menu.Item>
           ),
           render: () => {
@@ -128,7 +136,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.title_v1 }
+        title     = { snippets.i_title }
         clarifier = { null }
         navData   = { navData }>
         <IncomeForm
@@ -140,13 +148,13 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         <Header
           as        ='h3'
           className ='ui Header align centered'>
-          { snippets.chartsHeader_v1 }
+          { snippets.i_chartsHeader }
         </Header>
         <Message
           visible
           warning
           style={{ 'textAlign': 'center' }}>
-          { snippets.warningMessage_v1 }
+          { snippets.i_warningMessage }
           <br />
           <Button
             fluid
@@ -159,7 +167,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
               'maxWidth':    '400px', 
             }}
             onClick={ openFeedback }>
-            { snippets.submitFeedback_v1 }
+            { snippets.i_submitFeedback }
           </Button>
         </Message>
         <TabbedVisualizations 

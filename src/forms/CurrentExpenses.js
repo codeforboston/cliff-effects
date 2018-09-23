@@ -43,16 +43,16 @@ import { getUnder13Expenses } from '../utils/cashflow';
 
 /** Renders a yes/no choice that will reveal the cash
  *     flow component given when the user selects 'yes'.
- * 
+ *
  * @note: We added this extra step between the user and
  * the input because people kept skipping that question.
- * 
+ *
  * @param {object} props
  * @param {bool} props.hasExpenses True if client has any
  *     expenses here that could affect their income.
  * @param {object} props.CashFlowRow To be rendered if user
  *     chooses 'yes'.
- * @param {string || object} props.label To be rendered as
+ * @param {string | object} props.label To be rendered as
  *     the yes/no question.
  * @param {object} props.propData Data for the prop changed
  *     by the given cash flow component. (move component in
@@ -63,7 +63,7 @@ import { getUnder13Expenses } from '../utils/cashflow';
  *     client data.
  * @param {function} props.propData update Updates client
  *     values
- * 
+ *
  * @returns Value that React can render
  */
 const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
@@ -88,11 +88,12 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
       question:            label,
       heading:             null,
       onNo:                reset,
+      // `<Surrounder>` props
+      Left:                <AttentionArrow />,
     };
 
     return (
       <div className= { 'earned-from' }>
-        <AttentionArrow />
         <ShowOnYes { ...showProps }>
           { CashFlowRow }
         </ShowOnYes>
@@ -144,9 +145,9 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       <br />
       <ControlledRadioYesNo
         labelText          = { 'Do you get Fuel Assistance?' }
-        checked            = { fuelAssist }
+        value              = { fuelAssist }
         name               = { 'fuelAssistance' }
-        updateClientValue = { updateClientValue } />
+        updateClientValue  = { updateClientValue } />
 
     </div>
 
@@ -336,29 +337,29 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
       { under13.length > 0 ? (
         <div>
-          <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.subheading }>
-            { snippets.unreimbursedNonMedicalChildCare.sectionHeading }
+          <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.i_subheading }>
+            { snippets.unreimbursedNonMedicalChildCare.i_sectionHeading }
           </ContentH1>
           <IntervalColumnHeadings type={ type } />
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childDirectCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childDirectCare.label }
+            { snippets.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
           </CashFlowInputsRow>
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childBeforeAndAfterSchoolCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.label}
+            { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
           </CashFlowInputsRow>
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childTransportation' }>
-            { snippets.unreimbursedNonMedicalChildCare.childTransportation.label }
+            { snippets.unreimbursedNonMedicalChildCare.childTransportation.i_label }
           </CashFlowInputsRow>
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childOtherCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childOtherCare.label }
+            { snippets.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
           </CashFlowInputsRow>
 
           <EarnedFrom
@@ -543,8 +544,8 @@ const CurrentExpensesStep = function ({ updateClientValue, navData, client, snip
   return (
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.title }
-        clarifier = { snippets.clarifier }
+        title     = { snippets.i_title }
+        clarifier = { snippets.i_clarifier }
         navData   = { navData }>
         <ExpensesFormContent
           updateClientValue = { updateClientValue }
