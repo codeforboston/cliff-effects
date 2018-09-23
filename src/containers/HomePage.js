@@ -24,7 +24,7 @@ class HomePage extends Component {
                 <Button className='home-button hb-right'>Learn More</Button>
               </Link>
             </div>
-          <p className="home-disclaimer">*This is a prototype and should not be used to make financial decisions.</p>
+            <p className="home-disclaimer">*This is a prototype and should not be used to make financial decisions.</p>
           </div>
         </div>
       </div>
