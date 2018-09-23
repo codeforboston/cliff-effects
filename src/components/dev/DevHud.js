@@ -81,17 +81,6 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
 
 class DevHud extends Component {
 
-  constructor (props) {
-    super(props);
-
-    var toggleContent = `Hide`;
-    if (props.devProps.hidden) {
-      toggleContent = `Show`;
-    }
-
-    this.state = { visibilityToggleContent: toggleContent };
-  };
-
   toggleHiding = () => {
     var props    = this.props,
         setDev   = props.funcs.setDev,
@@ -99,14 +88,6 @@ class DevHud extends Component {
 
     var doShow = !devProps.devHidden;
     setDev(`devHidden`, doShow);
-
-    this.setState(function (prevState) {
-      if (doShow) {
-        return { visibilityToggleContent: `Show` };
-      } else {
-        return { visibilityToggleContent: `Hide` };
-      }
-    });
   };
 
   toggleEnglish = () => {
@@ -158,7 +139,11 @@ class DevHud extends Component {
         <Button
           className = { `hide` }
           onClick   = { this.toggleHiding }>
-          { this.state.visibilityToggleContent }
+          { devProps.devHidden ? (
+            `Show`
+          ) : (
+            `Hide`
+          ) }
         </Button>
       </Menu>
     );
