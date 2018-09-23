@@ -99,11 +99,11 @@ export default {
     newClient_v1: `New Client`,
 
     stepBar: {
-      currentBenefits: `Current Benefits`,
-      household:       `Household`,
-      currentIncome:   `Income`,
-      currentExpenses: `Expenses`,
-      predictions:     `Predictions`,
+      currentBenefits_v1: `Current Benefits`,
+      household_v1:       `Household`,
+      currentIncome_v1:   `Income`,
+      currentExpenses_v1: `Expenses`,
+      predictions_v1:     `Predictions`,
     },
 
     formHelpers: {
@@ -115,17 +115,12 @@ export default {
     },
 
     currentBenefits: {
-      currentBenefits: `Current Benefits`,
-      selectBenefits:  `Select the benefits you currently receive`,
-      hasSection8:     {
-        label: `Do you have Section 8 Housing?`,
-        hint:  `Section 8 provides rental housing assistance.`,
-      },
-      hasSnap: {
-        label: `Do you have SNAP?`,
-        hint:  `SNAP provides assistance with buying food`,
-      },
-      next: `Next`,
+      currentBenefits_v1:  `Current Benefits`,
+      selectBenefits_v1:   `Select the benefits you currently receive`,
+      hasSection8Label_v1: `Do you have Section 8 Housing?`,
+      hasSection8Hint_v1:  `Section 8 provides rental housing assistance.`,
+      hasSnapLabel_v1:     `Do you have SNAP?`,
+      hasSnapHint_v1:      `SNAP provides assistance with buying food`,
     },
 
     household: {

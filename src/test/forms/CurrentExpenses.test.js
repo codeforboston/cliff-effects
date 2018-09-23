@@ -4,8 +4,12 @@ import { shallow } from 'enzyme';
 import { CurrentExpensesStep } from '../../forms/CurrentExpenses';
 
 import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
-import snippets from '../../localization/en.js';
 
+// LOCALIZATION
+import { getTextForLanguage } from '../../utils/getTextForLanguage';
+
+
+var snippets = getTextForLanguage(`en`);
 test('Expenses step component renders as snapshot correctly', () => {
   const navData = {
           left:   { text: 'Previous', onClick: jest.fn() },
