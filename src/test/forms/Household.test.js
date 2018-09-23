@@ -4,8 +4,12 @@ import { shallow } from 'enzyme';
 import { HouseholdStep } from '../../forms/Household';
 
 import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
-import snippets from '../../localization/en.js';
 
+// LOCALIZATION
+import { getTextForLanguage } from '../../utils/getTextForLanguage';
+
+
+var snippets = getTextForLanguage(`en`);
 test('Household step component renders as snapshot correctly', () => {
   const navData = {
           left:   { text: 'Previous', onClick: jest.fn() },
