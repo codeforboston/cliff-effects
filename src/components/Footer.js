@@ -10,7 +10,8 @@ import {
 
 const Footer = ({ snippets }) => {
   return (
-    <Segment className="footer_segment"
+    <Segment
+      className="footer_segment"
       inverted
       vertical
       color='teal'>
