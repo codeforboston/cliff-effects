@@ -1,23 +1,21 @@
+/* Global/Root styles */
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
-form .field-aligner {
-  display: inline-block;
-  text-align: left;
+#root {
+  height:  100%;
 }
 
+/* App.js styles */
 #App {
   min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-#root {
-  height:  100%;
 }
 
 #HashRouter {
@@ -26,29 +24,27 @@ form .field-aligner {
   flex-direction: column;
 }
 
-#HomePage {
-  background-image: url(./images/splash.svg) !important;
-  background-size: cover !important;
-  flex: 1 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Footer.js styles */
+
+.footer_segment {
+  padding: 2em 0em;
 }
 
-#HomeContent {
-  flex: 1 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+/* Header.js styles */
+
+.header_segment {
+  padding: 1em 0em;
 }
 
+form .field-aligner {
+  display: inline-block;
+  text-align: left;
+}
 
 /* Fixing (currently) link styles */
 .neutral-link {
   color: white;
 }
-
 
 /*
 Used to fill vertical space.
@@ -60,11 +56,6 @@ Used to fill vertical space.
 }
 .flex-item {
   flex: 1 0;
-}
-
-.center-contents {
-  display: flex;
-  justify-content: center;
 }
 
 .heading-with-detail .middle {
@@ -375,3 +366,78 @@ i.icon.details-icon {
 .heading-with-detail .surrounder .visible.message.slide {
   margin-bottom: 1em;
 }
+
+/* HomePage.js styles */
+
+#HomePage {
+  background-image: url(./images/splash.svg) !important;
+  background-size: cover !important;
+  flex: 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#HomeContent {
+  flex: 1 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#HomePage button {
+  background-color: #c8e7e5;
+  color: #465050;
+  font-size: 1.5em;
+}
+
+#HomePage button:hover {
+  color: #C8E7E5;
+  background-color: #005855;
+}
+
+.center-contents {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.home-disclaimer {
+  color: #efefef;
+  text-align: center;
+  font-size: 1em;
+}
+
+.hb-left {
+  margin-left: 1.5em;
+}
+
+.hb-right {
+ margin-right: 1.5em;
+}
+
+.headings h1 {
+  color: #efefef;
+  font-size: 5em;
+  margin-bottom: -15px;
+}
+
+.headings h2 {
+  color: #efefef;
+  font-size: 2em;
+  margin-top: -15px;
+  margin-right: 45px;
+  text-align: right;
+}
+
+.main-wrapper {
+  display: inline-block;
+}
+
+
+
+
+
+

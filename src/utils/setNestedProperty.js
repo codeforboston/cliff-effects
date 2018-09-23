@@ -35,14 +35,21 @@ const setValidCurrent = function ({ name, value, type }, newCurrent) {
 
 
 const setValidFuture = function (evnt, newFuture, setByUser) {
+
+  var newValue = valueFixers[ evnt.name ](evnt.value, newFuture);
+
   if (evnt.type === 'future') {
-    newFuture[ evnt.name ] = valueFixers[ evnt.name ](evnt.value, newFuture);
-    // console.log( valueFixers[ evnt.name ]( evnt.value, newFuture ) );
+    newFuture[ evnt.name ] = newValue;
+
   } else if (evnt.type === 'current') {
+    // If this 'future' value hasn't been changed by the user
+    // then it continue to be synched up with the 'current'
+    // value.
     if (!setByUser)  {
-      newFuture[ evnt.name ] = valueFixers[ evnt.name ](evnt.value, newFuture);
+      newFuture[ evnt.name ] = newValue;
     }
   }
+
   return newFuture;
 };  // End setValidFuture()
 
@@ -56,10 +63,10 @@ const setValidFuture = function (evnt, newFuture, setByUser) {
  */
 const applySideEffects = function ({ current, future, itemID }) {
 
-  var addToCurrent = getSideEffects(current, itemID),
-      addToFuture  = getSideEffects(future, itemID);
-  Object.assign(current, addToCurrent);
-  Object.assign(future, addToFuture);
+  var changeInCurrent = getSideEffects(current, itemID),
+      changeInFuture  = getSideEffects(future, itemID);
+  Object.assign(current, changeInCurrent);
+  Object.assign(future, changeInFuture);
 
   return {
     current: current,
