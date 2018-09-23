@@ -13,7 +13,8 @@ import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
  *     graph frosting? Shouldn't each graph take care
  *     of its own frosting?
  * 
- * @param {array} incomes
+ * @param {array} incomes List of numbers representing
+ *     each datapoint in the graph.
  * @param {number} multiplier Number to convert from the
  *     given time interval to monthly and back again -
  *     benefit calculations are done with monthly values.
@@ -22,8 +23,8 @@ import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
  * @param {array} activeBenefitsInOrder Array of strings
  *     of names of benefits in the order that we want them
  *     to show up in the graph.
- * @param {object} extraGraphProps Extra graph frosting on top of base frosting
- * @param {array} activeBenefits List of active benefits. @todo - use object instead?
+ * @param {object} extraGraphProps Extra graph frosting on
+ *     top of base frosting
  * */
 const getChartData = function (incomes, multiplier, client, activeBenefitsInOrder, extraGraphProps) {
   // Change client data to include object with array
