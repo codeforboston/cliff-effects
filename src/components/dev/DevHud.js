@@ -34,7 +34,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
   /** @todo If there are enough dev features for it,
    *    make menu categories collapsible. */
   return (
-    <div>
+    <div className = { `dev-menu` } >
       <Menu.Item header>> Snippets</Menu.Item>
       <Menu.Item>
         <Checkbox
@@ -81,17 +81,30 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
 
 class DevHud extends Component {
 
-  state = {
-    hiderText:  `^ --- Hide --- ^`,
-    toHideText: `^ --- Hide --- ^`,
+  constructor (props) {
+    super(props);
+
+    var toggleContent = `Hide`;
+    if (props.devProps.hidden) {
+      toggleContent = `Show`;
+    }
+
+    this.state = { visibilityToggleContent: toggleContent };
   };
 
   toggleHiding = () => {
-    this.setState((prevState) => {
-      if (prevState.hiderText === prevState.toHideText) {
-        return { hiderText: `v --- Show dev HUD --- v` };
+    var props    = this.props,
+        setDev   = props.funcs.setDev,
+        devProps = props.devProps;
+
+    var doShow = !devProps.devHidden;
+    setDev(`devHidden`, doShow);
+
+    this.setState(function (prevState) {
+      if (doShow) {
+        return { visibilityToggleContent: `Show` };
       } else {
-        return { hiderText: prevState.toHideText };
+        return { visibilityToggleContent: `Hide` };
       }
     });
   };
@@ -120,15 +133,13 @@ class DevHud extends Component {
 
   render () {
 
-    var hiderText = this.state.hiderText,
-        hidden    = hiderText !== this.state.toHideText,
-        {
+    var {
           devProps,
           funcs,
           data,
           state,
         } = this.props,
-        devFuncs     = {
+        devFuncs = {
           ...funcs,
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
@@ -139,18 +150,15 @@ class DevHud extends Component {
         className = { `dev-hud` }
         compact
         vertical>
-        { !hidden ?
-          <DevMenu 
-            devProps = { devProps }
-            funcs    = { devFuncs }
-            data     = { data }
-            state    = { state } />
-          : null
-        }
+        <DevMenu 
+          devProps  = { devProps }
+          funcs     = { devFuncs }
+          data      = { data }
+          state     = { state } />
         <Button
           className = { `hide` }
           onClick   = { this.toggleHiding }>
-          { hiderText }
+          { this.state.visibilityToggleContent }
         </Button>
       </Menu>
     );
