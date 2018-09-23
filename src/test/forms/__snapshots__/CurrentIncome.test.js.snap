@@ -99,12 +99,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
       snippets={
         Object {
           "SSDI": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Social Security Disability Income is a federal program to help people with disabilities
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -112,12 +106,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Social Security Disability Income is a federal program to help people with disabilities
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              SSDI
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >
@@ -126,12 +114,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
             "langCode": "en",
           },
           "SSI": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -139,12 +121,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              SSI
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >
@@ -153,12 +129,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
             "langCode": "en",
           },
           "TAFDC": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -166,12 +136,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              TAFDC
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >
@@ -180,12 +144,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
             "langCode": "en",
           },
           "alimony": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Alimony is money paid by one spouse to the other after a divorce
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -193,12 +151,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Alimony is money paid by one spouse to the other after a divorce
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Alimony
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >
@@ -207,12 +159,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
             "langCode": "en",
           },
           "childSupport": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Child support is money paid to you by a former spouse to help your child
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -225,27 +171,9 @@ exports[`Income step component renders as snapshot correctly 1`] = `
         >
               Child support recieved
         </span>,
-            "label": <span
-              className="snippet"
-              lang="en"
-        >
-              Child support recieved
-        </span>,
             "langCode": "en",
           },
-          "clarifier": <span
-            className="snippet"
-            lang="en"
-        >
-            Income that you collected in the past 12 months.
-        </span>,
           "earnedIncome": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Earned income is how much you and your family get paid from working
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -258,20 +186,8 @@ exports[`Income step component renders as snapshot correctly 1`] = `
         >
               Earned income
         </span>,
-            "label": <span
-              className="snippet"
-              lang="en"
-        >
-              Earned income
-        </span>,
             "langCode": "en",
           },
-          "explainSnapCalculation": <span
-            className="snippet"
-            lang="en"
-        >
-            This prototype will attempt to make its own calculations for SNAP amount
-        </span>,
           "i_clarifier": <span
             className="snippet"
             lang="en"
@@ -303,19 +219,7 @@ exports[`Income step component renders as snapshot correctly 1`] = `
             Current Household Income
         </span>,
           "langCode": "en",
-          "next": <span
-            className="snippet"
-            lang="en"
-        >
-            Next
-        </span>,
           "otherIncome": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Please note income you may have from sources that are not listed above
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -323,12 +227,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Please note income you may have from sources that are not listed above
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Other income
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >
@@ -337,12 +235,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
             "langCode": "en",
           },
           "pension": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              A pension provides income to retirees, usually from their former employers
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -355,27 +247,9 @@ exports[`Income step component renders as snapshot correctly 1`] = `
         >
               Pension
         </span>,
-            "label": <span
-              className="snippet"
-              lang="en"
-        >
-              Pension
-        </span>,
             "langCode": "en",
           },
-          "previous": <span
-            className="snippet"
-            lang="en"
-        >
-            Previous
-        </span>,
           "socialSecurity": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Social Security is a federal program that provides assistance to retirees
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -383,12 +257,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Social Security is a federal program that provides assistance to retirees
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Social security
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >
@@ -396,19 +264,7 @@ exports[`Income step component renders as snapshot correctly 1`] = `
         </span>,
             "langCode": "en",
           },
-          "title": <span
-            className="snippet"
-            lang="en"
-        >
-            Current Household Income
-        </span>,
           "unemployment": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Unemployment benefits provide income to people who have been laid off
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -416,12 +272,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Unemployment benefits provide income to people who have been laid off
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Unemployment
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >
@@ -430,12 +280,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
             "langCode": "en",
           },
           "workersComp": Object {
-            "hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Worker's Compensation provides assistance for people who have been injured on the job
-        </span>,
             "i_hint": <span
               className="snippet"
               lang="en"
@@ -443,12 +287,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
               Worker's Compensation provides assistance for people who have been injured on the job
         </span>,
             "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Worker's compensation
-        </span>,
-            "label": <span
               className="snippet"
               lang="en"
         >

@@ -1,7 +1,6 @@
 /** Allows insertion of provided components at specified points in a translated text block. */
 
 import React from 'react';
-import { mapValues } from 'lodash';
 
 // To make sure all keys are unique
 var count = 0;
@@ -76,35 +75,7 @@ const interpolateSnippets = function (snippets, components) {
 
   }  // end for every key in snippets
 
-  var old = mapValues(snippets, (value, key) => {
-
-    count++;
-    var langCode = snippets.langCode;
-
-    var props = {
-      key:       langCode + count,
-      lang:      langCode,
-      className: `snippet`,
-    };
-
-    if (key === 'langCode') {
-      // don't wrap the langCode, it's just metadata
-      return value;
-    } else if (typeof(value) === 'string') {
-      // plain translated string
-      return (<span { ...props }>{ value }</span>);
-    } else if (Array.isArray(value)) {
-      // template for interpolation
-      return interpolateText(value, components, langCode);
-    } else {
-      // else: value is a nested object
-      value.langCode = langCode;
-      return interpolateSnippets(value, components);
-    }
-
-  });
-
-  return { ...named, ...old };
+  return named;
 };
 
 

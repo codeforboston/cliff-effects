@@ -96,36 +96,6 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
-          "currentBenefits_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Current Benefits
-        </span>,
-          "hasSection8Hint_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Section 8 provides rental housing assistance.
-        </span>,
-          "hasSection8Label_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Do you have Section 8 Housing?
-        </span>,
-          "hasSnapHint_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            SNAP provides assistance with buying food
-        </span>,
-          "hasSnapLabel_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Do you have SNAP?
-        </span>,
           "i_currentBenefits": <span
             className="snippet"
             lang="en"
@@ -163,12 +133,6 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
             Select the benefits you currently receive
         </span>,
           "langCode": "en",
-          "selectBenefits_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Select the benefits you currently receive
-        </span>,
         }
       }
       updateClientValue={[Function]}

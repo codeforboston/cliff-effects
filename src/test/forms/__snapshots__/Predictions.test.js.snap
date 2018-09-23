@@ -91,54 +91,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
-          "benefitsTableTitle_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Changes
-        </span>,
-          "chartsHeader_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            With the new pay, how could your benefits change?
-        </span>,
-          "columnBenefit_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Benefit
-        </span>,
-          "columnCurrentBenefits_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Current Benefits
-        </span>,
-          "columnDifference_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Difference
-        </span>,
-          "columnNewEstimate_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            New Estimate
-        </span>,
-          "dollarSign_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            $
-        </span>,
-          "futureIncomeQuestion_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            How much money would you get paid in the future? (You can try different amounts)
-        </span>,
           "i_benefitsTableTitle": <span
             className="snippet"
             lang="en"
@@ -266,84 +218,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
         </span>,
           "langCode": "en",
-          "perMonth_v1": <span
-            className="snippet"
-            lang="en"
-        >
-             / month
-        </span>,
-          "rowIncome_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Income
-        </span>,
-          "rowNetTotal_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Net Total
-        </span>,
-          "rowSNAP_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            SNAP
-        </span>,
-          "rowSection8_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Section 8 Housing
-        </span>,
-          "rowTotalBenefits_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Total Benefits
-        </span>,
-          "submitFeedback_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Submit Feedback
-        </span>,
-          "tabTitleBenefitPrograms_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Benefit Programs
-        </span>,
-          "tabTitleChangesChart_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Changes Chart
-        </span>,
-          "tabTitleChanges_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Changes
-        </span>,
-          "tabTitleStackedIncomes_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Stacked Incomes
-        </span>,
-          "title_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            What Might Happen?
-        </span>,
-          "warningMessage_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
-        </span>,
         }
       }
       time="future"
@@ -358,7 +232,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     >
       <span
         className="snippet"
-        key="en2832"
+        key="en229"
         lang="en"
       >
         With the new pay, how could your benefits change?
@@ -375,7 +249,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     >
       <span
         className="snippet"
-        key="en2833"
+        key="en230"
         lang="en"
       >
         This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
@@ -398,7 +272,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
         <span
           className="snippet"
-          key="en2834"
+          key="en231"
           lang="en"
         >
           Submit Feedback
@@ -526,54 +400,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
-          "benefitsTableTitle_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Changes
-        </span>,
-          "chartsHeader_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            With the new pay, how could your benefits change?
-        </span>,
-          "columnBenefit_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Benefit
-        </span>,
-          "columnCurrentBenefits_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Current Benefits
-        </span>,
-          "columnDifference_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Difference
-        </span>,
-          "columnNewEstimate_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            New Estimate
-        </span>,
-          "dollarSign_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            $
-        </span>,
-          "futureIncomeQuestion_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            How much money would you get paid in the future? (You can try different amounts)
-        </span>,
           "i_benefitsTableTitle": <span
             className="snippet"
             lang="en"
@@ -701,84 +527,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
         </span>,
           "langCode": "en",
-          "perMonth_v1": <span
-            className="snippet"
-            lang="en"
-        >
-             / month
-        </span>,
-          "rowIncome_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Income
-        </span>,
-          "rowNetTotal_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Net Total
-        </span>,
-          "rowSNAP_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            SNAP
-        </span>,
-          "rowSection8_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Section 8 Housing
-        </span>,
-          "rowTotalBenefits_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Total Benefits
-        </span>,
-          "submitFeedback_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Submit Feedback
-        </span>,
-          "tabTitleBenefitPrograms_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Benefit Programs
-        </span>,
-          "tabTitleChangesChart_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Changes Chart
-        </span>,
-          "tabTitleChanges_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Changes
-        </span>,
-          "tabTitleStackedIncomes_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            Stacked Incomes
-        </span>,
-          "title_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            What Might Happen?
-        </span>,
-          "warningMessage_v1": <span
-            className="snippet"
-            lang="en"
-        >
-            This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
-        </span>,
         }
       }
     />
