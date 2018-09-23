@@ -25,7 +25,12 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          Benefit
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Benefit
+          </span>
         </td>
         <td
           className="three wide"
@@ -41,7 +46,12 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          Current Benefits
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Current Benefits
+          </span>
         </td>
         <td
           className="three wide"
@@ -57,7 +67,12 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          New Estimate
+          <span
+            className="snippet"
+            lang="en"
+          >
+            New Estimate
+          </span>
         </td>
         <td
           className="three wide"
@@ -73,7 +88,12 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          Difference
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Difference
+          </span>
         </td>
       </tr>
     </thead>
@@ -93,30 +113,65 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          Income
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Income
+          </span>
         </td>
         <td
           className="right aligned"
         >
-          $
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
           0
-           / month
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
         </td>
         <td
           className="right aligned"
         >
-          $
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
           0
-           / month
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
         </td>
         <td
           className="right aligned"
         >
           
            
-          $
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
           0
-           / month
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
         </td>
       </tr>
       <tr
@@ -139,7 +194,12 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          Net Total
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Net Total
+          </span>
         </td>
         <td
           className="right aligned three wide"
@@ -152,9 +212,19 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          $
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
           0
-           / month
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
         </td>
         <td
           className="right aligned three wide"
@@ -167,9 +237,19 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          $
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
           0
-           / month
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
         </td>
         <td
           className="right aligned three wide"
@@ -184,9 +264,19 @@ exports[`Benefits table renders correctly 1`] = `
         >
           
            
-          $
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
           0
-           / month
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
         </td>
       </tr>
     </tbody>

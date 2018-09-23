@@ -4,7 +4,12 @@ import { shallow } from 'enzyme';
 import { CurrentIncomeStep } from '../../forms/CurrentIncome';
 
 import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
-import snippets from '../../localization/en.js';
+
+// LOCALIZATION
+import { getTextForLanguage } from '../../utils/getTextForLanguage';
+
+
+var snippets = getTextForLanguage(`en`);
 
 test('Income step component renders as snapshot correctly', () => {
   const navData = {

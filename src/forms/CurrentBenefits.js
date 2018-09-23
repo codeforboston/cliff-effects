@@ -12,7 +12,7 @@ const LocalizedRadioYesNo = function ({ snippets, value, name, updateClientValue
   return (
     <ControlledRadioYesNo
       value              = { value }
-      labelText          = { snippets[ name ][ 'label' ] }
+      labelText          = { snippets[ `i_` + name + `Label` ] }
       name               = { name }
       updateClientValue  = { updateClientValue } />
   );
@@ -73,8 +73,8 @@ const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) =
       size='massive'
       className='household-size-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.currentBenefits }
-        clarifier = { snippets.selectBenefits }
+        title     = { snippets.i_currentBenefits }
+        clarifier = { snippets.i_selectBenefits }
         navData   = { navData }>
         <CurrentBenefitsContent
           updateClientValue = { updateClientValue }
