@@ -10,9 +10,9 @@ const AboutContent = function ({ snippets }) {
   return (
     <div>
 
-      <Header
-        as='h1'
-        style={{ fontSize: '4em' }}>
+
+      <Header className="ac-header"
+        as='h1'>
         { snippets.i_aboutPageHeader }
       </Header>
 

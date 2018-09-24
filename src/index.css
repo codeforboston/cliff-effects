@@ -10,6 +10,12 @@ body {
   height:  100%;
 }
 
+/* AboutContent.js styles */
+
+.ac-header {
+  font-size: 4em;
+}
+
 /* App.js styles */
 #App {
   min-height: 100%;
@@ -34,6 +40,12 @@ body {
 
 .header_segment {
   padding: 1em 0em;
+}
+
+/* PageLayout.js styles */
+
+.pl-segment {
+  padding: 8em 0em;
 }
 
 form .field-aligner {
