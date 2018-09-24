@@ -12,7 +12,7 @@ import {
   formatLabel,
   formatStackedTitle,
 } from '../../utils/charts/chartFormatting';
-import { getDatasets } from '../../utils/charts/getChartData';
+import { getChartData } from '../../utils/charts/getChartData';
 
 // DATA
 // In future, graphs will control their own aspect ratio,
@@ -58,8 +58,9 @@ class StackedAreaGraph extends Component {
         interval      = Math.ceil(((xMax - xMin) / 100) / 10) * 10,
         xRange        = _.range(xMin, xMax + interval, interval),
         extraProps    = { income: { fill: 'origin' }},
-        datasets      = getDatasets(xRange, client, multiplier, withIncome, extraProps);
+        datasets     = getChartData(xRange, multiplier, client, withIncome, extraProps);
 
+    // console.log(datasets, datasets2);
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
     var hack    = this.state.verticalLine;
