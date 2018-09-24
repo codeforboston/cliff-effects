@@ -13,7 +13,7 @@ import {
   formatLabel,
   formatBenefitLinesTitle,
 } from '../../utils/charts/chartFormatting';
-import { getDatasets } from '../../utils/charts/getChartData';
+import { getChartData } from '../../utils/charts/getChartData';
 
 // DATA
 // In future, graphs will control their own aspect ratio,
@@ -49,7 +49,7 @@ class BenefitsLineGraph extends Component {
 
     var xRange      = _.range(limits.min, max, interval),  // x-axis/income numbers
         extraProps  = { snap: { fill: false }, section8: { fill: false }},
-        datasets    = getDatasets(xRange, client, multiplier, activePrograms, extraProps);
+        datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
     if (datasets.length === 0) {
