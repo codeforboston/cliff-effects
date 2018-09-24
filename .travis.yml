@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  - lts/* # latest LTS version
-  - node  # latest stable version
+  - 8
 # Note: travis defaults used for install
 # If custom install desired, include `npm install`
 script:
