@@ -238,10 +238,10 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   }
 
   var nowText = `Right now you earn ` +
-    `$` + round$(current.earned) + ` a month ` +
-    `and the calculations say your benefits come out to `;
+    `$` + toMoneyStr(current.earned) + ` a month ` +
+    `and this tool says your benefits come out to `;
   var futureText = `If your household's pay changes to ` +
-    `$` + round$(future.earned) + ` a month then the calculations say `;
+    `$` + toMoneyStr(future.earned) + ` a month then this tool says `;
 
   // Loop through benefits to add each one to the texts
   var numBenefits = current.benefits.length;
@@ -271,10 +271,10 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   }  // end for every benefit index
 
   // Text after all benefits have been described.
-  nowText += `each month. All together, the calculations say you bring in ` +
+  nowText += `each month. All together, this tool says you bring in ` +
              `$` + round$(current.total) + ` a month.`;
   var nowContents = ([
-    <span key = { `pre-ask` }>{ nowText + ` If this isn't right please ` }</span>,
+    <span key = { `pre-ask` }>{ nowText + ` If any of these numbers aren't right please ` }</span>,
     <Button
       compact
       size  = { `small` }
@@ -289,7 +289,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     `$` + round$(future.total) + ` a month. `;
 
   // If total coming in changes at all, describe how
-  var sumText = `That means you'll be bringing in `;
+  var sumText = `If this tool is right, you would be bringing in `;
   if (diff > 0 || diff < 0) {
     sumText += `$` + round$(Math.abs(diff)) + resultDescriptor;
   } else {
@@ -299,8 +299,8 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   // If there was a cliff
   var endOfCliffText = null;
   if (gain.total !== undefined) {
-    endOfCliffText = `If you can get to where you make ` +
-      `$` + toMoneyStr(gain.earned) + ` a month, you'll be bringing in about` +
+    endOfCliffText = `The tool says that if you can get to where you make ` +
+      `$` + toMoneyStr(gain.earned) + ` a month, could bring in about ` +
       `$` + round$(gain.total - current.total) + ` more each month all together.`;  // more/less
   }
 
@@ -308,11 +308,11 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   var lowestText = null;
   if (lowest.total !== undefined) {
     lowestText = `At the very lowest dip, when you get paid ` +
-      `$` + toMoneyStr(lowest.earned) + ` a month, you'll be bringing in ` +
-      `$` + round$(Math.abs(lowest.total)) + ` a month less than you are now. It'll be ` +
+      `$` + toMoneyStr(lowest.earned) + ` a month, this tool says you would bring in ` +
+      `$` + round$(Math.abs(lowest.total)) + ` a month less than you are now. It could be ` +
       // to get positive number (I think second one is correct)
       `$` + round$(current.total - lowest.total) + ` less a month, ` +
-      `but then it'll start getting better.`;
+      `but then it could start getting better.`;
   }
 
   return (
@@ -342,7 +342,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
             </div>
             
             {endOfCliffText === null ? (
-              `After this, it's possible you'll keep bringing in more with each raise.`
+              `After this, this tool says you could keep bringing in more with each raise.`
             ) : (
               <div>
                 <Header key = { `1` }>When could things get better?</Header>
