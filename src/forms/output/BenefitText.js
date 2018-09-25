@@ -1,6 +1,6 @@
 // REACT COMPONENTS
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Button } from 'semantic-ui-react';
 
 // DATA
 // Colors and text for parts of the chart
@@ -205,7 +205,7 @@ var getBenefitData = function(client, moneyToCalculate) {
  * @todo When there's no cliff, look ahead to see if
  *     there will be one soon/later?
  */
-const BenefitText = function ({ client, snippets }) {
+const BenefitText = function ({ client, openFeedback, snippets }) {
 
   var itemsToCalculate = [ `income` ];
   // Benefits, in order of appearance
@@ -239,9 +239,9 @@ const BenefitText = function ({ client, snippets }) {
 
   var nowText = `Right now you earn ` +
     `$` + round$(current.earned) + ` a month ` +
-    `and your benefits come out to `;
+    `and the calculations say your benefits come out to `;
   var futureText = `If your household's pay changes to ` +
-    `$` + round$(future.earned) + ` a month then `;
+    `$` + round$(future.earned) + ` a month then the calculations say `;
 
   // Loop through benefits to add each one to the texts
   var numBenefits = current.benefits.length;
@@ -271,12 +271,21 @@ const BenefitText = function ({ client, snippets }) {
   }  // end for every benefit index
 
   // Text after all benefits have been described.
-  nowText += `each month. All together, our calculations guess you bring in ` +
+  nowText += `each month. All together, the calculations say you bring in ` +
              `$` + round$(current.total) + ` a month.`;
-  futureText += `. That means that your total benefits will change from ` +
+  var nowContents = ([
+    <span key = { `pre-ask` }>{ nowText + ` If this isn't right please ` }</span>,
+    <Button
+      compact
+      size  = { `small` }
+      onClick = { openFeedback }>
+      { snippets.i_submitFeedback }
+    </Button>,
+  ]);
+  futureText += `. That means that your total benefits would change from ` +
     `$` + round$(current.benefitsTotal) + ` a month to ` +
     `$` + round$(future.benefitsTotal) + ` a month. ` +
-    `All together, you'll bring in ` +
+    `All together, you would bring in ` +
     `$` + round$(future.total) + ` a month. `;
 
   // If total coming in changes at all, describe how
@@ -284,7 +293,7 @@ const BenefitText = function ({ client, snippets }) {
   if (diff > 0 || diff < 0) {
     sumText += `$` + round$(Math.abs(diff)) + resultDescriptor;
   } else {
-    sumText += `the same as you were before.`
+    sumText += `the same as you were before.`;
   }
 
   // If there was a cliff
@@ -321,7 +330,7 @@ const BenefitText = function ({ client, snippets }) {
             {/* For styling, make sure `<p>` isn't last child */}
             <div>
               <Header>What could happen?</Header>
-              <p>{ nowText }</p>
+              <p>{ nowContents }</p>
               <p>{ futureText }</p>
               <span />
             </div>

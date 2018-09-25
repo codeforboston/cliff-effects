@@ -52,7 +52,7 @@ const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
 };  // End IncomeForm() Component
 
 
-const TabbedVisualizations = ({ client, snippets }) => {
+const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
   return (
   // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
     <Tab
@@ -66,8 +66,9 @@ const TabbedVisualizations = ({ client, snippets }) => {
           ),
           render: () => {return (
             <Tab.Pane><BenefitText
-              client   = { client }
-              snippets = { snippets } />
+              client       = { client }
+              openFeedback = { openFeedback }
+              snippets     = { snippets } />
             </Tab.Pane>
           );}, 
         },
@@ -169,24 +170,18 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           warning
           style={{ 'textAlign': 'center' }}>
           { snippets.i_warningMessage }
-          <br />
           <Button
-            fluid
+            compact
+            size = { `small` }
             color='teal'
-            style={{
-              'display':     'block',
-              'marginLeft':  'auto',
-              'marginRight': 'auto',
-              'marginTop':   '10px',
-              'maxWidth':    '400px', 
-            }}
             onClick={ openFeedback }>
             { snippets.i_submitFeedback }
           </Button>
         </Message>
         <TabbedVisualizations 
-          client   = { client }
-          snippets = { snippets } />
+          client       = { client }
+          openFeedback = { openFeedback }
+          snippets     = { snippets } />
       </FormPartsContainer>
     </Form>
   );
