@@ -20,9 +20,14 @@ export default {
   __contactEmail__:           <a href="mailto:andrew@codeforboston.org">andrew@codeforboston.org</a>,
   __namesExceptLast__:        <span>{ contributors.slice(0, -1).join(', ') }</span>,
   __lastName__:               <span>{ contributors[ contributors.length - 1 ] }</span>,
+
   // Footer
-  __heartIcon__:
+  __heartIcon__: (
     <Icon
       name='heart'
-      size='small' />,
+      size='small' />
+  ),
+  __githubRepoLink__: <ExternalLink
+    className = { `neutral-link` }
+    href      = { `https://github.com/codeforboston/cliff-effects` } />,
 };

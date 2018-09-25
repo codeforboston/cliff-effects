@@ -144,15 +144,15 @@ const Role = function ({ member, setMember, snippets }) {
 
   if (member.index === 0) {
 
-    ThisRole  = <span>{ snippets.headOfHousehold }</span>;
+    ThisRole  = <span>{ snippets.i_headOfHousehold }</span>;
 
   } else if (member.index === 1) {
 
     margin = '-1em';
 
     var options = [
-      { text: snippets.spouse, value: 'spouse' },
-      { text: snippets.childOther, value: 'member' }, 
+      { text: snippets.i_spouse, value: 'spouse' },
+      { text: snippets.i_childOther, value: 'member' },
     ];
 
     ThisRole = <Dropdown
@@ -164,7 +164,7 @@ const Role = function ({ member, setMember, snippets }) {
 
   } else {
 
-    ThisRole = <span>{ snippets.childOther }</span>;
+    ThisRole = <span>{ snippets.i_childOther }</span>;
 
   }
 
@@ -220,21 +220,23 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
       key={ indx }>
 
       <Columns.One>
-        { indx > 0
-          ? <MemberButton
+        { indx > 0 ? (
+          <MemberButton
             className={ 'remove' }
             onClick={ removeMember }
             iconName={ 'remove' } />
-          :
-          <span>{ household.length > 1
-            ? <Icon
-              fitted
-              name={ 'ban' }
-              style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
-            : null
-          }
+        ) : (
+          <span>
+            { household.length > 1 ? (
+              <Icon
+                fitted
+                name={ 'ban' }
+                style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+            ) : (
+              null
+            ) }
           </span>
-        }
+        ) }
       </Columns.One>
 
       <Columns.Two>
@@ -328,9 +330,12 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
 
   var addMember = function (evnt, inputProps) {
 
-    var member = household.length === 1
-      ? { m_age: 30, m_role: 'spouse', m_disabled: false }
-      : { m_age: 12, m_role: 'member', m_disabled: false };
+    var member;
+    if (household.length === 1) {
+      member = { m_age: 30, m_role: 'spouse', m_disabled: false };
+    } else {
+      member = { m_age: 12, m_role: 'member', m_disabled: false };
+    }
 
     household.push(member);
     setHousehold(evnt, household);
@@ -342,9 +347,9 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
     <div className='field-aligner two-column'>
       <div style={{ marginBottom: '.5em' }}>
         <ColumnHeader columnNum='One' />
-        <ColumnHeader columnNum='Two'> { snippets.role }</ColumnHeader>
-        <ColumnHeader columnNum='Three'>{ snippets.age }</ColumnHeader>
-        <ColumnHeader columnNum='Four'>{ snippets.disabled }</ColumnHeader>
+        <ColumnHeader columnNum='Two'> { snippets.i_role }</ColumnHeader>
+        <ColumnHeader columnNum='Three'>{ snippets.i_age }</ColumnHeader>
+        <ColumnHeader columnNum='Four'>{ snippets.i_disabled }</ColumnHeader>
       </div>
 
       { getMembers(current, time, setHousehold, updateClientValue, snippets) }
@@ -365,8 +370,8 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
         <Columns.Two noMargin={ true }>
           <Header
             as='h4'
-            color={ 'teal' }> 
-            { snippets.addMember }
+            color={ 'teal' }>
+            { snippets.i_addMember }
           </Header>
         </Columns.Two>
 
@@ -394,8 +399,8 @@ const HouseholdStep = function ({ updateClientValue, navData, client, snippets }
   return (
     <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
-        title     = { snippets.title }
-        clarifier = { snippets.clarifier }
+        title     = { snippets.i_title }
+        clarifier = { snippets.i_clarifier }
         navData   = { navData }>
         <HouseholdContent
           updateClientValue = { updateClientValue }

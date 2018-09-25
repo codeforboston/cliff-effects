@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Header, Tab, Message, Button } from 'semantic-ui-react';
+import { Form, Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -26,7 +26,7 @@ import { BenefitsLineGraph } from './output/BenefitsLineGraph';
 *
 * @returns {class} Component
 */
-const IncomeForm = function ({ future, time, updateClientValue }) {
+const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
 
   var type = 'income';
 
@@ -39,29 +39,55 @@ const IncomeForm = function ({ future, time, updateClientValue }) {
       <IntervalColumnHeadings type={ type } />
       <CashFlowInputsRow
         timeState={ future }
-				  type={ type }
-				  time={ time }
-				  updateClientValue = { updateClientValue }
-				  generic='earned'
-				  labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
-          How much money would you get paid in the future? (You can try different amounts)
+        type={ type }
+        time={ time }
+        updateClientValue = { updateClientValue }
+        generic='earned'
+        labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+        { snippets.i_futureIncomeQuestion }
       </CashFlowInputsRow>
     </div>
   );
 };  // End IncomeForm() Component
 
 
-const TabbedVisualizations = ({ client }) => {
+const TabbedVisualizations = ({ client, snippets }) => {
   return (
   // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
-        { menuItem: 'Changes', render: () => {return <Tab.Pane><BenefitsTable client={ client } /></Tab.Pane>;} },
-        { menuItem: 'Changes Chart', render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;} },
+        { 
+          menuItem: (
+            <Menu.Item key="tab1">
+              { snippets.i_tabTitleChanges }
+            </Menu.Item>
+          ),
+          render: () => {
+            return (
+              <Tab.Pane>
+                <BenefitsTable
+                  client={ client }
+                  snippets={ snippets } />
+              </Tab.Pane>
+            );
+          },
+        },
+        { 
+          menuItem: (
+            <Menu.Item key="tab2">
+              { snippets.i_tabTitleChangesChart }
+            </Menu.Item>
+          ),  
+          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;}, 
+        },
         {
-          menuItem: 'Stacked Incomes',
-          render:   () => {
+          menuItem: (
+            <Menu.Item key="tab3">
+              { snippets.i_tabTitleStackedIncomes }
+            </Menu.Item>
+          ),
+          render: () => {
             return (
               <Tab.Pane>
                 <GraphHolder
@@ -72,8 +98,12 @@ const TabbedVisualizations = ({ client }) => {
           },
         },
         {
-          menuItem: 'Benefit Programs',
-          render:   () => {
+          menuItem: (
+            <Menu.Item key="tab4">
+              { snippets.i_tabTitleBenefitPrograms }
+            </Menu.Item>
+          ),
+          render: () => {
             return (
               <Tab.Pane>
                 <GraphHolder
@@ -106,24 +136,26 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = 'What Might Happen?'
+        title     = { snippets.i_title }
         clarifier = { null }
         navData   = { navData }>
         <IncomeForm
           updateClientValue = { updateClientValue }
-          future       = { client.future }
-          time         = { 'future' } />
+          future            = { client.future }
+          time              = { 'future' } 
+          snippets          = { snippets } />
         <Divider className='ui section divider hidden' />
         <Header
           as        ='h3'
           className ='ui Header align centered'>
-            With the new pay, how could your benefits change?
+          { snippets.i_chartsHeader }
         </Header>
         <Message
           visible
           warning
           style={{ 'textAlign': 'center' }}>
-          This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.<br />
+          { snippets.i_warningMessage }
+          <br />
           <Button
             fluid
             color='teal'
@@ -134,10 +166,13 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
               'marginTop':   '10px',
               'maxWidth':    '400px', 
             }}
-            onClick={ openFeedback }>Submit Feedback
+            onClick={ openFeedback }>
+            { snippets.i_submitFeedback }
           </Button>
         </Message>
-        <TabbedVisualizations client={ client } />
+        <TabbedVisualizations 
+          client   = { client }
+          snippets = { snippets } />
       </FormPartsContainer>
     </Form>
   );

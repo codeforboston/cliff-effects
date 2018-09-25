@@ -33,9 +33,12 @@ const elderlyOrDisabled = (changes) => {
     return changes;
   }
 
-  const member = rnd < 2
-    ? Object.assign({}, defaultMember, { m_disabled: true })
-    : Object.assign({}, defaultMember, { m_age: 61 });
+  let member;
+  if (rnd < 2) {
+    member = Object.assign({}, defaultMember, { m_disabled: true });
+  } else {
+    member = Object.assign({}, defaultMember, { m_age: 61 });
+  }
   changes.household.push(member);
   return changes;
 };
@@ -80,7 +83,7 @@ const possibleHousings = [
   'homeless',
   'houseowner',
   'renter',
-  'voucher', 
+  'voucher',
 ];
 const housings = (changes) => {
   changes.housing = sample(possibleHousings);
@@ -92,7 +95,7 @@ const possibleUtilityBrackets = [
   'Heating',
   'Non-heating',
   'Telephone',
-  'None', 
+  'None',
 ];
 const utilityBrackets = (changes) => {
   switch (sample(possibleUtilityBrackets)) {
@@ -122,7 +125,7 @@ const housingFeeNames =
     'propertyTax',
     'housingInsurance',
     'rent',
-    'rentShare', 
+    'rentShare',
   ];
 const housingFees = (changes) => {
   housingFeeNames.forEach((name) => {

@@ -1,41 +1,52 @@
 import React from 'react';
-import { Divider, Form, Message } from 'semantic-ui-react';
+import { Form, Message } from 'semantic-ui-react';
+
 
 /**
- * Load previous session from object.
- * @callback loadClient
- * @param {object} clientContainer - Object containing previous session as `client`.
+ * Propagate data from JSON object.
+ * @callback load
+ * @param {object} toLoad - Parsed JSON object to use.
+ * @todo Change to just 'load'? Change this component
+ *     to a more generic `<Load>`.
  */
 
 /**
- * Form which loads previous session from JSON.
+ * Accept data from a JSON object and send it back.
  * 
  * @param {object} props
- * @param {boolean} props.mayLoadCustomClient - Whether form should be visible
- * @param {loadClient} props.loadClient
+ * @param {load} props.load
  * 
  * @extends React.Component
  */
 class CustomClient extends React.Component {
   state = {
-    client: null,
+    toLoad: null,  // parsed json
     error:  null,
     json:   '',
   };
 
-  submit = (event) => {
-    const { client } = this.state;
-    event.preventDefault();
-    if (client === null) {
+  load = (toLoad) => {
+    if (toLoad === null) {
       return;
     }
 
     this.setState({
-      client: null,
+      toLoad: null,
       error:  null,
       json:   '',
     });
-    this.props.loadClient({ client: client });
+
+    this.props.load({ toLoad: toLoad });
+  };
+
+  reset = () => {
+    this.load(this.props.toRestore);
+  };
+
+  submit = (event) => {
+    const { toLoad } = this.state;
+    event.preventDefault();
+    this.load(toLoad);
   };
 
   handleChange = (_event, inputProps) => {
@@ -43,13 +54,13 @@ class CustomClient extends React.Component {
     try {
       const newClient = JSON.parse(value);
       this.setState({
-        client: newClient,
+        toLoad: newClient,
         error:  null,
         json:   value,
       });
     } catch (error) {
       this.setState({
-        client: null,
+        toLoad: null,
         error:  error,
         json:   value,
       });
@@ -57,10 +68,7 @@ class CustomClient extends React.Component {
   };
 
   render() {
-    if (!this.props.mayLoadCustomClient) {
-      return null;
-    }
-    const { client, error, json } = this.state;
+    const { toLoad, error, json } = this.state;
 
     return (
       <Form
@@ -77,12 +85,17 @@ class CustomClient extends React.Component {
           error
           header={ 'JSON Parse Failed!' }
           content={ error && error.message } />
-        <Form.Button
-          type={ 'submit' }
-          disabled={ client === null }>
-          Import Data
-        </Form.Button>
-        <Divider />
+        <div className = { `load-buttons` }>
+          <Form.Button
+            type={ 'submit' }
+            disabled={ toLoad === null }>
+            Import Data
+          </Form.Button>
+          <Form.Button
+            onClick = { this.reset }>
+            Reset
+          </Form.Button>
+        </div>
       </Form>
     );
   }
