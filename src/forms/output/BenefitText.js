@@ -276,8 +276,9 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   var nowContents = ([
     <span key = { `pre-ask` }>{ nowText + ` If any of these numbers aren't right please ` }</span>,
     <Button
+      key     = { `ask` }
       compact
-      size  = { `small` }
+      size    = { `small` }
       onClick = { openFeedback }>
       { snippets.i_submitFeedback }
     </Button>,
