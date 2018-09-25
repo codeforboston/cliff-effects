@@ -2,9 +2,6 @@
 import React from 'react';
 import { Header } from 'semantic-ui-react';
 
-// CUSTOM
-import { renderIfTrue } from '../../components/renderIfTrue';
-
 // DATA
 // Colors and text for parts of the chart
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
@@ -14,91 +11,10 @@ import { cloneDeep } from 'lodash';
 import { toMoneyStr } from '../../utils/prettifiers';
 
 // BENEFIT LOGIC
-import { getSNAPBenefits } from '../../programs/federal/snap';
-import { getSection8Benefit } from '../../programs/massachusetts/section8';
 import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
 
-var INCOME_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?
-
-
-var getBenefits = function (clientToMutate) {
-
-  var clone   = clientToMutate,
-      current = clone.current;
-
-  var sec8Current = 0,
-      sec8Future  = 0,
-      SNAPCurrent = 0,
-      SNAPFuture  = 0;
-
-  if (current.hasSection8) {
-    sec8Current = getSection8Benefit(clone, 'current');
-    sec8Future  = getSection8Benefit(clone, 'future');
-    // Mutate clone for correct SNAP values
-    clone.future.rentShare = (clone.future.contractRent - sec8Future);
-  }
-
-  if (current.hasSnap) {
-    SNAPCurrent = getSNAPBenefits(clone, 'current');
-    SNAPFuture  = getSNAPBenefits(clone, 'future');
-  }
-
-  var result = {
-    section8: {
-      current: sec8Current,
-      future:  sec8Future,
-    },
-    snap: {
-      current: SNAPCurrent,
-      future:  SNAPFuture,
-    },
-  };
-
-  return result;
-};  // End getBenefits()
-
-
-var getIncrementData = function (clientToMutate, toCalculate, accumulated) {
-
-  var clone    = clientToMutate,  // shorter name
-      current  = clone.current,
-      {
-        snap,
-        section8,
-      } = getBenefits(clone);
-
-  // var futureCalcData = {
-  //   toCalculate: toCalculate,
-  //   dataToAddTo:    accumulated,
-  //   clientToChange: clone,
-  //   timeframe:      `future`,
-  // };
-  // applyAndPushBenefits (futureCalcData);
-
-  var totalBenefitCurrent = section8.current + snap.current,
-      totalBenefitFuture  = section8.future + snap.future,
-      totalCurrent        = totalBenefitCurrent + current.earned,
-      totalFuture         = totalBenefitFuture + clone.future.earned,
-      totalDiff           = totalFuture - totalCurrent;
-
-  var all = {
-    currentEarned:       current.earned,
-    futureEarned:        clone.future.earned,
-    sec8Current:         section8.current,
-    sec8Future:          section8.future,
-    snapCurrent:         snap.current,
-    snapFuture:          snap.future,
-    totalBenefitCurrent: totalBenefitCurrent,
-    totalBenefitFuture:  totalBenefitFuture,
-    totalCurrent:        totalCurrent,
-    totalFuture:         totalFuture,
-    totalDiff:           totalDiff,
-  };
-
-  return all;
-};  // End getIncrementData()
-
+var EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?
 
 /** Looks at each array in an object, gets the
  *     last index of each, then adds those up 
@@ -118,7 +34,7 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
 };
 
 
-var getBenefitData2 = function(client) {
+var getBenefitData = function(client, moneyToCalculate) {
 
   /**
   result = {}
@@ -155,39 +71,28 @@ var getBenefitData2 = function(client) {
   */
 
   var clone  = cloneDeep(client),
-      // This is the data we need in the
-      // groupings we need it
+      // This is the data we need in the groupings we need it
       result = {
         current: {
-          income:        0,
+          earned:        0,
           benefits:      [],  // [{ label, amount }]
           benefitsTotal: 0,
           total:         0,
         },
         future: {
-          income:        0,
+          earned:        0,
           benefits:      [],  // [{ label, amount }]
           benefitsTotal: 0,
           total:         0,
         },
         diff:   0,
-        // `null` until defined for later test!
-        lowest: null,  // { total, earned, }
-        gain:   null,  // { total, earned, }
+        lowest: {},  // { total, earned, }
+        gain:   {},  // { total, earned, }
       },
       rsltCurrent = result.current,
       rsltFuture  = result.future,
       accumulated = {},
-      toCalculate = [ `income` ];
-
-  // Benefits, in order of appearance
-  if (clone.current.hasSection8) {
-    toCalculate.push(`section8`);
-  }
-
-  if (clone.current.hasSnap) {
-    toCalculate.push(`snap`);
-  }
+      toCalculate = moneyToCalculate;
 
   var defaultProps = {
     activeBenefits: toCalculate,
@@ -211,8 +116,8 @@ var getBenefitData2 = function(client) {
         futr    = amounts[ 1 ];
 
     if (itemName === `income`) {
-      rsltCurrent.income = curr;
-      rsltFuture.income  = futr;
+      rsltCurrent.earned = curr;
+      rsltFuture.earned  = futr;
 
     } else {
       rsltCurrent.benefits[ count ] = {
@@ -229,108 +134,60 @@ var getBenefitData2 = function(client) {
 
       count++;  // Doesn't count `income`
     }
-  }
-  rsltCurrent.total = rsltCurrent.income + rsltCurrent.benefitsTotal;
-  rsltFuture.total  = rsltFuture.income  + rsltFuture.benefitsTotal;
+  }  // end for income and all benefits
+  rsltCurrent.total = rsltCurrent.earned + rsltCurrent.benefitsTotal;
+  rsltFuture.total  = rsltFuture.earned  + rsltFuture.benefitsTotal;
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
   result.diff  = rsltFuture.total - rsltCurrent.total;
-  var diff = result.diff,
-      // Really, has implicit taxes > 100%, which
-      // isn't the same as a cliff.
-      hasCliff = diff < 0;
+  var diff     = result.diff;
 
-  // Only done if there's a cliff
-  if (hasCliff) {
-    var low      = result.lowest = {},
-        gain     = result.gain   = {},
+  // 4. If implicit taxes > 100% (has dramatic cliff)
+  if (diff < 0) {
+    var nextTotal = null,
+        lowest   = result.lowest,
+        gain     = result.gain,
+        income   = accumulated.income,
         currDiff = diff,
         prevDiff = diff;
-    // 4. Find lowest point, if `future` isn't it already
+
+    // 5. Find lowest point, if `future` isn't it already lowest
     while (currDiff <= prevDiff) {
 
       prevDiff = currDiff;
 
-      clone.future.earned += INCOME_MONTHLY_INCREMENT_AMOUNT;
-      applyAndPushBenefits(futureCalcData);
-      let newTotal = totalLastItemsOfArraysInObject(accumulated);
-      
-      currDiff   = newTotal - rsltCurrent.total;
-      low.total  = newTotal;
-      low.earned = accumulated.income[ accumulated.income.length - 1 ];
-    }
-    // 5. Try getting raises till the client is making more money than they are now
-    while (currDiff <= 0) {
+      nextTotal = totalLastItemsOfArraysInObject(accumulated);
+      currDiff = nextTotal - rsltCurrent.total;
 
-      clone.future.earned += INCOME_MONTHLY_INCREMENT_AMOUNT;
-      applyAndPushBenefits(futureCalcData);
-      let newTotal = totalLastItemsOfArraysInObject(accumulated);
+      // If not first time
+      if (prevDiff !== diff) {
+        lowest.total  = nextTotal;
+        lowest.earned = income[ income.length - 1 ];
+      }
 
-      currDiff    = newTotal - rsltCurrent.total;
-      gain.total  = newTotal;
-      gain.earned = accumulated.income[ accumulated.income.length - 1 ];
-    }
-  }
+      clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
+      applyAndPushBenefits(futureCalcData);
+
+    }  // end while each raise brings in less money
+
+    // 6. Maybe that last raise was enough
+    gain.total = nextTotal;
+
+    // 7. Otherwise, try getting raises till the client is making more money than they are now
+    while (gain.total <= rsltCurrent.total) {
+
+      clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
+      applyAndPushBenefits(futureCalcData);
+      // If has dramatic cliff, must have gain
+      gain.total = totalLastItemsOfArraysInObject(accumulated);
+
+    }  // end while making less money than now
+    gain.earned = income[ income.length - 1 ];
+
+  }  // end if hit dramatic cliff
 
   return result;
-};  // End getBenefitData2()
-
-
-var getBenefitData = function (client) {
-  // Old
-  var clone  = cloneDeep(client),
-      toCalculate = [ `income` ];
-
-  // Benefits, in order of appearance
-  if (clone.current.hasSection8) {
-    toCalculate.push(`section8`);
-  }
-
-  if (clone.current.hasSnap) {
-    toCalculate.push(`snap`);
-  } 
-
-  var incrementData = getIncrementData(clone, toCalculate),  // needs better name
-      dataIter      = cloneDeep(incrementData),
-      //   lossAtLowest,
-      //   earnedAtLowest,
-      //   gain,  // Must be >= 0
-      //   earnedAtGain,
-      cliff         = {},
-      prevLowest    = 0;
-
-  // As long as the loss is bigger now than it was
-  // with the previous pay raise
-  while (dataIter.totalDiff <= prevLowest) {
-
-    // Record the new lowest amount
-    prevLowest = dataIter.totalDiff;
-    if (prevLowest !== incrementData.totalDiff) {
-      // Total money loss at lowest point in the future (positive number eventually)
-      cliff.lossAtLowest = prevLowest * -1;
-      cliff.earnedAtLowest = dataIter.futureEarned;
-    }
-
-    // Try getting more of a raise
-    clone.future.earned += INCOME_MONTHLY_INCREMENT_AMOUNT;
-    dataIter = getIncrementData(clone);
-  }
-
-  // (If you're at your lowest currently, don't
-  // bother with the warning about the lowest dip.)
-
-  // Try getting raises till the client is making money again
-  while (dataIter.totalDiff < 0) {
-    clone.future.earned += INCOME_MONTHLY_INCREMENT_AMOUNT;
-    dataIter = getIncrementData(clone);
-  }
-
-  cliff.gain         = dataIter.totalDiff;
-  cliff.earnedAtGain = dataIter.futureEarned;
-
-  return { ...incrementData, cliff: cliff };
-
 };  // End getBenefitData()
 
 
@@ -350,156 +207,163 @@ var getBenefitData = function (client) {
  */
 const BenefitText = function ({ client, snippets }) {
 
-  var data  = getBenefitData(client);
-  var data2 = getBenefitData2(client);
+  var itemsToCalculate = [ `income` ];
+  // Benefits, in order of appearance
+  if (client.current.hasSection8) {
+    itemsToCalculate.push(`section8`);
+  }
+  if (client.current.hasSnap) {
+    itemsToCalculate.push(`snap`);
+  }
+
+  var data = getBenefitData(client, itemsToCalculate);
 
   var {
-    currentEarned,
-    futureEarned,
-    sec8Current,
-    sec8Future,
-    snapCurrent,
-    snapFuture,
-    totalBenefitCurrent,
-    totalBenefitFuture,
-    totalCurrent,
-    totalFuture,
-    totalDiff,
-    cliff,
+    current,  // { earned, benefits: [{ label, amount }], benefitsTotal, total }
+    future,   // same
+    diff,     // #
+    lowest,   // { total, earned, }
+    gain,     // { total, earned, }
   } = data;
 
-  var {
-    lossAtLowest,
-    earnedAtLowest,
-    gain,
-    earnedAtGain,
-  } = cliff;
-
-  var currentD = data2.current,
-      futureD  = data2.future,
-      gain2    = data2.gain,
-      {
-        diff,
-        lowest,
-      } = data2;
-
-
-  // result = {
-  //   current: {
-  //     income:        0,
-  //     benefits:      [],  // [{ label, amount }]
-  //     benefitsTotal: 0,
-  //     total:         0,
-  //   },
-  //   future: {
-  //     income:        0,
-  //     benefits:      [],  // [{ label, amount }]
-  //     benefitsTotal: 0,
-  //     total:         0,
-  //   },
-  //   diff:   0,
-  //   // `null` until defined for later test!
-  //   lowest: null,  // { total, earned, }
-  //   gain:   null,  // { total, earned, }
-  // },
+  var round$ = function (number) {
+    return toMoneyStr(Math.round(number)).replace(`.00`, ``);
+  };
 
   var resultDescriptor = ` each month than you were before.`;
-  console.log(totalDiff, diff);
-  // if (totalDiff > 0) {
-  if (totalDiff > 0 && diff > 0) {
+  if (diff > 0) {
     resultDescriptor = ` more` + resultDescriptor;
-  // } else if (totalDiff < 0) {
-  // if (totalDiff > 0 && diff > 0) {
-  } else if (totalDiff < 0 && diff < 0) {
+  } else if (diff < 0) {
     resultDescriptor = ` less` + resultDescriptor;
   }
 
   var nowText = `Right now you earn ` +
-    `$` + toMoneyStr(currentEarned) + ` (` + currentD.income + `) a month ` +
-    `and your benefits come out to ` +
-    `$` + toMoneyStr(sec8Current) + ` (` + currentD.benefits[ 0 ].label + currentD.benefits[ 0 ].amount + `) for Section 8 ` +
-    `and ` +
-    `$` + toMoneyStr(snapCurrent) + ` (` + currentD.benefits[ 1 ].label + currentD.benefits[ 1 ].amount + `) for SNAP ` +
-    `each month. All together, you're bringing in ` +
-    `$` + toMoneyStr(totalCurrent) + ` (` + currentD.total + `) a month.`;
+    `$` + round$(current.earned) + ` a month ` +
+    `and your benefits come out to `;
+  var futureText = `If your household's pay changes to ` +
+    `$` + round$(future.earned) + ` a month then `;
 
-  var futureText = `If your family's income changes to ` +
-    `$` + toMoneyStr(futureEarned) + ` (` + futureD.income + `) a month then ` +
-    `Section 8 will change to ` +
-    `$` + toMoneyStr(sec8Future) + ` (` + futureD.benefits[ 0 ].label + futureD.benefits[ 0 ].amount + `) a month ` +
-    `and ` +
-    `SNAP will change to ` +
-    `$` + toMoneyStr(snapFuture) + ` (` + futureD.benefits[ 1 ].label + futureD.benefits[ 1 ].amount + `) a month. ` +
-    `That means that your total benefits will change from ` +
-    `$` + toMoneyStr(totalBenefitCurrent) + ` (` + currentD.benefitsTotal + `) a month to ` +
-    `$` + toMoneyStr(totalBenefitFuture) + ` (` + futureD.benefitsTotal + `) a month. ` +
+  // Loop through benefits to add each one to the texts
+  var numBenefits = current.benefits.length;
+  for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
+
+    let cBenefit = current.benefits[ benefiti ],
+        fBenefit = future.benefits[ benefiti ];
+
+    nowText    += `$` + round$(cBenefit.amount) + ` for ` + cBenefit.label;
+    futureText += fBenefit.label + ` will change to $` + round$(fBenefit.amount) + ` a month`;
+
+    // 'Beneft 1, Benefit 2, and Benefit 3'
+    let bridgeText = ``;
+    // If any except last or second to last
+    if (benefiti < numBenefits - 2) {
+      bridgeText += `, `;
+    } else {
+      bridgeText += ` `;  // space before 'and' or before followup text
+    }
+    // If second to last
+    if (benefiti === numBenefits - 2) {
+      bridgeText += `and `;
+    }
+
+    nowText += bridgeText;
+    futureText += bridgeText;
+  }  // end for every benefit index
+
+  // Text after all benefits have been described.
+  nowText += `each month. All together, our calculations guess you bring in ` +
+             `$` + round$(current.total) + ` a month.`;
+  futureText += `. That means that your total benefits will change from ` +
+    `$` + round$(current.benefitsTotal) + ` a month to ` +
+    `$` + round$(future.benefitsTotal) + ` a month. ` +
     `All together, you'll bring in ` +
-    `$` + toMoneyStr(totalFuture) + ` (` + futureD.total + `) a month. `;
+    `$` + round$(future.total) + ` a month. `;
 
-  var sumText = ``;
-  if ((totalDiff > 0 || totalDiff < 0) && (diff > 0 || diff < 0)) {
-    sumText = `That means you'll be bringing in ` +
-      `$` + toMoneyStr(Math.abs(totalDiff)) + ` (` + diff + `)` + resultDescriptor;
+  // If total coming in changes at all, describe how
+  var sumText = `That means you'll be bringing in `;
+  if (diff > 0 || diff < 0) {
+    sumText += `$` + round$(Math.abs(diff)) + resultDescriptor;
+  } else {
+    sumText += `the same as you were before.`
   }
 
-  var endOfCliffText = ``;
-  if (totalDiff <= 0 &&  diff <= 0) {
+  // If there was a cliff
+  var endOfCliffText = null;
+  if (gain.total !== undefined) {
     endOfCliffText = `If you can get to where you make ` +
-      `$` + toMoneyStr(earnedAtGain) + ` (` + gain2.earned + `) a month, ` +
-      `you'll be bringing in ` +
-      `$` + toMoneyStr(gain) + ` (` + toMoneyStr(gain2.total - currentD.total) + `) more each month all together.`;  // more/less
+      `$` + toMoneyStr(gain.earned) + ` a month, you'll be bringing in about` +
+      `$` + round$(gain.total - current.total) + ` more each month all together.`;  // more/less
   }
 
-  var lowestText = ``;
-  if (typeof lossAtLowest === `number`) {
+  // If their money coming in isn't at its lowest point already
+  var lowestText = null;
+  if (lowest.total !== undefined) {
     lowestText = `At the very lowest dip, when you get paid ` +
-      `$` + toMoneyStr(earnedAtLowest) + ` (` + lowest.earned + `) a month, ` +
-      `you'll be bringing in ` +
-      `$` + toMoneyStr(lossAtLowest) + ` (` + Math.abs(lowest.total) + `) a month less than you are now. It'll be ` +
+      `$` + toMoneyStr(lowest.earned) + ` a month, you'll be bringing in ` +
+      `$` + round$(Math.abs(lowest.total)) + ` a month less than you are now. It'll be ` +
       // to get positive number (I think second one is correct)
-      `$` + toMoneyStr(totalCurrent - lossAtLowest) + ` (` + toMoneyStr(currentD.total - lowest.total) + `) less a month, but then it'll start getting better.`;
+      `$` + round$(current.total - lowest.total) + ` less a month, ` +
+      `but then it'll start getting better.`;
   }
 
   return (
     <div>
-      {renderIfTrue (futureEarned === currentEarned,
+      {future.earned === current.earned ? (
         <div>
-          <p>{ `There is no change in your income, so there's no change in your benefits.` }</p>
+          <p>{ `There is no change in your household's pay, so there's no change in your benefits.` }</p>
         </div>
+      ) : (
+        itemsToCalculate.length === 1 ? (
+          <p>{ `You're not getting any benefits, so there's nothing to calculate.` }</p>
+        ) : (
+          <div>
+
+            {/* For styling, make sure `<p>` isn't last child */}
+            <div>
+              <Header>What could happen?</Header>
+              <p>{ nowText }</p>
+              <p>{ futureText }</p>
+              <span />
+            </div>
+
+            <div>
+              <Header>What could it add up to?</Header>
+              <p>{ sumText }</p>
+              <span />
+            </div>
+            
+            {endOfCliffText === null ? (
+              `After this, it's possible you'll keep bringing in more with each raise.`
+            ) : (
+              <div>
+                <Header key = { `1` }>When could things get better?</Header>
+                <p key = { `2` }>{ endOfCliffText }</p>
+                <span />
+              </div>
+            )}
+
+            {lowestText === null ? (
+              null
+            ) : (
+              <div>
+                <Header key = { `1` }>What more should I know?</Header>
+                <p key = { `2` }>{ lowestText }</p>
+                <span />
+              </div>
+            )}
+
+            {diff <= 0 ? (
+              <div>
+                <hr />
+                <p>If you're worried about this, please talk to a local social worker.</p>
+              </div>
+            ) : (
+              null 
+            )}
+          </div>
+        )
       )}
 
-      {renderIfTrue (futureEarned !== currentEarned,
-        <div>
-
-          <Header>What could happen?</Header>
-          <p>{ nowText }</p>
-          <p>{ futureText }</p>
-
-          <Header>What could it add up to?</Header>
-          <p>{ sumText }</p>
-
-          {renderIfTrue(totalDiff <= 0,
-            <div>
-              <Header>When could things get better?</Header>
-              <p>{ endOfCliffText }</p>
-            </div>
-          )}
-
-          {renderIfTrue(typeof lossAtLowest === `number`,
-            <div>
-              <Header>What more should I know?</Header>
-              <p>{ lowestText }</p>
-            </div>
-          )}
-
-          {renderIfTrue(totalDiff <= 0,
-            <div>
-              <br />
-              <p>If you're worried about this, please talk to a local case manager.</p>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 };
