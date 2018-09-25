@@ -179,7 +179,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             className="snippet"
             lang="en"
         >
-            Submit Feedback
+            let us know
         </span>,
           "i_tabTitleBenefitPrograms": <span
             className="snippet"
@@ -215,7 +215,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             className="snippet"
             lang="en"
         >
-            This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+            This tool is in testing and these numbers might not be right. If they're not, please 
         </span>,
           "langCode": "en",
         }
@@ -252,30 +252,21 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         key="en230"
         lang="en"
       >
-        This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+        This tool is in testing and these numbers might not be right. If they're not, please 
       </span>
-      <br />
       <Button
         as="button"
         color="teal"
-        fluid={true}
+        compact={true}
         onClick={[Function]}
-        style={
-          Object {
-            "display": "block",
-            "marginLeft": "auto",
-            "marginRight": "auto",
-            "marginTop": "10px",
-            "maxWidth": "400px",
-          }
-        }
+        size="small"
       >
         <span
           className="snippet"
           key="en231"
           lang="en"
         >
-          Submit Feedback
+          let us know
         </span>
       </Button>
     </Message>
@@ -398,6 +389,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           },
         }
       }
+      openFeedback={[Function]}
       snippets={
         Object {
           "i_benefitsTableTitle": <span
@@ -488,7 +480,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             className="snippet"
             lang="en"
         >
-            Submit Feedback
+            let us know
         </span>,
           "i_tabTitleBenefitPrograms": <span
             className="snippet"
@@ -524,7 +516,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
             className="snippet"
             lang="en"
         >
-            This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+            This tool is in testing and these numbers might not be right. If they're not, please 
         </span>,
           "langCode": "en",
         }
