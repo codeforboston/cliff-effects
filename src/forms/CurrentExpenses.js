@@ -303,7 +303,6 @@ const Housing = function ({ current, type, time, updateClientValue }) {
  * @returns React element
  */
 const ExpensesFormContent = function ({ current, time, updateClientValue, snippets }) {
-console.log(snippets)
   let type        = 'expense',
       household   = current.household,
       sharedProps = {
