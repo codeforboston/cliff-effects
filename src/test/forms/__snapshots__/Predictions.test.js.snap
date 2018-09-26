@@ -334,7 +334,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     >
       <span
         className="snippet"
-        key="en230"
+        key="en229"
         lang="en"
       >
         With the new pay, how could your benefits change?
@@ -351,7 +351,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     >
       <span
         className="snippet"
-        key="en231"
+        key="en230"
         lang="en"
       >
         This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
@@ -374,7 +374,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
         <span
           className="snippet"
-          key="en232"
+          key="en231"
           lang="en"
         >
           Submit Feedback
