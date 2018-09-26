@@ -85,7 +85,6 @@ var getBenefitData = function(client, moneyToCalculate) {
           benefitsTotal: 0,
           total:         0,
         },
-        diff:   0,
         lowest: {},  // { total, earned, }
         gain:   {},  // { total, earned, }
       },
@@ -109,43 +108,40 @@ var getBenefitData = function(client, moneyToCalculate) {
   // Now have: { income: [c, f], n: [c, f] }
 
   // 2. Get totals
-  let count   = 0;
-  for (let itemName of toCalculate) {
-    let amounts = accumulated[ itemName ],
-        curr    = amounts[ 0 ],
-        futr    = amounts[ 1 ];
+  var fillIncomeValues = (objectToFill, index) => {
 
-    if (itemName === `income`) {
-      rsltCurrent.earned = curr;
-      rsltFuture.earned  = futr;
+    let counter = 0;
+    for (let itemName of toCalculate) {
+      let amount = accumulated[ itemName ][ index ];
 
-    } else {
-      rsltCurrent.benefits[ count ] = {
-        label:  PROGRAM_CHART_VALUES[ itemName ].name,
-        amount: curr,
-      };
-      rsltCurrent.benefitsTotal += curr;
+      if (itemName === 'income') {
+        objectToFill.earned = amount;
+      }
+      else {
+        objectToFill.benefits[ counter ] = {
+          label:  PROGRAM_CHART_VALUES[ itemName ].name,
+          amount: amount,
+        };
+        objectToFill.benefitsTotal += amount;
+      }
 
-      rsltFuture.benefits[ count ] = {
-        label:  PROGRAM_CHART_VALUES[ itemName ].name,
-        amount: futr,
-      };
-      rsltFuture.benefitsTotal += futr;
-
-      count++;  // Doesn't count `income`
+      counter ++;
     }
-  }  // end for income and all benefits
-  rsltCurrent.total = rsltCurrent.earned + rsltCurrent.benefitsTotal;
-  rsltFuture.total  = rsltFuture.earned  + rsltFuture.benefitsTotal;
+
+    objectToFill.total = objectToFill.earned + objectToFill.benefitsTotal;
+  }
+
+  // Fill income values for both current and future income objects
+  fillIncomeValues(rsltCurrent, 0);
+  fillIncomeValues(rsltFuture, 1);
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
-  result.diff  = rsltFuture.total - rsltCurrent.total;
-  var diff     = result.diff;
+  var diff = rsltFuture.total - rsltCurrent.total;
 
   // 4. If implicit taxes > 100% (has dramatic cliff)
   if (diff < 0) {
-    var nextTotal = null,
+    let nextTotal = null,
         lowest   = result.lowest,
         gain     = result.gain,
         income   = accumulated.income,
@@ -221,60 +217,55 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   var {
     current,  // { earned, benefits: [{ label, amount }], benefitsTotal, total }
     future,   // same
-    diff,     // #
     lowest,   // { total, earned, }
     gain,     // { total, earned, }
   } = data;
+
+  var diff = future.earned - current.earned;
 
   var round$ = function (number) {
     return toMoneyStr(Math.round(number)).replace(`.00`, ``);
   };
 
-  var resultDescriptor = ` each month than you were before.`;
-  if (diff > 0) {
-    resultDescriptor = ` more` + resultDescriptor;
-  } else if (diff < 0) {
-    resultDescriptor = ` less` + resultDescriptor;
-  }
+  // Localization-friendly description string for "What could happen?"
+  var changeDescription = 
+  "Right now you earn $[0] a month, and this tool says that you bring " +
+  "in a total benefit of $[1] per month towards a net income of $[2] a month. " +
+  "If your household's pay changes to $[3] a month, this tool says your total " +
+  "benefit will change to $[4] a month. Altogether, you will bring in $[5] a " +
+  "month. Your benefit changes can be broken down as follows:";
 
-  var nowText = `Right now you earn ` +
-    `$` + toMoneyStr(current.earned) + ` a month ` +
-    `and this tool says your benefits come out to `;
-  var futureText = `If your household's pay changes to ` +
-    `$` + toMoneyStr(future.earned) + ` a month then this tool says `;
+  changeDescription = changeDescription
+      .replace('[0]', toMoneyStr(current.earned))
+      .replace('[1]', toMoneyStr(current.benefitsTotal))
+      .replace('[2]', toMoneyStr(current.total))
+      .replace('[3]', toMoneyStr(future.earned))
+      .replace('[4]', toMoneyStr(future.benefitsTotal))
+      .replace('[5]', toMoneyStr(future.total));
 
-  // Loop through benefits to add each one to the texts
+  // List of benefits
+  var benefitListLine = "[0] will change from $[1] a month to $[2] a month."
+
+  var benefitList = [];
   var numBenefits = current.benefits.length;
   for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
 
     let cBenefit = current.benefits[ benefiti ],
         fBenefit = future.benefits[ benefiti ];
 
-    nowText    += `$` + round$(cBenefit.amount) + ` for ` + cBenefit.label;
-    futureText += fBenefit.label + ` will change to $` + round$(fBenefit.amount) + ` a month`;
-
-    // 'Beneft 1, Benefit 2, and Benefit 3'
-    let bridgeText = ``;
-    // If any except last or second to last
-    if (benefiti < numBenefits - 2) {
-      bridgeText += `, `;
-    } else {
-      bridgeText += ` `;  // space before 'and' or before followup text
+    if(cBenefit) {
+      benefitList.push(benefitListLine
+        .replace('[0]', cBenefit.label)
+        .replace('[1]', toMoneyStr(cBenefit.amount))
+        .replace('[2]', toMoneyStr(fBenefit.amount)));
     }
-    // If second to last
-    if (benefiti === numBenefits - 2) {
-      bridgeText += `and `;
-    }
+  }
 
-    nowText += bridgeText;
-    futureText += bridgeText;
-  }  // end for every benefit index
-
-  // Text after all benefits have been described.
-  nowText += `each month. All together, this tool says you bring in ` +
-             `$` + round$(current.total) + ` a month.`;
-  var nowContents = ([
-    <span key = { `pre-ask` }>{ nowText + ` If any of these numbers aren't right please ` }</span>,
+  // Feedback button
+  var disclaimer = ([
+    <span key = { `pre-ask` }>
+    { `If any numbers on your current benefits aren't right, please ` }
+    </span>,
     <Button
       key     = { `ask` }
       compact
@@ -283,16 +274,18 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
       { snippets.i_submitFeedback }
     </Button>,
   ]);
-  futureText += `. That means that your total benefits would change from ` +
-    `$` + round$(current.benefitsTotal) + ` a month to ` +
-    `$` + round$(future.benefitsTotal) + ` a month. ` +
-    `All together, you would bring in ` +
-    `$` + round$(future.total) + ` a month. `;
+
+  var resultDescriptor = ` each month than you were before.`;
+  if (diff > 0) {
+    resultDescriptor = ` more` + resultDescriptor;
+  } else if (diff < 0) {
+    resultDescriptor = ` less` + resultDescriptor;
+  }
 
   // If total coming in changes at all, describe how
   var sumText = `If this tool is right, you would be bringing in `;
   if (diff > 0 || diff < 0) {
-    sumText += `$` + round$(Math.abs(diff)) + resultDescriptor;
+    sumText += `$` + round$(Math.abs(future.total - current.total)) + resultDescriptor;
   } else {
     sumText += `the same as you were before.`;
   }
@@ -331,8 +324,11 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
             {/* For styling, make sure `<p>` isn't last child */}
             <div>
               <Header>What could happen?</Header>
-              <p>{ nowContents }</p>
-              <p>{ futureText }</p>
+              <p>{ changeDescription }</p>
+              <ul>
+                {benefitList.map((item) => (<li>{item}</li>))}
+              </ul>
+              <p>{ disclaimer }</p>
               <span />
             </div>
 
