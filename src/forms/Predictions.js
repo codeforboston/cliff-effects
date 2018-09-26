@@ -138,7 +138,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
       title     = { snippets.i_title }
       clarifier = { null }
       navData   = { navData }
-      formClass = { `income-form` }>
+      formClass = { `prediction-form` }>
       <IncomeForm
         updateClientValue = { updateClientValue }
         future            = { client.future }
