@@ -262,8 +262,8 @@ export default {
       tabTitleStackedIncomes_v1:  `Stacked Incomes`,
       tabTitleBenefitPrograms_v1: `Benefit Programs`,
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
-      warningMessage_v1:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
-      submitFeedback_v1:          `Submit Feedback`,
+      warningMessage_v2:          `This tool is in testing and these numbers might not be right. If they're not, please `,
+      submitFeedback_v2:          `let us know`,
 
       benefitsTableTitle_v1:    `Changes`,
       columnBenefit_v1:         `Benefit`,
