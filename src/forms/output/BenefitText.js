@@ -33,6 +33,87 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
   return total;
 };
 
+/** Mutates `objectToFill` to add benefit values in
+ * the format that we need them.
+ *
+ * @param {array} keys Contains keys to use on `sourceObject`.
+ * @param {object} sourceObject Contains benefit keys that
+ *      all have an array of numerical values (which are
+ *      meant to be money values right now).
+ * @param {int} Which item in each array should be used to
+ *      accumulate values.
+ * @param {objectToFill} Will be mutated. See example.
+ *
+ * @example
+ * // In PROGRAM_CHART_VALUES.js
+ * let PROGRAM_CHART_VALUES = {
+ *  benefit1: { name: "Benefit Number 1" },
+ *  benefit2: { name: "Benefit Number 2" },
+ *  // etc.
+ * };
+ * 
+ * // In here
+ * let keys = [
+ *  'benefit1',
+ *  'benefit2',
+ * ];
+ *
+ * let accumulated = {
+ *  benefit1: [ 80, 30 ],
+ *  benefit2: [ 40, 10 ],
+ * };
+ * 
+ * let index = 1;
+ * 
+ * let summaryData = {};
+ * 
+ * fillInIncomeValues(keys, accumulated, index, summaryData);
+ * 
+ * console.log(summaryData);
+ * // {
+ * //   earned: 500,
+ * //   benefits: [
+ * //     {
+ * //       label: "Benefit Number 1",
+ * //       amount: 30,
+ * //     },
+ * //     {
+ * //       label: "Beneft Number 2",
+ * //       amount: 10,
+ * //     }
+ * //   ],
+ * //   benefitsTotal: 40,
+ * //   total: 540,
+ * // }
+ * 
+ * @note: Unfortunately, stll relies on an outside value -
+ *     PROGRAM_CHART_VALUES.
+ *
+ * @returns {undefined}
+ */
+var fillInIncomeValues = (keys, sourceObject, index, objectToFill) => {
+
+  // Item names can be `income` or benefit keys
+  for (let itemi = 0; itemi < keys.length; itemi++) {
+    let itemKey = keys[ itemi ],
+        amount  = sourceObject[ itemKey ][ index ];
+
+    if (itemKey === `income`) {
+      objectToFill.earned = amount;
+    } else {
+      objectToFill.benefits[ itemi ] = {
+        label:  PROGRAM_CHART_VALUES[ itemKey ].name,
+        amount: amount,
+      };
+      // Add up all benefits (we're not including income)
+      objectToFill.benefitsTotal += amount;
+    }
+  }  // end for every item key name
+
+  objectToFill.total = objectToFill.earned + objectToFill.benefitsTotal;
+  return;
+};  // End fillInIncomeValues()
+
 
 var getBenefitData = function(client, moneyToCalculate) {
 
@@ -108,32 +189,9 @@ var getBenefitData = function(client, moneyToCalculate) {
   // Now have: { income: [c, f], n: [c, f] }
 
   // 2. Get totals
-  var fillIncomeValues = (objectToFill, index) => {
-
-    let counter = 0;
-    for (let itemName of toCalculate) {
-      let amount = accumulated[ itemName ][ index ];
-
-      if (itemName === 'income') {
-        objectToFill.earned = amount;
-      }
-      else {
-        objectToFill.benefits[ counter ] = {
-          label:  PROGRAM_CHART_VALUES[ itemName ].name,
-          amount: amount,
-        };
-        objectToFill.benefitsTotal += amount;
-      }
-
-      counter ++;
-    }
-
-    objectToFill.total = objectToFill.earned + objectToFill.benefitsTotal;
-  };
-
   // Fill income values for both current and future income objects
-  fillIncomeValues(rsltCurrent, 0);
-  fillIncomeValues(rsltFuture, 1);
+  fillInIncomeValues(toCalculate, accumulated, 0, rsltCurrent);
+  fillInIncomeValues(toCalculate, accumulated, 1, rsltFuture);
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
@@ -326,7 +384,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
               <Header>What could happen?</Header>
               <p>{ changeDescription }</p>
               <ul>
-                {benefitList.map((item) => (<li>{item}</li>))}
+                {benefitList.map((item) => (<li key = { item }>{item}</li>))}
               </ul>
               <p>{ disclaimer }</p>
               <span />
