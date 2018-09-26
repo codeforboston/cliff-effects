@@ -72,7 +72,7 @@ const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) =
       title     = { snippets.i_currentBenefits }
       clarifier = { snippets.i_selectBenefits }
       navData   = { navData }
-      formClass = { `benefit-form` }
+      formClass = { `benefits` }
       formSize  = { `massive` }>
       <CurrentBenefitsContent
         updateClientValue = { updateClientValue }

@@ -546,7 +546,7 @@ const CurrentExpensesStep = function ({ updateClientValue, navData, client, snip
       title     = { snippets.i_title }
       clarifier = { snippets.i_clarifier }
       navData   = { navData }
-      formClass = { `expense-form` }>
+      formClass = { `expenses` }>
       <ExpensesFormContent
         updateClientValue = { updateClientValue }
         current={ client.current }

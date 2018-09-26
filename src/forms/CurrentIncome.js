@@ -152,7 +152,7 @@ const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippe
       title     = { snippets.i_title }
       clarifier = { snippets.i_clarifier }
       navData   = { navData }
-      formClass = { `income-form` }>
+      formClass = { `income` }>
       <IncomeForm
         updateClientValue = { updateClientValue }
         current={ client.current }

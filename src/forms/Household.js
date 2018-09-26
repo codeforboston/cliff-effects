@@ -401,7 +401,7 @@ const HouseholdStep = function ({ updateClientValue, navData, client, snippets }
       title     = { snippets.i_title }
       clarifier = { snippets.i_clarifier }
       navData   = { navData }
-      formClass = { `current-household-size-form` }>
+      formClass = { `current-household` }>
       <HouseholdContent
         updateClientValue = { updateClientValue }
         current={ client.current }
