@@ -1,6 +1,5 @@
 // REACT COMPONENTS
 import React from 'react';
-import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -69,20 +68,17 @@ const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
 const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) => {
 
   return (
-    <Form
-      size='massive'
-      className='household-size-form flex-item flex-column'>
-      <FormPartsContainer
-        title     = { snippets.i_currentBenefits }
-        clarifier = { snippets.i_selectBenefits }
-        navData   = { navData }>
-        <CurrentBenefitsContent
-          updateClientValue = { updateClientValue }
-          current      = { client.current }
-          snippets     = { snippets } />
-      </FormPartsContainer>
-
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_currentBenefits }
+      clarifier = { snippets.i_selectBenefits }
+      navData   = { navData }
+      formClass = { `household-size-form` }
+      formSize  = { `massive` }>
+      <CurrentBenefitsContent
+        updateClientValue = { updateClientValue }
+        current      = { client.current }
+        snippets     = { snippets } />
+    </FormPartsContainer>
   );
 
 };  // End CurrentBenefitsStep()
