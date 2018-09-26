@@ -10,7 +10,7 @@ exports[`Benefits step component renders as snapshot correctly 1`] = `
       Select the benefits you currently receive
     </span>
   }
-  formClass="household-size-form"
+  formClass="benefit-form"
   formSize="massive"
   navData={
     Object {
