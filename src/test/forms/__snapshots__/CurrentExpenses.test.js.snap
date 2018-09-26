@@ -89,6 +89,12 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
       Object {
         "childSupport": Object {
           "childSupportPaidOut": Object {
+            "i_childSupport": <span
+              className="snippet"
+              lang="en"
+      >
+               child support
+      </span>,
             "i_legallyObligated": <span
               className="snippet"
               lang="en"
@@ -216,12 +222,6 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
             "langCode": "en",
           },
         },
-        "i_childSupportExpense": <span
-          className="snippet"
-          lang="en"
-      >
-          Child support you pay
-      </span>,
         "i_next": <span
           className="snippet"
           lang="en"
