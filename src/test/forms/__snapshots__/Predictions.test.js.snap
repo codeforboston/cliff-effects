@@ -3,7 +3,7 @@
 exports[`Prediction component renders as snapshot correctly 1`] = `
 <FormPartsContainer
   clarifier={null}
-  formClass="prediction-form"
+  formClass="predictions"
   navData={
     Object {
       "left": Object {

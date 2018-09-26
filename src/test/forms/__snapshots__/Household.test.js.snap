@@ -10,7 +10,7 @@ exports[`Household step component renders as snapshot correctly 1`] = `
       Information about the members of your household.
     </span>
   }
-  formClass="current-household-size-form"
+  formClass="household"
   navData={
     Object {
       "left": Object {

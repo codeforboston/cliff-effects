@@ -10,7 +10,7 @@ exports[`Income step component renders as snapshot correctly 1`] = `
       Income that you collected in the past 12 months.
     </span>
   }
-  formClass="income-form"
+  formClass="income"
   navData={
     Object {
       "left": Object {
