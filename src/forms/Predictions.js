@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
+import { Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
