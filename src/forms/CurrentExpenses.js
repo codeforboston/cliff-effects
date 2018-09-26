@@ -542,18 +542,17 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
-    <Form className = 'expense-form flex-item flex-column'>
-      <FormPartsContainer
-        title     = { snippets.i_title }
-        clarifier = { snippets.i_clarifier }
-        navData   = { navData }>
-        <ExpensesFormContent
-          updateClientValue = { updateClientValue }
-          current={ client.current }
-          time={ 'current' }
-          snippets={ snippets } />
-      </FormPartsContainer>
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { snippets.i_clarifier }
+      navData   = { navData }
+      formClass = { `expenses` }>
+      <ExpensesFormContent
+        updateClientValue = { updateClientValue }
+        current={ client.current }
+        time={ 'current' }
+        snippets={ snippets } />
+    </FormPartsContainer>
   );
 
 };  // End CurrentExpensesStep()

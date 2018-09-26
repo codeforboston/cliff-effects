@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
+import { Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -134,47 +134,46 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
 
   /** @todo Are these titles accurate now? */
   return (
-    <Form className = 'income-form flex-item flex-column'>
-      <FormPartsContainer
-        title     = { snippets.i_title }
-        clarifier = { null }
-        navData   = { navData }>
-        <IncomeForm
-          updateClientValue = { updateClientValue }
-          future            = { client.future }
-          time              = { 'future' } 
-          snippets          = { snippets } />
-        <Divider className='ui section divider hidden' />
-        <Header
-          as        ='h3'
-          className ='ui Header align centered'>
-          { snippets.i_chartsHeader }
-        </Header>
-        <Message
-          visible
-          warning
-          style={{ 'textAlign': 'center' }}>
-          { snippets.i_warningMessage }
-          <br />
-          <Button
-            fluid
-            color='teal'
-            style={{
-              'display':     'block',
-              'marginLeft':  'auto',
-              'marginRight': 'auto',
-              'marginTop':   '10px',
-              'maxWidth':    '400px', 
-            }}
-            onClick={ openFeedback }>
-            { snippets.i_submitFeedback }
-          </Button>
-        </Message>
-        <TabbedVisualizations 
-          client   = { client }
-          snippets = { snippets } />
-      </FormPartsContainer>
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { null }
+      navData   = { navData }
+      formClass = { `predictions` }>
+      <IncomeForm
+        updateClientValue = { updateClientValue }
+        future            = { client.future }
+        time              = { 'future' } 
+        snippets          = { snippets } />
+      <Divider className='ui section divider hidden' />
+      <Header
+        as        ='h3'
+        className ='ui Header align centered'>
+        { snippets.i_chartsHeader }
+      </Header>
+      <Message
+        visible
+        warning
+        style={{ 'textAlign': 'center' }}>
+        { snippets.i_warningMessage }
+        <br />
+        <Button
+          fluid
+          color='teal'
+          style={{
+            'display':     'block',
+            'marginLeft':  'auto',
+            'marginRight': 'auto',
+            'marginTop':   '10px',
+            'maxWidth':    '400px', 
+          }}
+          onClick={ openFeedback }>
+          { snippets.i_submitFeedback }
+        </Button>
+      </Message>
+      <TabbedVisualizations 
+        client   = { client }
+        snippets = { snippets } />
+    </FormPartsContainer>
   );
 };  // End FutureIncomeStep() Component
 
