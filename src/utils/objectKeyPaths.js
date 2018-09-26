@@ -72,8 +72,9 @@
  */
 const getKeyPathsArray = (obj, stripVersions, base = []) => {
   // Array to contain our keys paths (if any)
-  let pathsArr = [];
-  
+  let pathsArr = [],
+      versionRegex = /_v\d+$/;
+
   // Arrays in localization are interpolated into translated strings, so don't do anything
   if (Array.isArray(obj)) {
     return pathsArr;
@@ -92,7 +93,7 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
         // Allow for removing version info from key myKey_v1.0 becomes just myKey in the returned structure.
         let cleanedKey = key;
         if (stripVersions) {
-          cleanedKey = key.split('_')[ 0 ];
+          cleanedKey = cleanedKey.replace(versionRegex, ``);
         }
         // Append this key to the base path array
         let newBase = [ 

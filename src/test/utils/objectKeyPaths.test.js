@@ -37,7 +37,6 @@ describe('getKeyPathsArray()', () => {
 
   test('prop w/ version should have version removed when stripVersions flag is set', () => {
     expect(getKeyPathsArray({ a_v1: '' }, true)).toEqual([ [ 'a' ] ]);
-    expect(getKeyPathsArray({ 'a_v1.0': '' }, true)).toEqual([ [ 'a' ] ]);
     expect(getKeyPathsArray({ a: { b_v1: '' }}, true)).toEqual([
       [ 'a' ],
       [
@@ -45,14 +44,19 @@ describe('getKeyPathsArray()', () => {
         'b',
       ],
     ]);
+  });
+
+  test('prop w/ version containing decimal should not be removed when stripVersions flag is set', () => {
+    expect(getKeyPathsArray({ 'a_v1.0': '' }, true)).toEqual([ [ 'a_v1.0' ] ]);
     expect(getKeyPathsArray({ a: { 'b_v1.0': '' }}, true)).toEqual([
       [ 'a' ],
       [
         'a',
-        'b',
+        'b_v1.0',
       ],
     ]);
   });
+
 });
 
 describe('getKeyPathStrings()', () => {
