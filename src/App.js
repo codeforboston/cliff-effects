@@ -14,6 +14,8 @@ import AboutPage from './containers/AboutPage';
 import VisitPage from './containers/VisitPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
+// sort of a component
+import { renderIfTrue } from './components/renderIfTrue';
 
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
@@ -33,10 +35,18 @@ class App extends Component {
 
     var defaults = cloneDeep(CLIENT_DEFAULTS);
 
+    // Development variables are the only things stored
+    var localDev = localStorage.getItem(`cliffEffectsDevProps`);
+    if (typeof localDev !== `string`) {
+      localDev = {};
+    } else {
+      localDev = JSON.parse(localDev);
+    }
+
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
-      clients: {
+      clients:  {
         default: defaults,
         loaded:  defaults,
       },
@@ -46,7 +56,8 @@ class App extends Component {
         dev:        false,
         english:    true,
         nonEnglish: true,
-        load:       true,
+        loadClient: true,
+        ...localDev,
       },
     };
   };  // End constructor()
@@ -58,9 +69,13 @@ class App extends Component {
 
   setDev = (key, value) => {
     this.setState((prevState) => {
+
       var props = prevState.devProps;
       if (props[ key ] !== value) {
+
         var newProps = { ...props, [ key ]: value };
+        localStorage.setItem(`cliffEffectsDevProps`, JSON.stringify(newProps));
+
         return { devProps: newProps };
       }
     });
@@ -152,17 +167,6 @@ class App extends Component {
                       clientData = { clientData } />);
                 } } />
 
-              {/* Currently only works on published build */}
-              <Route
-                path="/docs"
-                component={ () => {
-                  return (
-                    <iframe
-                      id="docsFrame"
-                      title="Cliff Effects Docs"
-                      src="/docs/index.html" />);
-                } } />
-
               {/* For managing our development HUD */}
               <Route
                 path = { `/dev` }
@@ -178,15 +182,13 @@ class App extends Component {
         </HashRouter>
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
 
-        {
-          devProps.dev ?
-            <DevHud
-              devProps = { devProps }
-              funcs    = { devFuncs }
-              data     = {{ default: clients.default }}
-              state    = { this.state } />
-            : null
-        }
+        { renderIfTrue(devProps.dev === true, (
+          <DevHud
+            devProps = { devProps }
+            funcs    = { devFuncs }
+            data     = {{ default: clients.default }}
+            state    = { this.state } />
+        ))}
 
       </div>
     );

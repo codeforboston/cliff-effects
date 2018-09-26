@@ -3,21 +3,28 @@ import React from 'react';
 // PROJECT COMPONENTS
 import { ControlledRadioYesNo } from './inputs';
 import { ContentH1 } from '../components/headings';
+import { Surrounder } from '../components/Surrounder';
 
 /**
  * Yes/No radio buttons. 'Yes' reveals the given Component(s)
- * 
- * @param {object} props See below
- * @param {object} props.clientPartial - Current or future client data.
- * @param {string} props.propName - Client prop name to store user's choice.
- * @param {function} props.updateClientValue
- * @param {string} props.question - Yes/no question for user.
- * @param {string} props.heading - Heading for this section.
- * @param {object} props.children - Components to be revealed.
- * 
+ *
+ * @param {object} props
+ * @param {string} props.showChildrenAtStart Whether to start with the
+ *     given children as showing or hidden.
+ * @param {string} props.childName Child name for unique radio input id.
+ * @param {string} props.question Yes/no question for user to answer.
+ * @param {string} props.heading Heading for this section.
+ * @param {object} props.children Components to be revealed.
+ * @param {function} [props.onYes] Run when 'Yes' is selected.
+ * @param {function} [props.onNo] Run when 'No' is selected.
+ *
  * @returns {object} Component
  */
 class ShowOnYes extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = { show: props.showChildrenAtStart || false };
+  }
 
   handleChange = (evt, inputProps) => {
 
@@ -29,47 +36,53 @@ class ShowOnYes extends React.Component {
 
   };
 
-  showChildren = (evt) => {
-    const { propName, updateClientValue } = this.props;
-    updateClientValue(evt, {
-      name:  propName,
-      value: true,
-    });
+  showChildren = (evnt) => {
+    this.setState({ show: true });
+    if (this.props.onYes) {
+      this.props.onYes(evnt);
+    }
   };
 
-  hideChildren = (evt) => {
-    const { propName, updateClientValue } = this.props;
-    updateClientValue(evt, {
-      name:  propName,
-      value: false,
-    });
+  hideChildren = (evnt) => {
+    this.setState({ show: false });
+    if (this.props.onNo) {
+      this.props.onNo(evnt);
+    }
   };
 
   // Instead of a header and children, discuss using
   // a function instead that would return a heading
   // and contents.
   render() {
+
     const {
-      clientPartial,
-      propName,
+      childName,
       question,
       heading,
       children,
+      ...rest
     } = this.props;
 
-    const showChildren = clientPartial[ propName ];
+    var show = this.state.show;
 
     return (
       <div className = { `show-on-yes` }>
 
         <ContentH1>{ heading }</ContentH1>
-        <ControlledRadioYesNo
-          labelText         = { question }
-          checked           = { showChildren }
-          name              = { 'confirm_' + propName }
-          updateClientValue = { this.handleChange } />
+
+        <Surrounder { ...rest } >
+          <ControlledRadioYesNo
+            labelText         = { question }
+            value             = { show }
+            name              = { 'confirm_' + childName }
+            updateClientValue = { this.handleChange } />
+        </Surrounder>
         
-        {showChildren && children }
+        {show ? (
+          children
+        ) : (
+          null
+        )}
 
       </div>
     );
