@@ -239,11 +239,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       </span>
     </Header>
     <Message
-      style={
-        Object {
-          "textAlign": "center",
-        }
-      }
+      className="predictions-message"
       visible={true}
       warning={true}
     >
@@ -260,15 +256,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         color="teal"
         fluid={true}
         onClick={[Function]}
-        style={
-          Object {
-            "display": "block",
-            "marginLeft": "auto",
-            "marginRight": "auto",
-            "marginTop": "10px",
-            "maxWidth": "400px",
-          }
-        }
       >
         <span
           className="snippet"
