@@ -303,7 +303,6 @@ const Housing = function ({ current, type, time, updateClientValue }) {
  * @returns React element
  */
 const ExpensesFormContent = function ({ current, time, updateClientValue, snippets }) {
-
   let type        = 'expense',
       household   = current.household,
       sharedProps = {
@@ -389,7 +388,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           <IntervalColumnHeadings type={ type } />
           <CashFlowInputsRow
             { ...sharedProps }
-            generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support
+            generic={ 'childSupportPaidOut' }> {snippets.i_childSupportExpense}
           </CashFlowInputsRow>
         </div>
       ) : (
