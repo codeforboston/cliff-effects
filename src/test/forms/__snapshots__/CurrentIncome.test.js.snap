@@ -1,304 +1,300 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Income step component renders as snapshot correctly 1`] = `
-<Form
-  as="form"
-  className="income-form flex-item flex-column"
+<FormPartsContainer
+  clarifier={
+    <span
+      className="snippet"
+      lang="en"
+    >
+      Income that you collected in the past 12 months.
+    </span>
+  }
+  formClass="income-form"
+  navData={
+    Object {
+      "left": Object {
+        "onClick": [Function],
+        "text": "Previous",
+      },
+      "middle": null,
+      "right": Object {
+        "onClick": [Function],
+        "text": "Next",
+      },
+    }
+  }
+  title={
+    <span
+      className="snippet"
+      lang="en"
+    >
+      Current Household Income
+    </span>
+  }
 >
-  <FormPartsContainer
-    clarifier={
-      <span
-        className="snippet"
-        lang="en"
-      >
-        Income that you collected in the past 12 months.
-      </span>
-    }
-    navData={
+  <IncomeForm
+    current={
       Object {
-        "left": Object {
-          "onClick": [Function],
-          "text": "Previous",
-        },
-        "middle": null,
-        "right": Object {
-          "onClick": [Function],
-          "text": "Next",
-        },
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 0,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": false,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
       }
     }
-    title={
-      <span
-        className="snippet"
-        lang="en"
+    snippets={
+      Object {
+        "SSDI": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
       >
-        Current Household Income
-      </span>
-    }
-  >
-    <IncomeForm
-      current={
-        Object {
-          "SSDI": 0,
-          "SSI": 0,
-          "TAFDC": 0,
-          "adultDirectCare": 0,
-          "adultOtherCare": 0,
-          "adultTransportation": 0,
-          "alimony": 0,
-          "childBeforeAndAfterSchoolCare": 0,
-          "childDirectCare": 0,
-          "childOtherCare": 0,
-          "childSupportIn": 0,
-          "childSupportPaidOut": 0,
-          "childTransportation": 0,
-          "climateControl": false,
-          "contractRent": 0,
-          "disabledAssistance": 0,
-          "disabledMedical": 0,
-          "earned": 0,
-          "earnedBecauseOfAdultCare": 0,
-          "earnedBecauseOfChildCare": 0,
-          "fuelAssistance": false,
-          "hasSection8": false,
-          "hasSnap": false,
-          "household": Array [
-            Object {
-              "m_age": 30,
-              "m_disabled": false,
-              "m_role": "head",
-            },
-          ],
-          "housing": "homeless",
-          "housingInsurance": 0,
-          "mortgage": 0,
-          "nonHeatElectricity": false,
-          "otherExpensesCable": 0,
-          "otherExpensesCareProducts": 0,
-          "otherExpensesClothes": 0,
-          "otherExpensesEntertainment": 0,
-          "otherExpensesFood": 0,
-          "otherExpensesMedical": 0,
-          "otherExpensesOther": 0,
-          "otherExpensesPhone": 0,
-          "otherExpensesTransport": 0,
-          "otherExpensesUtilities": 0,
-          "otherIncome": 0,
-          "otherMedical": 0,
-          "pension": 0,
-          "phone": false,
-          "propertyTax": 0,
-          "rent": 0,
-          "rentShare": 0,
-          "socialSecurity": 0,
-          "unemployment": 0,
-          "wantsToSeeOtherExpenses": false,
-          "workersComp": 0,
-        }
-      }
-      snippets={
-        Object {
-          "SSDI": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Social Security Disability Income is a federal program to help people with disabilities
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              SSDI
-        </span>,
-            "langCode": "en",
-          },
-          "SSI": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              SSI
-        </span>,
-            "langCode": "en",
-          },
-          "TAFDC": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              TAFDC
-        </span>,
-            "langCode": "en",
-          },
-          "alimony": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Alimony is money paid by one spouse to the other after a divorce
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Alimony
-        </span>,
-            "langCode": "en",
-          },
-          "childSupport": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Child support is money paid to you by a former spouse to help your child
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Child support recieved
-        </span>,
-            "langCode": "en",
-          },
-          "earnedIncome": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Earned income is how much you and your family get paid from working
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Earned income
-        </span>,
-            "langCode": "en",
-          },
-          "i_clarifier": <span
+            Social Security Disability Income is a federal program to help people with disabilities
+      </span>,
+          "i_label": <span
             className="snippet"
             lang="en"
-        >
-            Income that you collected in the past 12 months.
-        </span>,
-          "i_explainSnapCalculation": <span
-            className="snippet"
-            lang="en"
-        >
-            This prototype will attempt to make its own calculations for SNAP amount
-        </span>,
-          "i_next": <span
-            className="snippet"
-            lang="en"
-        >
-            Next
-        </span>,
-          "i_previous": <span
-            className="snippet"
-            lang="en"
-        >
-            Previous
-        </span>,
-          "i_title": <span
-            className="snippet"
-            lang="en"
-        >
-            Current Household Income
-        </span>,
+      >
+            SSDI
+      </span>,
           "langCode": "en",
-          "otherIncome": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Please note income you may have from sources that are not listed above
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Other income
-        </span>,
-            "langCode": "en",
-          },
-          "pension": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              A pension provides income to retirees, usually from their former employers
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Pension
-        </span>,
-            "langCode": "en",
-          },
-          "socialSecurity": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Social Security is a federal program that provides assistance to retirees
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Social security
-        </span>,
-            "langCode": "en",
-          },
-          "unemployment": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Unemployment benefits provide income to people who have been laid off
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Unemployment
-        </span>,
-            "langCode": "en",
-          },
-          "workersComp": Object {
-            "i_hint": <span
-              className="snippet"
-              lang="en"
-        >
-              Worker's Compensation provides assistance for people who have been injured on the job
-        </span>,
-            "i_label": <span
-              className="snippet"
-              lang="en"
-        >
-              Worker's compensation
-        </span>,
-            "langCode": "en",
-          },
-        }
+        },
+        "SSI": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            SSI
+      </span>,
+          "langCode": "en",
+        },
+        "TAFDC": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            TAFDC
+      </span>,
+          "langCode": "en",
+        },
+        "alimony": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Alimony is money paid by one spouse to the other after a divorce
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Alimony
+      </span>,
+          "langCode": "en",
+        },
+        "childSupport": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Child support is money paid to you by a former spouse to help your child
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Child support recieved
+      </span>,
+          "langCode": "en",
+        },
+        "earnedIncome": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Earned income is how much you and your family get paid from working
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Earned income
+      </span>,
+          "langCode": "en",
+        },
+        "i_clarifier": <span
+          className="snippet"
+          lang="en"
+      >
+          Income that you collected in the past 12 months.
+      </span>,
+        "i_explainSnapCalculation": <span
+          className="snippet"
+          lang="en"
+      >
+          This prototype will attempt to make its own calculations for SNAP amount
+      </span>,
+        "i_next": <span
+          className="snippet"
+          lang="en"
+      >
+          Next
+      </span>,
+        "i_previous": <span
+          className="snippet"
+          lang="en"
+      >
+          Previous
+      </span>,
+        "i_title": <span
+          className="snippet"
+          lang="en"
+      >
+          Current Household Income
+      </span>,
+        "langCode": "en",
+        "otherIncome": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Please note income you may have from sources that are not listed above
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Other income
+      </span>,
+          "langCode": "en",
+        },
+        "pension": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            A pension provides income to retirees, usually from their former employers
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Pension
+      </span>,
+          "langCode": "en",
+        },
+        "socialSecurity": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Social Security is a federal program that provides assistance to retirees
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Social security
+      </span>,
+          "langCode": "en",
+        },
+        "unemployment": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Unemployment benefits provide income to people who have been laid off
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Unemployment
+      </span>,
+          "langCode": "en",
+        },
+        "workersComp": Object {
+          "i_hint": <span
+            className="snippet"
+            lang="en"
+      >
+            Worker's Compensation provides assistance for people who have been injured on the job
+      </span>,
+          "i_label": <span
+            className="snippet"
+            lang="en"
+      >
+            Worker's compensation
+      </span>,
+          "langCode": "en",
+        },
       }
-      time="current"
-      updateClientValue={[Function]}
-    />
-  </FormPartsContainer>
-</Form>
+    }
+    time="current"
+    updateClientValue={[Function]}
+  />
+</FormPartsContainer>
 `;
