@@ -20,7 +20,14 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
         },
       }
     }
-    title="What Might Happen?"
+    title={
+      <span
+        className="snippet"
+        lang="en"
+      >
+        What Might Happen?
+      </span>
+    }
   >
     <IncomeForm
       future={
@@ -84,44 +91,235 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
-          "allMoneyComingIn_v1": "All Money Coming In as Income Changes",
-          "benefitProgramsTitle_v1": "Individual Benefit Amounts for Household as Income Changes",
-          "benefitValue_v1": "Benefit Value ($)",
-          "benefitsTableTitle_v1": "Changes",
-          "buttonMonthly_v1": "Monthly",
-          "buttonWeekly_v1": "Weekly",
-          "buttonYearly_v1": "Yearly",
-          "chartsHeader_v1": "With the new pay, how could your benefits change?",
-          "columnBenefit_v1": "Benefit",
-          "columnCurrentBenefits_v1": "Current Benefits",
-          "columnDifference_v1": "Difference",
-          "columnNewEstimate_v1": "New Estimate",
-          "dollarSign_v1": "$",
-          "futureIncomeLine_v1": "Future Income",
-          "futureIncomeQuestion_v1": "How much money would you get paid in the future? (You can try different amounts)",
-          "hasIncome_v1": "Income",
-          "hasSNAP_v1": "SNAP",
-          "hasSection8_v1": "Section 8",
-          "moneyInAsIncomeChanges_v1": "Money Coming In as Income Changes",
-          "monthlyIncome_v1": "Monthly Income ($)",
-          "perMonth_v1": " / month",
-          "rowIncome_v1": "Income",
-          "rowNetTotal_v1": "Net Total",
-          "rowSNAP_v1": "SNAP",
-          "rowSection8_v1": "Section 8 Housing",
-          "rowTotalBenefits_v1": "Total Benefits",
-          "stackedAreaGraphTitle_v1": "Stacked Incomes",
-          "stackedBarGraphTitle_v1": "Changes Chart",
-          "submitFeedback_v1": "Submit Feedback",
-          "tabTitleBenefitPrograms_v1": "Benefit Programs",
-          "tabTitleChangesChart_v1": "Changes Chart",
-          "tabTitleChanges_v1": "Changes",
-          "tabTitleStackedIncomes_v1": "Stacked Incomes",
-          "title_v1": "What Might Happen?",
-          "totalMoney_v1": "Total Money Coming In ($)",
-          "warningMessage_v1": "This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.",
-          "weeklyIncome_v1": "Weekly Income ($)",
-          "yearlyIncome_v1": "Yearly Income ($)",
+          "i_allMoneyComingIn": <span
+            className="snippet"
+            lang="en"
+        >
+            All Money Coming In as Income Changes
+        </span>,
+          "i_benefitProgramsTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Individual Benefit Amounts for Household as Income Changes
+        </span>,
+          "i_benefitValue": <span
+            className="snippet"
+            lang="en"
+        >
+            Benefit Value ($)
+        </span>,
+          "i_benefitsTableTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes
+        </span>,
+          "i_buttonMonthly": <span
+            className="snippet"
+            lang="en"
+        >
+            Monthly
+        </span>,
+          "i_buttonWeekly": <span
+            className="snippet"
+            lang="en"
+        >
+            Weekly
+        </span>,
+          "i_buttonYearly": <span
+            className="snippet"
+            lang="en"
+        >
+            Yearly
+        </span>,
+          "i_chartsHeader": <span
+            className="snippet"
+            lang="en"
+        >
+            With the new pay, how could your benefits change?
+        </span>,
+          "i_columnBenefit": <span
+            className="snippet"
+            lang="en"
+        >
+            Benefit
+        </span>,
+          "i_columnCurrentBenefits": <span
+            className="snippet"
+            lang="en"
+        >
+            Current Benefits
+        </span>,
+          "i_columnDifference": <span
+            className="snippet"
+            lang="en"
+        >
+            Difference
+        </span>,
+          "i_columnNewEstimate": <span
+            className="snippet"
+            lang="en"
+        >
+            New Estimate
+        </span>,
+          "i_dollarSign": <span
+            className="snippet"
+            lang="en"
+        >
+            $
+        </span>,
+          "i_futureIncomeLine": <span
+            className="snippet"
+            lang="en"
+        >
+            Future Income
+        </span>,
+          "i_futureIncomeQuestion": <span
+            className="snippet"
+            lang="en"
+        >
+            How much money would you get paid in the future? (You can try different amounts)
+        </span>,
+          "i_hasIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Income
+        </span>,
+          "i_hasSNAP": <span
+            className="snippet"
+            lang="en"
+        >
+            SNAP
+        </span>,
+          "i_hasSection8": <span
+            className="snippet"
+            lang="en"
+        >
+            Section 8
+        </span>,
+          "i_moneyInAsIncomeChanges": <span
+            className="snippet"
+            lang="en"
+        >
+            Money Coming In as Income Changes
+        </span>,
+          "i_monthlyIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Monthly Income ($)
+        </span>,
+          "i_perMonth": <span
+            className="snippet"
+            lang="en"
+        >
+             / month
+        </span>,
+          "i_rowIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Income
+        </span>,
+          "i_rowNetTotal": <span
+            className="snippet"
+            lang="en"
+        >
+            Net Total
+        </span>,
+          "i_rowSNAP": <span
+            className="snippet"
+            lang="en"
+        >
+            SNAP
+        </span>,
+          "i_rowSection8": <span
+            className="snippet"
+            lang="en"
+        >
+            Section 8 Housing
+        </span>,
+          "i_rowTotalBenefits": <span
+            className="snippet"
+            lang="en"
+        >
+            Total Benefits
+        </span>,
+          "i_stackedAreaGraphTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Stacked Incomes
+        </span>,
+          "i_stackedBarGraphTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes Chart
+        </span>,
+          "i_submitFeedback": <span
+            className="snippet"
+            lang="en"
+        >
+            Submit Feedback
+        </span>,
+          "i_tabTitleBenefitPrograms": <span
+            className="snippet"
+            lang="en"
+        >
+            Benefit Programs
+        </span>,
+          "i_tabTitleChanges": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes
+        </span>,
+          "i_tabTitleChangesChart": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes Chart
+        </span>,
+          "i_tabTitleStackedIncomes": <span
+            className="snippet"
+            lang="en"
+        >
+            Stacked Incomes
+        </span>,
+          "i_title": <span
+            className="snippet"
+            lang="en"
+        >
+            What Might Happen?
+        </span>,
+          "i_totalMoney": <span
+            className="snippet"
+            lang="en"
+        >
+            Total Money Coming In ($)
+        </span>,
+          "i_warningMessage": <span
+            className="snippet"
+            lang="en"
+        >
+            This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+        </span>,
+          "i_weeklyIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Weekly Income ($)
+        </span>,
+          "i_yearlyIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Yearly Income ($)
+        </span>,
+          "langCode": "en",
         }
       }
       time="future"
@@ -134,7 +332,13 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       as="h3"
       className="ui Header align centered"
     >
-      With the new pay, how could your benefits change?
+      <span
+        className="snippet"
+        key="en229"
+        lang="en"
+      >
+        With the new pay, how could your benefits change?
+      </span>
     </Header>
     <Message
       style={
@@ -145,7 +349,13 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       visible={true}
       warning={true}
     >
-      This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+      <span
+        className="snippet"
+        key="en230"
+        lang="en"
+      >
+        This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+      </span>
       <br />
       <Button
         as="button"
@@ -162,7 +372,13 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           }
         }
       >
-        Submit Feedback
+        <span
+          className="snippet"
+          key="en231"
+          lang="en"
+        >
+          Submit Feedback
+        </span>
       </Button>
     </Message>
     <TabbedVisualizations
@@ -286,44 +502,235 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       }
       snippets={
         Object {
-          "allMoneyComingIn_v1": "All Money Coming In as Income Changes",
-          "benefitProgramsTitle_v1": "Individual Benefit Amounts for Household as Income Changes",
-          "benefitValue_v1": "Benefit Value ($)",
-          "benefitsTableTitle_v1": "Changes",
-          "buttonMonthly_v1": "Monthly",
-          "buttonWeekly_v1": "Weekly",
-          "buttonYearly_v1": "Yearly",
-          "chartsHeader_v1": "With the new pay, how could your benefits change?",
-          "columnBenefit_v1": "Benefit",
-          "columnCurrentBenefits_v1": "Current Benefits",
-          "columnDifference_v1": "Difference",
-          "columnNewEstimate_v1": "New Estimate",
-          "dollarSign_v1": "$",
-          "futureIncomeLine_v1": "Future Income",
-          "futureIncomeQuestion_v1": "How much money would you get paid in the future? (You can try different amounts)",
-          "hasIncome_v1": "Income",
-          "hasSNAP_v1": "SNAP",
-          "hasSection8_v1": "Section 8",
-          "moneyInAsIncomeChanges_v1": "Money Coming In as Income Changes",
-          "monthlyIncome_v1": "Monthly Income ($)",
-          "perMonth_v1": " / month",
-          "rowIncome_v1": "Income",
-          "rowNetTotal_v1": "Net Total",
-          "rowSNAP_v1": "SNAP",
-          "rowSection8_v1": "Section 8 Housing",
-          "rowTotalBenefits_v1": "Total Benefits",
-          "stackedAreaGraphTitle_v1": "Stacked Incomes",
-          "stackedBarGraphTitle_v1": "Changes Chart",
-          "submitFeedback_v1": "Submit Feedback",
-          "tabTitleBenefitPrograms_v1": "Benefit Programs",
-          "tabTitleChangesChart_v1": "Changes Chart",
-          "tabTitleChanges_v1": "Changes",
-          "tabTitleStackedIncomes_v1": "Stacked Incomes",
-          "title_v1": "What Might Happen?",
-          "totalMoney_v1": "Total Money Coming In ($)",
-          "warningMessage_v1": "This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.",
-          "weeklyIncome_v1": "Weekly Income ($)",
-          "yearlyIncome_v1": "Yearly Income ($)",
+          "i_allMoneyComingIn": <span
+            className="snippet"
+            lang="en"
+        >
+            All Money Coming In as Income Changes
+        </span>,
+          "i_benefitProgramsTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Individual Benefit Amounts for Household as Income Changes
+        </span>,
+          "i_benefitValue": <span
+            className="snippet"
+            lang="en"
+        >
+            Benefit Value ($)
+        </span>,
+          "i_benefitsTableTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes
+        </span>,
+          "i_buttonMonthly": <span
+            className="snippet"
+            lang="en"
+        >
+            Monthly
+        </span>,
+          "i_buttonWeekly": <span
+            className="snippet"
+            lang="en"
+        >
+            Weekly
+        </span>,
+          "i_buttonYearly": <span
+            className="snippet"
+            lang="en"
+        >
+            Yearly
+        </span>,
+          "i_chartsHeader": <span
+            className="snippet"
+            lang="en"
+        >
+            With the new pay, how could your benefits change?
+        </span>,
+          "i_columnBenefit": <span
+            className="snippet"
+            lang="en"
+        >
+            Benefit
+        </span>,
+          "i_columnCurrentBenefits": <span
+            className="snippet"
+            lang="en"
+        >
+            Current Benefits
+        </span>,
+          "i_columnDifference": <span
+            className="snippet"
+            lang="en"
+        >
+            Difference
+        </span>,
+          "i_columnNewEstimate": <span
+            className="snippet"
+            lang="en"
+        >
+            New Estimate
+        </span>,
+          "i_dollarSign": <span
+            className="snippet"
+            lang="en"
+        >
+            $
+        </span>,
+          "i_futureIncomeLine": <span
+            className="snippet"
+            lang="en"
+        >
+            Future Income
+        </span>,
+          "i_futureIncomeQuestion": <span
+            className="snippet"
+            lang="en"
+        >
+            How much money would you get paid in the future? (You can try different amounts)
+        </span>,
+          "i_hasIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Income
+        </span>,
+          "i_hasSNAP": <span
+            className="snippet"
+            lang="en"
+        >
+            SNAP
+        </span>,
+          "i_hasSection8": <span
+            className="snippet"
+            lang="en"
+        >
+            Section 8
+        </span>,
+          "i_moneyInAsIncomeChanges": <span
+            className="snippet"
+            lang="en"
+        >
+            Money Coming In as Income Changes
+        </span>,
+          "i_monthlyIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Monthly Income ($)
+        </span>,
+          "i_perMonth": <span
+            className="snippet"
+            lang="en"
+        >
+             / month
+        </span>,
+          "i_rowIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Income
+        </span>,
+          "i_rowNetTotal": <span
+            className="snippet"
+            lang="en"
+        >
+            Net Total
+        </span>,
+          "i_rowSNAP": <span
+            className="snippet"
+            lang="en"
+        >
+            SNAP
+        </span>,
+          "i_rowSection8": <span
+            className="snippet"
+            lang="en"
+        >
+            Section 8 Housing
+        </span>,
+          "i_rowTotalBenefits": <span
+            className="snippet"
+            lang="en"
+        >
+            Total Benefits
+        </span>,
+          "i_stackedAreaGraphTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Stacked Incomes
+        </span>,
+          "i_stackedBarGraphTitle": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes Chart
+        </span>,
+          "i_submitFeedback": <span
+            className="snippet"
+            lang="en"
+        >
+            Submit Feedback
+        </span>,
+          "i_tabTitleBenefitPrograms": <span
+            className="snippet"
+            lang="en"
+        >
+            Benefit Programs
+        </span>,
+          "i_tabTitleChanges": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes
+        </span>,
+          "i_tabTitleChangesChart": <span
+            className="snippet"
+            lang="en"
+        >
+            Changes Chart
+        </span>,
+          "i_tabTitleStackedIncomes": <span
+            className="snippet"
+            lang="en"
+        >
+            Stacked Incomes
+        </span>,
+          "i_title": <span
+            className="snippet"
+            lang="en"
+        >
+            What Might Happen?
+        </span>,
+          "i_totalMoney": <span
+            className="snippet"
+            lang="en"
+        >
+            Total Money Coming In ($)
+        </span>,
+          "i_warningMessage": <span
+            className="snippet"
+            lang="en"
+        >
+            This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
+        </span>,
+          "i_weeklyIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Weekly Income ($)
+        </span>,
+          "i_yearlyIncome": <span
+            className="snippet"
+            lang="en"
+        >
+            Yearly Income ($)
+        </span>,
+          "langCode": "en",
         }
       }
     />

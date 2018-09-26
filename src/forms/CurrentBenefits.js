@@ -7,14 +7,14 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { ControlledRadioYesNo } from './inputs';
 
 
-const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientValue }) {
+const LocalizedRadioYesNo = function ({ snippets, value, name, updateClientValue }) {
 
   return (
     <ControlledRadioYesNo
-      checked            = { checked }
-      labelText          = { snippets[ name ][ 'label' ] }
+      value              = { value }
+      labelText          = { snippets[ `i_` + name + `Label` ] }
       name               = { name }
-      updateClientValue = { updateClientValue } />
+      updateClientValue  = { updateClientValue } />
   );
 };
 
@@ -42,13 +42,13 @@ const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
     <div >
       <LocalizedRadioYesNo
         { ...sharedProps }
-        checked   = { current.hasSection8 }
-        name      = { 'hasSection8' } />
+        value = { current.hasSection8 }
+        name  = { 'hasSection8' } />
       <div className = { `question-spacer` } />
       <LocalizedRadioYesNo
         { ...sharedProps }
-        checked   = { current.hasSnap }
-        name      = { 'hasSnap' } />
+        value = { current.hasSnap }
+        name  = { 'hasSnap' } />
     </div>
   );  // end return
 
@@ -73,8 +73,8 @@ const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) =
       size='massive'
       className='household-size-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.currentBenefits }
-        clarifier = { snippets.selectBenefits }
+        title     = { snippets.i_currentBenefits }
+        clarifier = { snippets.i_selectBenefits }
         navData   = { navData }>
         <CurrentBenefitsContent
           updateClientValue = { updateClientValue }
