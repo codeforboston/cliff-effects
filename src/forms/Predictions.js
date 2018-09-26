@@ -57,7 +57,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
-        { 
+        {
           menuItem: (
             <Menu.Item key="tab1">
               { snippets.i_tabTitleChanges }
@@ -73,13 +73,13 @@ const TabbedVisualizations = ({ client, snippets }) => {
             );
           },
         },
-        { 
+        {
           menuItem: (
             <Menu.Item key="tab2">
               { snippets.i_tabTitleChangesChart }
             </Menu.Item>
-          ),  
-          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;}, 
+          ),
+          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;},
         },
         {
           menuItem: (
@@ -142,7 +142,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         <IncomeForm
           updateClientValue = { updateClientValue }
           future            = { client.future }
-          time              = { 'future' } 
+          time              = { 'future' }
           snippets          = { snippets } />
         <Divider className='ui section divider hidden' />
         <Header
@@ -153,24 +153,17 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         <Message
           visible
           warning
-          style={{ 'textAlign': 'center' }}>
+          className="predictions-message">
           { snippets.i_warningMessage }
           <br />
           <Button
             fluid
             color='teal'
-            style={{
-              'display':     'block',
-              'marginLeft':  'auto',
-              'marginRight': 'auto',
-              'marginTop':   '10px',
-              'maxWidth':    '400px', 
-            }}
             onClick={ openFeedback }>
             { snippets.i_submitFeedback }
           </Button>
         </Message>
-        <TabbedVisualizations 
+        <TabbedVisualizations
           client   = { client }
           snippets = { snippets } />
       </FormPartsContainer>
@@ -179,4 +172,4 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
 };  // End FutureIncomeStep() Component
 
 export { PredictionsStep };
-                                              
+

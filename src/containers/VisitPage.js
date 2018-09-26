@@ -351,20 +351,17 @@ class VisitPage extends Component {
         {/* `padding` here duplicates previous `<Grid>` styleing */}
         <Container
           id = { `cliff-effects-tool` }
-          className='flex-item flex-column'
-          style={{ padding: '42px 0' }}>
+          className='flex-item flex-column visit-container'>
           <Responsive
-            minWidth='874.5'
-            style={{ padding: '14px 0' }}>
+            className='visit-responsive'
+            minWidth='874.5'>
             <StepBar
               currentStepIndex={ this.state.currentStep }
               steps={ this.steps }
               goToStep={ this.goToStep }
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
-          <div
-            className="flex-item flex-column"
-            style={{ padding: '14px 0' }}>
+          <div className="flex-item flex-column visit-navdata">
             { this.getCurrentStep(navData) }
           </div>
 
