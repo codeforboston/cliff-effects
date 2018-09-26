@@ -3,25 +3,9 @@ import renderer from 'react-test-renderer';
 
 import { renderIfTrue } from '../../components/renderIfTrue';
 
-const sleep = (ms) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-};
-
-let originalTimeout;
-
 describe('renderIfTrue returns', () => {
-  beforeEach(() => {
-    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 11 * 60 * 1000;
-  });
 
-  afterEach(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-  });
-
-  test('given component on `true` condition', async () => {
+  test('given component on `true` condition', () => {
     const rendered = renderer.create(
       <div>Test content</div>
     );
@@ -29,7 +13,7 @@ describe('renderIfTrue returns', () => {
     var returned = renderIfTrue(true, rendered),
         renderedStr = JSON.stringify(rendered.toJSON()),
         returnedStr = JSON.stringify(returned.toJSON());
-    await sleep(10 * 60 * 1000);
+
     expect(renderedStr).toEqual(returnedStr);
   });
 
