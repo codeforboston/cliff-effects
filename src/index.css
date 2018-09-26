@@ -1,23 +1,27 @@
+/* Global/Root styles */
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
-form .field-aligner {
-  display: inline-block;
-  text-align: left;
+#root {
+  height:  100%;
 }
 
+/* AboutContent.js styles */
+
+.ac-header {
+  font-size: 4em;
+}
+
+/* App.js styles */
 #App {
   min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-#root {
-  height:  100%;
 }
 
 #HashRouter {
@@ -26,14 +30,33 @@ form .field-aligner {
   flex-direction: column;
 }
 
+/* Footer.js styles */
 
+.footer_segment {
+  padding: 2em 0em;
+}
 
+/* Header.js styles */
+
+.header_segment {
+  padding: 1em 0em;
+}
+
+/* PageLayout.js styles */
+
+.pl-segment {
+  padding: 8em 0em;
+}
+
+form .field-aligner {
+  display: inline-block;
+  text-align: left;
+}
 
 /* Fixing (currently) link styles */
 .neutral-link {
   color: white;
 }
-
 
 /*
 Used to fill vertical space.
@@ -45,11 +68,6 @@ Used to fill vertical space.
 }
 .flex-item {
   flex: 1 0;
-}
-
-.center-contents {
-  display: flex;
-  justify-content: center;
 }
 
 .heading-with-detail .middle {
@@ -361,7 +379,6 @@ i.icon.details-icon {
   margin-bottom: 1em;
 }
 
-
 /* HomePage.js styles */
 
 #HomePage {
@@ -392,18 +409,17 @@ i.icon.details-icon {
   background-color: #005855;
 }
 
-#HomePage p {
-  color: #efefef;
-  text-align: center;
-  font-size: 1em;
-}
-
-
 .center-contents {
   display: flex;
   justify-content: space-around;
   margin-top: 3em;
   margin-bottom: 3em;
+}
+
+.home-disclaimer {
+  color: #efefef;
+  text-align: center;
+  font-size: 1em;
 }
 
 .hb-left {
@@ -431,6 +447,8 @@ i.icon.details-icon {
 .main-wrapper {
   display: inline-block;
 }
+
+
 
 
 

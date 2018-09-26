@@ -145,9 +145,9 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       <br />
       <ControlledRadioYesNo
         labelText          = { 'Do you get Fuel Assistance?' }
-        checked            = { fuelAssist }
+        value              = { fuelAssist }
         name               = { 'fuelAssistance' }
-        updateClientValue = { updateClientValue } />
+        updateClientValue  = { updateClientValue } />
 
     </div>
 
@@ -337,29 +337,29 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
       { under13.length > 0 ? (
         <div>
-          <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.subheading }>
-            { snippets.unreimbursedNonMedicalChildCare.sectionHeading }
+          <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.i_subheading }>
+            { snippets.unreimbursedNonMedicalChildCare.i_sectionHeading }
           </ContentH1>
           <IntervalColumnHeadings type={ type } />
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childDirectCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childDirectCare.label }
+            { snippets.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
           </CashFlowInputsRow>
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childBeforeAndAfterSchoolCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.label}
+            { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
           </CashFlowInputsRow>
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childTransportation' }>
-            { snippets.unreimbursedNonMedicalChildCare.childTransportation.label }
+            { snippets.unreimbursedNonMedicalChildCare.childTransportation.i_label }
           </CashFlowInputsRow>
           <CashFlowInputsRow
             { ...sharedProps }
             generic={ 'childOtherCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childOtherCare.label }
+            { snippets.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
           </CashFlowInputsRow>
 
           <EarnedFrom
@@ -544,8 +544,8 @@ const CurrentExpensesStep = function ({ updateClientValue, navData, client, snip
   return (
     <Form className = 'expense-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.title }
-        clarifier = { snippets.clarifier }
+        title     = { snippets.i_title }
+        clarifier = { snippets.i_clarifier }
         navData   = { navData }>
         <ExpensesFormContent
           updateClientValue = { updateClientValue }

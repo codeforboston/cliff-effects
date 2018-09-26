@@ -11,9 +11,9 @@ import {
 const Footer = ({ snippets }) => {
   return (
     <Segment
+      className = { `footer_segment` }
       inverted
       vertical
-      style={{ padding: '2em 0em' }}
       color='teal'>
       <Grid
         container
@@ -27,9 +27,9 @@ const Footer = ({ snippets }) => {
             <Header
               as='h4'
               inverted>
-              { snippets.header }
+              { snippets.i_header }
             </Header>
-            <p>{ snippets.cfbCredit }</p>
+            <p>{ snippets.i_cfbCredit }</p>
           </Grid.Column>
           <a
 

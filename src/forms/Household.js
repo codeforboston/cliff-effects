@@ -144,15 +144,15 @@ const Role = function ({ member, setMember, snippets }) {
 
   if (member.index === 0) {
 
-    ThisRole  = <span>{ snippets.headOfHousehold }</span>;
+    ThisRole  = <span>{ snippets.i_headOfHousehold }</span>;
 
   } else if (member.index === 1) {
 
     margin = '-1em';
 
     var options = [
-      { text: snippets.spouse, value: 'spouse' },
-      { text: snippets.childOther, value: 'member' },
+      { text: snippets.i_spouse, value: 'spouse' },
+      { text: snippets.i_childOther, value: 'member' },
     ];
 
     ThisRole = <Dropdown
@@ -164,7 +164,7 @@ const Role = function ({ member, setMember, snippets }) {
 
   } else {
 
-    ThisRole = <span>{ snippets.childOther }</span>;
+    ThisRole = <span>{ snippets.i_childOther }</span>;
 
   }
 
@@ -347,9 +347,9 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
     <div className='field-aligner two-column'>
       <div style={{ marginBottom: '.5em' }}>
         <ColumnHeader columnNum='One' />
-        <ColumnHeader columnNum='Two'> { snippets.role }</ColumnHeader>
-        <ColumnHeader columnNum='Three'>{ snippets.age }</ColumnHeader>
-        <ColumnHeader columnNum='Four'>{ snippets.disabled }</ColumnHeader>
+        <ColumnHeader columnNum='Two'> { snippets.i_role }</ColumnHeader>
+        <ColumnHeader columnNum='Three'>{ snippets.i_age }</ColumnHeader>
+        <ColumnHeader columnNum='Four'>{ snippets.i_disabled }</ColumnHeader>
       </div>
 
       { getMembers(current, time, setHousehold, updateClientValue, snippets) }
@@ -371,7 +371,7 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
           <Header
             as='h4'
             color={ 'teal' }>
-            { snippets.addMember }
+            { snippets.i_addMember }
           </Header>
         </Columns.Two>
 
@@ -399,8 +399,8 @@ const HouseholdStep = function ({ updateClientValue, navData, client, snippets }
   return (
     <Form className='current-household-size-form flex-column flex-item'>
       <FormPartsContainer
-        title     = { snippets.title }
-        clarifier = { snippets.clarifier }
+        title     = { snippets.i_title }
+        clarifier = { snippets.i_clarifier }
         navData   = { navData }>
         <HouseholdContent
           updateClientValue = { updateClientValue }
