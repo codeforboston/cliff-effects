@@ -222,6 +222,7 @@ export default {
           childSupport:     ` child support`,
         },
       },
+      childSupportExpense_v1: `Child support you pay`,
       housing: {
         sectionHeading:      `Housing`,
         monthlyContractRent: {
