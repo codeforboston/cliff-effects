@@ -72,59 +72,59 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
       <CashFlowInputsRow
         { ...sharedProps }
         generic='earned'>
-        { snippets.earnedIncome.label }
+        { snippets.earnedIncome.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='TAFDC'> 
-        { snippets.TAFDC.label }
+        { snippets.TAFDC.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='SSI'> 
-        { snippets.SSI.label }
+        { snippets.SSI.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='SSDI'>
-        { snippets.SSDI.label }
+        { snippets.SSDI.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='childSupportIn'>
-        { snippets.childSupport.label }
+        { snippets.childSupport.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='unemployment'> 
-        { snippets.unemployment.label }      
+        { snippets.unemployment.i_label }      
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='workersComp'> 
-        { snippets.workersComp.label }
+        { snippets.workersComp.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='pension'>
-        { snippets.pension.label }
+        { snippets.pension.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='socialSecurity'>
-        { snippets.socialSecurity.label }
+        { snippets.socialSecurity.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='alimony'> 
-        { snippets.alimony.label }
+        { snippets.alimony.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='otherIncome'>
-        { snippets.otherIncome.label }
+        { snippets.otherIncome.i_label }
       </CashFlowInputsRow>
-      <Form.Field>{ snippets.explainSnapCalculation }</Form.Field>
+      <Form.Field>{ snippets.i_explainSnapCalculation }</Form.Field>
 
     </div>
   );  // end return
@@ -150,8 +150,8 @@ const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippe
   return (
     <Form className = 'income-form flex-item flex-column'>
       <FormPartsContainer
-        title     = { snippets.title }
-        clarifier = { snippets.clarifier }
+        title     = { snippets.i_title }
+        clarifier = { snippets.i_clarifier }
         navData   = { navData }>
         <IncomeForm
           updateClientValue = { updateClientValue }

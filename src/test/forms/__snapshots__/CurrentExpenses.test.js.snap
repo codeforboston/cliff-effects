@@ -19,7 +19,14 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
         },
       }
     }
-    title="Current Household Expenses"
+    title={
+      <span
+        className="snippet"
+        lang="en"
+      >
+        Current Household Expenses
+      </span>
+    }
   >
     <ExpensesFormContent
       current={
@@ -85,65 +92,250 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
         Object {
           "childSupport": Object {
             "childSupportPaidOut": Object {
-              "childSupport": " child support",
-              "legallyObligated": "Legally obligated",
+              "i_childSupport": <span
+                className="snippet"
+                lang="en"
+        >
+                 child support
+        </span>,
+              "i_legallyObligated": <span
+                className="snippet"
+                lang="en"
+        >
+                Legally obligated
+        </span>,
+              "langCode": "en",
             },
-            "columnExpenseType": "Expense",
-            "sectionHeading": "Child Support",
+            "i_columnExpenseType": <span
+              className="snippet"
+              lang="en"
+        >
+              Expense
+        </span>,
+            "i_sectionHeading": <span
+              className="snippet"
+              lang="en"
+        >
+              Child Support
+        </span>,
+            "langCode": "en",
           },
           "housing": Object {
             "climateControl": Object {
-              "hint": "How much do you pay if you have a separate bill for heating and/or cooling",
-              "label": "Heating or cooling (e.g. A/C during summer)",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much do you pay if you have a separate bill for heating and/or cooling
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Heating or cooling (e.g. A/C during summer)
+        </span>,
+              "langCode": "en",
             },
             "fuelAssistance": Object {
-              "hint": "Fuel Assistance helps you pay for heating fuel",
-              "labelText": "Do you get Fuel Assistance?",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                Fuel Assistance helps you pay for heating fuel
+        </span>,
+              "i_labelText": <span
+                className="snippet"
+                lang="en"
+        >
+                Do you get Fuel Assistance?
+        </span>,
+              "langCode": "en",
             },
+            "i_sectionHeading": <span
+              className="snippet"
+              lang="en"
+        >
+              Housing
+        </span>,
+            "i_utilitiesSubheading": <span
+              className="snippet"
+              lang="en"
+        >
+              Which of these utilities do you pay for?
+        </span>,
+            "langCode": "en",
             "monthlyContractRent": Object {
-              "hint": "The total rent for your apartment",
-              "label": "Monthly Contract Rent (the total rent for your apartment)",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                The total rent for your apartment
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Monthly Contract Rent (the total rent for your apartment)
+        </span>,
+              "langCode": "en",
             },
             "monthlyRentShare": Object {
-              "hint": "How much of the total rent you have to pay",
-              "label": "Your Monthly Rent Share (how much of the total rent you have to pay)",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much of the total rent you have to pay
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Your Monthly Rent Share (how much of the total rent you have to pay)
+        </span>,
+              "langCode": "en",
             },
             "nonHeatElectricity": Object {
-              "hint": "How much do you pay for any electric usage (other than for heat)",
-              "label": "Electricity for non-heating purposes",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much do you pay for any electric usage (other than for heat)
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Electricity for non-heating purposes
+        </span>,
+              "langCode": "en",
             },
             "phone": Object {
-              "hint": "How much do you pay for basic telephone service",
-              "label": "Telephone service",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much do you pay for basic telephone service
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Telephone service
+        </span>,
+              "langCode": "en",
             },
-            "sectionHeading": "Housing",
-            "utilitiesSubheading": "Which of these utilities do you pay for?",
           },
-          "next": "Next",
-          "previous": "Previous",
-          "title": "Current Household Expenses",
+          "i_next": <span
+            className="snippet"
+            lang="en"
+        >
+            Next
+        </span>,
+          "i_previous": <span
+            className="snippet"
+            lang="en"
+        >
+            Previous
+        </span>,
+          "i_title": <span
+            className="snippet"
+            lang="en"
+        >
+            Current Household Expenses
+        </span>,
+          "langCode": "en",
           "unreimbursedNonMedicalChildCare": Object {
             "childBeforeAndAfterSchoolCare": Object {
-              "hint": "How much do you pay for child care for times before or after school?",
-              "label": "Before- and after-school care",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much do you pay for child care for times before or after school?
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Before- and after-school care
+        </span>,
+              "langCode": "en",
             },
             "childDirectCare": Object {
-              "hint": "How much do you pay for child care out of pocket?",
-              "label": "Direct care costs",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much do you pay for child care out of pocket?
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Direct care costs
+        </span>,
+              "langCode": "en",
             },
             "childOtherCare": Object {
-              "hint": "How much do you pay for other child care?",
-              "label": "Other care",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much do you pay for other child care?
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Other care
+        </span>,
+              "langCode": "en",
             },
             "childTransportation": Object {
-              "hint": "How much do you pay for transportation?",
-              "label": "Transportation costs",
+              "i_hint": <span
+                className="snippet"
+                lang="en"
+        >
+                How much do you pay for transportation?
+        </span>,
+              "i_label": <span
+                className="snippet"
+                lang="en"
+        >
+                Transportation costs
+        </span>,
+              "langCode": "en",
             },
-            "columnExpenseType": "Expense",
-            "doEarnBecauseOfChildCare": "Does child care allow you to make additional income?",
-            "earnedBecauseOfChildCare": "Income made possible by childcare expenses",
-            "sectionHeading": "Reasonable Unreimbursed Non-Medical Child(ren) Care",
-            "subheading": "A \\"child\\" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.",
+            "i_columnExpenseType": <span
+              className="snippet"
+              lang="en"
+        >
+              Expense
+        </span>,
+            "i_doEarnBecauseOfChildCare": <span
+              className="snippet"
+              lang="en"
+        >
+              Does child care allow you to make additional income?
+        </span>,
+            "i_earnedBecauseOfChildCare": <span
+              className="snippet"
+              lang="en"
+        >
+              Income made possible by childcare expenses
+        </span>,
+            "i_sectionHeading": <span
+              className="snippet"
+              lang="en"
+        >
+              Reasonable Unreimbursed Non-Medical Child(ren) Care
+        </span>,
+            "i_subheading": <span
+              className="snippet"
+              lang="en"
+        >
+              A "child" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.
+        </span>,
+            "langCode": "en",
           },
         }
       }

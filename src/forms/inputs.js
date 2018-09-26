@@ -41,11 +41,11 @@ const BigButton = function ({ children, ...buttonProps }) {
  * @property {string} props.labelText
  * @property {string} props.name - Key for radio-group. Must
  *     be unique from all other radio names on the page.
- * @property {bool} props.checked - `true` if 'yes' is selected
+ * @property {bool} props.value - `true` if 'yes' is selected
  *     `false` if 'no' is selected. Change will be sent out.
  * @property {function} props.updateClientValue - is given event and adjusted
  *     input element props object. Adjustment is to make sure
- *     the property `checked` is under control since there are
+ *     the property `value` is under control since there are
  *     issues further up the line.
  */
 class ControlledRadioYesNo extends Component {
@@ -57,7 +57,7 @@ class ControlledRadioYesNo extends Component {
   handleChange(e,inputProps){
     var obj = {
       ...inputProps,
-      checked: inputProps.label === 'Yes',
+      value: inputProps.label === `Yes`,
     };
 
     this.props.updateClientValue(e, obj);
@@ -74,7 +74,7 @@ class ControlledRadioYesNo extends Component {
             label='Yes'
             name={ this.props.name }
             value='Yes'
-            checked={ this.props.checked === true }
+            checked={ this.props.value === true }
             onChange={ this.handleChange.bind(this) } />
         </Form.Field>
         <Form.Field >
@@ -82,7 +82,7 @@ class ControlledRadioYesNo extends Component {
             label='No'
             name={ this.props.name }
             value='No'
-            checked={ this.props.checked === false }
+            checked={ this.props.value === false }
             onChange={ this.handleChange.bind(this) } />
         </Form.Field>
         <Form.Field >
@@ -101,7 +101,7 @@ class ControlledRadioYesNo extends Component {
  * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
  *
  * @param {Object} props
- * @param {number || string} props.value - Valid client value
+ * @param {number | string} props.value - Valid client value
  * @param {string} props.name - For HTML name property
  * @param {string} props.className - HTML class names
  * @param {*} [props.otherData] - Sent back to `store()`

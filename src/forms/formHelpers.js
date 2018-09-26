@@ -6,20 +6,9 @@ import {
   Icon,
 } from 'semantic-ui-react';
 
-// ========================================
-// GENERIC COMPONENTS
-// ========================================
-
-/**
- * Link that opens new tab
- */
-const ExternalLink = function ({ href, children }) {
-  return (
-    <a
-      href={ href }
-      target='_blank'>{children}
-    </a>);
-};
+// PROJECT COMPONENTS
+/** @todo Move all references to this component to the actual component file */
+import { ExternalLink } from './../components/ExternalLink';
 
 
 // ========================================
