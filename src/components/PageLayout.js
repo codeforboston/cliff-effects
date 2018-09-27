@@ -7,7 +7,8 @@ import {
 const PageLayout = (props) => {
   return (
     <div>
-      <Segment className="pl-segment"
+      <Segment
+        className="pl-segment"
         vertical>
         <Grid
           container
