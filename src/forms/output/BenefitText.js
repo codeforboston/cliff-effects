@@ -191,7 +191,7 @@ var getBenefitData = function(client, itemsToCalculate) {
   result.diff = diff;
 
   // 4. If implicit taxes > 100% (has dramatic cliff)
-  if (diff < 0) {
+  if (diff <= 0) {
     let nextTotal = null,
         lowest   = result.lowest,
         gain     = result.gain,
