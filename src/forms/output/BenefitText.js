@@ -418,7 +418,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
             {diff <= 0 ? (
               <div>
                 <hr />
-                <p>If you're worried about this, please talk to a local social worker.</p>
+                <p>If you're worried about this, please search for "social services" in your area to try to find a local case manager.</p>
               </div>
             ) : (
               null 
