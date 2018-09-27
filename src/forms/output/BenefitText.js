@@ -289,7 +289,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
   var detailsFuture =
   `If your household's pay changes to $${toMoneyStr(future.earned)} ` +
-  `a month, this tool says your benefits will add up to about ` +
+  `a month, this tool says your benefits might add up to about ` +
   `$${round$(future.benefitsTotal)} a month. ` +
   `This is how your benefits might change:`;
 
@@ -313,17 +313,17 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   }
 
   var summaryFuture = 
-    `All added up, you will bring in about ` +
+    `All added up, you might bring in about ` +
     `$${round$(future.total)} a month.`;
 
   // Feedback button
   var disclaimer = ([
     <span key = { `pre-ask` }>
-      { `If any numbers on your current benefits aren't right, please ` }
+      { snippets.i_warningMessage }
     </span>,
     <Button
-      key     = { `ask` }
       compact
+      key     = { `ask` }
       size    = { `small` }
       onClick = { openFeedback }>
       { snippets.i_submitFeedback }
@@ -379,13 +379,12 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
             {/* For styling, make sure `<p>` isn't last child */}
             <div>
               <Header>What could happen?</Header>
-              <p>{ detailsNow }</p>
+              <p>{ detailsNow } { disclaimer }</p>
               <p>{ detailsFuture }</p>
               <ul>
                 { benefitList }
               </ul>
               <p>{ summaryFuture }</p>
-              <p>{ disclaimer }</p>
               <span />
             </div>
 
