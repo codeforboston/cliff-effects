@@ -66,7 +66,7 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * 
  * let summaryData = {};
  * 
- * fillInIncomeValues(keys, accumulated, index, summaryData);
+ * fillInMoneyValues(keys, accumulated, index, summaryData);
  * 
  * console.log(summaryData);
  * // {
@@ -84,8 +84,7 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  *
  * @returns {undefined}
  */
-var fillInIncomeValues = (keys, sourceObject, index, objectToFill) => {
-
+var fillInMoneyValues = (keys, sourceObject, index, objectToFill) => {
   // Item names can be `income` or benefit keys
   for (let itemi = 0; itemi < keys.length; itemi++) {
     let itemKey = keys[ itemi ],
@@ -94,18 +93,19 @@ var fillInIncomeValues = (keys, sourceObject, index, objectToFill) => {
     if (itemKey === `income`) {
       objectToFill.earned = amount;
     } else {
-      objectToFill.benefits[ itemi ] = {
+      objectToFill.benefits.push({
         label:  PROGRAM_CHART_VALUES[ itemKey ].name,
         amount: amount,
-      };
+      });
       // Add up all benefits (we're not including income)
       objectToFill.benefitsTotal += amount;
     }
   }  // end for every item key name
 
   objectToFill.total = objectToFill.earned + objectToFill.benefitsTotal;
+
   return;
-};  // End fillInIncomeValues()
+};  // End fillInMoneyValues()
 
 
 var getBenefitData = function(client, itemsToCalculate) {
@@ -182,8 +182,8 @@ var getBenefitData = function(client, itemsToCalculate) {
 
   // 2. Get totals
   // Fill income values for both current and future income objects
-  fillInIncomeValues(toCalculate, accumulated, 0, rsltCurrent);
-  fillInIncomeValues(toCalculate, accumulated, 1, rsltFuture);
+  fillInMoneyValues(toCalculate, accumulated, 0, rsltCurrent);
+  fillInMoneyValues(toCalculate, accumulated, 1, rsltFuture);
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
@@ -281,24 +281,19 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   };
 
   // Localization-friendly description string for "What could happen?"
-  var changeDescription = 
-  'Right now you earn $[0] a month, and this tool says that you bring ' +
-  'in a total benefit of $[1] per month towards a net income of $[2] a month. ' +
-  'If your household\'s pay changes to $[3] a month, this tool says your total ' +
-  'benefit will change to $[4] a month. Altogether, you will bring in $[5] a ' +
-  'month. Your benefit changes can be broken down as follows:';
+  var detailsNow =
+  `Right now you earn $${toMoneyStr(current.earned)} a month ` +
+  `and this tool says that your benefits all add up to about ` +
+  `$${round$(current.benefitsTotal)}. All together, it says you ` +
+  `bring in about $${round$(current.total)} a month.`;
 
-  changeDescription = changeDescription
-    .replace('[0]', toMoneyStr(current.earned))
-    .replace('[1]', toMoneyStr(current.benefitsTotal))
-    .replace('[2]', toMoneyStr(current.total))
-    .replace('[3]', toMoneyStr(future.earned))
-    .replace('[4]', toMoneyStr(future.benefitsTotal))
-    .replace('[5]', toMoneyStr(future.total));
+  var detailsFuture =
+  `If your household's pay changes to $${toMoneyStr(future.earned)} ` +
+  `a month, this tool says your benefits will add up to about ` +
+  `$${round$(future.benefitsTotal)} a month. ` +
+  `This is how your benefits might change:`;
 
-  // List of benefits
-  var benefitListLine = '[0] will change from $[1] a month to $[2] a month.';
-
+  // List of benefits list items
   var benefitList = [];
   var numBenefits = current.benefits.length;
   for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
@@ -306,13 +301,20 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     let cBenefit = current.benefits[ benefiti ],
         fBenefit = future.benefits[ benefiti ];
 
-    if (cBenefit) {
-      benefitList.push(benefitListLine
-        .replace('[0]', cBenefit.label)
-        .replace('[1]', toMoneyStr(cBenefit.amount))
-        .replace('[2]', toMoneyStr(fBenefit.amount)));
-    }
+    benefitList.push(
+      <li key = { cBenefit.label }>
+        {
+          `${cBenefit.label} might change from about ` +
+          `$${round$(cBenefit.amount)} to about ` +
+          `$${round$(fBenefit.amount)} a month.`
+        }
+      </li>
+    );
   }
+
+  var summaryFuture = 
+    `All added up, you will bring in about ` +
+    `$${round$(future.total)} a month.`;
 
   // Feedback button
   var disclaimer = ([
@@ -377,10 +379,12 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
             {/* For styling, make sure `<p>` isn't last child */}
             <div>
               <Header>What could happen?</Header>
-              <p>{ changeDescription }</p>
+              <p>{ detailsNow }</p>
+              <p>{ detailsFuture }</p>
               <ul>
-                {benefitList.map((item) => (<li key = { item }>{item}</li>))}
+                { benefitList }
               </ul>
+              <p>{ summaryFuture }</p>
               <p>{ disclaimer }</p>
               <span />
             </div>
