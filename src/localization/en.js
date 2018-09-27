@@ -276,8 +276,8 @@ export default {
       rowTotalBenefits_v1:        `Total Benefits`, // see BenefitsTable.js
       rowIncome_v1:               `Income`, // see BenefitsTable.js
       rowNetTotal_v1:             `Net Total`, // see BenefitsTable.js
-      perMonth_v1:                ` / month`, // see BenefitsTable.js multiple lines
-      dollarSign_v1:              `$`, // see BenefitsTable.js multiple lines
+      beforeMoney_v1:             `$`, // see BenefitsTable.js multiple lines
+      afterMoney_v1:              ` / month`, // see BenefitsTable.js multiple lines
       // Stacked Bar Graph:
       stackedBarGraphTitle_v1:    `Changes Chart`, // see line 266 above
       moneyInAsIncomeChanges_v1:  `Money Coming In as Income Changes`, // see StackedBarGraph.js

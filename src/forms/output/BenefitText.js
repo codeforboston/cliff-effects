@@ -108,6 +108,9 @@ var fillInMoneyValues = (keys, sourceObject, index, objectToFill) => {
 };  // End fillInMoneyValues()
 
 
+/** Transforms benefit data from
+ *
+ */
 var getBenefitData = function(client, itemsToCalculate) {
 
   /**
