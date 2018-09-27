@@ -5,6 +5,7 @@ import {
   Header,
   Segment,
   Divider,
+  Form,
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -103,38 +104,42 @@ const FormBottomRow = function({ left, middle, right }) {
 *
 * @returns Component
 */
-const FormPartsContainer = function({ title, clarifier, children, navData }) {
+const FormPartsContainer = function({ title, clarifier, children, navData, formClass, formSize }) {
   return (
-    <Segment
-      padded='very'
-      className="flex-item flex-column">
+    <Form
+      size={ formSize || `large` }
+      className= { formClass + ` flex-item flex-column` }>
       <Segment
-        basic={ true }
-        className="flex-item">
-        <Header
-          as='h1'
-          color='teal'
-          textAlign='center'>
-          { title }
-        </Header>
-        { !clarifier ? (
-          null
-        ) : (
+        padded='very'
+        className="flex-item flex-column">
+        <Segment
+          basic={ true }
+          className="flex-item">
           <Header
-            as='h3'
+            as='h1'
+            color='teal'
             textAlign='center'>
-            { clarifier }
+            { title }
           </Header>
-        ) }
+          { !clarifier ? (
+            null
+          ) : (
+            <Header
+              as='h3'
+              textAlign='center'>
+              { clarifier }
+            </Header>
+          ) }
 
-        { children }
+          { children }
+
+        </Segment>
+
+        <Divider />
+        <FormBottomRow { ...navData } />
 
       </Segment>
-
-      <Divider />
-      <FormBottomRow { ...navData } />
-
-    </Segment>
+    </Form>
   );
 };  // End FormPartsContainer() Component
 

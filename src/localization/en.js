@@ -257,26 +257,47 @@ export default {
     predictions: {
       title_v1:                   `What Might Happen?`,
       futureIncomeQuestion_v1:    `How much money would you get paid in the future? (You can try different amounts)`,
-      tabTitleChanges_v1:         `Changes`,
-      tabTitleChangesChart_v1:    `Changes Chart`,
-      tabTitleStackedIncomes_v1:  `Stacked Incomes`,
-      tabTitleBenefitPrograms_v1: `Benefit Programs`,
+      tabTitleChanges_v1:         `Changes`, // see Predictions.js
+      tabTitleChangesChart_v1:    `Changes Chart`, // see Predictions.js
+      tabTitleStackedIncomes_v1:  `Stacked Incomes`, // see Predictions.js
+      tabTitleBenefitPrograms_v1: `Benefit Programs`, // see Predictions.js
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
       warningMessage_v2:          `This tool is in testing and these numbers might not be right. If they're not, please `,
       submitFeedback_v2:          `let us know`,
-
-      benefitsTableTitle_v1:    `Changes`,
-      columnBenefit_v1:         `Benefit`,
-      columnCurrentBenefits_v1: `Current Benefits`,
-      columnNewEstimate_v1:     `New Estimate`,
-      columnDifference_v1:      `Difference`,
-      rowSNAP_v1:               `SNAP`,
-      rowSection8_v1:           `Section 8 Housing`,
-      rowTotalBenefits_v1:      `Total Benefits`,
-      rowIncome_v1:             `Income`,
-      rowNetTotal_v1:           `Net Total`,
-      perMonth_v1:              ` / month`,
-      dollarSign_v1:            `$`,
+      // Benefits Table:
+      benefitsTableTitle_v1:      `Changes`, // see line 265 above
+      columnBenefit_v1:           `Benefit`, // see BenefitsTable.js
+      columnCurrentBenefits_v1:   `Current Benefits`, // see BenefitsTable.js
+      columnNewEstimate_v1:       `New Estimate`, // see BenefitsTable.js
+      columnDifference_v1:        `Difference`, // see BenefitsTable.js
+      rowSNAP_v1:                 `SNAP`, // see BenefitsTable.js
+      rowSection8_v1:             `Section 8 Housing`, // see BenefitsTable.js
+      rowTotalBenefits_v1:        `Total Benefits`, // see BenefitsTable.js
+      rowIncome_v1:               `Income`, // see BenefitsTable.js
+      rowNetTotal_v1:             `Net Total`, // see BenefitsTable.js
+      perMonth_v1:                ` / month`, // see BenefitsTable.js multiple lines
+      dollarSign_v1:              `$`, // see BenefitsTable.js multiple lines
+      // Stacked Bar Graph:
+      stackedBarGraphTitle_v1:    `Changes Chart`, // see line 266 above
+      moneyInAsIncomeChanges_v1:  `Money Coming In as Income Changes`, // see StackedBarGraph.js
+      // Stacked Area Graph:
+      stackedAreaGraphTitle_v1:   `Stacked Incomes`, // see line 267 above
+      allMoneyComingIn_v1:        `All Money Coming In as Income Changes`, // see StackedAreaGraph.js
+      // Benefit Programs Graph, showing benefit programs as lines not areas:
+      benefitProgramsTitle_v1:    `Individual Benefit Amounts for Household as Income Changes`, // maybe rename as benefitProgramsSubTitle_v1 ? see also BenefitsLineGraph.js
+      benefitValue_v1:            `Benefit Value ($)`, // see BenefitsLineGraph.js
+      // Snippets that are used in more than one chart, table, or graph:
+      totalMoney_v1:              `Total Money Coming In ($)`, // see StackedAreaGraph.js, StackedBarGraph.js
+      weeklyIncome_v1:            `Weekly Income ($)`,
+      monthlyIncome_v1:           `Monthly Income ($)`,
+      yearlyIncome_v1:            `Yearly Income ($)`,
+      hasIncome_v1:               `Income`,
+      hasSNAP_v1:                 `SNAP`,
+      hasSection8_v1:             `Section 8`, 
+      futureIncomeLine_v1:        `Future Income`, // see VerticalLine.js
+      buttonWeekly_v1:            `Weekly`, // see cashflow.js, GraphTimeButtons
+      buttonMonthly_v1:           `Monthly`, // see cashflow.js, GraphTimeButtons
+      buttonYearly_v1:            `Yearly`, // see cashflow.js, GraphTimeButtons
     },
   },
 };
