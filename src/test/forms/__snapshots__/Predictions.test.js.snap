@@ -166,6 +166,12 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           $
       </span>,
+        "i_feedbackAsk": <span
+          className="snippet"
+          lang="en"
+      >
+          Are these numbers right? Please 
+      </span>,
         "i_futureIncomeLine": <span
           className="snippet"
           lang="en"
@@ -362,7 +368,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     >
       <span
         className="snippet"
-        key="en231"
+        key="en232"
         lang="en"
       >
         let us know
@@ -568,6 +574,12 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           lang="en"
       >
           $
+      </span>,
+        "i_feedbackAsk": <span
+          className="snippet"
+          lang="en"
+      >
+          Are these numbers right? Please 
       </span>,
         "i_futureIncomeLine": <span
           className="snippet"
