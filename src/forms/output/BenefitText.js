@@ -276,6 +276,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     gain,     // { total, earned, }
   } = data;
 
+  // Put this with cashflow util functions?
   var round$ = function (number) {
     return toMoneyStr(Math.round(number)).replace(`.00`, ``);
   };
@@ -293,7 +294,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   `$${round$(future.benefitsTotal)} a month. ` +
   `This is how your benefits might change:`;
 
-  // List of benefits list items
+  // List of benefits html list items
   var benefitList = [];
   var numBenefits = current.benefits.length;
   for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
@@ -310,16 +311,12 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
         }
       </li>
     );
-  }
-
-  var summaryFuture = 
-    `All added up, you might bring in about ` +
-    `$${round$(future.total)} a month.`;
+  }  // ends for each benefit
 
   // Feedback button
   var disclaimer = ([
     <span key = { `pre-ask` }>
-      { snippets.i_warningMessage }
+      { snippets.i_feedbackAsk }
     </span>,
     <Button
       compact
@@ -330,20 +327,20 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     </Button>,
   ]);
 
-  var resultDescriptor = ` each month than you were before.`;
+  // Describe how totals change
+  var posDiff    = round$(Math.abs(diff)),
+      lessOrMore = ``;
   if (diff > 0) {
-    resultDescriptor = ` more` + resultDescriptor;
+    lessOrMore = `That's $${posDiff} more than before.`;
   } else if (diff < 0) {
-    resultDescriptor = ` less` + resultDescriptor;
+    lessOrMore = `That's $${posDiff} less than before.`;
+  } else if (diff === 0) {
+    lessOrMore = `That's the same as before`;
   }
 
-  // If total coming in changes at all, describe how
-  var sumText = `If this tool is right, you would be bringing in `;
-  if (diff > 0 || diff < 0) {
-    sumText += `$` + round$(Math.abs(future.total - current.total)) + resultDescriptor;
-  } else {
-    sumText += `the same as you were before.`;
-  }
+  var summaryFuture = 
+    `If this tool is right, you might bring in about ` +
+    `$${round$(future.total)} a month. ${lessOrMore}`;
 
   // If there was a cliff
   var endOfCliffText = null;
@@ -379,18 +376,18 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
             {/* For styling, make sure `<p>` isn't last child */}
             <div>
               <Header>What could happen?</Header>
-              <p>{ detailsNow } { disclaimer }</p>
+              <p>{ detailsNow }</p>
               <p>{ detailsFuture }</p>
               <ul>
                 { benefitList }
               </ul>
-              <p>{ summaryFuture }</p>
+              <p>{ disclaimer }</p>
               <span />
             </div>
 
             <div>
               <Header>What could it add up to?</Header>
-              <p>{ sumText }</p>
+              <p>{ summaryFuture }</p>
               <span />
             </div>
             

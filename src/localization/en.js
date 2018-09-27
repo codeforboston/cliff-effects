@@ -263,6 +263,7 @@ export default {
       tabTitleBenefitPrograms_v1: `Benefit Programs`, // see Predictions.js
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
       warningMessage_v2:          `This tool is in testing and these numbers might not be right. If they're not, please `,
+      feedbackAsk_v1:             `Are these numbers right? Please `,
       submitFeedback_v2:          `let us know`,
       // Benefits Table:
       benefitsTableTitle_v1:      `Changes`, // see line 265 above
