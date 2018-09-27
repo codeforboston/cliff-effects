@@ -100,49 +100,61 @@ var fillInMoneyValues = (keys, sourceObject, index, objectToFill) => {
       // Add up all benefits (we're not including income)
       objectToFill.benefitsTotal += amount;
     }
-  }  // end for every item key name
+  }  // ends for every item key name
 
   objectToFill.total = objectToFill.earned + objectToFill.benefitsTotal;
 
   return;
-};  // End fillInMoneyValues()
+};  // Ends fillInMoneyValues()
 
 
-var getBenefitData = function(client, itemsToCalculate) {
-
-  /**
-  result = {}
-  get current data - {benefit: [c],}
-  get future data - {benefit: [c, f],}
-  result.c, result.f
-  get all calcs
-  if diff with current < 0
-    get lowest/gain data:
-    get next data - {benefit: [c, f, i1],}
-    get all calcs
-    if diff with current > 0, pop i1, done (f is lowest = fL)
-      get next data - {benefit: [c, f, i1, i2],}
-      if calcs with i1 > calcs with i2, pop i1, repeat
-      if calcs with i2 < calcs with i1, pop i2, done (i1 is lowest = iL)
-      result.l = iL
-    while diff with current < 0
-      get next data - {benefit: [c, f, iL, i1],}
-      if calcs with i1 < 0, pop i1, repeat
-  result.g = i1
-  result: {c, f, iL?, iG?} + diff info for c and f
-  */
-
-  /* TEXT NEEDS
-  now:
-    earned and [benefitName, benefitAmount] and total all
-  future:
-    earned and [benefitName, benefitAmount] and total all
-  diff:
-    totalComingInDiff (totalFuture - totalCurrent)
-  cliff:
-    lowest in, earning then
-    gain in, earning then
-  */
+/** Uses benefit data getter and reformats it to
+ *     a format useful for identifying cliffs.
+ *
+ * @todo: find all cliffs, not just the closest?
+ * 
+ * @param {object} client `client` data with
+ *     both `current` and `future`.
+ * @param {Array.<String>} resourceKeys List of...
+ *     'programs'... in the order in which we eventually
+ *     want to show them. It often also includes
+ *     'income' as the first value, so it's not a list
+ *     of 'benefit programs' per se.
+ *
+ * @example
+ * // NOTE: an example with a lower dip hasn't been found yet
+ * // This example uses the sample `client` data from row 3,
+ * // column 'clientData' here:
+ * // https://docs.google.com/spreadsheets/d/15LyR9yELAfcngj-c7vMdI630b6DwuuXV-dQEJDvU4gE/edit?usp=sharing
+ * var items = [ 'income', 'section8', 'snap' ];
+ * var data = getBenefitData(client, items);
+ * console.log(data);
+ * // {
+ * //   current: {
+ * //     benefits:[
+ * //       { label: "Section 8 Housing", amount: 610 },
+ * //       { label: "SNAP", amount: 49.93584000000004 },
+ * //     ],
+ * //     benefitsTotal: 659.9358400000001,
+ * //     earned:        3398.1839999999997,
+ * //     total:         4058.11984,
+ * //   },
+ * //   diff:   -43.873839999999745,
+ * //   future: {
+ * //     benefits: [
+ * //       { label: "Section 8 Housing", amount: 607.402 }
+ * //       { label: "SNAP", amount: 0 }
+ * //     ],
+ * //     benefitsTotal: 607.402,
+ * //     earned:        3406.844,
+ * //     total:         4014.246,
+ * //   },
+ * //   gain: { total: 4084.246, earned: 3506.844 },
+ * // }
+ *
+ * @returns {object}
+ */
+var getBenefitData = function(client, resourceKeys) {
 
   var clone  = cloneDeep(client),
       // This is the data we need in the groupings we need it
@@ -164,12 +176,11 @@ var getBenefitData = function(client, itemsToCalculate) {
       },
       rsltCurrent = result.current,
       rsltFuture  = result.future,
-      accumulated = {},
-      toCalc      = itemsToCalculate;
+      accumulated = {};
 
   // 1. Get current and future values
   var defaultProps = {
-    activeBenefits: toCalc,
+    activeBenefits: resourceKeys,
     dataToAddTo:    accumulated,
     clientToChange: clone,
     timeframe:      `current`,
@@ -182,8 +193,8 @@ var getBenefitData = function(client, itemsToCalculate) {
 
   // 2. Get totals
   // Fill income values for both current and future income objects
-  fillInMoneyValues(toCalc, accumulated, 0, rsltCurrent);
-  fillInMoneyValues(toCalc, accumulated, 1, rsltFuture);
+  fillInMoneyValues(resourceKeys, accumulated, 0, rsltCurrent);
+  fillInMoneyValues(resourceKeys, accumulated, 1, rsltFuture);
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
@@ -234,17 +245,17 @@ var getBenefitData = function(client, itemsToCalculate) {
  */
 const BenefitText = function ({ client, openFeedback, snippets }) {
 
-  var itemsToCalculate = [ `income` ];
+  var resourceKeys = [ `income` ];
   // Benefits, in order of appearance
   // So can't wait till `.benefits` is an array of benefit names...
   if (client.current.hasSection8) {
-    itemsToCalculate.push(`section8`);
+    resourceKeys.push(`section8`);
   }
   if (client.current.hasSnap) {
-    itemsToCalculate.push(`snap`);
+    resourceKeys.push(`snap`);
   }
 
-  var data = getBenefitData(client, itemsToCalculate);
+  var data = getBenefitData(client, resourceKeys);
 
   var {
     current,  // { earned, benefits: [{ label, amount }], benefitsTotal, total }
@@ -329,7 +340,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
       `$${round$(gain.total - current.total)} more each month all together.`;
   }
 
-  var hasAnyBenefits = itemsToCalculate.length === 1;
+  var hasAnyBenefits = resourceKeys.length === 1;
 
   return (
     <div>
@@ -385,7 +396,12 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
     </div>
   );
+};  // Ends <BenefitText>
+
+
+export {
+  BenefitText,
+  totalLastItemsOfArraysInObject,
+  fillInMoneyValues,
+  getBenefitData,  
 };
-
-
-export { BenefitText };
