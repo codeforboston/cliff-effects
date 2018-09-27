@@ -88,11 +88,23 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     }
     snippets={
       Object {
+        "i_afterMoney": <span
+          className="snippet"
+          lang="en"
+      >
+           / month
+      </span>,
         "i_allMoneyComingIn": <span
           className="snippet"
           lang="en"
       >
           All Money Coming In as Income Changes
+      </span>,
+        "i_beforeMoney": <span
+          className="snippet"
+          lang="en"
+      >
+          $
       </span>,
         "i_benefitProgramsTitle": <span
           className="snippet"
@@ -160,12 +172,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           New Estimate
       </span>,
-        "i_dollarSign": <span
-          className="snippet"
-          lang="en"
-      >
-          $
-      </span>,
         "i_futureIncomeLine": <span
           className="snippet"
           lang="en"
@@ -207,12 +213,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           lang="en"
       >
           Monthly Income ($)
-      </span>,
-        "i_perMonth": <span
-          className="snippet"
-          lang="en"
-      >
-           / month
       </span>,
         "i_rowIncome": <span
           className="snippet"
@@ -499,11 +499,23 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     }
     snippets={
       Object {
+        "i_afterMoney": <span
+          className="snippet"
+          lang="en"
+      >
+           / month
+      </span>,
         "i_allMoneyComingIn": <span
           className="snippet"
           lang="en"
       >
           All Money Coming In as Income Changes
+      </span>,
+        "i_beforeMoney": <span
+          className="snippet"
+          lang="en"
+      >
+          $
       </span>,
         "i_benefitProgramsTitle": <span
           className="snippet"
@@ -571,12 +583,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           New Estimate
       </span>,
-        "i_dollarSign": <span
-          className="snippet"
-          lang="en"
-      >
-          $
-      </span>,
         "i_futureIncomeLine": <span
           className="snippet"
           lang="en"
@@ -618,12 +624,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           lang="en"
       >
           Monthly Income ($)
-      </span>,
-        "i_perMonth": <span
-          className="snippet"
-          lang="en"
-      >
-           / month
       </span>,
         "i_rowIncome": <span
           className="snippet"
