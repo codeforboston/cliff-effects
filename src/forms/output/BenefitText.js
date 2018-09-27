@@ -74,9 +74,8 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  *  benefit2: [ 40, 10 ],
  * };
  * 
- * let index = 1;
- * 
- * let summaryData = {};
+ * let index = 1,
+ *     summaryData = {};
  * 
  * fillInMoneyValues(keys, accumulated, index, summaryData);
  * 
