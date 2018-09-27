@@ -108,9 +108,6 @@ var fillInMoneyValues = (keys, sourceObject, index, objectToFill) => {
 };  // End fillInMoneyValues()
 
 
-/** Transforms benefit data from
- *
- */
 var getBenefitData = function(client, itemsToCalculate) {
 
   /**
@@ -146,6 +143,7 @@ var getBenefitData = function(client, itemsToCalculate) {
     lowest in, earning then
     gain in, earning then
   */
+
   var clone  = cloneDeep(client),
       // This is the data we need in the groupings we need it
       result = {
@@ -161,18 +159,17 @@ var getBenefitData = function(client, itemsToCalculate) {
           benefitsTotal: 0,
           total:         0,
         },
-        diff:   0,
-        lowest: {},  // { total, earned, }
-        gain:   {},  // { total, earned, }
+        diff: 0,
+        gain: { total: 0 },  // { total, earned, }
       },
       rsltCurrent = result.current,
       rsltFuture  = result.future,
       accumulated = {},
-      toCalculate = itemsToCalculate;
+      toCalc      = itemsToCalculate;
 
   // 1. Get current and future values
   var defaultProps = {
-    activeBenefits: toCalculate,
+    activeBenefits: toCalc,
     dataToAddTo:    accumulated,
     clientToChange: clone,
     timeframe:      `current`,
@@ -185,49 +182,23 @@ var getBenefitData = function(client, itemsToCalculate) {
 
   // 2. Get totals
   // Fill income values for both current and future income objects
-  fillInMoneyValues(toCalculate, accumulated, 0, rsltCurrent);
-  fillInMoneyValues(toCalculate, accumulated, 1, rsltFuture);
+  fillInMoneyValues(toCalc, accumulated, 0, rsltCurrent);
+  fillInMoneyValues(toCalc, accumulated, 1, rsltFuture);
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
-  var diff    = rsltFuture.total - rsltCurrent.total;
-  result.diff = diff;
+  result.diff = rsltFuture.total - rsltCurrent.total;
 
   // 4. If implicit taxes > 100% (has dramatic cliff)
-  if (diff <= 0) {
-    let nextTotal = null,
-        lowest   = result.lowest,
-        gain     = result.gain,
-        income   = accumulated.income,
-        currDiff = diff,
-        prevDiff = diff;
+  if (result.diff <= 0) {
+    let gain   = result.gain,
+        income = accumulated.income;
 
-    // 5. Find lowest point, if `future` isn't it already lowest
-    while (currDiff <= prevDiff) {
-
-      prevDiff  = currDiff;
-
-      // Add up what we last accumulated
-      nextTotal = totalLastItemsOfArraysInObject(accumulated);
-      currDiff  = nextTotal - rsltCurrent.total;
-
-      // If not first time and not an upturn
-      if (currDiff < prevDiff) {
-        lowest.total  = nextTotal;
-        lowest.earned = income[ income.length - 1 ];
-      }
-
-      // Loop again and accumulate
-      clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
-      applyAndPushBenefits(futureCalcData);
-
-    }  // ends while each raise brings in less money
-
-    // 6. Maybe that last raise was enough
-    gain.total = nextTotal;
-
-    // 7. Otherwise, try getting raises till the client is making more money than they are now
-    while (gain.total <= rsltCurrent.total) {
+    // 5. The lowest point in their cliff is behind -
+    // as is the nature of cliffs. Now try getting raises
+    // till the client is once again making more money
+    // than they are now
+    while (gain.total - rsltCurrent.total <= 0) {
 
       clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
       applyAndPushBenefits(futureCalcData);
@@ -256,6 +227,7 @@ var getBenefitData = function(client, itemsToCalculate) {
  *     aren't more cliffs immediately after this round.
  * @todo When there's no cliff, look ahead to see if
  *     there will be one soon/later?
+ *     'What more should I know?' section?
  */
 const BenefitText = function ({ client, openFeedback, snippets }) {
 
@@ -275,7 +247,6 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     current,  // { earned, benefits: [{ label, amount }], benefitsTotal, total }
     future,   // same
     diff,
-    lowest,   // { total, earned, }
     gain,     // { total, earned, }
   } = data;
 
@@ -355,17 +326,6 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
       `$${round$(gain.total - current.total)} more each month all together.`;
   }
 
-  // If their money coming in isn't at its lowest point already
-  // what will finances look like at the lowest point?
-  var lowestText = null;
-  if (lowest.total !== undefined) {
-    lowestText =
-      `At the very lowest dip, when your household's pay adds up to ` +
-      `$${toMoneyStr(lowest.earned)} a month, you might bring in about ` +
-      `$${round$(current.total - lowest.total)} less each month ` +
-      `than you are now, but then it might start getting better.`;
-  }
-
   var hasAnyBenefits = itemsToCalculate.length === 1;
 
   return (
@@ -399,21 +359,11 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
             </div>
             
             {endOfCliffText === null ? (
-              `After this, this tool says you could keep bringing in more with each raise.`
+              `After this, the tool says you could keep bringing in more with each raise.`
             ) : (
               <div>
                 <Header key = { `gain-header` }>When could things get better?</Header>
                 <p key = { `gain-summary` }>{ endOfCliffText }</p>
-                <span />
-              </div>
-            )}
-
-            {lowestText === null ? (
-              null
-            ) : (
-              <div>
-                <Header key = { `low-header` }>What more should I know?</Header>
-                <p key = { `low-summary` }>{ lowestText }</p>
                 <span />
               </div>
             )}
