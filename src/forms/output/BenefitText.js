@@ -342,24 +342,28 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     `If this tool is right, you might bring in about ` +
     `$${round$(future.total)} a month. ${lessOrMore}`;
 
-  // If there was a cliff
+  // If there was a cliff, how much more will they have
+  // to earn before they'll get more than they are now?
   var endOfCliffText = null;
   if (gain.total !== undefined) {
-    endOfCliffText = `The tool says that if you can get to where you make ` +
-      `$` + toMoneyStr(gain.earned) + ` a month, could bring in about ` +
-      `$` + round$(gain.total - current.total) + ` more each month all together.`;  // more/less
+    endOfCliffText =
+      `The tool says that if you can get to where your household makes about ` +
+      `$${round$(gain.earned)} a month, you could bring in about ` +
+      `$${round$(gain.total - current.total)} more each month all together.`;
   }
 
   // If their money coming in isn't at its lowest point already
+  // what will finances look like at the lowest point?
   var lowestText = null;
   if (lowest.total !== undefined) {
-    lowestText = `At the very lowest dip, when you get paid ` +
-      `$` + toMoneyStr(lowest.earned) + ` a month, this tool says you would bring in ` +
-      `$` + round$(Math.abs(lowest.total)) + ` a month less than you are now. It could be ` +
-      // to get positive number (I think second one is correct)
-      `$` + round$(current.total - lowest.total) + ` less a month, ` +
-      `but then it could start getting better.`;
+    lowestText =
+      `At the very lowest dip, when your household's pay adds up to ` +
+      `$${toMoneyStr(lowest.earned)} a month, you might bring in about ` +
+      `$${round$(current.total - lowest.total)} less each month ` +
+      `than you are now, but then it might start getting better.`;
   }
+
+  var hasAnyBenefits = itemsToCalculate.length === 1;
 
   return (
     <div>
@@ -368,7 +372,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
           <p>{ `There is no change in your household's pay, so there's no change in your benefits.` }</p>
         </div>
       ) : (
-        itemsToCalculate.length === 1 ? (
+        hasAnyBenefits ? (
           <p>{ `You're not getting any benefits, so there's nothing to calculate.` }</p>
         ) : (
           <div>
@@ -395,8 +399,8 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
               `After this, this tool says you could keep bringing in more with each raise.`
             ) : (
               <div>
-                <Header key = { `1` }>When could things get better?</Header>
-                <p key = { `2` }>{ endOfCliffText }</p>
+                <Header key = { `gain-header` }>When could things get better?</Header>
+                <p key = { `gain-summary` }>{ endOfCliffText }</p>
                 <span />
               </div>
             )}
@@ -405,8 +409,8 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
               null
             ) : (
               <div>
-                <Header key = { `1` }>What more should I know?</Header>
-                <p key = { `2` }>{ lowestText }</p>
+                <Header key = { `low-header` }>What more should I know?</Header>
+                <p key = { `low-summary` }>{ lowestText }</p>
                 <span />
               </div>
             )}
