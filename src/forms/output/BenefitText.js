@@ -228,6 +228,9 @@ var getBenefitData = function(client, itemsToCalculate) {
  * @todo When there's no cliff, look ahead to see if
  *     there will be one soon/later?
  *     'What more should I know?' section?
+ * @todo Is there a program that has a very steep slope
+ *     instead of a cliff? One where the losses grow over
+ *     time for a while?
  */
 const BenefitText = function ({ client, openFeedback, snippets }) {
 
