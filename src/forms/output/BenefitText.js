@@ -178,7 +178,7 @@ var getBenefitData = function(client, itemsToCalculate) {
   applyAndPushBenefits(currentCalcData);
   var futureCalcData = { ...defaultProps, timeframe: `future` };
   applyAndPushBenefits(futureCalcData);
-  // Now have: { income: [c, f], n: [c, f] }
+  // Now have: { income: [c, f], n: [c, f], ... }
 
   // 2. Get totals
   // Fill income values for both current and future income objects
@@ -204,6 +204,7 @@ var getBenefitData = function(client, itemsToCalculate) {
 
       prevDiff  = currDiff;
 
+      // Add up what we last accumulated
       nextTotal = totalLastItemsOfArraysInObject(accumulated);
       currDiff  = nextTotal - rsltCurrent.total;
 
@@ -213,10 +214,11 @@ var getBenefitData = function(client, itemsToCalculate) {
         lowest.earned = income[ income.length - 1 ];
       }
 
+      // Loop again and accumulate
       clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
       applyAndPushBenefits(futureCalcData);
 
-    }  // end while each raise brings in less money
+    }  // ends while each raise brings in less money
 
     // 6. Maybe that last raise was enough
     gain.total = nextTotal;
@@ -229,13 +231,13 @@ var getBenefitData = function(client, itemsToCalculate) {
       // If has dramatic cliff, must have gain
       gain.total = totalLastItemsOfArraysInObject(accumulated);
 
-    }  // end while making less money than now
+    }  // ends while making less money than now
     gain.earned = income[ income.length - 1 ];
 
-  }  // end if hit dramatic cliff
+  }  // ends if hit dramatic cliff
 
   return result;
-};  // End getBenefitData()
+};  // Ends getBenefitData()
 
 
 /** Plain text output of how benefits will be affected.
@@ -256,6 +258,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
   var itemsToCalculate = [ `income` ];
   // Benefits, in order of appearance
+  // So can't wait till `.benefits` is an array of benefit names...
   if (client.current.hasSection8) {
     itemsToCalculate.push(`section8`);
   }
