@@ -16,6 +16,18 @@ import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
 var EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?
 
+
+/** Rounds money values, turns them into money-formatted
+ *     strings, then removes trailing '.00'
+ *
+ * @param {number} number Number to round and format
+ * @returns {string}
+ */
+var round$ = function (number) {
+  return toMoneyStr(Math.round(number)).replace(`.00`, ``);
+};
+
+
 /** Looks at each array in an object, gets the
  *     last index of each, then adds those up 
  *
@@ -263,11 +275,6 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     diff,
     gain,     // { total, earned, }
   } = data;
-
-  // Put this with cashflow util functions?
-  var round$ = function (number) {
-    return toMoneyStr(Math.round(number)).replace(`.00`, ``);
-  };
 
   // Localization-friendly description string for "What could happen?"
   var detailsNow =
