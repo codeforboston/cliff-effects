@@ -47,9 +47,8 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * @example
  * // In PROGRAM_CHART_VALUES.js
  * let PROGRAM_CHART_VALUES = {
- *  benefit1: { name: "Benefit Number 1" },
- *  benefit2: { name: "Benefit Number 2" },
- *  // etc.
+ *  benefit1: { name: "B1" },
+ *  benefit2: { name: "B2" },
  * };
  * 
  * // In here
@@ -73,14 +72,8 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * // {
  * //   earned: 500,
  * //   benefits: [
- * //     {
- * //       label: "Benefit Number 1",
- * //       amount: 30,
- * //     },
- * //     {
- * //       label: "Beneft Number 2",
- * //       amount: 10,
- * //     }
+ * //     { label: "B1", amount: 30 },
+ * //     { label: "B2", amount: 10 }
  * //   ],
  * //   benefitsTotal: 40,
  * //   total: 540,
@@ -115,7 +108,7 @@ var fillInIncomeValues = (keys, sourceObject, index, objectToFill) => {
 };  // End fillInIncomeValues()
 
 
-var getBenefitData = function(client, moneyToCalculate) {
+var getBenefitData = function(client, itemsToCalculate) {
 
   /**
   result = {}
@@ -150,7 +143,6 @@ var getBenefitData = function(client, moneyToCalculate) {
     lowest in, earning then
     gain in, earning then
   */
-
   var clone  = cloneDeep(client),
       // This is the data we need in the groupings we need it
       result = {
@@ -166,22 +158,22 @@ var getBenefitData = function(client, moneyToCalculate) {
           benefitsTotal: 0,
           total:         0,
         },
+        diff:   0,
         lowest: {},  // { total, earned, }
         gain:   {},  // { total, earned, }
       },
       rsltCurrent = result.current,
       rsltFuture  = result.future,
       accumulated = {},
-      toCalculate = moneyToCalculate;
+      toCalculate = itemsToCalculate;
 
+  // 1. Get current and future values
   var defaultProps = {
     activeBenefits: toCalculate,
     dataToAddTo:    accumulated,
     clientToChange: clone,
     timeframe:      `current`,
   };
-
-  // 1. Get current and future values
   var currentCalcData = defaultProps;
   applyAndPushBenefits(currentCalcData);
   var futureCalcData = { ...defaultProps, timeframe: `future` };
@@ -210,13 +202,13 @@ var getBenefitData = function(client, moneyToCalculate) {
     // 5. Find lowest point, if `future` isn't it already lowest
     while (currDiff <= prevDiff) {
 
-      prevDiff = currDiff;
+      prevDiff  = currDiff;
 
       nextTotal = totalLastItemsOfArraysInObject(accumulated);
-      currDiff = nextTotal - rsltCurrent.total;
+      currDiff  = nextTotal - rsltCurrent.total;
 
-      // If not first time
-      if (prevDiff !== diff) {
+      // If not first time and not an upturn
+      if (currDiff < prevDiff) {
         lowest.total  = nextTotal;
         lowest.earned = income[ income.length - 1 ];
       }
