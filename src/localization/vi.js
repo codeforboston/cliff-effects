@@ -53,7 +53,7 @@ export default {
     'benefitsLinkText_v1': `Phân tích các lợi ích khác nhau được cung cấp trong MA`,
 
     'howToUseHeader_v1': `Cách sử dụng công cụ này?`,
-    'howtoUse_v1':       `Đi từng bước một để thêm thông tin về lợi ích hiện tại của khách, hộ gia đình, tiền lương, và các thông tin liên quan khác. Thông tin này sẽ được sử dụng để dự đoán số tiền trợ cấp. Lúc mà bạn đến trang cuối, hãy thay đổi số tiền ở trong ô “Tiền Lương Trong Tương Lai” để xem thấy đổi tiền lương sẽ gây ra thay đổi về số tiền trợ cấp như sao. Hiện tại, các chương trình phiếu mua hàng SNAP và chương trình Section 8 Housing đều có sẵn. Lưu ý rằng các dự đoán có thể không khớp trục tiếp với số tiền trợ cấp hiện tại của khách. Trọng tâm của ứng dụng là số lượng thay đổi xảy ra trong lợi ích khi có thay đổi về mức lương của tiền lương.`,
+    'howToUse_v1':       `Đi từng bước một để thêm thông tin về lợi ích hiện tại của khách, hộ gia đình, tiền lương, và các thông tin liên quan khác. Thông tin này sẽ được sử dụng để dự đoán số tiền trợ cấp. Lúc mà bạn đến trang cuối, hãy thay đổi số tiền ở trong ô “Tiền Lương Trong Tương Lai” để xem thấy đổi tiền lương sẽ gây ra thay đổi về số tiền trợ cấp như sao. Hiện tại, các chương trình phiếu mua hàng SNAP và chương trình Section 8 Housing đều có sẵn. Lưu ý rằng các dự đoán có thể không khớp trục tiếp với số tiền trợ cấp hiện tại của khách. Trọng tâm của ứng dụng là số lượng thay đổi xảy ra trong lợi ích khi có thay đổi về mức lương của tiền lương.`,
     'howToUseNote_v1':   [
       `Xin lưu ý rằng ứng dụng này không lưu trữ dữ liệu người dùng, vì vậy `,
       {
