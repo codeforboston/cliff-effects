@@ -84,6 +84,8 @@ The type of interaction our partners were looking for was a user-friendly one. S
 
 ## F. Next Steps
 
+- Develop a coding style for the calculation logic that mimics the structure of the regulations it represents, easing communication between subject matter experts and coders.
+- Develop a all-of/any-of/none-of structure for form questions to manage which questions are show to the user.
 - Accessibility, including:
   - Useful tab order.
   - Better contrast for UI responsiveness.
