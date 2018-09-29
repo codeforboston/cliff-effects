@@ -291,20 +291,12 @@ class VisitPage extends Component {
       nextData = (<ButtonNext
         snippets = { snippets }
         onClick  = { this.nextStep } />);
-      // {
-      //   text:    snippets.i_next,
-      //   onClick: this.nextStep,
-      // };
 
     // Otherwise, set up to reset client
     } else {
       nextData = (<ButtonReset
         snippets = { snippets }
         onClick  = { this.askToResetClient } />);
-      // {
-      //   text:    snippets.i_newClient,
-      //   onClick: this.askToResetClient,
-      // };
     }
 
     var navData = {
