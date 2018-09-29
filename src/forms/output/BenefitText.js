@@ -183,7 +183,7 @@ var getBenefitData = function(client, resourceKeys) {
           total:         0,
         },
         diff: 0,
-        gain: { total: 0 },  // { total, earned, }
+        gain: {},  // { total, earned, }
       },
       rsltCurrent = result.current,
       rsltFuture  = result.future,
@@ -212,23 +212,23 @@ var getBenefitData = function(client, resourceKeys) {
   result.diff = rsltFuture.total - rsltCurrent.total;
 
   // 4. If implicit taxes > 100% (has dramatic cliff)
+  let gainAmount = 0,
+      income     = accumulated.income;
   if (result.diff <= 0) {
-    let gain   = result.gain,
-        income = accumulated.income;
-
     // 5. The lowest point in their cliff is behind -
     // as is the nature of cliffs. Now try getting raises
     // till the client is once again making more money
     // than they are now
-    while (gain.total - rsltCurrent.total <= 0) {
+    while (gainAmount - rsltCurrent.total <= 0) {
 
       clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
       applyAndPushBenefits(futureCalcData);
       // If has dramatic cliff, must have gain
-      gain.total = totalLastItemsOfArraysInObject(accumulated);
+      gainAmount = totalLastItemsOfArraysInObject(accumulated);
 
     }  // ends while making less money than now
-    gain.earned = income[ income.length - 1 ];
+    result.gain.total  = gainAmount;
+    result.gain.earned = income[ income.length - 1 ];
 
   }  // ends if hit dramatic cliff
 
