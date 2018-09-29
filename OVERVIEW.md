@@ -2,7 +2,7 @@ A little bit about this tool and a living document.
 
 ## Disclaimer
 
-The tool is not meant to be used to make financial decisions. For one thing, we didn't have access to SMEs (**subject matter experts**), so we couldn't double-check our logic and could not fully account for all regulations. We were told to only account for a certain range of clients. For example, we were told we wouldn't be accounting for students, so we didn't include the option to make a household member a student and we didn't create limits on the amount of income that's counted for students. For another thing, there wasn't a way to fully test the tool for accuracy. It can be very hard to convince people that this tool doesn't give accurate data.
+The tool is not meant to be used to make financial decisions. We didn't have access to SMEs (**subject matter experts**), so we couldn't double-check our logic and could not fully account for all regulations. We were told to only account for a certain range of clients. For example, we were told we wouldn't be accounting for students, so we didn't include the option to make a household member a student and we didn't create limits on the amount of income that's counted for students. For another thing, there wasn't a way to fully test the tool for accuracy. It can be very hard to convince people that this tool doesn't give accurate data.
 
 
 
