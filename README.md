@@ -7,7 +7,7 @@ We are building the Cliff Effects webapp to help* [Project Hope](http://www.proh
 
 
 ## Status
-If you want to see a _very_ broad overview of the code flow and some thoughts for next steps, see our [Overview wiki page](https://github.com/codeforboston/cliff-effects/wiki/Meta:-Overview).
+If you want to see a _very_ broad overview of the code flow and some thoughts for next steps, see our [Overview wiki page](https://github.com/codeforboston/cliff-effects/wiki/Meta:-Code-and-Decisions-Overview).
 
 We currently have a ReactJS frontend prototype and start going into beta testing at the end of January.
 
