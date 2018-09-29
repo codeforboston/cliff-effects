@@ -92,6 +92,7 @@ The type of interaction our partners were looking for was a user-friendly one. S
   - aria-* attributes
 - Mobile-friendly styles.
 - More plain-language versions of explanations.
+- Implement zooming on the graphs of the results.
 - Better predictions - don't wait for the user to guess a future income amount. Instead, go through all future values and look for all possible cliffs.
 - Convert to a system where the app takes information about each individual household member, not just the household as one unit.
 - Allow people with permission to mark a benefit as out of date. Warn the user about that benefit's calculations.
