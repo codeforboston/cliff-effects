@@ -56,9 +56,9 @@ When the client first got their benefits, the assessor asked them to estimate wh
 
 How do we account for special circumstances, like extensions or special allowances? Options:
 
-    E2a. We can offer flexibility by allowing users to replace our information with theirs. Figuring out what specific flexibility to allow needs to be done with a subject matter expert. This is a bit dangerous, though - it may lead clients who haven't entered information correctly to assume the calculations are wrong, leaving us inaccurate data for the rest of the calculations. Also, it would let us show them a snapshot of a future result - for the text, table, and bar chart results - but the line graphs may not be able to adjust their calculations for that data.
+E2a. We can offer flexibility by allowing users to replace our information with theirs. Figuring out what specific flexibility to allow needs to be done with a subject matter expert. This is a bit dangerous, though - it may lead clients who haven't entered information correctly to assume the calculations are wrong, leaving us inaccurate data for the rest of the calculations. Also, it would let us show them a snapshot of a future result - for the text, table, and bar chart results - but the line graphs may not be able to adjust their calculations for that data.
 
-    E2b. We can ask if there are special circumstances at the start and then let people know that the calculations won't be accurate and/or not allow them to use the tool to do their calculations.
+E2b. We can ask if there are special circumstances at the start and then let people know that the calculations won't be accurate and/or not allow them to use the tool to do their calculations.
 
 ### E3. Default client data
 
