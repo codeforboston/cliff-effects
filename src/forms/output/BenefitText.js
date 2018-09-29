@@ -266,6 +266,17 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     resourceKeys.push(`snap`);
   }
 
+
+  // Really quick returns if other calcs not needed
+  if (client.future.earned === client.current.earned) {
+    return `There is no change in your household's pay, so there's no change in your benefits.`;
+  }
+  if (resourceKeys.length <= 1) {
+    return `You're not getting any benefits, so there's nothing to calculate.`;
+  }
+
+
+  // Otherwise do some logic magic!
   var data = getBenefitData(client, resourceKeys);
 
   var {
@@ -346,60 +357,45 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
       `$${round$(gain.total - current.total)} more each month all together.`;
   }
 
-  var hasAnyBenefits = resourceKeys.length === 1;
-
   return (
     <div>
-      {future.earned === current.earned ? (
-        <div>
-          <p>{ `There is no change in your household's pay, so there's no change in your benefits.` }</p>
-        </div>
+
+      {/* For styling, make sure `<p>` isn't last child */}
+      <div>
+        <Header>What could happen?</Header>
+        <p>{ detailsNow }</p>
+        <p>{ detailsFuture }</p>
+        <ul>
+          { benefitList }
+        </ul>
+        <p>{ disclaimer }</p>
+        <span />
+      </div>
+
+      <div>
+        <Header>What could it add up to?</Header>
+        <p>{ summaryFuture }</p>
+        <span />
+      </div>
+      
+      {endOfCliffText === null ? (
+        `After this, the tool says you could keep bringing in more with each raise.`
       ) : (
-        hasAnyBenefits ? (
-          <p>{ `You're not getting any benefits, so there's nothing to calculate.` }</p>
-        ) : (
-          <div>
-
-            {/* For styling, make sure `<p>` isn't last child */}
-            <div>
-              <Header>What could happen?</Header>
-              <p>{ detailsNow }</p>
-              <p>{ detailsFuture }</p>
-              <ul>
-                { benefitList }
-              </ul>
-              <p>{ disclaimer }</p>
-              <span />
-            </div>
-
-            <div>
-              <Header>What could it add up to?</Header>
-              <p>{ summaryFuture }</p>
-              <span />
-            </div>
-            
-            {endOfCliffText === null ? (
-              `After this, the tool says you could keep bringing in more with each raise.`
-            ) : (
-              <div>
-                <Header key = { `gain-header` }>When could things get better?</Header>
-                <p key = { `gain-summary` }>{ endOfCliffText }</p>
-                <span />
-              </div>
-            )}
-
-            {diff <= 0 ? (
-              <div>
-                <hr />
-                <p>If you're worried about this, please search for "social services" in your area to try to find a local case manager.</p>
-              </div>
-            ) : (
-              null 
-            )}
-          </div>
-        )
+        <div>
+          <Header key = { `gain-header` }>When could things get better?</Header>
+          <p key = { `gain-summary` }>{ endOfCliffText }</p>
+          <span />
+        </div>
       )}
 
+      {diff <= 0 ? (
+        <div>
+          <hr />
+          <p>If you're worried about this, please search for "social services" in your area to try to find a local case manager.</p>
+        </div>
+      ) : (
+        null 
+      )}
     </div>
   );
 };  // Ends <BenefitText>
