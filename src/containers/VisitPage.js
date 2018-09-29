@@ -29,6 +29,9 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
+import { ButtonPrevious } from '../forms/ButtonPrevious';
+import { ButtonNext } from '../forms/ButtonNext';
+import { ButtonReset } from '../forms/ButtonReset';
 
 class VisitPage extends Component {
   constructor (props) {
@@ -277,26 +280,31 @@ class VisitPage extends Component {
         stepIndex = this.getCurrentStepIndex();
 
     if (stepIndex !== 0) {
-      prevData = {
-        text:    snippets.i_previous,
-        onClick: this.previousStep,
-      };
+      prevData = (<ButtonPrevious
+        snippets = { snippets }
+        onClick  = { this.previousStep } />);
     }
 
     // If it's not the last step
     if (stepIndex !== (this.steps.length - 1)) {
       // use normal 'next' data
-      nextData = {
-        text:    snippets.i_next,
-        onClick: this.nextStep,
-      };
+      nextData = (<ButtonNext
+        snippets = { snippets }
+        onClick  = { this.nextStep } />);
+      // {
+      //   text:    snippets.i_next,
+      //   onClick: this.nextStep,
+      // };
 
     // Otherwise, set up to reset client
     } else {
-      nextData = {
-        text:    snippets.i_newClient,
-        onClick: this.askToResetClient,
-      };
+      nextData = (<ButtonReset
+        snippets = { snippets }
+        onClick  = { this.askToResetClient } />);
+      // {
+      //   text:    snippets.i_newClient,
+      //   onClick: this.askToResetClient,
+      // };
     }
 
     var navData = {
