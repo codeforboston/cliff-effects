@@ -2,7 +2,7 @@ A little bit about this tool and a living document.
 
 ## Disclaimer
 
-The tool is not meant to be used to make financial decisions. We didn't have access to SMEs (**subject matter experts**), so we couldn't double-check our logic and could not fully account for all regulations. We were told to only account for a certain range of clients. For example, we were told we wouldn't be accounting for students, so we didn't include the option to make a household member a student and we didn't create limits on the amount of income that's counted for students. For another thing, there wasn't a way to fully test the tool for accuracy. It can be very hard to convince people that this tool doesn't give accurate data.
+The tool is not meant to be used to make financial decisions. We didn't have access to SMEs (**subject matter experts**), so we couldn't double-check our logic and could not fully account for all regulations. There also wasn't a way to fully test the tool for accuracy.
 
 
 
@@ -14,9 +14,9 @@ The client puts in their information. Valid answers ([see the definition of vali
 
 1. At the start, the client data is filled with valid default values (to be linked). That practice is [an open question](#e3-default-client-data).
 2. The client then answers questions.
-3. The answer doesn't get stored at that point. First we make sure the answer is valid. If it's valid, it's stored. If not, the user is still allowed to put in the data, but they're given feedback and the data is thrown out as soon as the user clicks out of that question.
+3. The answer doesn't get stored at that point. First we make sure the answer is valid. If it's valid, it's stored. If not, the user is still allowed to put in the data, but they're given feedback and the data is thrown out as soon as the user clicks out of that question. It's replaced by the most recent valid answer.
 4. Valid answers are stored in the `client` object.
-5. The last form section sends the client data to the calculation logic. That data is always valid.
+5. The last form section sends the client data to the calculation logic.
 6. The calculation manager make a copy of the `client` object. It then applies the calculations one by one, in the right order. Each calculation changes (mutates) the client object so that the new values affect the next calculations in the right way.
 7. The results come back and the output is shown to the user.
 
