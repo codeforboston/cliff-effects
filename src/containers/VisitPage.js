@@ -29,8 +29,7 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
-import { ButtonPrevious } from '../forms/ButtonPrevious';
-import { ButtonNext } from '../forms/ButtonNext';
+import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
 
 class VisitPage extends Component {
@@ -274,35 +273,39 @@ class VisitPage extends Component {
 
   render() {
 
-    var snippets  = this.state.snippets,
-        prevData  = null,
-        nextData  = null,
-        stepIndex = this.getCurrentStepIndex();
+    var snippets    = this.state.snippets,
+        prevContent = null,
+        nextContent = null,
+        stepIndex   = this.getCurrentStepIndex();
 
     if (stepIndex !== 0) {
-      prevData = (<ButtonPrevious
-        snippets = { snippets }
-        onClick  = { this.previousStep } />);
+      prevContent = (
+        <BigButton onClick = { this.previousStep }>
+          { snippets.i_previous }
+        </BigButton>
+      );
     }
 
     // If it's not the last step
     if (stepIndex !== (this.steps.length - 1)) {
-      // use normal 'next' data
-      nextData = (<ButtonNext
-        snippets = { snippets }
-        onClick  = { this.nextStep } />);
-
+      // use normal 'next' component
+      nextContent = (
+        <BigButton onClick = { this.nextStep }>
+          { snippets.i_next }
+        </BigButton>
+      );
     // Otherwise, set up to reset client
     } else {
-      nextData = (<ButtonReset
-        snippets = { snippets }
-        onClick  = { this.askToResetClient } />);
+      // Can be reused for fixed button on the left
+      nextContent  = (<ButtonReset
+        onClick  = { this.askToResetClient }
+        snippets = { snippets } />);
     }
 
     var navData = {
-      left:   prevData,
+      left:   prevContent,
       middle: null,
-      right:  nextData,
+      right:  nextContent,
     };
 
 
