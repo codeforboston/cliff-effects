@@ -48,6 +48,20 @@ body {
   padding: 8em 0em;
 }
 
+/* Predictions.js */
+
+.prediction-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  max-width: 400px;
+}
+
+.prediction-message {
+  text-align: center;
+}
+
 form .field-aligner {
   display: inline-block;
   text-align: left;
