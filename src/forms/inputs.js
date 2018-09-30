@@ -20,6 +20,7 @@ import {
 */
 const BigButton = function ({ children, ...buttonProps }) {
 
+  // Combine class names?
   const overriddenDefaults = {
     type:      `button`,
     color:     `teal`,
