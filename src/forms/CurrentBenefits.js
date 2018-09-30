@@ -10,10 +10,10 @@ import { ControlledRadioYesNo } from './inputs';
 const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientValue }) {
   return (
     <ControlledRadioYesNo
-      checked            = { checked }
-      labelText          = { snippets[ `i_` + name + `Label` ] }
-      name               = { name }
-      updateClientValue  = { updateClientValue } />
+      checked   = { checked }
+      labelText = { snippets[ `i_` + name + `Label` ] }
+      name      = { name }
+      onChange  = { updateClientValue } />
   );
 };
 

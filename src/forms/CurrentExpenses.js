@@ -115,7 +115,6 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       hasFuelAssist  = current.fuelAssistance;
 
   let setChecked = function (evnt, inputProps) {
-    // Why is `checked` not always true here? Not a radio?
     var obj = { ...inputProps, value: inputProps.checked };
     updateClientValue(evnt, obj);
   };  // End setChecked()
@@ -147,10 +146,10 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       <br />
       <br />
       <ControlledRadioYesNo
-        labelText          = { 'Do you get Fuel Assistance?' }
-        checked            = { hasFuelAssist }
-        name               = { 'fuelAssistance' }
-        updateClientValue  = { updateClientValue } />
+        labelText = { 'Do you get Fuel Assistance?' }
+        checked   = { hasFuelAssist }
+        name      = { 'fuelAssistance' }
+        onChange  = { updateClientValue } />
 
     </div>
 

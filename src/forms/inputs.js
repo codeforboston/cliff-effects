@@ -54,6 +54,11 @@ class ControlledRadioYesNo extends Component {
     this.state = {};
   }
 
+  handleChange = (evnt, inputProps) => {
+    inputProps.value = inputProps.value === 'Yes';
+    this.props.onChange(evnt, inputProps);
+  };
+
   render(){
 
     return (
@@ -65,7 +70,7 @@ class ControlledRadioYesNo extends Component {
             name={ this.props.name }
             value='Yes'
             checked={ this.props.checked === true }
-            onChange={ this.props.updateClientValue } />
+            onChange={ this.handleChange } />
         </Form.Field>
         <Form.Field >
           <Radio
@@ -73,7 +78,7 @@ class ControlledRadioYesNo extends Component {
             name={ this.props.name }
             value='No'
             checked={ this.props.checked === false }
-            onChange={ this.props.updateClientValue } />
+            onChange={ this.handleChange } />
         </Form.Field>
         <Form.Field >
           <b>{this.props.labelText}</b>
