@@ -119,6 +119,13 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
     updateClientValue(evnt, obj);
   };  // End setChecked()
 
+  // For keyboard access (already does spacebar)
+  let onKeyDown = function (evnt) {
+    if (evnt.key === `Enter`) {
+      evnt.target.click();
+    }
+  };
+
   return (
     <div>
       <Header as='h4'>Which of these utilities do you pay for?</Header>
@@ -127,19 +134,22 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
         name={ 'climateControl' }
         label={ 'Heating or cooling (e.g. A/C during summer)' }
         checked={ climate }
-        onChange={ setChecked } />
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
         name={ 'nonHeatElectricity' }
         label={ 'Electricity for non-heating purposes' }
         checked={ electricity }
-        onChange={ setChecked } />
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
         name={ 'phone' }
         label={ 'Telephone service' }
         checked={ phone }
-        onChange={ setChecked } />
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
 
       <br />
       <br />
