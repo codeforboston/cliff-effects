@@ -307,8 +307,8 @@ form elements. */
 }
 
 i.icon.details-icon {
-  padding-left: .5em;
-  padding-right: 1em;
+  margin-left: .5em;
+  margin-right: 1em;
   font-size: 1.2em;
 }
 
