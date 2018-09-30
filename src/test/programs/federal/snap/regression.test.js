@@ -13,7 +13,7 @@ test('getSNAPBenefits() matches saved results', (done) => {
   rl.on('line', (line) => {
     const [
       setupStr,
-      expectedStr, 
+      expectedStr,
     ] = line.split(';');
     const client = cloneDeep(CLIENT_DEFAULTS);
     extend(client.current, JSON.parse(setupStr));
@@ -21,4 +21,4 @@ test('getSNAPBenefits() matches saved results', (done) => {
   });
 
   rl.on('close', done);
-});
+}, 2 * jasmine.DEFAULT_TIMEOUT_INTERVAL); // time allotted for this test

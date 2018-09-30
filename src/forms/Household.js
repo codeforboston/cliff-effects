@@ -397,18 +397,17 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
 const HouseholdStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
-    <Form className='current-household-size-form flex-column flex-item'>
-      <FormPartsContainer
-        title     = { snippets.i_title }
-        clarifier = { snippets.i_clarifier }
-        navData   = { navData }>
-        <HouseholdContent
-          updateClientValue = { updateClientValue }
-          current={ client.current }
-          time={ 'current' }
-          snippets={ snippets } />
-      </FormPartsContainer>
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { snippets.i_clarifier }
+      navData   = { navData }
+      formClass = { `household` }>
+      <HouseholdContent
+        updateClientValue = { updateClientValue }
+        current={ client.current }
+        time={ 'current' }
+        snippets={ snippets } />
+    </FormPartsContainer>
   );
 
 };  // End HouseholdStep()

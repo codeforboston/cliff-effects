@@ -143,6 +143,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         updateClientValue = { updateClientValue }
         future            = { client.future }
         time              = { 'future' }
+
         snippets          = { snippets } />
       <Divider className='ui section divider hidden' />
       <Header
@@ -160,6 +161,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           className="prediction-button"
           fluid
           color='teal'
+
           onClick={ openFeedback }>
           { snippets.i_submitFeedback }
         </Button>
