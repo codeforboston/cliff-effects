@@ -88,59 +88,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     }
     snippets={
       Object {
-        "i_afterMoney": <span
-          className="snippet"
-          lang="en"
-      >
-           / month
-      </span>,
-        "i_allMoneyComingIn": <span
-          className="snippet"
-          lang="en"
-      >
-          All Money Coming In as Income Changes
-      </span>,
-        "i_beforeMoney": <span
-          className="snippet"
-          lang="en"
-      >
-          $
-      </span>,
-        "i_benefitProgramsTitle": <span
-          className="snippet"
-          lang="en"
-      >
-          Individual Benefit Amounts for Household as Income Changes
-      </span>,
-        "i_benefitValue": <span
-          className="snippet"
-          lang="en"
-      >
-          Benefit Value ($)
-      </span>,
         "i_benefitsTableTitle": <span
           className="snippet"
           lang="en"
       >
           Changes
-      </span>,
-        "i_buttonMonthly": <span
-          className="snippet"
-          lang="en"
-      >
-          Monthly
-      </span>,
-        "i_buttonWeekly": <span
-          className="snippet"
-          lang="en"
-      >
-          Weekly
-      </span>,
-        "i_buttonYearly": <span
-          className="snippet"
-          lang="en"
-      >
-          Yearly
       </span>,
         "i_chartsHeader": <span
           className="snippet"
@@ -172,11 +124,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           New Estimate
       </span>,
-        "i_futureIncomeLine": <span
+        "i_dollarSign": <span
           className="snippet"
           lang="en"
       >
-          Future Income
+          $
       </span>,
         "i_futureIncomeQuestion": <span
           className="snippet"
@@ -184,35 +136,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           How much money would you get paid in the future? (You can try different amounts)
       </span>,
-        "i_hasIncome": <span
+        "i_perMonth": <span
           className="snippet"
           lang="en"
       >
-          Income
-      </span>,
-        "i_hasSNAP": <span
-          className="snippet"
-          lang="en"
-      >
-          SNAP
-      </span>,
-        "i_hasSection8": <span
-          className="snippet"
-          lang="en"
-      >
-          Section 8
-      </span>,
-        "i_moneyInAsIncomeChanges": <span
-          className="snippet"
-          lang="en"
-      >
-          Money Coming In as Income Changes
-      </span>,
-        "i_monthlyIncome": <span
-          className="snippet"
-          lang="en"
-      >
-          Monthly Income ($)
+           / month
       </span>,
         "i_rowIncome": <span
           className="snippet"
@@ -243,18 +171,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           lang="en"
       >
           Total Benefits
-      </span>,
-        "i_stackedAreaGraphTitle": <span
-          className="snippet"
-          lang="en"
-      >
-          Stacked Incomes
-      </span>,
-        "i_stackedBarGraphTitle": <span
-          className="snippet"
-          lang="en"
-      >
-          Changes Chart
       </span>,
         "i_submitFeedback": <span
           className="snippet"
@@ -292,29 +208,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           What Might Happen?
       </span>,
-        "i_totalMoney": <span
-          className="snippet"
-          lang="en"
-      >
-          Total Money Coming In ($)
-      </span>,
         "i_warningMessage": <span
           className="snippet"
           lang="en"
       >
           This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
-      </span>,
-        "i_weeklyIncome": <span
-          className="snippet"
-          lang="en"
-      >
-          Weekly Income ($)
-      </span>,
-        "i_yearlyIncome": <span
-          className="snippet"
-          lang="en"
-      >
-          Yearly Income ($)
       </span>,
         "langCode": "en",
       }
@@ -338,11 +236,7 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     </span>
   </Header>
   <Message
-    style={
-      Object {
-        "textAlign": "center",
-      }
-    }
+    className="predictions-message"
     visible={true}
     warning={true}
   >
@@ -356,18 +250,10 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     <br />
     <Button
       as="button"
+      className="prediction-button"
       color="teal"
       fluid={true}
       onClick={[Function]}
-      style={
-        Object {
-          "display": "block",
-          "marginLeft": "auto",
-          "marginRight": "auto",
-          "marginTop": "10px",
-          "maxWidth": "400px",
-        }
-      }
     >
       <span
         className="snippet"
@@ -499,59 +385,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
     }
     snippets={
       Object {
-        "i_afterMoney": <span
-          className="snippet"
-          lang="en"
-      >
-           / month
-      </span>,
-        "i_allMoneyComingIn": <span
-          className="snippet"
-          lang="en"
-      >
-          All Money Coming In as Income Changes
-      </span>,
-        "i_beforeMoney": <span
-          className="snippet"
-          lang="en"
-      >
-          $
-      </span>,
-        "i_benefitProgramsTitle": <span
-          className="snippet"
-          lang="en"
-      >
-          Individual Benefit Amounts for Household as Income Changes
-      </span>,
-        "i_benefitValue": <span
-          className="snippet"
-          lang="en"
-      >
-          Benefit Value ($)
-      </span>,
         "i_benefitsTableTitle": <span
           className="snippet"
           lang="en"
       >
           Changes
-      </span>,
-        "i_buttonMonthly": <span
-          className="snippet"
-          lang="en"
-      >
-          Monthly
-      </span>,
-        "i_buttonWeekly": <span
-          className="snippet"
-          lang="en"
-      >
-          Weekly
-      </span>,
-        "i_buttonYearly": <span
-          className="snippet"
-          lang="en"
-      >
-          Yearly
       </span>,
         "i_chartsHeader": <span
           className="snippet"
@@ -583,11 +421,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           New Estimate
       </span>,
-        "i_futureIncomeLine": <span
+        "i_dollarSign": <span
           className="snippet"
           lang="en"
       >
-          Future Income
+          $
       </span>,
         "i_futureIncomeQuestion": <span
           className="snippet"
@@ -595,35 +433,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           How much money would you get paid in the future? (You can try different amounts)
       </span>,
-        "i_hasIncome": <span
+        "i_perMonth": <span
           className="snippet"
           lang="en"
       >
-          Income
-      </span>,
-        "i_hasSNAP": <span
-          className="snippet"
-          lang="en"
-      >
-          SNAP
-      </span>,
-        "i_hasSection8": <span
-          className="snippet"
-          lang="en"
-      >
-          Section 8
-      </span>,
-        "i_moneyInAsIncomeChanges": <span
-          className="snippet"
-          lang="en"
-      >
-          Money Coming In as Income Changes
-      </span>,
-        "i_monthlyIncome": <span
-          className="snippet"
-          lang="en"
-      >
-          Monthly Income ($)
+           / month
       </span>,
         "i_rowIncome": <span
           className="snippet"
@@ -654,18 +468,6 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
           lang="en"
       >
           Total Benefits
-      </span>,
-        "i_stackedAreaGraphTitle": <span
-          className="snippet"
-          lang="en"
-      >
-          Stacked Incomes
-      </span>,
-        "i_stackedBarGraphTitle": <span
-          className="snippet"
-          lang="en"
-      >
-          Changes Chart
       </span>,
         "i_submitFeedback": <span
           className="snippet"
@@ -703,29 +505,11 @@ exports[`Prediction component renders as snapshot correctly 1`] = `
       >
           What Might Happen?
       </span>,
-        "i_totalMoney": <span
-          className="snippet"
-          lang="en"
-      >
-          Total Money Coming In ($)
-      </span>,
         "i_warningMessage": <span
           className="snippet"
           lang="en"
       >
           This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.
-      </span>,
-        "i_weeklyIncome": <span
-          className="snippet"
-          lang="en"
-      >
-          Weekly Income ($)
-      </span>,
-        "i_yearlyIncome": <span
-          className="snippet"
-          lang="en"
-      >
-          Yearly Income ($)
       </span>,
         "langCode": "en",
       }

@@ -48,6 +48,29 @@ body {
   padding: 8em 0em;
 }
 
+/* Predictions.js */
+.prediction-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  max-width: 400px;
+}
+
+.predictions-message {
+  text-align: center;
+}
+
+/* VisitPage.js styles */
+
+.visit-container {
+  padding: 42px 0;
+}
+
+.visit-responsive, .visit-navdata {
+  padding: 14px 0;
+}
+
 form .field-aligner {
   display: inline-block;
   text-align: left;
