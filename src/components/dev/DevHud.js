@@ -91,25 +91,15 @@ class DevHud extends Component {
   };
 
   toggleEnglish = () => {
-    var props  = this.props,
-        setDev = props.funcs.setDev;
-
-    if (props.devProps.english) {
-      setDev(`english`, false);
-    } else {
-      setDev(`english`, true);
-    }
+    var setDev  = this.props.funcs.setDev,
+        english = this.props.devProps.english;
+    setDev(`english`, !english);
   };
 
   toggleNonEnglish = () => {
-    var props  = this.props,
-        setDev = props.funcs.setDev;
-
-    if (props.devProps.nonEnglish) {
-      setDev(`nonEnglish`, false);
-    } else {
-      setDev(`nonEnglish`, true);
-    }
+    var setDev     = this.props.funcs.setDev,
+        nonEnglish = this.props.devProps.nonEnglish;
+    setDev(`english`, !nonEnglish);
   };
 
   render () {
@@ -139,11 +129,7 @@ class DevHud extends Component {
         <Button
           className = { `hide` }
           onClick   = { this.toggleHiding }>
-          { devProps.devHidden ? (
-            `Show`
-          ) : (
-            `Hide`
-          ) }
+          { devProps.devHidden ? (`Show`) : (`Hide`) }
         </Button>
       </Menu>
     );
@@ -152,4 +138,4 @@ class DevHud extends Component {
 };
 
 
-export { DevHud };
+export { DevHud, DevMenu };
