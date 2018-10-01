@@ -283,11 +283,13 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
 
   // Really quick returns if other calcs not needed
+  if (resourceKeys.length <= 1) {
+    return `If you're not in any benefit programs, this tool can't help you. ` +
+    `If you're trying to find help getting into a benefit program, try ` +
+    `searching for "social services" in your local area.`;
+  }
   if (client.future.earned === client.current.earned) {
     return `There is no change in your household's pay, so there's no change in your benefits.`;
-  }
-  if (resourceKeys.length <= 1) {
-    return `You're not getting any benefits, so there's nothing to calculate.`;
   }
 
 
