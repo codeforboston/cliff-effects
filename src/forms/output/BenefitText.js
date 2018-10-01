@@ -100,9 +100,8 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  */
 var fillInMoneyValues = (keys, sourceObject, index, objectToFill) => {
   // Item names can be `income` or benefit keys
-  for (let itemi = 0; itemi < keys.length; itemi++) {
-    let itemKey = keys[ itemi ],
-        amount  = sourceObject[ itemKey ][ index ];
+  for (let itemKey of keys) {
+    let amount = sourceObject[ itemKey ][ index ];
 
     if (itemKey === `income`) {
       objectToFill.earned = amount;
