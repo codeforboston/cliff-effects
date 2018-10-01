@@ -99,6 +99,11 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * @returns {undefined}
  */
 var fillInMoneyValues = (keys, sourceObject, index, objectToFill) => {
+
+  if (!Array.isArray(sourceObject.income)) {
+    throw new TypeError(`The given resources object requires an 'income' property that is an array of numbers.`);
+  }
+
   // Item names can be `income` or benefit keys
   for (let itemKey of keys) {
     let amount = sourceObject[ itemKey ][ index ];
