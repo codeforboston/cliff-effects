@@ -45,8 +45,10 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
   return total;
 };
 
-/** Mutates `objectToFill` to add benefit values in
- * the format that we need them.
+/** Returns values representing earned income and benefit
+ *     amounts at the given index, as well as the sum of all
+ *     those benefits and the sum of the earned income and
+ *     those benefits.
  *
  * @param {array} keys Contains keys to use on `sourceObject`.
  * @param {object} sourceObject MUST CONTAIN `income` property!
@@ -56,7 +58,6 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * @param {array} sourceObject.income Earned income values.
  * @param {int} Which item in each array should be used to
  *      accumulate values.
- * @param {objectToFill} Will be mutated. See example.
  *
  * @example
  * // In PROGRAM_CHART_VALUES.js
@@ -72,15 +73,14 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * ];
  *
  * let accumulated = {
- *  income:   [450, 500],
+ *  income:   [ 450, 500 ],
  *  benefit1: [ 80, 30 ],
  *  benefit2: [ 40, 10 ],
  * };
  * 
- * let index       = 1,
- *     summaryData = {};
+ * let index = 1;
  * 
- * fillInMoneyValues(keys, accumulated, index, summaryData);
+ * var summaryData = fillInMoneyValues(keys, accumulated, index);
  * 
  * console.log(summaryData);
  * // {
@@ -95,34 +95,53 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * 
  * @note: Unfortunately, stll relies on an outside value -
  *     PROGRAM_CHART_VALUES.
+ * 
+ * @typedef {object} benefit
+ * @property {string} label Name to be displayed for the benefit
+ * @property {number} amount Value of the benefit/subsidy
  *
- * @returns {undefined}
+ * @typedef {object} moneyValues
+ * @property {number} earned Amount earned at a given index
+ * @property {array.<benefit>} benefits
+ * @property {number} benefitsTotal Sum of all benefit values at
+ *     the given index
+ * @property {number} total Sum of earned income and all benefits
+ *     at the given index
+ * 
+ * @returns {object} moneyValues
  */
-var fillInMoneyValues = (keys, sourceObject, index, objectToFill) => {
+var fillInMoneyValues = (keys, sourceObject, index) => {
 
   if (!Array.isArray(sourceObject.income)) {
     throw new TypeError(`The given resources object requires an 'income' property that is an array of numbers.`);
   }
+
+  var moneyValues = {
+    earned:        0,
+    benefits:      [],  // [{ label, amount }]
+    benefitsTotal: 0,
+    total:         0,
+  };
 
   // Item names can be `income` or benefit keys
   for (let itemKey of keys) {
     let amount = sourceObject[ itemKey ][ index ];
 
     if (itemKey === `income`) {
-      objectToFill.earned = amount;
+      moneyValues.earned = amount;
     } else {
-      objectToFill.benefits.push({
+      moneyValues.benefits.push({
         label:  PROGRAM_CHART_VALUES[ itemKey ].name,
         amount: amount,
       });
       // Add up all benefits (we're not including income)
-      objectToFill.benefitsTotal += amount;
+      moneyValues.benefitsTotal += amount;
     }
   }  // ends for every item key name
 
-  objectToFill.total = objectToFill.earned + objectToFill.benefitsTotal;
+  moneyValues.total = moneyValues.earned + moneyValues.benefitsTotal;
 
-  return;
+  return moneyValues;
 };  // Ends fillInMoneyValues()
 
 
@@ -177,23 +196,11 @@ var getBenefitData = function(client, resourceKeys) {
   var clone  = cloneDeep(client),
       // This is the data we need in the groupings we need it
       result = {
-        current: {
-          earned:        0,
-          benefits:      [],  // [{ label, amount }]
-          benefitsTotal: 0,
-          total:         0,
-        },
-        future: {
-          earned:        0,
-          benefits:      [],  // [{ label, amount }]
-          benefitsTotal: 0,
-          total:         0,
-        },
-        diff: 0,
-        gain: {},  // { total, earned, }
+        current: null,  // current money values,
+        future:  null,  // future money values,
+        diff:    0,
+        gain:    {},  // { total, earned, }
       },
-      rsltCurrent = result.current,
-      rsltFuture  = result.future,
       accumulated = {};
 
   // 1. Get current and future values
@@ -211,12 +218,14 @@ var getBenefitData = function(client, resourceKeys) {
 
   // 2. Get totals
   // Fill income values for both current and future income objects
-  fillInMoneyValues(resourceKeys, accumulated, 0, rsltCurrent);
-  fillInMoneyValues(resourceKeys, accumulated, 1, rsltFuture);
+  result.current = fillInMoneyValues(resourceKeys, accumulated, 0);
+  result.future  = fillInMoneyValues(resourceKeys, accumulated, 1);
+  var resultCurr  = result.current,
+      resultFutr  = result.future;
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
-  result.diff = rsltFuture.total - rsltCurrent.total;
+  result.diff = resultFutr.total - resultCurr.total;
 
   // 4. If implicit taxes > 100% (has dramatic cliff)
   let gainAmount = 0,
@@ -226,7 +235,7 @@ var getBenefitData = function(client, resourceKeys) {
     // as is the nature of cliffs. Now try getting raises
     // till the client is once again making more money
     // than they are now
-    while (gainAmount - rsltCurrent.total <= 0) {
+    while (gainAmount - resultCurr.total <= 0) {
 
       clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
       applyAndPushBenefits(futureCalcData);
