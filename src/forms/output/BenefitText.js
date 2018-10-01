@@ -29,7 +29,7 @@ var round$ = function (number) {
 
 
 /** Looks at each array in an object, gets the
- *     last index of each, then adds those up 
+ *     last element of each, then adds those up 
  *
  * @param {object} accumulated
  * @param {array} accumulated.n Array of numbers
@@ -49,9 +49,11 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * the format that we need them.
  *
  * @param {array} keys Contains keys to use on `sourceObject`.
- * @param {object} sourceObject Contains benefit keys that
- *      all have an array of numerical values (which are
- *      meant to be money values right now).
+ * @param {object} sourceObject MUST CONTAIN `income` property!
+ *     Contains `income` and benefit keys that each have an
+ *     array of numerical values (which are meant to be money
+ *     values right now).
+ * @param {array} sourceObject.income Earned income values.
  * @param {int} Which item in each array should be used to
  *      accumulate values.
  * @param {objectToFill} Will be mutated. See example.
@@ -70,11 +72,12 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * ];
  *
  * let accumulated = {
+ *  income:   [450, 500],
  *  benefit1: [ 80, 30 ],
  *  benefit2: [ 40, 10 ],
  * };
  * 
- * let index = 1,
+ * let index       = 1,
  *     summaryData = {};
  * 
  * fillInMoneyValues(keys, accumulated, index, summaryData);
