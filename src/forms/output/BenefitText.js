@@ -376,8 +376,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   return (
     <div>
 
-      {/* For styling, make sure `<p>` isn't last child */}
-      <div>
+      <div className = { `text-result-section` }>
         <Header>What could happen?</Header>
         <p>{ detailsNow }</p>
         <p>{ detailsFuture }</p>
@@ -385,22 +384,19 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
           { benefitList }
         </ul>
         <p>{ disclaimer }</p>
-        <span />
       </div>
 
-      <div>
+      <div className = { `text-result-section` }>
         <Header>What could it add up to?</Header>
         <p>{ summaryFuture }</p>
-        <span />
       </div>
       
       {endOfCliffText === null ? (
         `After this, the tool says you could keep bringing in more with each raise.`
       ) : (
-        <div>
+        <div className = { `text-result-section` }>
           <Header key = { `gain-header` }>When could things get better?</Header>
           <p key = { `gain-summary` }>{ endOfCliffText }</p>
-          <span />
         </div>
       )}
 
