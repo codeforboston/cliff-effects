@@ -365,13 +365,26 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
   // If there was a cliff, how much more will they have
   // to earn before they'll get more than they are now?
-  var endOfCliffText = null;
+  var endOfCliffContent = `After this, the tool says you could keep bringing in more with each raise.`;
   if (gain.total !== undefined) {
-    endOfCliffText =
-      `The tool says that if you can get to where your household makes about ` +
-      `$${round$(gain.earned)} a month, you could bring in about ` +
-      `$${round$(gain.total - current.total)} more each month all together.`;
-  }
+    endOfCliffContent = (
+      <div>
+        <div className = { `text-result-section` }>
+          <Header>When could things get better?</Header>
+          <p>
+            {
+              `The tool says that if you can get to where your household makes about ` +
+              `$${round$(gain.earned)} a month, you could bring in about ` +
+              `$${round$(gain.total - current.total)} more each month all together.`
+            }
+          </p>
+        </div>
+
+        <hr />
+        <p>If you're worried about these results, please search for "social services" in your area to try to find a local case manager.</p>
+      </div>
+    );
+  }  // end if end of cliff is a thing
 
   return (
     <div>
@@ -391,23 +404,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
         <p>{ summaryFuture }</p>
       </div>
       
-      {endOfCliffText === null ? (
-        `After this, the tool says you could keep bringing in more with each raise.`
-      ) : (
-        <div className = { `text-result-section` }>
-          <Header key = { `gain-header` }>When could things get better?</Header>
-          <p key = { `gain-summary` }>{ endOfCliffText }</p>
-        </div>
-      )}
-
-      {diff <= 0 ? (
-        <div>
-          <hr />
-          <p>If you're worried about this, please search for "social services" in your area to try to find a local case manager.</p>
-        </div>
-      ) : (
-        null 
-      )}
+      { endOfCliffContent }
     </div>
   );
 };  // Ends <BenefitText>
