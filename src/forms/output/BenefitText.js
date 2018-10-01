@@ -186,7 +186,7 @@ var fillInMoneyValues = (keys, sourceObject, index) => {
  * //     earned:        3406.844,
  * //     total:         4014.246,
  * //   },
- * //   gain: { total: 4084.246, earned: 3506.844 },
+ * //   recovery: { total: 4084.246, earned: 3506.844 },
  * // }
  *
  * @returns {object}
@@ -196,10 +196,10 @@ var getBenefitData = function(client, resourceKeys) {
   var clone  = cloneDeep(client),
       // This is the data we need in the groupings we need it
       result = {
-        current: null,  // current money values,
-        future:  null,  // future money values,
-        diff:    0,
-        gain:    {},  // { total, earned, }
+        current:  null,  // current money values,
+        future:   null,  // future money values,
+        diff:     0,
+        recovery: {},  // { total, earned, }
       },
       accumulated = {};
 
@@ -228,23 +228,22 @@ var getBenefitData = function(client, resourceKeys) {
   result.diff = resultFutr.total - resultCurr.total;
 
   // 4. If implicit taxes > 100% (has dramatic cliff)
-  let gainAmount = 0,
-      income     = accumulated.income;
+  let recoveryAmount = 0,
+      income         = accumulated.income;
   if (result.diff <= 0) {
     // 5. The lowest point in their cliff is behind -
     // as is the nature of cliffs. Now try getting raises
-    // till the client is once again making more money
-    // than they are now
-    while (gainAmount - resultCurr.total <= 0) {
+    // till the client is making more money than they are now
+    while (recoveryAmount - resultCurr.total <= 0) {
 
       clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
       applyAndPushBenefits(futureCalcData);
-      // If has dramatic cliff, must have gain
-      gainAmount = totalLastItemsOfArraysInObject(accumulated);
+      // If has dramatic cliff, must have recovery
+      recoveryAmount = totalLastItemsOfArraysInObject(accumulated);
 
     }  // ends while making less money than now
-    result.gain.total  = gainAmount;
-    result.gain.earned = income[ income.length - 1 ];
+    result.recovery.total  = recoveryAmount;
+    result.recovery.earned = income[ income.length - 1 ];
 
   }  // ends if hit dramatic cliff
 
@@ -299,7 +298,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     current,  // { earned, benefits: [{ label, amount }], benefitsTotal, total }
     future,   // same
     diff,
-    gain,     // { total, earned, }
+    recovery, // { total, earned, }
   } = data;
 
   // Localization-friendly description string for "What could happen?"
@@ -366,7 +365,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
   // If there was a cliff, how much more will they have
   // to earn before they'll get more than they are now?
   var endOfCliffContent = `After this, the tool says you could keep bringing in more with each raise.`;
-  if (gain.total !== undefined) {
+  if (recovery.total !== undefined) {
     endOfCliffContent = (
       <div>
         <div className = { `text-result-section` }>
@@ -374,8 +373,8 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
           <p>
             {
               `The tool says that if you can get to where your household makes about ` +
-              `$${round$(gain.earned)} a month, you could bring in about ` +
-              `$${round$(gain.total - current.total)} more each month all together.`
+              `$${round$(recovery.earned)} a month, you could bring in about ` +
+              `$${round$(recovery.total - current.total)} more each month all together.`
             }
           </p>
         </div>
@@ -405,6 +404,7 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
       </div>
       
       { endOfCliffContent }
+
     </div>
   );
 };  // Ends <BenefitText>
