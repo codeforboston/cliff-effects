@@ -190,68 +190,68 @@ export default {
     },
 
     currentExpenses: {
-      'title':                           `Chỉ phí hộ gia đình hiện tại`,
-      'unreimbursedNonMedicalChildCare': {
-        'sectionHeading':    `Tiền hợp lý không được bồi thường để chăm sóc trẻ em cho việc không liên quan với y tế`,
-        'subheading':        `Một “đứa trẻ” là một người tự 12 tuổi trở xuống. Xin đừng bao gồm số tiền được trả bởi các chương trình quyền lợi khác.`,
-        'columnExpenseType': `Tiền Chi Phi`,
-        'childDirectCare':   {
-          'label': `Tiền chi phí trực tiếp cho việc chăm sóc`,
-          'hint':  `Bạn trả bao nhiêu cho việc hỗ trợ trẻ em ra khỏi túi?`,
+      title_v1:                        `Chỉ phí hộ gia đình hiện tại`,
+      unreimbursedNonMedicalChildCare: {
+        sectionHeading_v1:    `Tiền hợp lý không được bồi thường để chăm sóc trẻ em cho việc không liên quan với y tế`,
+        subheading_v1:        `Một “đứa trẻ” là một người tự 12 tuổi trở xuống. Xin đừng bao gồm số tiền được trả bởi các chương trình quyền lợi khác.`,
+        columnExpenseType_v1: `Tiền Chi Phi`,
+        childDirectCare:      {
+          label_v1: `Tiền chi phí trực tiếp cho việc chăm sóc`,
+          hint_v1:  `Bạn trả bao nhiêu cho việc hỗ trợ trẻ em ra khỏi túi?`,
         },
-        'childBeforeAndAfterSchoolCare': {
-          'label': `Tiền chăm sóc trước và sau giờ học`,
-          'hint':  `Bạn trả bao nhiêu cho việc giữ trẻ trước hoặc sau giờ học?`,
+        childBeforeAndAfterSchoolCare: {
+          label_v1: `Tiền chăm sóc trước và sau giờ học`,
+          hint_v1:  `Bạn trả bao nhiêu cho việc giữ trẻ trước hoặc sau giờ học?`,
         },
-        'childTransportation': {
-          'label': `Tiền chi phí cho sự chuyên chở`,
-          'hint':  `Bạn trả bao nhiêu cho việc chuyên chở?`,
+        childTransportation: {
+          label_v1: `Tiền chi phí cho sự chuyên chở`,
+          hint_v1:  `Bạn trả bao nhiêu cho việc chuyên chở?`,
         },
-        'childOtherCare': {
-          'label': `Tiền cho việc chăm sóc khác`,
-          'hint':  `Bạn trả bao nhiêu cho bất kỳ dịch vụ khác để chăm sóc trẻ?`,
+        childOtherCare: {
+          label_v1: `Tiền cho việc chăm sóc khác`,
+          hint_v1:  `Bạn trả bao nhiêu cho bất kỳ dịch vụ khác để chăm sóc trẻ?`,
         },
-        'doEarnBecauseOfChildCare': `Các dịch vụ giữ trẻ em có cho phép bạn kiếm thêm thu nhập hay không?`,
-        'earnedBecauseOfChildCare': `Thu nhập thực hiện được do chi phí chăm sóc trẻ em`,
+        doEarnBecauseOfChildCare_v1: `Các dịch vụ giữ trẻ em có cho phép bạn kiếm thêm thu nhập hay không?`,
+        earnedBecauseOfChildCare_v1: `Thu nhập thực hiện được do chi phí chăm sóc trẻ em`,
       },
-      'childSupport': {
-        'sectionHeading':      `Hỗ Trợ Trẻ Em`,
-        'columnExpenseType':   'Tiền Chi Phi',
-        'childSupportPaidOut': {
-          'legallyObligated': `Bắt buộc về mặt pháp lý`,
-          'childSupport':     ` hỗ trợ trẻ em`,
-        },
-      },
-      'housing': {
-        'sectionHeading':      `Việc Nhà Ở`,
-        'monthlyContractRent': {
-          'label': `Hợp Đồng Thuê Hàng Tháng (tổng số tiền thuê nhà của bạn)`,
-          'hint':  `Tổng số tiền thuê nhà hàng tháng của bạn`,
-        },
-        'monthlyRentShare': {
-          'label': `Chia sẻ của tiền thuê nhà hàng tháng của bạn (tổng số tiền thuê bạn phải trả nếu bạn chia sẻ tiền chi phí)`,
-          'hint':  `Bạn phải trả bao nhiêu trong tổng số tiền thuê nhà`,
-        },
-        'utilitiesSubheading': `Trong những ngành phục vụ công cộng, bạn trả tiền cho những cái nào?`,
-        'climateControl':      {
-          'label': `Tiền Cho Sưởi Ấm Hoặc Làm Mát (ví dụ máy lạnh  trong mùa hè)`,
-          'hint':  `Bạn trả bao nhiêu tiền nếu bạn có hóa đơn riêng để sưởi ấm và/hoặc làm mát`,
-        },
-        'nonHeatElectricity': {
-          'label': `Sử dụng điện cho mục đích không sưởi ấm`,
-          'hint':  `Bạn trả bao nhiêu tiền cho bất kỳ việc sử dụng điện (ngoài sự dũng cho sưởi ấm)`,
-        },
-        'phone': {
-          'label': `Dịch vụ điện thoại`,
-          'hint':  `Bạn trả bao nhiêu cho dịch vụ điện thoại cơ bản`,
-        },
-        'fuelAssistance': {
-          'labelText': `Bạn có được hỗ trợ nhiên liệu không?`,
-          'hint':      `Hỗ trợ nhiên liệu giúp bạn trả tiền cho sử sưởi ấm nhiên liệu`,
+      childSupport: {
+        sectionHeading_v1:    `Hỗ Trợ Trẻ Em`,
+        columnExpenseType_v1: `Tiền Chi Phi`,
+        childSupportPaidOut:  {
+          legallyObligated_v1: `Bắt buộc về mặt pháp lý`,
+          childSupport_v1:     ` hỗ trợ trẻ em`,
         },
       },
-      'previous': `Trang Trước`,
-      'next':     `Trang Kế Tiếp`,
+      housing: {
+        sectionHeading_v1:   `Việc Nhà Ở`,
+        monthlyContractRent: {
+          label_v1: `Hợp Đồng Thuê Hàng Tháng (tổng số tiền thuê nhà của bạn)`,
+          hint_v1:  `Tổng số tiền thuê nhà hàng tháng của bạn`,
+        },
+        monthlyRentShare: {
+          label_v1: `Chia sẻ của tiền thuê nhà hàng tháng của bạn (tổng số tiền thuê bạn phải trả nếu bạn chia sẻ tiền chi phí)`,
+          hint_v1:  `Bạn phải trả bao nhiêu trong tổng số tiền thuê nhà`,
+        },
+        utilitiesSubheading_v1: `Trong những ngành phục vụ công cộng, bạn trả tiền cho những cái nào?`,
+        climateControl:      {
+          label_v1: `Tiền Cho Sưởi Ấm Hoặc Làm Mát (ví dụ máy lạnh  trong mùa hè)`,
+          hint_v1:  `Bạn trả bao nhiêu tiền nếu bạn có hóa đơn riêng để sưởi ấm và/hoặc làm mát`,
+        },
+        nonHeatElectricity: {
+          label_v1: `Sử dụng điện cho mục đích không sưởi ấm`,
+          hint_v1:  `Bạn trả bao nhiêu tiền cho bất kỳ việc sử dụng điện (ngoài sự dũng cho sưởi ấm)`,
+        },
+        phone: {
+          label_v1: `Dịch vụ điện thoại`,
+          hint_v1:  `Bạn trả bao nhiêu cho dịch vụ điện thoại cơ bản`,
+        },
+        fuelAssistance: {
+          label_v1: `Bạn có được hỗ trợ nhiên liệu không?`,
+          hint_v1:  `Hỗ trợ nhiên liệu giúp bạn trả tiền cho sử sưởi ấm nhiên liệu`,
+        },
+      },
+      previous_v1: `Trang Trước`,
+      next_v1:     `Trang Kế Tiếp`,
     },
 
     predictions: {
