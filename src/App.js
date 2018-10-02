@@ -71,7 +71,6 @@ class App extends Component {
      *  @property {boolean} devProps.dev - whether dev HUD is turned on
      *  @property {boolean} devProps.english - whether to highlight English snippets
      *  @property {boolean} devProps.nonEnglish - whether to highlight snippets in the current language, if that language is not English
-     *  @property {boolean} devProps.loadClient - @techExpertisePlease wait, what does this actually do?
      */
     this.state = {
       langCode: `en`,
@@ -87,14 +86,14 @@ class App extends Component {
         devHidden:  false,
         english:    true,
         nonEnglish: true,
-        loadClient: true,
         ...localDev,
       },
     };
   };  // End constructor()
 
   /**
-   * Set the human language of the app (ie the language in which the UI will display text for users to read, NOT the coding language).
+   * Set the human language of the app (i.e. the language in which the UI will
+   * display text for users to read, NOT the coding language).
    * @method
    * @param {object} evnt - The event object from an input that uses this event handler (not used)
    * @param {object} inputProps - An object representing the properties of the Semantic UI React input component which triggered the language change.
@@ -126,8 +125,8 @@ class App extends Component {
     });
   };  // End setDev()
 
-  /** Load an individual client's data.
-   * The client data to load comes from a text input field in the Dev HUD
+  /** Load an individual client's data. Currently, the only source of client
+   * data to load is a text input field in the Dev HUD.
    * @method
    * @param {object} params
    * @param {object} params.toLoad - A JSON object representing the client data
@@ -161,7 +160,6 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
-  /** Render the App component. */
   render () {
     var {
       langCode,
