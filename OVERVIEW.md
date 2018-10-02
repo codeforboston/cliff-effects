@@ -111,7 +111,7 @@ The type of interaction our partners were looking for was a user-friendly one. S
 
 ### G1. WARNING: Values the user shouldn't change
 
-The options for what circumstances the user can try to predict can be expanded. That said, never allow users to change certain kinds of future values. For example, a value like `future.rentShare` - they're not in charge of their subsidy. They can change `future.contractRent`, which is out of their control, but still something that the calculations aren't changing themselves.
+In the future, this tool could let users try out changes in multiple life circumstances, not just their future income. That said, it should never allow users to change certain kinds of future values. For example, the client currently needs to put in their _current_ rent share, but they should never be able to change their future rent share amount - that's for the tool to calculate. They can change their future contract rent, in case their landlord is changing the total rent, but never the rent share.
 
 ### G2. Snippets
 
