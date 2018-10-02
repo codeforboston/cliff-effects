@@ -157,7 +157,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         { snippets.i_warningMessage }
         <br />
         <Button
-          className="prediction-button"
+          id="prediction-button"
           fluid
           color='teal'
           onClick={ openFeedback }>
