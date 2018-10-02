@@ -4,8 +4,7 @@ import { ExternalLink } from '../forms/formHelpers';
 
 // CUSTOM COMPONENTS
 
-/** Todo simplify the process of creating content for the 'About' page */
-
+// @todo Put in AboutPage now that editing content is in snippets.
 const AboutContent = function ({ snippets }) {
   return (
     <div>
