@@ -96,4 +96,9 @@ const valueFixers = {
 };  // end valueFixers
 
 
-export { valueFixers, returnSame, stringToNumber, toBoolean };
+export {
+  valueFixers,
+  returnSame,
+  stringToNumber,
+  toBoolean,
+};

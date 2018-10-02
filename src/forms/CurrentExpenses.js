@@ -109,16 +109,18 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
 const Utilities = function ({ current, type, time, updateClientValue }) {
 
-  let climate     = current.climateControl,
-      electricity = current.nonHeatElectricity,
-      phone       = current.phone,
-      fuelAssist  = current.fuelAssistance;
+  let hasClimate     = current.climateControl,
+      hasElectricity = current.nonHeatElectricity,
+      hasPhone       = current.phone,
+      hasFuelAssist  = current.fuelAssistance;
 
   let setChecked = function (evnt, inputProps) {
     var obj = { ...inputProps, value: inputProps.checked };
     updateClientValue(evnt, obj);
   };  // End setChecked()
 
+  // May want to change name to 'utilities' and value to what's 'name' now
+  // Will require more work in the change handler
   return (
     <div>
       <Header as='h4'>Which of these utilities do you pay for?</Header>
@@ -126,28 +128,28 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       <Checkbox
         name={ 'climateControl' }
         label={ 'Heating or cooling (e.g. A/C during summer)' }
-        checked={ climate }
+        checked={ hasClimate }
         onChange={ setChecked } />
       <br />
       <Checkbox
         name={ 'nonHeatElectricity' }
         label={ 'Electricity for non-heating purposes' }
-        checked={ electricity }
+        checked={ hasElectricity }
         onChange={ setChecked } />
       <br />
       <Checkbox
         name={ 'phone' }
         label={ 'Telephone service' }
-        checked={ phone }
+        checked={ hasPhone }
         onChange={ setChecked } />
 
       <br />
       <br />
       <ControlledRadioYesNo
-        labelText          = { 'Do you get Fuel Assistance?' }
-        value              = { fuelAssist }
-        name               = { 'fuelAssistance' }
-        updateClientValue  = { updateClientValue } />
+        labelText = { 'Do you get Fuel Assistance?' }
+        checked   = { hasFuelAssist }
+        name      = { 'fuelAssistance' }
+        onChange  = { updateClientValue } />
 
     </div>
 
