@@ -124,17 +124,17 @@ export default {
     },
 
     household: {
-      'title':           `Hộ Gia Đình`,
-      'clarifier':       `Thông tin về các thành viên trong hộ gia đình của bạn.`,
-      'role':            `Vai`,
-      'age':             `Tuổi Tác`,
-      'disabled':        `Tàn Tật`,
-      'headOfHousehold': `Chủ Hộ`,
-      'addMember':       `Thêm Thành Viên`,
-      'spouse':          `Vợ/Chồng của Chủ Hộ`,
-      'childOther':      `Trẻ Em/Thành Viên Khác Trong Gia Đình`,
-      'previous':        `Trang Trước`,
-      'next':            `Trang Kế Tiếp`,
+      title_v1:           `Hộ Gia Đình`,
+      clarifier_v1:       `Thông tin về các thành viên trong hộ gia đình của bạn.`,
+      role_v1:            `Vai`,
+      age_v1:             `Tuổi Tác`,
+      disabled_v1:        `Tàn Tật`,
+      headOfHousehold_v1: `Chủ Hộ`,
+      addMember_v1:       `Thêm Thành Viên`,
+      spouse_v1:          `Vợ/Chồng của Chủ Hộ`,
+      childOther_v1:      `Trẻ Em/Thành Viên Khác Trong Gia Đình`,
+      previous_v1:        `Trang Trước`,
+      next_v1:            `Trang Kế Tiếp`,
     },
 
     currentIncome: {
