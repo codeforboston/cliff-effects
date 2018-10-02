@@ -39,6 +39,11 @@
   white-space: pre-wrap;
 }
 
+#App.dev.devHidden .dev-menu {
+  height: 0;
+  overflow: hidden;
+}
+
 .dev.english .snippet[lang="en"] {
   color: red;
   text-decoration: underline red double;
