@@ -54,6 +54,7 @@ class App extends Component {
       // They get added as classes. May want to rethink.
       devProps: {
         dev:        false,
+        devHidden:  false,
         english:    true,
         nonEnglish: true,
         loadClient: true,

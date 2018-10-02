@@ -140,7 +140,7 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
       >
               Fuel Assistance helps you pay for heating fuel
       </span>,
-            "i_labelText": <span
+            "i_label": <span
               className="snippet"
               lang="en"
       >
