@@ -111,7 +111,7 @@ The type of interaction our partners were looking for was a user-friendly one. S
 
 ### G1. WARNING: Values the user shouldn't change
 
-In the future, this tool could let users try out changes in multiple life circumstances, not just their future income. That said, it should never allow users to change certain kinds of future values. For example, the client currently needs to put in their _current_ rent share, but they should never be able to change their future rent share amount - that's for the tool to calculate. They can change their future contract rent, in case their landlord is changing the total rent, but never the rent share.
+In the future, this tool could let users try out changes in multiple life circumstances, not just their future income. That said, it should never allow users to change certain kinds of future values. For example, right now the rent share looks like an input _and_ an output. Rent share is just another way of showing the amount of the housing voucher and it _is_ an input for current values. We need that information to calculate future values of the housing voucher. Because we ourselves calculate future values, though, it absolutely can't be a user input field for future values. Basically, you can't put something as an input if it's already a calculated result from the app.
 
 ### G2. Snippets
 
