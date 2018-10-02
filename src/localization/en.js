@@ -138,55 +138,55 @@ export default {
     },
 
     currentIncome: {
-      title:                  `Current Household Income`,
-      clarifier:              `Income that you collected in the past 12 months.`,
-      explainSnapCalculation: `This prototype will attempt to make its own calculations for SNAP amount`,
-      earnedIncome:           {
-        label: `Earned income`,
-        hint:  `Earned income is how much you and your family get paid from working`,
+      title_v1:                  `Current Household Income`,
+      clarifier_v1:              `Income that you collected in the past 12 months.`,
+      explainSnapCalculation_v1: `This prototype will attempt to make its own calculations for SNAP amount`,
+      earnedIncome:              {
+        label_v1: `Earned income`,
+        hint_v1:  `Earned income is how much you and your family get paid from working`,
       },
       TAFDC: {
-        label: `TAFDC`,
-        hint:  `Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children`,
+        label_v1: `TAFDC`,
+        hint_v1:  `Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children`,
       },
       SSI: {
-        label: `SSI`,
-        hint:  `Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled`,
+        label_v1: `SSI`,
+        hint_v1:  `Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled`,
       },
       SSDI: {
-        label: `SSDI`,
-        hint:  `Social Security Disability Income is a federal program to help people with disabilities`,
+        label_v1: `SSDI`,
+        hint_v1:  `Social Security Disability Income is a federal program to help people with disabilities`,
       },
       childSupport: {
-        label: `Child support recieved`,
-        hint:  `Child support is money paid to you by a former spouse to help your child`,
+        label_v1: `Child support recieved`,
+        hint_v1:  `Child support is money paid to you by a former spouse to help your child`,
       },
       unemployment: {
-        label: `Unemployment`,
-        hint:  `Unemployment benefits provide income to people who have been laid off`,
+        label_v1: `Unemployment`,
+        hint_v1:  `Unemployment benefits provide income to people who have been laid off`,
       },
       workersComp: {
-        label: `Worker's compensation`,
-        hint:  `Worker's Compensation provides assistance for people who have been injured on the job`,
+        label_v1: `Worker's compensation`,
+        hint_v1:  `Worker's Compensation provides assistance for people who have been injured on the job`,
       },
       pension: {
-        label: `Pension`,
-        hint:  `A pension provides income to retirees, usually from their former employers`,
+        label_v1: `Pension`,
+        hint_v1:  `A pension provides income to retirees, usually from their former employers`,
       },
       socialSecurity: {
-        label: `Social security`,
-        hint:  `Social Security is a federal program that provides assistance to retirees`,
+        label_v1: `Social security`,
+        hint_v1:  `Social Security is a federal program that provides assistance to retirees`,
       },
       alimony: {
-        label: `Alimony`,
-        hint:  `Alimony is money paid by one spouse to the other after a divorce`,
+        label_v1: `Alimony`,
+        hint_v1:  `Alimony is money paid by one spouse to the other after a divorce`,
       },
       otherIncome: {
-        label: `Other income`,
-        hint:  `Please note income you may have from sources that are not listed above`,
+        label_v1: `Other income`,
+        hint_v1:  `Please note income you may have from sources that are not listed above`,
       },
-      previous: `Previous`,
-      next:     `Next`,
+      previous_v1: `Previous`,
+      next_v1:     `Next`,
     },
 
     currentExpenses: {
