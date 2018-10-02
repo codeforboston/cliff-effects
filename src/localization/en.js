@@ -124,17 +124,17 @@ export default {
     },
 
     household: {
-      title:           `Household`,
-      clarifier:       `Information about the members of your household.`,
-      role:            `Role`,
-      age:             `Age`,
-      disabled:        `Disabled`,
-      headOfHousehold: `Head of Household`,
-      addMember:       `Add a member`,
-      spouse:          `Spouse of Head of Household`,
-      childOther:      `Child/Other Household Member`,
-      previous:        `Previous`,
-      next:            `Next`,
+      title_v1:           `Household`,
+      clarifier_v1:       `Information about the members of your household.`,
+      role_v1:            `Role`,
+      age_v1:             `Age`,
+      disabled_v1:        `Disabled`,
+      headOfHousehold_v1: `Head of Household`,
+      addMember_v1:       `Add a member`,
+      spouse_v1:          `Spouse of Head of Household`,
+      childOther_v1:      `Child/Other Household Member`,
+      previous_v1:        `Previous`,
+      next_v1:            `Next`,
     },
 
     currentIncome: {
