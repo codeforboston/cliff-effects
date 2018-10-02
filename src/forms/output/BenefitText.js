@@ -284,8 +284,10 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
   // Really quick returns if other calcs not needed
   if (resourceKeys.length <= 1) {
-    return `If you're not in any benefit programs, this tool can't help you. ` +
-    `If you're trying to find help getting into a benefit program, try ` +
+    return `On the first page of questions you didn't choose any ` +
+    `of the benefits. If you're not getting any benefits now, ` +
+    `this tool can't tell you if you will get any in the future. If ` +
+    `you're trying to find help getting into a benefit program, try ` +
     `searching for "social services" in your local area.`;
   }
   if (client.future.earned === client.current.earned) {
