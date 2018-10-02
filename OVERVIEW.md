@@ -10,7 +10,7 @@ The tool is not meant to be used to make financial decisions. We didn't have acc
 
 ### Summary
 
-The client puts in their information. Valid answers ([see the definition of valid input](#d1-valid-input)) is processed into the [`client`](#d2-the-client-object) object. Calculations are made, and the result of the calculations are displayed.
+The client puts in their information. Valid answers ([see the definition of valid input](#d1-valid-input)) are processed into the [`client`](#d2-the-client-object) object. Calculations are made, and the result of the calculations are displayed.
 
 1. At the start, the client data is filled with valid default values (to be linked). That practice is [an open question](#e3-default-client-data).
 2. The client then answers questions.
@@ -115,7 +115,7 @@ The options for what circumstances the user can try to predict can be expanded. 
 
 ### G2. Snippets
 
-Snippets are the way we're working on making the app translatable. As you can see, they have version numbers in the language files. When big changes are made to an English snippet, we bump up that snippet's version number. We then use that to be able to tell what snippets are out of date in other languages. If a snippet is out of date in another language, the app uses the English snippet by default. When another language's snippet is brought up-to-date with the English one, it's version number is updated and it will be used in the app again.
+Snippets are the way we're working on making the app translatable. As you can see, they have version numbers in the language files. When big changes are made to an English snippet, we bump up that snippet's version number. We then use that to be able to tell what snippets are out of date in other languages. If a snippet is out of date in another language, the app uses the English snippet by default. When another language's snippet is brought up-to-date with the English one, its version number is updated and it will be used in the app again.
 
 When the code preps the snippets for the app, though, it gets rid of the version numbers so that it'll be easier to maintain the code as snippets change. Because we don't want the key name change to be invisible, we decided to add `i_` to the beginning of the snippet. That way a person new to the project can at least see that the weirdness is deliberate and can easily search the code for `i_` to find the source.
 
