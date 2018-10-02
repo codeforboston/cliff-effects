@@ -124,134 +124,134 @@ export default {
     },
 
     household: {
-      'title':           `Hộ Gia Đình`,
-      'clarifier':       `Thông tin về các thành viên trong hộ gia đình của bạn.`,
-      'role':            `Vai`,
-      'age':             `Tuổi Tác`,
-      'disabled':        `Tàn Tật`,
-      'headOfHousehold': `Chủ Hộ`,
-      'addMember':       `Thêm Thành Viên`,
-      'spouse':          `Vợ/Chồng của Chủ Hộ`,
-      'childOther':      `Trẻ Em/Thành Viên Khác Trong Gia Đình`,
-      'previous':        `Trang Trước`,
-      'next':            `Trang Kế Tiếp`,
+      title_v1:           `Hộ Gia Đình`,
+      clarifier_v1:       `Thông tin về các thành viên trong hộ gia đình của bạn.`,
+      role_v1:            `Vai`,
+      age_v1:             `Tuổi Tác`,
+      disabled_v1:        `Tàn Tật`,
+      headOfHousehold_v1: `Chủ Hộ`,
+      addMember_v1:       `Thêm Thành Viên`,
+      spouse_v1:          `Vợ/Chồng của Chủ Hộ`,
+      childOther_v1:      `Trẻ Em/Thành Viên Khác Trong Gia Đình`,
+      previous_v1:        `Trang Trước`,
+      next_v1:            `Trang Kế Tiếp`,
     },
 
     currentIncome: {
-      'title':                  `Lượng hiện tại của hộ gia đình`,
-      'clarifier':              `Tiền lương bạn đã thu được trong 12 tháng qua.`,
-      'explainSnapCalculation': `Nguyên mẫu này sẽ tính toán số tiền nhận được từ chương trình phiếu mua hàng SNAP`,
-      'earnedIncome':           {
-        label: `Tiền lương kiếm được`,
-        hint:  `Tiền lương kiếm được là bao nhiêu bạn và gia đình bạn được trả lúc đi làm`,
+      title_v1:                  `Lượng hiện tại của hộ gia đình`,
+      clarifier_v1:              `Tiền lương bạn đã thu được trong 12 tháng qua.`,
+      explainSnapCalculation_v1: `Nguyên mẫu này sẽ tính toán số tiền nhận được từ chương trình phiếu mua hàng SNAP`,
+      earnedIncome:              {
+        label_v1: `Tiền lương kiếm được`,
+        hint_v1:  `Tiền lương kiếm được là bao nhiêu bạn và gia đình bạn được trả lúc đi làm`,
       },
-      'TAFDC': {
-        label: `TAFDC`,
-        hint:  `Chương trình TAFDC (Transitional Aid to Families with Dependent Children) cung cấp hỗ trợ tài chính trong thời gian ngắn cho các gia đình có con`,
+      TAFDC: {
+        label_v1: `TAFDC`,
+        hint_v1:  `Chương trình TAFDC (Transitional Aid to Families with Dependent Children) cung cấp hỗ trợ tài chính trong thời gian ngắn cho các gia đình có con`,
       },
-      'SSI': {
-        label: `SSI`,
-        hint:  `Chương trình liên bang SSI (Supplemental Security Income) cung cấp hỗ trợ tài chính và chăm sóc sức khỏe cho những người từ 65 tuổi trở lên, hoặc những người bị mù hoặc tàn tật`,
+      SSI: {
+        label_v1: `SSI`,
+        hint_v1:  `Chương trình liên bang SSI (Supplemental Security Income) cung cấp hỗ trợ tài chính và chăm sóc sức khỏe cho những người từ 65 tuổi trở lên, hoặc những người bị mù hoặc tàn tật`,
       },
-      'SSDI': {
-        label: `SSDI`,
-        hint:  `Chương trình liên bang SSDI (Social Security Disability Income) giúp đỡ người tàn tật`,
+      SSDI: {
+        label_v1: `SSDI`,
+        hint_v1:  `Chương trình liên bang SSDI (Social Security Disability Income) giúp đỡ người tàn tật`,
       },
-      'childSupport': {
-        label: `Tiền hỗ trợ trẻ em nhận được`,
-        hint:  `Tiền hỗ trợ trẻ em là tiền trả cho bạn bởi người phối ngẫu để giúp con bạn`,
+      childSupport: {
+        label_v1: `Tiền hỗ trợ trẻ em nhận được`,
+        hint_v1:  `Tiền hỗ trợ trẻ em là tiền trả cho bạn bởi người phối ngẫu để giúp con bạn`,
       },
-      'unemployment': {
-        label: `Tiến thất nghiệp`,
-        hint:  `Tiền trợ cấp thất nghiệp cung cấp thu nhập cho những người đã bị sa thải`,
+      unemployment: {
+        label_v1: `Tiến thất nghiệp`,
+        hint_v1:  `Tiền trợ cấp thất nghiệp cung cấp thu nhập cho những người đã bị sa thải`,
       },
-      'workersComp': {
-        label: `Tiền bồi thường lao động`,
-        hint:  `Tiền bồi thường lao động cung cấp hỗ trợ cho những người đã bị thương  trong công việc`,
+      workersComp: {
+        label_v1: `Tiền bồi thường lao động`,
+        hint_v1:  `Tiền bồi thường lao động cung cấp hỗ trợ cho những người đã bị thương  trong công việc`,
       },
-      'pension': {
-        label: `Tiền lương hưu`,
-        hint:  `Tiền lương hưu cung cấp thu nhập cho người về hưu, thường là từ các chủ trước của họ`,
+      pension: {
+        label_v1: `Tiền lương hưu`,
+        hint_v1:  `Tiền lương hưu cung cấp thu nhập cho người về hưu, thường là từ các chủ trước của họ`,
       },
-      'socialSecurity': {
-        label: `Tiền an ninh xã hội`,
-        hint:  `Tiền an ninh xã hội là một chương trình liên bang cung cấp hỗ trợ cho người về hưu`,
+      socialSecurity: {
+        label_v1: `Tiền an ninh xã hội`,
+        hint_v1:  `Tiền an ninh xã hội là một chương trình liên bang cung cấp hỗ trợ cho người về hưu`,
       },
-      'alimony': {
-        label: `Tiền cấp dưởng`,
-        hint:  `Tiền cấp dưởng là tiền do vợ/chồng trả tiền cho người kia sau khi ly dị`,
+      alimony: {
+        label_v1: `Tiền cấp dưởng`,
+        hint_v1:  `Tiền cấp dưởng là tiền do vợ/chồng trả tiền cho người kia sau khi ly dị`,
       },
-      'otherIncome': {
-        label: `Thu nhập khác`,
-        hint:  `Xin vui lòng cho biết thu nhập bạn có thể có từ các nguồn không được liệt kê ở trên`,
+      otherIncome: {
+        label_v1: `Thu nhập khác`,
+        hint_v1:  `Xin vui lòng cho biết thu nhập bạn có thể có từ các nguồn không được liệt kê ở trên`,
       },
-      'previous': `Trang Trước`,
-      'next':     `Trang Kế Tiếp`,
+      previous_v1: `Trang Trước`,
+      next_v1:     `Trang Kế Tiếp`,
     },
 
     currentExpenses: {
-      'title':                           `Chỉ phí hộ gia đình hiện tại`,
-      'unreimbursedNonMedicalChildCare': {
-        'sectionHeading':    `Tiền hợp lý không được bồi thường để chăm sóc trẻ em cho việc không liên quan với y tế`,
-        'subheading':        `Một “đứa trẻ” là một người tự 12 tuổi trở xuống. Xin đừng bao gồm số tiền được trả bởi các chương trình quyền lợi khác.`,
-        'columnExpenseType': `Tiền Chi Phi`,
-        'childDirectCare':   {
-          'label': `Tiền chi phí trực tiếp cho việc chăm sóc`,
-          'hint':  `Bạn trả bao nhiêu cho việc hỗ trợ trẻ em ra khỏi túi?`,
+      title_v1:                        `Chỉ phí hộ gia đình hiện tại`,
+      unreimbursedNonMedicalChildCare: {
+        sectionHeading_v1:    `Tiền hợp lý không được bồi thường để chăm sóc trẻ em cho việc không liên quan với y tế`,
+        subheading_v1:        `Một “đứa trẻ” là một người tự 12 tuổi trở xuống. Xin đừng bao gồm số tiền được trả bởi các chương trình quyền lợi khác.`,
+        columnExpenseType_v1: `Tiền Chi Phi`,
+        childDirectCare:      {
+          label_v1: `Tiền chi phí trực tiếp cho việc chăm sóc`,
+          hint_v1:  `Bạn trả bao nhiêu cho việc hỗ trợ trẻ em ra khỏi túi?`,
         },
-        'childBeforeAndAfterSchoolCare': {
-          'label': `Tiền chăm sóc trước và sau giờ học`,
-          'hint':  `Bạn trả bao nhiêu cho việc giữ trẻ trước hoặc sau giờ học?`,
+        childBeforeAndAfterSchoolCare: {
+          label_v1: `Tiền chăm sóc trước và sau giờ học`,
+          hint_v1:  `Bạn trả bao nhiêu cho việc giữ trẻ trước hoặc sau giờ học?`,
         },
-        'childTransportation': {
-          'label': `Tiền chi phí cho sự chuyên chở`,
-          'hint':  `Bạn trả bao nhiêu cho việc chuyên chở?`,
+        childTransportation: {
+          label_v1: `Tiền chi phí cho sự chuyên chở`,
+          hint_v1:  `Bạn trả bao nhiêu cho việc chuyên chở?`,
         },
-        'childOtherCare': {
-          'label': `Tiền cho việc chăm sóc khác`,
-          'hint':  `Bạn trả bao nhiêu cho bất kỳ dịch vụ khác để chăm sóc trẻ?`,
+        childOtherCare: {
+          label_v1: `Tiền cho việc chăm sóc khác`,
+          hint_v1:  `Bạn trả bao nhiêu cho bất kỳ dịch vụ khác để chăm sóc trẻ?`,
         },
-        'doEarnBecauseOfChildCare': `Các dịch vụ giữ trẻ em có cho phép bạn kiếm thêm thu nhập hay không?`,
-        'earnedBecauseOfChildCare': `Thu nhập thực hiện được do chi phí chăm sóc trẻ em`,
+        doEarnBecauseOfChildCare_v1: `Các dịch vụ giữ trẻ em có cho phép bạn kiếm thêm thu nhập hay không?`,
+        earnedBecauseOfChildCare_v1: `Thu nhập thực hiện được do chi phí chăm sóc trẻ em`,
       },
-      'childSupport': {
-        'sectionHeading':      `Hỗ Trợ Trẻ Em`,
-        'columnExpenseType':   'Tiền Chi Phi',
-        'childSupportPaidOut': {
-          'legallyObligated': `Bắt buộc về mặt pháp lý`,
-          'childSupport':     ` hỗ trợ trẻ em`,
-        },
-      },
-      'housing': {
-        'sectionHeading':      `Việc Nhà Ở`,
-        'monthlyContractRent': {
-          'label': `Hợp Đồng Thuê Hàng Tháng (tổng số tiền thuê nhà của bạn)`,
-          'hint':  `Tổng số tiền thuê nhà hàng tháng của bạn`,
-        },
-        'monthlyRentShare': {
-          'label': `Chia sẻ của tiền thuê nhà hàng tháng của bạn (tổng số tiền thuê bạn phải trả nếu bạn chia sẻ tiền chi phí)`,
-          'hint':  `Bạn phải trả bao nhiêu trong tổng số tiền thuê nhà`,
-        },
-        'utilitiesSubheading': `Trong những ngành phục vụ công cộng, bạn trả tiền cho những cái nào?`,
-        'climateControl':      {
-          'label': `Tiền Cho Sưởi Ấm Hoặc Làm Mát (ví dụ máy lạnh  trong mùa hè)`,
-          'hint':  `Bạn trả bao nhiêu tiền nếu bạn có hóa đơn riêng để sưởi ấm và/hoặc làm mát`,
-        },
-        'nonHeatElectricity': {
-          'label': `Sử dụng điện cho mục đích không sưởi ấm`,
-          'hint':  `Bạn trả bao nhiêu tiền cho bất kỳ việc sử dụng điện (ngoài sự dũng cho sưởi ấm)`,
-        },
-        'phone': {
-          'label': `Dịch vụ điện thoại`,
-          'hint':  `Bạn trả bao nhiêu cho dịch vụ điện thoại cơ bản`,
-        },
-        'fuelAssistance': {
-          'labelText': `Bạn có được hỗ trợ nhiên liệu không?`,
-          'hint':      `Hỗ trợ nhiên liệu giúp bạn trả tiền cho sử sưởi ấm nhiên liệu`,
+      childSupport: {
+        sectionHeading_v1:    `Hỗ Trợ Trẻ Em`,
+        columnExpenseType_v1: `Tiền Chi Phi`,
+        childSupportPaidOut:  {
+          legallyObligated_v1: `Bắt buộc về mặt pháp lý`,
+          childSupport_v1:     ` hỗ trợ trẻ em`,
         },
       },
-      'previous': `Trang Trước`,
-      'next':     `Trang Kế Tiếp`,
+      housing: {
+        sectionHeading_v1:   `Việc Nhà Ở`,
+        monthlyContractRent: {
+          label_v1: `Hợp Đồng Thuê Hàng Tháng (tổng số tiền thuê nhà của bạn)`,
+          hint_v1:  `Tổng số tiền thuê nhà hàng tháng của bạn`,
+        },
+        monthlyRentShare: {
+          label_v1: `Chia sẻ của tiền thuê nhà hàng tháng của bạn (tổng số tiền thuê bạn phải trả nếu bạn chia sẻ tiền chi phí)`,
+          hint_v1:  `Bạn phải trả bao nhiêu trong tổng số tiền thuê nhà`,
+        },
+        utilitiesSubheading_v1: `Trong những ngành phục vụ công cộng, bạn trả tiền cho những cái nào?`,
+        climateControl:      {
+          label_v1: `Tiền Cho Sưởi Ấm Hoặc Làm Mát (ví dụ máy lạnh  trong mùa hè)`,
+          hint_v1:  `Bạn trả bao nhiêu tiền nếu bạn có hóa đơn riêng để sưởi ấm và/hoặc làm mát`,
+        },
+        nonHeatElectricity: {
+          label_v1: `Sử dụng điện cho mục đích không sưởi ấm`,
+          hint_v1:  `Bạn trả bao nhiêu tiền cho bất kỳ việc sử dụng điện (ngoài sự dũng cho sưởi ấm)`,
+        },
+        phone: {
+          label_v1: `Dịch vụ điện thoại`,
+          hint_v1:  `Bạn trả bao nhiêu cho dịch vụ điện thoại cơ bản`,
+        },
+        fuelAssistance: {
+          label_v1: `Bạn có được hỗ trợ nhiên liệu không?`,
+          hint_v1:  `Hỗ trợ nhiên liệu giúp bạn trả tiền cho sử sưởi ấm nhiên liệu`,
+        },
+      },
+      previous_v1: `Trang Trước`,
+      next_v1:     `Trang Kế Tiếp`,
     },
 
     predictions: {

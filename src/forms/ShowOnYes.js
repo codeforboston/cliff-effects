@@ -27,8 +27,7 @@ class ShowOnYes extends React.Component {
   }
 
   handleChange = (evt, inputProps) => {
-
-    if (inputProps.value === 'Yes') {
+    if (inputProps.value === true) {
       this.showChildren(evt);
     } else {
       this.hideChildren(evt);
@@ -64,7 +63,6 @@ class ShowOnYes extends React.Component {
     } = this.props;
 
     var show = this.state.show;
-
     return (
       <div className = { `show-on-yes` }>
 
@@ -72,17 +70,13 @@ class ShowOnYes extends React.Component {
 
         <Surrounder { ...rest } >
           <ControlledRadioYesNo
-            labelText         = { question }
-            value             = { show }
-            name              = { 'confirm_' + childName }
-            updateClientValue = { this.handleChange } />
+            labelText = { question }
+            checked   = { show }
+            name      = { 'confirm_' + childName }
+            onChange  = { this.handleChange } />
         </Surrounder>
         
-        {show ? (
-          children
-        ) : (
-          null
-        )}
+        { show ? (children) : (null) }
 
       </div>
     );

@@ -34,7 +34,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
   /** @todo If there are enough dev features for it,
    *    make menu categories collapsible. */
   return (
-    <div>
+    <div className = { `dev-menu` } >
       <Menu.Item header>> Snippets</Menu.Item>
       <Menu.Item>
         <Checkbox
@@ -81,54 +81,36 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
 
 class DevHud extends Component {
 
-  state = {
-    hiderText:  `^ --- Hide --- ^`,
-    toHideText: `^ --- Hide --- ^`,
-  };
-
   toggleHiding = () => {
-    this.setState((prevState) => {
-      if (prevState.hiderText === prevState.toHideText) {
-        return { hiderText: `v --- Show dev HUD --- v` };
-      } else {
-        return { hiderText: prevState.toHideText };
-      }
-    });
+    var props    = this.props,
+        setDev   = props.funcs.setDev,
+        devProps = props.devProps;
+
+    var doShow = !devProps.devHidden;
+    setDev(`devHidden`, doShow);
   };
 
   toggleEnglish = () => {
-    var props  = this.props,
-        setDev = props.funcs.setDev;
-
-    if (props.devProps.english) {
-      setDev(`english`, false);
-    } else {
-      setDev(`english`, true);
-    }
+    var setDev  = this.props.funcs.setDev,
+        english = this.props.devProps.english;
+    setDev(`english`, !english);
   };
 
   toggleNonEnglish = () => {
-    var props  = this.props,
-        setDev = props.funcs.setDev;
-
-    if (props.devProps.nonEnglish) {
-      setDev(`nonEnglish`, false);
-    } else {
-      setDev(`nonEnglish`, true);
-    }
+    var setDev     = this.props.funcs.setDev,
+        nonEnglish = this.props.devProps.nonEnglish;
+    setDev(`english`, !nonEnglish);
   };
 
   render () {
 
-    var hiderText = this.state.hiderText,
-        hidden    = hiderText !== this.state.toHideText,
-        {
+    var {
           devProps,
           funcs,
           data,
           state,
         } = this.props,
-        devFuncs     = {
+        devFuncs = {
           ...funcs,
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
@@ -139,18 +121,15 @@ class DevHud extends Component {
         className = { `dev-hud` }
         compact
         vertical>
-        { !hidden ?
-          <DevMenu 
-            devProps = { devProps }
-            funcs    = { devFuncs }
-            data     = { data }
-            state    = { state } />
-          : null
-        }
+        <DevMenu 
+          devProps  = { devProps }
+          funcs     = { devFuncs }
+          data      = { data }
+          state     = { state } />
         <Button
           className = { `hide` }
           onClick   = { this.toggleHiding }>
-          { hiderText }
+          { devProps.devHidden ? (`Show`) : (`Hide`) }
         </Button>
       </Menu>
     );
@@ -159,4 +138,4 @@ class DevHud extends Component {
 };
 
 
-export { DevHud };
+export { DevHud, DevMenu };
