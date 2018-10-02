@@ -119,6 +119,13 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
     updateClientValue(evnt, obj);
   };  // End setChecked()
 
+  // For keyboard access (already does spacebar)
+  let onKeyDown = function (evnt) {
+    if (evnt.key === `Enter`) {
+      evnt.target.click();
+    }
+  };
+
   // May want to change name to 'utilities' and value to what's 'name' now
   // Will require more work in the change handler
   return (
@@ -129,20 +136,22 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
         name={ 'climateControl' }
         label={ 'Heating or cooling (e.g. A/C during summer)' }
         checked={ hasClimate }
-        onChange={ setChecked } />
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
         name={ 'nonHeatElectricity' }
         label={ 'Electricity for non-heating purposes' }
         checked={ hasElectricity }
-        onChange={ setChecked } />
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
         name={ 'phone' }
         label={ 'Telephone service' }
         checked={ hasPhone }
-        onChange={ setChecked } />
-
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <br />
       <ControlledRadioYesNo

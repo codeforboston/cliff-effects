@@ -29,6 +29,14 @@ class HeadingWithDetail extends Component {
     });
   };
 
+  // For keyboard access
+  // 'Icon' won't take `onKeyDown` event handler
+  onKeyDown = (evnt) => {
+    if (evnt.key === `Enter`) {
+      this.toggleDetails();
+    }
+  };
+
   render () {
     var { showDetails } = this.state;
 
@@ -55,11 +63,14 @@ class HeadingWithDetail extends Component {
         
         <Surrounder
           Right = {
-            <Icon
-              name      = { iconName }
-              color     = { iconColor }
-              className = { `details-icon` }
-              onClick   = { this.toggleDetails } />
+            <span onKeyDown = { this.onKeyDown } >
+              <Icon
+                tabIndex  = { 0 }
+                name      = { iconName }
+                color     = { iconColor }
+                className = { `details-icon` }
+                onClick   = { this.toggleDetails } />
+            </span>
           }
           Bottom = {
             <Transition

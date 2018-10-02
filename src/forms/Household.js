@@ -213,6 +213,14 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
   };  // End removeMember()
 
 
+  // For keyboard access (already does spacebar)
+  var onKeyDown = function (evnt) {
+    if (evnt.key === `Enter`) {
+      evnt.target.click();
+    }
+  };
+
+
   // The font size thing is a bit weird, but... later
   return (
     <Form.Field
@@ -262,7 +270,8 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
         <Checkbox
           name={ 'm_disabled' }
           checked={ member.m_disabled }
-          onChange={ onMemberChecked } />
+          onChange={ onMemberChecked }
+          onKeyDown = { onKeyDown } />
       </Columns.Four>
 
     </Form.Field>
