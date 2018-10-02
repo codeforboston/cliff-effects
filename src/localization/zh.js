@@ -254,8 +254,8 @@ export default {
       'rowTotalBenefits_v1':      `補助總額`,
       'rowIncome_v1':             `收入`,
       'rowNetTotal_v1':           `净總額`,
-      'perMonth_v1':              ` /月`,
-      'dollarSign_v1':            `$`,
+      'beforeMoney_v1':           `$`,
+      'afterMoney_v1':            ` /月`,
 
       'stackedBarGraphTitle_v1':   `收入變化表`,
       'moneyInAsIncomeChanges_v1': `净收入`,

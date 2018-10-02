@@ -148,18 +148,17 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
 const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
-    <Form className = 'income-form flex-item flex-column'>
-      <FormPartsContainer
-        title     = { snippets.i_title }
-        clarifier = { snippets.i_clarifier }
-        navData   = { navData }>
-        <IncomeForm
-          updateClientValue = { updateClientValue }
-          current={ client.current }
-          time={ 'current' }
-          snippets={ snippets } />
-      </FormPartsContainer>
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { snippets.i_clarifier }
+      navData   = { navData }
+      formClass = { `income` }>
+      <IncomeForm
+        updateClientValue = { updateClientValue }
+        current={ client.current }
+        time={ 'current' }
+        snippets={ snippets } />
+    </FormPartsContainer>
   );
 
 };  // End CurrentIncomeStep()
