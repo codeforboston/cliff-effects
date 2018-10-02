@@ -4,7 +4,7 @@ import { ExternalLink } from '../forms/formHelpers';
 
 // CUSTOM COMPONENTS
 
-// @todo Put in AboutPage now that editing content is in snippets.
+// @todo Move to AboutPage now that editing content is in snippets.
 const AboutContent = function ({ snippets }) {
   return (
     <div>
