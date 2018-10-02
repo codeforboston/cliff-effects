@@ -6,12 +6,35 @@
 #App .dev-hud {
   pointer-events: none;
   position: fixed;
-  align-self: flex-end;
-  min-height: 0px;
-  width: fit-content;
+  max-height: 100vh;
   display: flex;
+  align-self: flex-end;
   flex-direction: column;
+  background: 0;
+  /* To completely shrink when minimized */
+  min-height: 0;
+}
+
+/* https://github.com/philipwalton/flexbugs#flexbug-14 */
+#App .dev-menu {
+  display: flex;
+  flex-flow: wrap;
+  writing-mode: vertical-lr;
   background: rgba(255, 255, 255, .7);
+}
+
+#App .dev-menu .item {
+  /*flex: 1;*/
+  writing-mode: horizontal-tb;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  border-right: 1px solid rgba(0, 0, 0, .1);
+}
+
+.dev-hud .off {
+  opacity: .7;
 }
 
 .dev-hud input,
@@ -39,6 +62,9 @@
   white-space: pre-wrap;
 }
 
+/* ========================= 
+ * ALTERNATIVE FUNCTIONALITY
+ * ========================= */
 #App.dev.devHidden .dev-menu {
   height: 0;
   overflow: hidden;
