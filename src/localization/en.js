@@ -190,68 +190,68 @@ export default {
     },
 
     currentExpenses: {
-      title:                           `Current Household Expenses`,
+      title_v1:                        `Current Household Expenses`,
       unreimbursedNonMedicalChildCare: {
-        sectionHeading:    `Reasonable Unreimbursed Non-Medical Child(ren) Care`,
-        subheading:        `A "child" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.`,
-        columnExpenseType: `Expense`,
-        childDirectCare:   {
-          label: `Direct care costs`,
-          hint:  `How much do you pay for child care out of pocket?`,
+        sectionHeading_v1:    `Reasonable Unreimbursed Non-Medical Child(ren) Care`,
+        subheading_v1:        `A "child" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.`,
+        columnExpenseType_v1: `Expense`,
+        childDirectCare:      {
+          label_v1: `Direct care costs`,
+          hint_v1:  `How much do you pay for child care out of pocket?`,
         },
         childBeforeAndAfterSchoolCare: {
-          label: `Before- and after-school care`,
-          hint:  `How much do you pay for child care for times before or after school?`,
+          label_v1: `Before- and after-school care`,
+          hint_v1:  `How much do you pay for child care for times before or after school?`,
         },
         childTransportation: {
-          label: `Transportation costs`,
-          hint:  `How much do you pay for transportation?`,
+          label_v1: `Transportation costs`,
+          hint_v1:  `How much do you pay for transportation?`,
         },
         childOtherCare: {
-          label: `Other care`,
-          hint:  `How much do you pay for other child care?`,
+          label_v1: `Other care`,
+          hint_v1:  `How much do you pay for other child care?`,
         },
-        doEarnBecauseOfChildCare: `Does child care allow you to make additional income?`,
-        earnedBecauseOfChildCare: `Income made possible by childcare expenses`,
+        doEarnBecauseOfChildCare_v1: `Does child care allow you to make additional income?`,
+        earnedBecauseOfChildCare_v1: `Income made possible by childcare expenses`,
       },
       childSupport: {
-        sectionHeading:      `Child Support`,
-        columnExpenseType:   `Expense`,
-        childSupportPaidOut: {
-          legallyObligated: `Legally obligated`,
-          childSupport:     ` child support`,
+        sectionHeading_v1:    `Child Support`,
+        columnExpenseType_v1: `Expense`,
+        childSupportPaidOut:  {
+          legallyObligated_v1: `Legally obligated`,
+          childSupport_v1:     ` child support`,
         },
       },
       housing: {
-        sectionHeading:      `Housing`,
+        sectionHeading_v1:   `Housing`,
         monthlyContractRent: {
-          label: `Monthly Contract Rent (the total rent for your apartment)`,
-          hint:  `The total rent for your apartment`,
+          label_v1: `Monthly Contract Rent (the total rent for your apartment)`,
+          hint_v1:  `The total rent for your apartment`,
         },
         monthlyRentShare: {
-          label: `Your Monthly Rent Share (how much of the total rent you have to pay)`,
-          hint:  `How much of the total rent you have to pay`,
+          label_v1: `Your Monthly Rent Share (how much of the total rent you have to pay)`,
+          hint_v1:  `How much of the total rent you have to pay`,
         },
         utilitiesSubheading: `Which of these utilities do you pay for?`,
         climateControl:      {
-          label: `Heating or cooling (e.g. A/C during summer)`,
-          hint:  `How much do you pay if you have a separate bill for heating and/or cooling`,
+          label_v1: `Heating or cooling (e.g. A/C during summer)`,
+          hint_v1:  `How much do you pay if you have a separate bill for heating and/or cooling`,
         },
         nonHeatElectricity: {
-          label: `Electricity for non-heating purposes`,
-          hint:  `How much do you pay for any electric usage (other than for heat)`,
+          label_v1: `Electricity for non-heating purposes`,
+          hint_v1:  `How much do you pay for any electric usage (other than for heat)`,
         },
         phone: {
-          label: `Telephone service`,
-          hint:  `How much do you pay for basic telephone service`,
+          label_v1: `Telephone service`,
+          hint_v1:  `How much do you pay for basic telephone service`,
         },
         fuelAssistance: {
-          labelText: `Do you get Fuel Assistance?`,
-          hint:      `Fuel Assistance helps you pay for heating fuel`,
+          label_v1: `Do you get Fuel Assistance?`,
+          hint_v1:  `Fuel Assistance helps you pay for heating fuel`,
         },
       },
-      previous: `Previous`,
-      next:     `Next`,
+      previous_v1: `Previous`,
+      next_v1:     `Next`,
     },
 
     predictions: {
