@@ -138,55 +138,55 @@ export default {
     },
 
     currentIncome: {
-      'title':                  `Lượng hiện tại của hộ gia đình`,
-      'clarifier':              `Tiền lương bạn đã thu được trong 12 tháng qua.`,
-      'explainSnapCalculation': `Nguyên mẫu này sẽ tính toán số tiền nhận được từ chương trình phiếu mua hàng SNAP`,
-      'earnedIncome':           {
-        label: `Tiền lương kiếm được`,
-        hint:  `Tiền lương kiếm được là bao nhiêu bạn và gia đình bạn được trả lúc đi làm`,
+      title_v1:                  `Lượng hiện tại của hộ gia đình`,
+      clarifier_v1:              `Tiền lương bạn đã thu được trong 12 tháng qua.`,
+      explainSnapCalculation_v1: `Nguyên mẫu này sẽ tính toán số tiền nhận được từ chương trình phiếu mua hàng SNAP`,
+      earnedIncome:              {
+        label_v1: `Tiền lương kiếm được`,
+        hint_v1:  `Tiền lương kiếm được là bao nhiêu bạn và gia đình bạn được trả lúc đi làm`,
       },
-      'TAFDC': {
-        label: `TAFDC`,
-        hint:  `Chương trình TAFDC (Transitional Aid to Families with Dependent Children) cung cấp hỗ trợ tài chính trong thời gian ngắn cho các gia đình có con`,
+      TAFDC: {
+        label_v1: `TAFDC`,
+        hint_v1:  `Chương trình TAFDC (Transitional Aid to Families with Dependent Children) cung cấp hỗ trợ tài chính trong thời gian ngắn cho các gia đình có con`,
       },
-      'SSI': {
-        label: `SSI`,
-        hint:  `Chương trình liên bang SSI (Supplemental Security Income) cung cấp hỗ trợ tài chính và chăm sóc sức khỏe cho những người từ 65 tuổi trở lên, hoặc những người bị mù hoặc tàn tật`,
+      SSI: {
+        label_v1: `SSI`,
+        hint_v1:  `Chương trình liên bang SSI (Supplemental Security Income) cung cấp hỗ trợ tài chính và chăm sóc sức khỏe cho những người từ 65 tuổi trở lên, hoặc những người bị mù hoặc tàn tật`,
       },
-      'SSDI': {
-        label: `SSDI`,
-        hint:  `Chương trình liên bang SSDI (Social Security Disability Income) giúp đỡ người tàn tật`,
+      SSDI: {
+        label_v1: `SSDI`,
+        hint_v1:  `Chương trình liên bang SSDI (Social Security Disability Income) giúp đỡ người tàn tật`,
       },
-      'childSupport': {
-        label: `Tiền hỗ trợ trẻ em nhận được`,
-        hint:  `Tiền hỗ trợ trẻ em là tiền trả cho bạn bởi người phối ngẫu để giúp con bạn`,
+      childSupport: {
+        label_v1: `Tiền hỗ trợ trẻ em nhận được`,
+        hint_v1:  `Tiền hỗ trợ trẻ em là tiền trả cho bạn bởi người phối ngẫu để giúp con bạn`,
       },
-      'unemployment': {
-        label: `Tiến thất nghiệp`,
-        hint:  `Tiền trợ cấp thất nghiệp cung cấp thu nhập cho những người đã bị sa thải`,
+      unemployment: {
+        label_v1: `Tiến thất nghiệp`,
+        hint_v1:  `Tiền trợ cấp thất nghiệp cung cấp thu nhập cho những người đã bị sa thải`,
       },
-      'workersComp': {
-        label: `Tiền bồi thường lao động`,
-        hint:  `Tiền bồi thường lao động cung cấp hỗ trợ cho những người đã bị thương  trong công việc`,
+      workersComp: {
+        label_v1: `Tiền bồi thường lao động`,
+        hint_v1:  `Tiền bồi thường lao động cung cấp hỗ trợ cho những người đã bị thương  trong công việc`,
       },
-      'pension': {
-        label: `Tiền lương hưu`,
-        hint:  `Tiền lương hưu cung cấp thu nhập cho người về hưu, thường là từ các chủ trước của họ`,
+      pension: {
+        label_v1: `Tiền lương hưu`,
+        hint_v1:  `Tiền lương hưu cung cấp thu nhập cho người về hưu, thường là từ các chủ trước của họ`,
       },
-      'socialSecurity': {
-        label: `Tiền an ninh xã hội`,
-        hint:  `Tiền an ninh xã hội là một chương trình liên bang cung cấp hỗ trợ cho người về hưu`,
+      socialSecurity: {
+        label_v1: `Tiền an ninh xã hội`,
+        hint_v1:  `Tiền an ninh xã hội là một chương trình liên bang cung cấp hỗ trợ cho người về hưu`,
       },
-      'alimony': {
-        label: `Tiền cấp dưởng`,
-        hint:  `Tiền cấp dưởng là tiền do vợ/chồng trả tiền cho người kia sau khi ly dị`,
+      alimony: {
+        label_v1: `Tiền cấp dưởng`,
+        hint_v1:  `Tiền cấp dưởng là tiền do vợ/chồng trả tiền cho người kia sau khi ly dị`,
       },
-      'otherIncome': {
-        label: `Thu nhập khác`,
-        hint:  `Xin vui lòng cho biết thu nhập bạn có thể có từ các nguồn không được liệt kê ở trên`,
+      otherIncome: {
+        label_v1: `Thu nhập khác`,
+        hint_v1:  `Xin vui lòng cho biết thu nhập bạn có thể có từ các nguồn không được liệt kê ở trên`,
       },
-      'previous': `Trang Trước`,
-      'next':     `Trang Kế Tiếp`,
+      previous_v1: `Trang Trước`,
+      next_v1:     `Trang Kế Tiếp`,
     },
 
     currentExpenses: {
