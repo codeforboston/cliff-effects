@@ -84,4 +84,8 @@ const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) =
 
 };  // End CurrentBenefitsStep()
 
-export { CurrentBenefitsStep };
+export {
+  CurrentBenefitsStep,
+  LocalizedRadioYesNo,
+  CurrentBenefitsContent,
+};
