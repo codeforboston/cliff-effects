@@ -233,7 +233,7 @@ export default {
           hint_v1:  `Bạn phải trả bao nhiêu trong tổng số tiền thuê nhà`,
         },
         utilitiesSubheading_v1: `Trong những ngành phục vụ công cộng, bạn trả tiền cho những cái nào?`,
-        climateControl:      {
+        climateControl:         {
           label_v1: `Tiền Cho Sưởi Ấm Hoặc Làm Mát (ví dụ máy lạnh  trong mùa hè)`,
           hint_v1:  `Bạn trả bao nhiêu tiền nếu bạn có hóa đơn riêng để sưởi ấm và/hoặc làm mát`,
         },
