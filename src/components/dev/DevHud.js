@@ -4,6 +4,7 @@ import {
   Checkbox,
   Button,
   Dropdown,
+  Header,
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -35,14 +36,24 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
    *    make menu categories collapsible. */
   return (
     <div className = { `dev-menu` } >
-      <Menu.Item header>> Snippets</Menu.Item>
       <Menu.Item>
+        <Button
+          compact
+          negative
+          size = { `tiny` }
+          className = { `off` }
+          onClick   = { funcs.turnOff }>
+          HUD Off
+        </Button>
+      </Menu.Item>
+
+      <Menu.Item>
+        <Header>Snippets</Header>
         <Checkbox
           label    = { `Mark English snippets` }
           checked  = { devProps.english }
           onChange = { funcs.english } />
-      </Menu.Item>
-      <Menu.Item>
+        <br />
         <HeadingWithDetail>
           <Checkbox
             label    = { `Mark non-English snippets` }
@@ -52,10 +63,8 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
             Note: text that doesn&apos;t have an underline (for reasons) has no snippets.
           </span>
         </HeadingWithDetail>
-      </Menu.Item>
-      <Menu.Item>
+        <br />
         <Dropdown
-          fluid
           search
           selection
           scrolling
@@ -64,8 +73,8 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
           onChange     = { funcs.setLanguage } />
       </Menu.Item>
 
-      <Menu.Item header>> Client</Menu.Item>
       <Menu.Item>
+        <Header> Client</Header>
         <CustomClient
           load       = { funcs.loadClient }
           toRestore  = { data.default } />
@@ -102,6 +111,10 @@ class DevHud extends Component {
     setDev(`english`, !nonEnglish);
   };
 
+  turnOff = () => {
+    this.props.funcs.setDev(`dev`, false);
+  };
+
   render () {
 
     var {
@@ -114,6 +127,7 @@ class DevHud extends Component {
           ...funcs,
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
+          turnOff:    this.turnOff,
         };
 
     return (
