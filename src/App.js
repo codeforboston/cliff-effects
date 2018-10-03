@@ -144,11 +144,13 @@ class App extends Component {
     });
   };  // End loadClient()
 
-  /** Concatenate the true boolean values in input object to a space-delimeted
+  /** Concatenate the true boolean values in input object to a space-delimited
    * string, for use as a CSS class string. Currently used to convert
    * [devProps]{@link App#state} to classes for the rendered `div`.
    * @method
-   * @param {object} - the object to be converted to a string
+   * @param {object} obj - the object to be converted to a string
+   * @returns {string} a string constructed by concatenating together the keys
+   * of obj with values equal to true, separated by spaces.
    */
   propsToClasses (obj) {
     var classes = ``;
