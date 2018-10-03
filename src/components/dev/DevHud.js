@@ -99,7 +99,7 @@ class DevHud extends Component {
   toggleNonEnglish = () => {
     var setDev     = this.props.funcs.setDev,
         nonEnglish = this.props.devProps.nonEnglish;
-    setDev(`english`, !nonEnglish);
+    setDev(`nonEnglish`, !nonEnglish);
   };
 
   render () {
