@@ -35,6 +35,17 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
    *    make menu categories collapsible. */
   return (
     <div className = { `dev-menu` } >
+      <Menu.Item>
+        <Button
+          compact
+          negative
+          size = { `tiny` }
+          className = { `off` }
+          onClick   = { funcs.turnOff }>
+          HUD Off
+        </Button>
+      </Menu.Item>
+
       <Menu.Item header>> Snippets</Menu.Item>
       <Menu.Item>
         <Checkbox
@@ -102,6 +113,10 @@ class DevHud extends Component {
     setDev(`english`, !nonEnglish);
   };
 
+  turnOff = () => {
+    this.props.funcs.setDev(`dev`, false);
+  };
+
   render () {
 
     var {
@@ -114,6 +129,7 @@ class DevHud extends Component {
           ...funcs,
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
+          turnOff:    this.turnOff,
         };
 
     return (
