@@ -109,16 +109,25 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
 const Utilities = function ({ current, type, time, updateClientValue }) {
 
-  let climate     = current.climateControl,
-      electricity = current.nonHeatElectricity,
-      phone       = current.phone,
-      fuelAssist  = current.fuelAssistance;
+  let hasClimate     = current.climateControl,
+      hasElectricity = current.nonHeatElectricity,
+      hasPhone       = current.phone,
+      hasFuelAssist  = current.fuelAssistance;
 
   let setChecked = function (evnt, inputProps) {
     var obj = { ...inputProps, value: inputProps.checked };
     updateClientValue(evnt, obj);
   };  // End setChecked()
 
+  // For keyboard access (already does spacebar)
+  let onKeyDown = function (evnt) {
+    if (evnt.key === `Enter`) {
+      evnt.target.click();
+    }
+  };
+
+  // May want to change name to 'utilities' and value to what's 'name' now
+  // Will require more work in the change handler
   return (
     <div>
       <Header as='h4'>Which of these utilities do you pay for?</Header>
@@ -126,28 +135,30 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       <Checkbox
         name={ 'climateControl' }
         label={ 'Heating or cooling (e.g. A/C during summer)' }
-        checked={ climate }
-        onChange={ setChecked } />
+        checked={ hasClimate }
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
         name={ 'nonHeatElectricity' }
         label={ 'Electricity for non-heating purposes' }
-        checked={ electricity }
-        onChange={ setChecked } />
+        checked={ hasElectricity }
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
         name={ 'phone' }
         label={ 'Telephone service' }
-        checked={ phone }
-        onChange={ setChecked } />
-
+        checked={ hasPhone }
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
       <br />
       <br />
       <ControlledRadioYesNo
-        labelText          = { 'Do you get Fuel Assistance?' }
-        value              = { fuelAssist }
-        name               = { 'fuelAssistance' }
-        updateClientValue  = { updateClientValue } />
+        labelText = { 'Do you get Fuel Assistance?' }
+        checked   = { hasFuelAssist }
+        name      = { 'fuelAssistance' }
+        onChange  = { updateClientValue } />
 
     </div>
 
@@ -542,18 +553,17 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
-    <Form className = 'expense-form flex-item flex-column'>
-      <FormPartsContainer
-        title     = { snippets.i_title }
-        clarifier = { snippets.i_clarifier }
-        navData   = { navData }>
-        <ExpensesFormContent
-          updateClientValue = { updateClientValue }
-          current={ client.current }
-          time={ 'current' }
-          snippets={ snippets } />
-      </FormPartsContainer>
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { snippets.i_clarifier }
+      navData   = { navData }
+      formClass = { `expenses` }>
+      <ExpensesFormContent
+        updateClientValue = { updateClientValue }
+        current={ client.current }
+        time={ 'current' }
+        snippets={ snippets } />
+    </FormPartsContainer>
   );
 
 };  // End CurrentExpensesStep()

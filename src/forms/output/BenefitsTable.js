@@ -126,9 +126,9 @@ const BenefitsTable = function ({ client, snippets }) {
     return (
       <Table.Row>
         <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowSNAP }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_dollarSign }{SNAPBenefitCurrent}{ snippets.i_perMonth }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_dollarSign }{SNAPBenefitFuture}{ snippets.i_perMonth }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.i_dollarSign }{ Math.abs(SNAPDiff) }{ snippets.i_perMonth }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{SNAPBenefitCurrent}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{SNAPBenefitFuture}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.i_beforeMoney }{ Math.abs(SNAPDiff) }{ snippets.i_afterMoney }</Table.Cell>
       </Table.Row>
     );
   };
@@ -141,9 +141,9 @@ const BenefitsTable = function ({ client, snippets }) {
     return (
       <Table.Row>
         <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowSection8 }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_dollarSign }{sec8BenefitCurrent}{ snippets.i_perMonth }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_dollarSign }{sec8BenefitFuture}{ snippets.i_perMonth }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } { snippets.i_dollarSign }{ Math.abs(sec8Diff) }{ snippets.i_perMonth }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{sec8BenefitCurrent}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{sec8BenefitFuture}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } { snippets.i_beforeMoney }{ Math.abs(sec8Diff) }{ snippets.i_afterMoney }</Table.Cell>
       </Table.Row>
     );
   };
@@ -163,17 +163,17 @@ const BenefitsTable = function ({ client, snippets }) {
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_dollarSign }{totalBenefitCurrent}{ snippets.i_perMonth }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{totalBenefitCurrent}{ snippets.i_afterMoney }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_dollarSign }{totalBenefitFuture}{ snippets.i_perMonth }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{totalBenefitFuture}{ snippets.i_afterMoney }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } { snippets.i_dollarSign }{ Math.abs(totalDiff) }{ snippets.i_perMonth }
+          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } { snippets.i_beforeMoney }{ Math.abs(totalDiff) }{ snippets.i_afterMoney }
         </Table.Cell>
       </Table.Row>
     );
@@ -183,9 +183,9 @@ const BenefitsTable = function ({ client, snippets }) {
     return (
       <Table.Row>
         <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowIncome }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_dollarSign }{incomeCurrent}{ snippets.i_perMonth }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_dollarSign }{incomeFuture}{ snippets.i_perMonth }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } { snippets.i_dollarSign }{ Math.abs(incomeDiff) }{ snippets.i_perMonth }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{incomeCurrent}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{incomeFuture}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } { snippets.i_beforeMoney }{ Math.abs(incomeDiff) }{ snippets.i_afterMoney }</Table.Cell>
       </Table.Row>
     );
   };
@@ -201,17 +201,17 @@ const BenefitsTable = function ({ client, snippets }) {
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_dollarSign }{netCurrent}{ snippets.i_perMonth }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{netCurrent}{ snippets.i_afterMoney }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_dollarSign }{netFuture}{ snippets.i_perMonth }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{netFuture}{ snippets.i_afterMoney }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } { snippets.i_dollarSign }{ Math.abs(netDiff) }{ snippets.i_perMonth }
+          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } { snippets.i_beforeMoney }{ Math.abs(netDiff) }{ snippets.i_afterMoney }
         </Table.Cell>
       </Table.Row>
     );
@@ -241,14 +241,14 @@ const BenefitsTable = function ({ client, snippets }) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow 
+          <SNAPBenefitRow
             client={ clone }
             snippets={ snippets } />
-          <Sec8BenefitRow 
+          <Sec8BenefitRow
             client={ clone }
             snippets={ snippets } />
-          <TotalBenefitsRow 
-            client={ clone } 
+          <TotalBenefitsRow
+            client={ clone }
             snippets={ snippets } />
           <IncomeRow snippets={ snippets } />
           <TotalsRow snippets={ snippets } />

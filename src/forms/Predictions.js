@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
+import { Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -57,9 +57,11 @@ const TabbedVisualizations = ({ client, snippets }) => {
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
-        { 
+        {
           menuItem: (
-            <Menu.Item key="tab1">
+            <Menu.Item
+              key = { `tab1` }
+              as  = { Button }>
               { snippets.i_tabTitleChanges }
             </Menu.Item>
           ),
@@ -73,17 +75,21 @@ const TabbedVisualizations = ({ client, snippets }) => {
             );
           },
         },
-        { 
+        {
           menuItem: (
-            <Menu.Item key="tab2">
+            <Menu.Item
+              key = { `tab2` }
+              as  = { Button }>
               { snippets.i_tabTitleChangesChart }
             </Menu.Item>
-          ),  
-          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;}, 
+          ),
+          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;},
         },
         {
           menuItem: (
-            <Menu.Item key="tab3">
+            <Menu.Item
+              key = { `tab3` }
+              as  = { Button }>
               { snippets.i_tabTitleStackedIncomes }
             </Menu.Item>
           ),
@@ -99,7 +105,9 @@ const TabbedVisualizations = ({ client, snippets }) => {
         },
         {
           menuItem: (
-            <Menu.Item key="tab4">
+            <Menu.Item
+              key = { `tab4` }
+              as  = { Button }>
               { snippets.i_tabTitleBenefitPrograms }
             </Menu.Item>
           ),
@@ -134,49 +142,41 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
 
   /** @todo Are these titles accurate now? */
   return (
-    <Form className = 'income-form flex-item flex-column'>
-      <FormPartsContainer
-        title     = { snippets.i_title }
-        clarifier = { null }
-        navData   = { navData }>
-        <IncomeForm
-          updateClientValue = { updateClientValue }
-          future            = { client.future }
-          time              = { 'future' } 
-          snippets          = { snippets } />
-        <Divider className='ui section divider hidden' />
-        <Header
-          as        ='h3'
-          className ='ui Header align centered'>
-          { snippets.i_chartsHeader }
-        </Header>
-        <Message
-          visible
-          warning
-          style={{ 'textAlign': 'center' }}>
-          { snippets.i_warningMessage }
-          <br />
-          <Button
-            fluid
-            color='teal'
-            style={{
-              'display':     'block',
-              'marginLeft':  'auto',
-              'marginRight': 'auto',
-              'marginTop':   '10px',
-              'maxWidth':    '400px', 
-            }}
-            onClick={ openFeedback }>
-            { snippets.i_submitFeedback }
-          </Button>
-        </Message>
-        <TabbedVisualizations 
-          client   = { client }
-          snippets = { snippets } />
-      </FormPartsContainer>
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { null }
+      navData   = { navData }
+      formClass = { `predictions` }>
+      <IncomeForm
+        updateClientValue = { updateClientValue }
+        future            = { client.future }
+        time              = { 'future' }
+        snippets          = { snippets } />
+      <Divider className='ui section divider hidden' />
+      <Header
+        as        ='h3'
+        className ='ui Header align centered'>
+        { snippets.i_chartsHeader }
+      </Header>
+      <Message
+      className="prediction-message"
+        visible
+        warning>
+        { snippets.i_warningMessage }
+        <br />
+        <Button
+          id="prediction-button"
+          fluid
+          color='teal'
+          onClick={ openFeedback }>
+          { snippets.i_submitFeedback }
+        </Button>
+      </Message>
+      <TabbedVisualizations
+        client   = { client }
+        snippets = { snippets } />
+    </FormPartsContainer>
   );
 };  // End FutureIncomeStep() Component
 
 export { PredictionsStep };
-                                              

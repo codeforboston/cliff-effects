@@ -24,4 +24,8 @@ export default [
   'Ethan Blackwood',
   'Valerie Kenyon',
   'Robert Christie',
+  'Jeff Langevin',
+  'Michael Caveney',
+  'Hieu Tran',
+
 ];

@@ -99,11 +99,11 @@ export default {
     newClient_v1: `New Client`,
 
     stepBar: {
-      currentBenefits: `Current Benefits`,
-      household:       `Household`,
-      currentIncome:   `Income`,
-      currentExpenses: `Expenses`,
-      predictions:     `Predictions`,
+      currentBenefits_v1: `Current Benefits`,
+      household_v1:       `Household`,
+      currentIncome_v1:   `Income`,
+      currentExpenses_v1: `Expenses`,
+      predictions_v1:     `Predictions`,
     },
 
     formHelpers: {
@@ -115,173 +115,190 @@ export default {
     },
 
     currentBenefits: {
-      currentBenefits: `Current Benefits`,
-      selectBenefits:  `Select the benefits you currently receive`,
-      hasSection8:     {
-        label: `Do you have Section 8 Housing?`,
-        hint:  `Section 8 provides rental housing assistance.`,
-      },
-      hasSnap: {
-        label: `Do you have SNAP?`,
-        hint:  `SNAP provides assistance with buying food`,
-      },
-      next: `Next`,
+      currentBenefits_v1:  `Current Benefits`,
+      selectBenefits_v1:   `Select the benefits you currently receive`,
+      hasSection8Label_v1: `Do you have Section 8 Housing?`,
+      hasSection8Hint_v1:  `Section 8 provides rental housing assistance.`,
+      hasSnapLabel_v1:     `Do you have SNAP?`,
+      hasSnapHint_v1:      `SNAP provides assistance with buying food`,
     },
 
     household: {
-      title:           `Household`,
-      clarifier:       `Information about the members of your household.`,
-      role:            `Role`,
-      age:             `Age`,
-      disabled:        `Disabled`,
-      headOfHousehold: `Head of Household`,
-      addMember:       `Add a member`,
-      spouse:          `Spouse of Head of Household`,
-      childOther:      `Child/Other Household Member`,
-      previous:        `Previous`,
-      next:            `Next`,
+      title_v1:           `Household`,
+      clarifier_v1:       `Information about the members of your household.`,
+      role_v1:            `Role`,
+      age_v1:             `Age`,
+      disabled_v1:        `Disabled`,
+      headOfHousehold_v1: `Head of Household`,
+      addMember_v1:       `Add a member`,
+      spouse_v1:          `Spouse of Head of Household`,
+      childOther_v1:      `Child/Other Household Member`,
+      previous_v1:        `Previous`,
+      next_v1:            `Next`,
     },
 
     currentIncome: {
-      title:                  `Current Household Income`,
-      clarifier:              `Income that you collected in the past 12 months.`,
-      explainSnapCalculation: `This prototype will attempt to make its own calculations for SNAP amount`,
-      earnedIncome:           {
-        label: `Earned income`,
-        hint:  `Earned income is how much you and your family get paid from working`,
+      title_v1:                  `Current Household Income`,
+      clarifier_v1:              `Income that you collected in the past 12 months.`,
+      explainSnapCalculation_v1: `This prototype will attempt to make its own calculations for SNAP amount`,
+      earnedIncome:              {
+        label_v1: `Earned income`,
+        hint_v1:  `Earned income is how much you and your family get paid from working`,
       },
       TAFDC: {
-        label: `TAFDC`,
-        hint:  `Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children`,
+        label_v1: `TAFDC`,
+        hint_v1:  `Transitional Aid to Families with Dependent Children provides short-term financial assistance to families with children`,
       },
       SSI: {
-        label: `SSI`,
-        hint:  `Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled`,
+        label_v1: `SSI`,
+        hint_v1:  `Supplemental Security Income is a federal program that provides financial and health care assistance to people 65 and over, or people who are blind or disabled`,
       },
       SSDI: {
-        label: `SSDI`,
-        hint:  `Social Security Disability Income is a federal program to help people with disabilities`,
+        label_v1: `SSDI`,
+        hint_v1:  `Social Security Disability Income is a federal program to help people with disabilities`,
       },
       childSupport: {
-        label: `Child support recieved`,
-        hint:  `Child support is money paid to you by a former spouse to help your child`,
+        label_v1: `Child support recieved`,
+        hint_v1:  `Child support is money paid to you by a former spouse to help your child`,
       },
       unemployment: {
-        label: `Unemployment`,
-        hint:  `Unemployment benefits provide income to people who have been laid off`,
+        label_v1: `Unemployment`,
+        hint_v1:  `Unemployment benefits provide income to people who have been laid off`,
       },
       workersComp: {
-        label: `Worker's compensation`,
-        hint:  `Worker's Compensation provides assistance for people who have been injured on the job`,
+        label_v1: `Worker's compensation`,
+        hint_v1:  `Worker's Compensation provides assistance for people who have been injured on the job`,
       },
       pension: {
-        label: `Pension`,
-        hint:  `A pension provides income to retirees, usually from their former employers`,
+        label_v1: `Pension`,
+        hint_v1:  `A pension provides income to retirees, usually from their former employers`,
       },
       socialSecurity: {
-        label: `Social security`,
-        hint:  `Social Security is a federal program that provides assistance to retirees`,
+        label_v1: `Social security`,
+        hint_v1:  `Social Security is a federal program that provides assistance to retirees`,
       },
       alimony: {
-        label: `Alimony`,
-        hint:  `Alimony is money paid by one spouse to the other after a divorce`,
+        label_v1: `Alimony`,
+        hint_v1:  `Alimony is money paid by one spouse to the other after a divorce`,
       },
       otherIncome: {
-        label: `Other income`,
-        hint:  `Please note income you may have from sources that are not listed above`,
+        label_v1: `Other income`,
+        hint_v1:  `Please note income you may have from sources that are not listed above`,
       },
-      previous: `Previous`,
-      next:     `Next`,
+      previous_v1: `Previous`,
+      next_v1:     `Next`,
     },
 
     currentExpenses: {
-      title:                           `Current Household Expenses`,
+      title_v1:                        `Current Household Expenses`,
       unreimbursedNonMedicalChildCare: {
-        sectionHeading:    `Reasonable Unreimbursed Non-Medical Child(ren) Care`,
-        subheading:        `A "child" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.`,
-        columnExpenseType: `Expense`,
-        childDirectCare:   {
-          label: `Direct care costs`,
-          hint:  `How much do you pay for child care out of pocket?`,
+        sectionHeading_v1:    `Reasonable Unreimbursed Non-Medical Child(ren) Care`,
+        subheading_v1:        `A "child" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.`,
+        columnExpenseType_v1: `Expense`,
+        childDirectCare:      {
+          label_v1: `Direct care costs`,
+          hint_v1:  `How much do you pay for child care out of pocket?`,
         },
         childBeforeAndAfterSchoolCare: {
-          label: `Before- and after-school care`,
-          hint:  `How much do you pay for child care for times before or after school?`,
+          label_v1: `Before- and after-school care`,
+          hint_v1:  `How much do you pay for child care for times before or after school?`,
         },
         childTransportation: {
-          label: `Transportation costs`,
-          hint:  `How much do you pay for transportation?`,
+          label_v1: `Transportation costs`,
+          hint_v1:  `How much do you pay for transportation?`,
         },
         childOtherCare: {
-          label: `Other care`,
-          hint:  `How much do you pay for other child care?`,
+          label_v1: `Other care`,
+          hint_v1:  `How much do you pay for other child care?`,
         },
-        doEarnBecauseOfChildCare: `Does child care allow you to make additional income?`,
-        earnedBecauseOfChildCare: `Income made possible by childcare expenses`,
+        doEarnBecauseOfChildCare_v1: `Does child care allow you to make additional income?`,
+        earnedBecauseOfChildCare_v1: `Income made possible by childcare expenses`,
       },
       childSupport: {
-        sectionHeading:      `Child Support`,
-        columnExpenseType:   `Expense`,
-        childSupportPaidOut: {
-          legallyObligated: `Legally obligated`,
-          childSupport:     ` child support`,
+        sectionHeading_v1:    `Child Support`,
+        columnExpenseType_v1: `Expense`,
+        childSupportPaidOut:  {
+          legallyObligated_v1: `Legally obligated`,
+          childSupport_v1:     ` child support`,
         },
       },
       housing: {
-        sectionHeading:      `Housing`,
+        sectionHeading_v1:   `Housing`,
         monthlyContractRent: {
-          label: `Monthly Contract Rent (the total rent for your apartment)`,
-          hint:  `The total rent for your apartment`,
+          label_v1: `Monthly Contract Rent (the total rent for your apartment)`,
+          hint_v1:  `The total rent for your apartment`,
         },
         monthlyRentShare: {
-          label: `Your Monthly Rent Share (how much of the total rent you have to pay)`,
-          hint:  `How much of the total rent you have to pay`,
+          label_v1: `Your Monthly Rent Share (how much of the total rent you have to pay)`,
+          hint_v1:  `How much of the total rent you have to pay`,
         },
         utilitiesSubheading: `Which of these utilities do you pay for?`,
         climateControl:      {
-          label: `Heating or cooling (e.g. A/C during summer)`,
-          hint:  `How much do you pay if you have a separate bill for heating and/or cooling`,
+          label_v1: `Heating or cooling (e.g. A/C during summer)`,
+          hint_v1:  `How much do you pay if you have a separate bill for heating and/or cooling`,
         },
         nonHeatElectricity: {
-          label: `Electricity for non-heating purposes`,
-          hint:  `How much do you pay for any electric usage (other than for heat)`,
+          label_v1: `Electricity for non-heating purposes`,
+          hint_v1:  `How much do you pay for any electric usage (other than for heat)`,
         },
         phone: {
-          label: `Telephone service`,
-          hint:  `How much do you pay for basic telephone service`,
+          label_v1: `Telephone service`,
+          hint_v1:  `How much do you pay for basic telephone service`,
         },
         fuelAssistance: {
-          labelText: `Do you get Fuel Assistance?`,
-          hint:      `Fuel Assistance helps you pay for heating fuel`,
+          label_v1: `Do you get Fuel Assistance?`,
+          hint_v1:  `Fuel Assistance helps you pay for heating fuel`,
         },
       },
-      previous: `Previous`,
-      next:     `Next`,
+      previous_v1: `Previous`,
+      next_v1:     `Next`,
     },
 
     predictions: {
       title_v1:                   `What Might Happen?`,
       futureIncomeQuestion_v1:    `How much money would you get paid in the future? (You can try different amounts)`,
-      tabTitleChanges_v1:         `Changes`,
-      tabTitleChangesChart_v1:    `Changes Chart`,
-      tabTitleStackedIncomes_v1:  `Stacked Incomes`,
-      tabTitleBenefitPrograms_v1: `Benefit Programs`,
+      tabTitleChanges_v1:         `Changes`, // see Predictions.js
+      tabTitleChangesChart_v1:    `Changes Chart`, // see Predictions.js
+      tabTitleStackedIncomes_v1:  `Stacked Incomes`, // see Predictions.js
+      tabTitleBenefitPrograms_v1: `Benefit Programs`, // see Predictions.js
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
       warningMessage_v1:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
       submitFeedback_v1:          `Submit Feedback`,
-
-      benefitsTableTitle_v1:    `Changes`,
-      columnBenefit_v1:         `Benefit`,
-      columnCurrentBenefits_v1: `Current Benefits`,
-      columnNewEstimate_v1:     `New Estimate`,
-      columnDifference_v1:      `Difference`,
-      rowSNAP_v1:               `SNAP`,
-      rowSection8_v1:           `Section 8 Housing`,
-      rowTotalBenefits_v1:      `Total Benefits`,
-      rowIncome_v1:             `Income`,
-      rowNetTotal_v1:           `Net Total`,
-      perMonth_v1:              ` / month`,
-      dollarSign_v1:            `$`,
+      // added the following snippets Friday 2018_9_7
+      // Benefits Table:
+      benefitsTableTitle_v1:      `Changes`, // see line 265 above
+      columnBenefit_v1:           `Benefit`, // see BenefitsTable.js
+      columnCurrentBenefits_v1:   `Current Benefits`, // see BenefitsTable.js
+      columnNewEstimate_v1:       `New Estimate`, // see BenefitsTable.js
+      columnDifference_v1:        `Difference`, // see BenefitsTable.js
+      rowSNAP_v1:                 `SNAP`, // see BenefitsTable.js
+      rowSection8_v1:             `Section 8 Housing`, // see BenefitsTable.js
+      rowTotalBenefits_v1:        `Total Benefits`, // see BenefitsTable.js
+      rowIncome_v1:               `Income`, // see BenefitsTable.js
+      rowNetTotal_v1:             `Net Total`, // see BenefitsTable.js
+      beforeMoney_v1:             `$`, // see BenefitsTable.js multiple lines
+      afterMoney_v1:              ` / month`, // see BenefitsTable.js multiple lines
+      // Stacked Bar Graph:
+      stackedBarGraphTitle_v1:    `Changes Chart`, // see line 266 above
+      moneyInAsIncomeChanges_v1:  `Money Coming In as Income Changes`, // see StackedBarGraph.js
+      // Stacked Area Graph:
+      stackedAreaGraphTitle_v1:   `Stacked Incomes`, // see line 267 above
+      allMoneyComingIn_v1:        `All Money Coming In as Income Changes`, // see StackedAreaGraph.js
+      // Benefit Programs Graph, showing benefit programs as lines not areas:
+      benefitProgramsTitle_v1:    `Individual Benefit Amounts for Household as Income Changes`, // maybe rename as benefitProgramsSubTitle_v1 ? see also BenefitsLineGraph.js
+      benefitValue_v1:            `Benefit Value ($)`, // see BenefitsLineGraph.js
+      // Snippets that are used in more than one chart, table, or graph:
+      totalMoney_v1:              `Total Money Coming In ($)`, // see StackedAreaGraph.js, StackedBarGraph.js
+      weeklyIncome_v1:            `Weekly Income ($)`,
+      monthlyIncome_v1:           `Monthly Income ($)`,
+      yearlyIncome_v1:            `Yearly Income ($)`,
+      hasIncome_v1:               `Income`,
+      hasSNAP_v1:                 `SNAP`,
+      hasSection8_v1:             `Section 8`, 
+      futureIncomeLine_v1:        `Future Income`, // see VerticalLine.js
+      buttonWeekly_v1:            `Weekly`, // see cashflow.js, GraphTimeButtons
+      buttonMonthly_v1:           `Monthly`, // see cashflow.js, GraphTimeButtons
+      buttonYearly_v1:            `Yearly`, // see cashflow.js, GraphTimeButtons
     },
   },
 };

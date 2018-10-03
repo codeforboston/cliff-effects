@@ -26,17 +26,22 @@
   height: 2em;
 }
 
-.dev .checkbox {
+.dev .dev-hud .checkbox {
   white-space: nowrap;
 }
 
-.dev .load-buttons {
+.dev .dev-hud .load-buttons {
   display: flex;
   justify-content: space-between;
 }
 
-.dev .message {
+.dev .dev-hud .message {
   white-space: pre-wrap;
+}
+
+#App.dev.devHidden .dev-menu {
+  height: 0;
+  overflow: hidden;
 }
 
 .dev.english .snippet[lang="en"] {

@@ -1,17 +1,11 @@
 /**
  *
  */
-const convertForUpdate = function ({ name, route, value, checked, ...otherProps }) {
-
-  var val = value;
-  if (typeof checked === `boolean`) {
-    val = checked;
-  }
+const convertForUpdate = function ({ name, route, ...otherProps }) {
 
   var forUpdate = {
     ...otherProps,
     route: route || name,
-    value: val,
   };
 
   return forUpdate;

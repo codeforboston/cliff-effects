@@ -213,6 +213,14 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
   };  // End removeMember()
 
 
+  // For keyboard access (already does spacebar)
+  var onKeyDown = function (evnt) {
+    if (evnt.key === `Enter`) {
+      evnt.target.click();
+    }
+  };
+
+
   // The font size thing is a bit weird, but... later
   return (
     <Form.Field
@@ -262,7 +270,8 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
         <Checkbox
           name={ 'm_disabled' }
           checked={ member.m_disabled }
-          onChange={ onMemberChecked } />
+          onChange={ onMemberChecked }
+          onKeyDown = { onKeyDown } />
       </Columns.Four>
 
     </Form.Field>
@@ -397,18 +406,17 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
 const HouseholdStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
-    <Form className='current-household-size-form flex-column flex-item'>
-      <FormPartsContainer
-        title     = { snippets.i_title }
-        clarifier = { snippets.i_clarifier }
-        navData   = { navData }>
-        <HouseholdContent
-          updateClientValue = { updateClientValue }
-          current={ client.current }
-          time={ 'current' }
-          snippets={ snippets } />
-      </FormPartsContainer>
-    </Form>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { snippets.i_clarifier }
+      navData   = { navData }
+      formClass = { `household` }>
+      <HouseholdContent
+        updateClientValue = { updateClientValue }
+        current={ client.current }
+        time={ 'current' }
+        snippets={ snippets } />
+    </FormPartsContainer>
   );
 
 };  // End HouseholdStep()

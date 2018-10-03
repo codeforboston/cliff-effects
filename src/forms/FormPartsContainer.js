@@ -5,10 +5,8 @@ import {
   Header,
   Segment,
   Divider,
+  Form,
 } from 'semantic-ui-react';
-
-// PROJECT COMPONENTS
-import { BigButton } from './inputs';
 
 /** For styling spacing between elements when needed.
 * @returns Component
@@ -35,35 +33,23 @@ const SpaceHolder = function () {
 */
 const FormBottomRow = function({ left, middle, right }) {
 
-  var Left    = <SpaceHolder key = { 'left' } />,
-      Middle  = <SpaceHolder key = { 'middle' } />,
-      Right   = <SpaceHolder key = { 'right' } />;
+  var Left   = <SpaceHolder key = { 'left' } />,
+      Middle = <SpaceHolder key = { 'middle' } />,
+      Right  = <SpaceHolder key = { 'right' } />;
 
   if (left) {
-    Left = (
-      <BigButton
-        key = { 'left' }
-        onClick = { left.onClick }>
-        { left.text }
-      </BigButton>
-    );
+    Left = (<div key = { `left` }>{ left }</div>);
   }
 
   // Considering having a non-button as a label
   // for the page. Not sure how to preserve the
   // same style.
   if (middle) {
-    Middle = (<div key = { 'middle' }>{ middle.text }</div>);
+    Middle = (<div key = { 'middle' }>{ middle }</div>);
   }
 
   if (right) {
-    Right = (
-      <BigButton
-        key = { 'right' }
-        onClick = { right.onClick }>
-        { right.text }
-      </BigButton>
-    );
+    Right = (<div key = { `right` }>{ right }</div>);
   }
 
   var children = [
@@ -103,38 +89,42 @@ const FormBottomRow = function({ left, middle, right }) {
 *
 * @returns Component
 */
-const FormPartsContainer = function({ title, clarifier, children, navData }) {
+const FormPartsContainer = function({ title, clarifier, children, navData, formClass, formSize }) {
   return (
-    <Segment
-      padded='very'
-      className="flex-item flex-column">
+    <Form
+      size={ formSize || `large` }
+      className= { formClass + ` flex-item flex-column` }>
       <Segment
-        basic={ true }
-        className="flex-item">
-        <Header
-          as='h1'
-          color='teal'
-          textAlign='center'>
-          { title }
-        </Header>
-        { !clarifier ? (
-          null
-        ) : (
+        padded='very'
+        className="flex-item flex-column">
+        <Segment
+          basic={ true }
+          className="flex-item">
           <Header
-            as='h3'
+            as='h1'
+            color='teal'
             textAlign='center'>
-            { clarifier }
+            { title }
           </Header>
-        ) }
+          { !clarifier ? (
+            null
+          ) : (
+            <Header
+              as='h3'
+              textAlign='center'>
+              { clarifier }
+            </Header>
+          ) }
 
-        { children }
+          { children }
+
+        </Segment>
+
+        <Divider />
+        <FormBottomRow { ...navData } />
 
       </Segment>
-
-      <Divider />
-      <FormBottomRow { ...navData } />
-
-    </Segment>
+    </Form>
   );
 };  // End FormPartsContainer() Component
 
