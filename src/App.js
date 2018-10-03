@@ -41,6 +41,8 @@ import { getTextForLanguage } from './utils/getTextForLanguage';
  *
  * Sends in the initial client values from {@link CLIENT_DEFAULTS} to
  * {@link VisitPage}.
+ *
+ * @extends React.Component
  */
 class App extends Component {
   /**
