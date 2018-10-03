@@ -17,6 +17,17 @@
     "semantic-ui-css": "2.2.12",
     "semantic-ui-react": "^0.75.1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "pretty-quick --staged",
+      "git add"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run docs && react-scripts build && node postbuild.js",
@@ -39,7 +50,11 @@
     "eslint-plugin-jest": "^21.15.1",
     "fs-extra": "^7.0.0",
     "gh-pages": "^1.2.0",
+    "husky": "^1.1.0",
     "jsdoc": "^3.5.5",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "pretty-quick": "^1.7.0",
     "react-test-renderer": "^16.3.2"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
