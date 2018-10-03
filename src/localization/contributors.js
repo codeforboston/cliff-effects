@@ -26,6 +26,6 @@ export default [
   'Robert Christie',
   'Jeff Langevin',
   'Michael Caveney',
+  'Hieu Tran',
 
-  
 ];

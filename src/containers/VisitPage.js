@@ -29,6 +29,8 @@ import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
 import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
+import { BigButton } from '../forms/inputs';
+import { ButtonReset } from '../forms/ButtonReset';
 
 class VisitPage extends Component {
   constructor (props) {
@@ -271,38 +273,39 @@ class VisitPage extends Component {
 
   render() {
 
-    var snippets  = this.state.snippets,
-        prevData  = null,
-        nextData  = null,
-        stepIndex = this.getCurrentStepIndex();
+    var snippets    = this.state.snippets,
+        prevContent = null,
+        nextContent = null,
+        stepIndex   = this.getCurrentStepIndex();
 
     if (stepIndex !== 0) {
-      prevData = {
-        text:    snippets.i_previous,
-        onClick: this.previousStep,
-      };
+      prevContent = (
+        <BigButton onClick = { this.previousStep }>
+          { snippets.i_previous }
+        </BigButton>
+      );
     }
 
     // If it's not the last step
     if (stepIndex !== (this.steps.length - 1)) {
-      // use normal 'next' data
-      nextData = {
-        text:    snippets.i_next,
-        onClick: this.nextStep,
-      };
-
+      // use normal 'next' component
+      nextContent = (
+        <BigButton onClick = { this.nextStep }>
+          { snippets.i_next }
+        </BigButton>
+      );
     // Otherwise, set up to reset client
     } else {
-      nextData = {
-        text:    snippets.i_newClient,
-        onClick: this.askToResetClient,
-      };
+      // Can be reused for fixed button on the left
+      nextContent  = (<ButtonReset
+        onClick  = { this.askToResetClient }
+        snippets = { snippets } />);
     }
 
     var navData = {
-      left:   prevData,
+      left:   prevContent,
       middle: null,
-      right:  nextData,
+      right:  nextContent,
     };
 
 

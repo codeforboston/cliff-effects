@@ -58,7 +58,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
-        { 
+        {
           menuItem: (
             <Menu.Item key="tab0">
               { `Summary` }
@@ -74,7 +74,9 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
         },
         { 
           menuItem: (
-            <Menu.Item key="tab1">
+            <Menu.Item
+              key = { `tab1` }
+              as  = { Button }>
               { snippets.i_tabTitleChanges }
             </Menu.Item>
           ),
@@ -88,17 +90,21 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             );
           },
         },
-        { 
+        {
           menuItem: (
-            <Menu.Item key="tab2">
+            <Menu.Item
+              key = { `tab2` }
+              as  = { Button }>
               { snippets.i_tabTitleChangesChart }
             </Menu.Item>
-          ),  
-          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;}, 
+          ),
+          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;},
         },
         {
           menuItem: (
-            <Menu.Item key="tab3">
+            <Menu.Item
+              key = { `tab3` }
+              as  = { Button }>
               { snippets.i_tabTitleStackedIncomes }
             </Menu.Item>
           ),
@@ -114,7 +120,9 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
         },
         {
           menuItem: (
-            <Menu.Item key="tab4">
+            <Menu.Item
+              key = { `tab4` }
+              as  = { Button }>
               { snippets.i_tabTitleBenefitPrograms }
             </Menu.Item>
           ),
@@ -157,7 +165,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
       <IncomeForm
         updateClientValue = { updateClientValue }
         future            = { client.future }
-        time              = { 'future' } 
+        time              = { 'future' }
         snippets          = { snippets } />
       <Divider className='ui section divider hidden' />
       <Header
@@ -166,15 +174,16 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         { snippets.i_chartsHeader }
       </Header>
       <Message
+        className = { `prediction-message` }
         visible
-        warning
-        style={{ 'textAlign': 'center' }}>
+        warning>
         { snippets.i_warningMessage }
         <Button
+          className = { `feedback-button` }
+          size      = { `small` }
+          color     = { `teal` }
           compact
-          size = { `small` }
-          color='teal'
-          onClick={ openFeedback }>
+          onClick   = { openFeedback }>
           { snippets.i_submitFeedback }
         </Button>
       </Message>
@@ -187,4 +196,4 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
 };  // End FutureIncomeStep() Component
 
 export { PredictionsStep };
-                                              
+

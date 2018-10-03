@@ -20,6 +20,7 @@ import {
 */
 const BigButton = function ({ children, ...buttonProps }) {
 
+  // Combine class names?
   const overriddenDefaults = {
     type:      `button`,
     color:     `teal`,
@@ -54,15 +55,10 @@ class ControlledRadioYesNo extends Component {
     this.state = {};
   }
 
-  handleChange(e,inputProps){
-    var obj = {
-      ...inputProps,
-      value: inputProps.label === `Yes`,
-    };
-
-    this.props.updateClientValue(e, obj);
-  }
-
+  handleChange = (evnt, inputProps) => {
+    inputProps.value = inputProps.value === 'Yes';
+    this.props.onChange(evnt, inputProps);
+  };
 
   render(){
 
@@ -74,16 +70,16 @@ class ControlledRadioYesNo extends Component {
             label='Yes'
             name={ this.props.name }
             value='Yes'
-            checked={ this.props.value === true }
-            onChange={ this.handleChange.bind(this) } />
+            checked={ this.props.checked === true }
+            onChange={ this.handleChange } />
         </Form.Field>
         <Form.Field >
           <Radio
             label='No'
             name={ this.props.name }
             value='No'
-            checked={ this.props.value === false }
-            onChange={ this.handleChange.bind(this) } />
+            checked={ this.props.checked === false }
+            onChange={ this.handleChange } />
         </Form.Field>
         <Form.Field >
           <b>{this.props.labelText}</b>

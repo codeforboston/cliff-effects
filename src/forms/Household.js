@@ -73,14 +73,6 @@ Columns.Four = function ({ noMargin, children }) {
 };
 
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
 const ColumnHeader = function ({ children, columnNum }) {
 
   var Container = Columns[ columnNum ];
@@ -98,14 +90,6 @@ const ColumnHeader = function ({ children, columnNum }) {
 };
 
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
 const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 
   color = color || null;
@@ -129,14 +113,6 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // UNIQUE
 // ======================
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
 const Role = function ({ member, setMember, snippets }) {
 
   var ThisRole  = null,
@@ -178,14 +154,6 @@ const Role = function ({ member, setMember, snippets }) {
 };  // End Role(<>)
 
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
 const MemberField = function ({ household, time, setHousehold, updateClientValue, snippets }, indx) {
 
   var member      = household[ indx ],
@@ -211,6 +179,14 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
     household.splice(indx, 1);
     setHousehold(evnt, household);
   };  // End removeMember()
+
+
+  // For keyboard access (already does spacebar)
+  var onKeyDown = function (evnt) {
+    if (evnt.key === `Enter`) {
+      evnt.target.click();
+    }
+  };
 
 
   // The font size thing is a bit weird, but... later
@@ -262,7 +238,8 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
         <Checkbox
           name={ 'm_disabled' }
           checked={ member.m_disabled }
-          onChange={ onMemberChecked } />
+          onChange={ onMemberChecked }
+          onKeyDown = { onKeyDown } />
       </Columns.Four>
 
     </Form.Field>
@@ -271,14 +248,6 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
 };  // End MemberField()
 
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
 const getMembers = function (current, time, setHousehold, updateClientValue, snippets) {
 
   var household = current.household,
@@ -300,16 +269,6 @@ const getMembers = function (current, time, setHousehold, updateClientValue, sni
 };  // End getMembers()
 
 
-/** @todo description
-*
-* @todo Could this be a number field? If not, then a dropdown?
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
 const HouseholdContent = function ({ current, time, updateClientValue, snippets }) {
 
   // Don't mutate state properties
@@ -385,14 +344,6 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
 };  // End HouseholdContent()
 
 
-/** @todo description
-*
-* @function
-* @param {object} props
-* @property {object} props.__ - explanation
-*
-* @returns Component
-*/
 // `props` is a cloned version of the original props. References broken.
 const HouseholdStep = function ({ updateClientValue, navData, client, snippets }) {
 

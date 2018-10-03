@@ -48,6 +48,16 @@ body {
   padding: 8em 0em;
 }
 
+/* Predictions.js */
+
+.feedback-button {
+  display: inline;
+}
+
+.prediction-message {
+  text-align: center;
+}
+
 form .field-aligner {
   display: inline-block;
   text-align: left;
@@ -307,8 +317,8 @@ form elements. */
 }
 
 i.icon.details-icon {
-  padding-left: .5em;
-  padding-right: 1em;
+  margin-left: .5em;
+  margin-right: 1em;
   font-size: 1.2em;
 }
 
@@ -452,8 +462,19 @@ i.icon.details-icon {
   display: inline-block;
 }
 
+/*
+=================
+ACCESSIBILITY
+=================
+*/
+#App *:focus {
+  outline: 5px double rgba(0, 121, 116, 1);
+  outline-offset: 2px;
+}
 
-
-
-
-
+#App .ui input:focus~label:before,
+#App .ui input:focus {
+  border: 1px solid rgba(0, 121, 116, 1);
+  outline: 2px solid rgba(0, 121, 116, 1);
+  outline-offset: 1px;
+}
