@@ -45,10 +45,6 @@ import { getTextForLanguage } from './utils/getTextForLanguage';
  * @extends React.Component
  */
 class App extends Component {
-  /**
-   * Create App component instance.
-   * @param {object} props - React props (none used).
-   */
   constructor (props) {
     super(props);
 
