@@ -24,7 +24,7 @@ class TermsAndConditions extends Component {
     this.setState({ showPrivacy });
   };
 
-  renderTerms = ({ i_header, i_terms }) => {
+  renderTermsSection = ({ i_header, i_terms }) => {
     return (
       <div>
         <h4>{ i_header }</h4>
@@ -53,14 +53,13 @@ class TermsAndConditions extends Component {
         closeOnDimmerClick={ false }
         closeOnEscape={ false }>
         <Modal.Header> 
-          {/* className={ classes.modalHeader } */}
           Terms and Conditions
         </Modal.Header>
         <Modal.Content scrolling>
           {
             !this.state.showPrivacy ?
-              this.renderTerms(snippets.termsOfUse) :
-              this.renderTerms(snippets.privacyAndCookies)
+              this.renderTermsSection(snippets.termsOfUse) :
+              this.renderTermsSection(snippets.privacyAndCookies)
           } 
         </Modal.Content>
         <Modal.Actions>
