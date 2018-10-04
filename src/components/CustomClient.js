@@ -3,19 +3,18 @@ import { Form, Message } from 'semantic-ui-react';
 
 
 /**
- * Propagate data from JSON object.
- * @callback load
- * @param {object} toLoad - Parsed JSON object to use.
- * @todo Change to just 'load'? Change this component
- *     to a more generic `<Load>`.
+ * @typedef {function} load Propagate data from JSON object.
+ * @callback
+ * @param {object} toLoad Parsed JSON object.
  */
 
-/**
- * Accept data from a user's JSON object and send it to `load`.
- *     Currently for development only.
+/** Accept data from a user's JSON object and send it to `load`
+ *     callback. Currently for development only.
+ *
+ * @todo Change this component to a more generic `<LoadJSON>`
  * 
  * @param {object} props
- * @param {toLoad} props.load
+ * @param {load} props.load
  * @param {object} props.toRestore Data to use to reset
  *     values that load changes.
  * 
