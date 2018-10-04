@@ -19,11 +19,6 @@ class TermsAndConditions extends Component {
     this.props.toggleAcceptTerms();
   };
 
-  togglePrivacy = () => {
-    let showPrivacy = !this.state.showPrivacy;
-    this.setState({ showPrivacy });
-  };
-
   renderTermsSection = ({ i_header, i_terms }) => {
     return (
       <div>
@@ -56,11 +51,7 @@ class TermsAndConditions extends Component {
           Terms and Conditions
         </Modal.Header>
         <Modal.Content scrolling>
-          {
-            !this.state.showPrivacy ?
-              this.renderTermsSection(snippets.termsOfUse) :
-              this.renderTermsSection(snippets.privacyAndCookies)
-          } 
+          { this.renderTermsSection(snippets.termsOfUse) } 
         </Modal.Content>
         <Modal.Actions>
           {
@@ -72,10 +63,6 @@ class TermsAndConditions extends Component {
               </Button> :
               null
           }
-          <Button
-            onClick={ this.togglePrivacy }>
-            { this.state.showPrivacy ? snippets.i_buttonBackToTerms : snippets.i_buttonViewPrivacy }
-          </Button>
         </Modal.Actions>
       </Modal>
     ); // End return()

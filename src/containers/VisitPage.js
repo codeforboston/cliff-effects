@@ -32,6 +32,9 @@ import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
 
+import { renderIfTrue } from '../components/renderIfTrue';
+import TermsAndConditions from '../components/prompts/TermsAndConditions';
+
 class VisitPage extends Component {
   constructor (props) {
     super(props);
@@ -61,6 +64,8 @@ class VisitPage extends Component {
       oldHousing:            clientData.current.housing,
       userChanged:           {},
       snippets:              props.snippets,
+      
+      termsAccepted: false,
     };  // end this.state {}
 
     this.steps = [
@@ -271,12 +276,23 @@ class VisitPage extends Component {
     );
   };  // End getCurrentStep()
 
+  /** Toggles termsAccepted flag in app state.  Passed to TermsAndConditions modal
+   * which calls this in the onClose handler.  App is unavailable until terms 
+   * are accepted.
+   * @method
+   * @param {boolean} termsAccepted
+   */
+  toggleAcceptTerms = (termsAccepted) => {
+    this.setState({ termsAccepted });
+  };  // End acceptTerms()
+
   render() {
 
-    var snippets    = this.state.snippets,
-        prevContent = null,
-        nextContent = null,
-        stepIndex   = this.getCurrentStepIndex();
+    var snippets      = this.state.snippets,
+        prevContent   = null,
+        nextContent   = null,
+        stepIndex     = this.getCurrentStepIndex(),
+        termsAccepted = this.state.termsAccepted;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -372,6 +388,14 @@ class VisitPage extends Component {
           </div>
 
         </Container>
+
+        { renderIfTrue(termsAccepted === false, (
+          <TermsAndConditions
+            termsAccepted = { termsAccepted }
+            toggleAcceptTerms = { this.toggleAcceptTerms }
+            snippets={{ ...snippets.policies }} />
+        ))}
+
       </div>
     );
   }

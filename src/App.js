@@ -28,8 +28,6 @@ import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
 
-import TermsAndConditions from './components/prompts/TermsAndConditions';
-
 /**
  * Main top-level component of the app. Contains the router that controls access
  * to the {@link HomePage}, {@link VisitPage}, and {@link AboutPage}, as well
@@ -89,7 +87,6 @@ class App extends Component {
         nonEnglish: true,
         ...localDev,
       },
-      termsAccepted: false,
     };
   };  // End constructor()
 
@@ -126,16 +123,6 @@ class App extends Component {
       }
     });
   };  // End setDev()
-
-  /** Toggles termsAccepted flag in app state.  Passed to TermsAndConditions modal
-   * which calls this in the onClose handler.  App is unavailable until terms 
-   * are accepted.
-   * @method
-   * @param {boolean} termsAccepted
-   */
-  toggleAcceptTerms = (termsAccepted) => {
-    this.setState({ termsAccepted });
-  };  // End acceptTerms()
 
   /** Load an individual client's data. Currently, the only source of client
    * data to load is a text input field in the Dev HUD.
@@ -180,7 +167,6 @@ class App extends Component {
       snippets,
       devProps,
       clients,
-      termsAccepted,
     } = this.state;
 
     var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
@@ -262,14 +248,6 @@ class App extends Component {
             data     = {{ default: clients.default }}
             state    = { this.state } />
         ))}
-
-        { renderIfTrue(termsAccepted === false, (
-          <TermsAndConditions
-            termsAccepted = { termsAccepted }
-            toggleAcceptTerms = { this.toggleAcceptTerms }
-            snippets={{ ...snippets.policies }} />
-        ))}
-
       </div>
     );
   };  // End render()
