@@ -4,14 +4,18 @@
 }
 
 #App .dev-hud {
-  pointer-events: none;
   position: fixed;
   align-self: flex-end;
   min-height: 0px;
+  max-height: 100%;
   width: fit-content;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, .7);
+  padding-bottom: 0;
+}
+
+.dev-hud .dev-menu {
+  overflow-y: scroll;
 }
 
 .dev-hud input,
@@ -24,6 +28,9 @@
   margin: 0;
   padding: 0.5em;
   height: 2em;
+  border-top: 1px solid rgb(200, 200, 200);
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 }
 
 .dev .dev-hud .checkbox {
