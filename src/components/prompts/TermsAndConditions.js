@@ -3,7 +3,6 @@ import {
   Button,
   Modal,
 } from 'semantic-ui-react';
-// import * as classes from './TermsAndConditions.css';
 
 /**
  * Displays a model that requires the user to accept the terms and conditions before using the app
@@ -47,11 +46,12 @@ class TermsAndConditions extends Component {
 
     return (
       <Modal
+        id={ `WarningModal` }
         size='large'
         open={ !termsAccepted }
         onClose={ this.closeModal }
         closeOnDimmerClick={ false }
-        closeOnEscape={ false } >
+        closeOnEscape={ false }>
         <Modal.Header> 
           {/* className={ classes.modalHeader } */}
           Terms and Conditions

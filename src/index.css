@@ -478,3 +478,14 @@ ACCESSIBILITY
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
 }
+
+
+/*
+==========================
+TERMS AND CONDITIONS MODAL
+==========================
+*/
+#WarningModal .header {
+  color: #fff;
+  background-color: #db2828;
+}
