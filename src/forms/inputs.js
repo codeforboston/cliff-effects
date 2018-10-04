@@ -7,16 +7,16 @@ import {
 } from 'semantic-ui-react';
 
 
-/** A big button. Right now, just used in the bottom row of
-*     form sections
+// @todo Change ...buttonProps to explicit `overrides` obj
+/** A big button with overridable properties.
 *
 * @function
 * @param {object} props
-* @property {buttonProps} props.children - React children
-* @property {buttonProps} props.buttonProps - Props to
+* @property {buttonProps} props.children Things React can render
+* @property {buttonProps} props.buttonProps Props to
 *     override any default props that need to be overridden
 *
-* @returns Component
+* @returns {object} React element
 */
 const BigButton = function ({ children, ...buttonProps }) {
 
@@ -35,19 +35,21 @@ const BigButton = function ({ children, ...buttonProps }) {
 };  // End <BigButton>
 
 
-/** Yes/no toggleable radio button group with a label
+/** Yes/no toggleable radio button group with a label.
  *
  * @function
  * @param {object} props
  * @property {string} props.labelText
- * @property {string} props.name - Key for radio-group. Must
+ * @property {string} props.name Key for radio-group. Must
  *     be unique from all other radio names on the page.
- * @property {bool} props.value - `true` if 'yes' is selected
+ * @property {bool} props.checked `true` if 'yes' is selected
  *     `false` if 'no' is selected. Change will be sent out.
- * @property {function} props.updateClientValue - is given event and adjusted
+ * @property {function} props.onChange Is given event and adjusted
  *     input element props object. Adjustment is to make sure
  *     the property `value` is under control since there are
  *     issues further up the line.
+ * 
+ * @returns {object} React element
  */
 class ControlledRadioYesNo extends Component {
   constructor(props){
@@ -92,18 +94,20 @@ class ControlledRadioYesNo extends Component {
 };  // End <ControlledRadioYesNo>
 
 
+// @todo description
+// @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
 /**
- * @todo description
- * @todo Write callback descriptions for function params: http://usejsdoc.org/tags-callback.html
- *
  * @param {Object} props
- * @param {number | string} props.value - Valid client value
- * @param {string} props.name - For HTML name property
- * @param {string} props.className - HTML class names
- * @param {*} [props.otherData] - Sent back to `store()`
- * @param {function} props.format - Given `value`. Must return what you want shown in the number field.
- * @param {function} props.validate - Given `value`. Must return boolean.
- * @param {function} props.store - Given an event, `value`, [`otherData`]
+ * @param {number|string} props.value Valid client number value
+ * @param {string} props.name For HTML name property
+ * @param {string} props.className HTML class names
+ * @param {*} [props.otherData] Sent back to `store()`
+ * @param {function} props.format Given `value`. Must return what you
+ *     want shown in the number field.
+ * @param {function} props.validate Given `value`. Must return boolean.
+ * @param {function} props.store Given an event, `value`, [`otherData`]
+ * 
+ * @returns {object} React element
  */
 class ManagedNumberField extends Component {
   constructor (props) {
@@ -159,7 +163,8 @@ class ManagedNumberField extends Component {
       value = focusedVal;
     }
 
-    /** @todo Different class for something 'future' that has a current value that isn't 0 */
+    // @todo Different class for something 'future' that has a
+    // current value that isn't 0?
     return (
       <Form.Input
         error     = { !valid }
