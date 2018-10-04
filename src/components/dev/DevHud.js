@@ -46,7 +46,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         </Button>
       </Menu.Item>
 
-      <Menu.Item header>> Snippets</Menu.Item>
+      <Menu.Item header> Snippets</Menu.Item>
       <Menu.Item>
         <Checkbox
           label    = { `Mark English snippets` }
@@ -75,7 +75,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
           onChange     = { funcs.setLanguage } />
       </Menu.Item>
 
-      <Menu.Item header>> Client</Menu.Item>
+      <Menu.Item header> Client</Menu.Item>
       <Menu.Item>
         <CustomClient
           load       = { funcs.loadClient }
