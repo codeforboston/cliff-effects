@@ -301,12 +301,13 @@ export default {
       buttonYearly_v1:            `Yearly`, // see cashflow.js, GraphTimeButtons
     },
 
-    policies: {
-      termsOfUse: {
-        header: `IMPORTANT:`,
-        terms:  [ `This tool is in testing.  Predictions should not be used to make financial decisions.` ],
-      },
+    termsOfUse: {
+      header:            `IMPORTANT`,
+      terms:             `This tool is in testing.  Predictions should not be used to make financial decisions.`,
       buttonAcceptTerms: `Accept and Continue`,
+      formHeader:        `Please choose one:`,
+      fieldYesLabel:     `I can count on what this tool tells me`,
+      fieldNoLabel:      `I understand that I can't count on what this tool tells me`,
     },
 
   },

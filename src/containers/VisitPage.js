@@ -393,7 +393,7 @@ class VisitPage extends Component {
           <TermsAndConditions
             termsAccepted = { termsAccepted }
             toggleAcceptTerms = { this.toggleAcceptTerms }
-            snippets={{ ...snippets.policies }} />
+            snippets={{ ...snippets.termsOfUse }} />
         ))}
 
       </div>

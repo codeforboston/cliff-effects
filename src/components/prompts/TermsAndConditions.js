@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
   Button,
+  Form,
   Modal,
+  Radio,
 } from 'semantic-ui-react';
 
 /**
@@ -13,27 +15,18 @@ import {
  */
 class TermsAndConditions extends Component {
   
-  state = { showPrivacy: false };
+  state = { canCountOnPredictions: null };
 
   closeModal = () => {
     this.props.toggleAcceptTerms();
   };
 
-  renderTermsSection = ({ i_header, i_terms }) => {
-    return (
-      <div>
-        <h4>{ i_header }</h4>
-        {
-          i_terms.map((term) => {
-            return <p key={ `p_${term.key}` }>{ term }</p>;
-          })
-        }
-      </div>
-    );
-  }
+  handleChange = (canCountOnPredictions) => {
+    this.setState({ canCountOnPredictions });
+  };
 
   render() {
-
+  
     const {
       termsAccepted,
       snippets,
@@ -48,21 +41,37 @@ class TermsAndConditions extends Component {
         closeOnDimmerClick={ false }
         closeOnEscape={ false }>
         <Modal.Header> 
-          Terms and Conditions
+          { snippets.i_header }
         </Modal.Header>
         <Modal.Content scrolling>
-          { this.renderTermsSection(snippets.termsOfUse) } 
+
+          { snippets.i_terms } 
+
+          <h5>{ snippets.i_formHeader }</h5>
+
+          <Form>
+            <Form.Field>
+              <Radio
+                label={ snippets.i_fieldYesLabel.props.children }
+                checked={ this.state.canCountOnPredictions === true }
+                onClick={ () => this.handleChange(true) } />
+            </Form.Field>
+            <Form.Field>
+              <Radio
+                label={ snippets.i_fieldNoLabel.props.children }
+                checked={ this.state.canCountOnPredictions === false }
+                onClick={ () => this.handleChange(false) } />
+            </Form.Field>
+          </Form>
+         
         </Modal.Content>
         <Modal.Actions>
-          {
-            !this.state.showPrivacy ?
-              <Button
-                onClick={ this.closeModal }
-                color='red'>
-                { snippets.i_buttonAcceptTerms }
-              </Button> :
-              null
-          }
+          <Button
+            disabled={ this.state.canCountOnPredictions === false ? false : true }
+            onClick={ this.closeModal }
+            color='red'>
+            { snippets.i_buttonAcceptTerms }
+          </Button>
         </Modal.Actions>
       </Modal>
     ); // End return()
