@@ -16,12 +16,12 @@ import { toMoneyStr } from '../utils/prettifiers';
  *
  * @function
  * @param {object} props
- * @property {object} props.children - The cash flow inputs
- * @property {object} props.label - What category these inputs are for
- * @property {object} props.validRow - Whether 'invalid' feedback needs to be shown
- * @property {object} props.message - Feedback to user about invalid input
+ * @property {object} props.children The cash flow inputs
+ * @property {object} props.label What category these inputs are for
+ * @property {object} props.validRow Whether 'invalid' feedback needs to be shown
+ * @property {object} props.message Feedback to user about invalid input
  *
- * @returns Component
+ * @returns React element
  */
 const CashFlowContainer = function ({ children, label, validRow, message }) {
   return (
@@ -40,22 +40,23 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
 };  // End <CashFlowContainer>
 
 /** Maximum input value of yearly income allowed in the textbox,
- * monthly/daily will be scaled
+ *     monthly/daily will be scaled
+ * @var
  */
 const maximum_value_yearly = 999999.99;
 
+
+// @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
+// use `includes` array to include only certain columns perhaps.
 /** One row for cash flow inputs - weekly, monthly, yearly
  *
  * @param {object} props
- * @property {object} props.generic - Base name for the client property that
+ * @property {object} props.generic Base name for the client property that
  *     needs to be updated (now the code has changed, this may be a misnomer)
- * @property {object} props.timeState - Client, either future values or current values
- * @property {object} props.updateClientValue - Updates client state
- * @property {object} props.children - Text for the row label
- * 
+ * @property {object} props.timeState Client, either future values or current values
+ * @property {object} props.updateClientValue Updates client state
+ * @property {object} props.children Text for the row label
  */
-/** @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
-      use `includes` array to include only certain columns perhaps. */
 class CashFlowInputsRow extends Component {
   constructor(props) {
     super(props);
@@ -89,17 +90,13 @@ class CashFlowInputsRow extends Component {
   
     
   
-    /** baseVal
-     * Get the time ('future' or 'current') monthly value unless there is
-     *     none, in which case, get the 'current' monthly cash flow value
-     *     (to prefill future values with 'current' ones if needed).
-     *
-     * @var
+    /* Get the time ('future' or 'current') monthly value unless there is
+     * none, in which case, get the 'current' monthly cash flow value
+     * (to prefill future values with 'current' ones if needed).
      *
      * @todo Add some kind of UI indication when it's the same as the 'current'
-     *     value. What if some of the row's values are the same and some are
-     *     different?
-     */
+     * value. What if some of the row's values are the same and some are
+     * different? */
     var baseVal   = timeState[ generic ],
         baseProps = {
           name:             generic,
@@ -137,6 +134,13 @@ class CashFlowInputsRow extends Component {
 }
 
 
+/** Show a value, or the sum of multiple values, of data
+ *     that the user has already put in from another input.
+ *
+ * @todo Turn this row into a link to the input row where
+ *     the data came from so the user can jump quickly and
+ *     easily to the place where they can change the data.
+ */
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
 
   var baseVal      = value || timeState[ generic ],
@@ -145,7 +149,6 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
       monthly      = toMoneyStr(baseVal),
       yearly       = toMoneyStr(baseVal * 12);
 
-  /** @todo Make label a link to the input row */
   return (
     <div className = { `cashflow cashflow-display` }>
       <div className = { colClassName + ` ` + generic + ` output-number` } >
@@ -171,10 +174,10 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
  *
  * @function
  * @param {object} props
- * @property {object} props.inputProps - Key name, validators, and onBlur
- * @property {object} props.baseValue - Start value of field?
- * @property {object} props.updateClientValue - Updates client state
- * @property {object} props.rowProps - `label`, `validRow`, `message`
+ * @property {object} props.inputProps Key name, validators, and onBlur
+ * @property {object} props.baseValue Start value of field?
+ * @property {object} props.updateClientValue Updates client state
+ * @property {object} props.rowProps `label`, `validRow`, `message`
  *
  * @returns Component
  */
