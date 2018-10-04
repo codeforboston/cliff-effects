@@ -27,6 +27,11 @@ export default {
     toAboutPage_v1:      `Learn More`,
   },
 
+  policies: {
+    termsOfUse:        `This is a prototype and should not be used to make financial decisions.`,
+    privacyAndCookies: `Please note that this app does not store user data.`,
+  },
+
   aboutPage: {
     aboutPageHeader_v1: `About the Cliff Effects Tool`,
 
