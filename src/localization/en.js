@@ -304,7 +304,7 @@ export default {
     termsOfUse: {
       header:            `IMPORTANT`,
       terms:             `This tool is in testing.  Predictions should not be used to make financial decisions.`,
-      buttonAcceptTerms: `Accept and Continue`,
+      buttonAcceptTerms: `Continue`,
       formHeader:        `Please choose one:`,
       fieldYesLabel:     `I can count on what this tool tells me`,
       fieldNoLabel:      `I understand that I can't count on what this tool tells me`,
