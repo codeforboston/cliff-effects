@@ -467,12 +467,13 @@ i.icon.details-icon {
 ACCESSIBILITY
 =================
 */
-#root *:focus {
+body .ui *:focus {
   outline: 5px double rgba(0, 121, 116, 1);
   outline-offset: 2px;
   z-index: 1;
 }
 
+/* Without #root, these selectors don't win */
 #root input:focus~label:before,
 #root .form *:focus {
   border: 1px solid rgba(0, 121, 116, 1);

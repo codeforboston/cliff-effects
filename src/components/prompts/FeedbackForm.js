@@ -176,6 +176,8 @@ class FeedbackPrompt extends React.Component {
       };
     };
 
+    // Without the #root selector, we can't get the accessibility
+    // focus styles to win 
     return (
       <Modal
         mountNode = { document.getElementById(`root`) }
@@ -227,6 +229,7 @@ class FeedbackPrompt extends React.Component {
         </Modal.Actions>
 
         <Modal
+          mountNode = { document.getElementById(`root`) }
           size               = { `large` }
           open               = { this.state.ready }
           onClose            = { this.closeAskPermission }
