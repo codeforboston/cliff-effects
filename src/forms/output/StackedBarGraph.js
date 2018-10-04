@@ -18,14 +18,14 @@ import { cloneDeep } from 'lodash';
 
 
 /** Visual representation of the table
-*
-* Alternatives:
-* 1. Stacked area graph for two data points
-* 2. Line graph of difference of just total money coming in
-* 
-* @param {object} client - full client object, with current
-*     and future. All client props are needed.
-*/
+ *
+ * Alternatives:
+ * 1. Stacked area graph for two data points
+ * 2. Line graph of difference of just total money coming in
+ * 
+ * @param {object} client Full client object, with current
+ *     and future. All client props are needed.
+ */
 const StackedBarGraph = function({ client }) {
 
   var clone = cloneDeep(client),

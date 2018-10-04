@@ -1,11 +1,11 @@
 
 /** Returns a dashed vertical line at a given
-*     horizontal position with a given label. For
-*     use with anything using the same API as
-*     react-chartjs-2.
-*
-* @class
-*/
+ *     horizontal position with a given label. For
+ *     use with anything using the same API as
+ *     react-chartjs-2.
+ *
+ * @class
+ */
 class VerticalLine {
 
   constructor () {

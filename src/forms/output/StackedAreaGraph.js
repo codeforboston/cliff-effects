@@ -60,7 +60,6 @@ class StackedAreaGraph extends Component {
         extraProps    = { income: { fill: 'origin' }},
         datasets     = getChartData(xRange, multiplier, client, withIncome, extraProps);
 
-    // console.log(datasets, datasets2);
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
     var hack    = this.state.verticalLine;
