@@ -28,8 +28,23 @@ export default {
   },
 
   policies: {
-    termsOfUse:        `This is a prototype and should not be used to make financial decisions.`,
-    privacyAndCookies: `Please note that this app does not store user data.`,
+    termsOfUse: {
+      header: `Acceptance of Terms`,
+      terms:  [
+        `Use of this site requires your acceptance of these terms and conditions, as well as the site privacy policy.`,
+        `You acknowledge this tool is in testing and the resulting data may be incorrect. Therefore, the information is for educational purposes only and should not be used to make financial decisions.`,
+      ],
+    },
+    privacyAndCookies: {
+      header: `Privacy Policy`,
+      terms:  [
+        `Please note that this app does not store user financial data.`,
+        `However, if you choose to provide feedback through the provided form, you accept that this information will be stored using a third-party service to help us improve site functionality.`,
+      ],
+    },
+    buttonAcceptTerms: `Accept Terms`,
+    buttonBackToTerms: `Back to Terms`,
+    buttonViewPrivacy: `View Privacy Policy`,
   },
 
   aboutPage: {
