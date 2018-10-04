@@ -1,3 +1,7 @@
+/** @module formHelpers
+ * @todo Separate into better-named dirs/files
+ */
+
 // REACT COMPONENTS
 import React from 'react';
 import {
@@ -7,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
-/** @todo Move all references to this component to the actual component file */
+// @todo Move all references to this component to the actual component file
 import { ExternalLink } from './../components/ExternalLink';
 
 
@@ -15,7 +19,10 @@ import { ExternalLink } from './../components/ExternalLink';
 // INPUT CONTAINER COMPONENTS
 // ========================================
 
-/** Adds an option for an 'invalid input' message to the right of the last element */
+/** Adds an option for an 'invalid input' message to the right
+ *     of the last element
+ * @todo Put above input instead, using `.Top` of `<Surrounder>`
+ */
 const InvalidMessage = function ({ validRow, message }) {
 
   var result = null;
@@ -53,7 +60,6 @@ var AttentionArrow = function () {
 };  // End <AttentionArrow>
 
 
-/** @todo Separate into different files? */
 export {
   ExternalLink,
   InvalidMessage,
