@@ -178,6 +178,7 @@ class FeedbackPrompt extends React.Component {
 
     return (
       <Modal
+        mountNode = { document.getElementById(`root`) }
         size='large'
         open={ this.props.isOpen }
         onClose={ this.close }
@@ -188,6 +189,7 @@ class FeedbackPrompt extends React.Component {
         <Modal.Content scrolling>
           <Form>
             <Form.Input
+              autoFocus
               { ...inputProps('currentSnap') }
               label={ 'If amount for the CURRENT SNAP subsidy was wrong, what\'s the correct amount?' } />
             <Form.Input
