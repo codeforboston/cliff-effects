@@ -3,14 +3,14 @@ import { getConfirmation as defaultConfirm } from 'history/DOMUtils';
 /**
  * tl;dr:
  * This is a wrapper that temporarily hijacks React history.
- * 
+ *
  * More details:
  * _history_, which is used by _React Router_ (`HashRouter`
  * in App.js), runs the function `getConfirmation()` every
  * time the user navigates away from a React 'page'.
  * Navigates to a different `Route`, that is. This is useful
  * for adding `onunload`-like prompts.
- * 
+ *
  * We could do this in a way that would be persistent
  * throughout the site, but that became too hard to follow.
  * Instead we pass it down through `props`. When we're done
