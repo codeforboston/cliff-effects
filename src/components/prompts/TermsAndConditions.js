@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -17,8 +18,12 @@ class TermsAndConditions extends Component {
   
   state = { canCountOnPredictions: null };
 
-  closeModal = () => {
-    this.props.toggleAcceptTerms();
+  closeModal = (accept) => {
+    if (accept) {
+      this.props.toggleAcceptTerms();
+    } else {
+      this.props.history.push('/');
+    }
   };
 
   handleChange = (canCountOnPredictions) => {
@@ -38,7 +43,6 @@ class TermsAndConditions extends Component {
         mountNode = { document.getElementById('App') }
         size='large'
         open={ !termsAccepted }
-        onClose={ this.closeModal }
         closeOnDimmerClick={ false }
         closeOnEscape={ false }>
         <Modal.Header> 
@@ -48,7 +52,7 @@ class TermsAndConditions extends Component {
 
           { snippets.i_terms } 
 
-          <h5>{ snippets.i_formHeader }</h5>
+          <h4>{ snippets.i_formHeader }</h4>
 
           <div className="radio-yes-no">
             <Form.Field>
@@ -75,8 +79,12 @@ class TermsAndConditions extends Component {
         </Modal.Content>
         <Modal.Actions>
           <Button
+            onClick={ () => this.closeModal(false) }>
+            { snippets.i_buttonCancelAccept }
+          </Button>
+          <Button
             disabled={ this.state.canCountOnPredictions === false ? false : true }
-            onClick={ this.closeModal }
+            onClick={ () => this.closeModal(true) }
             color='red'>
             { snippets.i_buttonAcceptTerms }
           </Button>
@@ -86,4 +94,4 @@ class TermsAndConditions extends Component {
   } // End render()
 };
 
-export default TermsAndConditions;
+export default withRouter(TermsAndConditions);

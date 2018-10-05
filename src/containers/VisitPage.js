@@ -274,8 +274,6 @@ class VisitPage extends Component {
 
   render() {
 
-    console.log(this.props);
-
     var snippets      = this.state.snippets,
         prevContent   = null,
         nextContent   = null,
