@@ -62,8 +62,6 @@ class VisitPage extends Component {
       oldHousing:            clientData.current.housing,
       userChanged:           {},
       snippets:              props.snippets,
-      
-      termsAccepted: false,
     };  // end this.state {}
 
     this.steps = [
@@ -274,23 +272,15 @@ class VisitPage extends Component {
     );
   };  // End getCurrentStep()
 
-  /** Toggles termsAccepted flag in app state.  Passed to TermsAndConditions modal
-   * which calls this in the onClose handler.  App is unavailable until terms 
-   * are accepted.
-   * @method
-   * @param {boolean} termsAccepted
-   */
-  toggleAcceptTerms = (termsAccepted) => {
-    this.setState({ termsAccepted });
-  };  // End acceptTerms()
-
   render() {
+
+    console.log(this.props);
 
     var snippets      = this.state.snippets,
         prevContent   = null,
         nextContent   = null,
         stepIndex     = this.getCurrentStepIndex(),
-        termsAccepted = this.state.termsAccepted;
+        termsAccepted = this.props.termsAccepted;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -391,7 +381,7 @@ class VisitPage extends Component {
           termsAccepted === false ? 
             <TermsAndConditions
               termsAccepted = { termsAccepted }
-              toggleAcceptTerms = { this.toggleAcceptTerms }
+              toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
               snippets={{ ...snippets.termsOfUse }} /> :
             null
         }

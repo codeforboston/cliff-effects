@@ -69,6 +69,7 @@ class App extends Component {
      *  @property {boolean} devProps.dev - whether dev HUD is turned on
      *  @property {boolean} devProps.english - whether to highlight English snippets
      *  @property {boolean} devProps.nonEnglish - whether to highlight snippets in the current language, if that language is not English
+     *  @property {boolean} termsAccepted - displays modal to accept terms before allowing user to fill out form
      */
     this.state = {
       langCode: `en`,
@@ -86,6 +87,7 @@ class App extends Component {
         nonEnglish: true,
         ...localDev,
       },
+      termsAccepted: false,
     };
   };  // End constructor()
 
@@ -160,12 +162,23 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
+  /** Toggles termsAccepted flag in app state.  Passed to TermsAndConditions modal
+   * which calls this in the onClose handler.  App is unavailable until terms 
+   * are accepted.
+   * @method
+   * @param {boolean} termsAccepted
+   */
+  toggleAcceptTerms = (termsAccepted) => {
+    this.setState({ termsAccepted });
+  };  // End acceptTerms()
+
   render () {
     var {
       langCode,
       snippets,
       devProps,
       clients,
+      termsAccepted,
     } = this.state;
 
     var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
@@ -174,6 +187,9 @@ class App extends Component {
           setDev:      this.setDev,
           loadClient:  this.loadClient,
           setLanguage: this.setLanguage,
+        },
+        funcs     = {
+          toggleAcceptTerms: this.toggleAcceptTerms,
         },
         clientData = clients.loaded;
 
@@ -220,9 +236,11 @@ class App extends Component {
                   return (
                     <VisitPage
                       { ...props }
-                      confirmer  = { confirmer }
-                      snippets   = {{ ...snippets.visitPage, langCode: snippets.langCode }}
-                      clientData = { clientData } />);
+                      termsAccepted = { termsAccepted }
+                      funcs         = { funcs }
+                      confirmer     = { confirmer }
+                      snippets      = {{ ...snippets.visitPage, langCode: snippets.langCode }}
+                      clientData    = { clientData } />);
                 } } />
 
               {/* For managing our development HUD */}

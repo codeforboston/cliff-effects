@@ -35,6 +35,7 @@ class TermsAndConditions extends Component {
     return (
       <Modal
         id={ `WarningModal` }
+        mountNode = { document.getElementById('App') }
         size='large'
         open={ !termsAccepted }
         onClose={ this.closeModal }
@@ -49,20 +50,27 @@ class TermsAndConditions extends Component {
 
           <h5>{ snippets.i_formHeader }</h5>
 
-          <Form>
+          <div className="radio-yes-no">
             <Form.Field>
               <Radio
-                label={ snippets.i_fieldYesLabel.props.children }
                 checked={ this.state.canCountOnPredictions === true }
                 onClick={ () => this.handleChange(true) } />
             </Form.Field>
             <Form.Field>
+              { snippets.i_fieldYesLabel }
+            </Form.Field>
+          </div>
+         
+          <div className="radio-yes-no">
+            <Form.Field>
               <Radio
-                label={ snippets.i_fieldNoLabel.props.children }
                 checked={ this.state.canCountOnPredictions === false }
                 onClick={ () => this.handleChange(false) } />
             </Form.Field>
-          </Form>
+            <Form.Field>
+              { snippets.i_fieldNoLabel }
+            </Form.Field>
+          </div>
          
         </Modal.Content>
         <Modal.Actions>
