@@ -302,13 +302,13 @@ export default {
     },
 
     termsOfUse: {
-      header:             `IMPORTANT`,
-      terms:              `This tool is in testing.  Predictions should not be used to make financial decisions.`,
-      buttonAcceptTerms:  `Continue`,
-      buttonCancelAccept: `Cancel`,
-      formHeader:         `Please choose one:`,
-      fieldYesLabel:      `I can count on what this tool tells me`,
-      fieldNoLabel:       `I understand that I can't count on what this tool tells me`,
+      header_v1:             `IMPORTANT`,
+      terms_v1:              `This tool is in testing.  Predictions should not be used to make financial decisions.`,
+      buttonAcceptTerms_v1:  `Continue`,
+      buttonCancelAccept_v1: `Cancel`,
+      formHeader_v1:         `Please choose one:`,
+      fieldYesLabel_v1:      `I can count on what this tool tells me`,
+      fieldNoLabel_v1:       `I understand that I can't count on what this tool tells me`,
     },
 
   },
