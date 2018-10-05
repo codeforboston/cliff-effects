@@ -31,8 +31,6 @@ import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
-
-import { renderIfTrue } from '../components/renderIfTrue';
 import TermsAndConditions from '../components/prompts/TermsAndConditions';
 
 class VisitPage extends Component {
@@ -389,12 +387,14 @@ class VisitPage extends Component {
 
         </Container>
 
-        { renderIfTrue(termsAccepted === false, (
-          <TermsAndConditions
-            termsAccepted = { termsAccepted }
-            toggleAcceptTerms = { this.toggleAcceptTerms }
-            snippets={{ ...snippets.termsOfUse }} />
-        ))}
+        { 
+          termsAccepted === false ? 
+            <TermsAndConditions
+              termsAccepted = { termsAccepted }
+              toggleAcceptTerms = { this.toggleAcceptTerms }
+              snippets={{ ...snippets.termsOfUse }} /> :
+            null
+        }
 
       </div>
     );

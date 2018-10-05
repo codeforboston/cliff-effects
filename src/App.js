@@ -69,7 +69,6 @@ class App extends Component {
      *  @property {boolean} devProps.dev - whether dev HUD is turned on
      *  @property {boolean} devProps.english - whether to highlight English snippets
      *  @property {boolean} devProps.nonEnglish - whether to highlight snippets in the current language, if that language is not English
-     *  @property {boolean} termsAccepted=false - displays a modal until user accepts terms and conditions of the site (currently indicates this is a prototype)
      */
     this.state = {
       langCode: `en`,
