@@ -180,7 +180,7 @@ class FeedbackPrompt extends React.Component {
     // focus styles to win 
     return (
       <Modal
-        mountNode = { document.getElementById(`root`) }
+        mountNode = { document.getElementById(`App`) }
         size='large'
         open={ this.props.isOpen }
         onClose={ this.close }
@@ -229,7 +229,7 @@ class FeedbackPrompt extends React.Component {
         </Modal.Actions>
 
         <Modal
-          mountNode = { document.getElementById(`root`) }
+          mountNode = { document.getElementById(`App`) }
           size               = { `large` }
           open               = { this.state.ready }
           onClose            = { this.closeAskPermission }
