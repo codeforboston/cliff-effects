@@ -6,7 +6,7 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
-import { BenefitText } from './output/BenefitText';
+import { Summary } from './output/Summary';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
@@ -65,7 +65,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             </Menu.Item>
           ),
           render: () => {return (
-            <Tab.Pane><BenefitText
+            <Tab.Pane><Summary
               client       = { client }
               openFeedback = { openFeedback }
               snippets     = { snippets } />
