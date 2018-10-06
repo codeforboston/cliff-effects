@@ -6,6 +6,7 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
+import { BenefitText } from './output/BenefitText';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
@@ -51,13 +52,27 @@ const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
 };  // End IncomeForm() Component
 
 
-const TabbedVisualizations = ({ client, snippets }) => {
+const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
   return (
   // Benefit Courses, Tracks, Routes, Traces, Progressions, Progress, Trajectories, Changes
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
         {
+          menuItem: (
+            <Menu.Item key="tab0">
+              { `Summary` }
+            </Menu.Item>
+          ),
+          render: () => {return (
+            <Tab.Pane><BenefitText
+              client       = { client }
+              openFeedback = { openFeedback }
+              snippets     = { snippets } />
+            </Tab.Pane>
+          );}, 
+        },
+        { 
           menuItem: (
             <Menu.Item
               key = { `tab1` }
@@ -159,22 +174,23 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         { snippets.i_chartsHeader }
       </Header>
       <Message
-      className="prediction-message"
+        className = { `prediction-message` }
         visible
         warning>
         { snippets.i_warningMessage }
-        <br />
         <Button
-          id="prediction-button"
-          fluid
-          color='teal'
-          onClick={ openFeedback }>
+          className = { `feedback-button` }
+          size      = { `small` }
+          color     = { `teal` }
+          compact
+          onClick   = { openFeedback }>
           { snippets.i_submitFeedback }
         </Button>
       </Message>
-      <TabbedVisualizations
-        client   = { client }
-        snippets = { snippets } />
+      <TabbedVisualizations 
+        client       = { client }
+        openFeedback = { openFeedback }
+        snippets     = { snippets } />
     </FormPartsContainer>
   );
 };  // End FutureIncomeStep() Component

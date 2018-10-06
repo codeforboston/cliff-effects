@@ -262,9 +262,9 @@ export default {
       tabTitleStackedIncomes_v1:  `Stacked Incomes`, // see Predictions.js
       tabTitleBenefitPrograms_v1: `Benefit Programs`, // see Predictions.js
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
-      warningMessage_v1:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
-      submitFeedback_v1:          `Submit Feedback`,
-      // added the following snippets Friday 2018_9_7
+      warningMessage_v2:          `This tool is in testing and these numbers might not be right. If they're not, please `,
+      feedbackAsk_v1:             `Are these numbers right? Please `,
+      submitFeedback_v2:          `let us know`,
       // Benefits Table:
       benefitsTableTitle_v1:      `Changes`, // see line 265 above
       columnBenefit_v1:           `Benefit`, // see BenefitsTable.js
