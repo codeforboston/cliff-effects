@@ -269,21 +269,28 @@ export default {
       noFutureChange_v1:          `There is no change in your household's pay, so there's no change in your benefits.`,
       period_v1:                  `.`,
       eachTimeInterval_v1:        `a month`,  // `eachTime`?
+      detailsHeader_v1:           `What could happen?`,
       nowEarn_v1:                 `Right now you earn`,
       nowBenefitsTotalIs_v1:      `and this tool says that your benefits all add up to about`,
       nowTotalIs_v1:              `All together, it says you bring in about`,
       newEarn_v1:                 `If your household's pay changes to`,
-      newBenefitsTotalIs_v1:      `, this tool says your benefits might add up to about`,
+      newBenefitsTotalIs_v1:      `this tool says your benefits might add up to about`,
       newBenefitDetailsIntro_v1:  `This is how your benefits might change:`,
       from_v1:                    `might change from about`,
       to_v1:                      `to about`,
       feedbackAsk_v1:             `Are these numbers right? Please `,
+      summaryHeader_v1:           `What could it add up to?`,
+      newTotalIs_v1:              `If this tool is right, you might bring in about`,
       resultIs_v1:                `That's`,
       moreThan_v1:                `more than before.`,
       lessThan_v1:                `less than before.`,
       sameAs_v1:                  `the same as before.`,
-
-
+      noCliff_v1:                 `After this, the tool says you could keep bringing in more with each raise.`,
+      cliffEndHeader_v1:          `When could things get better?`,
+      ifGetTo_v1:                 `The tool says that if you can get to where your household makes about`,
+      willGet_v1:                 `you could bring in about`,
+      moreIn_v1:                  `more each month all together.`,
+      findHelp_v1:                `If you're worried about these results, please search for "social services" in your area to try to find a local case manager.`,
       // Benefits Table:
       benefitsTableTitle_v1:      `Changes`, // see line 265 above
       columnBenefit_v1:           `Benefit`, // see BenefitsTable.js

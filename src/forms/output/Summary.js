@@ -320,7 +320,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
   var detailsFuture = (
     <p>
       {sn.i_newEarn} {sn.i_beforeMoney}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}
-      {sn.i_newBenefitsTotalIs} {sn.i_beforeMoney}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}
+      {` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoney}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}
       {` `} {sn.i_newBenefitDetailsIntro}
     </p>
   );
@@ -332,8 +332,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
     let cBenefit = current.benefits[ benefiti ],
         fBenefit = future.benefits[ benefiti ];
-        // sn.i_from
-        // sn.i_to
+
     benefitList.push(
       <li key = { cBenefit.label }>
         {cBenefit.label} {sn.i_from} {sn.i_beforeMoney}{round$(cBenefit.amount)}
@@ -342,7 +341,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
     );
   }  // ends for each benefit
 
-  // As for feedback
+  // Ask for feedback
   var feedbackAsk = (
     <p>
       <span key = { `pre-ask` }>
@@ -362,45 +361,43 @@ const Summary = function ({ client, openFeedback, snippets }) {
   var posDiff    = round$(Math.abs(diff)),
       lessOrMore = ``;
   if (diff > 0) {
-    lessOrMore = `That's $${posDiff} more than before.`;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoney}{posDiff} {sn.i_moreThan}</span>;
   } else if (diff < 0) {
-    lessOrMore = `That's $${posDiff} less than before.`;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoney}{posDiff} {sn.i_lessThan}</span>;
   } else if (diff === 0) {
-    lessOrMore = `That's the same as before`;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_sameAs}</span>;
   }
 
-  var summaryFuture = 
-    `If this tool is right, you might bring in about ` +
-    `$${round$(future.total)} a month. ${lessOrMore}`;
+  var summaryFuture = (
+    <p>{sn.i_newTotalIs} {sn.i_beforeMoney}{round$(future.total)} {sn.i_eachTimeInterval}{sn.i_period} {lessOrMore}</p>
+  );
 
+  var endOfCliffContent = sn.i_noCliff;
   // If there was a cliff, how much more will they have
   // to earn before they'll get more than they are now?
-  var endOfCliffContent = `After this, the tool says you could keep bringing in more with each raise.`;
   if (recovery.total !== undefined) {
     endOfCliffContent = (
       <div>
         <div className = { `text-result-section` }>
-          <Header>When could things get better?</Header>
+          <Header>{sn.i_cliffEndHeader}</Header>
           <p>
-            {
-              `The tool says that if you can get to where your household makes about ` +
-              `$${round$(recovery.earned)} a month, you could bring in about ` +
-              `$${round$(recovery.total - current.total)} more each month all together.`
-            }
+            {sn.i_ifGetTo} {sn.i_beforeMoney}{round$(recovery.earned)} {sn.i_eachTimeInterval}
+            {` `} {sn.i_willGet} {sn.i_beforeMoney}{round$(recovery.total - current.total)}
+            {` `} {sn.i_moreIn}
           </p>
         </div>
 
         <hr />
-        <p>If you're worried about these results, please search for "social services" in your area to try to find a local case manager.</p>
+        <p>{sn.i_findHelp}</p>
       </div>
     );
-  }  // end if end of cliff is a thing
+  }  // ends if there's a cliff end
 
   return (
     <div>
 
       <div className = { `text-result-section` }>
-        <Header>What could happen?</Header>
+        <Header>{sn.i_detailsHeader}</Header>
         { detailsNow }
         { detailsFuture }
         <ul>
@@ -410,8 +407,8 @@ const Summary = function ({ client, openFeedback, snippets }) {
       </div>
 
       <div className = { `text-result-section` }>
-        <Header>What could it add up to?</Header>
-        <p>{ summaryFuture }</p>
+        <Header>{sn.i_summaryHeader}</Header>
+        { summaryFuture }
       </div>
       
       { endOfCliffContent }
