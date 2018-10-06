@@ -265,6 +265,7 @@ export default {
       warningMessage_v2:          `This tool is in testing and these numbers might not be right. If they're not, please `,
       submitFeedback_v2:          `let us know`,
       // Text Summary:
+      summaryTitle_v1:            `Summary`,
       noBenefitsChosen_v1:        `On the first page of questions you didn't choose any of the benefits. If you're not getting any benefits now, this tool can't tell you if you will get any in the future. If you're trying to find help getting into a benefit program, try searching for "social services" in your local area.`,
       noFutureChange_v1:          `There is no change in your household's pay, so there's no change in your benefits.`,
       period_v1:                  `.`,

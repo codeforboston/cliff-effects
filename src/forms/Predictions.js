@@ -60,8 +60,10 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
       panes={ [
         {
           menuItem: (
-            <Menu.Item key="tab0">
-              { `Summary` }
+            <Menu.Item
+              key = { `tab0` }
+              as  = { Button }>
+              { snippets.i_summaryTitle }
             </Menu.Item>
           ),
           render: () => {return (
