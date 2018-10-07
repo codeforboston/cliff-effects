@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: programs/federal/snap.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: programs/federal/snap.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// DATA
+import { UNDER13_CARE_EXPENSES, OVER12_CARE_EXPENSES } from '../../data/massachusetts/name-cores';
+import { SNAPData } from '../../data/federal/2017/SNAPData';
+import { federalPovertyGuidelines } from '../../data/federal/federalPovertyGuidelines';
+
+// LOGIC/UTILITIES
+import {
+  sumProps,
+  getGrossUnearnedIncomeMonthly,
+} from '../../utils/cashflow';
+import { getLimitBySize } from '../../utils/getGovData';
+import { toMonthlyFrom } from '../../utils/convert-by-timescale';
+import {
+  getEveryMemberOfHousehold,
+  getEveryMember,
+  getDependentsOfHousehold,
+  isDisabled,
+  isUnder13,
+  getUnder13OfHousehold,
+} from '../../utils/getMembers';
+
+
+/** Based on https://www.masslegalservices.org/SNAPCalculator */
+const getSNAPBenefits = function (client, timeframe) {
+
+  client = client[ timeframe ];
+
+  var finalResult = 0,
+      grossIncomeTestResult   = hlp.getGrossIncomeTestResult(client),
+      netIncomeTestResult     = hlp.getNetIncomeTestResult(client),
+      maxSnapAllotment        = getLimitBySize(SNAPData.SNAP_LIMITS, hlp.householdSize(client)),
+      percentageOfNetIncome   = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
+      maxClientAllotment      = Math.max(0, maxSnapAllotment - percentageOfNetIncome);
+
+  if (grossIncomeTestResult === true &amp;&amp; netIncomeTestResult === true) {
+
+    if (maxClientAllotment &lt;= SNAPData.SMALL_HOUSEHOLD_MIN_GRANT) {
+      if (hlp.householdSize(client) &lt;= SNAPData.SMALL_HOUSEHOLD_SIZE) {
+        finalResult = SNAPData.SMALL_HOUSEHOLD_MIN_GRANT;
+      }
+
+    } else {
+      finalResult = maxClientAllotment;
+    }
+
+  }
+
+  return finalResult;
+}; // End getSNAPBenefits()
+
+
+// ======================
+// ESTABLISH OBJECT FOR BENEFIT HELPERS
+var SNAPhelpers = {},
+    hlp         = SNAPhelpers;
+
+
+// ======================
+// HOUSEHOLD/HOUSEHOLD MEMBERS
+hlp.householdSize = function (client) {
+  return client.household.length;
+};
+
+hlp.isElderlyOrDisabled = function (member) {
+  return member.m_age >= 60 || isDisabled(member);
+};
+
+hlp.hasDisabledOrElderlyMember = function (client) {
+  return getEveryMemberOfHousehold(client, hlp.isElderlyOrDisabled).length > 0;
+};
+
+hlp.hasDependentsOver12 = function (client) {
+  var isOver12 = function (member) { 
+    return !isUnder13(member); 
+  };
+  var members = getEveryMember(getDependentsOfHousehold(client), isOver12);
+  return members.length > 0;
+};
+
+
+// ======================
+//GROSS INCOME
+hlp.getAdjustedGross = function (client) {
+  var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
+  return Math.max(0, raw);
+};
+
+hlp.getPovertyGrossIncomeLevel = function (client) {
+  var data      = federalPovertyGuidelines,
+      numPeople = hlp.householdSize(client),
+      // Data is given in yearly amounts
+      limit     = getLimitBySize(data, numPeople, 200),
+      // Needs to be gov money rounded?
+      monthly   = toMonthlyFrom(limit, 'yearly');
+  return monthly;
+};
+
+hlp.getGrossIncomeTestResult = function (client) {
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
+      isPassGrossIncomeTest   = null;
+  if (hlp.hasDisabledOrElderlyMember(client)) {
+    isPassGrossIncomeTest = true;
+  } else {
+    /** @todo must double checked in the documentation.
+     *     Two different results in both excel calculator
+     *     and website calculator */
+    // minor difference "&lt;" in website calculator logic on line 469.
+    if (adjustedGross &lt;= povertyGrossIncomeLevel) {
+      isPassGrossIncomeTest = true;
+    } else {
+      isPassGrossIncomeTest = false;
+    }
+  }
+  return isPassGrossIncomeTest;
+};
+
+
+// ======================
+// SHELTER
+hlp.isHomeless = function(client) {
+  // Worth abstracting, used a few places and may change
+  return client.housing === 'homeless';
+};
+
+/** @todo: What about housing voucher? */
+hlp.getNonUtilityCosts = function(client) {
+  var housingCost = null;
+
+  if (hlp.isHomeless(client)) {
+    housingCost = 0;
+  } else if (client.housing === 'homeowner') {
+    housingCost = client.mortgage + client.housingInsurance + client.propertyTax;
+  } else if (client.housing === 'renter') {
+    housingCost = client.rent;
+  } else if (client.housing === 'voucher') {
+    housingCost = client.rentShare;
+  }
+
+  return housingCost;
+};
+
+hlp.getUtilityCostByBracket = function (client) {
+
+  if (hlp.isHomeless(client)){
+    return 0;
+
+  } else {
+    
+    var utilityCategory = null;
+
+    if (client.climateControl || client.fuelAssistance) {
+      utilityCategory = 'Heating';
+    } else if (client.nonHeatElectricity) {
+      utilityCategory = 'Non-heating';
+    } else if (client.phone) {
+      utilityCategory = 'Telephone';
+    } else {
+      utilityCategory = 'Zero Utility Expenses';
+    }
+
+    return SNAPData.UTILITY_COST_BRACKETS[ utilityCategory ];
+  }
+};
+
+hlp.getTotalHousingCost = function (client) {
+
+  var housingCosts = hlp.getNonUtilityCosts(client),
+      utilityCosts = hlp.getUtilityCostByBracket(client);
+
+  return housingCosts + utilityCosts;
+};
+
+
+// ======================
+// INCOME DEDUCTIONS
+hlp.getStandardDeduction = function (client) {
+  return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.householdSize(client));
+};
+
+hlp.getEarnedIncomeDeduction = function (client) {
+  var totalMonthlyEarned = client.earned;
+  return totalMonthlyEarned * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
+};
+
+hlp.getMedicalDeduction = function (client) {
+  var medicalDeduce = 0;
+
+  if (hlp.hasDisabledOrElderlyMember(client) === true) {
+    /** @todo Add disabledAssistance too. Also, otherMedical? */
+    var medicalExpenses = client.disabledMedical;
+    if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) &amp;&amp; (medicalExpenses &lt;= SNAPData.MAX_MEDICAL_EXPENSES)) {
+      medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
+
+    } else if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES + 1) {
+      medicalDeduce = medicalExpenses - SNAPData.MIN_MEDICAL_EXPENSES;
+
+    }
+  }  // end if has disabled or elderly
+
+  return medicalDeduce;
+};
+
+hlp.getDependentCareDeduction = function (client) {
+
+  var dependentCare = 0;
+
+  /** @todo Adopt https://github.com/codeforboston/cliff-effects/issues/264
+   *     model for all these 'kinds' of 'if' situations. If possible. */
+  if (getUnder13OfHousehold(client).length > 0) {
+    dependentCare += sumProps(client, UNDER13_CARE_EXPENSES);
+  }
+
+  /** May want to test this the same way as Expenses step does. More consistent? */
+  if (hlp.hasDependentsOver12(client)) {
+    dependentCare += sumProps(client, OVER12_CARE_EXPENSES);
+  }
+
+  return dependentCare;
+};
+
+hlp.getHalfAdjustedIncome = function(client) {
+  return hlp.getAdjustedNotGrossIncome(client) * 0.50;
+};
+
+hlp.getRawHousingDeduction = function(client) {
+  var totalHousingCost    = hlp.getTotalHousingCost(client),
+      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
+      rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
+
+  return Math.max(0, rawHousingDeduction);
+};
+
+hlp.getHousingDeduction = function(client) {
+
+  var rawDeduction = hlp.getRawHousingDeduction(client);
+
+  if (hlp.hasDisabledOrElderlyMember(client)) {
+    return rawDeduction;
+  } else {
+    return Math.min(rawDeduction, SNAPData.SHELTER_DEDUCTION_CAP);
+  }
+
+};
+
+hlp.getHomelessDeduction = function(client) {
+  if (hlp.isHomeless(client)) { 
+    return SNAPData.HOMELESS_DEDUCTION; 
+  }
+  else { 
+    return 0; 
+  }
+};
+
+
+// ======================
+// NET INCOME
+hlp.getAdjustedNotGrossIncome = function (client) {
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      standardDeduction       = hlp.getStandardDeduction(client),
+      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
+      medicalDeduction        = hlp.getMedicalDeduction(client),
+      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
+
+  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  return Math.max(0, adjustedIncome);
+};
+
+hlp.monthlyNetIncome = function(client) {
+  var adjustedIncome        = hlp.getAdjustedNotGrossIncome(client),
+      hasHomelessDeduction  = hlp.getHomelessDeduction(client),
+      housingDeduction      = hlp.getHousingDeduction(client),
+      extraDeductions       = hasHomelessDeduction + housingDeduction;
+
+  var afterDeductions = adjustedIncome - extraDeductions;
+
+  return Math.max(0, afterDeductions);
+};
+
+hlp.getMaxNetIncome = function (client) {
+  //TODO: Logic different in website calculate; when (hlp.monthlyNetIncome &lt; 0 ) = 0 while excel return a number
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
+      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
+  
+  if ((adjustedGross &lt;= povertyGrossIncomeLevel) || !disabledOrElderlyMember) {
+    return 'no limit';
+  } else {
+    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize(client));
+  }
+};
+
+// NET INCOME TEST RESULT
+hlp.getNetIncomeTestResult = function(client) {
+
+  var maxNetIncome = hlp.getMaxNetIncome(client);
+
+  if (maxNetIncome === 'no limit') {
+    return true;
+  } else if (hlp.monthlyNetIncome(client) &lt; maxNetIncome) {
+    return true;
+  } else {
+    return false;
+  }
+
+};
+
+/** NOTE: Bay State CAP not included as this prototype only deals with
+ *     changes in earned income */
+
+export { getSNAPBenefits, SNAPhelpers };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AboutContent">AboutContent</a></li><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BenefitText">BenefitText</a></li><li><a href="global.html#BigButton">BigButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#ControlledRadioYesNo">ControlledRadioYesNo</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormBottomRow">FormBottomRow</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#PredictionsStep">PredictionsStep</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Oct 07 2018 07:10:49 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
