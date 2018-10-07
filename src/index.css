@@ -50,12 +50,8 @@ body {
 
 /* Predictions.js */
 
-#prediction-button {
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  max-width: 400px;
+.feedback-button {
+  display: inline;
 }
 
 .prediction-message {
@@ -354,6 +350,10 @@ i.icon.details-icon {
 /* In semantic-ui-react `.attached` is not included */
 .ui.attached.menu>.item:first-child {
   border-bottom-left-radius: 0;
+}
+
+.text-result-section {
+  margin-bottom: 2em;
 }
 
 
