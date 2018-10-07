@@ -16,6 +16,10 @@ import { localizations } from '../../localization/all';
 
 import { LocalizationReport } from './LocalizationReport.js';
 
+
+/** Contains all HUD items except 'hide' button
+ * @todo If there are enough dev features for it,
+ *    make menu categories collapsible. */
 const DevMenu = function ({ devProps, funcs, data, state }) {
 
   var langs    = localizations,
@@ -30,9 +34,6 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         };
     langOpts.push(lang);
   }
-
-  /** @todo If there are enough dev features for it,
-   *    make menu categories collapsible. */
   return (
     <div className = { `dev-menu` } >
       <Menu.Item>
