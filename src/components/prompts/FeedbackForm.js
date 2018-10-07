@@ -69,10 +69,10 @@ class AskPermission extends React.Component {
         disabled = { this.state.submitType === null }
         color    ='teal'>
         {renderIfTrue(this.state.submitType === `withData`,
-          `Send it with my information`
+          `Send with my information`
         )}
         {renderIfTrue(this.state.submitType === `withoutData`,
-          `Send it without my information`
+          `Send without my information`
         )}
         {renderIfTrue(this.state.submitType === null,
           `Send`
