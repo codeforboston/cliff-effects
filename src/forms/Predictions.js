@@ -24,6 +24,7 @@ import { BenefitsLineGraph } from './output/BenefitsLineGraph';
  * @param {function} props.updateClientValue Update client state
  *     value.
  * @param {object} props.snippets Language-specific text
+ *
  * @note As per Project Hope's input, for the first prototype
  *     we're only including the ability to change earned income.
  *
