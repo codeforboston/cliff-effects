@@ -412,13 +412,21 @@ i.icon.details-icon {
   flex-direction: column;
 }
 
-#HomePage button {
+#HomePage .home-button {
   background-color: #c8e7e5;
   color: #465050;
   font-size: 1.5em;
+  /* Copied from semantic-ui-react Button */
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-weight: 700;
+  line-height: 1em;
+  border-radius: .28571429rem;
+  /* Adjusted from semantic-ui-react Button */
+  padding: .78571429em 1.5em;
 }
 
-#HomePage button:hover {
+#HomePage .home-button:hover,
+#HomePage .home-button:focus {
   color: #C8E7E5;
   background-color: #005855;
 }
@@ -434,14 +442,6 @@ i.icon.details-icon {
   color: #efefef;
   text-align: center;
   font-size: 1em;
-}
-
-.hb-left {
-  margin-left: 1.5em;
-}
-
-.hb-right {
- margin-right: 1.5em;
 }
 
 .headings h1 {
@@ -464,7 +464,7 @@ i.icon.details-icon {
 
 /*
 =================
-ACCESSIBILITY
+ACCESSIBILITY - Also see any other focus styles
 =================
 */
 #App *:focus {
