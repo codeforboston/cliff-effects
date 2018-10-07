@@ -8,7 +8,8 @@ import {
 
 
 // @todo Change ...buttonProps to explicit `overrides` obj
-/** A big button with overridable properties.
+// @todo Restore jsdoc container when description is more accurate
+/* A big button with overridable properties.
 *
 * @function
 * @param {object} props
