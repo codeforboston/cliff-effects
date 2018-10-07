@@ -18,12 +18,12 @@ import { BenefitsLineGraph } from './output/BenefitsLineGraph';
  *
  * @function
  * @param {object} props
- * @property {object} props.future Client future/predictive data.
- * @property {string} props.time Used in class names. Meant to make
+ * @param {object} props.future Client future/predictive data.
+ * @param {string} props.time Used in class names. Meant to make
  *     this more easily decoupled in future.
- * @property {function} props.updateClientValue Update client state
+ * @param {function} props.updateClientValue Update client state
  *     value.
- * @property {object} props.snippets Language-specific text
+ * @param {object} props.snippets Language-specific text
  * @note As per Project Hope's input, for the first prototype
  *     we're only including the ability to change earned income.
  *
@@ -123,16 +123,7 @@ const TabbedVisualizations = ({ client, snippets }) => {
   );
 };
 
-/**
-  * @function
-  * @param {object} props
-  * @param {function} props.updateClientValue - Setting client state
-  * @param {function} props.previousStep - Go to previous form step
-  * @param {function} props.nextStep - Go to next form step
-  * @param {object} props.client - Object will all the data for calculating benefits
-  *
-  * @returns React element
-  */
+
 const PredictionsStep = function ({ updateClientValue, navData, client, snippets, openFeedback }) {
 
   return (
