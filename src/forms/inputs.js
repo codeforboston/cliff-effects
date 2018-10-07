@@ -38,7 +38,6 @@ const BigButton = function ({ children, ...buttonProps }) {
 
 /** Yes/no toggleable radio button group with a label.
  *
- * @function
  * @param {object} props
  * @param {string} props.labelText
  * @param {string} props.name Key for radio-group. Must
