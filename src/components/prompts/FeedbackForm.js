@@ -75,7 +75,7 @@ class AskPermission extends React.Component {
           `Send it without my information`
         )}
         {renderIfTrue(this.state.submitType === null,
-          `Send it`
+          `Send`
         )}
       </Button>
     </Modal.Actions>,
@@ -189,13 +189,13 @@ class FeedbackPrompt extends React.Component {
           <Form>
             <Form.Input
               { ...inputProps('currentSnap') }
-              label={ 'If amount for the CURRENT SNAP amount was wrong, what\'s the right amount?' } />
+              label={ <span>If the <strong>current</strong> SNAP amount was wrong, what's the right amount?</span> } />
             <Form.Input
               { ...inputProps('futureSnap') }
-              label={ 'If amount for the FUTURE SNAP amount was wrong, what\'s the right amount?' } />
+              label={ <span>If the <strong>future</strong> SNAP amount was wrong, what's the right amount?</span> } />
             <Form.Input
               { ...inputProps('futureS8') }
-              label={ 'If amount for the FUTURE Section 8 amount was wrong, what\'s the right amount?' } />
+              label={ <span>If the <strong>future</strong> Section 8 amount was wrong, what's the right amount?</span> } />
             <Form.TextArea
               { ...inputProps('otherCircumstances') }
               label={ 'What else could be going on that could affect your benefit amount? ' +
@@ -220,7 +220,7 @@ class FeedbackPrompt extends React.Component {
           </Button>
           <Button
             onClick={ this.onReady }
-            color='teal'>Finished
+            color='teal'>Ready
           </Button>
         </Modal.Actions>
 
@@ -235,7 +235,7 @@ class FeedbackPrompt extends React.Component {
             submitting         = { this.state.submitting }
             closeAskPermission = { this.closeAskPermission }
             submit             = { this.submit }
-            question           = { `Is it ok if we save the information you've filled in? We won't save anythign else about you. If you had problems, it'll help us solve them.` } />
+            question           = { `Is it ok if we save the information you've put in here? We won't save anything else about you. If you had problems with the app, it'll help us work on them.` } />
         </Modal>
       </Modal>
     );
