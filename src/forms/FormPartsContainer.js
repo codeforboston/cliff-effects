@@ -23,9 +23,9 @@ const SpaceHolder = function () {
  *
  * @function
  * @param {object} props - One object for each button
- * @property {BottomRowButton} props.left
- * @property {BottomRowButton} props.middle Currently used as a spacer
- * @property {BottomRowButton} props.right
+ * @param {BottomRowButton} props.left
+ * @param {BottomRowButton} props.middle Currently used as a spacer
+ * @param {BottomRowButton} props.right
  *
  * @returns React element
  */
@@ -77,14 +77,14 @@ const FormBottomRow = function({ left, middle, right }) {
  *
  * @function
  * @param {object} props
- * @property {string} props.title Text to go in the `h1` element.
- * @property {string} props.clarifier Text to go in the `h3`
+ * @param {string} props.title Text to go in the `h1` element.
+ * @param {string} props.clarifier Text to go in the `h3`
  *     element, giving some description, instructions, or clarifications.
- * @property {string} props.children Component(s) to be inserted
+ * @param {string} props.children Component(s) to be inserted
  *     into the middle - a custom form section containing inputs, etc.
- * @property {Object} props.navData
- * @property {Object} props.formClass
- * @property {Object} props.formSize
+ * @param {Object} props.navData
+ * @param {Object} props.formClass
+ * @param {Object} props.formSize
  *
  * @returns React element
  */

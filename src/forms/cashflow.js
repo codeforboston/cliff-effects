@@ -16,10 +16,10 @@ import { toMoneyStr } from '../utils/prettifiers';
  *
  * @function
  * @param {object} props
- * @property {object} props.children The cash flow inputs
- * @property {object} props.label What category these inputs are for
- * @property {object} props.validRow Whether 'invalid' feedback needs to be shown
- * @property {object} props.message Feedback to user about invalid input
+ * @param {object} props.children The cash flow inputs
+ * @param {object} props.label What category these inputs are for
+ * @param {object} props.validRow Whether 'invalid' feedback needs to be shown
+ * @param {object} props.message Feedback to user about invalid input
  *
  * @returns React element
  */
@@ -51,11 +51,11 @@ const maximum_value_yearly = 999999.99;
 /** One row for cash flow inputs - weekly, monthly, yearly
  *
  * @param {object} props
- * @property {object} props.generic Base name for the client property that
+ * @param {object} props.generic Base name for the client property that
  *     needs to be updated (now the code has changed, this may be a misnomer)
- * @property {object} props.timeState Client, either future values or current values
- * @property {object} props.updateClientValue Updates client state
- * @property {object} props.children Text for the row label
+ * @param {object} props.timeState Client, either future values or current values
+ * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.children Text for the row label
  */
 class CashFlowInputsRow extends Component {
   constructor(props) {
@@ -174,10 +174,10 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
  *
  * @function
  * @param {object} props
- * @property {object} props.inputProps Key name, validators, and onBlur
- * @property {object} props.baseValue Start value of field?
- * @property {object} props.updateClientValue Updates client state
- * @property {object} props.rowProps `label`, `validRow`, `message`
+ * @param {object} props.inputProps Key name, validators, and onBlur
+ * @param {object} props.baseValue Start value of field?
+ * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.rowProps `label`, `validRow`, `message`
  *
  * @returns Component
  */

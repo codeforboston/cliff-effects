@@ -12,8 +12,8 @@ import {
 *
 * @function
 * @param {object} props
-* @property {buttonProps} props.children Things React can render
-* @property {buttonProps} props.buttonProps Props to
+* @param {buttonProps} props.children Things React can render
+* @param {buttonProps} props.buttonProps Props to
 *     override any default props that need to be overridden
 *
 * @returns {object} React element
@@ -39,12 +39,12 @@ const BigButton = function ({ children, ...buttonProps }) {
  *
  * @function
  * @param {object} props
- * @property {string} props.labelText
- * @property {string} props.name Key for radio-group. Must
+ * @param {string} props.labelText
+ * @param {string} props.name Key for radio-group. Must
  *     be unique from all other radio names on the page.
- * @property {bool} props.checked `true` if 'yes' is selected
+ * @param {bool} props.checked `true` if 'yes' is selected
  *     `false` if 'no' is selected. Change will be sent out.
- * @property {function} props.onChange Is given event and adjusted
+ * @param {function} props.onChange Is given event and adjusted
  *     input element props object. Adjustment is to make sure
  *     the property `value` is under control since there are
  *     issues further up the line.
