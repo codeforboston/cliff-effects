@@ -12,8 +12,8 @@ import {
 *
 * @function
 * @param {object} props
-* @param {buttonProps} props.children Things React can render
-* @param {buttonProps} props.buttonProps Props to
+* @param {object} props.children Things React can render
+* @param {object} props.buttonProps Props to
 *     override any default props that need to be overridden
 *
 * @returns {object} React element
