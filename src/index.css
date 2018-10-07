@@ -431,14 +431,6 @@ i.icon.details-icon {
   background-color: #005855;
 }
 
-/*.hb-left {
-  margin-left: 1.5em;
-}
-
-.hb-right {
- margin-right: 1.5em;
-}*/
-
 .center-contents {
   display: flex;
   justify-content: space-around;
