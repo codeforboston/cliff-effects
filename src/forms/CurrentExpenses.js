@@ -243,19 +243,16 @@ const HousingRadio = function ({ currentValue, label, time, updateClientValue })
 /**
  * @function
  * @param {object} props
- * @param {object} props.current - Client data of current user circumstances
- * @param {string} props.type - 'expense' or 'income', etc., for classes
- * @param {string} props.time - 'current' or 'future'
- * @param {function} props.updateClientValue - Sets state values
+ * @param {object} props.current Client data of current user circumstances
+ * @param {string} props.type 'expense' or 'income', etc., for classes
+ * @param {string} props.time 'current' or 'future'
+ * @param {function} props.updateClientValue Sets state values
  *
  * @returns React element
  */
 const Housing = function ({ current, type, time, updateClientValue }) {
 
-  // We're using a bunch of radio buttons. Since `checked` is defined
-  // in Radio components, `updateClientValue()` would store it, but we
-  // want the value, so get rid of checked.
-  /** Makes sure values are propagated to 'current' properties if needed. */
+  /** @deprecated This is handled differently now */
   let ensureRouteAndValue = function (evnt, inputProps) {
     var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
     updateClientValue(evnt, obj);
@@ -304,12 +301,13 @@ const Housing = function ({ current, type, time, updateClientValue }) {
 };  // End Housing()
 
 
-/**
+/** Abstracted for future use in 'future' value setting as well.
  * @function
  * @param {object} props
- * @param {object} props.current - Client data of current user circumstances
- * @param {object} props.time - 'current' or 'future'
- * @param {object} props.updateClientValue - Sets state values
+ * @param {object} props.current Client data of current user circumstances
+ * @param {string} props.time 'current' or 'future'
+ * @param {function} props.updateClientValue Sets state values
+ * @param {object} props.snippets Language-specific content
  *
  * @returns React element
  */
@@ -324,9 +322,8 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         updateClientValue: updateClientValue,
       };
 
-  /** @todo Make an age-checking function to
-   *     keep household data structure under
-   *     control in one place. */
+  /* @todo Make a more general age-checking function to keep
+   * household data format under control in one place. */
   var isOver12 = function (member) {
     return !isUnder13(member);
   };
@@ -471,10 +468,10 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         null
       ) }
 
-      {/** These medical expenses don't count for Section 8 unless
-        *     the disabled person is the head or spouse. From
-        *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
-        *     Appendix B, item (D) */}
+      {/* This comment may or may not belong here. Deeper discussion needed:
+        * These medical expenses count for Section 8 too if the disabled
+        *     person is the head or spouse. From Appendix B, item (D)
+        *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf} */}
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0) ? (
         <div>
           <HeadingWithDetail>
@@ -529,7 +526,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
 };  // End ExpensesFormContent()
 
-/**
+/* Move these to SNAP calc logic scripts:
  * @todo SNAP: Does a medical assistant's payments count as a medical expense?
  *     (Answer: Yes. @see {@link https://www.mass.gov/service-details/snap-verifications})
  * @todo SNAP: Medical expense only matters if household has elder/disabled, but
@@ -539,17 +536,17 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
  *     household member?
  */
 
+// `props` is a cloned version of the original props. References broken.
 /**
   * @function
   * @param {object} props
-  * @param {function} props.updateClientValue - Setting client state
-  * @param {function} props.previousStep - Go to previous form step
-  * @param {function} props.nextStep - Go to next form step
-  * @param {object} props.client - Object will all the data for calculating benefits
+  * @param {function} props.updateClientValue Setting client state
+  * @param {object} props.navData Buttons for bottom row
+  * @param {object} props.client Data for calculating benefits, `future` and `current`
+  * @param {object} props.snippets  Language-specific content
   *
   * @returns React element
   */
-// `props` is a cloned version of the original props. References broken.
 const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (

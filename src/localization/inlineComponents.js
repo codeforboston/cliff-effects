@@ -1,13 +1,14 @@
-/** Contains inline components that can be substituted into snippets
- *  using the interpolation functions in utls/interpolation.js. See en.js
- *  for examples of usage.
- */
-
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
 import { ExternalLink } from '../forms/formHelpers';
 import contributors from './contributors';
 
+/** @name inlineComponents
+ * @description Contains inline components that can be
+ *     substituted into snippets using the interpolation
+ *     functions in utls/interpolation.js. See en.js
+ *     for examples of usage.
+ */
 export default {
   // About page
   __importantNote__:          <strong />,
