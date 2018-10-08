@@ -238,14 +238,14 @@ const BenefitsTable = function ({ client, snippets }) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow 
+          <SNAPBenefitRow
             client={ clone }
             snippets={ snippets } />
-          <Sec8BenefitRow 
+          <Sec8BenefitRow
             client={ clone }
             snippets={ snippets } />
-          <TotalBenefitsRow 
-            client={ clone } 
+          <TotalBenefitsRow
+            client={ clone }
             snippets={ snippets } />
           <IncomeRow snippets={ snippets } />
           <TotalsRow snippets={ snippets } />

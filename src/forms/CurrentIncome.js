@@ -68,7 +68,7 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
       <IntervalColumnHeadings type={ type } />
 
       {/* All kinds of things need to be explained. */}
-      
+
       <CashFlowInputsRow
         { ...sharedProps }
         generic='earned'>
@@ -76,12 +76,12 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='TAFDC'> 
+        generic='TAFDC'>
         { snippets.TAFDC.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='SSI'> 
+        generic='SSI'>
         { snippets.SSI.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
@@ -96,12 +96,12 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='unemployment'> 
-        { snippets.unemployment.i_label }      
+        generic='unemployment'>
+        { snippets.unemployment.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='workersComp'> 
+        generic='workersComp'>
         { snippets.workersComp.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
@@ -116,7 +116,7 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='alimony'> 
+        generic='alimony'>
         { snippets.alimony.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
@@ -137,7 +137,7 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
  * @function
  * @param {object} props - See below.
  * @property {function} props.updateClientValue - Updates state upstream.
- * @property {object} props.navData  - properties for two buttons and middle compponent TBD 
+ * @property {object} props.navData  - properties for two buttons and middle compponent TBD
  * @property {object} props.client - JSON object with future and current values.
  * @property {function} props.snippets - Uses user chosen language-specific
 *

@@ -184,4 +184,3 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
 };  // End FutureIncomeStep() Component
 
 export { PredictionsStep };
-
