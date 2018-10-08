@@ -9,7 +9,7 @@ import {
 } from 'semantic-ui-react';
 
 /** For styling spacing between elements when needed.
-* @returns Component
+* @returns React element
 */
 const SpaceHolder = function () {
   return (<div className = { `space-holder` } />);
@@ -17,20 +17,18 @@ const SpaceHolder = function () {
 
 
 /** The row containing the big buttons at the bottom of each
-*     form section, such as 'Previous', 'Next', and 'New Client'.
-*
-* @object buttonProps
-* @property text {string} - Text to show on the button.
-* @property onClick {function} - Optional function to run on button click.
-*
-* @function
-* @param {object} props - One object for each button
-* @property {buttonProps} props.left
-* @property {buttonProps} props.middle
-* @property {buttonProps} props.right
-*
-* @returns Component
-*/
+ *     form section, such as 'Previous', 'Next', and 'New Client'.
+ *
+ * @typedef {object|null} BottomRowButton Expected is a BigButton instance.
+ *
+ * @function
+ * @param {object} props - One object for each button
+ * @param {BottomRowButton} props.left
+ * @param {BottomRowButton} props.middle Currently used as a spacer
+ * @param {BottomRowButton} props.right
+ *
+ * @returns React element
+ */
 const FormBottomRow = function({ left, middle, right }) {
 
   var Left   = <SpaceHolder key = { 'left' } />,
@@ -42,8 +40,8 @@ const FormBottomRow = function({ left, middle, right }) {
   }
 
   // Considering having a non-button as a label
-  // for the page. Not sure how to preserve the
-  // same style.
+  // for the section/page number. Not sure how to
+  // preserve the same style.
   if (middle) {
     Middle = (<div key = { 'middle' }>{ middle }</div>);
   }
@@ -60,7 +58,7 @@ const FormBottomRow = function({ left, middle, right }) {
     Right,
   ];
 
-  /** @todo Move styles to CSS */
+  /* @todo Move styles to CSS */
   return (
     <div
       className = { `form-section-bottom-row` }
@@ -73,22 +71,23 @@ const FormBottomRow = function({ left, middle, right }) {
 
 
 /** Constructor for all the stuff that's supposed to go inside
-* the Form Component. Does not include the `<Form>` Component
-* as a container because it looks like that needs to be unique
-* (the 'CurrentBenefitsStep' gives it `size='massive'`).
-*
-* @function
-* @param {object} props
-* @property {string} props.title - Text to go in the `h1` element.
-* @property {string} props.clarifier - Text to go in the `h3`
-* element, giving some description, instructions, or clarifications.
-* @property {string} props.children - Component(s) to be inserted
-* into the middle - a custom form section containing inputs, etc.
-* @property {Object} props.next - the 'next form section' function
-* @property {Object} props.prev - the 'previous form section' function
-*
-* @returns Component
-*/
+ *     the Form Component. Does not include the `<Form>` Component
+ *     as a container because it looks like that needs to be unique
+ *     (the 'CurrentBenefitsStep' gives it `size='massive'`).
+ *
+ * @function
+ * @param {object} props
+ * @param {string} props.title Text to go in the `h1` element.
+ * @param {string} props.clarifier Text to go in the `h3`
+ *     element, giving some description, instructions, or clarifications.
+ * @param {string} props.children Component(s) to be inserted
+ *     into the middle - a custom form section containing inputs, etc.
+ * @param {Object} props.navData
+ * @param {Object} props.formClass
+ * @param {Object} props.formSize
+ *
+ * @returns React element
+ */
 const FormPartsContainer = function({ title, clarifier, children, navData, formClass, formSize }) {
   return (
     <Form
@@ -126,7 +125,7 @@ const FormPartsContainer = function({ title, clarifier, children, navData, formC
       </Segment>
     </Form>
   );
-};  // End FormPartsContainer() Component
+};  // End <FormPartsContainer>
 
 
 export {
