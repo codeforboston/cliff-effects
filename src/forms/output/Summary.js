@@ -269,7 +269,7 @@ var getBenefitData = function(client, resourceKeys) {
  *     instead of a cliff? One where the losses grow over
  *     time for a while?
  */
-const BenefitText = function ({ client, openFeedback, snippets }) {
+const Summary = function ({ client, openFeedback, snippets }) {
 
   var resourceKeys = [ `income` ];
   // Benefits, in order of appearance
@@ -284,14 +284,10 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
   // Really quick returns if other calcs not needed
   if (resourceKeys.length <= 1) {
-    return `On the first page of questions you didn't choose any ` +
-    `of the benefits. If you're not getting any benefits now, ` +
-    `this tool can't tell you if you will get any in the future. If ` +
-    `you're trying to find help getting into a benefit program, try ` +
-    `searching for "social services" in your local area.`;
+    return snippets.i_noBenefitsChosen;
   }
   if (client.future.earned === client.current.earned) {
-    return `There is no change in your household's pay, so there's no change in your benefits.`;
+    return snippets.i_noFutureChange;
   }
 
 
@@ -305,18 +301,29 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
     recovery, // { total, earned, }
   } = data;
 
-  // Localization-friendly description string for "What could happen?"
-  var detailsNow =
-  `Right now you earn $${toMoneyStr(current.earned)} a month ` +
-  `and this tool says that your benefits all add up to about ` +
-  `$${round$(current.benefitsTotal)}. All together, it says you ` +
-  `bring in about $${round$(current.total)} a month.`;
+  var sn = snippets;
 
-  var detailsFuture =
-  `If your household's pay changes to $${toMoneyStr(future.earned)} ` +
-  `a month, this tool says your benefits might add up to about ` +
-  `$${round$(future.benefitsTotal)} a month. ` +
-  `This is how your benefits might change:`;
+  // ==================  
+  // WARNING: WHITESPACE IS VERY IMPORTANT HERE. Read about JSX whitespace.
+  // ==================
+  // Hmm, don't like having `<p>`s up here. Page structure not clear in return value.
+
+  // "What could happen?"
+  var detailsNow = (
+    <p>
+      {sn.i_nowEarn} {sn.i_beforeMoney}{toMoneyStr(current.earned)} {sn.i_eachTimeInterval}
+      {` `} {sn.i_nowBenefitsTotalIs} {sn.i_beforeMoney}{round$(current.benefitsTotal)}{sn.i_period}
+      {` `} {sn.i_nowTotalIs} {sn.i_beforeMoney}{round$(current.total)} {sn.i_eachTimeInterval}{sn.i_period}
+    </p>
+  );
+
+  var detailsFuture = (
+    <p>
+      {sn.i_newEarn} {sn.i_beforeMoney}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}
+      {` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoney}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}
+      {` `} {sn.i_newBenefitDetailsIntro}
+    </p>
+  );
 
   // List of benefits html list items
   var benefitList = [];
@@ -328,94 +335,91 @@ const BenefitText = function ({ client, openFeedback, snippets }) {
 
     benefitList.push(
       <li key = { cBenefit.label }>
-        {
-          `${cBenefit.label} might change from about ` +
-          `$${round$(cBenefit.amount)} to about ` +
-          `$${round$(fBenefit.amount)} a month.`
-        }
+        {cBenefit.label} {sn.i_from} {sn.i_beforeMoney}{round$(cBenefit.amount)}
+        {` `} {sn.i_to} {sn.i_beforeMoney}{round$(fBenefit.amount)} {sn.i_eachTimeInterval}{sn.i_period}
       </li>
     );
   }  // ends for each benefit
 
-  // Feedback button
-  var disclaimer = ([
-    <span key = { `pre-ask` }>
-      { snippets.i_feedbackAsk }
-    </span>,
-    <Button
-      compact
-      key     = { `ask` }
-      size    = { `small` }
-      onClick = { openFeedback }>
-      { snippets.i_submitFeedback }
-    </Button>,
-  ]);
+  // Ask for feedback
+  var feedbackAsk = (
+    <p>
+      <span key = { `pre-ask` }>
+        { snippets.i_feedbackAsk }
+      </span>
+      <Button
+        compact
+        key     = { `ask` }
+        size    = { `small` }
+        onClick = { openFeedback }>
+        { snippets.i_submitFeedback }
+      </Button>
+    </p>
+  );
 
   // Describe how totals change
   var posDiff    = round$(Math.abs(diff)),
       lessOrMore = ``;
   if (diff > 0) {
-    lessOrMore = `That's $${posDiff} more than before.`;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoney}{posDiff} {sn.i_moreThan}</span>;
   } else if (diff < 0) {
-    lessOrMore = `That's $${posDiff} less than before.`;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoney}{posDiff} {sn.i_lessThan}</span>;
   } else if (diff === 0) {
-    lessOrMore = `That's the same as before`;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_sameAs}</span>;
   }
 
-  var summaryFuture = 
-    `If this tool is right, you might bring in about ` +
-    `$${round$(future.total)} a month. ${lessOrMore}`;
+  var summaryFuture = (
+    <p>{sn.i_newTotalIs} {sn.i_beforeMoney}{round$(future.total)} {sn.i_eachTimeInterval}{sn.i_period} {lessOrMore}</p>
+  );
 
+  var endOfCliffContent = sn.i_noCliff;
   // If there was a cliff, how much more will they have
   // to earn before they'll get more than they are now?
-  var endOfCliffContent = `After this, the tool says you could keep bringing in more with each raise.`;
   if (recovery.total !== undefined) {
     endOfCliffContent = (
       <div>
         <div className = { `text-result-section` }>
-          <Header>When could things get better?</Header>
+          <Header>{sn.i_cliffEndHeader}</Header>
           <p>
-            {
-              `The tool says that if you can get to where your household makes about ` +
-              `$${round$(recovery.earned)} a month, you could bring in about ` +
-              `$${round$(recovery.total - current.total)} more each month all together.`
-            }
+            {sn.i_ifGetTo} {sn.i_beforeMoney}{round$(recovery.earned)} {sn.i_eachTimeInterval}
+            {` `} {sn.i_willGet} {sn.i_beforeMoney}{round$(recovery.total - current.total)}
+            {` `} {sn.i_moreIn}
           </p>
         </div>
 
         <hr />
-        <p>If you're worried about these results, please search for "social services" in your area to try to find a local case manager.</p>
+        <p>{sn.i_findHelp}</p>
       </div>
     );
-  }  // end if end of cliff is a thing
+  }  // ends if there's a cliff end
 
   return (
     <div>
 
       <div className = { `text-result-section` }>
-        <Header>What could happen?</Header>
-        <p>{ detailsNow }</p>
-        <p>{ detailsFuture }</p>
+        <Header>{sn.i_detailsHeader}</Header>
+        { detailsNow }
+        { detailsFuture }
         <ul>
           { benefitList }
         </ul>
-        <p>{ disclaimer }</p>
+        { feedbackAsk }
       </div>
 
       <div className = { `text-result-section` }>
-        <Header>What could it add up to?</Header>
-        <p>{ summaryFuture }</p>
+        <Header>{sn.i_summaryHeader}</Header>
+        { summaryFuture }
       </div>
       
       { endOfCliffContent }
 
     </div>
   );
-};  // Ends <BenefitText>
+};  // Ends <Summary>
 
 
 export {
-  BenefitText,
+  Summary,
   totalLastItemsOfArraysInObject,
   fillInMoneyValues,
   getBenefitData,  
