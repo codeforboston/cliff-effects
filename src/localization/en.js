@@ -302,7 +302,7 @@ export default {
     },
 
     termsOfUse: {
-      header_v1:             `IMPORTANT`,
+      header_v1:             `IMPORTANT!`,
       terms_v1:              `This tool is in testing.  Predictions should not be used to make financial decisions.`,
       buttonAcceptTerms_v1:  `Continue`,
       buttonCancelAccept_v1: `Cancel`,

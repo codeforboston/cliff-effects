@@ -85,7 +85,7 @@ class TermsAndConditions extends Component {
           <Button
             disabled={ this.state.canCountOnPredictions === false ? false : true }
             onClick={ () => this.closeModal(true) }
-            color='red'>
+            color='teal'>
             { snippets.i_buttonAcceptTerms }
           </Button>
         </Modal.Actions>
