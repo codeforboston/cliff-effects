@@ -58,6 +58,7 @@ class TermsAndConditions extends Component {
             <Form.Field>
               <Radio
                 checked={ this.state.canCountOnPredictions === true }
+                name="CanCountOn"
                 onClick={ () => this.handleChange(true) } />
             </Form.Field>
             <Form.Field>
@@ -69,6 +70,7 @@ class TermsAndConditions extends Component {
             <Form.Field>
               <Radio
                 checked={ this.state.canCountOnPredictions === false }
+                name="CanCountOn"
                 onClick={ () => this.handleChange(false) } />
             </Form.Field>
             <Form.Field>
