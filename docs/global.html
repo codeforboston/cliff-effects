@@ -297,7 +297,7 @@ MUST ALWAYS BE VALID</p>
 
 <div class="description">
     <p>Maximum input value of yearly income allowed in the textbox,
-monthly/daily will be scaled</p>
+    monthly/daily will be scaled</p>
 </div>
 
 
@@ -335,7 +335,7 @@ monthly/daily will be scaled</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_cashflow.js.html">forms/cashflow.js</a>, <a href="forms_cashflow.js.html#line45">line 45</a>
+        <a href="forms_cashflow.js.html">forms/cashflow.js</a>, <a href="forms_cashflow.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -679,92 +679,6 @@ nested property.</p>
 
     
         <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="AboutContent"><span class="type-signature"></span>AboutContent<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Todo simplify the process of creating content for the 'About' page</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_AboutContent.js.html">components/AboutContent.js</a>, <a href="components_AboutContent.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         
             
@@ -1167,7 +1081,7 @@ nested property.</p>
     
 
     
-    <h4 class="name" id="BenefitText"><span class="type-signature"></span>BenefitText<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="BottomRowButton"><span class="type-signature"></span>BottomRowButton<span class="signature">(props)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1175,119 +1089,8 @@ nested property.</p>
 
 
 <div class="description">
-    <p>Plain text output of how benefits will be affected.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_output_BenefitText.js.html">forms/output/BenefitText.js</a>, <a href="forms_output_BenefitText.js.html#line272">line 272</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>When implemented, add in the factor of total
-    expenses. Some changes will have to happen to
-    make the output more useful. If expenses are still
-    covered, that should be pointed out, otherwise
-    they should be told when their expenses will be
-    covered again.</li>
-        
-            <li>Add link for how to find a case manager.</li>
-        
-            <li>Look even further forward and make sure there
-    aren't more cliffs immediately after this round.</li>
-        
-            <li>When there's no cliff, look ahead to see if
-    there will be one soon/later?
-    'What more should I know?' section?</li>
-        
-            <li>Is there a program that has a very steep slope
-    instead of a cliff? One where the losses grow over
-    time for a while?</li>
-        </ul>
-    </dd>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="BigButton"><span class="type-signature"></span>BigButton<span class="signature">(props)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>A big button. Right now, just used in the bottom row of
-    form sections</p>
+    <p>The row containing the big buttons at the bottom of each
+    form section, such as 'Previous', 'Next', and 'New Client'.</p>
 </div>
 
 
@@ -1339,23 +1142,11 @@ nested property.</p>
 
             
 
-            <td class="description last"></td>
-        </tr>
+            <td class="description last"><p>One object for each button</p>
+                <h6>Properties</h6>
+                
 
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -1377,13 +1168,13 @@ nested property.</p>
 
         <tr>
             
-                <td class="name"><code>props.children</code></td>
+                <td class="name"><code>left</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">buttonProps</span>
+<span class="param-type"><a href="global.html#BottomRowButton">BottomRowButton</a></span>
 
 
             
@@ -1393,20 +1184,20 @@ nested property.</p>
 
             
 
-            <td class="description last"><p>React children</p></td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>props.buttonProps</code></td>
+                <td class="name"><code>middle</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">buttonProps</span>
+<span class="param-type"><a href="global.html#BottomRowButton">BottomRowButton</a></span>
 
 
             
@@ -1416,13 +1207,44 @@ nested property.</p>
 
             
 
-            <td class="description last"><p>Props to
-    override any default props that need to be overridden</p></td>
+            <td class="description last"><p>Currently used as a spacer</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>right</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#BottomRowButton">BottomRowButton</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
     </tbody>
 </table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -1456,7 +1278,7 @@ nested property.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_inputs.js.html">forms/inputs.js</a>, <a href="forms_inputs.js.html#line21">line 21</a>
+        <a href="forms_FormPartsContainer.js.html">forms/FormPartsContainer.js</a>, <a href="forms_FormPartsContainer.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -1483,7 +1305,7 @@ nested property.</p>
 
         
 <div class="param-desc">
-    <p>Component</p>
+    <p>React element</p>
 </div>
 
 
@@ -1560,23 +1382,11 @@ nested property.</p>
 
             
 
-            <td class="description last"></td>
-        </tr>
+            <td class="description last">
+                <h6>Properties</h6>
+                
 
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -1598,7 +1408,7 @@ nested property.</p>
 
         <tr>
             
-                <td class="name"><code>props.children</code></td>
+                <td class="name"><code>children</code></td>
             
 
             <td class="type">
@@ -1621,7 +1431,7 @@ nested property.</p>
 
         <tr>
             
-                <td class="name"><code>props.label</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
@@ -1644,7 +1454,7 @@ nested property.</p>
 
         <tr>
             
-                <td class="name"><code>props.validRow</code></td>
+                <td class="name"><code>validRow</code></td>
             
 
             <td class="type">
@@ -1667,7 +1477,7 @@ nested property.</p>
 
         <tr>
             
-                <td class="name"><code>props.message</code></td>
+                <td class="name"><code>message</code></td>
             
 
             <td class="type">
@@ -1689,6 +1499,15 @@ nested property.</p>
     
     </tbody>
 </table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -1749,12 +1568,108 @@ nested property.</p>
 
         
 <div class="param-desc">
-    <p>Component</p>
+    <p>React element</p>
 </div>
 
 
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="CashFlowDisplayRow"><span class="type-signature"></span>CashFlowDisplayRow<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Show a value, or the sum of multiple values, of data
+    that the user has already put in from another input.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="forms_cashflow.js.html">forms/cashflow.js</a>, <a href="forms_cashflow.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-todo">To Do:</dt>
+    <dd class="tag-todo">
+        <ul>
+            <li>Turn this row into a link to the input row where
+    the data came from so the user can jump quickly and
+    easily to the place where they can change the data.</li>
+        </ul>
+    </dd>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2442,263 +2357,6 @@ subheader and separate styling.</p>
 
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="ControlledRadioYesNo"><span class="type-signature"></span>ControlledRadioYesNo<span class="signature">(props)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>props</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>props.labelText</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Key for radio-group. Must
-    be unique from all other radio names on the page.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">bool</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p><code>true</code> if 'yes' is selected
-    <code>false</code> if 'no' is selected. Change will be sent out.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.updateClientValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>is given event and adjusted
-    input element props object. Adjustment is to make sure
-    the property <code>value</code> is under control since there are
-    issues further up the line.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_inputs.js.html">forms/inputs.js</a>, <a href="forms_inputs.js.html#line52">line 52</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3861,6 +3519,100 @@ subheader and separate styling.</p>
     
 
     
+    <h4 class="name" id="DevMenu"><span class="type-signature"></span>DevMenu<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Contains all HUD items except 'hide' button</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_dev_DevHud.js.html">components/dev/DevHud.js</a>, <a href="components_dev_DevHud.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-todo">To Do:</dt>
+    <dd class="tag-todo">
+        <ul>
+            <li>If there are enough dev features for it,
+   make menu categories collapsible.</li>
+        </ul>
+    </dd>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="EarnedFrom"><span class="type-signature"></span>EarnedFrom<span class="signature">(props)</span><span class="type-signature"></span></h4>
     
 
@@ -4669,296 +4421,6 @@ subheader and separate styling.</p>
     
 
     
-    <h4 class="name" id="FormBottomRow"><span class="type-signature"></span>FormBottomRow<span class="signature">(props)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>The row containing the big buttons at the bottom of each
-    form section, such as 'Previous', 'Next', and 'New Client'.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>props</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>One object for each button</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>text</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Text to show on the button.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onClick</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Optional function to run on button click.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.left</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">buttonProps</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.middle</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">buttonProps</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.right</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">buttonProps</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_FormPartsContainer.js.html">forms/FormPartsContainer.js</a>, <a href="forms_FormPartsContainer.js.html#line34">line 34</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Component</p>
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="FormPartsContainer"><span class="type-signature"></span>FormPartsContainer<span class="signature">(props)</span><span class="type-signature"></span></h4>
     
 
@@ -4968,9 +4430,9 @@ subheader and separate styling.</p>
 
 <div class="description">
     <p>Constructor for all the stuff that's supposed to go inside
-the Form Component. Does not include the <code>&lt;Form&gt;</code> Component
-as a container because it looks like that needs to be unique
-(the 'CurrentBenefitsStep' gives it <code>size='massive'</code>).</p>
+    the Form Component. Does not include the <code>&lt;Form&gt;</code> Component
+    as a container because it looks like that needs to be unique
+    (the 'CurrentBenefitsStep' gives it <code>size='massive'</code>).</p>
 </div>
 
 
@@ -5022,23 +4484,11 @@ as a container because it looks like that needs to be unique
 
             
 
-            <td class="description last"></td>
-        </tr>
+            <td class="description last">
+                <h6>Properties</h6>
+                
 
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -5060,7 +4510,7 @@ as a container because it looks like that needs to be unique
 
         <tr>
             
-                <td class="name"><code>props.title</code></td>
+                <td class="name"><code>title</code></td>
             
 
             <td class="type">
@@ -5083,7 +4533,7 @@ as a container because it looks like that needs to be unique
 
         <tr>
             
-                <td class="name"><code>props.clarifier</code></td>
+                <td class="name"><code>clarifier</code></td>
             
 
             <td class="type">
@@ -5100,14 +4550,14 @@ as a container because it looks like that needs to be unique
             
 
             <td class="description last"><p>Text to go in the <code>h3</code>
-element, giving some description, instructions, or clarifications.</p></td>
+    element, giving some description, instructions, or clarifications.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>props.children</code></td>
+                <td class="name"><code>children</code></td>
             
 
             <td class="type">
@@ -5124,14 +4574,14 @@ element, giving some description, instructions, or clarifications.</p></td>
             
 
             <td class="description last"><p>Component(s) to be inserted
-into the middle - a custom form section containing inputs, etc.</p></td>
+    into the middle - a custom form section containing inputs, etc.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>props.next</code></td>
+                <td class="name"><code>navData</code></td>
             
 
             <td class="type">
@@ -5147,14 +4597,14 @@ into the middle - a custom form section containing inputs, etc.</p></td>
 
             
 
-            <td class="description last"><p>the 'next form section' function</p></td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>props.prev</code></td>
+                <td class="name"><code>formClass</code></td>
             
 
             <td class="type">
@@ -5170,12 +4620,44 @@ into the middle - a custom form section containing inputs, etc.</p></td>
 
             
 
-            <td class="description last"><p>the 'previous form section' function</p></td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>formSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
     </tbody>
 </table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -5209,7 +4691,7 @@ into the middle - a custom form section containing inputs, etc.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_FormPartsContainer.js.html">forms/FormPartsContainer.js</a>, <a href="forms_FormPartsContainer.js.html#line92">line 92</a>
+        <a href="forms_FormPartsContainer.js.html">forms/FormPartsContainer.js</a>, <a href="forms_FormPartsContainer.js.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -5236,7 +4718,7 @@ into the middle - a custom form section containing inputs, etc.</p></td>
 
         
 <div class="param-desc">
-    <p>Component</p>
+    <p>React element</p>
 </div>
 
 
@@ -5383,7 +4865,7 @@ into the middle - a custom form section containing inputs, etc.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_output_BenefitText.js.html">forms/output/BenefitText.js</a>, <a href="forms_output_BenefitText.js.html#line194">line 194</a>
+        <a href="forms_output_Summary.js.html">forms/output/Summary.js</a>, <a href="forms_output_Summary.js.html#line194">line 194</a>
     </li></ul></dd>
     
 
@@ -8694,7 +8176,7 @@ doesn't exist, it warns the coder and returns English.</p>
     
 
     
-    <h4 class="name" id="IncomeForm"><span class="type-signature"></span>IncomeForm<span class="signature">(props)</span><span class="type-signature"> &rarr; {class}</span></h4>
+    <h4 class="name" id="IncomeForm"><span class="type-signature"></span>IncomeForm<span class="signature">(props)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -8750,23 +8232,11 @@ doesn't exist, it warns the coder and returns English.</p>
 
             
 
-            <td class="description last"><p>Values described below</p></td>
-        </tr>
+            <td class="description last">
+                <h6>Properties</h6>
+                
 
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -8788,7 +8258,7 @@ doesn't exist, it warns the coder and returns English.</p>
 
         <tr>
             
-                <td class="name"><code>props.future</code></td>
+                <td class="name"><code>future</code></td>
             
 
             <td class="type">
@@ -8811,7 +8281,7 @@ doesn't exist, it warns the coder and returns English.</p>
 
         <tr>
             
-                <td class="name"><code>props.time</code></td>
+                <td class="name"><code>time</code></td>
             
 
             <td class="type">
@@ -8835,7 +8305,7 @@ doesn't exist, it warns the coder and returns English.</p>
 
         <tr>
             
-                <td class="name"><code>props.updateClientValue</code></td>
+                <td class="name"><code>updateClientValue</code></td>
             
 
             <td class="type">
@@ -8852,12 +8322,44 @@ doesn't exist, it warns the coder and returns English.</p>
             
 
             <td class="description last"><p>Update client state
-    values.</p></td>
+    value.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>snippets</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Language-specific text</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -8891,7 +8393,7 @@ doesn't exist, it warns the coder and returns English.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_Predictions.js.html">forms/Predictions.js</a>, <a href="forms_Predictions.js.html#line30">line 30</a>
+        <a href="forms_Predictions.js.html">forms/Predictions.js</a>, <a href="forms_Predictions.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -8903,7 +8405,7 @@ doesn't exist, it warns the coder and returns English.</p>
     <dt class="tag-todo">To Do:</dt>
     <dd class="tag-todo">
         <ul>
-            <li>description</li>
+            <li>Cash flow row for trying out different future incomes.</li>
         </ul>
     </dd>
     
@@ -8925,7 +8427,7 @@ doesn't exist, it warns the coder and returns English.</p>
 
         
 <div class="param-desc">
-    <p>Component</p>
+    <p>React element</p>
 </div>
 
 
@@ -8936,7 +8438,7 @@ doesn't exist, it warns the coder and returns English.</p>
     </dt>
     <dd>
         
-<span class="param-type">class</span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -9934,229 +9436,9 @@ strings, if they happen to have different lengths).</p>
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>props.inputProps</code></td>
-            
-
-            <td class="type">
-            
+            <td class="description last">
+                <h6>Properties</h6>
                 
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Key name, validators, and onBlur</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.baseValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Start value of field?</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.updateClientValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Updates client state</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.rowProps</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p><code>label</code>, <code>validRow</code>, <code>message</code></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_cashflow.js.html">forms/cashflow.js</a>, <a href="forms_cashflow.js.html#line181">line 181</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Component</p>
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="PredictionsStep"><span class="type-signature"></span>PredictionsStep<span class="signature">(props)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
 
 <table class="params">
     <thead>
@@ -10180,7 +9462,7 @@ strings, if they happen to have different lengths).</p>
 
         <tr>
             
-                <td class="name"><code>props</code></td>
+                <td class="name"><code>inputProps</code></td>
             
 
             <td class="type">
@@ -10196,92 +9478,14 @@ strings, if they happen to have different lengths).</p>
 
             
 
-            <td class="description last"><p>See below.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>props.updateClientValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Updates state upstream.</p></td>
+            <td class="description last"><p>Key name, validators, and onBlur</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>props.translate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Uses user chosen language-specific
-   snippets.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>props.client</code></td>
+                <td class="name"><code>baseValue</code></td>
             
 
             <td class="type">
@@ -10297,20 +9501,20 @@ strings, if they happen to have different lengths).</p>
 
             
 
-            <td class="description last"><p>JSON object with future and current values.</p></td>
+            <td class="description last"><p>Start value of field?</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>props.nextStep</code></td>
+                <td class="name"><code>updateClientValue</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">object</span>
 
 
             
@@ -10320,20 +9524,20 @@ strings, if they happen to have different lengths).</p>
 
             
 
-            <td class="description last"><p>Go to next form section.</p></td>
+            <td class="description last"><p>Updates client state</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>props.previousStep</code></td>
+                <td class="name"><code>rowProps</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">object</span>
 
 
             
@@ -10343,12 +9547,21 @@ strings, if they happen to have different lengths).</p>
 
             
 
-            <td class="description last"><p>Go to previous form section.</p></td>
+            <td class="description last"><p><code>label</code>, <code>validRow</code>, <code>message</code></p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -10382,7 +9595,7 @@ strings, if they happen to have different lengths).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_Predictions.js.html">forms/Predictions.js</a>, <a href="forms_Predictions.js.html#line156">line 156</a>
+        <a href="forms_cashflow.js.html">forms/cashflow.js</a>, <a href="forms_cashflow.js.html#line184">line 184</a>
     </li></ul></dd>
     
 
@@ -10390,13 +9603,6 @@ strings, if they happen to have different lengths).</p>
 
     
 
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Abstract all the step components?</li>
-        </ul>
-    </dd>
     
 </dl>
 
@@ -10420,18 +9626,6 @@ strings, if they happen to have different lengths).</p>
 </div>
 
 
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
 
     
 
@@ -10633,7 +9827,7 @@ strings, if they happen to have different lengths).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_output_BenefitText.js.html">forms/output/BenefitText.js</a>, <a href="forms_output_BenefitText.js.html#line26">line 26</a>
+        <a href="forms_output_Summary.js.html">forms/output/Summary.js</a>, <a href="forms_output_Summary.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -10764,7 +9958,7 @@ strings, if they happen to have different lengths).</p>
 
         
 <div class="param-desc">
-    <p>Component</p>
+    <p>React element</p>
 </div>
 
 
@@ -10846,7 +10040,7 @@ strings, if they happen to have different lengths).</p>
 
             
 
-            <td class="description last"><p>full client object, with current
+            <td class="description last"><p>Full client object, with current
     and future. All client props are needed.</p></td>
         </tr>
 
@@ -10982,6 +10176,117 @@ strings, if they happen to have different lengths).</p>
 
     
 
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="Summary"><span class="type-signature"></span>Summary<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Plain text output of how benefits will be affected.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="forms_output_Summary.js.html">forms/output/Summary.js</a>, <a href="forms_output_Summary.js.html#line272">line 272</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-todo">To Do:</dt>
+    <dd class="tag-todo">
+        <ul>
+            <li>When implemented, add in the factor of total
+    expenses. Some changes will have to happen to
+    make the output more useful. If expenses are still
+    covered, that should be pointed out, otherwise
+    they should be told when their expenses will be
+    covered again.</li>
+        
+            <li>Add link for how to find a case manager.</li>
+        
+            <li>Look even further forward and make sure there
+    aren't more cliffs immediately after this round.</li>
+        
+            <li>When there's no cliff, look ahead to see if
+    there will be one soon/later?
+    'What more should I know?' section?</li>
+        
+            <li>Is there a program that has a very steep slope
+    instead of a cliff? One where the losses grow over
+    time for a while?</li>
+        </ul>
+    </dd>
     
 </dl>
 
@@ -11673,7 +10978,7 @@ strings, if they happen to have different lengths).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_output_BenefitText.js.html">forms/output/BenefitText.js</a>, <a href="forms_output_BenefitText.js.html#line39">line 39</a>
+        <a href="forms_output_Summary.js.html">forms/output/Summary.js</a>, <a href="forms_output_Summary.js.html#line39">line 39</a>
     </li></ul></dd>
     
 
@@ -12115,7 +11420,7 @@ strings, if they happen to have different lengths).</p>
 
             
 
-            <td class="description last"><p>Parsed JSON object to use.</p></td>
+            <td class="description last"><p>Parsed JSON object.</p></td>
         </tr>
 
     
@@ -12164,14 +11469,6 @@ strings, if they happen to have different lengths).</p>
 
     
 
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Change to just 'load'? Change this component
-    to a more generic `<Load>`.</li>
-        </ul>
-    </dd>
     
 </dl>
 
@@ -12420,7 +11717,7 @@ strings, if they happen to have different lengths).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_output_BenefitText.js.html">forms/output/BenefitText.js</a>, <a href="forms_output_BenefitText.js.html#line48">line 48</a>
+        <a href="forms_output_Summary.js.html">forms/output/Summary.js</a>, <a href="forms_output_Summary.js.html#line48">line 48</a>
     </li></ul></dd>
     
 
@@ -12623,13 +11920,13 @@ or false if the user chose to stay.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AboutContent">AboutContent</a></li><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BenefitText">BenefitText</a></li><li><a href="global.html#BigButton">BigButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#ControlledRadioYesNo">ControlledRadioYesNo</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormBottomRow">FormBottomRow</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#PredictionsStep">PredictionsStep</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Oct 07 2018 07:10:49 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Oct 07 2018 20:26:43 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

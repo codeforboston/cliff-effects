@@ -44,12 +44,12 @@ import { toMoneyStr } from '../utils/prettifiers';
  *
  * @function
  * @param {object} props
- * @property {object} props.children - The cash flow inputs
- * @property {object} props.label - What category these inputs are for
- * @property {object} props.validRow - Whether 'invalid' feedback needs to be shown
- * @property {object} props.message - Feedback to user about invalid input
+ * @param {object} props.children The cash flow inputs
+ * @param {object} props.label What category these inputs are for
+ * @param {object} props.validRow Whether 'invalid' feedback needs to be shown
+ * @param {object} props.message Feedback to user about invalid input
  *
- * @returns Component
+ * @returns React element
  */
 const CashFlowContainer = function ({ children, label, validRow, message }) {
   return (
@@ -68,22 +68,23 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
 };  // End &lt;CashFlowContainer>
 
 /** Maximum input value of yearly income allowed in the textbox,
- * monthly/daily will be scaled
+ *     monthly/daily will be scaled
+ * @var
  */
 const maximum_value_yearly = 999999.99;
 
+
+// @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
+// use `includes` array to include only certain columns perhaps.
 /** One row for cash flow inputs - weekly, monthly, yearly
  *
  * @param {object} props
- * @property {object} props.generic - Base name for the client property that
+ * @param {object} props.generic Base name for the client property that
  *     needs to be updated (now the code has changed, this may be a misnomer)
- * @property {object} props.timeState - Client, either future values or current values
- * @property {object} props.updateClientValue - Updates client state
- * @property {object} props.children - Text for the row label
- * 
+ * @param {object} props.timeState Client, either future values or current values
+ * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.children Text for the row label
  */
-/** @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
-      use `includes` array to include only certain columns perhaps. */
 class CashFlowInputsRow extends Component {
   constructor(props) {
     super(props);
@@ -117,17 +118,13 @@ class CashFlowInputsRow extends Component {
   
     
   
-    /** baseVal
-     * Get the time ('future' or 'current') monthly value unless there is
-     *     none, in which case, get the 'current' monthly cash flow value
-     *     (to prefill future values with 'current' ones if needed).
-     *
-     * @var
+    /* Get the time ('future' or 'current') monthly value unless there is
+     * none, in which case, get the 'current' monthly cash flow value
+     * (to prefill future values with 'current' ones if needed).
      *
      * @todo Add some kind of UI indication when it's the same as the 'current'
-     *     value. What if some of the row's values are the same and some are
-     *     different?
-     */
+     * value. What if some of the row's values are the same and some are
+     * different? */
     var baseVal   = timeState[ generic ],
         baseProps = {
           name:             generic,
@@ -165,6 +162,13 @@ class CashFlowInputsRow extends Component {
 }
 
 
+/** Show a value, or the sum of multiple values, of data
+ *     that the user has already put in from another input.
+ *
+ * @todo Turn this row into a link to the input row where
+ *     the data came from so the user can jump quickly and
+ *     easily to the place where they can change the data.
+ */
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
 
   var baseVal      = value || timeState[ generic ],
@@ -173,7 +177,6 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
       monthly      = toMoneyStr(baseVal),
       yearly       = toMoneyStr(baseVal * 12);
 
-  /** @todo Make label a link to the input row */
   return (
     &lt;div className = { `cashflow cashflow-display` }>
       &lt;div className = { colClassName + ` ` + generic + ` output-number` } >
@@ -199,10 +202,10 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
  *
  * @function
  * @param {object} props
- * @property {object} props.inputProps - Key name, validators, and onBlur
- * @property {object} props.baseValue - Start value of field?
- * @property {object} props.updateClientValue - Updates client state
- * @property {object} props.rowProps - `label`, `validRow`, `message`
+ * @param {object} props.inputProps Key name, validators, and onBlur
+ * @param {object} props.baseValue Start value of field?
+ * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.rowProps `label`, `validRow`, `message`
  *
  * @returns Component
  */
@@ -259,13 +262,13 @@ export {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AboutContent">AboutContent</a></li><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BenefitText">BenefitText</a></li><li><a href="global.html#BigButton">BigButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#ControlledRadioYesNo">ControlledRadioYesNo</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormBottomRow">FormBottomRow</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#PredictionsStep">PredictionsStep</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Oct 07 2018 07:10:49 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Oct 07 2018 20:26:43 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
