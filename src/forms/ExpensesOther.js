@@ -17,8 +17,8 @@ import {
 } from '../utils/cashflow';
 
 
-/**
- * `children` will be a function
+/*
+ * @deprecated
  */
 const RenderIfTrue = function ({ shouldRender, children }) {
   var ToRender = children;

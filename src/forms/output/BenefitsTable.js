@@ -85,7 +85,6 @@ const BenefitsTable = function ({ client, snippets }) {
       netFuture           = totalBenefitFuture + incomeFuture,
       netDiff             = totalDiff + incomeDiff;
 
-  /** @todo: linting - discuss indentation for object properties and colons */
   const columnHeaderStyle = {
           background:    'rgba(0, 181, 173, 1)',
           color:         'white',
@@ -94,26 +93,24 @@ const BenefitsTable = function ({ client, snippets }) {
           textAlign:     'center',
           borderRadius:  'inherit',
           letterSpacing: '0.02em',
-        }
-        , totalsRowStyle    = {
+        },
+        totalsRowStyle    = {
           borderTop:  '2px solid rgba(0, 181, 173, 1)',
           fontWeight: 700,
           fontSize:   '1.1em',
           padingTop:  '0.25em',
-        }
-        , rowHeaderStyle    = {
+        },
+        rowHeaderStyle    = {
           fontSize:   '1.1em',
           fontWeight: 700,
           textAlign:  'left',
-        }
-        , totalsRowHeaderStyle = {
+        },
+        totalsRowHeaderStyle = {
           fontSize:   '1.2em',
           fontWeight: 700,
           textAlign:  'left',
           borderTop:  '2px solid rgba(0, 181, 173, 1)',
           padingTop:  '0.25em',
-
-
         };
 
 

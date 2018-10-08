@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`showonyes component renders as expected 1`] = `
+<div
+  className="show-on-yes"
+>
+  <ContentH1 />
+  <Surrounder>
+    <ControlledRadioYesNo
+      checked={false}
+      name="confirm_undefined"
+      onChange={[Function]}
+    />
+  </Surrounder>
+</div>
+`;

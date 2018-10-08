@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class HomePage extends Component {
@@ -17,11 +16,13 @@ class HomePage extends Component {
               <Link
                 className='home-button hb-left'
                 to='/visit/54321/1'>
-                <Button >Get Started</Button>
+                Get Started
               </Link>
 
-              <Link to='/about'>
-                <Button className='home-button hb-right'>Learn More</Button>
+              <Link
+                className='home-button hb-right'
+                to='/about'>
+                Learn More
               </Link>
             </div>
             <p className="home-disclaimer">*This is a prototype and should not be used to make financial decisions.</p>
