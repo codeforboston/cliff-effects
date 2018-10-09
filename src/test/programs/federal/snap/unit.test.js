@@ -279,8 +279,8 @@ describe('SNAPhelpers', () => {
   });
 
 
-  // `SNAPhelpers.getPovertyGrossIncomeLevel()`
-  test('`getPovertyGrossIncomeLevel( timeClient )', () => {
+  // `SNAPhelpers.getGrossIncomeLimit()`
+  test('`getGrossIncomeLimit( timeClient )', () => {
     const current = cloneDeep(defaultCurrent);
 
     const getLimitBySize = jest.spyOn(getGovData, 'getLimitBySize');
@@ -290,7 +290,7 @@ describe('SNAPhelpers', () => {
     const federalPovertyGuidelines = expect.any(Object);
     const numMembers = current.household.length;
 
-    const incomeLimit = SNAPhelpers.getPovertyGrossIncomeLevel(current) * 12;
+    const incomeLimit = SNAPhelpers.getGrossIncomeLimit(current) * 12;
     expect(incomeLimit).toEqual(monthlyLimit);
     expect(getLimitBySize).toBeCalledWith(federalPovertyGuidelines, numMembers, 200);
 
@@ -298,8 +298,8 @@ describe('SNAPhelpers', () => {
   });
 
 
-  // `SNAPhelpers.getGrossIncomeTestResult()`
-  describe('`.getGrossIncomeTestResult( timeClient )` given a time-restricted client object', () => {
+  // `SNAPhelpers.passesGrossIncomeTest()`
+  describe('`.passesGrossIncomeTest( timeClient )` given a time-restricted client object', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
@@ -307,17 +307,17 @@ describe('SNAPhelpers', () => {
 
     it('that has an elderly or disabled dependent, should return true', () => {
       current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
-      expect(SNAPhelpers.getGrossIncomeTestResult(current)).toBe(true);
+      expect(SNAPhelpers.passesGrossIncomeTest(current)).toBe(true);
     });
 
     it('that has adjusted gross income under the poverty level, should return true', () => {
       current.earned = 0;
-      expect(SNAPhelpers.getGrossIncomeTestResult(current)).toBe(true);
+      expect(SNAPhelpers.passesGrossIncomeTest(current)).toBe(true);
     });
 
     it('that has adjusted gross income above the poverty level, should return false', () => {
       current.earned = 100000;
-      expect(SNAPhelpers.getGrossIncomeTestResult(current)).toBe(false);
+      expect(SNAPhelpers.passesGrossIncomeTest(current)).toBe(false);
     });
   });
 
@@ -353,8 +353,8 @@ describe('SNAPhelpers', () => {
    *     e.g., mortage and rent at the same time */
   /** @todo Rake tests - Not sure if we still need variations
    *     in both contractRent and rentShare the same times */
-  // `SNAPhelpers.getNonUtilityCosts()`
-  describe('`.getNonUtilityCosts( timeClient )` given a time-restricted client object', () => {
+  // `SNAPhelpers.getNonUtilityShelterCosts()`
+  describe('`.getNonUtilityShelterCosts( timeClient )` given a time-restricted client object', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
@@ -368,24 +368,24 @@ describe('SNAPhelpers', () => {
 
     it('that is "homeless", shoud return 0', () => {
       current.housing = 'homeless';
-      expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(0);
+      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(0);
     });
     it('that is a "homeowner", should return only the sum of mortgage, housing insurance, and property taxes', () => {
       current.housing = 'homeowner';
-      expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(111);
+      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(111);
     });
     it('that is a "renter", should return only the rent amount', () => {
       current.housing = 'renter';
-      expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(1000);
+      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(1000);
     });
     it('that is a "voucher", should return only the rent share (esp. not contract rent)', () => {
       current.housing = 'voucher';
-      expect(SNAPhelpers.getNonUtilityCosts(current)).toEqual(100000);
+      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(100000);
     });
-    /** @todo Should a wrong housing value to `.getNonUtilityCosts()` throw an error? */
+    /** @todo Should a wrong housing value to `.getNonUtilityShelterCosts()` throw an error? */
     it('that is not an allowed value, should return null', () => {
       current.housing = 'wrong';
-      expect(SNAPhelpers.getNonUtilityCosts(current)).toBe(null);
+      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toBe(null);
     });
   });
 
@@ -603,13 +603,13 @@ describe('SNAPhelpers', () => {
   test('`.getHalfAdjustedIncome( timeClient )', () => {
     const current = cloneDeep(defaultCurrent);
 
-    const getAdjustedNotGrossIncome = jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome');
+    const getAdjustedIncomeMinusDeductions = jest.spyOn(SNAPhelpers, 'getAdjustedIncomeMinusDeductions');
     const income = 100;
-    getAdjustedNotGrossIncome.mockReturnValue(income);
+    getAdjustedIncomeMinusDeductions.mockReturnValue(income);
 
     expect(SNAPhelpers.getHalfAdjustedIncome(current)).toEqual(income / 2);
 
-    getAdjustedNotGrossIncome.mockRestore();
+    getAdjustedIncomeMinusDeductions.mockRestore();
   });
 
 
@@ -706,8 +706,8 @@ describe('SNAPhelpers', () => {
   });
 
 
-  // `SNAPhelpers.getAdjustedNotGrossIncome()`
-  describe('`.getAdjustedNotGrossIncome( timeClient )` given a time-restricted client object with', () => {
+  // `SNAPhelpers.getAdjustedIncomeMinusDeductions()`
+  describe('`.getAdjustedIncomeMinusDeductions( timeClient )` given a time-restricted client object with', () => {
     let current, mocks;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
@@ -734,7 +734,7 @@ describe('SNAPhelpers', () => {
       
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
-      expect(SNAPhelpers.getAdjustedNotGrossIncome(current)).toEqual(income);
+      expect(SNAPhelpers.getAdjustedIncomeMinusDeductions(current)).toEqual(income);
     });
 
     it('negative income after deductions, it should return 0', () => {
@@ -754,13 +754,13 @@ describe('SNAPhelpers', () => {
       const deductions = standardDeduction + earnedIncomeDeduction + medicalDeduction + dependentCareDeduction;
       const income = adjustedGross - deductions;
       expect(income).toBeLessThan(0);
-      expect(SNAPhelpers.getAdjustedNotGrossIncome(current)).toEqual(0);
+      expect(SNAPhelpers.getAdjustedIncomeMinusDeductions(current)).toEqual(0);
     });
   });
 
 
-  // `SNAPhelpers.monthlyNetIncome()`
-  describe('`.monthlyNetIncome( timeClient )` given a time-restricted client object with', () => {
+  // `SNAPhelpers.getNetIncome()`
+  describe('`.getNetIncome( timeClient )` given a time-restricted client object with', () => {
     let current, mocks;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
@@ -776,13 +776,13 @@ describe('SNAPhelpers', () => {
       const homelessDeduction = 100;
       const housingDeduction = 1;
       mocks = [
-        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
+        jest.spyOn(SNAPhelpers, 'getAdjustedIncomeMinusDeductions').mockReturnValue(income),
         jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
         jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction), 
       ];
       
-      const monthlyNetIncome = income - homelessDeduction - housingDeduction;
-      expect(SNAPhelpers.monthlyNetIncome(current)).toEqual(monthlyNetIncome);
+      const getNetIncome = income - homelessDeduction - housingDeduction;
+      expect(SNAPhelpers.getNetIncome(current)).toEqual(getNetIncome);
     });
 
     it('negative income after deductions, it should return 0', () => {
@@ -790,42 +790,42 @@ describe('SNAPhelpers', () => {
       const homelessDeduction = 100;
       const housingDeduction = 1;
       mocks = [
-        jest.spyOn(SNAPhelpers, 'getAdjustedNotGrossIncome').mockReturnValue(income),
+        jest.spyOn(SNAPhelpers, 'getAdjustedIncomeMinusDeductions').mockReturnValue(income),
         jest.spyOn(SNAPhelpers, 'getHomelessDeduction').mockReturnValue(homelessDeduction),
         jest.spyOn(SNAPhelpers, 'getHousingDeduction').mockReturnValue(housingDeduction), 
       ];
       
-      const monthlyNetIncome = income - homelessDeduction - housingDeduction;
-      expect(monthlyNetIncome).toBeLessThan(0);
-      expect(SNAPhelpers.monthlyNetIncome(current)).toEqual(0);
+      const getNetIncome = income - homelessDeduction - housingDeduction;
+      expect(getNetIncome).toBeLessThan(0);
+      expect(SNAPhelpers.getNetIncome(current)).toEqual(0);
     });
   });
 
 
   // `SNAPhelpers.getMaxNetIncome()`
   describe('`.getMaxNetIncome( timeClient )` given a time-restricted client object with', () => {
-    let current, getPovertyGrossIncomeLevel;
+    let current, getGrossIncomeLimit;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      getPovertyGrossIncomeLevel = jest.spyOn(SNAPhelpers, 'getPovertyGrossIncomeLevel');
+      getGrossIncomeLimit = jest.spyOn(SNAPhelpers, 'getGrossIncomeLimit');
     });
     afterEach(() => {
-      getPovertyGrossIncomeLevel.mockRestore();
+      getGrossIncomeLimit.mockRestore();
     });
 
     it('income below the poverty line, it should return \'no limit\'', () => {
-      getPovertyGrossIncomeLevel.mockReturnValue(Number.POSITIVE_INFINITY);
+      getGrossIncomeLimit.mockReturnValue(Number.POSITIVE_INFINITY);
       expect(SNAPhelpers.getMaxNetIncome(current)).toEqual('no limit');
     });
 
     it('no elderly or disabled members, it should return \'no limit\'', () => {
-      getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
+      getGrossIncomeLimit.mockReturnValue(Number.NEGATIVE_INFINITY);
       expect(SNAPhelpers.hasDisabledOrElderlyMember(current)).toBe(false);
       expect(SNAPhelpers.getMaxNetIncome(current)).toEqual('no limit');
     });
 
     it('income above poverty line and disabled members, it should return the yearly limit', () => {
-      getPovertyGrossIncomeLevel.mockReturnValue(Number.NEGATIVE_INFINITY);
+      getGrossIncomeLimit.mockReturnValue(Number.NEGATIVE_INFINITY);
       current.household.push({ m_age: 65, m_disabled: true, m_role: 'member' });
 
       // mock getLimitBySize, which is what generates the limit to be returned
@@ -845,8 +845,8 @@ describe('SNAPhelpers', () => {
   });
 
 
-  // `SNAPhelpers.getNetIncomeTestResult()`
-  describe('`.getNetIncomeTestResult( timeClient )` given a time-restricted client object with', () => {
+  // `SNAPhelpers.passesNetIncomeTest()`
+  describe('`.passesNetIncomeTest( timeClient )` given a time-restricted client object with', () => {
     let current, getMaxNetIncome;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
@@ -858,17 +858,17 @@ describe('SNAPhelpers', () => {
 
     it('no limit on net income, should return true', () => {
       getMaxNetIncome.mockReturnValue('no limit');
-      expect(SNAPhelpers.getNetIncomeTestResult(current)).toBe(true);
+      expect(SNAPhelpers.passesNetIncomeTest(current)).toBe(true);
     });
 
     it('net income below monthly limit, should return true', () => {
       getMaxNetIncome.mockReturnValue(Number.POSITIVE_INFINITY);
-      expect(SNAPhelpers.getNetIncomeTestResult(current)).toBe(true);
+      expect(SNAPhelpers.passesNetIncomeTest(current)).toBe(true);
     });
 
     it('net income above monthly limit, should return false', () => {
       getMaxNetIncome.mockReturnValue(Number.NEGATIVE_INFINITY);
-      expect(SNAPhelpers.getNetIncomeTestResult(current)).toBe(false);
+      expect(SNAPhelpers.passesNetIncomeTest(current)).toBe(false);
     });
   });
 
