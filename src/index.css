@@ -49,6 +49,10 @@ body {
 }
 
 /* Predictions.js */
+.print-row {
+  margin-top: 1em;
+  text-align: right;
+}
 
 .feedback-button {
   display: inline;
@@ -488,9 +492,12 @@ ACCESSIBILITY - Also see any other focus styles
 
 /*
 =================
-PRINTING
+PRINTING STYLES
 =================
 */
+
+/* `margin: 0` at bottom working without print,
+    not working for print. Why? */
 @media print {
   .header_segment,
   #feedback_fixed,
@@ -499,7 +506,8 @@ PRINTING
   #section-bottom,
   #predictionsForm,
   #resultsIntro,
-  #App .tabular.menu {
+  #App .tabular.menu,
+  .print-row {
     display: none;
   }
 
@@ -510,6 +518,10 @@ PRINTING
 
   #App .bottom.segment {
     border: 0;
+  }
+
+  #root #App .ui.segment {
+    margin: 0;
   }
 
   @page {
