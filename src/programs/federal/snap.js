@@ -220,7 +220,7 @@ hlp.getDependentCareDeduction = function (client) {
 };
 
 hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedIncomeMinusDeductions(client) * 0.50;
+  return hlp.getAdjustedGrossMinusDeductions(client) * 0.50;
 };
 
 hlp.getRawHousingDeduction = function(client) {
@@ -231,7 +231,23 @@ hlp.getRawHousingDeduction = function(client) {
   return Math.max(0, rawHousingDeduction);
 };
 
-hlp.getHousingDeduction = function(client) {
+
+// ======================
+// NET INCOME
+hlp.getAdjustedGrossMinusDeductions = function (client) {
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      standardDeduction       = hlp.getStandardDeduction(client),
+      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
+      medicalDeduction        = hlp.getMedicalDeduction(client),
+      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
+
+  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  return Math.max(0, adjustedIncome);
+};
+
+// This functions make unit testing much easier
+// @todo Do they still get this deduction, even if they're homeless?
+hlp.getShelterDeduction = function(client) {
 
   var rawDeduction = hlp.getRawHousingDeduction(client);
 
@@ -243,6 +259,7 @@ hlp.getHousingDeduction = function(client) {
 
 };
 
+// This functions make unit testing much easier
 hlp.getHomelessDeduction = function(client) {
   if (hlp.isHomeless(client)) { 
     return SNAPData.HOMELESS_DEDUCTION; 
@@ -252,27 +269,13 @@ hlp.getHomelessDeduction = function(client) {
   }
 };
 
-
-// ======================
-// NET INCOME
-hlp.getAdjustedIncomeMinusDeductions = function (client) {
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      standardDeduction       = hlp.getStandardDeduction(client),
-      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
-      medicalDeduction        = hlp.getMedicalDeduction(client),
-      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
-
-  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
-  return Math.max(0, adjustedIncome);
-};
-
 hlp.getNetIncome = function(client) {
-  var adjustedIncome        = hlp.getAdjustedIncomeMinusDeductions(client),
-      hasHomelessDeduction  = hlp.getHomelessDeduction(client),
-      housingDeduction      = hlp.getHousingDeduction(client),
-      extraDeductions       = hasHomelessDeduction + housingDeduction;
-
-  var afterDeductions = adjustedIncome - extraDeductions;
+  var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
+      // These two functions make unit testing much easier
+      homelessDeduction = hlp.getHomelessDeduction(client),
+      shelterDeduction  = hlp.getShelterDeduction(client);
+  var extraDeductions   = homelessDeduction + shelterDeduction,
+      afterDeductions   = adjustedIncome - extraDeductions;
 
   return Math.max(0, afterDeductions);
 };
