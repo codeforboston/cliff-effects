@@ -26,16 +26,17 @@ const getSNAPBenefits = function (client, timeframe) {
   client = client[ timeframe ];
 
   var finalResult = 0,
+      householdSize           = hlp.getHouseholdSize(client),
       grossIncomeTestResult   = hlp.passesGrossIncomeTest(client),
       netIncomeTestResult     = hlp.passesNetIncomeTest(client),
-      maxSnapAllotment        = getLimitBySize(SNAPData.SNAP_LIMITS, hlp.householdSize(client)),
+      maxSnapAllotment        = getLimitBySize(SNAPData.SNAP_LIMITS, householdSize),
       percentageOfNetIncome   = hlp.getNetIncome(client) * SNAPData.PERCENT_OF_NET,
       maxClientAllotment      = Math.max(0, maxSnapAllotment - percentageOfNetIncome);
 
   if (grossIncomeTestResult === true && netIncomeTestResult === true) {
 
     if (maxClientAllotment <= SNAPData.SMALL_HOUSEHOLD_MIN_GRANT) {
-      if (hlp.householdSize(client) <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
+      if (householdSize <= SNAPData.SMALL_HOUSEHOLD_SIZE) {
         finalResult = SNAPData.SMALL_HOUSEHOLD_MIN_GRANT;
       }
 
@@ -57,7 +58,7 @@ var SNAPhelpers = {},
 
 // ======================
 // HOUSEHOLD/HOUSEHOLD MEMBERS
-hlp.householdSize = function (client) {
+hlp.getHouseholdSize = function (client) {
   return client.household.length;
 };
 
@@ -84,7 +85,7 @@ hlp.getAdjustedGross = function (client) {
 // Used in 2 other functions
 hlp.getGrossIncomeLimit = function (client) {
   var data      = federalPovertyGuidelines,
-      numPeople = hlp.householdSize(client),
+      numPeople = hlp.getHouseholdSize(client),
       // Data is given in yearly amounts
       limit     = getLimitBySize(data, numPeople, 200),
       // Needs to be gov money rounded?
@@ -124,7 +125,7 @@ hlp.isHomeless = function(client) {
 // ======================
 // INCOME DEDUCTIONS
 hlp.getStandardDeduction = function (client) {
-  return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.householdSize(client));
+  return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.getHouseholdSize(client));
 };
 
 hlp.getEarnedIncomeDeduction = function (client) {
@@ -295,7 +296,7 @@ hlp.getMaxNetIncome = function (client) {
   if ((adjustedGross <= povertyGrossIncomeLevel) || !disabledOrElderlyMember) {
     return 'no limit';
   } else {
-    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize(client));
+    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.getHouseholdSize(client));
   }
 };
 

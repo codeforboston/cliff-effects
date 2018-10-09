@@ -38,20 +38,20 @@ describe('SNAPhelpers', () => {
 
   /** @todo Rake tests - Still need to test differet household
    *     sizes. */
-  // `SNAPhelpers.householdSize()`
-  describe('`.householdSize( timeClient )` given a time-restricted client object should get household size of', () => {
+  // `SNAPhelpers.getHouseholdSize()`
+  describe('`.getHouseholdSize( timeClient )` given a time-restricted client object should get household size of', () => {
     it('1', () => {
-      expect(SNAPhelpers.householdSize(defaultCurrent)).toEqual(1);
+      expect(SNAPhelpers.getHouseholdSize(defaultCurrent)).toEqual(1);
     });
     it('5', () => {
       let current = cloneDeep(defaultCurrent);
       addNumMembers(4, current.household);
-      expect(SNAPhelpers.householdSize(current)).toEqual(5);
+      expect(SNAPhelpers.getHouseholdSize(current)).toEqual(5);
     });
     it('15', () => {
       let current = cloneDeep(defaultCurrent);
       addNumMembers(14, current.household);
-      expect(SNAPhelpers.householdSize(current)).toEqual(15);
+      expect(SNAPhelpers.getHouseholdSize(current)).toEqual(15);
     });
   });
 
