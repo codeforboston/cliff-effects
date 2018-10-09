@@ -292,6 +292,7 @@ export default {
       willGet_v1:                 `you could bring in about`,
       moreIn_v1:                  `more each month all together.`,
       findHelp_v1:                `If you're worried about these results, please search for "social services" in your area to try to find a local case manager.`,
+      printButton_v1:             `Print`,
       // Benefits Table:
       benefitsTableTitle_v1:      `Changes`, // see line 265 above
       columnBenefit_v1:           `Benefit`, // see BenefitsTable.js

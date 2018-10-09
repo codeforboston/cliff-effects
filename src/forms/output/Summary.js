@@ -424,7 +424,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
           className = { `print` }
           color     = { `teal` }
           onClick   = { print }>
-          Print
+          { sn.i_printButton }
         </Button>
       </div>
 
