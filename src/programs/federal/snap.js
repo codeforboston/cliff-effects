@@ -61,30 +61,27 @@ hlp.householdSize = function (client) {
   return client.household.length;
 };
 
+// Used in 1 other function, but is a useful abstraction
 hlp.isElderlyOrDisabled = function (member) {
   return member.m_age >= 60 || isDisabled(member);
 };
 
+// Used in 4 other functions
 hlp.hasDisabledOrElderlyMember = function (client) {
   return getEveryMemberOfHousehold(client, hlp.isElderlyOrDisabled).length > 0;
-};
-
-hlp.hasDependentsOver12 = function (client) {
-  var isOver12 = function (member) { 
-    return !isUnder13(member); 
-  };
-  var members = getEveryMember(getDependentsOfHousehold(client), isOver12);
-  return members.length > 0;
 };
 
 
 // ======================
 //GROSS INCOME
+
+// Used in 3 other functions
 hlp.getAdjustedGross = function (client) {
   var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
   return Math.max(0, raw);
 };
 
+// Used in 2 other functions
 hlp.getGrossIncomeLimit = function (client) {
   var data      = federalPovertyGuidelines,
       numPeople = hlp.householdSize(client),
@@ -121,54 +118,6 @@ hlp.passesGrossIncomeTest = function (client) {
 hlp.isHomeless = function(client) {
   // Worth abstracting, used a few places and may change
   return client.housing === 'homeless';
-};
-
-/** @todo: What about housing voucher? */
-hlp.getNonUtilityShelterCosts = function(client) {
-  var housingCost = null;
-
-  if (hlp.isHomeless(client)) {
-    housingCost = 0;
-  } else if (client.housing === 'homeowner') {
-    housingCost = client.mortgage + client.housingInsurance + client.propertyTax;
-  } else if (client.housing === 'renter') {
-    housingCost = client.rent;
-  } else if (client.housing === 'voucher') {
-    housingCost = client.rentShare;
-  }
-
-  return housingCost;
-};
-
-hlp.getUtilityCostByBracket = function (client) {
-
-  if (hlp.isHomeless(client)){
-    return 0;
-
-  } else {
-    
-    var utilityCategory = null;
-
-    if (client.climateControl || client.fuelAssistance) {
-      utilityCategory = 'Heating';
-    } else if (client.nonHeatElectricity) {
-      utilityCategory = 'Non-heating';
-    } else if (client.phone) {
-      utilityCategory = 'Telephone';
-    } else {
-      utilityCategory = 'Zero Utility Expenses';
-    }
-
-    return SNAPData.UTILITY_COST_BRACKETS[ utilityCategory ];
-  }
-};
-
-hlp.getTotalHousingCost = function (client) {
-
-  var housingCosts = hlp.getNonUtilityShelterCosts(client),
-      utilityCosts = hlp.getUtilityCostByBracket(client);
-
-  return housingCosts + utilityCosts;
 };
 
 
@@ -219,16 +168,17 @@ hlp.getDependentCareDeduction = function (client) {
   return dependentCare;
 };
 
-hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedGrossMinusDeductions(client) * 0.50;
+hlp.hasDependentsOver12 = function (client) {
+  var isOver12 = function (member) { 
+    return !isUnder13(member); 
+  };
+  var members = getEveryMember(getDependentsOfHousehold(client), isOver12);
+  return members.length > 0;
 };
 
-hlp.getRawHousingDeduction = function(client) {
-  var totalHousingCost    = hlp.getTotalHousingCost(client),
-      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
-      rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
 
-  return Math.max(0, rawHousingDeduction);
+hlp.getHalfAdjustedIncome = function(client) {
+  return hlp.getAdjustedGrossMinusDeductions(client) * 0.50;
 };
 
 
@@ -245,6 +195,18 @@ hlp.getAdjustedGrossMinusDeductions = function (client) {
   return Math.max(0, adjustedIncome);
 };
 
+
+hlp.getNetIncome = function(client) {
+  var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
+      // These two functions make unit testing much easier
+      homelessDeduction = hlp.getHomelessDeduction(client),
+      shelterDeduction  = hlp.getShelterDeduction(client);
+  var extraDeductions   = homelessDeduction + shelterDeduction,
+      afterDeductions   = adjustedIncome - extraDeductions;
+
+  return Math.max(0, afterDeductions);
+};
+
 // This functions make unit testing much easier
 // @todo Do they still get this deduction, even if they're homeless?
 hlp.getShelterDeduction = function(client) {
@@ -259,6 +221,60 @@ hlp.getShelterDeduction = function(client) {
 
 };
 
+hlp.getRawHousingDeduction = function(client) {
+  var totalHousingCost    = hlp.getTotalHousingCost(client),
+      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
+      rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
+
+  return Math.max(0, rawHousingDeduction);
+};
+
+hlp.getTotalHousingCost = function (client) {
+  var housingCosts = hlp.getNonUtilityShelterCosts(client),
+      utilityCosts = hlp.getUtilityCostByBracket(client);
+  return housingCosts + utilityCosts;
+};
+
+/** @todo: What about housing voucher? */
+hlp.getNonUtilityShelterCosts = function(client) {
+  var housingCost = null;
+
+  if (hlp.isHomeless(client)) {
+    housingCost = 0;
+  } else if (client.housing === 'homeowner') {
+    housingCost = client.mortgage + client.housingInsurance + client.propertyTax;
+  } else if (client.housing === 'renter') {
+    housingCost = client.rent;
+  } else if (client.housing === 'voucher') {
+    housingCost = client.rentShare;
+  }
+
+  return housingCost;
+};
+
+hlp.getUtilityCostByBracket = function (client) {
+
+  if (hlp.isHomeless(client)){
+    return 0;
+
+  } else {
+    
+    var utilityCategory = null;
+
+    if (client.climateControl || client.fuelAssistance) {
+      utilityCategory = 'Heating';
+    } else if (client.nonHeatElectricity) {
+      utilityCategory = 'Non-heating';
+    } else if (client.phone) {
+      utilityCategory = 'Telephone';
+    } else {
+      utilityCategory = 'Zero Utility Expenses';
+    }
+
+    return SNAPData.UTILITY_COST_BRACKETS[ utilityCategory ];
+  }
+};
+
 // This functions make unit testing much easier
 hlp.getHomelessDeduction = function(client) {
   if (hlp.isHomeless(client)) { 
@@ -269,16 +285,6 @@ hlp.getHomelessDeduction = function(client) {
   }
 };
 
-hlp.getNetIncome = function(client) {
-  var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
-      // These two functions make unit testing much easier
-      homelessDeduction = hlp.getHomelessDeduction(client),
-      shelterDeduction  = hlp.getShelterDeduction(client);
-  var extraDeductions   = homelessDeduction + shelterDeduction,
-      afterDeductions   = adjustedIncome - extraDeductions;
-
-  return Math.max(0, afterDeductions);
-};
 
 hlp.getMaxNetIncome = function (client) {
   //TODO: Logic different in website calculator vs. excel sheet used for this logic
