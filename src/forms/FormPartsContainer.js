@@ -119,8 +119,10 @@ const FormPartsContainer = function({ title, clarifier, children, navData, formC
 
         </Segment>
 
-        <Divider />
-        <FormBottomRow { ...navData } />
+        <div id = { `section-bottom` }>
+          <Divider />
+          <FormBottomRow { ...navData } />
+        </div>
 
       </Segment>
     </Form>

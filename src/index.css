@@ -84,6 +84,10 @@ Used to fill vertical space.
   white-space: nowrap;
 }
 
+#cliff-effects-tool {
+  padding: 42px 0;
+}
+
 #cliff-effects-tool .show-on-yes {
   display: inline-block;
 }
@@ -326,8 +330,11 @@ i.icon.details-icon {
 /* =============== */
 /* PREDICTIONS (manual theme implementation) */
 /* =============== */
-/* If theme is changed, this will have to be changed by hand */
+#resultsIntro {
+  margin-bottom: 1em;
+}
 
+/* If theme is changed, this will have to be changed by hand */
 .ui.attached.tabular.menu {
   border-bottom-color: #00b6ad;
 }
@@ -477,4 +484,39 @@ ACCESSIBILITY - Also see any other focus styles
   border: 1px solid rgba(0, 121, 116, 1);
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
+}
+
+/*
+=================
+PRINTING
+=================
+*/
+@media print {
+  .header_segment,
+  #feedback_fixed,
+  #reset_fixed,
+  #form-nav,
+  #section-bottom,
+  #predictionsForm,
+  #resultsIntro,
+  #App .tabular.menu {
+    display: none;
+  }
+
+  #cliff-effects-tool,
+  #App .very.padded.segment {
+    padding: 0;
+  }
+
+  #App .bottom.segment {
+    border: 0;
+  }
+
+  @page {
+    size: portrait;
+  }
+
+  #App {
+    filter: grayscale(100%);
+  }
 }

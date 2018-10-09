@@ -150,31 +150,38 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
       clarifier = { null }
       navData   = { navData }
       formClass = { `predictions` }>
-      <IncomeForm
-        updateClientValue = { updateClientValue }
-        future            = { client.future }
-        time              = { 'future' }
-        snippets          = { snippets } />
-      <Divider className='ui section divider hidden' />
-      <Header
-        as        ='h3'
-        className ='ui Header align centered'>
-        { snippets.i_chartsHeader }
-      </Header>
-      <Message
-        className = { `prediction-message` }
-        visible
-        warning>
-        { snippets.i_warningMessage }
-        <Button
-          className = { `feedback-button` }
-          size      = { `small` }
-          color     = { `teal` }
-          compact
-          onClick   = { openFeedback }>
-          { snippets.i_submitFeedback }
-        </Button>
-      </Message>
+      {/* `predictionsForm`: This whole div will be outside
+        the form in the future and then we'll be able to
+        access its style that way */}
+      <div id = { `predictionsForm` }>
+        <IncomeForm
+          updateClientValue = { updateClientValue }
+          future            = { client.future }
+          time              = { 'future' }
+          snippets          = { snippets } />
+        <Divider className='ui section divider hidden' />
+      </div>
+      <div id={ `resultsIntro` }>
+        <Header
+          as        ='h3'
+          className ='ui Header align centered'>
+          { snippets.i_chartsHeader }
+        </Header>
+        <Message
+          className = { `prediction-message` }
+          visible
+          warning>
+          { snippets.i_warningMessage }
+          <Button
+            className = { `feedback-button` }
+            size      = { `small` }
+            color     = { `teal` }
+            compact
+            onClick   = { openFeedback }>
+            { snippets.i_submitFeedback }
+          </Button>
+        </Message>
+      </div>
       <TabbedVisualizations 
         client       = { client }
         openFeedback = { openFeedback }
