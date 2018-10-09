@@ -523,40 +523,26 @@ describe('SNAPhelpers', () => {
   });
 
 
-  // `SNAPhelpers.getHalfAdjustedIncome()`
-  test('`.getHalfAdjustedIncome( timeClient )', () => {
-    const current = cloneDeep(defaultCurrent);
-
-    const getAdjustedGrossMinusDeductions = jest.spyOn(SNAPhelpers, 'getAdjustedGrossMinusDeductions');
-    const income = 100;
-    getAdjustedGrossMinusDeductions.mockReturnValue(income);
-
-    expect(SNAPhelpers.getHalfAdjustedIncome(current)).toEqual(income / 2);
-
-    getAdjustedGrossMinusDeductions.mockRestore();
-  });
-
-
   // `SNAPhelpers.getRawHousingDeduction()`
   describe('`.getRawHousingDeduction( timeClient )` given a time-restricted client object with', () => {
-    let current, getTotalHousingCost, getHalfAdjustedIncome;
+    let current, getTotalHousingCost, getAdjustedGrossMinusDeductions;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
       getTotalHousingCost = jest.spyOn(SNAPhelpers, 'getTotalHousingCost');
-      getHalfAdjustedIncome = jest.spyOn(SNAPhelpers, 'getHalfAdjustedIncome');
+      getAdjustedGrossMinusDeductions = jest.spyOn(SNAPhelpers, 'getAdjustedGrossMinusDeductions');
     });
     afterEach(() => {
       getTotalHousingCost.mockRestore();
-      getHalfAdjustedIncome.mockRestore();
+      getAdjustedGrossMinusDeductions.mockRestore();
     });
 
     it('a positive raw housing deduction, it should return the deductions', () => {
       const housingCost = 100;
       const adjustedIncome = 1;
       getTotalHousingCost.mockReturnValue(housingCost);
-      getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
+      getAdjustedGrossMinusDeductions.mockReturnValue(adjustedIncome);
 
-      const rawDeduction = housingCost - adjustedIncome;
+      const rawDeduction = housingCost - adjustedIncome / 2;
       expect(SNAPhelpers.getRawHousingDeduction(current)).toEqual(rawDeduction);
     });
 
@@ -564,9 +550,9 @@ describe('SNAPhelpers', () => {
       const housingCost = 1;
       const adjustedIncome = 100;
       getTotalHousingCost.mockReturnValue(housingCost);
-      getHalfAdjustedIncome.mockReturnValue(adjustedIncome);
+      getAdjustedGrossMinusDeductions.mockReturnValue(adjustedIncome);
 
-      const rawDeduction = housingCost - adjustedIncome;
+      const rawDeduction = housingCost - adjustedIncome / 2;
       expect(rawDeduction).toBeLessThan(0);
       expect(SNAPhelpers.getRawHousingDeduction(current)).toEqual(0);
     });

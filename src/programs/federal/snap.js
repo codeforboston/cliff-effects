@@ -179,11 +179,6 @@ hlp.getDependentCareDeduction = function (client) {
 };
 
 
-hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedGrossMinusDeductions(client) * 0.50;
-};
-
-
 // ======================
 // NET INCOME
 hlp.getAdjustedGrossMinusDeductions = function (client) {
@@ -225,7 +220,7 @@ hlp.getShelterDeduction = function(client) {
 
 hlp.getRawHousingDeduction = function(client) {
   var totalHousingCost    = hlp.getTotalHousingCost(client),
-      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
+      halfAdjustedIncome  = hlp.getAdjustedGrossMinusDeductions(client) * 0.50,
       rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
 
   return Math.max(0, rawHousingDeduction);
