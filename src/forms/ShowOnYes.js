@@ -64,7 +64,9 @@ class ShowOnYes extends React.Component {
 
     var show = this.state.show;
     return (
-      <div className = { `show-on-yes` }>
+      <div
+        className = { `show-on-yes` }
+        data-test="component-showonyes">
 
         <ContentH1>{ heading }</ContentH1>
 
@@ -75,7 +77,7 @@ class ShowOnYes extends React.Component {
             name      = { 'confirm_' + childName }
             onChange  = { this.handleChange } />
         </Surrounder>
-        
+
         { show ? (children) : (null) }
 
       </div>
