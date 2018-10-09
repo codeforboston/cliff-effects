@@ -50,9 +50,9 @@ class TermsAndConditions extends Component {
         </Modal.Header>
         <Modal.Content scrolling>
 
-          { snippets.i_terms } 
+          { snippets.i_warning } 
 
-          <h4>{ snippets.i_formHeader }</h4>
+          <h4>{ snippets.i_formInstructions }</h4>
 
           <div className="radio-yes-no">
             <Form.Field>
@@ -62,7 +62,7 @@ class TermsAndConditions extends Component {
                 onClick={ () => this.handleChange(true) } />
             </Form.Field>
             <Form.Field>
-              { snippets.i_fieldYesLabel }
+              { snippets.i_radioYesLabel }
             </Form.Field>
           </div>
          
@@ -74,7 +74,7 @@ class TermsAndConditions extends Component {
                 onClick={ () => this.handleChange(false) } />
             </Form.Field>
             <Form.Field>
-              { snippets.i_fieldNoLabel }
+              { snippets.i_radioNoLabel }
             </Form.Field>
           </div>
          
@@ -82,13 +82,13 @@ class TermsAndConditions extends Component {
         <Modal.Actions>
           <Button
             onClick={ () => this.closeModal(false) }>
-            { snippets.i_buttonCancelAccept }
+            { snippets.i_buttonCancel }
           </Button>
           <Button
             disabled={ this.state.canCountOnPredictions === false ? false : true }
             onClick={ () => this.closeModal(true) }
             color='teal'>
-            { snippets.i_buttonAcceptTerms }
+            { snippets.i_buttonAcceptWarning }
           </Button>
         </Modal.Actions>
       </Modal>

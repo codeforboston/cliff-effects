@@ -31,7 +31,7 @@ import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
-import TermsAndConditions from '../components/prompts/TermsAndConditions';
+import PredictionsWarning from '../components/prompts/PredictionsWarning';
 
 class VisitPage extends Component {
   constructor (props) {
@@ -377,10 +377,10 @@ class VisitPage extends Component {
 
         { 
           termsAccepted === false ? 
-            <TermsAndConditions
+            <PredictionsWarning
               termsAccepted = { termsAccepted }
               toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
-              snippets={{ ...snippets.termsOfUse }} /> :
+              snippets={{ ...snippets.predictions.warningModal }} /> :
             null
         }
 
