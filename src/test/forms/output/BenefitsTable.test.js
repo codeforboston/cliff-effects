@@ -1,12 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { BenefitsTable } from '../../forms/output/BenefitsTable';
+import { BenefitsTable } from '../../../forms/output/BenefitsTable';
 
-import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
+import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
 // LOCALIZATION
-import { getTextForLanguage } from '../../utils/getTextForLanguage';
+import { getTextForLanguage } from '../../../utils/getTextForLanguage';
 
 
 var snippets = getTextForLanguage(`en`);
