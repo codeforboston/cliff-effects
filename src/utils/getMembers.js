@@ -7,14 +7,14 @@
 * Creates an array containing the members in
 *     `memberList` that pass `memberTest()`
 */
-const getEveryMember = function (memberList, memberTest) {
+const getEveryMember = function (memberList, memberTest, comparisonData) {
 
   var members   = [];
 
   for (let memi = 0; memi < memberList.length; memi++) {
 
     let member = memberList[ memi ];
-    if (memberTest(member)) {
+    if (memberTest(member, comparisonData)) {
       members.push(member);
     }
 
@@ -29,9 +29,9 @@ const getEveryMember = function (memberList, memberTest) {
  * Creates an array containing the members in
  *     a `client`s household that pass `memberTest()`
  */
-const getEveryMemberOfHousehold = function (client, memberTest) {
+const getEveryMemberOfHousehold = function (client, memberTest, comparisonData) {
   var household = client.household;
-  return getEveryMember(household, memberTest);
+  return getEveryMember(household, memberTest, comparisonData);
 };  // End getEveryMemberOfHousehold()
 
 
@@ -116,6 +116,27 @@ const getUnder13OfHousehold = function (client) {
   return getEveryMemberOfHousehold(client, isUnder13);
 };  // End getUnder13OfHousehold()
 
+const isYoungerThan = function (member, comparisonData) {
+  // Can be number or object with correct prop
+  var age = comparisonData.age || comparisonData;
+  return member.m_age < age;
+};
+
+const getYoungerThan = function (client, age) {
+  return getEveryMemberOfHousehold(client, isYoungerThan, { age: age });
+};
+
+const isOlderThan = function (member, comparisonData) {
+  // Can be number or object with correct prop
+  var age = comparisonData.age || comparisonData;
+  // console.log(age, member.m_age);
+  return member.m_age > age;
+};
+
+const getOlderThan = function (client, age) {
+  return getEveryMemberOfHousehold(client, isOlderThan, { age: age });
+};
+
 
 export {
   getEveryMember,
@@ -137,4 +158,8 @@ export {
   isUnder13,
   getUnder13Members,
   getUnder13OfHousehold,
+  isYoungerThan,
+  getYoungerThan,
+  isOlderThan,
+  getOlderThan,
 };

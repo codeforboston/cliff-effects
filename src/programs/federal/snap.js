@@ -12,11 +12,10 @@ import { getLimitBySize } from '../../utils/getGovData';
 import { toMonthlyFrom } from '../../utils/convert-by-timescale';
 import {
   getEveryMemberOfHousehold,
-  getEveryMember,
-  getDependentsOfHousehold,
+  getDependentMembers,
   isDisabled,
-  isUnder13,
-  getUnder13OfHousehold,
+  getYoungerThan,
+  getOlderThan,
 } from '../../utils/getMembers';
 
 
@@ -86,7 +85,7 @@ hlp.passesGrossIncomeTest = function (client) {
 };
 
 
-// Used in 1 other function, but is a useful abstraction
+// Used in 1 other function, but won't be created multiple times
 hlp.isElderlyOrDisabled = function (member) {
   return member.m_age >= 60 || isDisabled(member);
 };
@@ -118,8 +117,7 @@ hlp.getGrossIncomeLimit = function (client) {
 };
 
 
-// ======================
-// SHELTER
+// Used in 3 other functions
 hlp.isHomeless = function(client) {
   // Worth abstracting, used a few places and may change
   return client.housing === 'homeless';
@@ -128,15 +126,19 @@ hlp.isHomeless = function(client) {
 
 // ======================
 // INCOME DEDUCTIONS
+
+// Used in 1 other function. Easier unit tests
 hlp.getStandardDeduction = function (client) {
   return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.getHouseholdSize(client));
 };
 
+// Used in 1 other function. Easier unit tests
 hlp.getEarnedIncomeDeduction = function (client) {
   var totalMonthlyEarned = client.earned;
   return totalMonthlyEarned * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
+// Used in 1 other function. Easier unit tests
 hlp.getMedicalDeduction = function (client) {
   var medicalDeduce = 0;
 
@@ -155,30 +157,25 @@ hlp.getMedicalDeduction = function (client) {
   return medicalDeduce;
 };
 
+// Used in 1 other function. Easier unit tests
 hlp.getDependentCareDeduction = function (client) {
 
   var dependentCare = 0;
 
   /** @todo Adopt https://github.com/codeforboston/cliff-effects/issues/264
    *     model for all these 'kinds' of 'if' situations. If possible. */
-  if (getUnder13OfHousehold(client).length > 0) {
+  if (getYoungerThan(client, 13).length > 0) {
     dependentCare += sumProps(client, UNDER13_CARE_EXPENSES);
   }
 
+  var membersOver12    = getOlderThan(client, 12),
+      dependentsOver12 = getDependentMembers(membersOver12);
   /** May want to test this the same way as Expenses step does. More consistent? */
-  if (hlp.hasDependentsOver12(client)) {
+  if (dependentsOver12.length > 0) {
     dependentCare += sumProps(client, OVER12_CARE_EXPENSES);
   }
 
   return dependentCare;
-};
-
-hlp.hasDependentsOver12 = function (client) {
-  var isOver12 = function (member) { 
-    return !isUnder13(member); 
-  };
-  var members = getEveryMember(getDependentsOfHousehold(client), isOver12);
-  return members.length > 0;
 };
 
 
