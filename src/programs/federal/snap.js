@@ -181,6 +181,8 @@ hlp.getDependentCareDeduction = function (client) {
 
 // ======================
 // NET INCOME
+
+// Used in 2 functions
 hlp.getAdjustedGrossMinusDeductions = function (client) {
   var adjustedGross           = hlp.getAdjustedGross(client),
       standardDeduction       = hlp.getStandardDeduction(client),
@@ -193,6 +195,7 @@ hlp.getAdjustedGrossMinusDeductions = function (client) {
 };
 
 
+// Used in 2 functions
 hlp.getNetIncome = function(client) {
   var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
       // These two functions make unit testing much easier
@@ -204,7 +207,7 @@ hlp.getNetIncome = function(client) {
   return Math.max(0, afterDeductions);
 };
 
-// This functions make unit testing much easier
+// Used by 1 function, but makes unit testing much easier
 // @todo Do they still get this deduction, even if they're homeless?
 hlp.getShelterDeduction = function(client) {
 
@@ -218,18 +221,15 @@ hlp.getShelterDeduction = function(client) {
 
 };
 
+// Used by 1 function, but makes unit testing much easier
 hlp.getRawHousingDeduction = function(client) {
-  var totalHousingCost    = hlp.getTotalHousingCost(client),
+  var housingCosts        = hlp.getNonUtilityShelterCosts(client),
+      utilityCosts        = hlp.getUtilityCostByBracket(client),
+      totalHousingCost    = housingCosts + utilityCosts,
       halfAdjustedIncome  = hlp.getAdjustedGrossMinusDeductions(client) * 0.50,
       rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
 
   return Math.max(0, rawHousingDeduction);
-};
-
-hlp.getTotalHousingCost = function (client) {
-  var housingCosts = hlp.getNonUtilityShelterCosts(client),
-      utilityCosts = hlp.getUtilityCostByBracket(client);
-  return housingCosts + utilityCosts;
 };
 
 /** @todo: What about housing voucher? */

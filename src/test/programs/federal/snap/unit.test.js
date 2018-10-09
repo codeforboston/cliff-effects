@@ -525,34 +525,43 @@ describe('SNAPhelpers', () => {
 
   // `SNAPhelpers.getRawHousingDeduction()`
   describe('`.getRawHousingDeduction( timeClient )` given a time-restricted client object with', () => {
-    let current, getTotalHousingCost, getAdjustedGrossMinusDeductions;
+    let current,
+        getAdjustedGrossMinusDeductions,
+        getNonUtilityShelterCosts,
+        getUtilityCostByBracket;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      getTotalHousingCost = jest.spyOn(SNAPhelpers, 'getTotalHousingCost');
+      getNonUtilityShelterCosts       = jest.spyOn(SNAPhelpers, `getNonUtilityShelterCosts`);
+      getUtilityCostByBracket         = jest.spyOn(SNAPhelpers, `getUtilityCostByBracket`);
       getAdjustedGrossMinusDeductions = jest.spyOn(SNAPhelpers, 'getAdjustedGrossMinusDeductions');
     });
     afterEach(() => {
-      getTotalHousingCost.mockRestore();
+      getNonUtilityShelterCosts.mockRestore();
+      getUtilityCostByBracket.mockRestore();
       getAdjustedGrossMinusDeductions.mockRestore();
     });
 
     it('a positive raw housing deduction, it should return the deductions', () => {
-      const housingCost = 100;
-      const adjustedIncome = 1;
-      getTotalHousingCost.mockReturnValue(housingCost);
+      const shelter        = 50,
+            utility        = 50,
+            adjustedIncome = 1;
+      getNonUtilityShelterCosts.mockReturnValue(shelter);
+      getUtilityCostByBracket.mockReturnValue(utility);
       getAdjustedGrossMinusDeductions.mockReturnValue(adjustedIncome);
 
-      const rawDeduction = housingCost - adjustedIncome / 2;
+      const rawDeduction = (shelter + utility) - adjustedIncome / 2;
       expect(SNAPhelpers.getRawHousingDeduction(current)).toEqual(rawDeduction);
     });
 
     it('a negative raw housing deduction, it should return zero', () => {
-      const housingCost = 1;
-      const adjustedIncome = 100;
-      getTotalHousingCost.mockReturnValue(housingCost);
+      const shelter        = .5,
+            utility        = .5,
+            adjustedIncome = 100;
+      getNonUtilityShelterCosts.mockReturnValue(shelter);
+      getUtilityCostByBracket.mockReturnValue(utility);
       getAdjustedGrossMinusDeductions.mockReturnValue(adjustedIncome);
 
-      const rawDeduction = housingCost - adjustedIncome / 2;
+      const rawDeduction = (shelter + utility) - adjustedIncome / 2;
       expect(rawDeduction).toBeLessThan(0);
       expect(SNAPhelpers.getRawHousingDeduction(current)).toEqual(0);
     });
