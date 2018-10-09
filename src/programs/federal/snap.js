@@ -50,17 +50,41 @@ const getSNAPBenefits = function (client, timeframe) {
 }; // End getSNAPBenefits()
 
 
-// ======================
 // ESTABLISH OBJECT FOR BENEFIT HELPERS
 var SNAPhelpers = {},
     hlp         = SNAPhelpers;
 
 
-// ======================
-// HOUSEHOLD/HOUSEHOLD MEMBERS
+// Used in 5 other functions
 hlp.getHouseholdSize = function (client) {
   return client.household.length;
 };
+
+
+// Used in 1 other function, main function
+/** Abstraction for use in main function.
+ * 
+ * @todo must double checked in the documentation.
+ *     Website uses `<` for comparison, excel sheet
+ *     uses `<=` when comparing adjusted gross to
+ *     poverty limit. */
+hlp.passesGrossIncomeTest = function (client) {
+  var adjustedGross    = hlp.getAdjustedGross(client),
+      grossIncomeLimit = hlp.getGrossIncomeLimit(client),
+      passes           = null;
+  if (hlp.hasDisabledOrElderlyMember(client)) {
+    passes = true;
+  } else {
+    // `<` in web calculator vs excel sheet `<=`.
+    if (adjustedGross <= grossIncomeLimit) {
+      passes = true;
+    } else {
+      passes = false;
+    }
+  }
+  return passes;
+};
+
 
 // Used in 1 other function, but is a useful abstraction
 hlp.isElderlyOrDisabled = function (member) {
@@ -91,26 +115,6 @@ hlp.getGrossIncomeLimit = function (client) {
       // Needs to be gov money rounded?
       monthly   = toMonthlyFrom(limit, 'yearly');
   return monthly;
-};
-
-hlp.passesGrossIncomeTest = function (client) {
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      povertyGrossIncomeLevel = hlp.getGrossIncomeLimit(client),
-      isPassGrossIncomeTest   = null;
-  if (hlp.hasDisabledOrElderlyMember(client)) {
-    isPassGrossIncomeTest = true;
-  } else {
-    /** @todo must double checked in the documentation.
-     *     Two different results in both excel calculator
-     *     and website calculator */
-    // minor difference "<" in website calculator logic on line 469.
-    if (adjustedGross <= povertyGrossIncomeLevel) {
-      isPassGrossIncomeTest = true;
-    } else {
-      isPassGrossIncomeTest = false;
-    }
-  }
-  return isPassGrossIncomeTest;
 };
 
 
@@ -290,10 +294,10 @@ hlp.getHomelessDeduction = function(client) {
 hlp.getMaxNetIncome = function (client) {
   //TODO: Logic different in website calculator vs. excel sheet used for this logic
   var adjustedGross           = hlp.getAdjustedGross(client),
-      povertyGrossIncomeLevel = hlp.getGrossIncomeLimit(client),
+      grossIncomeLimit        = hlp.getGrossIncomeLimit(client),
       disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
   
-  if ((adjustedGross <= povertyGrossIncomeLevel) || !disabledOrElderlyMember) {
+  if ((adjustedGross <= grossIncomeLimit) || !disabledOrElderlyMember) {
     return 'no limit';
   } else {
     return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.getHouseholdSize(client));
