@@ -31,6 +31,7 @@ import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
+import PredictionsWarning from '../components/prompts/PredictionsWarning';
 
 class VisitPage extends Component {
   constructor (props) {
@@ -273,10 +274,11 @@ class VisitPage extends Component {
 
   render() {
 
-    var snippets    = this.state.snippets,
-        prevContent = null,
-        nextContent = null,
-        stepIndex   = this.getCurrentStepIndex();
+    var snippets      = this.state.snippets,
+        prevContent   = null,
+        nextContent   = null,
+        stepIndex     = this.getCurrentStepIndex(),
+        termsAccepted = this.props.termsAccepted;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -372,6 +374,16 @@ class VisitPage extends Component {
           </div>
 
         </Container>
+
+        { 
+          termsAccepted === false ? 
+            <PredictionsWarning
+              termsAccepted = { termsAccepted }
+              toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
+              snippets={{ ...snippets.warningModal }} /> :
+            null
+        }
+
       </div>
     );
   }

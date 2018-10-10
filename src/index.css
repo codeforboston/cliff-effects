@@ -478,3 +478,14 @@ ACCESSIBILITY - Also see any other focus styles
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
 }
+
+
+/*
+=========================
+PREDICTIONS WARNING MODAL
+=========================
+*/
+#WarningModal .header {
+  color: #fff;
+  background-color: rgb(136,0,21);
+}
