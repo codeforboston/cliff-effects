@@ -19,7 +19,9 @@ import {
 } from '../../utils/getMembers';
 
 
-/** Based on https://www.masslegalservices.org/SNAPCalculator */
+/** Based on https://www.masslegalservices.org/SNAPCalculator
+ * @note Bay State CAP not included as this prototype only deals with
+ *     changes in earned income */
 const getSNAPBenefits = function (client, timeframe) {
 
   client = client[ timeframe ];
@@ -53,12 +55,10 @@ const getSNAPBenefits = function (client, timeframe) {
 var SNAPhelpers = {},
     hlp         = SNAPhelpers;
 
-
 // Used in 5 other functions
 hlp.getHouseholdSize = function (client) {
   return client.household.length;
 };
-
 
 // Used in 1 other function, main function
 /** Abstraction for use in main function.
@@ -232,6 +232,7 @@ hlp.getRawHousingDeduction = function(client) {
   return Math.max(0, rawHousingDeduction);
 };
 
+// Used by 1 function, but makes unit testing much easier
 /** @todo: What about housing voucher? */
 hlp.getNonUtilityShelterCosts = function(client) {
   var housingCost = null;
@@ -249,6 +250,7 @@ hlp.getNonUtilityShelterCosts = function(client) {
   return housingCost;
 };
 
+// Used by 1 function, but makes unit testing much easier
 hlp.getUtilityCostByBracket = function (client) {
 
   if (hlp.isHomeless(client)){
@@ -272,7 +274,7 @@ hlp.getUtilityCostByBracket = function (client) {
   }
 };
 
-// This functions make unit testing much easier
+// Used by 1 function
 hlp.getHomelessDeduction = function(client) {
   if (hlp.isHomeless(client)) { 
     return SNAPData.HOMELESS_DEDUCTION; 
@@ -283,24 +285,11 @@ hlp.getHomelessDeduction = function(client) {
 };
 
 
-hlp.getMaxNetIncome = function (client) {
-  //TODO: Logic different in website calculator vs. excel sheet used for this logic
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      grossIncomeLimit        = hlp.getGrossIncomeLimit(client),
-      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
-  
-  if ((adjustedGross <= grossIncomeLimit) || !disabledOrElderlyMember) {
-    return 'no limit';
-  } else {
-    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.getHouseholdSize(client));
-  }
-};
-
-// NET INCOME TEST RESULT
+// Used by main function
 hlp.passesNetIncomeTest = function(client) {
   var maxNetIncome = hlp.getMaxNetIncome(client);
 
-  if (maxNetIncome === 'no limit') {
+  if (maxNetIncome === `no limit`) {
     return true;
   } else if (hlp.getNetIncome(client) < maxNetIncome) {
     return true;
@@ -310,7 +299,19 @@ hlp.passesNetIncomeTest = function(client) {
 
 };
 
-/** NOTE: Bay State CAP not included as this prototype only deals with
- *     changes in earned income */
+// Used by 1 function, but makes unit testing much easier
+hlp.getMaxNetIncome = function (client) {
+  // @todo Logic different in website calculator vs. excel sheet for this logic
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      grossIncomeLimit        = hlp.getGrossIncomeLimit(client),
+      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
+  
+  if ((adjustedGross <= grossIncomeLimit) || !disabledOrElderlyMember) {
+    return `no limit`;
+  } else {
+    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.getHouseholdSize(client));
+  }
+};
+
 
 export { getSNAPBenefits, SNAPhelpers };
