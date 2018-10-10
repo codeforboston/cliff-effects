@@ -299,17 +299,17 @@ export default {
       buttonWeekly_v1:            `Weekly`, // see cashflow.js, GraphTimeButtons
       buttonMonthly_v1:           `Monthly`, // see cashflow.js, GraphTimeButtons
       buttonYearly_v1:            `Yearly`, // see cashflow.js, GraphTimeButtons
-
-      warningModal: {
-        header_v1:              `IMPORTANT!`,
-        warning_v1:             `This tool is in testing.  Predictions should not be used to make financial decisions.`,
-        buttonAcceptWarning_v1: `Continue`,
-        buttonCancel_v1:        `Cancel`,
-        formInstructions_v1:    `Please choose one:`,
-        radioYesLabel_v1:       `I can count on what this tool tells me`,
-        radioNoLabel_v1:        `I understand that I can't count on what this tool tells me`,
-      },
-
     },
+
+    warningModal: {
+      header_v1:              `IMPORTANT!`,
+      warning_v1:             `This tool is in testing.  Predictions should not be used to make financial decisions.`,
+      buttonAcceptWarning_v1: `Continue`,
+      buttonCancel_v1:        `Cancel`,
+      formInstructions_v1:    `Please indicate you understand the following:`,
+      checkboxLabel1:         `This tool is not finished.`,
+      checkboxLabel2:         `I can't count on what this tool tells me.`,
+    },
+
   },
 };

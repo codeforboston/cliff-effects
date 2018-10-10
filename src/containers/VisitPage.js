@@ -380,7 +380,7 @@ class VisitPage extends Component {
             <PredictionsWarning
               termsAccepted = { termsAccepted }
               toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
-              snippets={{ ...snippets.predictions.warningModal }} /> :
+              snippets={{ ...snippets.warningModal }} /> :
             null
         }
 

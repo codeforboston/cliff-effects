@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import {
   Button,
+  Checkbox,
   Form,
   Modal,
-  Radio,
 } from 'semantic-ui-react';
 
 /**
@@ -16,7 +16,22 @@ import {
  */
 class TermsAndConditions extends Component {
   
-  state = { canCountOnPredictions: null };
+  state = { 
+    checkbox1: false,
+    checkbox2: false,
+  };
+
+  handleChange = (checkboxField) => {
+    let checked = !this.state[ checkboxField ];
+    this.setState({ [ checkboxField ]: checked });
+  };
+
+  allowContinue = () => {
+    return (
+      this.state.checkbox1 === true && 
+      this.state.checkbox2 === true
+    ) ? true : false;
+  };
 
   closeModal = (accept) => {
     if (accept) {
@@ -24,10 +39,6 @@ class TermsAndConditions extends Component {
     } else {
       this.props.history.push('/');
     }
-  };
-
-  handleChange = (canCountOnPredictions) => {
-    this.setState({ canCountOnPredictions });
   };
 
   render() {
@@ -54,27 +65,31 @@ class TermsAndConditions extends Component {
 
           <h4>{ snippets.i_formInstructions }</h4>
 
-          <div className="radio-yes-no">
+          <div
+            className="radio-yes-no"
+            key= { `ReqCkBx1` }>
             <Form.Field>
-              <Radio
-                checked={ this.state.canCountOnPredictions === true }
-                name="CanCountOn"
-                onClick={ () => this.handleChange(true) } />
+              <Checkbox
+                checked = { this.state.Checkbox1 }
+                name    = { `checkbox1` }
+                onClick = { () => this.handleChange('checkbox1') } />
             </Form.Field>
             <Form.Field>
-              { snippets.i_radioYesLabel }
+              { snippets.i_checkboxLabel1 }
             </Form.Field>
           </div>
-         
-          <div className="radio-yes-no">
+
+          <div
+            className="radio-yes-no"
+            key= { `ReqCkBx2` }>
             <Form.Field>
-              <Radio
-                checked={ this.state.canCountOnPredictions === false }
-                name="CanCountOn"
-                onClick={ () => this.handleChange(false) } />
+              <Checkbox
+                checked = { this.state.Checkbox2 }
+                name    = { `checkbox2` }
+                onClick = { () => this.handleChange('checkbox2') } />
             </Form.Field>
             <Form.Field>
-              { snippets.i_radioNoLabel }
+              { snippets.i_checkboxLabel2 }
             </Form.Field>
           </div>
          
@@ -85,7 +100,7 @@ class TermsAndConditions extends Component {
             { snippets.i_buttonCancel }
           </Button>
           <Button
-            disabled={ this.state.canCountOnPredictions === false ? false : true }
+            disabled={ !this.allowContinue() }
             onClick={ () => this.closeModal(true) }
             color='teal'>
             { snippets.i_buttonAcceptWarning }
