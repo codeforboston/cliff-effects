@@ -87,7 +87,8 @@ class App extends Component {
         nonEnglish: true,
         ...localDev,
       },
-      termsAccepted: false,
+      termsAccepted:      false,
+      warningModelActive: true,
     };
   };  // End constructor()
 
@@ -162,15 +163,24 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
-  /** Toggles termsAccepted flag in app state.  Passed to TermsAndConditions modal
+  /** Toggles termsAccepted flag in app state.  Passed to PredictionsWarning modal
    * which calls this in the onClose handler.  App is unavailable until terms 
-   * are accepted.
+   * are accepted unless warningModelActive is set to false in DevHud.
    * @method
-   * @param {boolean} termsAccepted
    */
-  toggleAcceptTerms = (termsAccepted) => {
-    this.setState({ termsAccepted });
+  toggleAcceptTerms = () => {
+    let isAccepted = this.state.termsAccepted;
+    this.setState({ termsAccepted: !isAccepted });
   };  // End acceptTerms()
+
+  /** Toggles warningModelActive flag in app state.  Passed to DevHud which contains  
+   * a checkbox to enable/disable the display of the PredictionsWarning modal
+   * @method
+   */
+  toggleWarningModel = () => {
+    let isActive = this.state.warningModelActive;
+    this.setState({ warningModelActive: !isActive });
+  };
 
   render () {
     var {
@@ -179,18 +189,18 @@ class App extends Component {
       devProps,
       clients,
       termsAccepted,
+      warningModelActive,
     } = this.state;
 
     var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
         classes   = this.propsToClasses(devProps),
         devFuncs  = {
-          setDev:      this.setDev,
-          loadClient:  this.loadClient,
-          setLanguage: this.setLanguage,
+          setDev:             this.setDev,
+          loadClient:         this.loadClient,
+          setLanguage:        this.setLanguage,
+          toggleWarningModel: this.toggleWarningModel,
         },
-        funcs     = {
-          toggleAcceptTerms: this.toggleAcceptTerms,
-        },
+        funcs      = { toggleAcceptTerms: this.toggleAcceptTerms },
         clientData = clients.loaded;
 
     return (
@@ -236,11 +246,12 @@ class App extends Component {
                   return (
                     <VisitPage
                       { ...props }
-                      termsAccepted = { termsAccepted }
-                      funcs         = { funcs }
-                      confirmer     = { confirmer }
-                      snippets      = {{ ...snippets.visitPage, langCode: snippets.langCode }}
-                      clientData    = { clientData } />);
+                      termsAccepted      = { termsAccepted }
+                      warningModelActive = { warningModelActive }
+                      funcs              = { funcs }
+                      confirmer          = { confirmer }
+                      snippets           = {{ ...snippets.visitPage, langCode: snippets.langCode }}
+                      clientData         = { clientData } />);
                 } } />
 
               {/* For managing our development HUD */}
