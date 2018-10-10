@@ -91,12 +91,12 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         <HeadingWithDetail>
           <Checkbox
             label    = { `Enable warning modal` }
-            checked  = { state.warningModelActive }
-            onChange = { funcs.toggleWarningModel } />
+            checked  = { state.warningModalActive }
+            onChange = { funcs.toggleWarningModal } />
           <span>
             Note: Uncheck this box to<br />
             disable the predictions warning<br />
-            model. The model displays prior<br />
+            modal. The modal displays prior<br />
             to allowing access to the form.<br />
           </span>
         </HeadingWithDetail>

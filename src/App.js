@@ -88,7 +88,7 @@ class App extends Component {
         ...localDev,
       },
       termsAccepted:      false,
-      warningModelActive: true,
+      warningModalActive: true,
     };
   };  // End constructor()
 
@@ -165,7 +165,7 @@ class App extends Component {
 
   /** Toggles termsAccepted flag in app state.  Passed to PredictionsWarning modal
    * which calls this in the onClose handler.  App is unavailable until terms 
-   * are accepted unless warningModelActive is set to false in DevHud.
+   * are accepted unless warningModalActive is set to false in DevHud.
    * @method
    */
   toggleAcceptTerms = () => {
@@ -173,13 +173,13 @@ class App extends Component {
     this.setState({ termsAccepted: !isAccepted });
   };  // End acceptTerms()
 
-  /** Toggles warningModelActive flag in app state.  Passed to DevHud which contains  
+  /** Toggles warningModalActive flag in app state.  Passed to DevHud which contains  
    * a checkbox to enable/disable the display of the PredictionsWarning modal
    * @method
    */
-  toggleWarningModel = () => {
-    let isActive = this.state.warningModelActive;
-    this.setState({ warningModelActive: !isActive });
+  toggleWarningModal = () => {
+    let isActive = this.state.warningModalActive;
+    this.setState({ warningModalActive: !isActive });
   };
 
   render () {
@@ -189,7 +189,7 @@ class App extends Component {
       devProps,
       clients,
       termsAccepted,
-      warningModelActive,
+      warningModalActive,
     } = this.state;
 
     var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
@@ -198,7 +198,7 @@ class App extends Component {
           setDev:             this.setDev,
           loadClient:         this.loadClient,
           setLanguage:        this.setLanguage,
-          toggleWarningModel: this.toggleWarningModel,
+          toggleWarningModal: this.toggleWarningModal,
         },
         funcs      = { toggleAcceptTerms: this.toggleAcceptTerms },
         clientData = clients.loaded;
@@ -247,7 +247,7 @@ class App extends Component {
                     <VisitPage
                       { ...props }
                       termsAccepted      = { termsAccepted }
-                      warningModelActive = { warningModelActive }
+                      warningModalActive = { warningModalActive }
                       funcs              = { funcs }
                       confirmer          = { confirmer }
                       snippets           = {{ ...snippets.visitPage, langCode: snippets.langCode }}

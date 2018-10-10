@@ -279,7 +279,7 @@ class VisitPage extends Component {
         nextContent        = null,
         stepIndex          = this.getCurrentStepIndex(),
         termsAccepted      = this.props.termsAccepted,
-        warningModelActive = this.props.warningModelActive;
+        warningModalActive = this.props.warningModalActive;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -378,7 +378,7 @@ class VisitPage extends Component {
 
         { 
           (
-            warningModelActive === true &&
+            warningModalActive === true &&
             termsAccepted === false 
           ) ? 
             <PredictionsWarning
