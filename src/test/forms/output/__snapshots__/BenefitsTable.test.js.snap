@@ -283,3 +283,2151 @@ exports[`Benefits table renders correctly 1`] = `
   </table>
 </div>
 `;
+
+exports[`Benefits table renders correctly 2`] = `
+<div>
+  <table
+    className="ui celled table"
+  >
+    <thead
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Benefit
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Current Benefits
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            New Estimate
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Difference
+          </span>
+        </td>
+      </tr>
+    </thead>
+    <tbody
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            SNAP
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Income
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+        style={
+          Object {
+            "border": "none",
+          }
+        }
+      >
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.2em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Net Total
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Benefits table renders correctly 3`] = `
+<div>
+  <table
+    className="ui celled table"
+  >
+    <thead
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Benefit
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Current Benefits
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            New Estimate
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Difference
+          </span>
+        </td>
+      </tr>
+    </thead>
+    <tbody
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            SNAP
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Income
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          -
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+        style={
+          Object {
+            "border": "none",
+          }
+        }
+      >
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.2em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Net Total
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          292
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          -
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Benefits table renders correctly 4`] = `
+<div>
+  <table
+    className="ui celled table"
+  >
+    <thead
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Benefit
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Current Benefits
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            New Estimate
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Difference
+          </span>
+        </td>
+      </tr>
+    </thead>
+    <tbody
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            SNAP
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Income
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          200
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          +
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+        style={
+          Object {
+            "border": "none",
+          }
+        }
+      >
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.2em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Net Total
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          292
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          392
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          +
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Benefits table renders correctly 5`] = `
+<div>
+  <table
+    className="ui celled table"
+  >
+    <thead
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Benefit
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Current Benefits
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            New Estimate
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Difference
+          </span>
+        </td>
+      </tr>
+    </thead>
+    <tbody
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            SNAP
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Income
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          300
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          200
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          -
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+        style={
+          Object {
+            "border": "none",
+          }
+        }
+      >
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.2em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Net Total
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          492
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          392
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          -
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Benefits table renders correctly 6`] = `
+<div>
+  <table
+    className="ui celled table"
+  >
+    <thead
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Benefit
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Current Benefits
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            New Estimate
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Difference
+          </span>
+        </td>
+      </tr>
+    </thead>
+    <tbody
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            SNAP
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          0
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Income
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          300
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          200
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          -
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+        style={
+          Object {
+            "border": "none",
+          }
+        }
+      >
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.2em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Net Total
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          492
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          392
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          -
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Benefits table renders correctly 7`] = `
+<div>
+  <table
+    className="ui celled table"
+  >
+    <thead
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Benefit
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Current Benefits
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            New Estimate
+          </span>
+        </td>
+        <td
+          className="three wide"
+          style={
+            Object {
+              "background": "rgba(0, 181, 173, 1)",
+              "borderRadius": "inherit",
+              "color": "white",
+              "fontSize": "1.3em",
+              "fontWeight": 900,
+              "letterSpacing": "0.02em",
+              "textAlign": "center",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Difference
+          </span>
+        </td>
+      </tr>
+    </thead>
+    <tbody
+      className=""
+    >
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            SNAP
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          192
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          187
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          -
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          5
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Income
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          300
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          400
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned"
+        >
+          +
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          100
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+      <tr
+        className=""
+        style={
+          Object {
+            "border": "none",
+          }
+        }
+      >
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.2em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+              "textAlign": "left",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            Net Total
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          492
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          587
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+        <td
+          className="right aligned three wide"
+          style={
+            Object {
+              "borderTop": "2px solid rgba(0, 181, 173, 1)",
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "padingTop": "0.25em",
+            }
+          }
+        >
+          +
+           
+          <span
+            className="snippet"
+            lang="en"
+          >
+            $
+          </span>
+          95
+          <span
+            className="snippet"
+            lang="en"
+          >
+             / month
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
