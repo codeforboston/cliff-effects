@@ -42,6 +42,12 @@ body {
   padding: 1em 0em;
 }
 
+/* MainMenu.js styles */
+
+#main-nav:hover {
+  color: #006C68;
+}
+
 /* PageLayout.js styles */
 
 .pl-segment {

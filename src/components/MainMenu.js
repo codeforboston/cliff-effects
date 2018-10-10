@@ -15,9 +15,9 @@ const MainMenu = function (props) {
         inverted
         secondary
         size='large'>
-        
-        <Menu.Item><Link to="/">Home</Link></Menu.Item>
-        <Menu.Item><Link to="/about">About</Link></Menu.Item>
+
+        <Menu.Item><Link id="main-nav" to="/">Home</Link></Menu.Item>
+        <Menu.Item><Link id="main-nav" to="/about">About</Link></Menu.Item>
         <Menu.Item position='right'>
           {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
           {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
