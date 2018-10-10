@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AboutContent> matches snapshot 1`] = `
+<AboutContent
+  snippets={null}
+>
+  <div>
+    <Header
+      as="h1"
+      className="ac-header"
+    >
+      <h1
+        className="ui header ac-header"
+      >
+        Some translated text.
+      </h1>
+    </Header>
+    <Header
+      as="h3"
+    >
+      <h3
+        className="ui header"
+      >
+        Some translated text.
+      </h3>
+    </Header>
+    <Message>
+      <div
+        className="ui message"
+      >
+        Some translated text.
+      </div>
+    </Message>
+    <p>
+      Some translated text.
+    </p>
+    <Header
+      as="h3"
+    >
+      <h3
+        className="ui header"
+      >
+        Some translated text.
+      </h3>
+    </Header>
+    <p>
+      Some translated text.
+    </p>
+    <p>
+      Some translated text.
+    </p>
+    <ul>
+      <li>
+        <ExternalLink
+          href="https://www.youtube.com/watch?v=BveX_rID4_E"
+        >
+          <a
+            href="https://www.youtube.com/watch?v=BveX_rID4_E"
+            target="_blank"
+          >
+            Some translated text.
+          </a>
+        </ExternalLink>
+      </li>
+      <li>
+        <ExternalLink
+          href="http://www.nccp.org/projects/files/NCCP_CO_presentation07.pdf"
+        >
+          <a
+            href="http://www.nccp.org/projects/files/NCCP_CO_presentation07.pdf"
+            target="_blank"
+          >
+            Some translated text.
+          </a>
+        </ExternalLink>
+      </li>
+      <li>
+        <ExternalLink
+          href="https://www.umb.edu/editor_uploads/images/centers_institutes/center_social_policy/The_Road_to_the_Cliff_Edge_08.16.17.pdf"
+        >
+          <a
+            href="https://www.umb.edu/editor_uploads/images/centers_institutes/center_social_policy/The_Road_to_the_Cliff_Edge_08.16.17.pdf"
+            target="_blank"
+          >
+            Some translated text.
+          </a>
+        </ExternalLink>
+      </li>
+    </ul>
+    <Header
+      as="h3"
+    >
+      <h3
+        className="ui header"
+      >
+        Some translated text.
+      </h3>
+    </Header>
+    <p>
+      Some translated text.
+    </p>
+    <Message>
+      <div
+        className="ui message"
+      >
+        Some translated text.
+      </div>
+    </Message>
+    <Header
+      as="h3"
+    >
+      <h3
+        className="ui header"
+      >
+        Some translated text.
+      </h3>
+    </Header>
+    <p>
+      Some translated text.
+    </p>
+    <p>
+      Some translated text.
+    </p>
+    <p>
+      Some translated text.
+    </p>
+  </div>
+</AboutContent>
+`;

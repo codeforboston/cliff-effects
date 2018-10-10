@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BetaWarning> matches snapshot 1`] = `
+<BetaWarning>
+  <MenuItem>
+    <div
+      className="item"
+      onClick={[Function]}
+    >
+      <Responsive
+        as="strong"
+        maxWidth={991}
+        minWidth={768}
+      />
+      <Responsive
+        as="strong"
+        minWidth={992}
+      >
+        <strong>
+          This tool is a prototype and should not be used to make financial decisions.
+        </strong>
+      </Responsive>
+    </div>
+  </MenuItem>
+</BetaWarning>
+`;
