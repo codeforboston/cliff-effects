@@ -277,8 +277,8 @@ describe('SNAPhelpers', () => {
    *     e.g., mortage and rent at the same time */
   /** @todo Rake tests - Not sure if we still need variations
    *     in both contractRent and rentShare the same times */
-  // `SNAPhelpers.getNonUtilityShelterCosts()`
-  describe('`.getNonUtilityShelterCosts( timeClient )` given a time-restricted client object', () => {
+  // `SNAPhelpers.getNonUtilityHousingCosts()`
+  describe('`.getNonUtilityHousingCosts( timeClient )` given a time-restricted client object', () => {
     let current;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
@@ -292,24 +292,24 @@ describe('SNAPhelpers', () => {
 
     it('that is "homeless", shoud return 0', () => {
       current.housing = 'homeless';
-      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(0);
+      expect(SNAPhelpers.getNonUtilityHousingCosts(current)).toEqual(0);
     });
     it('that is a "homeowner", should return only the sum of mortgage, housing insurance, and property taxes', () => {
       current.housing = 'homeowner';
-      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(111);
+      expect(SNAPhelpers.getNonUtilityHousingCosts(current)).toEqual(111);
     });
     it('that is a "renter", should return only the rent amount', () => {
       current.housing = 'renter';
-      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(1000);
+      expect(SNAPhelpers.getNonUtilityHousingCosts(current)).toEqual(1000);
     });
     it('that is a "voucher", should return only the rent share (esp. not contract rent)', () => {
       current.housing = 'voucher';
-      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toEqual(100000);
+      expect(SNAPhelpers.getNonUtilityHousingCosts(current)).toEqual(100000);
     });
-    /** @todo Should a wrong housing value to `.getNonUtilityShelterCosts()` throw an error? */
+    /** @todo Should a wrong housing value to `.getNonUtilityHousingCosts()` throw an error? */
     it('that is not an allowed value, should return null', () => {
       current.housing = 'wrong';
-      expect(SNAPhelpers.getNonUtilityShelterCosts(current)).toBe(null);
+      expect(SNAPhelpers.getNonUtilityHousingCosts(current)).toBe(null);
     });
   });
 
@@ -527,16 +527,16 @@ describe('SNAPhelpers', () => {
   describe('`.getRawHousingDeduction( timeClient )` given a time-restricted client object with', () => {
     let current,
         getAdjustedGrossMinusDeductions,
-        getNonUtilityShelterCosts,
+        getNonUtilityHousingCosts,
         getUtilityCostByBracket;
     beforeEach(() => {
       current = cloneDeep(defaultCurrent);
-      getNonUtilityShelterCosts       = jest.spyOn(SNAPhelpers, `getNonUtilityShelterCosts`);
+      getNonUtilityHousingCosts       = jest.spyOn(SNAPhelpers, `getNonUtilityHousingCosts`);
       getUtilityCostByBracket         = jest.spyOn(SNAPhelpers, `getUtilityCostByBracket`);
       getAdjustedGrossMinusDeductions = jest.spyOn(SNAPhelpers, 'getAdjustedGrossMinusDeductions');
     });
     afterEach(() => {
-      getNonUtilityShelterCosts.mockRestore();
+      getNonUtilityHousingCosts.mockRestore();
       getUtilityCostByBracket.mockRestore();
       getAdjustedGrossMinusDeductions.mockRestore();
     });
@@ -545,7 +545,7 @@ describe('SNAPhelpers', () => {
       const shelter        = 50,
             utility        = 50,
             adjustedIncome = 1;
-      getNonUtilityShelterCosts.mockReturnValue(shelter);
+      getNonUtilityHousingCosts.mockReturnValue(shelter);
       getUtilityCostByBracket.mockReturnValue(utility);
       getAdjustedGrossMinusDeductions.mockReturnValue(adjustedIncome);
 
@@ -557,7 +557,7 @@ describe('SNAPhelpers', () => {
       const shelter        = .5,
             utility        = .5,
             adjustedIncome = 100;
-      getNonUtilityShelterCosts.mockReturnValue(shelter);
+      getNonUtilityHousingCosts.mockReturnValue(shelter);
       getUtilityCostByBracket.mockReturnValue(utility);
       getAdjustedGrossMinusDeductions.mockReturnValue(adjustedIncome);
 

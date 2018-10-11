@@ -51,10 +51,19 @@ const getSNAPBenefits = function (fullClient, timeframe) {
 }; // End getSNAPBenefits()
 
 
-// ESTABLISH OBJECT FOR BENEFIT HELPERS
+/** Abstractions for main function calculations.
+ *     Many aren't required, but make unit testing
+ *     easier by taking away the need for unit tests
+ *     to mess around with actual client values.
+ * 
+ * @namespace
+ *
+ * @note Almost all require the `current` or `future`
+ *     prop of the typical `client` object as an
+ *     argument.
+ */
 var SNAPhelpers = {},
     hlp         = SNAPhelpers;
-
 
 
 // =====================
@@ -62,12 +71,18 @@ var SNAPhelpers = {},
 // =====================
 
 // Used in 1 other function, main function
-/** Abstraction for use in main function.
+/** Returns if SNAP-specific gross income is below
+ *     a given amount. 
  * 
  * @todo must double checked in the documentation.
  *     Website uses `<` for comparison, excel sheet
  *     uses `<=` when comparing adjusted gross to
- *     poverty limit. */
+ *     poverty limit.
+ * 
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
 hlp.passesGrossIncomeTest = function (client) {
   var adjustedGross    = hlp.getAdjustedGross(client),
       grossIncomeLimit = hlp.getGrossIncomeLimit(client),
@@ -92,6 +107,13 @@ hlp.passesGrossIncomeTest = function (client) {
 // ======================
 
 // Used by main function
+/** Returns if SNAP-specific net income is less than
+ *     a maximum amount.
+ * 
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
 hlp.passesNetIncomeTest = function(client) {
   var maxNetIncome = hlp.getMaxNetIncome(client);
 
@@ -105,7 +127,12 @@ hlp.passesNetIncomeTest = function(client) {
 
 };
 
-// Used by 1 function, but makes unit testing much easier
+// Used by 1 function. Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number|string}
+ */
 hlp.getMaxNetIncome = function (client) {
   // @todo Logic different in website calculator vs. excel sheet for this logic
   var adjustedGross           = hlp.getAdjustedGross(client),
@@ -122,6 +149,11 @@ hlp.getMaxNetIncome = function (client) {
 // === getNetIncome ===
 
 // Used in 2 functions
+/** Returns SNAP-specific net income.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getNetIncome = function(client) {
   var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
       // These two functions make unit testing much easier
@@ -136,6 +168,11 @@ hlp.getNetIncome = function(client) {
 // *** getAdjustedGrossMinusDeductions ***
 
 // Used in 2 functions
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getAdjustedGrossMinusDeductions = function (client) {
   var adjustedGross           = hlp.getAdjustedGross(client),
       standardDeduction       = hlp.getStandardDeduction(client),
@@ -148,17 +185,36 @@ hlp.getAdjustedGrossMinusDeductions = function (client) {
 };
 
 // Used in 1 other function. Easier unit tests
+/** Returns standard SNAP deductions for a household
+ *     of this size
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getStandardDeduction = function (client) {
   return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.getHouseholdSize(client));
 };
 
 // Used in 1 other function. Easier unit tests
+/** Returns a SNAP-specific percentage of the client's
+ *     earned income.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getEarnedIncomeDeduction = function (client) {
   var totalMonthlyEarned = client.earned;
   return totalMonthlyEarned * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
 // Used in 1 other function. Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getMedicalDeduction = function (client) {
   var medicalDeduce = 0;
 
@@ -178,6 +234,11 @@ hlp.getMedicalDeduction = function (client) {
 };
 
 // Used in 1 other function. Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getDependentCareDeduction = function (client) {
 
   var dependentCare = 0;
@@ -200,7 +261,12 @@ hlp.getDependentCareDeduction = function (client) {
 
 // *** getHomelessDeduction ***
 
-// Used by 1 function
+// Used by 1 function. Candidate for merging.
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getHomelessDeduction = function(client) {
   if (hlp.isHomeless(client)) { 
     return SNAPData.HOMELESS_DEDUCTION; 
@@ -214,6 +280,11 @@ hlp.getHomelessDeduction = function(client) {
 
 // Used by 1 function. Easier unit tests
 // @todo Do they still get this deduction, even if they're homeless?
+/** Returns deductions for those renting or owning a home.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getShelterDeduction = function(client) {
 
   var rawDeduction = hlp.getRawHousingDeduction(client);
@@ -227,8 +298,15 @@ hlp.getShelterDeduction = function(client) {
 };
 
 // Used by 1 function. Easier unit tests
+/** Returns deductions based on costs of owning or
+ *     renting a living space and income amounts.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getRawHousingDeduction = function(client) {
-  var housingCosts        = hlp.getNonUtilityShelterCosts(client),
+  var housingCosts        = hlp.getNonUtilityHousingCosts(client),
       utilityCosts        = hlp.getUtilityCostByBracket(client),
       totalHousingCost    = housingCosts + utilityCosts,
       halfAdjustedIncome  = hlp.getAdjustedGrossMinusDeductions(client) * 0.50,
@@ -238,8 +316,15 @@ hlp.getRawHousingDeduction = function(client) {
 };
 
 // Used by 1 function. Easier unit tests
-/** @todo: What about housing voucher? */
-hlp.getNonUtilityShelterCosts = function(client) {
+/** Returns rent for renter or insurance + taxes for home owner.
+ *
+ * @todo: What about housing voucher?
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getNonUtilityHousingCosts = function(client) {
   var housingCost = null;
 
   if (hlp.isHomeless(client)) {
@@ -256,6 +341,11 @@ hlp.getNonUtilityShelterCosts = function(client) {
 };
 
 // Used by 1 function.  Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number|string}
+ */
 hlp.getUtilityCostByBracket = function (client) {
 
   if (hlp.isHomeless(client)){
@@ -285,12 +375,22 @@ hlp.getUtilityCostByBracket = function (client) {
 // =====================
 
 // Used in 3 other functions
+/** Returns all income minus child support paid out.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getAdjustedGross = function (client) {
   var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
   return Math.max(0, raw);
 };
 
 // Used in 2 other functions
+/** Limit to gross income is based on client's household size.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
 hlp.getGrossIncomeLimit = function (client) {
   var data      = federalPovertyGuidelines,
       numPeople = hlp.getHouseholdSize(client),
@@ -307,25 +407,51 @@ hlp.getGrossIncomeLimit = function (client) {
 // =====================
 
 // Used by 5 other functions
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {int}
+ */
 hlp.getHouseholdSize = function (client) {
   return client.household.length;
 };
 
 // Used in 4 other functions
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
 hlp.hasDisabledOrElderlyMember = function (client) {
   return getEveryMemberOfHousehold(client, hlp.isElderlyOrDisabled).length > 0;
 };
 
 // Used in 1 other function, but won't be created multiple times
-// Also avoids multiple loops through household members.
+/** Returns whether a member is elderly or disabled
+ *     according to SNAP specifications (60 is elderly).
+ *
+ * @note Avoids multiple loops through household members
+ *     and creating the function multiple times.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} member A household member
+ * @returns {boolean}
+ */
 hlp.isElderlyOrDisabled = function (member) {
   // Age `60` counts as elderly for SNAP specifically
   return member.m_age >= 60 || isDisabled(member);
 };
 
 // Used in 3 other functions
+/** Knows the right prop to access to determine
+ *     if client is homeless. Prop name may change.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
 hlp.isHomeless = function(client) {
-  // Worth abstracting, used a few places and may change
+  // Worth abstracting - used a few places and may change
   return client.housing === 'homeless';
 };
 
