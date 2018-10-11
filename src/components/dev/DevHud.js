@@ -86,6 +86,21 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
       <Menu.Item>
         <LocalizationReport />
       </Menu.Item>
+
+      <Menu.Item>
+        <HeadingWithDetail>
+          <Checkbox
+            label    = { `Enable warning modal` }
+            checked  = { state.warningModalActive }
+            onChange = { funcs.toggleWarningModal } />
+          <span>
+            Note: Uncheck this box to<br />
+            disable the predictions warning<br />
+            modal. The modal displays prior<br />
+            to allowing access to the form.<br />
+          </span>
+        </HeadingWithDetail>
+      </Menu.Item>
     </div>
   );
 };  // End <DevMenu>
