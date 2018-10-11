@@ -22,9 +22,9 @@ import {
 /** Based on https://www.masslegalservices.org/SNAPCalculator
  * @note Bay State CAP not included as this prototype only deals with
  *     changes in earned income */
-const getSNAPBenefits = function (client, timeframe) {
+const getSNAPBenefits = function (fullClient, timeframe) {
 
-  client = client[ timeframe ];
+  var client = fullClient[ timeframe ];
 
   var finalResult = 0,
       householdSize           = hlp.getHouseholdSize(client),
@@ -55,10 +55,11 @@ const getSNAPBenefits = function (client, timeframe) {
 var SNAPhelpers = {},
     hlp         = SNAPhelpers;
 
-// Used in 5 other functions
-hlp.getHouseholdSize = function (client) {
-  return client.household.length;
-};
+
+
+// =====================
+// GROSS INCOME
+// =====================
 
 // Used in 1 other function, main function
 /** Abstraction for use in main function.
@@ -71,6 +72,7 @@ hlp.passesGrossIncomeTest = function (client) {
   var adjustedGross    = hlp.getAdjustedGross(client),
       grossIncomeLimit = hlp.getGrossIncomeLimit(client),
       passes           = null;
+
   if (hlp.hasDisabledOrElderlyMember(client)) {
     passes = true;
   } else {
@@ -85,47 +87,65 @@ hlp.passesGrossIncomeTest = function (client) {
 };
 
 
-// Used in 1 other function, but won't be created multiple times
-hlp.isElderlyOrDisabled = function (member) {
-  return member.m_age >= 60 || isDisabled(member);
-};
-
-// Used in 4 other functions
-hlp.hasDisabledOrElderlyMember = function (client) {
-  return getEveryMemberOfHousehold(client, hlp.isElderlyOrDisabled).length > 0;
-};
-
-
 // ======================
-//GROSS INCOME
-
-// Used in 3 other functions
-hlp.getAdjustedGross = function (client) {
-  var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
-  return Math.max(0, raw);
-};
-
-// Used in 2 other functions
-hlp.getGrossIncomeLimit = function (client) {
-  var data      = federalPovertyGuidelines,
-      numPeople = hlp.getHouseholdSize(client),
-      // Data is given in yearly amounts
-      limit     = getLimitBySize(data, numPeople, 200),
-      // Needs to be gov money rounded?
-      monthly   = toMonthlyFrom(limit, 'yearly');
-  return monthly;
-};
-
-
-// Used in 3 other functions
-hlp.isHomeless = function(client) {
-  // Worth abstracting, used a few places and may change
-  return client.housing === 'homeless';
-};
-
-
+// NET INCOME
 // ======================
-// INCOME DEDUCTIONS
+
+// Used by main function
+hlp.passesNetIncomeTest = function(client) {
+  var maxNetIncome = hlp.getMaxNetIncome(client);
+
+  if (maxNetIncome === `no limit`) {
+    return true;
+  } else if (hlp.getNetIncome(client) < maxNetIncome) {
+    return true;
+  } else {
+    return false;
+  }
+
+};
+
+// Used by 1 function, but makes unit testing much easier
+hlp.getMaxNetIncome = function (client) {
+  // @todo Logic different in website calculator vs. excel sheet for this logic
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      grossIncomeLimit        = hlp.getGrossIncomeLimit(client),
+      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
+  
+  if ((adjustedGross <= grossIncomeLimit) || !disabledOrElderlyMember) {
+    return `no limit`;
+  } else {
+    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.getHouseholdSize(client));
+  }
+};
+
+// === getNetIncome ===
+
+// Used in 2 functions
+hlp.getNetIncome = function(client) {
+  var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
+      // These two functions make unit testing much easier
+      homelessDeduction = hlp.getHomelessDeduction(client),
+      shelterDeduction  = hlp.getShelterDeduction(client);
+  var extraDeductions   = homelessDeduction + shelterDeduction,
+      afterDeductions   = adjustedIncome - extraDeductions;
+
+  return Math.max(0, afterDeductions);
+};
+
+// *** getAdjustedGrossMinusDeductions ***
+
+// Used in 2 functions
+hlp.getAdjustedGrossMinusDeductions = function (client) {
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      standardDeduction       = hlp.getStandardDeduction(client),
+      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
+      medicalDeduction        = hlp.getMedicalDeduction(client),
+      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
+
+  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  return Math.max(0, adjustedIncome);
+};
 
 // Used in 1 other function. Easier unit tests
 hlp.getStandardDeduction = function (client) {
@@ -178,36 +198,21 @@ hlp.getDependentCareDeduction = function (client) {
   return dependentCare;
 };
 
+// *** getHomelessDeduction ***
 
-// ======================
-// NET INCOME
-
-// Used in 2 functions
-hlp.getAdjustedGrossMinusDeductions = function (client) {
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      standardDeduction       = hlp.getStandardDeduction(client),
-      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
-      medicalDeduction        = hlp.getMedicalDeduction(client),
-      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
-
-  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
-  return Math.max(0, adjustedIncome);
+// Used by 1 function
+hlp.getHomelessDeduction = function(client) {
+  if (hlp.isHomeless(client)) { 
+    return SNAPData.HOMELESS_DEDUCTION; 
+  }
+  else { 
+    return 0; 
+  }
 };
 
+// *** getShelterDeduction ***
 
-// Used in 2 functions
-hlp.getNetIncome = function(client) {
-  var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
-      // These two functions make unit testing much easier
-      homelessDeduction = hlp.getHomelessDeduction(client),
-      shelterDeduction  = hlp.getShelterDeduction(client);
-  var extraDeductions   = homelessDeduction + shelterDeduction,
-      afterDeductions   = adjustedIncome - extraDeductions;
-
-  return Math.max(0, afterDeductions);
-};
-
-// Used by 1 function, but makes unit testing much easier
+// Used by 1 function. Easier unit tests
 // @todo Do they still get this deduction, even if they're homeless?
 hlp.getShelterDeduction = function(client) {
 
@@ -221,7 +226,7 @@ hlp.getShelterDeduction = function(client) {
 
 };
 
-// Used by 1 function, but makes unit testing much easier
+// Used by 1 function. Easier unit tests
 hlp.getRawHousingDeduction = function(client) {
   var housingCosts        = hlp.getNonUtilityShelterCosts(client),
       utilityCosts        = hlp.getUtilityCostByBracket(client),
@@ -232,7 +237,7 @@ hlp.getRawHousingDeduction = function(client) {
   return Math.max(0, rawHousingDeduction);
 };
 
-// Used by 1 function, but makes unit testing much easier
+// Used by 1 function. Easier unit tests
 /** @todo: What about housing voucher? */
 hlp.getNonUtilityShelterCosts = function(client) {
   var housingCost = null;
@@ -250,7 +255,7 @@ hlp.getNonUtilityShelterCosts = function(client) {
   return housingCost;
 };
 
-// Used by 1 function, but makes unit testing much easier
+// Used by 1 function.  Easier unit tests
 hlp.getUtilityCostByBracket = function (client) {
 
   if (hlp.isHomeless(client)){
@@ -274,43 +279,54 @@ hlp.getUtilityCostByBracket = function (client) {
   }
 };
 
-// Used by 1 function
-hlp.getHomelessDeduction = function(client) {
-  if (hlp.isHomeless(client)) { 
-    return SNAPData.HOMELESS_DEDUCTION; 
-  }
-  else { 
-    return 0; 
-  }
+
+// =====================
+// SHARED INCOME CALCS
+// =====================
+
+// Used in 3 other functions
+hlp.getAdjustedGross = function (client) {
+  var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
+  return Math.max(0, raw);
+};
+
+// Used in 2 other functions
+hlp.getGrossIncomeLimit = function (client) {
+  var data      = federalPovertyGuidelines,
+      numPeople = hlp.getHouseholdSize(client),
+      // Data is given in yearly amounts
+      limit     = getLimitBySize(data, numPeople, 200),
+      // Needs to be gov money rounded?
+      monthly   = toMonthlyFrom(limit, 'yearly');
+  return monthly;
 };
 
 
-// Used by main function
-hlp.passesNetIncomeTest = function(client) {
-  var maxNetIncome = hlp.getMaxNetIncome(client);
+// =====================
+// SHARED MEMBER TESTS
+// =====================
 
-  if (maxNetIncome === `no limit`) {
-    return true;
-  } else if (hlp.getNetIncome(client) < maxNetIncome) {
-    return true;
-  } else {
-    return false;
-  }
-
+// Used by 5 other functions
+hlp.getHouseholdSize = function (client) {
+  return client.household.length;
 };
 
-// Used by 1 function, but makes unit testing much easier
-hlp.getMaxNetIncome = function (client) {
-  // @todo Logic different in website calculator vs. excel sheet for this logic
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      grossIncomeLimit        = hlp.getGrossIncomeLimit(client),
-      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
-  
-  if ((adjustedGross <= grossIncomeLimit) || !disabledOrElderlyMember) {
-    return `no limit`;
-  } else {
-    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.getHouseholdSize(client));
-  }
+// Used in 4 other functions
+hlp.hasDisabledOrElderlyMember = function (client) {
+  return getEveryMemberOfHousehold(client, hlp.isElderlyOrDisabled).length > 0;
+};
+
+// Used in 1 other function, but won't be created multiple times
+// Also avoids multiple loops through household members.
+hlp.isElderlyOrDisabled = function (member) {
+  // Age `60` counts as elderly for SNAP specifically
+  return member.m_age >= 60 || isDisabled(member);
+};
+
+// Used in 3 other functions
+hlp.isHomeless = function(client) {
+  // Worth abstracting, used a few places and may change
+  return client.housing === 'homeless';
 };
 
 
