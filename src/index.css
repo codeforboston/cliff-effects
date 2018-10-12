@@ -535,8 +535,8 @@ PRINTING STYLES
     size: portrait;
   }
 
-  #App {
-    filter: grayscale(100%);
+  .section-header span {
+    color: black;
   }
 }
 
