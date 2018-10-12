@@ -17,11 +17,12 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientVal
 };
 
 
-/**
+/** Asks which benefits the user is currently receiving
+ *
  * @todo Add 'vertical list of options' creator that will create a list of fields using the `.field-aligner` class
  *
  * @function
- * @param {object} props See below.
+ * @param {object} props
  * @property {object} props.current Client current info.
  * @property {function} props.updateClientValue Updates state upstream.
  * @property {function} props.snippets Uses user chosen language-specific
@@ -52,15 +53,16 @@ const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
 
 };  // End CurrentBenefitsContent()
 
-/** @todo Abstract all the step components?
+/**
+ * @todo Combine with related components?
  *
  * @function
- * @param {object} props See below.
+ * @param {object} props
  * @property {function} props.updateClientValue Updates state upstream.
+ * @property {object} props.navData Bottom row buttons
+ * @property {object} props.client JSON object with future and current values.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
- * @property {object} props.client JSON object with future and current values.
- * @property {function} props.nextStep Go to next form section.
  *
  * @returns {object} Component
  */

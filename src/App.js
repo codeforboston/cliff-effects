@@ -69,6 +69,7 @@ class App extends Component {
      *  @property {boolean} devProps.dev - whether dev HUD is turned on
      *  @property {boolean} devProps.english - whether to highlight English snippets
      *  @property {boolean} devProps.nonEnglish - whether to highlight snippets in the current language, if that language is not English
+     *  @property {boolean} termsAccepted - displays modal to accept terms before allowing user to fill out form
      */
     this.state = {
       langCode: `en`,
@@ -86,6 +87,8 @@ class App extends Component {
         nonEnglish: true,
         ...localDev,
       },
+      termsAccepted:      false,
+      warningModalActive: true,
     };
   };  // End constructor()
 
@@ -160,21 +163,44 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
+  /** Toggles termsAccepted flag in app state.  Passed to PredictionsWarning modal
+   * which calls this in the onClose handler.  App is unavailable until terms 
+   * are accepted unless warningModalActive is set to false in DevHud.
+   * @method
+   */
+  toggleAcceptTerms = () => {
+    let isAccepted = this.state.termsAccepted;
+    this.setState({ termsAccepted: !isAccepted });
+  };  // End acceptTerms()
+
+  /** Toggles warningModalActive flag in app state.  Passed to DevHud which contains  
+   * a checkbox to enable/disable the display of the PredictionsWarning modal
+   * @method
+   */
+  toggleWarningModal = () => {
+    let isActive = this.state.warningModalActive;
+    this.setState({ warningModalActive: !isActive });
+  };
+
   render () {
     var {
       langCode,
       snippets,
       devProps,
       clients,
+      termsAccepted,
+      warningModalActive,
     } = this.state;
 
     var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
         classes   = this.propsToClasses(devProps),
         devFuncs  = {
-          setDev:      this.setDev,
-          loadClient:  this.loadClient,
-          setLanguage: this.setLanguage,
+          setDev:             this.setDev,
+          loadClient:         this.loadClient,
+          setLanguage:        this.setLanguage,
+          toggleWarningModal: this.toggleWarningModal,
         },
+        funcs      = { toggleAcceptTerms: this.toggleAcceptTerms },
         clientData = clients.loaded;
 
     return (
@@ -220,9 +246,12 @@ class App extends Component {
                   return (
                     <VisitPage
                       { ...props }
-                      confirmer  = { confirmer }
-                      snippets   = {{ ...snippets.visitPage, langCode: snippets.langCode }}
-                      clientData = { clientData } />);
+                      termsAccepted      = { termsAccepted }
+                      warningModalActive = { warningModalActive }
+                      funcs              = { funcs }
+                      confirmer          = { confirmer }
+                      snippets           = {{ ...snippets.visitPage, langCode: snippets.langCode }}
+                      clientData         = { clientData } />);
                 } } />
 
               {/* For managing our development HUD */}
@@ -247,7 +276,6 @@ class App extends Component {
             data     = {{ default: clients.default }}
             state    = { this.state } />
         ))}
-
       </div>
     );
   };  // End render()

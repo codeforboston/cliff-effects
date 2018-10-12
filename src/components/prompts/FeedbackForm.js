@@ -176,8 +176,11 @@ class FeedbackPrompt extends React.Component {
       };
     };
 
+    // Without the #root selector, we can't get the accessibility
+    // focus styles to win 
     return (
       <Modal
+        mountNode = { document.getElementById(`App`) }
         size='large'
         open={ this.props.isOpen }
         onClose={ this.close }
@@ -188,6 +191,7 @@ class FeedbackPrompt extends React.Component {
         <Modal.Content scrolling>
           <Form>
             <Form.Input
+              autoFocus
               { ...inputProps('currentSnap') }
               label={ 'If amount for the CURRENT SNAP subsidy was wrong, what\'s the correct amount?' } />
             <Form.Input
@@ -225,6 +229,7 @@ class FeedbackPrompt extends React.Component {
         </Modal.Actions>
 
         <Modal
+          mountNode = { document.getElementById(`App`) }
           size               = { `large` }
           open               = { this.state.ready }
           onClose            = { this.closeAskPermission }

@@ -478,13 +478,20 @@ i.icon.details-icon {
 ACCESSIBILITY - Also see any other focus styles
 =================
 */
-#App *:focus {
+body .ui *:focus,
+#App a:focus {
   outline: 5px double rgba(0, 121, 116, 1);
   outline-offset: 2px;
+  z-index: 1;
 }
 
-#App .ui input:focus~label:before,
-#App .ui input:focus {
+#App #HomePage a:focus {
+  outline: 5px double rgba(0, 97, 93, 1);
+}
+
+/* Without #root, these selectors don't win */
+#root input:focus~label:before,
+#root .form *:focus {
   border: 1px solid rgba(0, 121, 116, 1);
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
@@ -497,7 +504,7 @@ PRINTING STYLES
 */
 
 /* `margin: 0` at bottom working without print,
-    not working for print. Why? */
+    not working for print when cliff present. Why? */
 @media print {
   .header_segment,
   #feedback_fixed,
@@ -531,4 +538,14 @@ PRINTING STYLES
   #App {
     filter: grayscale(100%);
   }
+}
+
+/*
+=========================
+PREDICTIONS WARNING MODAL
+=========================
+*/
+#WarningModal .header {
+  color: #fff;
+  background-color: rgb(136,0,21);
 }
