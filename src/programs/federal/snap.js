@@ -19,8 +19,22 @@ import {
 } from '../../utils/getMembers';
 
 
-/** Based on https://www.masslegalservices.org/SNAPCalculator
- * @note Bay State CAP not included as this prototype only deals with
+/** Abstractions for main function calculations.
+ *     Many aren't required, but make unit testing
+ *     easier by taking away the need for unit tests
+ *     to mess around with actual client values.
+ *     Almost all require the `current` or `future`
+ *     prop of the typical `client` object as an
+ *     argument.
+ * 
+ * @namespace
+ */
+var SNAPhelpers = {},
+    hlp         = SNAPhelpers;
+
+
+/** Based on https://www.masslegalservices.org/SNAPCalculator.
+ *     Bay State CAP not included as this prototype only deals with
  *     changes in earned income */
 const getSNAPBenefits = function (fullClient, timeframe) {
 
@@ -49,21 +63,6 @@ const getSNAPBenefits = function (fullClient, timeframe) {
 
   return finalResult;
 }; // End getSNAPBenefits()
-
-
-/** Abstractions for main function calculations.
- *     Many aren't required, but make unit testing
- *     easier by taking away the need for unit tests
- *     to mess around with actual client values.
- * 
- * @namespace
- *
- * @note Almost all require the `current` or `future`
- *     prop of the typical `client` object as an
- *     argument.
- */
-var SNAPhelpers = {},
-    hlp         = SNAPhelpers;
 
 
 // =====================
@@ -429,8 +428,7 @@ hlp.hasDisabledOrElderlyMember = function (client) {
 // Used in 1 other function, but won't be created multiple times
 /** Returns whether a member is elderly or disabled
  *     according to SNAP specifications (60 is elderly).
- *
- * @note Avoids multiple loops through household members
+ *     Avoids multiple loops through household members
  *     and creating the function multiple times.
  *
  * @memberof SNAPhelpers
