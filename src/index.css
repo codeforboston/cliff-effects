@@ -467,10 +467,15 @@ i.icon.details-icon {
 ACCESSIBILITY - Also see any other focus styles
 =================
 */
-body .ui *:focus {
+body .ui *:focus,
+#App a:focus {
   outline: 5px double rgba(0, 121, 116, 1);
   outline-offset: 2px;
   z-index: 1;
+}
+
+#App #HomePage a:focus {
+  outline: 5px double rgba(0, 97, 93, 1);
 }
 
 /* Without #root, these selectors don't win */
