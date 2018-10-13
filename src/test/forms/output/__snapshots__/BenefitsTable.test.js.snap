@@ -25,12 +25,7 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Benefit
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -46,12 +41,7 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Current Benefits
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -67,12 +57,7 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            New Estimate
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -88,12 +73,7 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Difference
-          </span>
+          Some translated text.
         </td>
       </tr>
     </thead>
@@ -113,65 +93,30 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Income
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -194,12 +139,7 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Net Total
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -212,19 +152,9 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -237,19 +167,9 @@ exports[`Benefits table renders correctly 1`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -264,19 +184,9 @@ exports[`Benefits table renders correctly 1`] = `
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
     </tbody>
@@ -309,12 +219,7 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Benefit
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -330,12 +235,7 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Current Benefits
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -351,12 +251,7 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            New Estimate
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -372,12 +267,7 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Difference
-          </span>
+          Some translated text.
         </td>
       </tr>
     </thead>
@@ -397,65 +287,30 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            SNAP
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -471,65 +326,30 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Income
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -552,12 +372,7 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Net Total
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -570,19 +385,9 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -595,19 +400,9 @@ exports[`Benefits table renders correctly 2`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -622,19 +417,9 @@ exports[`Benefits table renders correctly 2`] = `
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
     </tbody>
@@ -667,12 +452,7 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Benefit
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -688,12 +468,7 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Current Benefits
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -709,12 +484,7 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            New Estimate
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -730,12 +500,7 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Difference
-          </span>
+          Some translated text.
         </td>
       </tr>
     </thead>
@@ -755,65 +520,30 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            SNAP
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -829,65 +559,30 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Income
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           -
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -910,12 +605,7 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Net Total
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -928,19 +618,9 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           292
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -953,19 +633,9 @@ exports[`Benefits table renders correctly 3`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -980,19 +650,9 @@ exports[`Benefits table renders correctly 3`] = `
         >
           -
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
     </tbody>
@@ -1025,12 +685,7 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Benefit
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1046,12 +701,7 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Current Benefits
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1067,12 +717,7 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            New Estimate
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1088,12 +733,7 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Difference
-          </span>
+          Some translated text.
         </td>
       </tr>
     </thead>
@@ -1113,65 +753,30 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            SNAP
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -1187,65 +792,30 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Income
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           200
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           +
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -1268,12 +838,7 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Net Total
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -1286,19 +851,9 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           292
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -1311,19 +866,9 @@ exports[`Benefits table renders correctly 4`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           392
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -1338,19 +883,9 @@ exports[`Benefits table renders correctly 4`] = `
         >
           +
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
     </tbody>
@@ -1383,12 +918,7 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Benefit
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1404,12 +934,7 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Current Benefits
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1425,12 +950,7 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            New Estimate
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1446,12 +966,7 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Difference
-          </span>
+          Some translated text.
         </td>
       </tr>
     </thead>
@@ -1471,65 +986,30 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            SNAP
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -1545,65 +1025,30 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Income
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           300
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           200
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           -
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -1626,12 +1071,7 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Net Total
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -1644,19 +1084,9 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           492
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -1669,19 +1099,9 @@ exports[`Benefits table renders correctly 5`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           392
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -1696,19 +1116,9 @@ exports[`Benefits table renders correctly 5`] = `
         >
           -
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
     </tbody>
@@ -1741,12 +1151,7 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Benefit
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1762,12 +1167,7 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Current Benefits
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1783,12 +1183,7 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            New Estimate
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -1804,12 +1199,7 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Difference
-          </span>
+          Some translated text.
         </td>
       </tr>
     </thead>
@@ -1829,65 +1219,30 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            SNAP
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           0
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -1903,65 +1258,30 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Income
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           300
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           200
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           -
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -1984,12 +1304,7 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Net Total
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -2002,19 +1317,9 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           492
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -2027,19 +1332,9 @@ exports[`Benefits table renders correctly 6`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           392
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -2054,19 +1349,9 @@ exports[`Benefits table renders correctly 6`] = `
         >
           -
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
     </tbody>
@@ -2099,12 +1384,7 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Benefit
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -2120,12 +1400,7 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Current Benefits
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -2141,12 +1416,7 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            New Estimate
-          </span>
+          Some translated text.
         </td>
         <td
           className="three wide"
@@ -2162,12 +1432,7 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Difference
-          </span>
+          Some translated text.
         </td>
       </tr>
     </thead>
@@ -2187,65 +1452,30 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            SNAP
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           192
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           187
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           -
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           5
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -2261,65 +1491,30 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Income
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           300
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           400
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned"
         >
           +
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           100
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
       <tr
@@ -2342,12 +1537,7 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            Net Total
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -2360,19 +1550,9 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           492
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -2385,19 +1565,9 @@ exports[`Benefits table renders correctly 7`] = `
             }
           }
         >
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           587
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
         <td
           className="right aligned three wide"
@@ -2412,19 +1582,9 @@ exports[`Benefits table renders correctly 7`] = `
         >
           +
            
-          <span
-            className="snippet"
-            lang="en"
-          >
-            $
-          </span>
+          Some translated text.
           95
-          <span
-            className="snippet"
-            lang="en"
-          >
-             / month
-          </span>
+          Some translated text.
         </td>
       </tr>
     </tbody>

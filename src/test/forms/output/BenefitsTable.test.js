@@ -3,19 +3,14 @@ import renderer from 'react-test-renderer';
 import { cloneDeep, set } from 'lodash';
 
 import { BenefitsTable } from '../../../forms/output/BenefitsTable';
-
+import { snippets } from '../../helpers';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
-
-// LOCALIZATION
-import { getTextForLanguage } from '../../../utils/getTextForLanguage';
-
-var snippets = getTextForLanguage(`en`);
 
 const buildSnapshot = (client) => {
   const rendered = renderer.create(
     <BenefitsTable 
       client={ client } 
-      snippets={ snippets.visitPage.predictions } />
+      snippets={ snippets } />
   );
 
   return rendered.toJSON();
