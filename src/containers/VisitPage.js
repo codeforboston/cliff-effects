@@ -278,8 +278,7 @@ class VisitPage extends Component {
         prevContent        = null,
         nextContent        = null,
         stepIndex          = this.getCurrentStepIndex(),
-        termsAccepted      = this.props.termsAccepted,
-        warningModalActive = this.props.warningModalActive;
+        termsAccepted      = this.props.termsAccepted
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -377,15 +376,14 @@ class VisitPage extends Component {
         </Container>
 
         { 
-          (
-            warningModalActive === true &&
-            termsAccepted === false 
-          ) ? 
+          termsAccepted === false ? (
             <PredictionsWarning
               termsAccepted = { termsAccepted }
               toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
-              snippets={{ ...snippets.warningModal }} /> :
+              snippets={{ ...snippets.warningModal }} />
+          ) : (
             null
+          )
         }
 
       </div>

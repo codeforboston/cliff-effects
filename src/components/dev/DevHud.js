@@ -90,9 +90,9 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
       <Menu.Item>
         <HeadingWithDetail>
           <Checkbox
-            label    = { `Enable warning modal` }
-            checked  = { state.warningModalActive }
-            onChange = { funcs.toggleWarningModal } />
+            label    = { `Disable warning modal` }
+            checked  = { state.warningOff }
+            onChange = { funcs.warning } />
           <span>
             Note: Uncheck this box to<br />
             disable the predictions warning<br />
@@ -129,6 +129,12 @@ class DevHud extends Component {
     setDev(`nonEnglish`, !nonEnglish);
   };
 
+  toggleWarning = () => {
+    var setDev  = this.props.funcs.setDev,
+        warning = this.props.devProps.warningOff;
+    setDev(`warningOff`, !warning);
+  };
+
   turnOff = () => {
     this.props.funcs.setDev(`dev`, false);
   };
@@ -146,6 +152,7 @@ class DevHud extends Component {
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
           turnOff:    this.turnOff,
+          warning:    this.toggleWarning,
         };
 
     return (
