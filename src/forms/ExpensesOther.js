@@ -30,10 +30,10 @@ const RenderIfTrue = function ({ shouldRender, children }) {
 };  // End <RenderIfTrue>
 
 
-/* @note From https://drive.google.com/drive/folders/0B61uzoaPZg7qUXJuRFhndTFkaTA
+/* From https://drive.google.com/drive/folders/0B61uzoaPZg7qUXJuRFhndTFkaTA
  *    (the bugdet assessment from the last page)
- *    which is Project Hope's own assessment worksheet
- * @note It's a weird name, but I want the file to sit
+ *    which is Project Hope's own assessment worksheet.
+ *    It's a weird name, but I want the file to sit
  *    next to other expenses stuff we're breaking out
  *    in the future. The alternative is to make a folder.
  */
