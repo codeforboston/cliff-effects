@@ -11,10 +11,11 @@ const noRadio = (control) => {
   return control.find('Radio[label="No"]');
 };
 const selectYes = (control) => {
-  return yesRadio(control).simulate('click');
+  control.instance().handleChange({}, { value: 'Yes' });
+  control.update();
 };
 const selectNo = (control) => {
-  return noRadio(control).simulate('click');
+  noRadio(control).simulate('click');
 };
 const latestCall = (mockFn) => {
   return last(mockFn.mock.calls)[ 1 ];
@@ -24,10 +25,10 @@ describe('<ControlledRadioYesNo>', () => {
   let control;
   const update = jest.fn();
   const defaultProps = {
-    labelText:         'Pie?',
-    name:              'pie',
-    value:             null,
-    updateClientValue: update,
+    labelText: 'Pie?',
+    name:      'pie',
+    checked:   true,
+    onChange:  update,
   };
 
   const buildControl = (props = {}) => {
@@ -46,8 +47,8 @@ describe('<ControlledRadioYesNo>', () => {
     update.mockClear();
   });
 
-  test('when value true, yes radio button is selected', () => {
-    const control = buildControl({ value: true });
+  test('when checked, yes radio button is selected', () => {
+    const control = buildControl({ checked: true });
     expect(yesRadio(control).prop('checked')).toBe(true);
     expect(noRadio(control).prop('checked')).toBe(false);
   });

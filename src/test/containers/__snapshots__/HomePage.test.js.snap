@@ -1,7 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<HomePage> matches snapshot 1`] = `
-<MemoryRouter>
+<MemoryRouter
+  initialEntries={
+    Array [
+      Object {
+        "key": "testKey",
+        "pathname": "/",
+      },
+    ]
+  }
+>
   <Router
     history={
       Object {
@@ -12,10 +21,9 @@ exports[`<HomePage> matches snapshot 1`] = `
         "entries": Array [
           Object {
             "hash": "",
-            "key": "bpjrn6",
+            "key": "testKey",
             "pathname": "/",
             "search": "",
-            "state": undefined,
           },
         ],
         "go": [Function],
@@ -26,10 +34,9 @@ exports[`<HomePage> matches snapshot 1`] = `
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "bpjrn6",
+          "key": "testKey",
           "pathname": "/",
           "search": "",
-          "state": undefined,
         },
         "push": [Function],
         "replace": [Function],

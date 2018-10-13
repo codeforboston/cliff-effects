@@ -45,15 +45,13 @@ describe('<FormPartsContainer>', () => {
     const RIGHT_TEXT = 'Next';
 
     const navData = {
-      left: {
-        text:    LEFT_TEXT,
-        onClick: jest.fn(),
-      },
+      left: <div
+        children={ LEFT_TEXT }
+        onClick={ jest.fn() } />,
       center: null,
-      right:  {
-        text:    RIGHT_TEXT,
-        onClick: jest.fn(),
-      },
+      right:  <div
+        children={ RIGHT_TEXT }
+        onClick={ jest.fn() } />,
     };
 
     const [
@@ -62,12 +60,8 @@ describe('<FormPartsContainer>', () => {
       right, 
     ] = navButtons(buildContainer({ navData: navData }));
 
-    expect(left.is('BigButton')).toBe(true);
     expect(left.text()).toEqual(LEFT_TEXT);
-
     expect(center.is('SpaceHolder')).toBe(true);
-
-    expect(right.is('BigButton')).toBe(true);
     expect(right.text()).toEqual(RIGHT_TEXT);
   });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MemoryRouter as Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 export const snippets = new Proxy({}, {
   get() {
@@ -7,6 +7,17 @@ export const snippets = new Proxy({}, {
   },
 });
 
+const initialEntries = [
+  {
+    pathname: '/',
+    key:      'testKey',
+  },
+];
+
 export const withRouter = (node) => {
-  return <Router>{node}</Router>;
+  return (
+    <MemoryRouter initialEntries={ initialEntries }>
+      {node}
+    </MemoryRouter>
+  );
 };
