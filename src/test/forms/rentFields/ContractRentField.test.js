@@ -32,7 +32,7 @@ describe('ContractRentField.storeValidator()', () => {
     expect(field.state()).toEqual({ valid: false, message: null });
   });
 
-  it('when input less than rent share, sets state to invalid', () => {
+  it('when contract rent less than rent share, sets state to invalid', () => {
     const field = buildField({ rentShare: 2 });
     expect(field.state()).toEqual({ valid: true, message: null });
 
