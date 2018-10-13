@@ -40,9 +40,8 @@ Instructions:
 3. If you have [nodejs](https://nodejs.org/en/), version 5.0+ is desired. If you don't, [install it](https://nodejs.org/en/download/). If you don't know, do `node --version` in your terminal/command prompt. If you don't get a number, you don't have it.
 4. In your command prompt/terminal, do `npm install`. This might take a few minutes. Now you'll be able to try out the current UI or play with the code!
 5. Do `npm start` in terminal to automatically open a new browser tab and see a local version of the site. Works best in Chrome.
-6. npm bug workaround: please run `git checkout .` after any instances of running `npm install`. This is to circumvent a bug affecting the integrity of the package-lock.json file.
 7. Saved changes will automatically be reflected in-browser. If you don't see the changes, refresh the page. If nothing has changed, ask for help!
-8. Press cltr+c to stop the local server that you have running.
+8. When you're done, press cltr+c to stop the local server that you have running. Or leave it running forever!
 
 <!-- Further discussion needed. See outdated comments for merge #154 (near the bottom of them). -->
 To get yourself set up to keep up to date with the latest changes to the `dev` branch, make sure you've gone through [Step 3 of the github guide](https://help.github.com/articles/fork-a-repo/#step-3-configure-git-to-sync-your-fork-with-the-original-spoon-knife-repository). To keep your branches from getting tangled as you both make changes and keep up to date with our repo, take a look at our wiki page about a possible [Github workflow](https://github.com/codeforboston/cliff-effects/wiki/Guide:-Github-Workflow).
