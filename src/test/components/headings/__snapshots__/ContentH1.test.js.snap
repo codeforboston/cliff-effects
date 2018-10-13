@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContentH1> matches snapshot 1`] = `
+<ContentH1
+  subheading="Less important text"
+>
+  <div
+    className="text-h1"
+  >
+    <div />
+     
+    <Header
+      as="h3"
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      <h3
+        className="ui header"
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        Some text
+      </h3>
+    </Header>
+    <ContentSubH1>
+      <div
+        className="text-sub-h1"
+        style={
+          Object {
+            "display": "block",
+            "textAlign": "left",
+          }
+        }
+      >
+        Less important text
+      </div>
+    </ContentSubH1>
+    <br />
+  </div>
+</ContentH1>
+`;

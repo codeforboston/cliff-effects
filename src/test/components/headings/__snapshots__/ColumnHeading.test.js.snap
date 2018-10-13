@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ColumnHeading> matches snapshot 1`] = `
+<ColumnHeading
+  colName="income"
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+  type="Monthly"
+>
+  <Header
+    as="h4"
+    className="Monthly-column cashflow-column header income"
+    color="teal"
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    <h4
+      className="ui teal header Monthly-column cashflow-column header income"
+      style={
+        Object {
+          "color": "red",
+        }
+      }
+    >
+      <span>
+        Text~
+      </span>
+    </h4>
+  </Header>
+</ColumnHeading>
+`;

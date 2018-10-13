@@ -2,12 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { AboutContent } from '../../components/AboutContent';
-
-const snippets = new Proxy({}, {
-  get() {
-    return 'Some translated text.';
-  },
-});
+import { snippets } from '../helpers';
 
 describe('<AboutContent>', () => {
   it('matches snapshot', () => {
