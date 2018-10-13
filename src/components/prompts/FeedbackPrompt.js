@@ -58,7 +58,9 @@ class FeedbackPrompt extends React.Component {
     }
 
     return (
-      <Modal open={ open }>
+      <Modal
+        mountNode = { document.getElementById(`App`) }
+        open={ open }>
         <Modal.Header>{header || `Do you want to give feedback before you ${realLeave.toLowerCase()}?`}</Modal.Header>
         <Modal.Content>
           <p> {realMessage} </p>
