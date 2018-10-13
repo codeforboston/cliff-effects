@@ -7,13 +7,17 @@ global.document = jsdom('');
 global.window = document.defaultView;
 global.navigator = { userAgent: 'node.js' };
 
-function copyProps(src, target) {
+var copyProps = function (src, target) {
   const props = Object.getOwnPropertyNames(src)
-    .filter((prop) => {return typeof target[ prop ] === 'undefined';})
-    .reduce((result, prop) => {return {
-      ...result,
-      [ prop ]: Object.getOwnPropertyDescriptor(src, prop),
-    };}, {});
+    .filter((prop) => {
+      return typeof target[ prop ] === 'undefined';
+    })
+    .reduce((result, prop) => {
+      return {
+        ...result,
+        [ prop ]: Object.getOwnPropertyDescriptor(src, prop),
+      };
+    }, {});
   Object.defineProperties(target, props);
-}
+};
 copyProps(document.defaultView, global);
