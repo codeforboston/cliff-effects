@@ -6,6 +6,6 @@ import { snippets } from '../helpers';
 
 describe('<AboutContent>', () => {
   it('matches snapshot', () => {
-    expect(mount(<AboutContent snippets={snippets} />)).toMatchSnapshot();
+    expect(mount(<AboutContent snippets={ snippets } />)).toMatchSnapshot();
   });
 });

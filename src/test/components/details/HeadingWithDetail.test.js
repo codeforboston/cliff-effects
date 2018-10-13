@@ -5,8 +5,12 @@ import { times } from 'lodash';
 import { HeadingWithDetail } from '../../../components/details';
 
 describe('<HeadingWithDetails>', () => {
-  const FirstChild = () => null;
-  const SecondChild = () => null;
+  const FirstChild = () => {
+    return null;
+  };
+  const SecondChild = () => {
+    return null;
+  };
 
   const buildWrapper = () => {
     return mount(
@@ -18,7 +22,9 @@ describe('<HeadingWithDetails>', () => {
   };
 
   it('requires exactly two children', () => {
-    jest.spyOn(console, 'warn').mockImplementation(() => null); // suppress warnings
+    jest.spyOn(console, 'warn').mockImplementation(() => {
+      return null;
+    }); // suppress warnings
     const mountNumChildren = (num) => {
       return mount(
         <HeadingWithDetail>

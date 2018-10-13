@@ -10,16 +10,18 @@ describe('<StepBar>', () => {
     'firstStep',
     'secondStep',
     'thirdStep',
-  ].map(key => ({ key: key }));
+  ].map((key) => {return { key: key };});
   const defaultProps = {
     currentStepIndex: 1,
-    goToStep: goToStep,
-    snippets: snippets,
-    steps: steps,
+    goToStep:         goToStep,
+    snippets:         snippets,
+    steps:            steps,
   };
 
   const buildWrapper = (props = {}) => {
-    return mount(<StepBar {...defaultProps} {...props} />);
+    return mount(<StepBar
+      { ...defaultProps }
+      { ...props } />);
   };
 
   afterEach(() => {

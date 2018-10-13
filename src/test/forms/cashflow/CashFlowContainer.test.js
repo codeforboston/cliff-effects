@@ -8,18 +8,18 @@ describe('<CashFlowContainer>', () => {
     const child = <span>Some content</span>;
 
     const validProps = {
-      label: 'Rent',
+      label:    'Rent',
       validRow: true,
       children: child,
     };
-    expect(mount(<CashFlowContainer {...validProps} />)).toMatchSnapshot();
+    expect(mount(<CashFlowContainer { ...validProps } />)).toMatchSnapshot();
 
     const invalidProps = {
-      label: 'Rent',
+      label:    'Rent',
       validRow: false,
-      message: 'What did you enter!?',
+      message:  'What did you enter!?',
       children: child,
     };
-    expect(mount(<CashFlowContainer {...invalidProps} />)).toMatchSnapshot();
+    expect(mount(<CashFlowContainer { ...invalidProps } />)).toMatchSnapshot();
   });
 });

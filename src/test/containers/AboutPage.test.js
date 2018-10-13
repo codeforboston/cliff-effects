@@ -6,6 +6,8 @@ import { snippets } from '../helpers';
 
 describe('<AboutPage>', () => {
   it('renders', () => {
-    expect(() => mount(<AboutPage snippets={snippets} />)).not.toThrow();
+    expect(() => {
+      return mount(<AboutPage snippets={ snippets } />);
+    }).not.toThrow();
   });
 });

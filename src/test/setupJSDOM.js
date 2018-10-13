@@ -5,17 +5,15 @@ const { jsdom } = require('jsdom');
 
 global.document = jsdom('');
 global.window = document.defaultView;
-global.navigator = {
-  userAgent: 'node.js',
-};
+global.navigator = { userAgent: 'node.js' };
 
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
-    .filter(prop => typeof target[prop] === 'undefined')
-    .reduce((result, prop) => ({
+    .filter((prop) => {return typeof target[ prop ] === 'undefined';})
+    .reduce((result, prop) => {return {
       ...result,
-      [prop]: Object.getOwnPropertyDescriptor(src, prop),
-    }), {});
+      [ prop ]: Object.getOwnPropertyDescriptor(src, prop),
+    };}, {});
   Object.defineProperties(target, props);
 }
 copyProps(document.defaultView, global);

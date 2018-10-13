@@ -5,20 +5,30 @@ import { Surrounder } from '../../components/Surrounder';
 
 describe('<Surrounder>', () => {
   it('matches snapshot', () => {
-    const Top = () => null;
-    const Right = () => null;
-    const Bottom = () => null;
-    const Left = () => null;
-    const Content = () => null;
+    const Top = () => {
+      return null;
+    };
+    const Right = () => {
+      return null;
+    };
+    const Bottom = () => {
+      return null;
+    };
+    const Left = () => {
+      return null;
+    };
+    const Content = () => {
+      return null;
+    };
 
     const props = {
-      Top: <Top />,
-      Right: <Right />,
-      Bottom: <Bottom />,
-      Left: <Left />,
+      Top:      <Top />,
+      Right:    <Right />,
+      Bottom:   <Bottom />,
+      Left:     <Left />,
       children: <Content />,
     };
 
-    expect(mount(<Surrounder {...props} />)).toMatchSnapshot();
+    expect(mount(<Surrounder { ...props } />)).toMatchSnapshot();
   });
 });

@@ -6,11 +6,13 @@ import { StackedAreaGraph } from '../../../forms/output/StackedAreaGraph';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
 jest.mock('react-chartjs-2', () => {
-  const LineMock = () => null;
+  const LineMock = () => {
+    return null;
+  };
 
   return {
     Line(props) {
-      return <LineMock {...props} />;
+      return <LineMock { ...props } />;
     },
   };
 });
@@ -20,15 +22,17 @@ describe('<StackedAreaGraph>', () => {
   let client;
   let defaultProps;
 
-  const buildGraph = () => mount(<StackedAreaGraph {...defaultProps} />);
+  const buildGraph = () => {
+    return mount(<StackedAreaGraph { ...defaultProps } />);
+  };
 
   beforeEach(() => {
     activePrograms = [];
     client = cloneDeep(CLIENT_DEFAULTS);
     defaultProps = {
       activePrograms: activePrograms,
-      client: client,
-      timescale: 'Monthly',
+      client:         client,
+      timescale:      'Monthly',
     };
   });
 

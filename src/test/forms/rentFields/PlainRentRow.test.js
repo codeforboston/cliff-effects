@@ -8,9 +8,9 @@ import { PlainRentRow } from '../../../forms/rentFields';
 describe('<PlainRentRow>', () => {
   it('matches snapshot', () => {
     const props = {
-      timeState: cloneDeep(CLIENT_DEFAULTS.current),
+      timeState:         cloneDeep(CLIENT_DEFAULTS.current),
       updateClientValue: jest.fn(),
     };
-    expect(mount(<PlainRentRow {...props} />)).toMatchSnapshot();
+    expect(mount(<PlainRentRow { ...props } />)).toMatchSnapshot();
   });
 });

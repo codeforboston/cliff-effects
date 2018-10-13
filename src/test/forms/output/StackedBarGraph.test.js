@@ -6,11 +6,13 @@ import { StackedBarGraph } from '../../../forms/output/StackedBarGraph';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
 jest.mock('react-chartjs-2', () => {
-  const BarMock = () => null;
+  const BarMock = () => {
+    return null;
+  };
 
   return {
     Bar(props) {
-      return <BarMock {...props} />;
+      return <BarMock { ...props } />;
     },
   };
 });
@@ -18,7 +20,9 @@ jest.mock('react-chartjs-2', () => {
 describe('<StackedBarGraph>', () => {
   let client;
 
-  const buildGraph = () => mount(<StackedBarGraph client={client} />);
+  const buildGraph = () => {
+    return mount(<StackedBarGraph client={ client } />);
+  };
 
   beforeEach(() => {
     client = cloneDeep(CLIENT_DEFAULTS);

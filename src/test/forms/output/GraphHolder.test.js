@@ -5,13 +5,22 @@ import { cloneDeep, set } from 'lodash';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 import { GraphHolder } from '../../../forms/output/GraphHolder';
 
-const passedActivePrograms = wrapper => wrapper.find('Graph').prop('activePrograms');
+const passedActivePrograms = (wrapper) => {
+  return wrapper.find('Graph').prop('activePrograms');
+};
 
 describe('<GraphHolder>', () => {
   let client;
-  const Graph = ({ activePrograms, ...props}) => <div {...props} />;
+  const Graph = ({ activePrograms, ...props }) => {
+    return <div { ...props } />;
+  };
 
-  const buildWrapper = () => mount(<GraphHolder Graph={Graph} client={client} />);
+  const buildWrapper = () => {
+    return mount(<GraphHolder
+      Graph={ Graph }
+      client={ client } />
+    );
+  };
   
   beforeEach(() => {
     client = cloneDeep(CLIENT_DEFAULTS);
@@ -29,10 +38,13 @@ describe('<GraphHolder>', () => {
     expect(passedActivePrograms(buildWrapper())).toEqual([]);
 
     set(client, 'current.hasSnap', true);
-    expect(passedActivePrograms(buildWrapper())).toEqual(['snap']);
+    expect(passedActivePrograms(buildWrapper())).toEqual([ 'snap' ]);
 
     set(client, 'current.hasSection8', true);
-    expect(passedActivePrograms(buildWrapper())).toEqual(['section8', 'snap']);
+    expect(passedActivePrograms(buildWrapper())).toEqual([
+      'section8',
+      'snap', 
+    ]);
   });
 
   it('matches snapshot', () => {

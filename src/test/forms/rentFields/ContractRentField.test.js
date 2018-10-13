@@ -7,10 +7,10 @@ import { ContractRentField } from '../../../forms/rentFields';
 
 const buildField = (values = {}) => {
   const props = {
-    timeState: defaultsDeep({}, values, CLIENT_DEFAULTS.current),
+    timeState:         defaultsDeep({}, values, CLIENT_DEFAULTS.current),
     updateClientValue: jest.fn(),
-  }
-  return mount(<ContractRentField {...props} />);
+  };
+  return mount(<ContractRentField { ...props } />);
 };
 
 describe('ContractRentField.storeValidator()', () => {

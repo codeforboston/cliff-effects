@@ -6,11 +6,13 @@ import { BenefitsLineGraph } from '../../../forms/output/BenefitsLineGraph';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
 jest.mock('react-chartjs-2', () => {
-  const LineMock = () => null;
+  const LineMock = () => {
+    return null;
+  };
 
   return {
     Line(props) {
-      return <LineMock {...props} />;
+      return <LineMock { ...props } />;
     },
   };
 });
@@ -20,16 +22,18 @@ describe('<BenefitsLineGraph>', () => {
   let client;
   let defaultProps;
 
-  const buildGraph = () => mount(<BenefitsLineGraph {...defaultProps} />);
+  const buildGraph = () => {
+    return mount(<BenefitsLineGraph { ...defaultProps } />);
+  };
 
   beforeEach(() => {
     activePrograms = [];
     client = cloneDeep(CLIENT_DEFAULTS);
     defaultProps = {
       activePrograms: activePrograms,
-      client: client,
-      timescale: 'Monthly',
-      className: 'some-class',
+      client:         client,
+      timescale:      'Monthly',
+      className:      'some-class',
     };
   });
   

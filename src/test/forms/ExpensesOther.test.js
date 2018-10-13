@@ -7,18 +7,24 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 
 const GREATER_THAN_ZERO = 1;
 
-const displayRow = (page, generic) => page.find(`CashFlowDisplayRow[generic="${generic}"]`);
-const inputRow = (page, generic) => page.find(`CashFlowInputsRow[generic="${generic}"]`);
+const displayRow = (page, generic) => {
+  return page.find(`CashFlowDisplayRow[generic="${generic}"]`);
+};
+const inputRow = (page, generic) => {
+  return page.find(`CashFlowInputsRow[generic="${generic}"]`);
+};
 
 describe('<ExpensesOther>', () => {
   const defaultProps = {
-    time: 'monthly',
+    time:              'monthly',
     updateClientValue: jest.fn(),
   };
 
   const buildPage = (clientValues = {}) => {
     const client = defaultsDeep({}, clientValues, CLIENT_DEFAULTS.current);
-    return mount(<ExpensesOther {...defaultProps} timeState={client} />);
+    return mount(<ExpensesOther
+      { ...defaultProps }
+      timeState={ client } />);
   };
 
   it('renders housing costs control when related costs', () => {

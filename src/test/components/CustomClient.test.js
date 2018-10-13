@@ -12,15 +12,20 @@ const submit = (wrapper) => {
 };
 const reset = (wrapper) => {
   wrapper.find('FormButton[children="Reset"] button').simulate('click');
-}
+};
 
 describe('<CustomClient>', () => {
-  const defaultValue = { key: "value" };
+  const defaultValue = { key: 'value' };
 
   let load;
   let toRestore; // default values
 
-  const buildWrapper = () => mount(<CustomClient load={load} toRestore={toRestore} />);
+  const buildWrapper = () => {
+    return mount(<CustomClient
+      load={ load }
+      toRestore={ toRestore } />
+    );
+  };
 
   beforeEach(() => {
     load = jest.fn();
@@ -29,32 +34,32 @@ describe('<CustomClient>', () => {
 
   it('displays error when given invalid JSON', () => {
     const wrapper = buildWrapper();
-    const invalidJSON = "{,";
+    const invalidJSON = '{,';
     
     enterText(wrapper, invalidJSON);
     expect(wrapper.state()).toEqual({
       toLoad: null,
-      error: expect.any(Object),
-      json: invalidJSON,
+      error:  expect.any(Object),
+      json:   invalidJSON,
     });
   });
 
   it('saves parsed client when JSON entered', () => {
     const wrapper = buildWrapper();
-    const client = { some: "data" };
+    const client = { some: 'data' };
     const validJSON = JSON.stringify(client);
 
     enterText(wrapper, validJSON);
     expect(wrapper.state()).toEqual({
       toLoad: client,
-      error: null,
-      json: validJSON,
+      error:  null,
+      json:   validJSON,
     });
   });
 
   it('when submitted, calls load function with parsed client', () => {
     const wrapper = buildWrapper();
-    const client = { some: "data" };
+    const client = { some: 'data' };
     wrapper.setState({ toLoad: client });
 
     submit(wrapper);
@@ -62,14 +67,14 @@ describe('<CustomClient>', () => {
 
     expect(wrapper.state()).toEqual({
       toLoad: null,
-      error: null,
-      json: '',
+      error:  null,
+      json:   '',
     });
   });
 
   it('when reset, calls load function with default values', () => {
     const wrapper = buildWrapper();
-    const client = { some: "data" };
+    const client = { some: 'data' };
     wrapper.setState({ toLoad: client });
 
     reset(wrapper);
@@ -77,8 +82,8 @@ describe('<CustomClient>', () => {
 
     expect(wrapper.state()).toEqual({
       toLoad: null,
-      error: null,
-      json: '',
+      error:  null,
+      json:   '',
     });
-  })
+  });
 });

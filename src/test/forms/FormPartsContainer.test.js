@@ -4,23 +4,33 @@ import { mount } from 'enzyme';
 import { FormPartsContainer } from '../../forms/FormPartsContainer';
 
 const NOT_EMPTY_STRING = 'text';
-const identity = x => x;
+const identity = (x) => {
+  return x;
+};
 
-const clarifierHeader = container => container.find('Header[as="h3"]');
-const navButtons = container => container.find('div.form-section-bottom-row').children().map(identity);
+const clarifierHeader = (container) => {
+  return container.find('Header[as="h3"]');
+};
+const navButtons = (container) => {
+  return container.find('div.form-section-bottom-row').children().map(identity);
+};
 
 describe('<FormPartsContainer>', () => {
   const defaultProps = {
-    title: 'A form!',
+    title:     'A form!',
     clarifier: 'You can enter stuff into the little boxes.',
-    navData: {}, // no navbuttons
+    navData:   {}, // no navbuttons
     formClass: 'a-form',
-    children: <div />, // there isn't actually a form
+    children:  <div />, // there isn't actually a form
   };
 
-  const buildContainer = (props = {}) => (
-    mount(<FormPartsContainer {...defaultProps} {...props} />)
-  );
+  const buildContainer = (props = {}) => {
+    return (
+      mount(<FormPartsContainer
+        { ...defaultProps }
+        { ...props } />)
+    );
+  };
 
   it('renders clarifier if provided', () => {
     expect(clarifierHeader(buildContainer({ clarifier: '' })).exists()).toBe(false);
@@ -31,22 +41,26 @@ describe('<FormPartsContainer>', () => {
   });
 
   it('uses navData to render navigation buttons', () => {
-    const LEFT_TEXT = "Back";
-    const RIGHT_TEXT = "Next";
+    const LEFT_TEXT = 'Back';
+    const RIGHT_TEXT = 'Next';
 
     const navData = {
       left: {
-        text: LEFT_TEXT,
+        text:    LEFT_TEXT,
         onClick: jest.fn(),
       },
       center: null,
-      right: {
-        text: RIGHT_TEXT,
+      right:  {
+        text:    RIGHT_TEXT,
         onClick: jest.fn(),
       },
     };
 
-    const [left, center, right] = navButtons(buildContainer({ navData: navData }));
+    const [
+      left,
+      center,
+      right, 
+    ] = navButtons(buildContainer({ navData: navData }));
 
     expect(left.is('BigButton')).toBe(true);
     expect(left.text()).toEqual(LEFT_TEXT);

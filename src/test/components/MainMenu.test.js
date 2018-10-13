@@ -6,6 +6,8 @@ import { withRouter } from '../helpers';
 
 describe('<MainMenu>', () => {
   it('renders', () => {
-    expect(() => mount(withRouter(<MainMenu />))).not.toThrow();
+    expect(() => {
+      return mount(withRouter(<MainMenu />));
+    }).not.toThrow();
   });
 });
