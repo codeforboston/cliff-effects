@@ -6,6 +6,7 @@ exports[`A feedback prompt should match the snapshot 1`] = `
   closeOnDocumentClick={false}
   dimmer={true}
   eventPool="Modal"
+  mountNode={null}
 >
   <ModalHeader>
     Test prompt data
