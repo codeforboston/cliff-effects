@@ -266,8 +266,10 @@ class VisitPage extends Component {
           askToResetClient={ this.askToResetClient }
           openFeedback={ this.openFeedback }
           snippets={ formSnippets } />
-        <FeedbackAnytime openFeedback={ this.openFeedback } />
-        <ResetAnytime askToResetClient={ this.askToResetClient } />
+        <Container className={ `always-left-buttons` }>
+          <ResetAnytime askToResetClient={ this.askToResetClient } />
+          <FeedbackAnytime openFeedback={ this.openFeedback } />
+        </Container>
       </div>
     );
   };  // End getCurrentStep()

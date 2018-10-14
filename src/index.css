@@ -204,18 +204,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; /* Removes leftover margin */
 }
 
-/* Old selector used for 'Submit Feedback' and 'Reset' buttons */
-.fixed {
-  top: 6.2em;
-  left: -.75em;
-  position: fixed;
-}
-
-.rotate {
-    transform-origin: top left;
-    transform: rotate(270deg);
-}
-
 /* CHARTS */
 .graph-holder {
   position: relative;
@@ -287,26 +275,33 @@ form elements. */
 }
 
 
+/* FORM EVER-PRESENT BUTTONS */
+/* Old selector used for 'Submit Feedback' and 'Reset' buttons */
+#App .always-left-buttons {
+  position: fixed;
+  transform-origin: top left;
+  transform: rotate(270deg) translateX(-100%);
+  top: 80px;
+  left: 0;
+  display: flex;
+  width: fit-content;
+}
+
 /* FEEDBACK BUTTON */
-#feedback_fixed {
-    position: fixed;
-    top: 234px;
-    left: 0;
+#feedbackFixed,
+#resetFixed {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
 /* RESET BUTTON */
-#reset_fixed {
-    position: fixed;
-    top: 362px;
-    left: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+#App .button.danger {
+    margin-right: 1em;
+    color: white;
     background-color: #f2711c;
 }
 
-#reset_fixed:hover {
+#App .button.danger:hover {
   background-color: #d16614;
 }
 
