@@ -13,7 +13,7 @@ class Header extends React.Component {
         textAlign='center'
         vertical
         color='teal'>
-        <MainMenu />
+        <MainMenu snippets={ this.props.snippets } />
       </Segment>
     );
   }

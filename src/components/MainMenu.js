@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import { BetaWarning } from './BetaWarning';
 
 
-const MainMenu = function (props) {
+const MainMenu = function ({ snippets }) {
+  console.log(snippets)
   return (
     <Container>
       <Menu
@@ -16,8 +17,9 @@ const MainMenu = function (props) {
         secondary
         size='large'>
         
-        <Menu.Item><Link to="/">Home</Link></Menu.Item>
-        <Menu.Item><Link to="/about">About</Link></Menu.Item>
+        <Menu.Item><Link to="/">{ snippets.i_homeNav }</Link></Menu.Item>
+        <Menu.Item><Link to="/about">{ snippets.i_aboutNav }</Link></Menu.Item>
+        <Menu.Item>{ snippets.i_githubNav }</Menu.Item>
         <Menu.Item position='right'>
           {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
           {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
