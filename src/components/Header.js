@@ -16,7 +16,7 @@ class Header extends React.Component {
         vertical
         color='teal'>
         <MainMenu snippets={ this.props.snippets } />
-        <BetaWarning />
+        <BetaWarning snippets={ this.props.snippets } />
       </Segment>
     );
   }
