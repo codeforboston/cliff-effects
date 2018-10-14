@@ -256,21 +256,15 @@ class VisitPage extends Component {
     formSnippets.langCode = this.state.snippets.langCode;
 
     return (
-      <div>
-        <FormSection
-          currentStep={ this.state.currentStep }
-          client={ this.state.client }
-          navData={ navData }
-          updateClientValue={ step.updateClientValue }
-          saveForm={ this.saveForm }
-          askToResetClient={ this.askToResetClient }
-          openFeedback={ this.openFeedback }
-          snippets={ formSnippets } />
-        <Container className={ `always-left-buttons` }>
-          <ResetAnytime askToResetClient={ this.askToResetClient } />
-          <FeedbackAnytime openFeedback={ this.openFeedback } />
-        </Container>
-      </div>
+      <FormSection
+        currentStep={ this.state.currentStep }
+        client={ this.state.client }
+        navData={ navData }
+        updateClientValue={ step.updateClientValue }
+        saveForm={ this.saveForm }
+        askToResetClient={ this.askToResetClient }
+        openFeedback={ this.openFeedback }
+        snippets={ formSnippets } />
     );
   };  // End getCurrentStep()
 
@@ -360,6 +354,7 @@ class VisitPage extends Component {
           id = { `cliff-effects-tool` }
           className='flex-item flex-column'
           style={{ padding: '42px 0' }}>
+
           <Responsive
             minWidth='874.5'
             style={{ padding: '14px 0' }}>
@@ -375,6 +370,11 @@ class VisitPage extends Component {
             { this.getCurrentStep(navData) }
           </div>
 
+        </Container>
+
+        <Container id={ `alwaysLeftButtons` }>
+          <ResetAnytime askToResetClient={ this.askToResetClient } />
+          <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
         { 

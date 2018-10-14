@@ -276,12 +276,14 @@ form elements. */
 
 
 /* FORM EVER-PRESENT BUTTONS */
-/* Old selector used for 'Submit Feedback' and 'Reset' buttons */
-#App .always-left-buttons {
+#alwaysLeftButtons {
+  /* Would like to use `position: sticky;`, but it's
+   * not supported by IE at all. A bit premature, but
+   * also obscure and may be hard to find after-the-fact */
   position: fixed;
   transform-origin: top left;
   transform: rotate(270deg) translateX(-100%);
-  top: 80px;
+  top: 6.2rem;
   left: 0;
   display: flex;
   width: fit-content;
@@ -296,7 +298,7 @@ form elements. */
 
 /* RESET BUTTON */
 #App .button.danger {
-    margin-right: 1em;
+    margin-right: .7rem;
     color: white;
     background-color: #f2711c;
 }
@@ -479,6 +481,20 @@ body .ui *:focus,
   border: 1px solid rgba(0, 121, 116, 1);
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
+}
+
+
+/*
+=========================
+SMALL SCREEN
+=========================
+*/
+@media only screen and (max-width: 767px) {
+  #alwaysLeftButtons {
+    /* Fighting semantic-ui */
+    margin-right: 0!important;
+    margin-left: 0!important;
+  }
 }
 
 
