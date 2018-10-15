@@ -9,7 +9,6 @@ import { BetaWarning } from './BetaWarning';
 
 
 const MainMenu = function ({ snippets }) {
-  console.log(snippets)
   return (
     <Container>
       <Menu
