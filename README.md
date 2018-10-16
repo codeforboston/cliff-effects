@@ -14,7 +14,7 @@ We currently have a ReactJS frontend prototype and have gone through two iterati
 
 We are working on:
 
-- *User testing:* We will continue to engage with our users as we develop further.
+- *Users:* We will continue to engage with our users as we develop further.
 - *Infrastructure and testing:* Strengthening the code we have to make it more robust and maintainable.
 - *Regulations:* Validate benefit logic with with people familiar with regulation language and create a process for adding new benefits.
 - *Translation:* Implementing a translation system for non-English readers.
