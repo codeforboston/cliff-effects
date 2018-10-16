@@ -69,10 +69,10 @@ class AskPermission extends React.Component {
         disabled = { this.state.submitType === null }
         color    ='teal'>
         {renderIfTrue(this.state.submitType === `withData`,
-          `Send With Data`
+          `Send with my information`
         )}
         {renderIfTrue(this.state.submitType === `withoutData`,
-          `Send Without Data`
+          `Send without my information`
         )}
         {renderIfTrue(this.state.submitType === null,
           `Send`
@@ -176,8 +176,11 @@ class FeedbackPrompt extends React.Component {
       };
     };
 
+    // Without the #root selector, we can't get the accessibility
+    // focus styles to win 
     return (
       <Modal
+        mountNode = { document.getElementById(`App`) }
         size='large'
         open={ this.props.isOpen }
         onClose={ this.close }
@@ -188,14 +191,15 @@ class FeedbackPrompt extends React.Component {
         <Modal.Content scrolling>
           <Form>
             <Form.Input
+              autoFocus
               { ...inputProps('currentSnap') }
-              label={ 'If amount for the CURRENT SNAP subsidy was wrong, what\'s the correct amount?' } />
+              label={ <span>If the <strong>current</strong> SNAP amount was wrong, what's the right amount?</span> } />
             <Form.Input
               { ...inputProps('futureSnap') }
-              label={ 'If amount for the FUTURE SNAP subsidy was wrong, what\'s the correct amount?' } />
+              label={ <span>If the <strong>future</strong> SNAP amount was wrong, what's the right amount?</span> } />
             <Form.Input
               { ...inputProps('futureS8') }
-              label={ 'If amount for the FUTURE Section 8 voucher was wrong, what\'s the correct amount?' } />
+              label={ <span>If the <strong>future</strong> Section 8 amount was wrong, what's the right amount?</span> } />
             <Form.TextArea
               { ...inputProps('otherCircumstances') }
               label={ 'What else could be going on that could affect your benefit amount? ' +
@@ -225,6 +229,7 @@ class FeedbackPrompt extends React.Component {
         </Modal.Actions>
 
         <Modal
+          mountNode = { document.getElementById(`App`) }
           size               = { `large` }
           open               = { this.state.ready }
           onClose            = { this.closeAskPermission }
@@ -235,7 +240,7 @@ class FeedbackPrompt extends React.Component {
             submitting         = { this.state.submitting }
             closeAskPermission = { this.closeAskPermission }
             submit             = { this.submit }
-            question           = { `Is it ok if we save the data you've filled in? We won't save your name or any other information that could give away your identity and it'll help us understand your situation better.` } />
+            question           = { `Is it ok if we save the information you've put in here? We won't save anything else about you. If you had problems with the app, it'll help us work on them.` } />
         </Modal>
       </Modal>
     );

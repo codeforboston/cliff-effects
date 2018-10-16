@@ -16,6 +16,10 @@ import { localizations } from '../../localization/all';
 
 import { LocalizationReport } from './LocalizationReport.js';
 
+
+/** Contains all HUD items except 'hide' button
+ * @todo If there are enough dev features for it,
+ *    make menu categories collapsible. */
 const DevMenu = function ({ devProps, funcs, data, state }) {
 
   var langs    = localizations,
@@ -31,11 +35,20 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
     langOpts.push(lang);
   }
 
-  /** @todo If there are enough dev features for it,
-   *    make menu categories collapsible. */
   return (
     <div className = { `dev-menu` } >
-      <Menu.Item header>> Snippets</Menu.Item>
+      <Menu.Item>
+        <Button
+          compact
+          negative
+          size = { `tiny` }
+          className = { `off` }
+          onClick   = { funcs.turnOff }>
+          HUD Off
+        </Button>
+      </Menu.Item>
+
+      <Menu.Item header> Snippets</Menu.Item>
       <Menu.Item>
         <Checkbox
           label    = { `Mark English snippets` }
@@ -64,7 +77,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
           onChange     = { funcs.setLanguage } />
       </Menu.Item>
 
-      <Menu.Item header>> Client</Menu.Item>
+      <Menu.Item header> Client</Menu.Item>
       <Menu.Item>
         <CustomClient
           load       = { funcs.loadClient }
@@ -73,6 +86,21 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
 
       <Menu.Item>
         <LocalizationReport />
+      </Menu.Item>
+
+      <Menu.Item>
+        <HeadingWithDetail>
+          <Checkbox
+            label    = { `Disable warning modal` }
+            checked  = { devProps.warningOff }
+            onChange = { funcs.warning } />
+          <span>
+            Note: Uncheck this box to<br />
+            disable the predictions warning<br />
+            modal. The modal displays prior<br />
+            to allowing access to the form.<br />
+          </span>
+        </HeadingWithDetail>
       </Menu.Item>
     </div>
   );
@@ -99,7 +127,17 @@ class DevHud extends Component {
   toggleNonEnglish = () => {
     var setDev     = this.props.funcs.setDev,
         nonEnglish = this.props.devProps.nonEnglish;
-    setDev(`english`, !nonEnglish);
+    setDev(`nonEnglish`, !nonEnglish);
+  };
+
+  toggleWarning = () => {
+    var setDev  = this.props.funcs.setDev,
+        warning = this.props.devProps.warningOff;
+    setDev(`warningOff`, !warning);
+  };
+
+  turnOff = () => {
+    this.props.funcs.setDev(`dev`, false);
   };
 
   render () {
@@ -114,6 +152,8 @@ class DevHud extends Component {
           ...funcs,
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
+          turnOff:    this.turnOff,
+          warning:    this.toggleWarning,
         };
 
     return (

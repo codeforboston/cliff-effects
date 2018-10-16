@@ -3,7 +3,16 @@ export default {
   langName: `English`,
   langCode: `en`,
 
-  header: {},
+  header: {
+    homeNav_v1:   `Home`,
+    aboutNav_v1:  `About`,
+    githubNav_v1: [
+      {
+        name: `__githubRepoLink__`,
+        text: `GitHub`,
+      },
+    ],
+  },
 
   footer: {
     header_v1: [
@@ -262,9 +271,36 @@ export default {
       tabTitleStackedIncomes_v1:  `Stacked Incomes`, // see Predictions.js
       tabTitleBenefitPrograms_v1: `Benefit Programs`, // see Predictions.js
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
-      warningMessage_v1:          `This tool is in testing and these numbers might not be right. If they're not, we'd appreciate your feedback.`,
-      submitFeedback_v1:          `Submit Feedback`,
-      // added the following snippets Friday 2018_9_7
+      warningMessage_v2:          `This tool is in testing and these numbers might not be right. If they're not, please `,
+      submitFeedback_v2:          `let us know`,
+      // Text Summary:
+      summaryTitle_v1:            `Summary`,
+      noBenefitsChosen_v1:        `On the first page of questions you didn't choose any of the benefits. If you're not getting any benefits now, this tool can't tell you if you will get any in the future. If you're trying to find help getting into a benefit program, try searching for "social services" in your local area.`,
+      noFutureChange_v1:          `There is no change in your household's pay, so there's no change in your benefits.`,
+      period_v1:                  `.`,
+      eachTimeInterval_v1:        `a month`,  // `eachTime`?
+      detailsHeader_v1:           `What could happen?`,
+      nowEarn_v1:                 `Right now you earn`,
+      nowBenefitsTotalIs_v1:      `and this tool says that your benefits all add up to about`,
+      nowTotalIs_v1:              `All together, it says you bring in about`,
+      newEarn_v1:                 `If your household's pay changes to`,
+      newBenefitsTotalIs_v1:      `this tool says your benefits might add up to about`,
+      newBenefitDetailsIntro_v1:  `This is how your benefits might change:`,
+      from_v1:                    `might change from about`,
+      to_v1:                      `to about`,
+      feedbackAsk_v1:             `Are these numbers right? Please `,
+      summaryHeader_v1:           `What could it add up to?`,
+      newTotalIs_v1:              `If this tool is right, you might bring in about`,
+      resultIs_v1:                `That's`,
+      moreThan_v1:                `more than before.`,
+      lessThan_v1:                `less than before.`,
+      sameAs_v1:                  `the same as before.`,
+      noCliff_v1:                 `After this, the tool says you could keep bringing in more with each raise.`,
+      cliffEndHeader_v1:          `When could things get better?`,
+      ifGetTo_v1:                 `The tool says that if you can get to where your household makes about`,
+      willGet_v1:                 `you could bring in about`,
+      moreIn_v1:                  `more each month all together.`,
+      findHelp_v1:                `If you're worried about these results, please search for "social services" in your area to try to find a local case manager.`,
       // Benefits Table:
       benefitsTableTitle_v1:      `Changes`, // see line 265 above
       columnBenefit_v1:           `Benefit`, // see BenefitsTable.js
@@ -300,5 +336,16 @@ export default {
       buttonMonthly_v1:           `Monthly`, // see cashflow.js, GraphTimeButtons
       buttonYearly_v1:            `Yearly`, // see cashflow.js, GraphTimeButtons
     },
+
+    warningModal: {
+      header_v1:              `IMPORTANT!`,
+      warning_v1:             `This tool is in testing.  Predictions should not be used to make financial decisions.`,
+      buttonAcceptWarning_v1: `Continue`,
+      buttonCancel_v1:        `Cancel`,
+      formInstructions_v1:    `Please indicate you understand the following:`,
+      checkboxLabel1:         `This tool is not finished.`,
+      checkboxLabel2:         `I can't count on what this tool tells me.`,
+    },
+
   },
 };

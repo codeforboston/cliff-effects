@@ -38,8 +38,18 @@ body {
 
 /* Header.js styles */
 
-.header_segment {
+#appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header-segment {
   padding: 1em 0em;
+}
+
+#appHeader .menu {
+  margin: 0;
 }
 
 /* PageLayout.js styles */
@@ -50,12 +60,8 @@ body {
 
 /* Predictions.js */
 
-#prediction-button {
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  max-width: 400px;
+.feedback-button {
+  display: inline;
 }
 
 .prediction-message {
@@ -356,6 +362,10 @@ i.icon.details-icon {
   border-bottom-left-radius: 0;
 }
 
+.text-result-section {
+  margin-bottom: 2em;
+}
+
 
 /* =============== */
 /* LAYOUT */
@@ -412,13 +422,21 @@ i.icon.details-icon {
   flex-direction: column;
 }
 
-#HomePage button {
+#HomePage .home-button {
   background-color: #c8e7e5;
   color: #465050;
   font-size: 1.5em;
+  /* Copied from semantic-ui-react Button */
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-weight: 700;
+  line-height: 1em;
+  border-radius: .28571429rem;
+  /* Adjusted from semantic-ui-react Button */
+  padding: .78571429em 1.5em;
 }
 
-#HomePage button:hover {
+#HomePage .home-button:hover,
+#HomePage .home-button:focus {
   color: #C8E7E5;
   background-color: #005855;
 }
@@ -434,14 +452,6 @@ i.icon.details-icon {
   color: #efefef;
   text-align: center;
   font-size: 1em;
-}
-
-.hb-left {
-  margin-left: 1.5em;
-}
-
-.hb-right {
- margin-right: 1.5em;
 }
 
 .headings h1 {
@@ -464,17 +474,35 @@ i.icon.details-icon {
 
 /*
 =================
-ACCESSIBILITY
+ACCESSIBILITY - Also see any other focus styles
 =================
 */
-#App *:focus {
+body .ui *:focus,
+#App a:focus {
   outline: 5px double rgba(0, 121, 116, 1);
   outline-offset: 2px;
+  z-index: 1;
 }
 
-#App .ui input:focus~label:before,
-#App .ui input:focus {
+#App #HomePage a:focus {
+  outline: 5px double rgba(0, 97, 93, 1);
+}
+
+/* Without #root, these selectors don't win */
+#root input:focus~label:before,
+#root .form *:focus {
   border: 1px solid rgba(0, 121, 116, 1);
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
+}
+
+
+/*
+=========================
+PREDICTIONS WARNING MODAL
+=========================
+*/
+#WarningModal .header {
+  color: #fff;
+  background-color: rgb(136,0,21);
 }
