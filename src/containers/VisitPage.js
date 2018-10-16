@@ -278,7 +278,7 @@ class VisitPage extends Component {
         prevContent        = null,
         nextContent        = null,
         stepIndex          = this.getCurrentStepIndex(),
-        termsAccepted      = this.props.termsAccepted
+        termsAccepted      = this.props.termsAccepted;
 
     if (stepIndex !== 0) {
       prevContent = (
