@@ -3,7 +3,16 @@ export default {
   langName: `English`,
   langCode: `en`,
 
-  header: {},
+  header: {
+    homeNav_v1:   `Home`,
+    aboutNav_v1:  `About`,
+    githubNav_v1: [
+      {
+        name: `__githubRepoLink__`,
+        text: `GitHub`,
+      },
+    ],
+  },
 
   footer: {
     header_v1: [
