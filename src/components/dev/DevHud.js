@@ -34,6 +34,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         };
     langOpts.push(lang);
   }
+
   return (
     <div className = { `dev-menu` } >
       <Menu.Item>
@@ -91,7 +92,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         <HeadingWithDetail>
           <Checkbox
             label    = { `Disable warning modal` }
-            checked  = { state.warningOff }
+            checked  = { devProps.warningOff }
             onChange = { funcs.warning } />
           <span>
             Note: Uncheck this box to<br />
