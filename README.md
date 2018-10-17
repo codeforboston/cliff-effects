@@ -1,6 +1,6 @@
 # cliff-effects  [![TravisCI](https://travis-ci.org/codeforboston/cliff-effects.svg?style=shield)](https://travis-ci.org/codeforboston/cliff-effects) [![CodeCov](https://img.shields.io/codecov/c/github/codeforboston/cliff-effects.svg)](https://codecov.io/gh/codeforboston/cliff-effects)
 
-**Cliff effect**: You're a person on government benefits, and you get a raise.  You're making more money!  But now that your income is higher, you don't make the cutoff for some of those benefits. Some benefits drop to nothing, or almost nothing. Even though you're earning more money, you're taking home less in all and your situation is worse. You've fallen off "the cliff."
+**Cliff effect**: You're a person on government benefits, and you get a raise.  You're making more money!  But now that your income is higher, you don't make the cutoff for some of those benefits. Your benefits drop and some go away completely. Even though you're earning more money, you're taking home less in all and your situation is worse. You've fallen off "the cliff."
 
 The combination of circumstances and interactions between benefits that creates a cliff are complex, tangled, and buried deep in regulatory language. Case managers handle their clients' problems on the ground. They're not responsible for navigating regulations and don't have the time/resources to translate those policies into models.
 
