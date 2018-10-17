@@ -52,6 +52,12 @@ body {
   margin: 0;
 }
 
+/* focus is on child element :P */
+/*#appHeader .inverted.menu .item:focus,*/
+#appHeader .inverted.menu .item:hover {
+  background: #008c86;
+}
+
 /* PageLayout.js styles */
 
 .pl-segment {
