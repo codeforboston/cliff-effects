@@ -13,7 +13,7 @@ const FeedbackAnytime = function (props) {
         size='medium'
         className={ 'fixed rotate' }
         id={ 'feedback_fixed' }>
-        Send Feedback
+        Tell Us More
       </Button>
     </div>
   );
