@@ -14,6 +14,10 @@ import {
   isUnder13,
   getUnder13Members,
   getUnder13OfHousehold,
+  isYoungerThan,
+  getYoungerThan,
+  isOlderThan,
+  getOlderThan,
 } from '../../utils/getMembers';
 
 // getEveryMember(array, fn) = array.filter(fn)
@@ -171,6 +175,7 @@ describe('under 13', () => {
   });
   const allMembers = under13.concat(over12);
 
+  // Younger
   test('isUnder13()', () => {
     under13.forEach((member) => {
       expect(isUnder13(member)).toBe(true);
@@ -188,4 +193,52 @@ describe('under 13', () => {
     const client = { household: allMembers };
     expect(getUnder13OfHousehold(client)).toHaveLength(under13.length);
   });
+
+  test(`isYoungerThan() with 13`, () => {
+    under13.forEach((member) => {
+      expect(isYoungerThan(member, 13)).toBe(true);
+    });
+    over12.forEach((member) => {
+      expect(isYoungerThan(member, 13)).toBe(false);
+    });
+  });
+
+  test(`isYoungerThan() with {age: 13}`, () => {
+    under13.forEach((member) => {
+      expect(isYoungerThan(member, { age: 13 })).toBe(true);
+    });
+    over12.forEach((member) => {
+      expect(isYoungerThan(member, { age: 13 })).toBe(false);
+    });
+  });
+
+  test('getYoungerThan() with 13', () => {
+    const client = { household: allMembers };
+    expect(getYoungerThan(client, 13)).toHaveLength(under13.length);
+  });
+
+  // Older
+  test(`isOlderThan() with 12`, () => {
+    under13.forEach((member) => {
+      expect(isOlderThan(member, 12)).toBe(false);
+    });
+    over12.forEach((member) => {
+      expect(isOlderThan(member, 12)).toBe(true);
+    });
+  });
+
+  test(`isOlderThan() with {age: 12}`, () => {
+    under13.forEach((member) => {
+      expect(isOlderThan(member, { age: 12 })).toBe(false);
+    });
+    over12.forEach((member) => {
+      expect(isOlderThan(member, { age: 12 })).toBe(true);
+    });
+  });
+
+  test('getOlderThan() with 12', () => {
+    const client = { household: allMembers };
+    expect(getOlderThan(client, 12)).toHaveLength(over12.length);
+  });
+
 });
