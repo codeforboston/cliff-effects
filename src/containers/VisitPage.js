@@ -258,19 +258,15 @@ class VisitPage extends Component {
     formSnippets.langCode = this.state.snippets.langCode;
 
     return (
-      <div>
-        <FormSection
-          currentStep={ this.state.currentStep }
-          client={ this.state.client }
-          navData={ navData }
-          updateClientValue={ step.updateClientValue }
-          saveForm={ this.saveForm }
-          askToResetClient={ this.askToResetClient }
-          openFeedback={ this.openFeedback }
-          snippets={ formSnippets } />
-        <FeedbackAnytime openFeedback={ this.openFeedback } />
-        <ResetAnytime askToResetClient={ this.askToResetClient } />
-      </div>
+      <FormSection
+        currentStep={ this.state.currentStep }
+        client={ this.state.client }
+        navData={ navData }
+        updateClientValue={ step.updateClientValue }
+        saveForm={ this.saveForm }
+        askToResetClient={ this.askToResetClient }
+        openFeedback={ this.openFeedback }
+        snippets={ formSnippets } />
     );
   };  // End getCurrentStep()
 
@@ -375,6 +371,11 @@ class VisitPage extends Component {
             { this.getCurrentStep(navData) }
           </div>
 
+        </Container>
+
+        <Container id={ `alwaysLeftButtons` }>
+          <ResetAnytime askToResetClient={ this.askToResetClient } />
+          <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
         { 
