@@ -513,9 +513,8 @@ PRINTING STYLES
 /* `margin: 0` at bottom working without print,
     not working for print when cliff present. Why? */
 @media print {
-  .header_segment,
-  #feedback_fixed,
-  #reset_fixed,
+  #appHeader,
+  #alwaysLeftButtons,
   #form-nav,
   #section-bottom,
   #predictionsForm,
