@@ -48,21 +48,21 @@ export default {
       `This application is a minimum viable product. It should not be used as the sole tool to understand a client's SNAP or Section 8 financial situation, or for any other public assistance program.`,
     ],
     whatFor_v2: [
-      `This tool can help show how a change in income affects how much someone receives in public assistance from SNAP (Supplemental Nutrition Assistance Program) and Section 8 Housing Voucher benefits. It was designed for the case managers at `,
+      `This app prototypes a tool that can help show how a change in income changes how much someone gets from SNAP (food stamps) and Section 8 Housing Voucher benefits. It was originally built for the case managers at `,
       { name: `__projectHope__` },
       ` with the aim of helping to predict changes in their clients' benefits.`,
     ],
 
     whyHeader_v1: `Why is this tool important?`,
-    why1_v1:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. The household is working to increase what they earn, but they end up with a net loss that actually puts them further behind. These cliff effects prevent many families from actually getting off of public assistance programs.`,
-    why2_v1:      `Cliff effects are also difficult to predict. The interactions between income, household size, many other criteria, as well as the effects of the programs themselves impact each other in unexpected ways. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
+    why1_v1:      `A cliff effect occurs when a slight change in a household’s situation - say, a slight pay raise - drops their benefits so low that the family ends up bringing in less than they were before. The household is working to earn more, but they end up further behind. These cliff effects stop a lot of families from actually getting off of public assistance programs. Not only that, just the fear of the cliff keeps even more people on benefits. Families that actually wouldn't hit a cliff are too afraid to take raises that could help get them further off of benefits.`,
+    why2_v1:      `The regulations are incredibly complex. There are interactions between income, household size, many other criteria, and the rules of the public assistance programs. The programs themselves impact each other in unexpected ways. Humans just aren't great at untangling this kind of thing. We've been exploring ways to deal with this issue of complexity. Our direction so far has been towards using technology to handle the complexity and helping families better understand and predict their situation.`,
 
     videoLinkText_v1:    `Two-minute video describing cliff effects`,
     quantLinkText_v1:    `Quantitative scenarios demonstrating cliff effects`,
     benefitsLinkText_v1: `Breakdown of different benefits offered in MA`,
 
     howToUseHeader_v1: `How do I use this tool?`,
-    howToUse_v1:       `Go step-by-step to add information about a client's current benefits, household, income, and other relevant information. This information will be used to predict the client's approximate benefit amount. When you reach the end, change the 'Future Income' amount to see how a change in earned income will cause a change in benefit amount. Currently, the SNAP and Section 8 Housing Voucher programs are both available. Note that predictions may not directly match up with a client’s current benefit amount. The app’s focus is the amount of change that occurs in benefits when there are changes in earned income.`,
+    howToUse_v1:       `Go step-by-step to add information about a client's current benefits, household, income, and other relevant information. This information will be used to predict the client's approximate benefit amount. When you reach the end, change the 'Future Income' amount to see how a change in earned income will change the benefit amount. Right now you can try the SNAP and Section 8 Housing Voucher programs. A note - the tool's calculations might not directly match up with a client’s current benefit amount. For now, the app’s focus is the amount of change that occurs in benefits when there are changes in earned income.`,
     howToUseNote_v1:   [
       `Please note that this app does not store user data, so `,
       {
@@ -78,7 +78,7 @@ export default {
       { name: `__github__` },
       ` by `,
       { name: `__codeForBoston__` },
-      ` volunteers. For more information or to report a bug, please contact `,
+      ` volunteers. For more information or to report a bug, please email `,
       { name: `__contactEmail__` },
       `.`,
     ],
