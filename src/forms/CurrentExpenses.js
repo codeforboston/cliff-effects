@@ -397,7 +397,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           <IntervalColumnHeadings type={ type } />
           <CashFlowInputsRow
             { ...sharedProps }
-            generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support
+            generic={ 'childSupportPaidOut' }> Child support <strong>you</strong> pay
           </CashFlowInputsRow>
         </div>
       ) : (
