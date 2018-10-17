@@ -101,6 +101,7 @@ const FormPartsContainer = function({ title, clarifier, children, navData, formC
           className="flex-item">
           <Header
             as='h1'
+            className = { `section-header` }
             color='teal'
             textAlign='center'>
             { title }
@@ -119,8 +120,10 @@ const FormPartsContainer = function({ title, clarifier, children, navData, formC
 
         </Segment>
 
-        <Divider />
-        <FormBottomRow { ...navData } />
+        <div id = { `section-bottom` }>
+          <Divider />
+          <FormBottomRow { ...navData } />
+        </div>
 
       </Segment>
     </Form>
