@@ -1,8 +1,8 @@
-/** For all income and general cash flow getters and calculators
-* 
-* @todo Add checks for properties with messages for mistakes
-* @todo Deal with expiration dates
-*/
+/** Functions to add up and/or return client props values for
+ *     commonly used money categories.
+ * @module
+ */
+// @todo Add checks for properties with messages for mistakes
 
 // LOGIC
 import { sum, pick, values } from 'lodash';
@@ -18,17 +18,17 @@ import {
   HOMEOWNER_COSTS,
 } from '../data/massachusetts/name-cores';
 
+
 // ==================================
 // DEPENDENTS
 // ==================================
-/** 
- * Total MONTHLY dependent costs, including for those under and over
- *     the age of 13 (does not include child support paid out).
- *     Dependent = child or disabled adult
- * 
+
+/** Adds up MONTHLY dependent costs, including for those under and over
+ *     the age of 13. **Does not include child support paid out.**
+ *     Dependent = child or disabled adult.
  * @function
+ *
  * @param {object} client - `current` or `future` property of client data
- * 
  * @returns {number} - Total dependent care expenses
  */
 const getDependentCostsMonthly = function (client) {
@@ -37,11 +37,10 @@ const getDependentCostsMonthly = function (client) {
 };  // End getDependentCostsMonthly()
 
 
-/**
- * Client's total MONTHLY costs for dependents under 13
- *     (does not include child support paid out).
- * 
+/** Adds up MONTHLY costs for dependents under 13.
+ *     **Does not include child support paid out.**
  * @function
+ *
  * @param {object} client - `current` or `future` property of client data
  * @returns {number}
  */
@@ -50,21 +49,48 @@ const getUnder13Expenses = function (client) {
 };  // End getUnder13Expenses()
 
 
+/** Adds up MONTHLY costs for dependents over 13.
+ *     **Does not include child support paid out.**
+ * @function
+ *
+ * @param {object} client - `current` or `future` property of client data
+ * @returns {number}
+ */
 const getOver12Expenses = function (client) {
   return sumProps(client, OVER12_CARE_EXPENSES);
 };  // End getOver13Expenses()
 
 
+/** Adds up MONTHLY costs for medical expenses.
+ * @function
+ *
+ * @todo Validate what items count as medical expenses.
+ *
+ * @param {object} client - `current` or `future` property of client data
+ * @returns {number}
+ */
 const getMedicalExpenses = function (client) {
   return sumProps(client, ALL_MEDICAL_EXPENSES);
 };  // End getMedicalExpenses()
 
 
+/** Adds up MONTHLY NON-transportation costs for all dependents.
+ * @function
+ *
+ * @param {object} client - `current` or `future` property of client data
+ * @returns {number}
+ */
 const getNonTransportCareCosts = function (client) {
   return sumProps(client, NON_TRANSPORT_DEPENDENT_COSTS);
 };  // End getNonTransportationCareCosts()
 
 
+/** Adds up MONTHLY transportation costs for all dependents.
+ * @function
+ *
+ * @param {object} client - `current` or `future` property of client data
+ * @returns {number}
+ */
 const getTransportDependentCosts = function (client) {
   return sumProps(client, TRANSPORT_DEPENDENT_COSTS);
 };  // End getTransportDependentCosts()
@@ -73,6 +99,14 @@ const getTransportDependentCosts = function (client) {
 // ==================================
 // OTHER EXPENSES
 // ==================================
+
+/** Returns MONTHLY housing costs depending on the kind of housing
+ *     the client has.
+ * @function
+ *
+ * @param {object} client - `current` or `future` property of client data
+ * @returns {number}
+ */
 const getHousingCosts = function (client) {
   var housing = client.housing;
   if (housing === `homeless`) {
@@ -91,12 +125,10 @@ const getHousingCosts = function (client) {
 // STRAIGHT UP INCOME
 // ==================================
 
-/** 
- * Gets sum of all unearned monthly income of given client.
- * 
+/** Adds up all the types of unearned MONTHLY income.
  * @function
+ *
  * @param {object} client - `current` or `future` property of client data
- * 
  * @returns {number}
  */
 const getGrossUnearnedIncomeMonthly = function (client) {
@@ -104,15 +136,12 @@ const getGrossUnearnedIncomeMonthly = function (client) {
 };  // End getGrossUnearnedIncomeMonthly()
 
 
-/**
- * Total monthly earned and unearned income with no deductions or
- *     exclusions.
- * 
+/** Adds up monthly earned and unearned income with no deductions or
+ *     exclusions (which tend to be specific to each program).
  * @function
+ *
  * @param {object} client - `current` or `future` property of client data
- * 
- * @returns {number} - Total earned and unearned monthly
- *     income with no deductions or exclusions.
+ * @returns {number}
  */
 const getSimpleGrossIncomeMonthly = function (client) {
   var earned    = client.earned,
@@ -125,16 +154,17 @@ const getSimpleGrossIncomeMonthly = function (client) {
 // INCOME HELPERS
 // ==================================
 
-/** 
- * Returns the sum of the requested properties of of a given object
- * 
+/** Returns the sum of the requested list of properties of of a given object.
  * @function
- * @param {object} obj - Has the properties named in `props` with number values.
+ *
+ * @param {object} obj - Has the properties named in `props`. Each one's value must be a number.
  * @param {array} props - The names of some properties in `obj` with number values.
  * 
  * @returns {number}
  */
 const sumProps = function (obj, props) {
+  // @todo Explore how to run a check on the value of each prop
+  // to give an error or warning if the value is not a number.
   return sum(values(pick(obj, props)));
 };  // End sumProps()
 
