@@ -16,10 +16,10 @@ const MainMenu = function ({ snippets }) {
       <Menu.Item><Link to="/">{ snippets.i_homeNav }</Link></Menu.Item>
       <Menu.Item><Link to="/about">{ snippets.i_aboutNav }</Link></Menu.Item>
       <Menu.Item>{ snippets.i_githubNav }</Menu.Item>
-      <Menu.Item position='right'>
-        {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
-        {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
-      </Menu.Item>
+      {/*<Menu.Item position='right'>
+        <Link to="/login"><Button inverted>Log in</Button></Link>
+        <Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>
+      </Menu.Item>*/}
     </Menu>
   );
 };  // End MainMenu(<>)
