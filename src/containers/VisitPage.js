@@ -360,6 +360,7 @@ class VisitPage extends Component {
             minWidth='874.5'
             style={{ padding: '14px 0' }}>
             <StepBar
+              className="testorr"
               currentStepIndex={ this.state.currentStep }
               steps={ this.steps }
               goToStep={ this.goToStep }
