@@ -52,9 +52,9 @@ class VisitPage extends Component {
       // For `FeedbackPrompt`
       promptData:  {
         open:      false,  // Start as hidden
-        message:   '',
+        message:   `default`,
         header:    '',
-        leaveText: 'Reset',
+        leaveText: `Leave`,
         callback:  () => {},
       },
       feedbackFormRequested: false,
@@ -112,6 +112,8 @@ class VisitPage extends Component {
   };
 
   askToResetClient = (promptData) => {
+
+    promptData = promptData || this.promptData;
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
