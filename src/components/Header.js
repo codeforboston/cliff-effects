@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Segment } from 'semantic-ui-react';
+import { Segment, Container } from 'semantic-ui-react';
 
 import { MainMenu } from './MainMenu';
 import { BetaWarning } from './BetaWarning';
@@ -15,8 +15,10 @@ class Header extends React.Component {
         textAlign='center'
         vertical
         color='teal'>
-        <MainMenu snippets={ this.props.snippets } />
-        <BetaWarning snippets={ this.props.snippets } />
+        <Container>
+          <MainMenu snippets={ this.props.snippets } />
+          <BetaWarning snippets={ this.props.snippets } />
+        </Container>
       </Segment>
     );
   }

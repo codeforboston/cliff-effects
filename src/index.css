@@ -38,10 +38,10 @@ body {
 
 /* Header.js styles */
 
-#appHeader {
+#appHeader .container {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .header-segment {
@@ -62,6 +62,12 @@ body {
 
 .pl-segment {
   padding: 8em 0em;
+}
+
+/* Form surrounding elements */
+#form-nav .step:hover,
+#form-nav .step:hover::after {
+  background: #dedfe0;
 }
 
 /* Predictions.js */
