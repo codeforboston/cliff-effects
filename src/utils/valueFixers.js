@@ -1,16 +1,14 @@
 /**
- * Transformers for transforming client
- * values into valid values.
+ * Transformers for transforming input values into valid
+ *     client values.
+ * @module
  */
 
-/**
- * Reused Functionality
- */
 const returnSame = function (newVal, state) {
   return newVal;
 };
 
-/** @todo Take regular bools out of here. */
+// @todo Take regular bools out of here.
 const toBoolean = function (value) {
   if (value === 'Yes') {
     return true;
@@ -27,10 +25,7 @@ const stringToNumber = function (str) {
   return Number(str);
 };
 
-/**
- * For every client property and
- * nested property.
- */
+/** Functions to fix every client property and nested property. */
 const valueFixers = {
   // Current programs
   hasSnap:                       returnSame,

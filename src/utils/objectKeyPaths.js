@@ -4,13 +4,14 @@
 
 /**
  * Recursive function that returns an object's keys as an array of arrays.  Can be 
- * used with lodash's Array methods such as _.get() and _.has().  Created to help 
- * find missing and/or extraneous keys in localization objects. 
+ *     used with lodash's Array methods such as _.get() and _.has().  Created to help 
+ *     find missing and/or extraneous keys in localization objects. 
  * @function
- * @name getKeyPathsArray
+ *
  * @param {object} obj - The object to be converted.
  * @param {boolean} [stripVersions=false] - Flag to indicate whether to remove localization version numbers from keys (myKey_v1.0 becomes myKey).
  * @param {array} [base=[ ]] - Used for recursion, usually not passed in initial call. Keys to prepend to each child key.
+ *
  * @return {array} Array containing arrays of object keys as strings
  * 
  * @example
@@ -125,7 +126,7 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
 /**
  * Convert key path array to an array of '.'-delimited strings.
  * @function
- * @name getKeyPathStrings
+ *
  * @param {object} keyPathsArr - Key paths array returned by getKeyPathsArray() 
  * @return {array} New array of key strings
  * 

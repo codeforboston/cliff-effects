@@ -1,7 +1,6 @@
-/**
- * Set of validating functions for making sure
- * value are what they need to be. Just for
- * numbers right now.
+/** Set of validating functions for making sure values are what
+ *     they need to be. Just for numbers right now.
+ * @module
  */
 
 /** Returns true if a string only contains characters for a nonnegative number */
@@ -15,15 +14,15 @@ const hasOnlyNonNegWholeNumberChars = function (str) {
 };
 
 /** Returns true if a string represents a positve number (integer or float) */
-// Should this only be valid if it has <= 2 decimal places?
 const isNonNegNumber = function (str) {
+  // Should this only be valid if it has <= 2 decimal places?
   return str !== '' && !/[^0-9.]|\..*\./.test(str);
 };
 
 
 /** Returns true if a string represents a positive integer */
-/** @todo Change name to 'isWholeNumber'. */
 const isNonNegWholeNumber = function (str) {
+  // @todo Change name to 'isWholeNumber'? Whole numbers aren't negaive, right?
   return str !== '' && /^[0-9]*$/.test(str);
 };
 

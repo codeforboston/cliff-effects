@@ -1,3 +1,7 @@
+/** Sets nested client properties. Helper for updating state.
+ * @module
+ */
+
 import { valueFixers } from './valueFixers';
 import { getSideEffects } from './getSideEffects';
 
@@ -53,7 +57,7 @@ const setValidFuture = function (evnt, newFuture, setByUser) {
   return newFuture;
 };  // End setValidFuture()
 
-/** Trigger functions that could affect other client
+/** Triggers functions that could affect other client
  *     values. Run after other client properties have
  *     been set.
  * 
