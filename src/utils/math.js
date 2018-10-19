@@ -1,5 +1,8 @@
-/** For different kinds of math operations we need, some unconventional */
+/** For different kinds of math operations we need, some unconventional
+ * @module
+ */
 
+// @todo We probably don't need this one... lodash...
 const sum = function (vals) {
   var total = 0;
   for (let vali = 0; vali < vals.length; vali++) {
@@ -8,7 +11,11 @@ const sum = function (vals) {
   return total;
 };
 
-
+/** A consistent way to round to money values throughout the app
+ *
+ * @todo Find goverment documentation on standard way to round
+ *     money values.
+ */
 const roundMoney = function (val) {
   // Only round values for display. In actual calculations and
   // storage objects, keep things exact. Also, this doesn't restrict
@@ -28,14 +35,13 @@ const moneyToWholeNum = function (val) {
 
 
 /**
-* Turns a value into a float, limits it in between min and max, and
-* makes sure to return a number (not NaN).
-*
-* @todo Testing required
-*/
+ * Turns a value into a float, limits it in between min and max, and
+ *     makes sure to return a number (not NaN).
+ */
 const limit = function (initialVal, minMax) {
+  // tested?
 
-  /** @todo Add trailing 0's somewhere */
+  // @todo Add trailing 0's somewhere
   var min = minMax.min,
       max = minMax.max;
 
@@ -60,15 +66,16 @@ const limit = function (initialVal, minMax) {
 
 var toMonthlyAmount = {};
 
+// @todo Use ./convert-by-timescale.js instead?
+
+/** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
 toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
-  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
   var monthlyRaw  = weeklyVal * (4 + 1 / 3),
       monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;
 
 };  // End toMonthlyAmount.weekly()
-
 
 toMonthlyAmount.monthly = function (evnt, monthlyVal) {
   // Monthly is used for a lot of things and is the one we want to store
@@ -77,10 +84,9 @@ toMonthlyAmount.monthly = function (evnt, monthlyVal) {
 
 };  // End toMonthlyAmount.monthly()
 
-
+/** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
 toMonthlyAmount.yearly = function (evnt, yearlyVal) {
 
-  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
   var monthlyRaw  = (yearlyVal / 12),
       monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;
