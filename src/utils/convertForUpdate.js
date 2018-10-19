@@ -1,6 +1,3 @@
-/**
- *
- */
 const convertForUpdate = function ({ name, route, ...otherProps }) {
 
   var forUpdate = {

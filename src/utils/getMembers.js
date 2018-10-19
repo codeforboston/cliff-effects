@@ -1,3 +1,6 @@
+/** Patterns for getting collections of members.
+ * @module
+ */
 
 // ===================
 // ACCUMULATORS
@@ -65,8 +68,8 @@ const getHeadOrSpouseOfHousehold = function (client) {
 /**
  * @todo Is it possible for people older than 18 to still be dependents?
  *     I think that on tax forms it's possible to claim people as
- *     dependents until age 26. */
-
+ *     dependents until age 26.
+ */
 const isDependent = function (member) {
   return (member.m_age <= 18 || member.m_disabled) && isNotHeadOrSpouse(member);
 };  // End isDependent()
@@ -106,7 +109,6 @@ const isUnder13 = function (member) {
   return member.m_age <= 12;
 };  // End isUnder13()
 
-
 const getUnder13Members = function (memberList) {
   return getEveryMember(memberList, isUnder13);
 };  // End getUnder13Members()
@@ -116,6 +118,7 @@ const getUnder13OfHousehold = function (client) {
   return getEveryMemberOfHousehold(client, isUnder13);
 };  // End getUnder13OfHousehold()
 
+// Will replace `isUnder13()` in future.
 const isYoungerThan = function (member, comparisonData) {
   // Can be number or object with correct prop
   var age = comparisonData.age || comparisonData;
@@ -129,7 +132,6 @@ const getYoungerThan = function (client, age) {
 const isOlderThan = function (member, comparisonData) {
   // Can be number or object with correct prop
   var age = comparisonData.age || comparisonData;
-  // console.log(age, member.m_age);
   return member.m_age > age;
 };
 
