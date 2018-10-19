@@ -2,6 +2,9 @@
  *     on other client values. All side effect
  *     functions return objects to be added to
  *     new state.
+ * @module
+ *
+ * @todo Each state might need its own version of this.
  */
 
 

@@ -1,4 +1,6 @@
-/** Returns a translator based on the language given */
+/** Returns a translator based on the language given
+ * @module
+ */
 
 // TRANSFORMER FUNCTIONS
 import { mergeWith } from 'lodash';

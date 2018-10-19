@@ -1,6 +1,7 @@
 /**
  * Abstracts current and future program and
- * income values on Predictions form
+ * income values on Predictions form.
+ * @module
  */
 
 const getBenefitTimeFrames = function (client, benefitCheck, benefitsFunc) {
