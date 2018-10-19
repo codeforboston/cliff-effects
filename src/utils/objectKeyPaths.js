@@ -1,3 +1,7 @@
+/** Turning nested objects into arrays of strings.
+ * @module
+ */
+
 /**
  * Recursive function that returns an object's keys as an array of arrays.  Can be 
  * used with lodash's Array methods such as _.get() and _.has().  Created to help 
@@ -153,4 +157,7 @@ const getKeyPathStrings = (keyPathsArr) => {
 };
 
 
-export { getKeyPathsArray, getKeyPathStrings };
+export {
+  getKeyPathsArray,
+  getKeyPathStrings,
+};
