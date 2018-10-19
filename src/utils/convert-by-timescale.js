@@ -1,23 +1,23 @@
-/**
- * Convert (usually money) amounts between weekly, monthly, and yearly amounts.
+/** Convert (usually money) amounts between weekly, monthly, and yearly amounts.
+ * @module
  */
 
-/** Returns `amount` converted from whatever 'timescale' it was before
+/** Returns `amount` converted from whatever 'time interval' it was before
  *     to a yearly amount
  *
  * @param {number} amount - numeric value to be converted
- * @param {string} startTimescale - timescale of the original
- *     value. Can be 'weekly', 'monthly', or 'yearly'.
+ * @param {'weekly'|'monthly'|'yearly'} startTimeInterval - time interval of the original
+ *     value.
  */
-var toYearlyFrom = function (amount, startTimescale) {
+var toYearlyFrom = function (amount, startTimeInterval) {
   
   var converted = amount;
 
-  if (startTimescale === 'weekly') {
+  if (startTimeInterval === 'weekly') {
     converted = amount * 52;
-  } else if (startTimescale === 'monthly') {
+  } else if (startTimeInterval === 'monthly') {
     converted = amount * 12;
-  } else if (startTimescale === 'yearly') {
+  } else if (startTimeInterval === 'yearly') {
     // do nothing
   }
 
@@ -25,22 +25,22 @@ var toYearlyFrom = function (amount, startTimescale) {
 };  // End toYearlyFrom()
 
 
-/** Returns `amount` converted from whatever 'timescale' it was before
+/** Returns `amount` converted from whatever 'time interval' it was before
  *     to a monthly amount
  *
  * @param {number} amount - numeric value to be converted
- * @param {string} startTimescale - timescale of the original
- *     value. Can be 'weekly', 'monthly', or 'yearly'.
+ * @param {'weekly'|'monthly'|'yearly'} startTimeInterval - time interval of the original
+ *     value.
  */
-var toMonthlyFrom = function (amount, startTimescale) {
+var toMonthlyFrom = function (amount, startTimeInterval) {
   
   var converted = amount;
 
-  if (startTimescale === 'weekly') {
+  if (startTimeInterval === 'weekly') {
     converted = amount * (4 + (1 / 3));
-  } else if (startTimescale === 'monthly') {
+  } else if (startTimeInterval === 'monthly') {
     // do nothing
-  } else if (startTimescale === 'yearly') {
+  } else if (startTimeInterval === 'yearly') {
     converted = amount / 12;
   }
 
@@ -48,28 +48,29 @@ var toMonthlyFrom = function (amount, startTimescale) {
 };  // End toMonthlyFrom()
 
 
-/** Returns `amount` converted from whatever 'timescale' it was before
+/** Returns `amount` converted from whatever 'time interval' it was before
  *     to a weekly amount
  *
  * @param {number} amount - numeric value to be converted
- * @param {string} startTimescale - timescale of the original
- *     value. Can be 'weekly', 'monthly', or 'yearly'.
+ * @param {'weekly'|'monthly'|'yearly'} startTimeInterval - time interval of the original
+ *     value.
  */
-var toWeeklyFrom = function (amount, startTimescale) {
+var toWeeklyFrom = function (amount, startTimeInterval) {
   
   var converted = amount;
 
-  if (startTimescale === 'weekly') {
+  if (startTimeInterval === 'weekly') {
     // do nothing
-  } else if (startTimescale === 'monthly') {
+  } else if (startTimeInterval === 'monthly') {
     converted = amount / (4 + (1 / 3));
-  } else if (startTimescale === 'yearly') {
+  } else if (startTimeInterval === 'yearly') {
     converted = amount * 52;
   }
 
   return converted;
 };  // End toWeeklyFrom()
 
+/** Math to do for each type of conversion. */
 var timescaleMultipliers = {};
 
 timescaleMultipliers.fromYearly = {
