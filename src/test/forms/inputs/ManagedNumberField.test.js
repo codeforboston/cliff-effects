@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ManagedNumberField } from '../../forms/inputs';
-import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../../utils/validators';
+import { ManagedNumberField } from '../../../forms/inputs';
+import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../../../utils/validators';
 
 test('ManagedNumberField should match snapshot', () => {
   const wrapper = shallow(

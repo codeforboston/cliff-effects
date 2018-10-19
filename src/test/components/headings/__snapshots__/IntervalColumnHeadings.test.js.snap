@@ -1,0 +1,421 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
+<IntervalColumnHeadings
+  type="ALL CAPS"
+>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <ColumnHeading
+      colName="weekly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="ALL CAPS"
+    >
+      <Header
+        as="h4"
+        className="ALL CAPS-column cashflow-column header weekly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header ALL CAPS-column cashflow-column header weekly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Weekly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="monthly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="ALL CAPS"
+    >
+      <Header
+        as="h4"
+        className="ALL CAPS-column cashflow-column header monthly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header ALL CAPS-column cashflow-column header monthly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Monthly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="yearly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="ALL CAPS"
+    >
+      <Header
+        as="h4"
+        className="ALL CAPS-column cashflow-column header yearly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header ALL CAPS-column cashflow-column header yearly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Yearly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="ALL CAPS"
+      columnTitle="All Caps Type"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="ALL CAPS"
+    >
+      <Header
+        as="h4"
+        className="ALL CAPS-column cashflow-column header ALL CAPS"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header ALL CAPS-column cashflow-column header ALL CAPS"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          All Caps Type
+        </h4>
+      </Header>
+    </ColumnHeading>
+  </div>
+</IntervalColumnHeadings>
+`;
+
+exports[`<IntervalColumnHeadings> matches snapshot 2`] = `
+<IntervalColumnHeadings
+  type="all lowercase"
+>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <ColumnHeading
+      colName="weekly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="all lowercase"
+    >
+      <Header
+        as="h4"
+        className="all lowercase-column cashflow-column header weekly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header all lowercase-column cashflow-column header weekly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Weekly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="monthly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="all lowercase"
+    >
+      <Header
+        as="h4"
+        className="all lowercase-column cashflow-column header monthly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header all lowercase-column cashflow-column header monthly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Monthly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="yearly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="all lowercase"
+    >
+      <Header
+        as="h4"
+        className="all lowercase-column cashflow-column header yearly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header all lowercase-column cashflow-column header yearly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Yearly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="all lowercase"
+      columnTitle="All Lowercase Type"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="all lowercase"
+    >
+      <Header
+        as="h4"
+        className="all lowercase-column cashflow-column header all lowercase"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header all lowercase-column cashflow-column header all lowercase"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          All Lowercase Type
+        </h4>
+      </Header>
+    </ColumnHeading>
+  </div>
+</IntervalColumnHeadings>
+`;
+
+exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
+<IntervalColumnHeadings
+  type="1WITH 2NUMBERS"
+>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <ColumnHeading
+      colName="weekly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="1WITH 2NUMBERS"
+    >
+      <Header
+        as="h4"
+        className="1WITH 2NUMBERS-column cashflow-column header weekly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header weekly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Weekly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="monthly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="1WITH 2NUMBERS"
+    >
+      <Header
+        as="h4"
+        className="1WITH 2NUMBERS-column cashflow-column header monthly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header monthly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Monthly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="yearly"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="1WITH 2NUMBERS"
+    >
+      <Header
+        as="h4"
+        className="1WITH 2NUMBERS-column cashflow-column header yearly"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header yearly"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          Yearly
+        </h4>
+      </Header>
+    </ColumnHeading>
+    <ColumnHeading
+      colName="1WITH 2NUMBERS"
+      columnTitle="1with 2numbers Type"
+      style={
+        Object {
+          "fontSize": "14px",
+        }
+      }
+      type="1WITH 2NUMBERS"
+    >
+      <Header
+        as="h4"
+        className="1WITH 2NUMBERS-column cashflow-column header 1WITH 2NUMBERS"
+        color="teal"
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        <h4
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header 1WITH 2NUMBERS"
+          style={
+            Object {
+              "fontSize": "14px",
+            }
+          }
+        >
+          1with 2numbers Type
+        </h4>
+      </Header>
+    </ColumnHeading>
+  </div>
+</IntervalColumnHeadings>
+`;

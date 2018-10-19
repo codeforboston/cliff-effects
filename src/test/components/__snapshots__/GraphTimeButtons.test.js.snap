@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GraphTimeButtons> matches snapshot 1`] = `
+<GraphTimeButtons>
+  <ButtonGroup
+    basic={true}
+    className="graph-time-options"
+  >
+    <div
+      className="ui basic buttons graph-time-options"
+    >
+      <GraphButton
+        id="Weekly"
+      >
+        <Button
+          active={false}
+          as="button"
+          id="Weekly"
+        >
+          <button
+            className="ui button"
+            id="Weekly"
+            onClick={[Function]}
+            role="button"
+          >
+            Weekly
+          </button>
+        </Button>
+      </GraphButton>
+      <GraphButton
+        id="Monthly"
+      >
+        <Button
+          active={false}
+          as="button"
+          id="Monthly"
+        >
+          <button
+            className="ui button"
+            id="Monthly"
+            onClick={[Function]}
+            role="button"
+          >
+            Monthly
+          </button>
+        </Button>
+      </GraphButton>
+      <GraphButton
+        id="Yearly"
+      >
+        <Button
+          active={false}
+          as="button"
+          id="Yearly"
+        >
+          <button
+            className="ui button"
+            id="Yearly"
+            onClick={[Function]}
+            role="button"
+          >
+            Yearly
+          </button>
+        </Button>
+      </GraphButton>
+    </div>
+  </ButtonGroup>
+</GraphTimeButtons>
+`;
