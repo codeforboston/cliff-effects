@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: forms/output/StackedBarGraph.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: forms/output/StackedBarGraph.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import { Bar } from 'react-chartjs-2';
+
+// COMPONENT HELPER FUNCTIONS
+import {
+  formatAxis,
+  formatLabel,
+  formatStackedTitle,
+} from '../../utils/charts/chartFormatting';
+import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
+
+// DATA
+// Colors and text for parts of the chart
+import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
+
+// OBJECT MANIPULATION
+import { cloneDeep } from 'lodash';
+
+
+/** Visual representation of the table
+ *
+ * Alternatives:
+ * 1. Stacked area graph for two data points
+ * 2. Line graph of difference of just total money coming in
+ * 
+ * @param {object} client Full client object, with current
+ *     and future. All client props are needed.
+ */
+const StackedBarGraph = function({ client }) {
+
+  var clone = cloneDeep(client),
+      curr  = clone.current;
+
+  var allData         = {},
+      activeBenefits  = [ `income` ];
+
+  if (curr.hasSection8) {
+    activeBenefits.push(`section8`);
+  }
+
+  if (curr.hasSnap) {
+    activeBenefits.push(`snap`);
+  }
+
+  var currentCalcData = {
+    activeBenefits: activeBenefits,
+    dataToAddTo:    allData,
+    clientToChange: clone,
+    timeframe:      `current`,
+  };
+  applyAndPushBenefits (currentCalcData);
+
+  // Add to the `current` data already there
+  var futureCalcData = {
+    activeBenefits: activeBenefits,
+    dataToAddTo:    allData,
+    clientToChange: clone,
+    timeframe:      `future`,
+  };
+  applyAndPushBenefits (futureCalcData);
+
+  var datasets    = [],
+      moneyLabels = [];
+  for (let bName of activeBenefits) {
+
+    let frosting = PROGRAM_CHART_VALUES[ bName ],
+        dataset  = {
+          label:           frosting.name,
+          backgroundColor: frosting.color,
+          data:            allData[ bName ],
+        };
+
+    if (bName === `income`) {
+      dataset.fill = `origin`;
+      for (let amount of dataset.data) {
+        moneyLabels.push(Math.round(amount));
+      }
+    }
+
+    datasets.push(dataset);
+  }  // end for each benefit in order
+
+  const stackedBarProps = {
+    data: {
+      labels:   moneyLabels,
+      datasets: datasets,
+    },
+    options: {
+      title: {
+        display: true,
+        text:    'Money Coming In as Income Changes',
+      },
+      scales: {
+        yAxes: [
+          {
+            stacked:    true,
+            scaleLabel: {
+              display:     true,
+              labelString: 'Total Money Coming In ($)',
+            },
+            ticks: {
+              beginAtZero: true,
+              callback:    formatAxis,
+            },
+          }, 
+        ],
+        xAxes: [
+          {
+            stacked:    true,
+            scaleLabel: {
+              display:     true,
+              labelString: 'Monthly Income ($)',
+            },
+            ticks: { callback: formatAxis },
+          },
+        ],
+      },
+      tooltips: {
+        callbacks: {
+          title: formatStackedTitle,
+          label: formatLabel,
+        },
+      },
+    },
+  };
+
+
+  return (
+    &lt;Bar { ...stackedBarProps } />
+  );
+
+};  // End &lt;StackedBarGraph>
+
+
+export { StackedBarGraph };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_cashflow.html">utils/cashflow</a></li><li><a href="module-utils_convert-by-timescale.html">utils/convert-by-timescale</a></li><li><a href="module-utils_getGovData.html">utils/getGovData</a></li><li><a href="module-utils_getMembers.html">utils/getMembers</a></li><li><a href="module-utils_getSideEffects.html">utils/getSideEffects</a></li><li><a href="module-utils_getTextForLanguage.html">utils/getTextForLanguage</a></li><li><a href="module-utils_getTimeFrames.html">utils/getTimeFrames</a></li><li><a href="module-utils_interpolation.html">utils/interpolation</a></li><li><a href="module-utils_math.html">utils/math</a></li><li><a href="module-utils_objectKeyPaths.html">utils/objectKeyPaths</a></li><li><a href="module-utils_setNestedProperty.html">utils/setNestedProperty</a></li><li><a href="module-utils_validators.html">utils/validators</a></li><li><a href="module-utils_valueFixers.html">utils/valueFixers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Oct 19 2018 10:24:48 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

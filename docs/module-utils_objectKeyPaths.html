@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: utils/objectKeyPaths</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: utils/objectKeyPaths</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Turning nested objects into arrays of strings.</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_objectKeyPaths.js.html">utils/objectKeyPaths.js</a>, <a href="utils_objectKeyPaths.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getKeyPathsArray"><span class="type-signature">(inner) </span>getKeyPathsArray<span class="signature">(obj, stripVersions<span class="signature-attributes">opt</span>, base<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Recursive function that returns an object's keys as an array of arrays.  Can be 
+    used with lodash's Array methods such as _.get() and _.has().  Created to help 
+    find missing and/or extraneous keys in localization objects.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The object to be converted.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stripVersions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Flag to indicate whether to remove localization version numbers from keys (myKey_v1.0 becomes myKey).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>base</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    [ ]
+                
+                </td>
+            
+
+            <td class="description last"><p>Used for recursion, usually not passed in initial call. Keys to prepend to each child key.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_objectKeyPaths.js.html">utils/objectKeyPaths.js</a>, <a href="utils_objectKeyPaths.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Array containing arrays of object keys as strings</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const objModel = {
+  a: { b: '1' },
+  c: 2,
+  d: [ 1, 2, 3, ],
+  e: {
+    f: {
+      g: { h: '' },
+      i: '',
+    },
+  },
+};
+const pathsArray = getKeyPathsArray(objModel);
+
+console.log(pathsArray);
+// [
+//   [ 'a' ],
+//   [ 'a', 'b' ],
+//   [ 'c' ],
+//   [ 'd' ],
+//   [ 'e' ],
+//   [ 'e', 'f' ],
+//   [ 'e', 'f', 'g' ],
+//   [ 'e', 'f', 'g', 'h' ],
+//   [ 'e', 'f', 'i' ]
+// ]
+
+const objToCompare = {
+  a: { b: '1' },
+  e: {
+    f: {
+      g: { h: '' },
+    },
+  },
+};
+console.log(_.has(objToCompare, pathsArray[2])); // false
+console.log(_.has(objToCompare, pathsArray[8])); // true
+console.log(_.get(objToCompare, pathsArray[0])); // { b: '1' }
+console.log(_.get(objToCompare, pathsArray[1])); // 1
+console.log(_.get(objToCompare, pathsArray[2])); // undefined
+
+// Removing versions from keys
+const pathsArrayWithoutVersions = getKeyPathsArray(objToCompare, true) = {
+  a: { b_v1: '1' },
+  e: {
+    f: {
+      g: { 'h_v3.0': '' },
+    },
+  },
+};
+console.log(pathsArrayWithoutVersions;
+// [
+//   [ 'a' ],
+//   [ 'a', 'b' ],
+//   [ 'e' ],
+//   [ 'e', 'f' ],
+//   [ 'e', 'f', 'g' ],
+//   [ 'e', 'f', 'g', 'h' ]
+// ]</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getKeyPathStrings"><span class="type-signature">(inner) </span>getKeyPathStrings<span class="signature">(keyPathsArr)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Convert key path array to an array of '.'-delimited strings.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keyPathsArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Key paths array returned by getKeyPathsArray()</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_objectKeyPaths.js.html">utils/objectKeyPaths.js</a>, <a href="utils_objectKeyPaths.js.html#line154">line 154</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>New array of key strings</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const keyPathsArray = [
+  [ 'a' ],
+  [ 'a', 'b' ],
+  [ 'e' ],
+  [ 'e', 'f' ],
+  [ 'e', 'f', 'g' ],
+  [ 'e', 'f', 'g', 'h' ],
+];
+
+const keyPathsAsStrings = getKeyPathStrings(keyPathsArray);
+console.log(keyPathsAsStrings);
+// [ 
+//   'a',
+//   'a.b',
+//   'e',
+//   'e.f',
+//   'e.f.g',
+//   'e.f.g.h'
+// ]</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_cashflow.html">utils/cashflow</a></li><li><a href="module-utils_convert-by-timescale.html">utils/convert-by-timescale</a></li><li><a href="module-utils_getGovData.html">utils/getGovData</a></li><li><a href="module-utils_getMembers.html">utils/getMembers</a></li><li><a href="module-utils_getSideEffects.html">utils/getSideEffects</a></li><li><a href="module-utils_getTextForLanguage.html">utils/getTextForLanguage</a></li><li><a href="module-utils_getTimeFrames.html">utils/getTimeFrames</a></li><li><a href="module-utils_interpolation.html">utils/interpolation</a></li><li><a href="module-utils_math.html">utils/math</a></li><li><a href="module-utils_objectKeyPaths.html">utils/objectKeyPaths</a></li><li><a href="module-utils_setNestedProperty.html">utils/setNestedProperty</a></li><li><a href="module-utils_validators.html">utils/validators</a></li><li><a href="module-utils_valueFixers.html">utils/valueFixers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Oct 19 2018 10:24:48 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

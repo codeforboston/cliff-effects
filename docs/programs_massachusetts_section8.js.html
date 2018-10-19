@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: programs/massachusetts/section8.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: programs/massachusetts/section8.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+// DATA
+import { UNDER13_CARE_EXPENSES } from '../../data/massachusetts/name-cores';
+
+// UTILITIES
+import { sum } from '../../utils/math';
+import {
+  sumProps,
+  getGrossUnearnedIncomeMonthly,
+} from '../../utils/cashflow';
+import {
+  getEveryMemberOfHousehold,
+  isHeadOrSpouse,
+  getDependentsOfHousehold,
+  isDisabled,
+} from '../../utils/getMembers';
+
+
+/** Uses old and new cash flow data, return new subsidy amount,
+ *     include new rent share. Can only be useful in predicting
+ *     future subisdy amounts.
+ *
+ * @function
+ * @since 09/2017
+ *
+ * With Project Hopes's guidance, we're using old known values (as
+ *     known as they can get) to derive new values. Summary:
+ * var diff = new min ttp - old min ttp;
+ * var new rent share = old rent share + diff;
+ * var new subsidy = contract rent - new rent share
+ *
+ * @see Deriving: {@link https://docs.google.com/document/d/1o1Tm0HioHeY4NcBSDcjSbXDOjmCAJdI47kG5Fyms0UI/edit#}.
+ * @see Definitions: {@link https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf}
+ */
+const getSection8Benefit = function (client, timeframe) {
+  /** @todo Just return number values */
+
+  // Current subsidy MUST already be known in every case
+  if (timeframe === 'current') {
+    return client.current.contractRent - client.current.rentShare;
+  }
+
+  var ttps        = hlp.getTTPs(client),
+      diff        = ttps.newTTP - ttps.oldTTP,
+      newShare    = diff + client.current.rentShare,
+      contrRent   = client.current.contractRent;
+
+  // Don't pay more rent than the landlord is asking for
+  var maxShare    = Math.min(contrRent, newShare),
+      newSubsidy  = contrRent - maxShare;
+
+  return newSubsidy;
+};  // End getSection8Benefit
+
+
+var section8Helpers = {},
+    hlp             = section8Helpers;
+
+/** Returns total tenant payment (TTP). Uses raw monthly values or
+ *     converts values to monthly amounts where gov tables give
+ *     values in yearly amounts.
+ *
+ * TTP represents max rent share. Pg 59 calls this min ttp,
+ *     but another (Appendix B) calls it max. The second
+ *     makes more sense in context.
+ *
+ * Note: welfare rent and PHA min rent are not known and so not
+ *     included. MA may not have welfare rent and PHA min can
+ *     be waived.
+ *
+ * '#' refers to # item on form at Appendix B of 
+ *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
+ */
+hlp.getTTPs = function (client) {
+  var oldNet = hlp.getNetIncome(client, 'current'),
+      newNet = hlp.getNetIncome(client, 'future');
+
+  var oldAdj = hlp.getAdjustedIncome(client, 'current', oldNet),
+      newAdj = hlp.getAdjustedIncome(client, 'future', newNet);
+
+  /** @todo A placeholder till we know what to do with negative values */
+  oldAdj = Math.max(0, oldAdj);
+  newAdj = Math.max(0, newAdj);
+
+  // #17, 30% of Adjusted Monthly Income
+  var oldAdjToTest = oldAdj * 0.3,
+      newAdjToTest = newAdj * 0.3,
+      // #18, 10% of Monthly Income
+      oldNetToTest = oldNet * 0.1,
+      newNetToTest = newNet * 0.1;
+
+  var oldMaxTTP = Math.max(oldNetToTest, oldAdjToTest),
+      newMaxTTP = Math.max(newNetToTest, newAdjToTest),
+      ttps      = { oldTTP: oldMaxTTP, newTTP: newMaxTTP };
+
+  return ttps;
+};  // End hlp.getTTPs()
+
+
+// =============================
+// NET INCOME
+// =============================
+
+hlp.getNetIncome = function (client, timeframe) {
+  var unearned = getGrossUnearnedIncomeMonthly(client[ timeframe ]),
+      gross    = unearned + client[ timeframe ].earned;
+  // net = gross - incomeExclusions, but income exclusions not accounted for for MVP
+  return gross;
+};  // End hlp.getNetIncome()
+
+
+// =============================
+// ADJUSTED INCOME
+// =============================
+/** This is only adjusted income as defined for the Section 8 program.
+ *     Uses raw monthly values or converts values to monthly amounts
+ *
+ * '#' refers to # item on form at Appendix B of
+ *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
+ * 'pg' refers to the written page number of ~{@link https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf}~
+ *     which is gone, though @knod has what we believe to be a local copy.
+ */
+hlp.getAdjustedIncome = function (client, timeframe, net) {
+
+  var time       = timeframe,  // shorter
+      allowances = [];
+
+  // #4 &amp; #5
+  var depAllowanceAnnual = getDependentsOfHousehold(client[ time ]).length * 480;
+  allowances.push(depAllowanceAnnual / 12);
+  // #6
+  var childcare   = sumProps(client[ time ], UNDER13_CARE_EXPENSES),
+      ccIncome    = client[ time ].earnedBecauseOfChildCare,
+      /* @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
+      ccMin       = Math.min(childcare, ccIncome);
+  allowances.push(ccMin);
+  // #7 - 13
+  var disAndMed = hlp.getDisabledAndMedicalAllowancesSum(client, time, net);
+  allowances.push(disAndMed);
+  // #14 (yes, they mean head or spouse here)
+  if (hlp.hasDsbOrEldHeadOrSpouse(client, time)) { 
+    allowances.push(400 / 12); 
+  }
+
+  var total = sum(allowances),
+      adj   = net - total;
+
+  return Math.max(0, adj);
+};  // End hlp.getAdjustedIncome()
+
+
+/** Returns medical allowance needs assistance allowance amounts.
+ *     Uses raw monthly values.
+ *
+ * '#' refers to # item on form at Appendix B of
+ *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
+ * 'pg' refers to the written page number of ~{@link https://portal.hud.gov/hudportal/documents/huddoc?id=DOC_11749.pdf}~
+ *     which is gone, though @knod has what we believe to be a local copy.
+ */
+hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
+
+  var time          = timeframe,  // shorter
+      netSubtractor = net * 0.03;  // #8, #13
+
+  // ----- Assistance Allowance #C, #7 - 11 ----- \\
+  if (!hlp.hasAnyDsbOrElderly(client, time)) { 
+    return 0; 
+  }
+  // pg 5-30 to 5-31
+  var handcpExpense       = client[ time ].disabledAssistance,  // #7
+      assistanceRemainder = handcpExpense - netSubtractor,  // #9
+      handicapAllowance   = hlp.getMinHandicapAllowance(client, time, assistanceRemainder);  // #10, #11
+
+  // ----- Maybe Stop, #D ----- \\
+  // Only keep going if there's a disabled/elderly head or spouse (or sole member)
+  if (!hlp.hasDsbOrEldHeadOrSpouse(client, time)) { 
+    return handicapAllowance; 
+  }
+
+  // ----- Medical Allowance #12 - 13 ----- \\
+  let medicalExpenses = hlp.getMedicalExpenses(client, time);
+  // Read all of pg 5-32 and 5-34 for the following conditional.
+  // Jumps around because cases are overlapping.
+  var medAllowance = 0;
+  // #13a, pg 5-32 bottom (5-33 to 5-34 example falls in here)
+  // Note: #13 forgets the '>=' part and just says '>'
+  if (assistanceRemainder >= 0) { 
+    medAllowance = medicalExpenses; 
+  }
+  // #13b; pg 5-33 middle /and/ pg 5-32 middle, above "special calcuations"
+  // In both cases handcpExpense is >= 0 and can be safely added.
+  else {
+    var sum       = medicalExpenses + handcpExpense;
+    medAllowance  = sum - netSubtractor;
+  }
+
+  var medMin = Math.max(0, medAllowance);
+  return handicapAllowance + medMin;  // #15 contribution ( #11 + #13 )
+};  // End hlp.getDisabledAndMedicalAllowancesSum()
+
+
+hlp.getMinHandicapAllowance = function (client, time, assistanceRemainder) {
+  let asstIncome     = client[ time ].earnedBecauseOfAdultCare, // #10
+      hcapAllowance  = Math.min(assistanceRemainder, asstIncome),  // #11
+      hcapMin        = Math.max(0, hcapAllowance);  // Don't get negative
+  return hcapMin;
+};
+
+
+hlp.getMedicalExpenses = function (client, time) {
+  // ----- Medical Allowance #12 - 13 ----- \\
+  // #12, pg 5-31 to 5-32
+  var disOrElderlyMedical = client[ time ].disabledMedical,
+      // pg 5-31 says all medical expenses count for this household
+      otherMedical        = client[ time ].otherMedical,
+      medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
+
+  return medicalExpenses;
+};
+
+
+hlp.isDisabledOrElderly = function (member) {
+  return member.m_age >= 62 || isDisabled(member);
+};  // End hlp.isDisabledOrElderly()
+
+
+// Sure, we could combine these last two, but may be easier to test this way
+hlp.hasAnyDsbOrElderly = function (client, timeframe) {
+  var numMatches = getEveryMemberOfHousehold(client[ timeframe ], hlp.isDisabledOrElderly).length;
+  return numMatches > 0;
+};  // End hlp.hasAnyDsbOrElderly()
+
+
+hlp.hasDsbOrEldHeadOrSpouse = function (client, timeframe) {
+
+  var comboTest = function (member) {
+    return hlp.isDisabledOrElderly(member) &amp;&amp; isHeadOrSpouse(member);
+  };
+  var numMatches = getEveryMemberOfHousehold(client[ timeframe ], comboTest).length;
+
+  return numMatches > 0;
+
+};  // End hlp.hasDsbOrEldHeadOrSpouse()
+
+
+export {
+  getSection8Benefit,
+  section8Helpers,
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_cashflow.html">utils/cashflow</a></li><li><a href="module-utils_convert-by-timescale.html">utils/convert-by-timescale</a></li><li><a href="module-utils_getGovData.html">utils/getGovData</a></li><li><a href="module-utils_getMembers.html">utils/getMembers</a></li><li><a href="module-utils_getSideEffects.html">utils/getSideEffects</a></li><li><a href="module-utils_getTextForLanguage.html">utils/getTextForLanguage</a></li><li><a href="module-utils_getTimeFrames.html">utils/getTimeFrames</a></li><li><a href="module-utils_interpolation.html">utils/interpolation</a></li><li><a href="module-utils_math.html">utils/math</a></li><li><a href="module-utils_objectKeyPaths.html">utils/objectKeyPaths</a></li><li><a href="module-utils_setNestedProperty.html">utils/setNestedProperty</a></li><li><a href="module-utils_validators.html">utils/validators</a></li><li><a href="module-utils_valueFixers.html">utils/valueFixers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Oct 19 2018 10:24:48 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: forms/cashflow.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: forms/cashflow.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// REACT COMPONENTS
+import React, { Component } from 'react';
+import { Form } from 'semantic-ui-react';
+
+// PROJECT COMPONENTS
+import { ManagedNumberField } from './inputs';
+import { InvalidMessage } from './formHelpers';
+
+// UTILITIES
+import { toMonthlyAmount } from '../utils/math';
+import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
+import { toMoneyStr } from '../utils/prettifiers';
+
+
+/** Contains cash flow inputs, their label, and any user feedback
+ *
+ * @function
+ * @param {object} props
+ * @param {object} props.children The cash flow inputs
+ * @param {object} props.label What category these inputs are for
+ * @param {object} props.validRow Whether 'invalid' feedback needs to be shown
+ * @param {object} props.message Feedback to user about invalid input
+ *
+ * @returns React element
+ */
+const CashFlowContainer = function ({ children, label, validRow, message }) {
+  return (
+    &lt;Form.Field
+      inline
+      className={ 'cashflow' }>
+      { children }
+      &lt;div className={ 'cashflow-column cashflow-column-last-child' }>
+        &lt;label>{ label }&lt;/label>
+      &lt;/div>
+      &lt;InvalidMessage
+        validRow={ validRow }
+        message={ message } />
+    &lt;/Form.Field>
+  );
+};  // End &lt;CashFlowContainer>
+
+/** Maximum input value of yearly income allowed in the textbox,
+ *     monthly/daily will be scaled
+ * @var
+ */
+const maximum_value_yearly = 999999.99;
+
+
+// @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
+// use `includes` array to include only certain columns perhaps.
+/** One row for cash flow inputs - weekly, monthly, yearly
+ *
+ * @param {object} props
+ * @param {object} props.generic Base name for the client property that
+ *     needs to be updated (now the code has changed, this may be a misnomer)
+ * @param {object} props.timeState Client, either future values or current values
+ * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.children Text for the row label
+ */
+class CashFlowInputsRow extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { message: '' };
+  }
+
+  // Special store validator that handles maximums and sets error message
+  cashFlowStoreValidator = (max) => {
+    return (str) => {
+      if (!isNonNegNumber(str)) {
+        this.setState({ message: 'Invalid number format' });
+        return false;
+      }
+      else if (parseFloat(str) > max) {
+        this.setState({ message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
+        return false;
+      }
+      this.setState({ message: '' });
+      return true;
+    };
+  };
+
+  render() {
+    var { generic, timeState, updateClientValue, children } = this.props;
+
+    var updateClient = function (evnt, inputProps, data) {
+      var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
+          obj     = { name: generic, value: monthly };
+      updateClientValue(evnt, obj);
+    };
+  
+    
+  
+    /* Get the time ('future' or 'current') monthly value unless there is
+     * none, in which case, get the 'current' monthly cash flow value
+     * (to prefill future values with 'current' ones if needed).
+     *
+     * @todo Add some kind of UI indication when it's the same as the 'current'
+     * value. What if some of the row's values are the same and some are
+     * different? */
+    var baseVal   = timeState[ generic ],
+        baseProps = {
+          name:             generic,
+          className:        'cashflow-column',
+          store:            updateClient,
+          displayValidator: hasOnlyNonNegNumberChars,
+          format:           toMoneyStr,
+        };
+
+    var cashFlowStoreValidator = this.cashFlowStoreValidator;
+  
+    return (
+      &lt;CashFlowContainer
+        label={ children }
+        validRow={ !this.state.message }
+        message={ this.state.message }>
+        &lt;ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
+          { ...baseProps }
+          value     = { baseVal / (4 + 1 / 3) }
+          otherData = {{ interval: 'weekly' }} />
+        &lt;ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 12) }
+          { ...baseProps }
+          value     = { baseVal }
+          otherData = {{ interval: 'monthly' }} />
+        &lt;ManagedNumberField
+          storeValidator={ cashFlowStoreValidator(maximum_value_yearly) }
+          { ...baseProps }
+          value     = { baseVal * 12 }
+          otherData = {{ interval: 'yearly' }} />
+      &lt;/CashFlowContainer>
+    );
+  }
+}
+
+
+/** Show a value, or the sum of multiple values, of data
+ *     that the user has already put in from another input.
+ *
+ * @todo Turn this row into a link to the input row where
+ *     the data came from so the user can jump quickly and
+ *     easily to the place where they can change the data.
+ */
+const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
+
+  var baseVal      = value || timeState[ generic ],
+      colClassName = `cashflow-column`,
+      weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
+      monthly      = toMoneyStr(baseVal),
+      yearly       = toMoneyStr(baseVal * 12);
+
+  return (
+    &lt;div className = { `cashflow cashflow-display` }>
+      &lt;div className = { colClassName + ` ` + generic + ` output-number` } >
+        { weekly }
+      &lt;/div>
+      &lt;div className = { colClassName + ` ` + generic + ` output-number` } >
+        { monthly }
+      &lt;/div>
+      &lt;div className = { colClassName + ` ` + generic + ` output-number` } >
+        { yearly }
+      &lt;/div>
+      &lt;div className = { colClassName + ` cashflow-column-last-child` }>
+        &lt;label>{ children }&lt;/label>
+      &lt;/div>
+
+    &lt;/div>
+  );
+
+};  // End &lt;CashFlowDisplayRow>
+
+
+/** One row for _one_ cash flow input - a monthly value
+ *
+ * @function
+ * @param {object} props
+ * @param {object} props.inputProps Key name, validators, and onBlur
+ * @param {object} props.baseValue Start value of field?
+ * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.rowProps `label`, `validRow`, `message`
+ *
+ * @returns Component
+ */
+const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue, rowProps }) {
+
+  inputProps = {
+    ...inputProps, // name, validators, and onBlur
+    className: 'cashflow-column',
+    format:    toMoneyStr,
+    store:     updateClientValue,
+  };
+
+  return (
+    &lt;CashFlowContainer { ...rowProps }>
+      &lt;ManagedNumberField
+        { ...inputProps }
+        value={ baseValue }
+        otherData={{ interval: 'monthly' }} />
+    &lt;/CashFlowContainer>
+  );
+
+};  // End &lt;MonthlyCashFlowRow>
+
+
+// Ideas of how to handle a different styling situation
+// (if we swap the input and label positions)
+
+// If we want more control over placement, we may look into this:
+// &lt;Grid textAlign='center' verticalAlign='middle'>
+//   &lt;Grid.Row className='inputs-in-right-column'>
+//     &lt;Grid.Column className='left-label'>
+//       &lt;label>Earned Income&lt;/label>
+//     &lt;/Grid.Column>
+//     &lt;Grid.Column className='right-input'>
+//       &lt;Input type='number'/>
+//     &lt;/Grid.Column>
+//   &lt;/Grid.Row>
+// &lt;/Grid>
+
+
+export {
+  CashFlowContainer,
+  CashFlowInputsRow,
+  CashFlowDisplayRow,
+  MonthlyCashFlowRow,
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_cashflow.html">utils/cashflow</a></li><li><a href="module-utils_convert-by-timescale.html">utils/convert-by-timescale</a></li><li><a href="module-utils_getGovData.html">utils/getGovData</a></li><li><a href="module-utils_getMembers.html">utils/getMembers</a></li><li><a href="module-utils_getSideEffects.html">utils/getSideEffects</a></li><li><a href="module-utils_getTextForLanguage.html">utils/getTextForLanguage</a></li><li><a href="module-utils_getTimeFrames.html">utils/getTimeFrames</a></li><li><a href="module-utils_interpolation.html">utils/interpolation</a></li><li><a href="module-utils_math.html">utils/math</a></li><li><a href="module-utils_objectKeyPaths.html">utils/objectKeyPaths</a></li><li><a href="module-utils_setNestedProperty.html">utils/setNestedProperty</a></li><li><a href="module-utils_validators.html">utils/validators</a></li><li><a href="module-utils_valueFixers.html">utils/valueFixers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Oct 19 2018 10:24:48 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
