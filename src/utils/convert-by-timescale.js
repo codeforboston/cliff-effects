@@ -70,7 +70,7 @@ var toWeeklyFrom = function (amount, startTimeInterval) {
   return converted;
 };  // End toWeeklyFrom()
 
-/** Math to do for each type of conversion. */
+/** Multiplication to do for each type of time interval conversion. */
 var timescaleMultipliers = {};
 
 timescaleMultipliers.fromYearly = {
