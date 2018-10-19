@@ -1,11 +1,14 @@
-/** Allows insertion of provided components at specified points in a translated text block. */
+/** Allows insertion of provided components at specified points
+ * in a translated text block.
+ * @module
+ */
 
 import React from 'react';
 
 // To make sure all keys are unique
 var count = 0;
 
-/** Interpolate components into a single text block (specified as an array) */
+/** Interpolate components into an array of component. */
 const interpolateText = function (template, components, langCode) {
   return template.map((item) => {
 
@@ -40,7 +43,9 @@ const interpolateText = function (template, components, langCode) {
   });
 };
 
-/** Recursively interpolate each template in a snippets object */
+/** Recursively interpolate each template in a snippets object
+ * into a component or array of components.
+ */
 const interpolateSnippets = function (snippets, components) {
   var named        = {},
       versionRegex = /_v\d+$/;
