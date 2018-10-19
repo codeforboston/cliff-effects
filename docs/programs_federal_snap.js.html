@@ -40,30 +40,46 @@ import { getLimitBySize } from '../../utils/getGovData';
 import { toMonthlyFrom } from '../../utils/convert-by-timescale';
 import {
   getEveryMemberOfHousehold,
-  getEveryMember,
-  getDependentsOfHousehold,
+  getDependentMembers,
   isDisabled,
-  isUnder13,
-  getUnder13OfHousehold,
+  getYoungerThan,
+  getOlderThan,
 } from '../../utils/getMembers';
 
 
-/** Based on https://www.masslegalservices.org/SNAPCalculator */
-const getSNAPBenefits = function (client, timeframe) {
+/** Abstractions for main function calculations.
+ *     Many aren't required, but make unit testing
+ *     easier by taking away the need for unit tests
+ *     to mess around with actual client values.
+ *     Almost all require the `current` or `future`
+ *     prop of the typical `client` object as an
+ *     argument.
+ * 
+ * @namespace
+ */
+var SNAPhelpers = {},
+    hlp         = SNAPhelpers;
 
-  client = client[ timeframe ];
+
+/** Based on https://www.masslegalservices.org/SNAPCalculator.
+ *     Bay State CAP not included as this prototype only deals with
+ *     changes in earned income */
+const getSNAPBenefits = function (fullClient, timeframe) {
+
+  var client = fullClient[ timeframe ];
 
   var finalResult = 0,
-      grossIncomeTestResult   = hlp.getGrossIncomeTestResult(client),
-      netIncomeTestResult     = hlp.getNetIncomeTestResult(client),
-      maxSnapAllotment        = getLimitBySize(SNAPData.SNAP_LIMITS, hlp.householdSize(client)),
-      percentageOfNetIncome   = hlp.monthlyNetIncome(client) * SNAPData.PERCENT_OF_NET,
+      householdSize           = hlp.getHouseholdSize(client),
+      grossIncomeTestResult   = hlp.passesGrossIncomeTest(client),
+      netIncomeTestResult     = hlp.passesNetIncomeTest(client),
+      maxSnapAllotment        = getLimitBySize(SNAPData.SNAP_LIMITS, householdSize),
+      percentageOfNetIncome   = hlp.getNetIncome(client) * SNAPData.PERCENT_OF_NET,
       maxClientAllotment      = Math.max(0, maxSnapAllotment - percentageOfNetIncome);
 
   if (grossIncomeTestResult === true &amp;&amp; netIncomeTestResult === true) {
 
     if (maxClientAllotment &lt;= SNAPData.SMALL_HOUSEHOLD_MIN_GRANT) {
-      if (hlp.householdSize(client) &lt;= SNAPData.SMALL_HOUSEHOLD_SIZE) {
+      if (householdSize &lt;= SNAPData.SMALL_HOUSEHOLD_SIZE) {
         finalResult = SNAPData.SMALL_HOUSEHOLD_MIN_GRANT;
       }
 
@@ -77,82 +93,265 @@ const getSNAPBenefits = function (client, timeframe) {
 }; // End getSNAPBenefits()
 
 
-// ======================
-// ESTABLISH OBJECT FOR BENEFIT HELPERS
-var SNAPhelpers = {},
-    hlp         = SNAPhelpers;
+// =====================
+// GROSS INCOME
+// =====================
 
+// Used in 1 other function, main function
+/** Returns if SNAP-specific gross income is below
+ *     a given amount. 
+ * 
+ * @todo must double checked in the documentation.
+ *     Website uses `&lt;` for comparison, excel sheet
+ *     uses `&lt;=` when comparing adjusted gross to
+ *     poverty limit.
+ * 
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
+hlp.passesGrossIncomeTest = function (client) {
+  var adjustedGross    = hlp.getAdjustedGross(client),
+      grossIncomeLimit = hlp.getGrossIncomeLimit(client),
+      passes           = null;
 
-// ======================
-// HOUSEHOLD/HOUSEHOLD MEMBERS
-hlp.householdSize = function (client) {
-  return client.household.length;
-};
-
-hlp.isElderlyOrDisabled = function (member) {
-  return member.m_age >= 60 || isDisabled(member);
-};
-
-hlp.hasDisabledOrElderlyMember = function (client) {
-  return getEveryMemberOfHousehold(client, hlp.isElderlyOrDisabled).length > 0;
-};
-
-hlp.hasDependentsOver12 = function (client) {
-  var isOver12 = function (member) { 
-    return !isUnder13(member); 
-  };
-  var members = getEveryMember(getDependentsOfHousehold(client), isOver12);
-  return members.length > 0;
-};
-
-
-// ======================
-//GROSS INCOME
-hlp.getAdjustedGross = function (client) {
-  var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
-  return Math.max(0, raw);
-};
-
-hlp.getPovertyGrossIncomeLevel = function (client) {
-  var data      = federalPovertyGuidelines,
-      numPeople = hlp.householdSize(client),
-      // Data is given in yearly amounts
-      limit     = getLimitBySize(data, numPeople, 200),
-      // Needs to be gov money rounded?
-      monthly   = toMonthlyFrom(limit, 'yearly');
-  return monthly;
-};
-
-hlp.getGrossIncomeTestResult = function (client) {
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
-      isPassGrossIncomeTest   = null;
   if (hlp.hasDisabledOrElderlyMember(client)) {
-    isPassGrossIncomeTest = true;
+    passes = true;
   } else {
-    /** @todo must double checked in the documentation.
-     *     Two different results in both excel calculator
-     *     and website calculator */
-    // minor difference "&lt;" in website calculator logic on line 469.
-    if (adjustedGross &lt;= povertyGrossIncomeLevel) {
-      isPassGrossIncomeTest = true;
+    // `&lt;` in web calculator vs excel sheet `&lt;=`.
+    if (adjustedGross &lt;= grossIncomeLimit) {
+      passes = true;
     } else {
-      isPassGrossIncomeTest = false;
+      passes = false;
     }
   }
-  return isPassGrossIncomeTest;
+  return passes;
 };
 
 
 // ======================
-// SHELTER
-hlp.isHomeless = function(client) {
-  // Worth abstracting, used a few places and may change
-  return client.housing === 'homeless';
+// NET INCOME
+// ======================
+
+// Used by main function
+/** Returns if SNAP-specific net income is less than
+ *     a maximum amount.
+ * 
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
+hlp.passesNetIncomeTest = function(client) {
+  var maxNetIncome = hlp.getMaxNetIncome(client);
+
+  if (maxNetIncome === `no limit`) {
+    return true;
+  } else if (hlp.getNetIncome(client) &lt; maxNetIncome) {
+    return true;
+  } else {
+    return false;
+  }
+
 };
 
-/** @todo: What about housing voucher? */
-hlp.getNonUtilityCosts = function(client) {
+// Used by 1 function. Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number|string}
+ */
+hlp.getMaxNetIncome = function (client) {
+  // @todo Logic different in website calculator vs. excel sheet for this logic
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      grossIncomeLimit        = hlp.getGrossIncomeLimit(client),
+      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
+  
+  if ((adjustedGross &lt;= grossIncomeLimit) || !disabledOrElderlyMember) {
+    return `no limit`;
+  } else {
+    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.getHouseholdSize(client));
+  }
+};
+
+// === getNetIncome ===
+
+// Used in 2 functions
+/** Returns SNAP-specific net income.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getNetIncome = function(client) {
+  var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
+      // These two functions make unit testing much easier
+      homelessDeduction = hlp.getHomelessDeduction(client),
+      shelterDeduction  = hlp.getShelterDeduction(client);
+  var extraDeductions   = homelessDeduction + shelterDeduction,
+      afterDeductions   = adjustedIncome - extraDeductions;
+
+  return Math.max(0, afterDeductions);
+};
+
+// *** getAdjustedGrossMinusDeductions ***
+
+// Used in 2 functions
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getAdjustedGrossMinusDeductions = function (client) {
+  var adjustedGross           = hlp.getAdjustedGross(client),
+      standardDeduction       = hlp.getStandardDeduction(client),
+      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
+      medicalDeduction        = hlp.getMedicalDeduction(client),
+      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
+
+  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  return Math.max(0, adjustedIncome);
+};
+
+// Used in 1 other function. Easier unit tests
+/** Returns standard SNAP deductions for a household
+ *     of this size
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getStandardDeduction = function (client) {
+  return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.getHouseholdSize(client));
+};
+
+// Used in 1 other function. Easier unit tests
+/** Returns a SNAP-specific percentage of the client's
+ *     earned income.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getEarnedIncomeDeduction = function (client) {
+  var totalMonthlyEarned = client.earned;
+  return totalMonthlyEarned * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
+};
+
+// Used in 1 other function. Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getMedicalDeduction = function (client) {
+  var medicalDeduce = 0;
+
+  if (hlp.hasDisabledOrElderlyMember(client) === true) {
+    /** @todo Add disabledAssistance too. Also, otherMedical? */
+    var medicalExpenses = client.disabledMedical;
+    if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) &amp;&amp; (medicalExpenses &lt;= SNAPData.MAX_MEDICAL_EXPENSES)) {
+      medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
+
+    } else if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES + 1) {
+      medicalDeduce = medicalExpenses - SNAPData.MIN_MEDICAL_EXPENSES;
+
+    }
+  }  // end if has disabled or elderly
+
+  return medicalDeduce;
+};
+
+// Used in 1 other function. Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getDependentCareDeduction = function (client) {
+
+  var dependentCare = 0;
+
+  /** @todo Adopt https://github.com/codeforboston/cliff-effects/issues/264
+   *     model for all these 'kinds' of 'if' situations. If possible. */
+  if (getYoungerThan(client, 13).length > 0) {
+    dependentCare += sumProps(client, UNDER13_CARE_EXPENSES);
+  }
+
+  var membersOver12    = getOlderThan(client, 12),
+      dependentsOver12 = getDependentMembers(membersOver12);
+  /** May want to test this the same way as Expenses step does. More consistent? */
+  if (dependentsOver12.length > 0) {
+    dependentCare += sumProps(client, OVER12_CARE_EXPENSES);
+  }
+
+  return dependentCare;
+};
+
+// *** getHomelessDeduction ***
+
+// Used by 1 function. Candidate for merging.
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getHomelessDeduction = function(client) {
+  if (hlp.isHomeless(client)) { 
+    return SNAPData.HOMELESS_DEDUCTION; 
+  }
+  else { 
+    return 0; 
+  }
+};
+
+// *** getShelterDeduction ***
+
+// Used by 1 function. Easier unit tests
+// @todo Do they still get this deduction, even if they're homeless?
+/** Returns deductions for those renting or owning a home.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getShelterDeduction = function(client) {
+
+  var rawDeduction = hlp.getRawHousingDeduction(client);
+
+  if (hlp.hasDisabledOrElderlyMember(client)) {
+    return rawDeduction;
+  } else {
+    return Math.min(rawDeduction, SNAPData.SHELTER_DEDUCTION_CAP);
+  }
+
+};
+
+// Used by 1 function. Easier unit tests
+/** Returns deductions based on costs of owning or
+ *     renting a living space and income amounts.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getRawHousingDeduction = function(client) {
+  var housingCosts        = hlp.getNonUtilityHousingCosts(client),
+      utilityCosts        = hlp.getUtilityCostByBracket(client),
+      totalHousingCost    = housingCosts + utilityCosts,
+      halfAdjustedIncome  = hlp.getAdjustedGrossMinusDeductions(client) * 0.50,
+      rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
+
+  return Math.max(0, rawHousingDeduction);
+};
+
+// Used by 1 function. Easier unit tests
+/** Returns rent for renter or insurance + taxes for home owner.
+ *
+ * @todo: What about housing voucher?
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getNonUtilityHousingCosts = function(client) {
   var housingCost = null;
 
   if (hlp.isHomeless(client)) {
@@ -168,6 +367,12 @@ hlp.getNonUtilityCosts = function(client) {
   return housingCost;
 };
 
+// Used by 1 function.  Easier unit tests
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number|string}
+ */
 hlp.getUtilityCostByBracket = function (client) {
 
   if (hlp.isHomeless(client)){
@@ -191,150 +396,91 @@ hlp.getUtilityCostByBracket = function (client) {
   }
 };
 
-hlp.getTotalHousingCost = function (client) {
 
-  var housingCosts = hlp.getNonUtilityCosts(client),
-      utilityCosts = hlp.getUtilityCostByBracket(client);
+// =====================
+// SHARED INCOME CALCS
+// =====================
 
-  return housingCosts + utilityCosts;
+// Used in 3 other functions
+/** Returns all income minus child support paid out.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getAdjustedGross = function (client) {
+  var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
+  return Math.max(0, raw);
+};
+
+// Used in 2 other functions
+/** Limit to gross income is based on client's household size.
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {number}
+ */
+hlp.getGrossIncomeLimit = function (client) {
+  var data      = federalPovertyGuidelines,
+      numPeople = hlp.getHouseholdSize(client),
+      // Data is given in yearly amounts
+      limit     = getLimitBySize(data, numPeople, 200),
+      // Needs to be gov money rounded?
+      monthly   = toMonthlyFrom(limit, 'yearly');
+  return monthly;
 };
 
 
-// ======================
-// INCOME DEDUCTIONS
-hlp.getStandardDeduction = function (client) {
-  return getLimitBySize(SNAPData.STANDARD_DEDUCTIONS, hlp.householdSize(client));
+// =====================
+// SHARED MEMBER TESTS
+// =====================
+
+// Used by 5 other functions
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {int}
+ */
+hlp.getHouseholdSize = function (client) {
+  return client.household.length;
 };
 
-hlp.getEarnedIncomeDeduction = function (client) {
-  var totalMonthlyEarned = client.earned;
-  return totalMonthlyEarned * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
+// Used in 4 other functions
+/**
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
+hlp.hasDisabledOrElderlyMember = function (client) {
+  return getEveryMemberOfHousehold(client, hlp.isElderlyOrDisabled).length > 0;
 };
 
-hlp.getMedicalDeduction = function (client) {
-  var medicalDeduce = 0;
-
-  if (hlp.hasDisabledOrElderlyMember(client) === true) {
-    /** @todo Add disabledAssistance too. Also, otherMedical? */
-    var medicalExpenses = client.disabledMedical;
-    if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) &amp;&amp; (medicalExpenses &lt;= SNAPData.MAX_MEDICAL_EXPENSES)) {
-      medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
-
-    } else if (medicalExpenses >= SNAPData.MAX_MEDICAL_EXPENSES + 1) {
-      medicalDeduce = medicalExpenses - SNAPData.MIN_MEDICAL_EXPENSES;
-
-    }
-  }  // end if has disabled or elderly
-
-  return medicalDeduce;
+// Used in 1 other function, but won't be created multiple times
+/** Returns whether a member is elderly or disabled
+ *     according to SNAP specifications (60 is elderly).
+ *     Avoids multiple loops through household members
+ *     and creating the function multiple times.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} member A household member
+ * @returns {boolean}
+ */
+hlp.isElderlyOrDisabled = function (member) {
+  // Age `60` counts as elderly for SNAP specifically
+  return member.m_age >= 60 || isDisabled(member);
 };
 
-hlp.getDependentCareDeduction = function (client) {
-
-  var dependentCare = 0;
-
-  /** @todo Adopt https://github.com/codeforboston/cliff-effects/issues/264
-   *     model for all these 'kinds' of 'if' situations. If possible. */
-  if (getUnder13OfHousehold(client).length > 0) {
-    dependentCare += sumProps(client, UNDER13_CARE_EXPENSES);
-  }
-
-  /** May want to test this the same way as Expenses step does. More consistent? */
-  if (hlp.hasDependentsOver12(client)) {
-    dependentCare += sumProps(client, OVER12_CARE_EXPENSES);
-  }
-
-  return dependentCare;
+// Used in 3 other functions
+/** Knows the right prop to access to determine
+ *     if client is homeless. Prop name may change.
+ *
+ * @memberof SNAPhelpers
+ * @param {object} client
+ * @returns {boolean}
+ */
+hlp.isHomeless = function(client) {
+  // Worth abstracting - used a few places and may change
+  return client.housing === 'homeless';
 };
 
-hlp.getHalfAdjustedIncome = function(client) {
-  return hlp.getAdjustedNotGrossIncome(client) * 0.50;
-};
-
-hlp.getRawHousingDeduction = function(client) {
-  var totalHousingCost    = hlp.getTotalHousingCost(client),
-      halfAdjustedIncome  = hlp.getHalfAdjustedIncome(client),
-      rawHousingDeduction = totalHousingCost - halfAdjustedIncome;
-
-  return Math.max(0, rawHousingDeduction);
-};
-
-hlp.getHousingDeduction = function(client) {
-
-  var rawDeduction = hlp.getRawHousingDeduction(client);
-
-  if (hlp.hasDisabledOrElderlyMember(client)) {
-    return rawDeduction;
-  } else {
-    return Math.min(rawDeduction, SNAPData.SHELTER_DEDUCTION_CAP);
-  }
-
-};
-
-hlp.getHomelessDeduction = function(client) {
-  if (hlp.isHomeless(client)) { 
-    return SNAPData.HOMELESS_DEDUCTION; 
-  }
-  else { 
-    return 0; 
-  }
-};
-
-
-// ======================
-// NET INCOME
-hlp.getAdjustedNotGrossIncome = function (client) {
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      standardDeduction       = hlp.getStandardDeduction(client),
-      earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
-      medicalDeduction        = hlp.getMedicalDeduction(client),
-      dependentCareDeduction  = hlp.getDependentCareDeduction(client);
-
-  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
-  return Math.max(0, adjustedIncome);
-};
-
-hlp.monthlyNetIncome = function(client) {
-  var adjustedIncome        = hlp.getAdjustedNotGrossIncome(client),
-      hasHomelessDeduction  = hlp.getHomelessDeduction(client),
-      housingDeduction      = hlp.getHousingDeduction(client),
-      extraDeductions       = hasHomelessDeduction + housingDeduction;
-
-  var afterDeductions = adjustedIncome - extraDeductions;
-
-  return Math.max(0, afterDeductions);
-};
-
-hlp.getMaxNetIncome = function (client) {
-  //TODO: Logic different in website calculate; when (hlp.monthlyNetIncome &lt; 0 ) = 0 while excel return a number
-  var adjustedGross           = hlp.getAdjustedGross(client),
-      povertyGrossIncomeLevel = hlp.getPovertyGrossIncomeLevel(client),
-      disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
-  
-  if ((adjustedGross &lt;= povertyGrossIncomeLevel) || !disabledOrElderlyMember) {
-    return 'no limit';
-  } else {
-    return getLimitBySize(SNAPData.NET_INCOME_LIMITS, hlp.householdSize(client));
-  }
-};
-
-// NET INCOME TEST RESULT
-hlp.getNetIncomeTestResult = function(client) {
-
-  var maxNetIncome = hlp.getMaxNetIncome(client);
-
-  if (maxNetIncome === 'no limit') {
-    return true;
-  } else if (hlp.monthlyNetIncome(client) &lt; maxNetIncome) {
-    return true;
-  } else {
-    return false;
-  }
-
-};
-
-/** NOTE: Bay State CAP not included as this prototype only deals with
- *     changes in earned income */
 
 export { getSNAPBenefits, SNAPhelpers };
 </code></pre>
@@ -347,13 +493,13 @@ export { getSNAPBenefits, SNAPhelpers };
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_cashflow.html">utils/cashflow</a></li><li><a href="module-utils_convert-by-timescale.html">utils/convert-by-timescale</a></li><li><a href="module-utils_getGovData.html">utils/getGovData</a></li><li><a href="module-utils_getMembers.html">utils/getMembers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Oct 11 2018 07:30:10 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Oct 19 2018 08:11:17 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

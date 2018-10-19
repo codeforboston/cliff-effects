@@ -26,92 +26,111 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { moneyToWholeNum } from './math';
+            <pre class="prettyprint source linenums"><code>/** Calculating and returning the right data table value by
+ *     leveraging common data patterns we've seen so far.
+ * @module
+ */
 
-/** 
-* Getting or calculating data values by leveraging common data patterns
-* we've seen so far.
-*/
+import { moneyToWholeNum } from './math';
 
 /** Calculate appropriate bracket/limit value (such as income
  *     limit) by number of relevant items (such as number of
  *     household members).
+ * @function
  * 
  * ===============================================================
- * WARNING: Be aware of what time scale (weekly, monthly or yearly)
+ *
+ * WARNING: Be aware of what time scale (weekly, monthly or yearly) that
  *     your data uses so that you can convert to the right values.
+ *
  * ===============================================================
  * 
- * @example Using household size to get federal poverty income limit:
+ * @param {object} dataTable Object/data table to examine to get the
+ *     bracket/limit value. Almost an array, having keys that are
+ *     mostly ints.
+ * @param {number} dataTable.n Key name would be a number to match up with
+ *     a data table 'column'. For example, dataTable.3 could you the income
+ *     limit value for a household with 3 members.
+ * @param {number|function} dataTable.eachAdditional A column that's often
+ *     in data tables. Usually an amount to add for each person or item
+ *     over a maximum hard-coded limit to the other data table values.
+ *     If getting that value is more complicated, it can be a function
+ *     to calculate said amount based on number of extra items.
+ * @param {number} numItems Number of items (for example, household size).
+ * @param {number} [percent] Multiplies the result before sending it back.
+ *     You'd pass in 100% as `100`.
+ * 
+ * @returns {number}
+ * 
+ * @example
  * var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240,
  *    eachAdditional: 4180 };
  * getLimitBySize( fedPovertyGuidelines, 1 );  // 12060
  * getLimitBySize( fedPovertyGuidelines, 2 );  // 16240
  * getLimitBySize( fedPovertyGuidelines, 3 );  // 20420
- * 
- * @function
- * @param {object} data Data to use to get a bracket/limit value.
- * @param {number} data.0 Never known to equal more than 0 so far.
- * @param {number} data.1 (Or any int key) Value of bracket/limit that
- * matches the number described by the key. For example, data.3 would be
- * the income limit value for a household with three members.
- * @param {number|function} data.eachAdditional Usually an amount to
- * add for each person or item over the maximum hardcoded limits. Can be a
- * function to calculate said amount based on number of extra items.
- * @param {number} numItems Number of items (for example, household size).
- * @param {number} [percent] Multiplies the result before sending it back.
- * You'd pass in 100% as `100`.
- * 
- * @returns Data value determined for the number of items, numItems, wanted.
  */
-const getLimitBySize = function (data, numItems, percent) {
+const getLimitBySize = function (dataTable, numItems, percent) {
   
-  var safePerc  = percent || 100,
-      limit     = null,
-      maxGiven  = getMaxIntKey(data);
+  var safePercent    = percent || 100,
+      limit          = null,
+      maxBeforeExtra = getMaxIntKey(dataTable);
 
-  if (numItems &lt;= maxGiven) {
+  // If we haven't gone over the maximum hard-coded number of items
+  if (numItems &lt;= maxBeforeExtra) {
 
-    limit = data[ numItems ];
+    limit = dataTable[ numItems ];
 
+  // If there are no number columns left on the table, see if there's
+  // a way to handle amounts over the hard-coded last number of items
+  // amount
   } else {
 
-    var numExtra    = numItems - maxGiven,
-        extraAmount = getExtraAmount(data, numExtra);
-    limit = data[ maxGiven ] + extraAmount;
+    var numExtra    = numItems - maxBeforeExtra,
+        extraAmount = getExtraAmount(dataTable, numExtra);
+    limit = dataTable[ maxBeforeExtra ] + extraAmount;
 
   }
   
-  // The right kind of math as observed in MA data tables
-  return moneyToWholeNum(limit * (safePerc / 100));
+  // The right kind of math as observed in MA dataTable tables
+  return moneyToWholeNum(limit * (safePercent / 100));
 };  // End getLimitBySize()
 
 
-/** Deals with different value types for data.eachAdditional
-* 
-* @function
-* @param {number} numExtra Number of extra items
-* @param {number|function} eachAdditional Either a number value to add
-* for each extra item or a function that will return that number.
-* 
-* @returns {number} The amount created by those extra items.
-*/
-var getExtraAmount = function (data, numExtra) {
+/** Returns the additional amount to add based on the number of extra
+ *     items (e.g. household members).
+ * @function
+ *
+ * @todo Are there tables in which there's a hard-coded amount
+ *     that isn't supposed to be multiplied by the number of extra
+ *     items?
+ *
+ * @param {object} dataTable Whole table is needed because sometimes
+ *     dataTable.eachAdditional uses values in the table for its calcs.
+ * @param {number|function} dataTable.eachAdditional Either a number
+ *     value to add for each extra item or a function that will
+ *     calculate that number.
+ * @param {number} numExtra Number of extra items (for example,
+ *     household members).
+ * 
+ * @returns {number}
+ */
+var getExtraAmount = function (dataTable, numExtra) {
 
   var extraAmount     = 0,
-      eachAdditional  = data.eachAdditional;
+      eachAdditional  = dataTable.eachAdditional || function () {
+        return 0;
+      };
 
-  // Either allow additional amount to be calculated
-  // or add a hard-coded amount.
+  // Either calculate extra amount based on number of extra items...
   if (typeof eachAdditional === 'function') {
 
-    extraAmount = eachAdditional(data, numExtra);
+    extraAmount = eachAdditional(dataTable, numExtra);
 
-  } else {  // Assumed either number or falsy
+  // ...or multiply a hard-coded amount.
+  } else {
 
-    /** @todo Future discussioin - flexibility vs. consistency */
-    var overageRate = eachAdditional || 0;
-    extraAmount = numExtra * overageRate;
+    var overageRate = eachAdditional;
+    extraAmount     = numExtra * overageRate;
 
   }
 
@@ -119,9 +138,8 @@ var getExtraAmount = function (data, numExtra) {
 };  // End getExtraAmount()
 
 
-/** 
-* Of the keys in an object that can be converted to integers,
-* return the highest converted value.
+/** Of the keys in an object that can be converted to integers,
+* return the highest value.
 */
 var getMaxIntKey = function (data) {
   var max = 0;
@@ -152,13 +170,13 @@ export {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_cashflow.html">utils/cashflow</a></li><li><a href="module-utils_convert-by-timescale.html">utils/convert-by-timescale</a></li><li><a href="module-utils_getGovData.html">utils/getGovData</a></li><li><a href="module-utils_getMembers.html">utils/getMembers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#hasOnlyNonNegNumberChars">hasOnlyNonNegNumberChars</a></li><li><a href="global.html#hasOnlyNonNegWholeNumberChars">hasOnlyNonNegWholeNumberChars</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isNonNegNumber">isNonNegNumber</a></li><li><a href="global.html#isNonNegWholeNumber">isNonNegWholeNumber</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#returnSame">returnSame</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#toBoolean">toBoolean</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li><li><a href="global.html#valueFixers">valueFixers</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Oct 11 2018 07:30:10 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Oct 19 2018 08:11:17 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
