@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CashFlowDisplayRow> matches snapshot 1`] = `
+<CashFlowDisplayRow
+  generic="potatoes"
+  value={12}
+>
+  <div
+    className="cashflow cashflow-display"
+  >
+    <div
+      className="cashflow-column potatoes output-number"
+    >
+      2.77
+    </div>
+    <div
+      className="cashflow-column potatoes output-number"
+    >
+      12.00
+    </div>
+    <div
+      className="cashflow-column potatoes output-number"
+    >
+      144.00
+    </div>
+    <div
+      className="cashflow-column cashflow-column-last-child"
+    >
+      <label>
+        <span>
+          Why potatoes?
+        </span>
+      </label>
+    </div>
+  </div>
+</CashFlowDisplayRow>
+`;
+
+exports[`<CashFlowDisplayRow> matches snapshot 2`] = `
+<CashFlowDisplayRow
+  generic="potatoes"
+  timeState={
+    Object {
+      "potatoes": 15,
+    }
+  }
+>
+  <div
+    className="cashflow cashflow-display"
+  >
+    <div
+      className="cashflow-column potatoes output-number"
+    >
+      3.46
+    </div>
+    <div
+      className="cashflow-column potatoes output-number"
+    >
+      15.00
+    </div>
+    <div
+      className="cashflow-column potatoes output-number"
+    >
+      180.00
+    </div>
+    <div
+      className="cashflow-column cashflow-column-last-child"
+    >
+      <label>
+        <span>
+          More potatoes, huh?
+        </span>
+      </label>
+    </div>
+  </div>
+</CashFlowDisplayRow>
+`;

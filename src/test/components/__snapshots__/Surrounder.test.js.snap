@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Surrounder> matches snapshot 1`] = `
+<Surrounder
+  Bottom={<Bottom />}
+  Left={<Left />}
+  Right={<Right />}
+  Top={<Top />}
+>
+  <div
+    className="surrounder"
+  >
+    <div
+      className="top horizontal"
+    >
+      <Top />
+    </div>
+    <div
+      className="middle horizontal"
+    >
+      <div
+        className="left vertical"
+      >
+        <Left />
+      </div>
+      <div
+        className="center vertical content"
+      >
+        <Content />
+      </div>
+      <div
+        className="right vertical"
+      >
+        <Right />
+      </div>
+    </div>
+    <div
+      className="bottom horizontal"
+    >
+      <Bottom />
+    </div>
+  </div>
+</Surrounder>
+`;

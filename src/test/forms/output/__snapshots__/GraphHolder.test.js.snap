@@ -1,0 +1,453 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GraphHolder> matches snapshot 1`] = `
+<GraphHolder
+  Graph={[Function]}
+  client={
+    Object {
+      "current": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 0,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": false,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+      "future": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 0,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": false,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+    }
+  }
+>
+  <div
+    className="graph-holder"
+  >
+    <Graph
+      activePrograms={Array []}
+      className="client-graph"
+      client={
+        Object {
+          "current": Object {
+            "SSDI": 0,
+            "SSI": 0,
+            "TAFDC": 0,
+            "adultDirectCare": 0,
+            "adultOtherCare": 0,
+            "adultTransportation": 0,
+            "alimony": 0,
+            "childBeforeAndAfterSchoolCare": 0,
+            "childDirectCare": 0,
+            "childOtherCare": 0,
+            "childSupportIn": 0,
+            "childSupportPaidOut": 0,
+            "childTransportation": 0,
+            "climateControl": false,
+            "contractRent": 0,
+            "disabledAssistance": 0,
+            "disabledMedical": 0,
+            "earned": 0,
+            "earnedBecauseOfAdultCare": 0,
+            "earnedBecauseOfChildCare": 0,
+            "fuelAssistance": false,
+            "hasSection8": false,
+            "hasSnap": false,
+            "household": Array [
+              Object {
+                "m_age": 30,
+                "m_disabled": false,
+                "m_role": "head",
+              },
+            ],
+            "housing": "homeless",
+            "housingInsurance": 0,
+            "mortgage": 0,
+            "nonHeatElectricity": false,
+            "otherExpensesCable": 0,
+            "otherExpensesCareProducts": 0,
+            "otherExpensesClothes": 0,
+            "otherExpensesEntertainment": 0,
+            "otherExpensesFood": 0,
+            "otherExpensesMedical": 0,
+            "otherExpensesOther": 0,
+            "otherExpensesPhone": 0,
+            "otherExpensesTransport": 0,
+            "otherExpensesUtilities": 0,
+            "otherIncome": 0,
+            "otherMedical": 0,
+            "pension": 0,
+            "phone": false,
+            "propertyTax": 0,
+            "rent": 0,
+            "rentShare": 0,
+            "socialSecurity": 0,
+            "unemployment": 0,
+            "wantsToSeeOtherExpenses": false,
+            "workersComp": 0,
+          },
+          "future": Object {
+            "SSDI": 0,
+            "SSI": 0,
+            "TAFDC": 0,
+            "adultDirectCare": 0,
+            "adultOtherCare": 0,
+            "adultTransportation": 0,
+            "alimony": 0,
+            "childBeforeAndAfterSchoolCare": 0,
+            "childDirectCare": 0,
+            "childOtherCare": 0,
+            "childSupportIn": 0,
+            "childSupportPaidOut": 0,
+            "childTransportation": 0,
+            "climateControl": false,
+            "contractRent": 0,
+            "disabledAssistance": 0,
+            "disabledMedical": 0,
+            "earned": 0,
+            "earnedBecauseOfAdultCare": 0,
+            "earnedBecauseOfChildCare": 0,
+            "fuelAssistance": false,
+            "hasSection8": false,
+            "hasSnap": false,
+            "household": Array [
+              Object {
+                "m_age": 30,
+                "m_disabled": false,
+                "m_role": "head",
+              },
+            ],
+            "housing": "homeless",
+            "housingInsurance": 0,
+            "mortgage": 0,
+            "nonHeatElectricity": false,
+            "otherExpensesCable": 0,
+            "otherExpensesCareProducts": 0,
+            "otherExpensesClothes": 0,
+            "otherExpensesEntertainment": 0,
+            "otherExpensesFood": 0,
+            "otherExpensesMedical": 0,
+            "otherExpensesOther": 0,
+            "otherExpensesPhone": 0,
+            "otherExpensesTransport": 0,
+            "otherExpensesUtilities": 0,
+            "otherIncome": 0,
+            "otherMedical": 0,
+            "pension": 0,
+            "phone": false,
+            "propertyTax": 0,
+            "rent": 0,
+            "rentShare": 0,
+            "socialSecurity": 0,
+            "unemployment": 0,
+            "wantsToSeeOtherExpenses": false,
+            "workersComp": 0,
+          },
+        }
+      }
+      timescale="Yearly"
+    >
+      <div
+        className="client-graph"
+        client={
+          Object {
+            "current": Object {
+              "SSDI": 0,
+              "SSI": 0,
+              "TAFDC": 0,
+              "adultDirectCare": 0,
+              "adultOtherCare": 0,
+              "adultTransportation": 0,
+              "alimony": 0,
+              "childBeforeAndAfterSchoolCare": 0,
+              "childDirectCare": 0,
+              "childOtherCare": 0,
+              "childSupportIn": 0,
+              "childSupportPaidOut": 0,
+              "childTransportation": 0,
+              "climateControl": false,
+              "contractRent": 0,
+              "disabledAssistance": 0,
+              "disabledMedical": 0,
+              "earned": 0,
+              "earnedBecauseOfAdultCare": 0,
+              "earnedBecauseOfChildCare": 0,
+              "fuelAssistance": false,
+              "hasSection8": false,
+              "hasSnap": false,
+              "household": Array [
+                Object {
+                  "m_age": 30,
+                  "m_disabled": false,
+                  "m_role": "head",
+                },
+              ],
+              "housing": "homeless",
+              "housingInsurance": 0,
+              "mortgage": 0,
+              "nonHeatElectricity": false,
+              "otherExpensesCable": 0,
+              "otherExpensesCareProducts": 0,
+              "otherExpensesClothes": 0,
+              "otherExpensesEntertainment": 0,
+              "otherExpensesFood": 0,
+              "otherExpensesMedical": 0,
+              "otherExpensesOther": 0,
+              "otherExpensesPhone": 0,
+              "otherExpensesTransport": 0,
+              "otherExpensesUtilities": 0,
+              "otherIncome": 0,
+              "otherMedical": 0,
+              "pension": 0,
+              "phone": false,
+              "propertyTax": 0,
+              "rent": 0,
+              "rentShare": 0,
+              "socialSecurity": 0,
+              "unemployment": 0,
+              "wantsToSeeOtherExpenses": false,
+              "workersComp": 0,
+            },
+            "future": Object {
+              "SSDI": 0,
+              "SSI": 0,
+              "TAFDC": 0,
+              "adultDirectCare": 0,
+              "adultOtherCare": 0,
+              "adultTransportation": 0,
+              "alimony": 0,
+              "childBeforeAndAfterSchoolCare": 0,
+              "childDirectCare": 0,
+              "childOtherCare": 0,
+              "childSupportIn": 0,
+              "childSupportPaidOut": 0,
+              "childTransportation": 0,
+              "climateControl": false,
+              "contractRent": 0,
+              "disabledAssistance": 0,
+              "disabledMedical": 0,
+              "earned": 0,
+              "earnedBecauseOfAdultCare": 0,
+              "earnedBecauseOfChildCare": 0,
+              "fuelAssistance": false,
+              "hasSection8": false,
+              "hasSnap": false,
+              "household": Array [
+                Object {
+                  "m_age": 30,
+                  "m_disabled": false,
+                  "m_role": "head",
+                },
+              ],
+              "housing": "homeless",
+              "housingInsurance": 0,
+              "mortgage": 0,
+              "nonHeatElectricity": false,
+              "otherExpensesCable": 0,
+              "otherExpensesCareProducts": 0,
+              "otherExpensesClothes": 0,
+              "otherExpensesEntertainment": 0,
+              "otherExpensesFood": 0,
+              "otherExpensesMedical": 0,
+              "otherExpensesOther": 0,
+              "otherExpensesPhone": 0,
+              "otherExpensesTransport": 0,
+              "otherExpensesUtilities": 0,
+              "otherIncome": 0,
+              "otherMedical": 0,
+              "pension": 0,
+              "phone": false,
+              "propertyTax": 0,
+              "rent": 0,
+              "rentShare": 0,
+              "socialSecurity": 0,
+              "unemployment": 0,
+              "wantsToSeeOtherExpenses": false,
+              "workersComp": 0,
+            },
+          }
+        }
+        timescale="Yearly"
+      />
+    </Graph>
+    <GraphTimeButtons
+      activeID="Yearly"
+      onClick={[Function]}
+    >
+      <ButtonGroup
+        basic={true}
+        className="graph-time-options"
+      >
+        <div
+          className="ui basic buttons graph-time-options"
+        >
+          <GraphButton
+            activeID="Yearly"
+            id="Weekly"
+            onClick={[Function]}
+          >
+            <Button
+              active={false}
+              as="button"
+              id="Weekly"
+              onClick={[Function]}
+            >
+              <button
+                className="ui button"
+                id="Weekly"
+                onClick={[Function]}
+                role="button"
+              >
+                Weekly
+              </button>
+            </Button>
+          </GraphButton>
+          <GraphButton
+            activeID="Yearly"
+            id="Monthly"
+            onClick={[Function]}
+          >
+            <Button
+              active={false}
+              as="button"
+              id="Monthly"
+              onClick={[Function]}
+            >
+              <button
+                className="ui button"
+                id="Monthly"
+                onClick={[Function]}
+                role="button"
+              >
+                Monthly
+              </button>
+            </Button>
+          </GraphButton>
+          <GraphButton
+            activeID="Yearly"
+            id="Yearly"
+            onClick={[Function]}
+          >
+            <Button
+              active={true}
+              as="button"
+              id="Yearly"
+              onClick={[Function]}
+            >
+              <button
+                className="ui active button"
+                id="Yearly"
+                onClick={[Function]}
+                role="button"
+              >
+                Yearly
+              </button>
+            </Button>
+          </GraphButton>
+        </div>
+      </ButtonGroup>
+    </GraphTimeButtons>
+  </div>
+</GraphHolder>
+`;
