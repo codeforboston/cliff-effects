@@ -1,89 +1,108 @@
-import { moneyToWholeNum } from './math';
+/** Calculating and returning the right data table value by
+ *     leveraging common data patterns we've seen so far.
+ * @module
+ */
 
-/** 
-* Getting or calculating data values by leveraging common data patterns
-* we've seen so far.
-*/
+import { moneyToWholeNum } from './math';
 
 /** Calculate appropriate bracket/limit value (such as income
  *     limit) by number of relevant items (such as number of
  *     household members).
+ * @function
  * 
  * ===============================================================
- * WARNING: Be aware of what time scale (weekly, monthly or yearly)
+ *
+ * WARNING: Be aware of what time scale (weekly, monthly or yearly) that
  *     your data uses so that you can convert to the right values.
+ *
  * ===============================================================
  * 
- * @example Using household size to get federal poverty income limit:
+ * @param {object} dataTable Object/data table to examine to get the
+ *     bracket/limit value. Almost an array, having keys that are
+ *     mostly ints.
+ * @param {number} dataTable.n Key name would be a number to match up with
+ *     a data table 'column'. For example, dataTable.3 could you the income
+ *     limit value for a household with 3 members.
+ * @param {number|function} dataTable.eachAdditional A column that's often
+ *     in data tables. Usually an amount to add for each person or item
+ *     over a maximum hard-coded limit to the other data table values.
+ *     If getting that value is more complicated, it can be a function
+ *     to calculate said amount based on number of extra items.
+ * @param {number} numItems Number of items (for example, household size).
+ * @param {number} [percent] Multiplies the result before sending it back.
+ *     You'd pass in 100% as `100`.
+ * 
+ * @returns {number}
+ * 
+ * @example
  * var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240,
  *    eachAdditional: 4180 };
  * getLimitBySize( fedPovertyGuidelines, 1 );  // 12060
  * getLimitBySize( fedPovertyGuidelines, 2 );  // 16240
  * getLimitBySize( fedPovertyGuidelines, 3 );  // 20420
- * 
- * @function
- * @param {object} data Data to use to get a bracket/limit value.
- * @param {number} data.0 Never known to equal more than 0 so far.
- * @param {number} data.1 (Or any int key) Value of bracket/limit that
- * matches the number described by the key. For example, data.3 would be
- * the income limit value for a household with three members.
- * @param {number|function} data.eachAdditional Usually an amount to
- * add for each person or item over the maximum hardcoded limits. Can be a
- * function to calculate said amount based on number of extra items.
- * @param {number} numItems Number of items (for example, household size).
- * @param {number} [percent] Multiplies the result before sending it back.
- * You'd pass in 100% as `100`.
- * 
- * @returns Data value determined for the number of items, numItems, wanted.
  */
-const getLimitBySize = function (data, numItems, percent) {
+const getLimitBySize = function (dataTable, numItems, percent) {
   
-  var safePerc  = percent || 100,
-      limit     = null,
-      maxGiven  = getMaxIntKey(data);
+  var safePercent    = percent || 100,
+      limit          = null,
+      maxBeforeExtra = getMaxIntKey(dataTable);
 
-  if (numItems <= maxGiven) {
+  // If we haven't gone over the maximum hard-coded number of items
+  if (numItems <= maxBeforeExtra) {
 
-    limit = data[ numItems ];
+    limit = dataTable[ numItems ];
 
+  // If there are no number columns left on the table, see if there's
+  // a way to handle amounts over the hard-coded last number of items
+  // amount
   } else {
 
-    var numExtra    = numItems - maxGiven,
-        extraAmount = getExtraAmount(data, numExtra);
-    limit = data[ maxGiven ] + extraAmount;
+    var numExtra    = numItems - maxBeforeExtra,
+        extraAmount = getExtraAmount(dataTable, numExtra);
+    limit = dataTable[ maxBeforeExtra ] + extraAmount;
 
   }
   
-  // The right kind of math as observed in MA data tables
-  return moneyToWholeNum(limit * (safePerc / 100));
+  // The right kind of math as observed in MA dataTable tables
+  return moneyToWholeNum(limit * (safePercent / 100));
 };  // End getLimitBySize()
 
 
-/** Deals with different value types for data.eachAdditional
-* 
-* @function
-* @param {number} numExtra Number of extra items
-* @param {number|function} eachAdditional Either a number value to add
-* for each extra item or a function that will return that number.
-* 
-* @returns {number} The amount created by those extra items.
-*/
-var getExtraAmount = function (data, numExtra) {
+/** Returns the additional amount to add based on the number of extra
+ *     items (e.g. household members).
+ * @function
+ *
+ * @todo Are there tables in which there's a hard-coded amount
+ *     that isn't supposed to be multiplied by the number of extra
+ *     items?
+ *
+ * @param {object} dataTable Whole table is needed because sometimes
+ *     dataTable.eachAdditional uses values in the table for its calcs.
+ * @param {number|function} dataTable.eachAdditional Either a number
+ *     value to add for each extra item or a function that will
+ *     calculate that number.
+ * @param {number} numExtra Number of extra items (for example,
+ *     household members).
+ * 
+ * @returns {number}
+ */
+var getExtraAmount = function (dataTable, numExtra) {
 
   var extraAmount     = 0,
-      eachAdditional  = data.eachAdditional;
+      eachAdditional  = dataTable.eachAdditional || function () {
+        return 0;
+      };
 
-  // Either allow additional amount to be calculated
-  // or add a hard-coded amount.
+  // Either calculate extra amount based on number of extra items...
   if (typeof eachAdditional === 'function') {
 
-    extraAmount = eachAdditional(data, numExtra);
+    extraAmount = eachAdditional(dataTable, numExtra);
 
-  } else {  // Assumed either number or falsy
+  // ...or multiply a hard-coded amount.
+  } else {
 
-    /** @todo Future discussioin - flexibility vs. consistency */
-    var overageRate = eachAdditional || 0;
-    extraAmount = numExtra * overageRate;
+    var overageRate = eachAdditional;
+    extraAmount     = numExtra * overageRate;
 
   }
 
@@ -91,9 +110,8 @@ var getExtraAmount = function (data, numExtra) {
 };  // End getExtraAmount()
 
 
-/** 
-* Of the keys in an object that can be converted to integers,
-* return the highest converted value.
+/** Of the keys in an object that can be converted to integers,
+* return the highest value.
 */
 var getMaxIntKey = function (data) {
   var max = 0;
