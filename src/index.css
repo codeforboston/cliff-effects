@@ -490,3 +490,7 @@ ACCESSIBILITY - Also see any other focus styles
   .mini.ui.steps a.step:hover {
   background: #dcddde;
 }
+
+    div[role="option"].active.selected.item:hover {
+  background: #dcddde;
+}
