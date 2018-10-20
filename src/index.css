@@ -38,8 +38,18 @@ body {
 
 /* Header.js styles */
 
-.header_segment {
+#appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header-segment {
   padding: 1em 0em;
+}
+
+#appHeader .menu {
+  margin: 0;
 }
 
 /* PageLayout.js styles */

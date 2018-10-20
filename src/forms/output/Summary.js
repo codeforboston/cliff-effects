@@ -93,7 +93,7 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * //   total: 540,
  * // }
  * 
- * @note: Unfortunately, stll relies on an outside value -
+ * Unfortunately, stll relies on an outside value -
  *     PROGRAM_CHART_VALUES.
  * 
  * @typedef {object} benefit

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageLayout> matches snapshot 1`] = `
+<PageLayout>
+  <div>
+    <Segment
+      className="pl-segment"
+      vertical={true}
+    >
+      <div
+        className="ui vertical segment pl-segment"
+      >
+        <Grid
+          container={true}
+          stackable={true}
+          verticalAlign="middle"
+        >
+          <div
+            className="ui container stackable middle aligned grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  width={10}
+                >
+                  <div
+                    className="ten wide column"
+                  >
+                    Some content
+                  </div>
+                </GridColumn>
+                <GridColumn
+                  floated="right"
+                  width={6}
+                >
+                  <div
+                    className="right floated six wide column"
+                  />
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
+      </div>
+    </Segment>
+  </div>
+</PageLayout>
+`;
