@@ -43,10 +43,11 @@ class ReactRouterLeaveListener extends React.Component {
   render() {
     const { isBlocking } = this.props;
     // This is always invisible and waits for the user
-    // to navigate to a different React Page/Route
+    // to navigate to a different React Page/Route.
+    // This message doesn't usually show up, but sometimes does.
     return <Prompt
       when    = { isBlocking }
-      message = { 'fake message since this prop is required' } />;
+      message = { `If you leave you'll lose this data. Are you sure you want to leave?` } />;
   }
 }
 

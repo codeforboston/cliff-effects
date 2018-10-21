@@ -3,7 +3,16 @@ export default {
   langName: `English`,
   langCode: `en`,
 
-  header: {},
+  header: {
+    homeNav_v1:   `Home`,
+    aboutNav_v1:  `About`,
+    githubNav_v1: [
+      {
+        name: `__githubRepoLink__`,
+        text: `GitHub`,
+      },
+    ],
+  },
 
   footer: {
     header_v1: [
@@ -327,5 +336,16 @@ export default {
       buttonMonthly_v1:           `Monthly`, // see cashflow.js, GraphTimeButtons
       buttonYearly_v1:            `Yearly`, // see cashflow.js, GraphTimeButtons
     },
+
+    warningModal: {
+      header_v1:              `IMPORTANT!`,
+      warning_v1:             `This tool is in testing.  Predictions should not be used to make financial decisions.`,
+      buttonAcceptWarning_v1: `Continue`,
+      buttonCancel_v1:        `Cancel`,
+      formInstructions_v1:    `Please indicate you understand the following:`,
+      checkboxLabel1:         `This tool is not finished.`,
+      checkboxLabel2:         `I can't count on what this tool tells me.`,
+    },
+
   },
 };

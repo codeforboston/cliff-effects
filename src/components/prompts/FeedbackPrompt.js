@@ -50,25 +50,26 @@ class FeedbackPrompt extends React.Component {
 
     // Otherwise, set up the prompt
     var realLeave   = leaveText || 'Leave',
-        realStay    = stayText || 'Stay',
+        realStay    = stayText || `Cancel`,
         realMessage = message;
     if (message === 'default') {
-      realMessage =  'Selecting "' + realLeave + '" will erase the information you have put into the form. ' +
-                      'You will still be able to click it after submitting feedback.';
+      realMessage = `Clicking "${realLeave}" will erase the information you have put into the form. Do you want to tell us something about the app first? That information could help us. You will still be able to come back and click "${realLeave}" afterwards.`;
     }
 
     return (
-      <Modal open={ open }>
-        <Modal.Header>{header || `Do you want to give feedback before you ${realLeave.toLowerCase()}?`}</Modal.Header>
+      <Modal
+        mountNode = { document.getElementById(`App`) }
+        open={ open }>
+        <Modal.Header>{header || `Do you want to tell us more before you click "${realLeave}"?`}</Modal.Header>
         <Modal.Content>
           <p> {realMessage} </p>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={ this.leave }>{realLeave}</Button>
           <Button onClick={ this.stay }>{realStay}</Button>
+          <Button onClick={ this.leave }>{realLeave}</Button>
           <Button
             onClick={ openFeedback }
-            primary>Submit Feedback
+            primary>Tell Us More
           </Button>
         </Modal.Actions>
       </Modal>

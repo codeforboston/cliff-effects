@@ -34,6 +34,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         };
     langOpts.push(lang);
   }
+
   return (
     <div className = { `dev-menu` } >
       <Menu.Item>
@@ -86,6 +87,21 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
       <Menu.Item>
         <LocalizationReport />
       </Menu.Item>
+
+      <Menu.Item>
+        <HeadingWithDetail>
+          <Checkbox
+            label    = { `Disable warning modal` }
+            checked  = { devProps.warningOff }
+            onChange = { funcs.warning } />
+          <span>
+            Note: Uncheck this box to<br />
+            disable the predictions warning<br />
+            modal. The modal displays prior<br />
+            to allowing access to the form.<br />
+          </span>
+        </HeadingWithDetail>
+      </Menu.Item>
     </div>
   );
 };  // End <DevMenu>
@@ -114,6 +130,12 @@ class DevHud extends Component {
     setDev(`nonEnglish`, !nonEnglish);
   };
 
+  toggleWarning = () => {
+    var setDev  = this.props.funcs.setDev,
+        warning = this.props.devProps.warningOff;
+    setDev(`warningOff`, !warning);
+  };
+
   turnOff = () => {
     this.props.funcs.setDev(`dev`, false);
   };
@@ -131,6 +153,7 @@ class DevHud extends Component {
           english:    this.toggleEnglish,
           nonEnglish: this.toggleNonEnglish,
           turnOff:    this.turnOff,
+          warning:    this.toggleWarning,
         };
 
     return (

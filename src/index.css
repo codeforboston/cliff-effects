@@ -38,8 +38,18 @@ body {
 
 /* Header.js styles */
 
-.header_segment {
+#appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header-segment {
   padding: 1em 0em;
+}
+
+#appHeader .menu {
+  margin: 0;
 }
 
 /* PageLayout.js styles */
@@ -467,14 +477,32 @@ i.icon.details-icon {
 ACCESSIBILITY - Also see any other focus styles
 =================
 */
-#App *:focus {
+body .ui *:focus,
+#App a:focus {
   outline: 5px double rgba(0, 121, 116, 1);
   outline-offset: 2px;
+  z-index: 1;
 }
 
-#App .ui input:focus~label:before,
-#App .ui input:focus {
+#App #HomePage a:focus {
+  outline: 5px double rgba(0, 97, 93, 1);
+}
+
+/* Without #root, these selectors don't win */
+#root input:focus~label:before,
+#root .form *:focus {
   border: 1px solid rgba(0, 121, 116, 1);
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
+}
+
+
+/*
+=========================
+PREDICTIONS WARNING MODAL
+=========================
+*/
+#WarningModal .header {
+  color: #fff;
+  background-color: rgb(136,0,21);
 }
