@@ -16,8 +16,8 @@ const MainMenu = function (props) {
         secondary
         size='large'>
 
-        <Menu.Item><Link id="main-nav" to="/">Home</Link></Menu.Item>
-        <Menu.Item><Link id="main-nav" to="/about">About</Link></Menu.Item>
+        <Menu.Item><Link className="main-nav" to="/">Home</Link></Menu.Item>
+        <Menu.Item><Link className="main-nav" to="/about">About</Link></Menu.Item>
         <Menu.Item position='right'>
           {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
           {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}

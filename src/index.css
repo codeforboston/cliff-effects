@@ -44,7 +44,7 @@ body {
 
 /* MainMenu.js styles */
 
-#main-nav:hover {
+.main-nav:hover {
   color: #006C68;
 }
 
