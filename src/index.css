@@ -44,7 +44,7 @@ body {
 
 /* MainMenu.js styles */
 
-.main-nav:hover {
+.ui.inverted.menu .item, .ui.inverted.menu .item>a:not(.ui):hover {
   color: #006C68;
 }
 
