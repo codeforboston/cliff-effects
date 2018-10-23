@@ -48,6 +48,10 @@ body {
   color: #006C68;
 }
 
+#appHeader .menu {
+  margin: 0;
+}
+
 /* PageLayout.js styles */
 
 .pl-segment {
@@ -493,4 +497,14 @@ ACCESSIBILITY - Also see any other focus styles
 
     div[role="option"].active.item:hover {
   background: #dcddde;
+}
+
+/*
+=========================
+PREDICTIONS WARNING MODAL
+=========================
+*/
+#WarningModal .header {
+  color: #fff;
+  background-color: rgb(136,0,21);
 }
