@@ -1,15 +1,10 @@
-// LOGIC
-import { getSection8Benefit } from './massachusetts/section8';
-import { getSNAPBenefits } from './federal/snap';
-
-// DATA
+// STATE-SPECIFIC
 import { allBenefitOrders } from './allBenefitOrders';
+import { allBenefitOps } from './allBenefitOps';
 
 
 var baseBenefits = [ `income` ];
-
-// For development
-var benefitOps = {
+var baseOps = {
   income: {
     calc: function (client, timeframe) {
       return client[ timeframe ].earned;
@@ -18,21 +13,7 @@ var benefitOps = {
       return {};
     },
   },
-  section8: {
-    calc:        getSection8Benefit,
-    getNewProps: function (client, timeframe, newSubsidy) {
-      let timedClient = client[ timeframe ];
-      return { rentShare: timedClient.contractRent - newSubsidy };
-    },
-  },
-  snap: {
-    calc:        getSNAPBenefits,
-    getNewProps: function (client, timeframe, newSubsidy) {
-      return {};
-    },
-  },
 };
-// End for development
 
 
 /** 'getBenefits' by a now more accurate name. Mutates
@@ -51,10 +32,11 @@ var benefitOps = {
  * @param {string} timeframe Either 'current' or 'future', whichever is
  *     supposed to be calculated.
  */
-const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToChange, timeframe, State }) {
+const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToChange, timeframe, USState }) {
 
-  State = State || `MA`;  // For now, till value is actually needed
-  var benefitsInOrder = baseBenefits.concat(allBenefitOrders[ State ]);
+  USState = USState || `MA`;  // For now, till value is actually needed
+  var benefitsInOrder = baseBenefits.concat(allBenefitOrders[ USState ]),
+      benefitOps      = { ...baseOps, ...allBenefitOps[ USState ] };
 
   for (let benefiti = 0; benefiti < benefitsInOrder.length; benefiti ++) {
 
