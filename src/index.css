@@ -516,7 +516,11 @@ PRINTING STYLES
 /* `margin: 0` at bottom working without print,
     not working for print when cliff present. Why? */
 @media print {
-  .header_segment,
+  @page {
+    size: portrait;
+  }
+
+  #appHeader,
   #feedback_fixed,
   #reset_fixed,
   #form-nav,
@@ -541,11 +545,17 @@ PRINTING STYLES
     margin: 0;
   }
 
-  @page {
-    size: portrait;
+  .section-header span {
+    color: black;
   }
 
-  .section-header span {
+  #App .footer_segment {
+    background: transparent !important;
+  }
+
+  #App .footer_segment a,
+  #App .footer_segment p,
+  #App .footer_segment span {
     color: black;
   }
 }
