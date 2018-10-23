@@ -2,14 +2,13 @@
 import { getSection8Benefit } from './massachusetts/section8';
 import { getSNAPBenefits } from './federal/snap';
 
+// DATA
+import { allBenefitOrders } from './allBenefitOrders';
+
+
+var baseBenefits = [ `income` ];
 
 // For development
-var benefitsInOrder = [
-  `income`,
-  `section8`,
-  `snap`,
-];
-
 var benefitOps = {
   income: {
     calc: function (client, timeframe) {
@@ -52,7 +51,11 @@ var benefitOps = {
  * @param {string} timeframe Either 'current' or 'future', whichever is
  *     supposed to be calculated.
  */
-const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToChange, timeframe }) {
+const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToChange, timeframe, State }) {
+
+  State = State || `MA`;  // For now, till value is actually needed
+  var benefitsInOrder = baseBenefits.concat(allBenefitOrders[ State ]);
+
   for (let benefiti = 0; benefiti < benefitsInOrder.length; benefiti ++) {
 
     let benefitName = benefitsInOrder[ benefiti ];
