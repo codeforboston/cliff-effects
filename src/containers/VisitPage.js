@@ -22,7 +22,6 @@ import ErrorListener from '../components/prompts/ErrorListener';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
-import { ResetAnytime } from '../components/prompts/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
@@ -374,7 +373,12 @@ class VisitPage extends Component {
         </Container>
 
         <Container id={ `alwaysLeftButtons` }>
-          <ResetAnytime askToResetClient={ this.askToResetClient } />
+          <ButtonReset
+            onClick   = { this.askToResetClient }
+            snippets  = { snippets }
+            overrides = {{ id: `resetFixed`, size: `medium` }}>
+            New Client
+          </ButtonReset>
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 

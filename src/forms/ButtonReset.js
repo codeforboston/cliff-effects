@@ -21,8 +21,9 @@ const ButtonReset = function ({ onClick, snippets, overrides }) {
 
   return (
     <BigButton
-      onClick = { clickHandler }
-      { ...overrides }>
+      className = { `caution` }
+      onClick   = { clickHandler }
+      overrides = { overrides }>
       { snippets.i_newClient }
     </BigButton>
   );

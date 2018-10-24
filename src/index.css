@@ -297,7 +297,7 @@ form elements. */
 #alwaysLeftButtons {
   /* Would like to use `position: sticky;`, but it's
    * not supported by IE at all. A bit premature, but
-   * also obscure and may be hard to find after-the-fact */
+   * also obscure and may be hard to fix after-the-fact */
   position: fixed;
   transform-origin: top left;
   transform: rotate(270deg) translateX(-100%);
@@ -307,24 +307,16 @@ form elements. */
   width: fit-content;
 }
 
-/* FEEDBACK BUTTON */
-#feedbackFixed,
-#resetFixed {
+/* LEFT BUTTONS' OWN STYLES */
+#alwaysLeftButtons .button {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-}
-
-/* RESET BUTTON */
-#App .button.danger {
     margin-right: .7rem;
-    color: white;
-    background-color: #f2711c;
 }
 
-#App .button.danger:hover {
-  background-color: #d16614;
+#alwaysLeftButtons .button:last-child {
+  margin-right: 0;
 }
-
 
 /* FUNCTIONAL */
 .has-details {
@@ -502,6 +494,21 @@ body .ui *:focus,
   border: 1px solid rgba(0, 121, 116, 1);
   outline: 2px solid rgba(0, 121, 116, 1);
   outline-offset: 1px;
+}
+
+/*
+=================
+STYLES FOR COMMUNICATION
+@todo Figure out color-blind indicators as well
+=================
+*/
+#App .button.caution {
+    color: white;
+    background-color: #f2711c;
+}
+
+#App .button.caution:hover {
+  background-color: #d16614;
 }
 
 /*
