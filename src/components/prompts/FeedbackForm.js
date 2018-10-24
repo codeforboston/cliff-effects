@@ -7,9 +7,6 @@ import {
   Message,
 } from 'semantic-ui-react';
 
-// CUSTOM
-import { renderIfTrue } from '../renderIfTrue';
-
 // URL to direct requests to, from the Google Apps Script
 const postUrl = 'https://script.google.com/macros/s/AKfycbyXYbemTPcqsdbmXITnjaNi-CkN85g5kKPrgzt4AS8ykT2jH6Zn/exec';
 
@@ -68,15 +65,19 @@ class AskPermission extends React.Component {
         loading  = { this.props.submitting }
         disabled = { this.state.submitType === null }
         color    ='teal'>
-        {renderIfTrue(this.state.submitType === `withData`,
-          `Send with my information`
-        )}
-        {renderIfTrue(this.state.submitType === `withoutData`,
-          `Send without my information`
-        )}
-        {renderIfTrue(this.state.submitType === null,
-          `Send`
-        )}
+        { (this.state.submitType === `withData`) ? (
+            `Send with my information`
+          ) : (
+            null
+          )
+        }
+        { (this.state.submitType === `withoutData`) ? (
+            `Send without my information`
+          ) : (
+            null
+          )
+        }
+        { (this.state.submitType === null) ? (`Send`) : (null) }
       </Button>
     </Modal.Actions>,
   ]);}
