@@ -580,16 +580,12 @@ PREDICTIONS WARNING MODAL
   background: #dcddde;
 }
 
-.ui.dropdown .menu>.item:hover {
-
+.ui.selection.dropdown .menu>.item:hover {
+  background-color: #adb1b5;
 }
 
-div[role="option"][aria-selected="true"].item {
-  background: orangered;
-}
-
-div[role="option"].selected.item:hover {
-
+.ui.selection.dropdown .menu>.selected.item {
+  background-color: #dcddde;
 }
 
 
