@@ -342,6 +342,8 @@ const Summary = function ({ client, openFeedback, snippets }) {
   }  // ends for each benefit
 
   // Ask for feedback
+  // Stays put when printing. A take-home hint
+  // that the tool is still a prototype
   var feedbackAsk = (
     <p>
       <span key = { `pre-ask` }>
@@ -393,6 +395,10 @@ const Summary = function ({ client, openFeedback, snippets }) {
     );
   }  // ends if there's a cliff end
 
+  const print = function () {
+    window.print();
+  };
+
   return (
     <div>
 
@@ -412,6 +418,15 @@ const Summary = function ({ client, openFeedback, snippets }) {
       </div>
       
       { endOfCliffContent }
+
+      <div className={ `print-row` } >
+        <Button
+          className = { `print` }
+          color     = { `teal` }
+          onClick   = { print }>
+          { sn.i_printButton }
+        </Button>
+      </div>
 
     </div>
   );

@@ -38,8 +38,18 @@ body {
 
 /* Header.js styles */
 
-.header_segment {
+#appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header-segment {
   padding: 1em 0em;
+}
+
+#appHeader .menu {
+  margin: 0;
 }
 
 /* PageLayout.js styles */
@@ -49,6 +59,10 @@ body {
 }
 
 /* Predictions.js */
+.print-row {
+  margin-top: 1em;
+  text-align: right;
+}
 
 .feedback-button {
   display: inline;
@@ -82,6 +96,10 @@ Used to fill vertical space.
 
 .heading-with-detail .middle {
   white-space: nowrap;
+}
+
+#cliff-effects-tool {
+  padding: 42px 0;
 }
 
 #cliff-effects-tool .show-on-yes {
@@ -323,8 +341,11 @@ i.icon.details-icon {
 /* =============== */
 /* PREDICTIONS (manual theme implementation) */
 /* =============== */
-/* If theme is changed, this will have to be changed by hand */
+#resultsIntro {
+  margin-bottom: 1em;
+}
 
+/* If theme is changed, this will have to be changed by hand */
 .ui.attached.tabular.menu {
   border-bottom-color: #00b6ad;
 }
@@ -483,6 +504,58 @@ body .ui *:focus,
   outline-offset: 1px;
 }
 
+/*
+=================
+PRINTING STYLES
+=================
+*/
+
+/* `margin: 0` at bottom working without print,
+    not working for print when cliff present. Why? */
+@media print {
+  @page {
+    size: portrait;
+  }
+
+  #appHeader,
+  #feedback_fixed,
+  #reset_fixed,
+  #form-nav,
+  #section-bottom,
+  #predictionsForm,
+  #resultsIntro,
+  #App .tabular.menu,
+  .print-row {
+    display: none;
+  }
+
+  #cliff-effects-tool,
+  #App .very.padded.segment {
+    padding: 0;
+  }
+
+  #App .bottom.segment {
+    border: 0;
+  }
+
+  #root #App .ui.segment {
+    margin: 0;
+  }
+
+  .section-header span {
+    color: black;
+  }
+
+  #App .footer_segment {
+    background: transparent !important;
+  }
+
+  #App .footer_segment a,
+  #App .footer_segment p,
+  #App .footer_segment span {
+    color: black;
+  }
+}
 
 /*
 =========================

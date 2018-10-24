@@ -72,7 +72,7 @@ class TermsAndConditions extends Component {
               <Checkbox
                 checked = { this.state.Checkbox1 }
                 name    = { `checkbox1` }
-                onClick = { () => this.handleChange('checkbox1') } />
+                onClick = { () => {return this.handleChange('checkbox1');} } />
             </Form.Field>
             <Form.Field>
               { snippets.i_checkboxLabel1 }
@@ -86,7 +86,7 @@ class TermsAndConditions extends Component {
               <Checkbox
                 checked = { this.state.Checkbox2 }
                 name    = { `checkbox2` }
-                onClick = { () => this.handleChange('checkbox2') } />
+                onClick = { () => {return this.handleChange('checkbox2');} } />
             </Form.Field>
             <Form.Field>
               { snippets.i_checkboxLabel2 }
@@ -96,12 +96,12 @@ class TermsAndConditions extends Component {
         </Modal.Content>
         <Modal.Actions>
           <Button
-            onClick={ () => this.closeModal(false) }>
+            onClick={ () => {return this.closeModal(false);} }>
             { snippets.i_buttonCancel }
           </Button>
           <Button
             disabled={ !this.allowContinue() }
-            onClick={ () => this.closeModal(true) }
+            onClick={ () => {return this.closeModal(true);} }
             color='teal'>
             { snippets.i_buttonAcceptWarning }
           </Button>

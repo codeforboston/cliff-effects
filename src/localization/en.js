@@ -3,7 +3,16 @@ export default {
   langName: `English`,
   langCode: `en`,
 
-  header: {},
+  header: {
+    homeNav_v1:   `Home`,
+    aboutNav_v1:  `About`,
+    githubNav_v1: [
+      {
+        name: `__githubRepoLink__`,
+        text: `GitHub`,
+      },
+    ],
+  },
 
   footer: {
     header_v1: [
@@ -64,24 +73,22 @@ export default {
     ],
 
     whoMadeThisHeader_v1: `Who is behind this?`,
-    whoMadeThis1_v1:      [
-      `This application is part of a project made possible by a Boston Foundation Open Door Grant to the University of Massachusetts Boston's `,
-      { name: `__centerForSocialPolicy__` },
-      `, in close partnership with `,
-      { name: `__projectHope__` },
-      ` and `,
-      { name: `__codeForBoston__` },
-      `. The Center for Social Policy is the lead partner for the `,
-      { name: `__onSolidGroundCoalition__` },
-      `.`,
-    ],
-    whoMadeThis2_v1: [
-      `The code base is being maintained on `,
+    whoMadeThis1_v2:      [
+      `The code base is being developed on `,
       { name: `__github__` },
       ` by `,
       { name: `__codeForBoston__` },
       ` volunteers. For more information or to report a bug, please contact `,
       { name: `__contactEmail__` },
+      `.`,
+    ],
+    whoMadeThis2_v2: [
+      `This application was originally part of a project made possible by a Boston Foundation Open Door Grant to the University of Massachusetts Boston's `,
+      { name: `__centerForSocialPolicy__` },
+      `, in close partnership with `,
+      { name: `__projectHope__` },
+      ` and `,
+      { name: `__codeForBoston__` },
       `.`,
     ],
     whoMadeThis3_v1: [
@@ -292,6 +299,7 @@ export default {
       willGet_v1:                 `you could bring in about`,
       moreIn_v1:                  `more each month all together.`,
       findHelp_v1:                `If you're worried about these results, please search for "social services" in your area to try to find a local case manager.`,
+      printButton_v1:             `Print`,
       // Benefits Table:
       benefitsTableTitle_v1:      `Changes`, // see line 265 above
       columnBenefit_v1:           `Benefit`, // see BenefitsTable.js

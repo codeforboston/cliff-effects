@@ -12,7 +12,7 @@ const FeedbackAnytime = function (props) {
         color='teal'
         size='medium'
         id={ 'feedbackFixed' }>
-        Send Feedback
+        Tell Us More
       </Button>
     </div>
   );

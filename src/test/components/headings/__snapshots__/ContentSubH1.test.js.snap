@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContentSubH1> matches snapshot 1`] = `
+<ContentSubH1>
+  <div
+    className="text-sub-h1"
+    style={
+      Object {
+        "display": "block",
+        "textAlign": "left",
+      }
+    }
+  >
+    Some text
+    <span>
+      And now an element!
+    </span>
+  </div>
+</ContentSubH1>
+`;

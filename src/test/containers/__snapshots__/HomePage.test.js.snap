@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HomePage> matches snapshot 1`] = `
+<MemoryRouter
+  initialEntries={
+    Array [
+      Object {
+        "key": "testKey",
+        "pathname": "/",
+      },
+    ]
+  }
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "testKey",
+            "pathname": "/",
+            "search": "",
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "testKey",
+          "pathname": "/",
+          "search": "",
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <HomePage>
+      <div
+        id="HomePage"
+      >
+        <div
+          id="HomeContent"
+        >
+          <div
+            className="main-wrapper"
+          >
+            <div
+              className="headings"
+            >
+              <h1>
+                Cliff Effects Tool
+              </h1>
+              <h2>
+                GUIDANCE PROTOTYPE*
+              </h2>
+            </div>
+            <div
+              className="center-contents"
+            >
+              <Link
+                className="home-button hb-left"
+                replace={false}
+                to="/visit/54321/1"
+              >
+                <a
+                  className="home-button hb-left"
+                  href="/visit/54321/1"
+                  onClick={[Function]}
+                >
+                  Get Started
+                </a>
+              </Link>
+              <Link
+                className="home-button hb-right"
+                replace={false}
+                to="/about"
+              >
+                <a
+                  className="home-button hb-right"
+                  href="/about"
+                  onClick={[Function]}
+                >
+                  Learn More
+                </a>
+              </Link>
+            </div>
+            <p
+              className="home-disclaimer"
+            >
+              *This is a prototype and should not be used to make financial decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </HomePage>
+  </Router>
+</MemoryRouter>
+`;

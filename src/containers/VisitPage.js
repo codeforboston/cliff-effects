@@ -52,9 +52,9 @@ class VisitPage extends Component {
       // For `FeedbackPrompt`
       promptData:  {
         open:      false,  // Start as hidden
-        message:   '',
+        message:   `default`,
         header:    '',
-        leaveText: 'Reset',
+        leaveText: `Leave`,
         callback:  () => {},
       },
       feedbackFormRequested: false,
@@ -112,6 +112,8 @@ class VisitPage extends Component {
   };
 
   askToResetClient = (promptData) => {
+
+    promptData = promptData || this.promptData;
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
@@ -274,7 +276,7 @@ class VisitPage extends Component {
         prevContent        = null,
         nextContent        = null,
         stepIndex          = this.getCurrentStepIndex(),
-        termsAccepted      = this.props.termsAccepted
+        termsAccepted      = this.props.termsAccepted;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -349,13 +351,12 @@ class VisitPage extends Component {
         ) }
 
         {/* = SECTION = */}
-        {/* `padding` here duplicates previous `<Grid>` styleing */}
+        {/* `padding` here duplicates previous `<Grid>` styling */}
         <Container
           id = { `cliff-effects-tool` }
-          className='flex-item flex-column'
-          style={{ padding: '42px 0' }}>
-
+          className='flex-item flex-column'>
           <Responsive
+            id = { `form-nav` }
             minWidth='874.5'
             style={{ padding: '14px 0' }}>
             <StepBar
