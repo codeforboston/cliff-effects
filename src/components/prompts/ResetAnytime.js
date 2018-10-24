@@ -17,10 +17,9 @@ const ResetAnytime = function (props) {
       <Button
         onClick={ askToResetClient }
         type='button'
-        color='teal'
         size='medium'
-        className={ 'fixed rotate' }
-        id={ 'reset_fixed' }>
+        className={ 'danger' }
+        id={ 'resetFixed' }>
         New Client
       </Button>
     </div>

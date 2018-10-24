@@ -222,18 +222,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; /* Removes leftover margin */
 }
 
-/* Old selector used for 'Submit Feedback' and 'Reset' buttons */
-.fixed {
-  top: 6.2em;
-  left: -.75em;
-  position: fixed;
-}
-
-.rotate {
-    transform-origin: top left;
-    transform: rotate(270deg);
-}
-
 /* CHARTS */
 .graph-holder {
   position: relative;
@@ -305,26 +293,35 @@ form elements. */
 }
 
 
+/* FORM EVER-PRESENT BUTTONS */
+#alwaysLeftButtons {
+  /* Would like to use `position: sticky;`, but it's
+   * not supported by IE at all. A bit premature, but
+   * also obscure and may be hard to find after-the-fact */
+  position: fixed;
+  transform-origin: top left;
+  transform: rotate(270deg) translateX(-100%);
+  top: 6.2rem;
+  left: 0;
+  display: flex;
+  width: fit-content;
+}
+
 /* FEEDBACK BUTTON */
-#feedback_fixed {
-    position: fixed;
-    top: 234px;
-    left: 0;
+#feedbackFixed,
+#resetFixed {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
 /* RESET BUTTON */
-#reset_fixed {
-    position: fixed;
-    top: 362px;
-    left: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+#App .button.danger {
+    margin-right: .7rem;
+    color: white;
     background-color: #f2711c;
 }
 
-#reset_fixed:hover {
+#App .button.danger:hover {
   background-color: #d16614;
 }
 
@@ -559,6 +556,20 @@ PRINTING STYLES
     color: black;
   }
 }
+
+/*
+=========================
+SMALL SCREEN
+=========================
+*/
+@media only screen and (max-width: 767px) {
+  #alwaysLeftButtons {
+    /* Fighting semantic-ui */
+    margin-right: 0!important;
+    margin-left: 0!important;
+  }
+}
+
 
 /*
 =========================
