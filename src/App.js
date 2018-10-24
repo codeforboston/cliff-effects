@@ -74,8 +74,7 @@ class App extends Component {
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
-      clients:  {
-        default: defaults,
+      clients:  {default: defaults,
         loaded:  defaults,
       },
       // All these should be bools. For now, at least.
