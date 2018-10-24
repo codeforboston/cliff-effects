@@ -6,3 +6,5 @@ node_js:
 script:
   - npm run build
   - npm test -- --coverage && codecov
+after_success:
+  - npm run posttest
