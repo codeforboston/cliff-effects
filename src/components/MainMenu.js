@@ -27,3 +27,4 @@ const MainMenu = function ({ snippets }) {
 
 
 export { MainMenu };
+

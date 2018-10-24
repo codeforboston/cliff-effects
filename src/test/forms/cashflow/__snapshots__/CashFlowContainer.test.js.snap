@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CashFlowContainer> matches snapshot 1`] = `
+<CashFlowContainer
+  label="Rent"
+  validRow={true}
+>
+  <FormField
+    className="cashflow"
+    inline={true}
+  >
+    <div
+      className="inline field cashflow"
+    >
+      <span>
+        Some content
+      </span>
+      <div
+        className="cashflow-column cashflow-column-last-child"
+      >
+        <label>
+          Rent
+        </label>
+      </div>
+      <InvalidMessage
+        validRow={true}
+      />
+    </div>
+  </FormField>
+</CashFlowContainer>
+`;
+
+exports[`<CashFlowContainer> matches snapshot 2`] = `
+<CashFlowContainer
+  label="Rent"
+  message="What did you enter!?"
+  validRow={false}
+>
+  <FormField
+    className="cashflow"
+    inline={true}
+  >
+    <div
+      className="inline field cashflow"
+    >
+      <span>
+        Some content
+      </span>
+      <div
+        className="cashflow-column cashflow-column-last-child"
+      >
+        <label>
+          Rent
+        </label>
+      </div>
+      <InvalidMessage
+        message="What did you enter!?"
+        validRow={false}
+      >
+        <Label
+          basic={true}
+          color="red"
+          pointing="left"
+        >
+          <div
+            className="ui red left pointing basic label"
+            onClick={[Function]}
+          >
+            What did you enter!?
+          </div>
+        </Label>
+      </InvalidMessage>
+    </div>
+  </FormField>
+</CashFlowContainer>
+`;

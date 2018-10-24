@@ -19,9 +19,9 @@ import { ExternalLink } from './../components/ExternalLink';
 // INPUT CONTAINER COMPONENTS
 // ========================================
 
+// @todo Put above input instead, using `.Top` of `<Surrounder>`
 /** Adds an option for an 'invalid input' message to the right
  *     of the last element
- * @todo Put above input instead, using `.Top` of `<Surrounder>`
  */
 const InvalidMessage = function ({ validRow, message }) {
 

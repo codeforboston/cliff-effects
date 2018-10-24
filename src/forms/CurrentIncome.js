@@ -7,50 +7,53 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
 
-/**
-* @todo Figure out which programs need to know which types of incomes
-* and categorize/tag them accordingly.
-*
-* @todo Calc and store `client.currentUnearnedIncomeMonthly`. I think
-* we do still have to keep the other specific income soruces separate
-* as they're possibly used in other calculations.
-*/
 
 // ========================================
 // COMPONENTS
 // ========================================
-/**
-* @todo Is it possible for id's to be the same as the text in the label?
-* @todo Stuff like interest of bank accounts? (unearned income?)
-* @todo Other assets (not counted in gross income? income categories?)
-* @todo Add note: "Household income (a before tax income, and does not include
-* funds such as income from children under 18 years old, amounts received
-* through training programs funded by HUD, and the income of a live-in aide)"
-* (@see {@link http://www.masslegalhelp.org/housing/financial-eligibility})
-* @todo Relevant? "State housing programs base eligibility on net yearly income.
-* Net yearly income does not include funds such as wages earned by full-time
-* students, worker's compensation, and a certain amount of wages earned by a
-* tenant 62 or older. It also allows you to deduct certain amounts, such as
-* necessary medical expenses and personal care services." (@see {@link
-* http://www.masslegalhelp.org/housing/financial-eligibility})
-*/
+/* Move to program calculations
+ * @todo Figure out which programs need to know which types of incomes
+ * and categorize/tag them accordingly.
+ * @todo Calc and store `client.currentUnearnedIncomeMonthly`? I think
+ * we do still have to keep the other specific income soruces separate
+ * as they're possibly used in other calculations.
+ * @todo Stuff like interest of bank accounts? (unearned income?)
+ * @todo Other assets (not counted in gross income? income categories?)
+ * @todo Relevant? "State housing programs base eligibility on net yearly income.
+ * Net yearly income does not include funds such as wages earned by full-time
+ * students, worker's compensation, and a certain amount of wages earned by a
+ * tenant 62 or older. It also allows you to deduct certain amounts, such as
+ * necessary medical expenses and personal care services." (@see {@link
+ * http://www.masslegalhelp.org/housing/financial-eligibility})
+ */
 
-/** @todo description
+/**
+ * @todo Add note: "Household income (a before tax income, and does not include
+ * funds such as income from children under 18 years old, amounts received
+ * through training programs funded by HUD, and the income of a live-in aide)"
+ * (@see {@link http://www.masslegalhelp.org/housing/financial-eligibility})
+ */
+
+/** Contents of income step. Abstract to allow entry of `future` values too.
  *
  * @function
- * @param {object} props - See below
- * @property {object} props.current - Client current info.
- * @property {string} props.time - 'current' or 'future'
- * @property {function} props.updateClientValue - Updates state upstream.
- * @property {function} props.snippets - Uses user chosen language-specific
+ * @param {object} props
+ * @property {object} props.current Client current info. Could be
+ *     changed to just 'client' to allow future values in abstraction.
+ * @property {string} props.time 'current' or 'future'. (needed?)
+ * @property {function} props.updateClientValue Updates state upstream.
+ * @property {function} props.snippets Uses user chosen language-specific text.
  *
-* @returns Component
-*/
+ * @returns {object} React element
+ */
 const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
 
   var type = 'income';
 
-  /** Makes sure values are propagated to 'future' properties if needed */
+  /** Makes sure values are propagated to 'future' properties if needed
+   * @member
+   * @depricated
+   */
   var ensureFuture = function (evnt, inputProps) {
     updateClientValue(evnt, { ...inputProps, fillFuture: true });
   };  // End ensureFuture()
@@ -132,20 +135,18 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
 };  // End IncomeForm()
 
 
-/** @todo description
- *
+/**
  * @function
- * @param {object} props - See below.
- * @property {function} props.updateClientValue - Updates state upstream.
- * @property {object} props.navData  - properties for two buttons and middle compponent TBD 
- * @property {object} props.client - JSON object with future and current values.
- * @property {function} props.snippets - Uses user chosen language-specific
-*
-* @returns Component
-*/
-// `props` is a cloned version of the original props. References broken.
-
+ * @param {object} props
+ * @property {function} props.updateClientValue Updates state upstream.
+ * @property {object} props.navData Bottom row buttons. 
+ * @property {object} props.client JSON object with `future` and `current` props.
+ * @property {function} props.snippets Uses user chosen language-specific text.
+ *
+ * @returns {object} React element
+ */
 const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippets }) {
+// `props` is a cloned version of the original props. References broken.
 
   return (
     <FormPartsContainer
@@ -164,4 +165,7 @@ const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippe
 };  // End CurrentIncomeStep()
 
 
-export { CurrentIncomeStep };
+export {
+  CurrentIncomeStep,
+  IncomeForm,
+};

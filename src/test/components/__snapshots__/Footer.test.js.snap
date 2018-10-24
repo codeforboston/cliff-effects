@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer> matches snapshot 1`] = `
+<Footer
+  snippets={null}
+>
+  <Segment
+    className="footer_segment"
+    color="teal"
+    inverted={true}
+    vertical={true}
+  >
+    <div
+      className="ui teal inverted vertical segment footer_segment"
+    >
+      <Grid
+        container={true}
+        divided={true}
+        inverted={true}
+        stackable={true}
+      >
+        <div
+          className="ui container inverted stackable divided grid"
+        >
+          <GridRow>
+            <div
+              className="row"
+            >
+              <GridColumn
+                floated="left"
+                width={4}
+              >
+                <div
+                  className="left floated four wide column"
+                >
+                  <Header
+                    as="h4"
+                    inverted={true}
+                  >
+                    <h4
+                      className="ui inverted header"
+                    >
+                      Some translated text.
+                    </h4>
+                  </Header>
+                  <p>
+                    Some translated text.
+                  </p>
+                </div>
+              </GridColumn>
+              <a
+                href="http://www.codeforboston.org"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Image
+                  as="img"
+                  floated="right"
+                  size="small"
+                  src="logo.svg"
+                  ui={true}
+                >
+                  <img
+                    className="ui small right floated image"
+                    src="logo.svg"
+                  />
+                </Image>
+              </a>
+            </div>
+          </GridRow>
+        </div>
+      </Grid>
+    </div>
+  </Segment>
+</Footer>
+`;

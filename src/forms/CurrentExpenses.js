@@ -44,8 +44,8 @@ import { getUnder13Expenses } from '../utils/cashflow';
 /** Renders a yes/no choice that will reveal the cash
  *     flow component given when the user selects 'yes'.
  *
- * @note: We added this extra step between the user and
- * the input because people kept skipping that question.
+ *     We added this extra step between the user and
+ *     the input because people kept skipping that question.
  *
  * @param {object} props
  * @param {bool} props.hasExpenses True if client has any
