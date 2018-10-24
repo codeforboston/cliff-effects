@@ -377,7 +377,7 @@ class VisitPage extends Component {
             onClick   = { this.askToResetClient }
             snippets  = { snippets }
             overrides = {{ id: `resetFixed`, size: `medium` }}>
-            New Client
+            { snippets.i_newClient }
           </ButtonReset>
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
