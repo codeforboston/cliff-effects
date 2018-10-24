@@ -1,5 +1,7 @@
 // REACT COMPONENTS
 import React from 'react';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Header, Button } from 'semantic-ui-react';
 
 // DATA
@@ -56,7 +58,7 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  *     array of numerical values (which are meant to be money
  *     values right now).
  * @param {array} sourceObject.income Earned income values.
- * @param {int} Which item in each array should be used to
+ * @param {int} index Which item in each array should be used to
  *      accumulate values.
  *
  * @example
@@ -274,10 +276,16 @@ const Summary = function ({ client, openFeedback, snippets }) {
   var resourceKeys = [ `income` ];
   // Benefits, in order of appearance
   // So can't wait till `.benefits` is an array of benefit names...
-  if (client.current.hasSection8) {
+  if (client.getIn([
+    'current',
+    'hasSection8', 
+  ])) {
     resourceKeys.push(`section8`);
   }
-  if (client.current.hasSnap) {
+  if (client.getIn([
+    'current',
+    'hasSnap', 
+  ])) {
     resourceKeys.push(`snap`);
   }
 
@@ -286,7 +294,13 @@ const Summary = function ({ client, openFeedback, snippets }) {
   if (resourceKeys.length <= 1) {
     return snippets.i_noBenefitsChosen;
   }
-  if (client.future.earned === client.current.earned) {
+  if (client.getIn([
+    'future',
+    'earned', 
+  ]) === client.getIn([
+    'current',
+    'earned', 
+  ])) {
     return snippets.i_noFutureChange;
   }
 
@@ -417,6 +431,11 @@ const Summary = function ({ client, openFeedback, snippets }) {
   );
 };  // Ends <Summary>
 
+
+Summary.propTypes = {
+  client:       ImmutablePropTypes.map,
+  openFeedback: PropTypes.func,
+};
 
 export {
   Summary,
