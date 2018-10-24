@@ -491,11 +491,11 @@ ACCESSIBILITY - Also see any other focus styles
 
 /* Semantic UI Default Override */
 
-  .mini.ui.steps a.step:hover, .mini.ui.steps a.step:hover:after {
+.mini.ui.steps a.step:hover, .mini.ui.steps a.step:hover:after {
   background: #dcddde;
 }
 
-    div[role="option"].active.item:hover {
+div[role="option"].active.item:hover {
   background: #dcddde;
 }
 
