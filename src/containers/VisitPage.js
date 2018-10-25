@@ -276,7 +276,7 @@ class VisitPage extends Component {
         prevContent        = null,
         nextContent        = null,
         stepIndex          = this.getCurrentStepIndex(),
-        termsAccepted      = this.props.termsAccepted;
+        doesDistrust      = this.props.doesDistrust;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -379,9 +379,9 @@ class VisitPage extends Component {
         </Container>
 
         { 
-          termsAccepted === false ? (
+          doesDistrust === false ? (
             <PredictionsWarning
-              termsAccepted = { termsAccepted }
+              doesDistrust = { doesDistrust }
               toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
               snippets={{ ...snippets.warningModal }} />
           ) : (

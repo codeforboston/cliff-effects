@@ -69,7 +69,7 @@ class App extends Component {
      *  @property {boolean} devProps.dev - whether dev HUD is turned on
      *  @property {boolean} devProps.english - whether to highlight English snippets
      *  @property {boolean} devProps.nonEnglish - whether to highlight snippets in the current language, if that language is not English
-     *  @property {boolean} termsAccepted - displays modal to accept terms before allowing user to fill out form
+     *  @property {boolean} doesDistrust - displays modal to accept terms before allowing user to fill out form
      */
     this.state = {
       langCode: `en`,
@@ -88,7 +88,7 @@ class App extends Component {
         warningOff: true,
         ...localDev,
       },
-      termsAccepted: false,
+      doesDistrust: false,
     };
   };  // End constructor()
 
@@ -163,14 +163,14 @@ class App extends Component {
     return classes;
   };  // End propsToClasses()
 
-  /** Toggles termsAccepted flag in app state.  Passed to PredictionsWarning modal
+  /** Toggles doesDistrust flag in app state.  Passed to PredictionsWarning modal
    * which calls this in the onClose handler.  App is unavailable until terms 
    * are accepted unless warningOff is set to true in DevHud.
    * @method
    */
   toggleAcceptTerms = () => {
-    let isAccepted = this.state.termsAccepted;
-    this.setState({ termsAccepted: !isAccepted });
+    let userDistrusts = this.state.doesDistrust;
+    this.setState({ doesDistrust: !userDistrusts });
   };  // End acceptTerms()
 
   render () {
@@ -179,7 +179,7 @@ class App extends Component {
       snippets,
       devProps,
       clients,
-      termsAccepted,
+      doesDistrust,
     } = this.state;
 
     var { warningOff } = devProps;
@@ -237,11 +237,11 @@ class App extends Component {
                   return (
                     <VisitPage
                       { ...props }
-                      termsAccepted = { termsAccepted || warningOff }
-                      funcs         = { funcs }
-                      confirmer     = { confirmer }
-                      snippets      = {{ ...snippets.visitPage, langCode: snippets.langCode }}
-                      clientData    = { clientData } />);
+                      doesDistrust = { doesDistrust || warningOff }
+                      funcs        = { funcs }
+                      confirmer    = { confirmer }
+                      snippets     = {{ ...snippets.visitPage, langCode: snippets.langCode }}
+                      clientData   = { clientData } />);
                 } } />
 
               {/* For managing our development HUD */}
