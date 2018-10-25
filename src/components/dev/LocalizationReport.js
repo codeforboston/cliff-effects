@@ -68,7 +68,7 @@ class LocalizationReport extends Component {
 
   componentDidMount() {
     // Get the list of non-EN localizations for testing
-    let localizationKeys = Object.keys(localizations);
+    const localizationKeys = Object.keys(localizations);
     const enIndex = localizationKeys.indexOf('en');
 
     // Initilize our state if EN localization exists
@@ -85,7 +85,7 @@ class LocalizationReport extends Component {
   }
 
   toggleModalOpen = () => {
-    let modalOpen = this.state.modalOpen;
+    const modalOpen = this.state.modalOpen;
     this.setState({ modalOpen: !modalOpen });
   };
 
@@ -97,7 +97,7 @@ class LocalizationReport extends Component {
     if (filter === 'all') { 
       return results;
     }
-    let pass = filter === 'true' ? true : false;
+    const pass = filter === 'true' ? true : false;
     return results.filter((result) => {
       return result.pass === pass;
     });
@@ -111,9 +111,9 @@ class LocalizationReport extends Component {
       const modelKeyPaths = getKeyPathsArray(localizations[ modelLocKey ], false);
      
       // Loop through all model (EN) key paths
-      let requiredKeyPathResults = modelKeyPaths.map((keyPath) => {
-        let keyPathAsStr = keyPath.join('.');
-        let keyExistsInLoc = _.has(localizations[ compareLocKey ], keyPath);
+      const requiredKeyPathResults = modelKeyPaths.map((keyPath) => {
+        const keyPathAsStr = keyPath.join('.');
+        const keyExistsInLoc = _.has(localizations[ compareLocKey ], keyPath);
 
         return {
           keyPath: keyPathAsStr,
@@ -143,13 +143,13 @@ class LocalizationReport extends Component {
       
       // Find any keys paths that shouldn't be in the localization we're comparing to our model 
       // We won't return passing checks, since requiredKeyPathResults effectively includes those
-      let extraKeyPathResults = compareKeyPaths.reduce((extraKeyPaths, keyPath) => {
-        let keyPathAsStr = keyPath.join('.');
+      const extraKeyPathResults = compareKeyPaths.reduce((extraKeyPaths, keyPath) => {
+        const keyPathAsStr = keyPath.join('.');
        
         // If this keyPath has a version number, remove it so we can compare against the model key 
         // paths which have had their versions removed
-        let keyPathAsStrNoVer = keyPathAsStr.split('_v')[ 0 ];
-        let keyExistsInLoc = _.findIndex(modelKeyPathStringsNoVer, (modelKeyPath) => {
+        const keyPathAsStrNoVer = keyPathAsStr.split('_v')[ 0 ];
+        const keyExistsInLoc = _.findIndex(modelKeyPathStringsNoVer, (modelKeyPath) => {
           return modelKeyPath === keyPathAsStrNoVer ? true : false;
         }) === -1 ? false : true ;
         
@@ -169,7 +169,7 @@ class LocalizationReport extends Component {
   };
  
   render () {
-    let {
+    const {
       modelLocKey,
       compareLocKey,
       localizationKeys,
@@ -256,6 +256,6 @@ class LocalizationReport extends Component {
       </Modal>
     );
   }
-};
+}
 
 export { LocalizationReport };

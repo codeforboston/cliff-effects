@@ -23,7 +23,7 @@ import { getConfirmation as defaultConfirm } from 'history/DOMUtils';
 class Confirmer {
   constructor () {
     this.confirm = defaultConfirm;
-  };
+  }
 
   set = (func) => {
     return this.confirm = func;
@@ -37,6 +37,6 @@ class Confirmer {
     return this.confirm(message, reactCallback);
   };
 
-};  // End Confirm
+}  // End Confirm
 
 export { Confirmer };

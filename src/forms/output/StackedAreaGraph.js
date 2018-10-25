@@ -22,9 +22,9 @@ import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 
 // Graphs get things in monthly values, so we'll convert from there
-var multipliers = timescaleMultipliers.fromMonthly,
-    // Each graph controls its own scaling
-    limits      = PROGRAM_CHART_VALUES.limits;
+const multipliers = timescaleMultipliers.fromMonthly,
+      // Each graph controls its own scaling
+      limits      = PROGRAM_CHART_VALUES.limits;
 
 // ===============
 // GRAPH DATA
@@ -47,26 +47,26 @@ class StackedAreaGraph extends Component {
     const { client, timescale, activePrograms } = this.props;
     const multiplier = multipliers[ timescale ];
 
-    var withIncome    = activePrograms.slice();
+    const withIncome    = activePrograms.slice();
     withIncome.unshift('income');
 
     // Adjust to time-interval, round to hundreds
-    var income        = client.future.earned * multiplier,
-        max           = Math.max(income, limits.max * multiplier),
-        xMax          = Math.ceil(max / 100) * 100,
-        xMin          = Math.ceil(limits.min * multiplier / 100) * 100,
-        interval      = Math.ceil(((xMax - xMin) / 100) / 10) * 10,
-        xRange        = _.range(xMin, xMax + interval, interval),
-        extraProps    = { income: { fill: 'origin' }},
-        datasets     = getChartData(xRange, multiplier, client, withIncome, extraProps);
+    const income        = client.future.earned * multiplier,
+          max           = Math.max(income, limits.max * multiplier),
+          xMax          = Math.ceil(max / 100) * 100,
+          xMin          = Math.ceil(limits.min * multiplier / 100) * 100,
+          interval      = Math.ceil(((xMax - xMin) / 100) / 10) * 10,
+          xRange        = _.range(xMin, xMax + interval, interval),
+          extraProps    = { income: { fill: 'origin' }},
+          datasets     = getChartData(xRange, multiplier, client, withIncome, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var hack    = this.state.verticalLine;
+    const hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
-    var stackedAreaProps = {
+    const stackedAreaProps = {
       data: {
         labels:   xRange,
         datasets: datasets,
@@ -124,7 +124,7 @@ class StackedAreaGraph extends Component {
       <Line { ...stackedAreaProps } />
     );
   }
-};  // End <StackedAreaGraph>
+}  // End <StackedAreaGraph>
 
 
 export { StackedAreaGraph };

@@ -10,7 +10,7 @@ import React from 'react';
  */
 class ErrorListener extends React.Component {
   handleError = ({ error }) => {
-    var promptData = {
+    const promptData = {
       header:    'There was an unexpected error. Do you want to submit feedback?',
       leaveText: 'Reset',
     };

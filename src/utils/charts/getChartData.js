@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 // LOGIC
@@ -39,20 +39,20 @@ const getChartData = function (incomes, multiplier, client, activeBenefitsInOrde
   // Active benefits should include 'income' if want it
 
   // Shorter name now that we've clearly expressed what it is
-  var benefits = activeBenefitsInOrder;
+  const benefits = activeBenefitsInOrder;
 
-  var benefitDatasets = [],
-      allData         = {},  // each active benefit will have data in here
-      clone           = _.cloneDeep(client),
-      benefitCalcData = {
-        activeBenefits: benefits,
-        dataToAddTo:    allData,
-        clientToChange: clone,
-        timeframe:      `future`,
-      };
+  const benefitDatasets = [],
+        allData         = {},  // each active benefit will have data in here
+        clone           = cloneDeep(client),
+        benefitCalcData = {
+          activeBenefits: benefits,
+          dataToAddTo:    allData,
+          clientToChange: clone,
+          timeframe:      `future`,
+        };
 
   for (let incomei = 0; incomei < incomes.length; incomei++) {
-    let income = incomes[ incomei ];
+    const income = incomes[ incomei ];
     // May be worth looking at how incomes are being
     // created and whether they need to use the
     // multiplier as early as they do.
@@ -63,16 +63,16 @@ const getChartData = function (incomes, multiplier, client, activeBenefitsInOrde
 
     // Adjust money amount to correct time interval (weekly, monthly, or yearly)
     for (let benefiti = 0; benefiti < benefits.length; benefiti++) {
-      let benefitName = benefits[ benefiti ],
-          val = allData[ benefitName ][ incomei ] * multiplier;
+      const benefitName = benefits[ benefiti ],
+            val = allData[ benefitName ][ incomei ] * multiplier;
       allData[ benefitName ][ incomei ] = val;
     }  // end for all active benefits
   }  // end for all incomes
 
   // Return in the same order as it was asked for
   for (let benefiti = 0; benefiti < benefits.length; benefiti++) {
-    let benefitName   = benefits[ benefiti ],
-        graphFrosting = PROGRAM_CHART_VALUES[ benefitName ];
+    const benefitName   = benefits[ benefiti ],
+          graphFrosting = PROGRAM_CHART_VALUES[ benefitName ];
 
     // All the graph info for that benefit
     benefitDatasets.push({

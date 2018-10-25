@@ -3,8 +3,8 @@ import { allBenefitOrders } from './allBenefitOrders';
 import { allBenefitOps } from './allBenefitOps';
 
 
-var baseBenefits = [ `income` ];
-var baseOps = {
+const baseBenefits = [ `income` ];
+const baseOps = {
   income: {
     calc: function (client, timeframe) {
       return client[ timeframe ].earned;
@@ -35,12 +35,12 @@ var baseOps = {
 const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToChange, timeframe, USState }) {
 
   USState = USState || `MA`;  // For now, till value is actually needed
-  var benefitsInOrder = baseBenefits.concat(allBenefitOrders[ USState ]),
-      benefitOps      = { ...baseOps, ...allBenefitOps[ USState ] };
+  const benefitsInOrder = baseBenefits.concat(allBenefitOrders[ USState ]),
+        benefitOps      = { ...baseOps, ...allBenefitOps[ USState ] };
 
   for (let benefiti = 0; benefiti < benefitsInOrder.length; benefiti ++) {
 
-    let benefitName = benefitsInOrder[ benefiti ];
+    const benefitName = benefitsInOrder[ benefiti ];
 
     // If this isn't one of the benefits the caller wants
     if (activeBenefits.indexOf(benefitName) <= -1) {
@@ -53,9 +53,9 @@ const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToCh
     }
 
     // Calculate new subsidy and the client props that are affected
-    let funcs    = benefitOps[ benefitName ],
-        subsidy  = funcs.calc(clientToChange, timeframe),
-        newProps = funcs.getNewProps(clientToChange, timeframe, subsidy);
+    const funcs    = benefitOps[ benefitName ],
+          subsidy  = funcs.calc(clientToChange, timeframe),
+          newProps = funcs.getNewProps(clientToChange, timeframe, subsidy);
 
     // Mutate the client so this benefit will affect the next one
     Object.apply(clientToChange[ timeframe ], newProps);

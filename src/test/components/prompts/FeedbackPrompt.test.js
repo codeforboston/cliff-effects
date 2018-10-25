@@ -5,9 +5,9 @@ import { shallow } from 'enzyme';
 import FeedbackPrompt from '../../../components/prompts/FeedbackPrompt';
 
 test('A feedback prompt should match the snapshot', () => {
-  let isBlocking = true;
+  const isBlocking = true;
 
-  let promptData = {
+  const promptData = {
     header:    'Test prompt data',
     leaveText: 'Reset',
   };

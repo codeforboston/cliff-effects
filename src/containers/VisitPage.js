@@ -36,7 +36,7 @@ class VisitPage extends Component {
   constructor (props) {
     super(props);
 
-    var {
+    const {
       match,
       clientData,
     } = this.props;
@@ -92,7 +92,7 @@ class VisitPage extends Component {
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
 
-  };  // End constructor()
+  }  // End constructor()
 
   resetClientIfOk = (shouldReset) => {
 
@@ -127,7 +127,7 @@ class VisitPage extends Component {
 
     // When user exits feedback prompt somehow,
     // close it before finishing the callback.
-    var closePrompt = (isOk) => {
+    const closePrompt = (isOk) => {
       this.setState({ promptData: { open: false }});
       callback(isOk);
     };
@@ -152,11 +152,11 @@ class VisitPage extends Component {
 
   updateClientValue = ({ route, value, time }) => {
 
-    var clone       = cloneDeep(this.state.client),
-        userChanged = { ...this.state.userChanged },  // only 1 deep
-        routeList   = route.split('/'),
-        id          = routeList[ 0 ],  // `routeList` gets mutated
-        newEvent    = { time: time, route: routeList, value: value };
+    const clone       = cloneDeep(this.state.client),
+          userChanged = { ...this.state.userChanged },  // only 1 deep
+          routeList   = route.split('/'),
+          id          = routeList[ 0 ],  // `routeList` gets mutated
+          newEvent    = { time: time, route: routeList, value: value };
 
     setNestedProperty(newEvent, clone, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
@@ -195,13 +195,13 @@ class VisitPage extends Component {
 
   changeCurrent = (evnt, data) => {
     data.time = 'current';
-    var newData = convertForUpdate(data);
+    const newData = convertForUpdate(data);
     this.updateClientValue(newData);
   };
 
   changeFuture = (evnt, data) => {
     data.time = 'future';
-    var newData = convertForUpdate(data);
+    const newData = convertForUpdate(data);
     this.updateClientValue(newData);
   };
 
@@ -240,19 +240,19 @@ class VisitPage extends Component {
 
   getCurrentStepIndex = () => {
     // Keep it between 1 and 8
-    var numSteps      = this.steps.length,
-        currStepIndex = this.state.currentStep,
-        limitedByMin  = Math.min(numSteps, currStepIndex),
-        limitedByMax  = Math.max(1, limitedByMin);
+    const numSteps      = this.steps.length,
+          currStepIndex = this.state.currentStep,
+          limitedByMin  = Math.min(numSteps, currStepIndex),
+          limitedByMax  = Math.max(1, limitedByMin);
     // Convert to 0 index
     return limitedByMax - 1;
   };
 
   getCurrentStep = (navData) => {
-    var stepIndex    = this.getCurrentStepIndex(),
-        step         = this.steps[ stepIndex ],
-        FormSection  = step.form,
-        formSnippets = this.state.snippets[ step.key ];
+    const stepIndex    = this.getCurrentStepIndex(),
+          step         = this.steps[ stepIndex ],
+          FormSection  = step.form,
+          formSnippets = this.state.snippets[ step.key ];
     /** @todo With new interpolation, is this needed anymore? */
     formSnippets.langCode = this.state.snippets.langCode;
 
@@ -271,12 +271,13 @@ class VisitPage extends Component {
 
   render() {
 
-    var snippets          = this.state.snippets,
-        prevContent       = null,
-        nextContent       = null,
-        stepIndex         = this.getCurrentStepIndex(),
-        distrustConfirmed = this.props.distrustConfirmed;
-
+    const snippets          = this.state.snippets,
+          stepIndex         = this.getCurrentStepIndex(),
+          distrustConfirmed = this.props.distrustConfirmed;
+    
+    let prevContent       = null,
+        nextContent       = null;
+    
     if (stepIndex !== 0) {
       prevContent = (
         <BigButton onClick = { this.previousStep }>
@@ -302,7 +303,7 @@ class VisitPage extends Component {
       );
     }
 
-    var navData = {
+    const navData = {
       left:   prevContent,
       middle: null,
       right:  nextContent,

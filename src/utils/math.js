@@ -1,10 +1,10 @@
 /** For different kinds of math operations we need, some unconventional */
 
 const sum = function (vals) {
-  var total = 0;
+  let total = 0;
   for (let vali = 0; vali < vals.length; vali++) {
     total += vals[ vali ];
-  };
+  }
   return total;
 };
 
@@ -36,11 +36,11 @@ const moneyToWholeNum = function (val) {
 const limit = function (initialVal, minMax) {
 
   /** @todo Add trailing 0's somewhere */
-  var min = minMax.min,
-      max = minMax.max;
+  const min = minMax.min,
+        max = minMax.max;
 
-  var raw   = parseFloat(initialVal),
-      value = raw;
+  const raw = parseFloat(initialVal);
+  let value = raw;
 
   if (typeof min === 'number' && !isNaN(min)) {
     value = Math.max(min, raw);
@@ -58,13 +58,13 @@ const limit = function (initialVal, minMax) {
 };  // End limit()
 
 
-var toMonthlyAmount = {};
+const toMonthlyAmount = {};
 
 toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
-  var monthlyRaw  = weeklyVal * (4 + 1 / 3),
-      monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
+  const monthlyRaw  = weeklyVal * (4 + 1 / 3),
+        monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;
 
 };  // End toMonthlyAmount.weekly()
@@ -72,7 +72,7 @@ toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
 toMonthlyAmount.monthly = function (evnt, monthlyVal) {
   // Monthly is used for a lot of things and is the one we want to store
-  var monthlyInBounds = limit(monthlyVal, { min: 0 });
+  const monthlyInBounds = limit(monthlyVal, { min: 0 });
   return monthlyInBounds;
 
 };  // End toMonthlyAmount.monthly()
@@ -81,8 +81,8 @@ toMonthlyAmount.monthly = function (evnt, monthlyVal) {
 toMonthlyAmount.yearly = function (evnt, yearlyVal) {
 
   /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
-  var monthlyRaw  = (yearlyVal / 12),
-      monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
+  const monthlyRaw  = (yearlyVal / 12),
+        monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
   return monthly;
 
 };  // End toMonthlyAmount.yearly()

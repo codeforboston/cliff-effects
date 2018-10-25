@@ -41,7 +41,7 @@ const Columns = {};
 
 // `noMargin` is a bit hacky, but it'll do for now
 Columns.One = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -49,7 +49,7 @@ Columns.One = function ({ noMargin, children }) {
 };
 
 Columns.Two = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -57,7 +57,7 @@ Columns.Two = function ({ noMargin, children }) {
 };
 
 Columns.Three = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -65,7 +65,7 @@ Columns.Three = function ({ noMargin, children }) {
 };
 
 Columns.Four = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -75,7 +75,7 @@ Columns.Four = function ({ noMargin, children }) {
 
 const ColumnHeader = function ({ children, columnNum }) {
 
-  var Container = Columns[ columnNum ];
+  const Container = Columns[ columnNum ];
 
   return (
     <Container>
@@ -115,7 +115,7 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 
 const Role = function ({ member, setMember, snippets }) {
 
-  var ThisRole  = null,
+  let ThisRole  = null,
       margin   = '0';
 
   if (member.index === 0) {
@@ -126,7 +126,7 @@ const Role = function ({ member, setMember, snippets }) {
 
     margin = '-1em';
 
-    var options = [
+    const options = [
       { text: snippets.i_spouse, value: 'spouse' },
       { text: snippets.i_childOther, value: 'member' },
     ];
@@ -156,33 +156,33 @@ const Role = function ({ member, setMember, snippets }) {
 
 const MemberField = function ({ household, time, setHousehold, updateClientValue, snippets }, indx) {
 
-  var member      = household[ indx ],
-      routeStart  = 'household/' + indx + '/';
+  const member      = household[ indx ],
+        routeStart  = 'household/' + indx + '/';
   member.index    = indx;  // Just needed as member prop in this file
 
 
-  var onMemberChange = function (evnt, inputProps) {
-    var route = routeStart + inputProps.name;
-    var data  = { route: route, value: inputProps.value };
+  const onMemberChange = function (evnt, inputProps) {
+    const route = routeStart + inputProps.name;
+    const data  = { route: route, value: inputProps.value };
     updateClientValue(evnt, data);
   };
 
 
-  var onMemberChecked = function (evnt, inputProps) {
-    var route = routeStart + inputProps.name;
-    var data  = { route: route, value: inputProps.checked };
+  const onMemberChecked = function (evnt, inputProps) {
+    const route = routeStart + inputProps.name;
+    const data  = { route: route, value: inputProps.checked };
     updateClientValue(evnt, data);
   };
 
 
-  var removeMember = function (evnt, inputProps) {
+  const removeMember = function (evnt, inputProps) {
     household.splice(indx, 1);
     setHousehold(evnt, household);
   };  // End removeMember()
 
 
   // For keyboard access (already does spacebar)
-  var onKeyDown = function (evnt) {
+  const onKeyDown = function (evnt) {
     if (evnt.key === `Enter`) {
       evnt.target.click();
     }
@@ -250,19 +250,19 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
 
 const getMembers = function (current, time, setHousehold, updateClientValue, snippets) {
 
-  var household = current.household,
-      props     = {
-        household:         household,
-        time:              time,
-        setHousehold:      setHousehold,
-        updateClientValue: updateClientValue,
-        snippets:          snippets,
-      };
+  const household = current.household,
+        props     = {
+          household:         household,
+          time:              time,
+          setHousehold:      setHousehold,
+          updateClientValue: updateClientValue,
+          snippets:          snippets,
+        };
 
-  var mems = [];
+  const mems = [];
   for (let memi = 0; memi < household.length; memi++) {
     mems.push(MemberField(props, memi));
-  };
+  }
 
   return mems;
 
@@ -272,12 +272,12 @@ const getMembers = function (current, time, setHousehold, updateClientValue, sni
 const HouseholdContent = function ({ current, time, updateClientValue, snippets }) {
 
   // Don't mutate state properties
-  var household = cloneDeep(current.household);
+  const household = cloneDeep(current.household);
 
 
-  var setHousehold = function (evnt, newHousehold) {
+  const setHousehold = function (evnt, newHousehold) {
 
-    var obj = {
+    const obj = {
       route: 'household',
       value: newHousehold,
     };
@@ -287,9 +287,9 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
   };  // End setHousehold()
 
 
-  var addMember = function (evnt, inputProps) {
+  const addMember = function (evnt, inputProps) {
 
-    var member;
+    let member;
     if (household.length === 1) {
       member = { m_age: 30, m_role: 'spouse', m_disabled: false };
     } else {

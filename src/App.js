@@ -46,10 +46,10 @@ class App extends Component {
   constructor (props) {
     super(props);
 
-    var defaults = cloneDeep(CLIENT_DEFAULTS);
+    const defaults = cloneDeep(CLIENT_DEFAULTS);
 
     // Development variables are the only things stored
-    var localDev = localStorage.getItem(`cliffEffectsDevProps`);
+    let localDev = localStorage.getItem(`cliffEffectsDevProps`);
     if (typeof localDev !== `string`) {
       localDev = {};
     } else {
@@ -88,7 +88,7 @@ class App extends Component {
       },
       distrustConfirmed: false,
     };
-  };  // End constructor()
+  }  // End constructor()
 
   /**
    * Set the human language of the app (i.e. the language in which the UI will
@@ -99,7 +99,7 @@ class App extends Component {
    * @param {string} inputProps.value - the [ISO 639-1 code]{@link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes} for the newly selected language.
   */
   setLanguage = (evnt, inputProps) => {
-    var snippets = getTextForLanguage(inputProps.value);
+    const snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
   };
 
@@ -113,10 +113,10 @@ class App extends Component {
   setDev = (key, value) => {
     this.setState((prevState) => {
 
-      var props = prevState.devProps;
+      const props = prevState.devProps;
       if (props[ key ] !== value) {
 
-        var newProps = { ...props, [ key ]: value };
+        const newProps = { ...props, [ key ]: value };
         localStorage.setItem(`cliffEffectsDevProps`, JSON.stringify(newProps));
 
         return { devProps: newProps };
@@ -152,14 +152,14 @@ class App extends Component {
    * of obj with values equal to true, separated by spaces.
    */
   propsToClasses (obj) {
-    var classes = ``;
-    for (let key in obj) {
+    let classes = ``;
+    for (const key in obj) {
       if (obj[ key ] === true) {
         classes += ` ` + key;
       }
     }
     return classes;
-  };  // End propsToClasses()
+  }  // End propsToClasses()
 
   /** Toggles distrustConfirmed flag in app state.  Passed to PredictionsWarning modal
    * which calls this in the onClose handler.  App is unavailable until terms 
@@ -167,12 +167,12 @@ class App extends Component {
    * @method
    */
   toggleDistrustConfirmed = () => {
-    let userDistrusts = this.state.distrustConfirmed;
+    const userDistrusts = this.state.distrustConfirmed;
     this.setState({ distrustConfirmed: !userDistrusts });
   };  // End acceptTerms()
 
   render () {
-    var {
+    const {
       langCode,
       snippets,
       devProps,
@@ -180,17 +180,17 @@ class App extends Component {
       distrustConfirmed,
     } = this.state;
 
-    var { warningOff } = devProps;
+    const { warningOff } = devProps;
 
-    var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
-        classes   = this.propsToClasses(devProps),
-        devFuncs  = {
-          setDev:      this.setDev,
-          loadClient:  this.loadClient,
-          setLanguage: this.setLanguage,
-        },
-        funcs      = { toggleDistrustConfirmed: this.toggleDistrustConfirmed },
-        clientData = clients.loaded;
+    const confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
+          classes   = this.propsToClasses(devProps),
+          devFuncs  = {
+            setDev:      this.setDev,
+            loadClient:  this.loadClient,
+            setLanguage: this.setLanguage,
+          },
+          funcs      = { toggleDistrustConfirmed: this.toggleDistrustConfirmed },
+          clientData = clients.loaded;
 
     return (
       <div
@@ -258,18 +258,18 @@ class App extends Component {
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
 
         { (devProps.dev === true) ? (
-            <DevHud
-              devProps = { devProps }
-              funcs    = { devFuncs }
-              data     = {{ default: clients.default }}
-              state    = { this.state } />
-          ) : (
-            null
-          )
+          <DevHud
+            devProps = { devProps }
+            funcs    = { devFuncs }
+            data     = {{ default: clients.default }}
+            state    = { this.state } />
+        ) : (
+          null
+        )
         }
       </div>
     );
-  };  // End render()
+  }  // End render()
 }
 
 

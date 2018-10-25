@@ -22,7 +22,7 @@ class TermsAndConditions extends Component {
   };
 
   handleChange = (checkboxField) => {
-    let checked = !this.state[ checkboxField ];
+    const checked = !this.state[ checkboxField ];
     this.setState({ [ checkboxField ]: checked });
   };
 
@@ -109,6 +109,6 @@ class TermsAndConditions extends Component {
       </Modal>
     ); // End return()
   } // End render()
-};
+}
 
 export default withRouter(TermsAndConditions);

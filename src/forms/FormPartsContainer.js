@@ -31,7 +31,7 @@ const SpaceHolder = function () {
  */
 const FormBottomRow = function({ left, middle, right }) {
 
-  var Left   = <SpaceHolder key = { 'left' } />,
+  let Left   = <SpaceHolder key = { 'left' } />,
       Middle = <SpaceHolder key = { 'middle' } />,
       Right  = <SpaceHolder key = { 'right' } />;
 
@@ -50,7 +50,7 @@ const FormBottomRow = function({ left, middle, right }) {
     Right = (<div key = { `right` }>{ right }</div>);
   }
 
-  var children = [
+  const children = [
     Left,
     // Needed for first form section where there's no
     // 'Prev' button.

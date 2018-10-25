@@ -14,7 +14,7 @@ const math = require('../../utils/math');
 
 // While 0 and -0 work the same in most cases, we want to avoid displaying -0 since the concept of -0 can be confusing for some people
 // test('Rounding to -0', () => {
-//     var roundedNegZero = math.roundMoney(-0);
+//     const roundedNegZero = math.roundMoney(-0);
 //     expect(Object.is(roundedNegZero, 0)).toBe(true);
 // });
 
@@ -31,7 +31,7 @@ test('Rounding infinity', () => {
 });
 
 test('Rounding NaN', () => {
-  var roundedNan = math.roundMoney(NaN);
+  const roundedNan = math.roundMoney(NaN);
   expect(isNaN(roundedNan)).toBe(true);
 });
 

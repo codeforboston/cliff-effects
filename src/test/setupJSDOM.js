@@ -7,7 +7,7 @@ global.document = jsdom('');
 global.window = document.defaultView;
 global.navigator = { userAgent: 'node.js' };
 
-var copyProps = function (src, target) {
+const copyProps = function (src, target) {
   const props = Object.getOwnPropertyNames(src)
     .filter((prop) => {
       return typeof target[ prop ] === 'undefined';
