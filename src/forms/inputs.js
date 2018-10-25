@@ -30,7 +30,6 @@ const BigButton = function ({ children, className, overrides }) {
     allClasses += ` ` + className;
   }
 
-  // Combine class names?
   const overriddenDefaults = {
     type:      `button`,
     color:     `teal`,
