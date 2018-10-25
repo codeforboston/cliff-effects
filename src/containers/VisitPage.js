@@ -295,10 +295,11 @@ class VisitPage extends Component {
       );
     // Otherwise, set up to reset client
     } else {
-      // Can be reused for fixed button on the left
-      nextContent  = (<ButtonReset
-        onClick  = { this.askToResetClient }
-        snippets = { snippets } />);
+      nextContent  = (
+        <ButtonReset onClick  = { this.askToResetClient } >
+          { snippets.i_newClient }
+        </ButtonReset>
+      );
     }
 
     var navData = {
@@ -375,7 +376,6 @@ class VisitPage extends Component {
         <Container id={ `alwaysLeftButtons` }>
           <ButtonReset
             onClick   = { this.askToResetClient }
-            snippets  = { snippets }
             overrides = {{ id: `resetFixed`, size: `medium` }}>
             { snippets.i_newClient }
           </ButtonReset>

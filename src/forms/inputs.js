@@ -25,7 +25,6 @@ const BigButton = function ({ children, className, overrides }) {
     overrides = {};
   };
 
-  // Don't override classes, combine them
   var allClasses = `big-button`;
   if (className) {
     allClasses += ` ` + className;

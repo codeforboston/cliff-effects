@@ -4,7 +4,7 @@ import React from 'react';
 import { BigButton } from './inputs';
 
 
-const ButtonReset = function ({ onClick, snippets, overrides }) {
+const ButtonReset = function ({ children, onClick, overrides }) {
 
   if (!overrides) {
     overrides = {};
@@ -24,7 +24,7 @@ const ButtonReset = function ({ onClick, snippets, overrides }) {
       className = { `caution` }
       onClick   = { clickHandler }
       overrides = { overrides }>
-      { snippets.i_newClient }
+      { children }
     </BigButton>
   );
 
