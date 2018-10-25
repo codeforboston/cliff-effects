@@ -52,6 +52,10 @@ body {
   margin: 0;
 }
 
+.ui.inverted.menu .item, .ui.inverted.menu .item>a:not(.ui):hover {
+  color: #003D3A;
+}
+
 /* PageLayout.js styles */
 
 .pl-segment {
@@ -587,3 +591,19 @@ PREDICTIONS WARNING MODAL
   color: #fff;
   background-color: rgb(136,0,21);
 }
+
+/* Semantic UI Default Overrides */
+
+.mini.ui.steps a.step:hover, .mini.ui.steps a.step:hover:after {
+  background: #dcddde;
+}
+
+.ui.selection.dropdown .menu>.item:hover {
+  background-color: #adb1b5;
+}
+
+.ui.selection.dropdown .menu>.selected.item {
+  background-color: #dcddde;
+}
+
+
