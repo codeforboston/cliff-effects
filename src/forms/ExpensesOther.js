@@ -17,19 +17,6 @@ import {
 } from '../utils/cashflow';
 
 
-/*
- * @deprecated
- */
-const RenderIfTrue = function ({ shouldRender, children }) {
-  const ToRender = children;
-  if (shouldRender) {
-    return <ToRender />;
-  } else {
-    return null;
-  }
-};  // End <RenderIfTrue>
-
-
 /* From https://drive.google.com/drive/folders/0B61uzoaPZg7qUXJuRFhndTFkaTA
  *    (the bugdet assessment from the last page)
  *    which is Project Hope's own assessment worksheet.
@@ -59,35 +46,38 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
 
       {/* Is this complexity really required? Can we just
       * have children and include a warning in the docs? */}
-      <RenderIfTrue shouldRender = { housingCosts > 0 }>
-        {() => { return (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { housingCosts }
-            generic   = { `housingCosts` }> Payments for housing
-          </CashFlowDisplayRow>
-        );}}
-      </RenderIfTrue>
+      { housingCosts > 0 ? (
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { housingCosts }
+          generic   = { `housingCosts` }> Payments for housing
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
+      }
 
-      <RenderIfTrue shouldRender = { dependentCare > 0 }>
-        {() => { return (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { dependentCare }
-            generic   = { `dependentCare` }> Dependent care (other than transportation)
-          </CashFlowDisplayRow>
-        );}}
-      </RenderIfTrue>
+      { dependentCare > 0 ? (
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { dependentCare }
+          generic   = { `dependentCare` }> Dependent care (other than transportation)
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
+      }
 
-      <RenderIfTrue shouldRender = { dependentTransport > 0 }>
-        {() => { return (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { dependentTransport }
-            generic   = { `dependentTransport` }> Transportation for dependents
-          </CashFlowDisplayRow>
-        );}}
-      </RenderIfTrue>
+      { dependentTransport > 0 ? (
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { dependentTransport }
+          generic   = { `dependentTransport` }> Transportation for dependents
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
+      }
 
       <CashFlowInputsRow
         { ...sharedProps }
@@ -99,15 +89,16 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
         ) }
       </CashFlowInputsRow>
 
-      <RenderIfTrue shouldRender = { medExpenses > 0 }>
-        {() => { return (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { medExpenses }
-            generic   = { `medicalTotal` }> Medical expenses you wrote in earlier
-          </CashFlowDisplayRow>
-        );}}
-      </RenderIfTrue>
+      { medExpenses > 0 ? (
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { medExpenses }
+          generic   = { `medicalTotal` }> Medical expenses you wrote in earlier
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
+      }
 
       <CashFlowInputsRow
         { ...sharedProps }
@@ -133,23 +124,25 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
         generic={ `otherExpensesPhone` }> Any phone costs
       </CashFlowInputsRow>
 
-      <RenderIfTrue shouldRender = { housing !== `homeless` }>
-        {() => { return (
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ `otherExpensesCable` }> Cable/internet costs
-          </CashFlowInputsRow>
-        );}}
-      </RenderIfTrue>
+      { housing !== `homeless` ? (
+        <CashFlowInputsRow
+          { ...sharedProps }
+          generic={ `otherExpensesCable` }> Cable/internet costs
+        </CashFlowInputsRow>
+      ) : (
+        null
+      )
+      }
 
-      <RenderIfTrue shouldRender = { housing !== `homeless` }>
-        {() => { return (
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ `otherExpensesUtilities` }> Other utility costs
-          </CashFlowInputsRow>
-        );}}
-      </RenderIfTrue>
+      { housing !== `homeless` ? (
+        <CashFlowInputsRow
+          { ...sharedProps }
+          generic={ `otherExpensesUtilities` }> Other utility costs
+        </CashFlowInputsRow>
+      ) : (
+        null
+      )
+      }
 
       <CashFlowInputsRow
         { ...sharedProps }
@@ -172,7 +165,4 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
 };
 
 
-export {
-  ExpensesOther,
-  RenderIfTrue,
-};
+export { ExpensesOther };

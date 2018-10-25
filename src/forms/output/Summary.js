@@ -308,20 +308,22 @@ const Summary = function ({ client, openFeedback, snippets }) {
   // ==================
   // Hmm, don't like having `<p>`s up here. Page structure not clear in return value.
 
+  // `<span>`s to avoid repeating React keys
+
   // "What could happen?"
   const detailsNow = (
     <p>
-      {sn.i_nowEarn} {sn.i_beforeMoney}{toMoneyStr(current.earned)} {sn.i_eachTimeInterval}
-      {` `} {sn.i_nowBenefitsTotalIs} {sn.i_beforeMoney}{round$(current.benefitsTotal)}{sn.i_period}
-      {` `} {sn.i_nowTotalIs} {sn.i_beforeMoney}{round$(current.total)} {sn.i_eachTimeInterval}{sn.i_period}
+      <span>{sn.i_nowEarn} {sn.i_beforeMoney}{toMoneyStr(current.earned)} {sn.i_eachTimeInterval}</span>
+      <span>{` `} {sn.i_nowBenefitsTotalIs} {sn.i_beforeMoney}{round$(current.benefitsTotal)}{sn.i_period}</span>
+      <span>{` `} {sn.i_nowTotalIs} {sn.i_beforeMoney}{round$(current.total)} {sn.i_eachTimeInterval}{sn.i_period}</span>
     </p>
   );
 
   const detailsFuture = (
     <p>
-      {sn.i_newEarn} {sn.i_beforeMoney}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}
-      {` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoney}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}
-      {` `} {sn.i_newBenefitDetailsIntro}
+      <span>{sn.i_newEarn} {sn.i_beforeMoney}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}</span>
+      <span>{` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoney}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}</span>
+      <span>{` `} {sn.i_newBenefitDetailsIntro}</span>
     </p>
   );
 
@@ -335,8 +337,8 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
     benefitList.push(
       <li key = { cBenefit.label }>
-        {cBenefit.label} {sn.i_from} {sn.i_beforeMoney}{round$(cBenefit.amount)}
-        {` `} {sn.i_to} {sn.i_beforeMoney}{round$(fBenefit.amount)} {sn.i_eachTimeInterval}{sn.i_period}
+        <span>{cBenefit.label} {sn.i_from} {sn.i_beforeMoney}{round$(cBenefit.amount)}</span>
+        <span>{` `} {sn.i_to} {sn.i_beforeMoney}{round$(fBenefit.amount)} {sn.i_eachTimeInterval}{sn.i_period}</span>
       </li>
     );
   }  // ends for each benefit
@@ -383,9 +385,9 @@ const Summary = function ({ client, openFeedback, snippets }) {
         <div className = { `text-result-section` }>
           <Header>{sn.i_cliffEndHeader}</Header>
           <p>
-            {sn.i_ifGetTo} {sn.i_beforeMoney}{round$(recovery.earned)} {sn.i_eachTimeInterval}
-            {` `} {sn.i_willGet} {sn.i_beforeMoney}{round$(recovery.total - current.total)}
-            {` `} {sn.i_moreIn}
+            <span>{sn.i_ifGetTo} {sn.i_beforeMoney}{round$(recovery.earned)} {sn.i_eachTimeInterval}</span>
+            <span>{` `} {sn.i_willGet} {sn.i_beforeMoney}{round$(recovery.total - current.total)}</span>
+            <span>{` `} {sn.i_moreIn}</span>
           </p>
         </div>
 

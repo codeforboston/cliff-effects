@@ -11,7 +11,7 @@ import {
  * Displays a model that requires the user to accept the terms and conditions before using the app
  * @extends React.Component
  * @param {boolean} termsAccepted - boolean indicating whether terms and conditions have been accepted by the user
- * @param {function} toggleAcceptTerms - function to set the termsAccepted in app state
+ * @param {function} toggleDistrustConfirmed - function to set the termsAccepted in app state
  * @param {object} snippets - object containing localization snippets
  */
 class TermsAndConditions extends Component {
@@ -35,7 +35,7 @@ class TermsAndConditions extends Component {
 
   closeModal = (accept) => {
     if (accept) {
-      this.props.toggleAcceptTerms();
+      this.props.toggleDistrustConfirmed();
     } else {
       this.props.history.push('/');
     }
