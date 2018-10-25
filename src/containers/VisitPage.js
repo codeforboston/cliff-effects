@@ -272,11 +272,11 @@ class VisitPage extends Component {
 
   render() {
 
-    var snippets           = this.state.snippets,
-        prevContent        = null,
-        nextContent        = null,
-        stepIndex          = this.getCurrentStepIndex(),
-        doesDistrust      = this.props.doesDistrust;
+    var snippets          = this.state.snippets,
+        prevContent       = null,
+        nextContent       = null,
+        stepIndex         = this.getCurrentStepIndex(),
+        distrustConfirmed = this.props.distrustConfirmed;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -379,10 +379,10 @@ class VisitPage extends Component {
         </Container>
 
         { 
-          doesDistrust === false ? (
+          distrustConfirmed === false ? (
             <PredictionsWarning
-              doesDistrust = { doesDistrust }
-              toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
+              distrustConfirmed       = { distrustConfirmed }
+              toggleDistrustConfirmed = { this.props.funcs.toggleDistrustConfirmed }
               snippets={{ ...snippets.warningModal }} />
           ) : (
             null
