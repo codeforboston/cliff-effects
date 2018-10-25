@@ -9,9 +9,9 @@
  * @param {string} startTimescale - timescale of the original
  *     value. Can be 'weekly', 'monthly', or 'yearly'.
  */
-var toYearlyFrom = function (amount, startTimescale) {
+const toYearlyFrom = function (amount, startTimescale) {
   
-  var converted = amount;
+  let converted = amount;
 
   if (startTimescale === 'weekly') {
     converted = amount * 52;
@@ -32,9 +32,9 @@ var toYearlyFrom = function (amount, startTimescale) {
  * @param {string} startTimescale - timescale of the original
  *     value. Can be 'weekly', 'monthly', or 'yearly'.
  */
-var toMonthlyFrom = function (amount, startTimescale) {
+const toMonthlyFrom = function (amount, startTimescale) {
   
-  var converted = amount;
+  let converted = amount;
 
   if (startTimescale === 'weekly') {
     converted = amount * (4 + (1 / 3));
@@ -55,9 +55,9 @@ var toMonthlyFrom = function (amount, startTimescale) {
  * @param {string} startTimescale - timescale of the original
  *     value. Can be 'weekly', 'monthly', or 'yearly'.
  */
-var toWeeklyFrom = function (amount, startTimescale) {
+const toWeeklyFrom = function (amount, startTimescale) {
   
-  var converted = amount;
+  let converted = amount;
 
   if (startTimescale === 'weekly') {
     // do nothing
@@ -70,7 +70,7 @@ var toWeeklyFrom = function (amount, startTimescale) {
   return converted;
 };  // End toWeeklyFrom()
 
-var timescaleMultipliers = {};
+const timescaleMultipliers = {};
 
 timescaleMultipliers.fromYearly = {
   'Weekly':  1 / 12 / (4 + 1 / 3),

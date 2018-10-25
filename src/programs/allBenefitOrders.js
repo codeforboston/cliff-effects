@@ -1,7 +1,7 @@
 import { benefitOrder as MA } from './massachusetts/benefitOrder';
 
 
-var allBenefitOrders = { MA: MA };
+const allBenefitOrders = { MA: MA };
 
 
 export { allBenefitOrders };

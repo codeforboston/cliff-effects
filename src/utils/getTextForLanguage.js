@@ -9,7 +9,7 @@ import { localizations } from '../localization/all';
 import inlineComponents from '../localization/inlineComponents';
 
 // store interpolated and (if necessary) merged snippets objects
-let finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };
+const finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
  * (to avoid arrays of English strings being mixed with arrays of translated
@@ -27,6 +27,7 @@ const mergeCustomizer = function (objValue, srcValue) {
  */
 const getTextForLanguage = function (langCode) {
   if (!localizations[ langCode ]) {
+    // eslint-disable-next-line no-console
     console.warn('There\'s no localization for ' + langCode + '. Defaulting to English.');
     langCode = 'en';
   }

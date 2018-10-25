@@ -26,7 +26,7 @@ describe('section8Helpers', () => {
   describe('`.getTTPs()`', () => {
     it('should return TTPs', () => {
       sampleClients.row3.future = cloneDeep(sampleClients.row3.current);
-      let temp1 = section8Helpers.getTTPs(sampleClients.row3);
+      const temp1 = section8Helpers.getTTPs(sampleClients.row3);
       expect(temp1.newTTP).toEqual(203.1);
       expect(temp1.newTTP).toEqual(203.1);
     });
@@ -41,12 +41,12 @@ describe('section8Helpers', () => {
   // `section8Helpers.getAdjustedIncome()`
   describe('`.getAdjustedIncome`', () => {
     it('should return adjusted income if no member is elderly or disabled', () => {
-      let net = section8Helpers.getNetIncome(sampleClients.row3, 'current');
+      const net = section8Helpers.getNetIncome(sampleClients.row3, 'current');
       expect(section8Helpers.getAdjustedIncome(sampleClients.row3, 'current', net)).toEqual(677);
     });
 
     it('should return adjusted income with additional allowances if a member is elderly or disabled', () => {
-      let net = section8Helpers.getNetIncome(sampleClients.row4, 'current');
+      const net = section8Helpers.getNetIncome(sampleClients.row4, 'current');
       expect(section8Helpers.getAdjustedIncome(sampleClients.row4, 'current', net)).toEqual(974 + 2 / 3);
     });
   });
@@ -59,21 +59,21 @@ describe('section8Helpers', () => {
     });
 
     it('should return 0 if there is no disabled or elderly member', () => {
-      let net = section8Helpers.getNetIncome(sampleClients.row3, 'current');
+      const net = section8Helpers.getNetIncome(sampleClients.row3, 'current');
       expect(section8Helpers.getDisabledAndMedicalAllowancesSum(sampleClients.row3, 'current', net)).toEqual(0);
     });
 
     it('should return hcapMin if the head or spouse in not disabled or elderly', () => {
 
-      let net = section8Helpers.getNetIncome(sampleClients.row8, 'current');
-      let assSubstracted = sampleClients.row8[ 'current' ].disabledAssistance - net * 0.03;
-      let hcapAllowance = Math.min(assSubstracted, sampleClients.row8[ 'current' ].earnedBecauseOfAdultCare);
-      let hcapMin = Math.max(0, hcapAllowance);
+      const net = section8Helpers.getNetIncome(sampleClients.row8, 'current');
+      const assSubstracted = sampleClients.row8[ 'current' ].disabledAssistance - net * 0.03;
+      const hcapAllowance = Math.min(assSubstracted, sampleClients.row8[ 'current' ].earnedBecauseOfAdultCare);
+      const hcapMin = Math.max(0, hcapAllowance);
       expect(section8Helpers.getDisabledAndMedicalAllowancesSum(sampleClients.row8, 'current', net)).toEqual(hcapMin);
     });
 
     it('should return zero if the net income is 100/3 times the handicap expense', () => {
-      let net = defaultClient[ 'current' ].disabledAssistance * 100 / 3;
+      const net = defaultClient[ 'current' ].disabledAssistance * 100 / 3;
       expect(section8Helpers.getDisabledAndMedicalAllowancesSum(defaultClient, 'current', net)).toEqual(0);
     });
   });
@@ -81,8 +81,8 @@ describe('section8Helpers', () => {
   // `section8Helpers.getMinHandicapAllowance()`
   describe('`.getMinHandicapAllowance( timeClient )`', () => {
     it('should return the minimum handicap allowance', () => {
-      let net = section8Helpers.getNetIncome(sampleClients.row8, 'current');
-      let assistanceRemainder = sampleClients.row8[ 'current' ].disabledAssistance - net * 0.03;
+      const net = section8Helpers.getNetIncome(sampleClients.row8, 'current');
+      const assistanceRemainder = sampleClients.row8[ 'current' ].disabledAssistance - net * 0.03;
       expect(section8Helpers.getMinHandicapAllowance(sampleClients.row8, 'current', assistanceRemainder)).toEqual(0);
     });
   });

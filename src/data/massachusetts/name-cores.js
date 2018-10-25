@@ -1,7 +1,7 @@
 /** Arrays of names which can act as a base off of which
 * to build client property keys
 * 
-* @example var gross = client[ timeframe + base + 'Monthly' ];
+* @example const gross = client[ timeframe + base + 'Monthly' ];
 */
 
 const UNEARNED_INCOME_SOURCES = [

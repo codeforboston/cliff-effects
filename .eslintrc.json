@@ -10,7 +10,10 @@
   "env": {
     "browser": true
   },
-  "extends": "react-app",
+  "extends": [
+    "react-app",
+    "eslint:recommended"
+  ],
   "plugins": [
     "babel",
     "react"
@@ -48,6 +51,10 @@
     "react/jsx-tag-spacing": ["warn"],
     "react/self-closing-comp": "warn",
     "space-in-parens": ["warn", "never"],
-    "space-infix-ops": ["warn"]
+    "space-infix-ops": ["warn"],
+    "no-var": ["error"],
+    "no-undef": ["error"],
+    "no-unused-vars": ["error"],
+    "prefer-const": ["error"]
   }
 }

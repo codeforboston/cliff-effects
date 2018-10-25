@@ -80,11 +80,11 @@ class CashFlowInputsRow extends Component {
   };
 
   render() {
-    var { generic, timeState, updateClientValue, children } = this.props;
+    const { generic, timeState, updateClientValue, children } = this.props;
 
-    var updateClient = function (evnt, inputProps, data) {
-      var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
-          obj     = { name: generic, value: monthly };
+    const updateClient = function (evnt, inputProps, data) {
+      const monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
+            obj     = { name: generic, value: monthly };
       updateClientValue(evnt, obj);
     };
   
@@ -97,16 +97,16 @@ class CashFlowInputsRow extends Component {
      * @todo Add some kind of UI indication when it's the same as the 'current'
      * value. What if some of the row's values are the same and some are
      * different? */
-    var baseVal   = timeState[ generic ],
-        baseProps = {
-          name:             generic,
-          className:        'cashflow-column',
-          store:            updateClient,
-          displayValidator: hasOnlyNonNegNumberChars,
-          format:           toMoneyStr,
-        };
+    const baseVal   = timeState[ generic ],
+          baseProps = {
+            name:             generic,
+            className:        'cashflow-column',
+            store:            updateClient,
+            displayValidator: hasOnlyNonNegNumberChars,
+            format:           toMoneyStr,
+          };
 
-    var cashFlowStoreValidator = this.cashFlowStoreValidator;
+    const cashFlowStoreValidator = this.cashFlowStoreValidator;
   
     return (
       <CashFlowContainer
@@ -143,11 +143,11 @@ class CashFlowInputsRow extends Component {
  */
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
 
-  var baseVal      = value || timeState[ generic ],
-      colClassName = `cashflow-column`,
-      weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
-      monthly      = toMoneyStr(baseVal),
-      yearly       = toMoneyStr(baseVal * 12);
+  const baseVal      = value || timeState[ generic ],
+        colClassName = `cashflow-column`,
+        weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
+        monthly      = toMoneyStr(baseVal),
+        yearly       = toMoneyStr(baseVal * 12);
 
   return (
     <div className = { `cashflow cashflow-display` }>

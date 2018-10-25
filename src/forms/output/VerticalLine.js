@@ -53,7 +53,7 @@ class VerticalLine {
 
     ctx.restore();
   };
-};
+}
 
 
 export { VerticalLine };

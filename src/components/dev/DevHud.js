@@ -22,16 +22,16 @@ import { LocalizationReport } from './LocalizationReport.js';
  *    make menu categories collapsible. */
 const DevMenu = function ({ devProps, funcs, data, state }) {
 
-  var langs    = localizations,
-      langOpts = [];
+  const langs    = localizations,
+        langOpts = [];
 
-  for (let key in langs) {
-    var snips = langs[ key ],
-        lang  = {
-          text:  snips.langName,
-          key:   snips.langCode,
-          value: snips.langCode,
-        };
+  for (const key in langs) {
+    const snips = langs[ key ],
+          lang  = {
+            text:  snips.langName,
+            key:   snips.langCode,
+            value: snips.langCode,
+          };
     langOpts.push(lang);
   }
 
@@ -110,30 +110,37 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
 class DevHud extends Component {
 
   toggleHiding = () => {
-    var props    = this.props,
-        setDev   = props.funcs.setDev,
-        devProps = props.devProps;
+    const {
+      funcs,
+      devProps,
+    } = this.props;
 
-    var doShow = !devProps.devHidden;
-    setDev(`devHidden`, doShow);
+    const doShow = !devProps.devHidden;
+    funcs.setDev(`devHidden`, doShow);
   };
 
   toggleEnglish = () => {
-    var setDev  = this.props.funcs.setDev,
-        english = this.props.devProps.english;
-    setDev(`english`, !english);
+    const {
+      funcs,
+      devProps,
+    } = this.props;
+
+    funcs.setDev(`english`, !devProps.english);
   };
 
   toggleNonEnglish = () => {
-    var setDev     = this.props.funcs.setDev,
-        nonEnglish = this.props.devProps.nonEnglish;
+    const setDev     = this.props.funcs.setDev,
+          nonEnglish = this.props.devProps.nonEnglish;
     setDev(`nonEnglish`, !nonEnglish);
   };
 
   toggleWarning = () => {
-    var setDev  = this.props.funcs.setDev,
-        warning = this.props.devProps.warningOff;
-    setDev(`warningOff`, !warning);
+    const {
+      funcs,
+      devProps,
+    } = this.props;
+
+    funcs.setDev(`warningOff`, !devProps.warningOff);
   };
 
   turnOff = () => {
@@ -141,20 +148,20 @@ class DevHud extends Component {
   };
 
   render () {
+    const {
+      devProps,
+      funcs,
+      data,
+      state,
+    } = this.props;
 
-    var {
-          devProps,
-          funcs,
-          data,
-          state,
-        } = this.props,
-        devFuncs = {
-          ...funcs,
-          english:    this.toggleEnglish,
-          nonEnglish: this.toggleNonEnglish,
-          turnOff:    this.turnOff,
-          warning:    this.toggleWarning,
-        };
+    const devFuncs = {
+      ...funcs,
+      english:    this.toggleEnglish,
+      nonEnglish: this.toggleNonEnglish,
+      turnOff:    this.turnOff,
+      warning:    this.toggleWarning,
+    };
 
     return (
       <Menu
@@ -175,7 +182,7 @@ class DevHud extends Component {
     );
   }
   
-};
+}
 
 
 export { DevHud, DevMenu };

@@ -91,7 +91,7 @@ class ControlledRadioYesNo extends Component {
       </div>
     );
   }
-};  // End <ControlledRadioYesNo>
+}  // End <ControlledRadioYesNo>
 
 
 // @todo description
@@ -112,14 +112,14 @@ class ControlledRadioYesNo extends Component {
 class ManagedNumberField extends Component {
   constructor (props) {
     super(props);
-    var { format, value } = props;
+    const { format, value } = props;
     this.state = { valid: true, focused: false, focusedVal: format(value) };
   }  // End constructor()
 
   //change form to blank string after click, before input
   handleFocus = (evnt) => {
     // This makes sure that only zeroes and blanks get reset
-    var { format, value } = this.props;
+    const { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
       this.setState({ focused: true, focusedVal: '' });
     } else {
@@ -132,8 +132,8 @@ class ManagedNumberField extends Component {
   };
 
   handleChange = (evnt, inputProps) => {
-    var { displayValidator, storeValidator, store, otherData } = this.props;
-    var focusedVal = inputProps.value;
+    const { displayValidator, storeValidator, store, otherData } = this.props;
+    const focusedVal = inputProps.value;
 
     // If doesn't pass display validator, don't store and don't change focusedVal
     if (!displayValidator(inputProps.value)) {
@@ -144,7 +144,7 @@ class ManagedNumberField extends Component {
       // If field contains an empty string, set value to be 0 (visible on blur)
       inputProps.value = '0';
     }
-    var valid = storeValidator(inputProps.value);
+    const valid = storeValidator(inputProps.value);
 
     if (valid) {
       store(evnt, inputProps, otherData);
@@ -153,8 +153,9 @@ class ManagedNumberField extends Component {
   };  // End handleChange()
 
   render() {
-    var { valid, focused, focusedVal }      = this.state;
-    var { value, name, className, format }  = this.props;
+    const { valid, focused, focusedVal }      = this.state;
+    let { value } = this.props;
+    const { name, className, format }  = this.props;
 
     // Format correctly when neighbors are updated, if needed
     if (!focused) {
@@ -177,7 +178,7 @@ class ManagedNumberField extends Component {
     );
   }  // End render()
 
-};  // End <ManagedNumberField>
+}  // End <ManagedNumberField>
 
 
 export {

@@ -21,7 +21,7 @@ import {
  * @deprecated
  */
 const RenderIfTrue = function ({ shouldRender, children }) {
-  var ToRender = children;
+  const ToRender = children;
   if (shouldRender) {
     return <ToRender />;
   } else {
@@ -39,7 +39,7 @@ const RenderIfTrue = function ({ shouldRender, children }) {
  */
 const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
 
-  var sharedProps = {
+  const sharedProps = {
     timeState:         timeState,
     current:           timeState,
     type:              `expense`,
@@ -47,11 +47,11 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
     updateClientValue: updateClientValue,
   };
 
-  var housing            = timeState.housing,
-      housingCosts       = getHousingCosts(timeState),
-      dependentCare      = getNonTransportCareCosts(timeState),
-      dependentTransport = getTransportDependentCosts(timeState),
-      medExpenses        = getMedicalExpenses(timeState);
+  const housing            = timeState.housing,
+        housingCosts       = getHousingCosts(timeState),
+        dependentCare      = getNonTransportCareCosts(timeState),
+        dependentTransport = getTransportDependentCosts(timeState),
+        medExpenses        = getMedicalExpenses(timeState);
 
   return (
     <div>

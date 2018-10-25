@@ -8,9 +8,9 @@ const ButtonReset = function ({ onClick, snippets, overrides }) {
 
   if (!overrides) {
     overrides = {};
-  };
+  }
 
-  var clickHandler = function () {
+  const clickHandler = function () {
     onClick({
       header:    ``,
       message:   `default`,

@@ -10,9 +10,9 @@ describe('renderIfTrue returns', () => {
       <div>Test content</div>
     );
 
-    var returned = renderIfTrue(true, rendered),
-        renderedStr = JSON.stringify(rendered.toJSON()),
-        returnedStr = JSON.stringify(returned.toJSON());
+    const returned = renderIfTrue(true, rendered),
+          renderedStr = JSON.stringify(rendered.toJSON()),
+          returnedStr = JSON.stringify(returned.toJSON());
 
     expect(renderedStr).toEqual(returnedStr);
   });
@@ -22,7 +22,7 @@ describe('renderIfTrue returns', () => {
       <div>Test content</div>
     );
 
-    var returned = renderIfTrue(false, rendered);
+    const returned = renderIfTrue(false, rendered);
 
     expect(returned).toEqual(null);
   });

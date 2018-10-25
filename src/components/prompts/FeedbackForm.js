@@ -123,7 +123,7 @@ class FeedbackPrompt extends React.Component {
         if (response.ok) {
           return response;
         } else {
-          var error = new Error(response.statusText);
+          const error = new Error(response.statusText);
           error.response = response;
           throw error;
         }
@@ -163,6 +163,7 @@ class FeedbackPrompt extends React.Component {
       })
       .catch((error) => {
         this.setState({ submissionFailed: true, submitting: false });
+        // eslint-disable-next-line no-console
         console.error(error.message);
       });
   };
@@ -245,7 +246,7 @@ class FeedbackPrompt extends React.Component {
       </Modal>
     );
   }
-};
+}
 
 
 export default FeedbackPrompt;

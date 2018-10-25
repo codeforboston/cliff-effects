@@ -4,8 +4,8 @@ import { Button } from 'semantic-ui-react';
 
 const ResetAnytime = function (props) {
 
-  var askToResetClient = function () {
-    var promptData = {
+  const askToResetClient = function () {
+    const promptData = {
       leaveText: 'Reset',
       message:   'default',
     };

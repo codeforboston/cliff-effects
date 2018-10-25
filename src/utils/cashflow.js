@@ -32,7 +32,7 @@ import {
  * @returns {number} - Total dependent care expenses
  */
 const getDependentCostsMonthly = function (client) {
-  var props = UNDER13_CARE_EXPENSES.concat(OVER12_CARE_EXPENSES);
+  const props = UNDER13_CARE_EXPENSES.concat(OVER12_CARE_EXPENSES);
   return sumProps(client, props);
 };  // End getDependentCostsMonthly()
 
@@ -74,7 +74,7 @@ const getTransportDependentCosts = function (client) {
 // OTHER EXPENSES
 // ==================================
 const getHousingCosts = function (client) {
-  var housing = client.housing;
+  const housing = client.housing;
   if (housing === `homeless`) {
     return 0;
   } else if (housing === `voucher`) {
@@ -115,8 +115,8 @@ const getGrossUnearnedIncomeMonthly = function (client) {
  *     income with no deductions or exclusions.
  */
 const getSimpleGrossIncomeMonthly = function (client) {
-  var earned    = client.earned,
-      unearned  = getGrossUnearnedIncomeMonthly(client);
+  const earned    = client.earned,
+        unearned  = getGrossUnearnedIncomeMonthly(client);
   return earned + unearned;
 };  // End getSimpleGrossIncomeMonthly()
 
