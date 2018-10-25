@@ -19,15 +19,23 @@ import {
 *
 * @returns {object} React element
 */
-const BigButton = function ({ children, ...buttonProps }) {
+const BigButton = function ({ children, className, overrides }) {
 
-  // Combine class names?
+  if (!overrides) {
+    overrides = {};
+  };
+
+  var allClasses = `big-button`;
+  if (className) {
+    allClasses += ` ` + className;
+  }
+
   const overriddenDefaults = {
     type:      `button`,
     color:     `teal`,
     size:      `large`,
-    className: `big-button`,
-    ...buttonProps,
+    className: allClasses,
+    ...overrides,
   };
 
   return (
