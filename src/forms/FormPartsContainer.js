@@ -62,7 +62,7 @@ const FormBottomRow = function({ left, middle, right }) {
   return (
     <div
       className = { `form-section-bottom-row` }
-      style     = {{ display: `flex`, justifyContent: `space-between` }}>
+    >
       { children }
     </div>
   );
