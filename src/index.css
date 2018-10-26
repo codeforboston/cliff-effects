@@ -76,6 +76,12 @@ body {
   text-align: center;
 }
 
+/* VisitPage.js styles */
+
+#form-nav, .current-step-component {
+  padding: 14px 0;
+}
+
 form .field-aligner {
   display: inline-block;
   text-align: left;

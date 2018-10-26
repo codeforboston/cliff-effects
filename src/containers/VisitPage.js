@@ -358,7 +358,7 @@ class VisitPage extends Component {
           <Responsive
             id = { `form-nav` }
             minWidth='874.5'
-            style={{ padding: '14px 0' }}>
+            >
             <StepBar
               currentStepIndex={ this.state.currentStep }
               steps={ this.steps }
@@ -366,8 +366,8 @@ class VisitPage extends Component {
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
           <div
-            className="flex-item flex-column"
-            style={{ padding: '14px 0' }}>
+            className="flex-item flex-column current-step-component"
+            >
             { this.getCurrentStep(navData) }
           </div>
 
@@ -382,7 +382,7 @@ class VisitPage extends Component {
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
-        { 
+        {
           distrustConfirmed === false ? (
             <PredictionsWarning
               distrustConfirmed       = { distrustConfirmed }
