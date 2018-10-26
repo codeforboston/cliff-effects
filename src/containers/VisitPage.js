@@ -23,7 +23,6 @@ import ErrorListener from '../components/prompts/ErrorListener';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
-import { ResetAnytime } from '../components/prompts/ResetAnytime';
 import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
@@ -262,29 +261,25 @@ class VisitPage extends Component {
     formSnippets.langCode = this.state.snippets.langCode;
 
     return (
-      <div>
-        <FormSection
-          currentStep={ this.state.currentStep }
-          client={ this.state.client }
-          navData={ navData }
-          updateClientValue={ step.updateClientValue }
-          saveForm={ this.saveForm }
-          askToResetClient={ this.askToResetClient }
-          openFeedback={ this.openFeedback }
-          snippets={ formSnippets } />
-        <FeedbackAnytime openFeedback={ this.openFeedback } />
-        <ResetAnytime askToResetClient={ this.askToResetClient } />
-      </div>
+      <FormSection
+        currentStep={ this.state.currentStep }
+        client={ this.state.client }
+        navData={ navData }
+        updateClientValue={ step.updateClientValue }
+        saveForm={ this.saveForm }
+        askToResetClient={ this.askToResetClient }
+        openFeedback={ this.openFeedback }
+        snippets={ formSnippets } />
     );
   };  // End getCurrentStep()
 
   render() {
 
-    var snippets           = this.state.snippets,
-        prevContent        = null,
-        nextContent        = null,
-        stepIndex          = this.getCurrentStepIndex(),
-        termsAccepted      = this.props.termsAccepted;
+    var snippets          = this.state.snippets,
+        prevContent       = null,
+        nextContent       = null,
+        stepIndex         = this.getCurrentStepIndex(),
+        distrustConfirmed = this.props.distrustConfirmed;
 
     if (stepIndex !== 0) {
       prevContent = (
@@ -304,10 +299,11 @@ class VisitPage extends Component {
       );
     // Otherwise, set up to reset client
     } else {
-      // Can be reused for fixed button on the left
-      nextContent  = (<ButtonReset
-        onClick  = { this.askToResetClient }
-        snippets = { snippets } />);
+      nextContent  = (
+        <ButtonReset onClick  = { this.askToResetClient } >
+          { snippets.i_newClient }
+        </ButtonReset>
+      );
     }
 
     var navData = {
@@ -359,12 +355,12 @@ class VisitPage extends Component {
         ) }
 
         {/* = SECTION = */}
-        {/* `padding` here duplicates previous `<Grid>` styleing */}
+        {/* `padding` here duplicates previous `<Grid>` styling */}
         <Container
           id = { `cliff-effects-tool` }
-          className='flex-item flex-column'
-          style={{ padding: '42px 0' }}>
+          className='flex-item flex-column'>
           <Responsive
+            id = { `form-nav` }
             minWidth='874.5'
             style={{ padding: '14px 0' }}>
             <StepBar
@@ -381,11 +377,20 @@ class VisitPage extends Component {
 
         </Container>
 
+        <Container id={ `alwaysLeftButtons` }>
+          <ButtonReset
+            onClick   = { this.askToResetClient }
+            overrides = {{ id: `resetFixed`, size: `medium` }}>
+            { snippets.i_newClient }
+          </ButtonReset>
+          <FeedbackAnytime openFeedback={ this.openFeedback } />
+        </Container>
+
         { 
-          termsAccepted === false ? (
+          distrustConfirmed === false ? (
             <PredictionsWarning
-              termsAccepted = { termsAccepted }
-              toggleAcceptTerms = { this.props.funcs.toggleAcceptTerms }
+              distrustConfirmed       = { distrustConfirmed }
+              toggleDistrustConfirmed = { this.props.funcs.toggleDistrustConfirmed }
               snippets={{ ...snippets.warningModal }} />
           ) : (
             null

@@ -52,6 +52,10 @@ body {
   margin: 0;
 }
 
+.ui.inverted.menu .item, .ui.inverted.menu .item>a:not(.ui):hover {
+  color: #003D3A;
+}
+
 /* PageLayout.js styles */
 
 .pl-segment {
@@ -59,6 +63,10 @@ body {
 }
 
 /* Predictions.js */
+.print-row {
+  margin-top: 1em;
+  text-align: right;
+}
 
 .feedback-button {
   display: inline;
@@ -92,6 +100,10 @@ Used to fill vertical space.
 
 .heading-with-detail .middle {
   white-space: nowrap;
+}
+
+#cliff-effects-tool {
+  padding: 42px 0;
 }
 
 #cliff-effects-tool .show-on-yes {
@@ -214,18 +226,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; /* Removes leftover margin */
 }
 
-/* Old selector used for 'Submit Feedback' and 'Reset' buttons */
-.fixed {
-  top: 6.2em;
-  left: -.75em;
-  position: fixed;
-}
-
-.rotate {
-    transform-origin: top left;
-    transform: rotate(270deg);
-}
-
 /* CHARTS */
 .graph-holder {
   position: relative;
@@ -297,29 +297,30 @@ form elements. */
 }
 
 
-/* FEEDBACK BUTTON */
-#feedback_fixed {
-    position: fixed;
-    top: 234px;
-    left: 0;
+/* FORM EVER-PRESENT BUTTONS */
+#alwaysLeftButtons {
+  /* Would like to use `position: sticky;`, but it's
+   * not supported by IE at all. A bit premature, but
+   * also obscure and may be hard to fix after-the-fact */
+  position: fixed;
+  transform-origin: top left;
+  transform: rotate(270deg) translateX(-100%);
+  top: 6.2rem;
+  left: 0;
+  display: flex;
+  width: fit-content;
+}
+
+/* LEFT BUTTONS' OWN STYLES */
+#alwaysLeftButtons .button {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    margin-right: .7rem;
 }
 
-/* RESET BUTTON */
-#reset_fixed {
-    position: fixed;
-    top: 362px;
-    left: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    background-color: #f2711c;
+#alwaysLeftButtons .button:last-child {
+  margin-right: 0;
 }
-
-#reset_fixed:hover {
-  background-color: #d16614;
-}
-
 
 /* FUNCTIONAL */
 .has-details {
@@ -336,8 +337,11 @@ i.icon.details-icon {
 /* =============== */
 /* PREDICTIONS (manual theme implementation) */
 /* =============== */
-/* If theme is changed, this will have to be changed by hand */
+#resultsIntro {
+  margin-bottom: 1em;
+}
 
+/* If theme is changed, this will have to be changed by hand */
 .ui.attached.tabular.menu {
   border-bottom-color: #00b6ad;
 }
@@ -496,6 +500,87 @@ body .ui *:focus,
   outline-offset: 1px;
 }
 
+/*
+=================
+STYLES FOR COMMUNICATION
+@todo Figure out color-blind indicators as well
+=================
+*/
+#App .button.caution {
+    color: white;
+    background-color: #f2711c;
+}
+
+#App .button.caution:hover {
+  background-color: #d16614;
+}
+
+/*
+=================
+PRINTING STYLES
+=================
+*/
+
+/* `margin: 0` at bottom working without print,
+    not working for print when cliff present. Why? */
+@media print {
+  @page {
+    size: portrait;
+  }
+
+  #appHeader,
+  #feedback_fixed,
+  #reset_fixed,
+  #form-nav,
+  #section-bottom,
+  #predictionsForm,
+  #resultsIntro,
+  #App .tabular.menu,
+  .print-row {
+    display: none;
+  }
+
+  #cliff-effects-tool,
+  #App .very.padded.segment {
+    padding: 0;
+  }
+
+  #App .bottom.segment {
+    border: 0;
+  }
+
+  #root #App .ui.segment {
+    margin: 0;
+  }
+
+  .section-header span {
+    color: black;
+  }
+
+  #App .footer_segment {
+    background: transparent !important;
+  }
+
+  #App .footer_segment a,
+  #App .footer_segment p,
+  #App .footer_segment span {
+    color: black;
+  }
+}
+
+/*
+=========================
+SMALL SCREEN
+=========================
+*/
+@media only screen and (max-width: 767px) {
+  #alwaysLeftButtons {
+    /* Fighting semantic-ui */
+    margin-right: 0!important;
+    margin-left: 0!important;
+  }
+}
+
 
 /*
 =========================
@@ -506,3 +591,19 @@ PREDICTIONS WARNING MODAL
   color: #fff;
   background-color: rgb(136,0,21);
 }
+
+/* Semantic UI Default Overrides */
+
+.mini.ui.steps a.step:hover, .mini.ui.steps a.step:hover:after {
+  background: #dcddde;
+}
+
+.ui.selection.dropdown .menu>.item:hover {
+  background-color: #adb1b5;
+}
+
+.ui.selection.dropdown .menu>.selected.item {
+  background-color: #dcddde;
+}
+
+

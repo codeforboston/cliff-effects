@@ -11,8 +11,7 @@ const FeedbackAnytime = function (props) {
         type='button'
         color='teal'
         size='medium'
-        className={ 'fixed rotate' }
-        id={ 'feedback_fixed' }>
+        id={ 'feedbackFixed' }>
         Tell Us More
       </Button>
     </div>
