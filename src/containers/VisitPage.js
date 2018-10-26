@@ -27,7 +27,7 @@ import { CurrentIncomeStep } from '../forms/CurrentIncome';
 import { CurrentExpensesStep } from '../forms/CurrentExpenses';
 import { PredictionsStep } from '../forms/Predictions';
 import { HouseholdStep } from '../forms/Household';
-import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
+import { CurrentBenefitsStep } from './forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
@@ -67,9 +67,8 @@ class VisitPage extends Component {
 
     this.steps = [
       {
-        form:              CurrentBenefitsStep,
-        key:               'currentBenefits',
-        updateClientValue: this.changeCurrent,
+        form: CurrentBenefitsStep,
+        key:  'currentBenefits',
       },
       {
         form:              HouseholdStep,

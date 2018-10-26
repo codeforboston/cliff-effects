@@ -6,15 +6,21 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { ControlledRadioYesNo } from './inputs';
 
 
-const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientValue }) {
-  return (
-    <ControlledRadioYesNo
-      checked   = { checked }
-      labelText = { snippets[ `i_` + name + `Label` ] }
-      name      = { name }
-      onChange  = { updateClientValue } />
-  );
-};
+class LocalizedRadioYesNo extends React.PureComponent {
+  handleRadioChange = (event, data) => {
+    this.props.setHasBenefit({ benefit: this.props.name, value: data.checked });
+  };
+
+  render() {
+    return (
+      <ControlledRadioYesNo
+        checked   = { this.props.checked }
+        labelText = { this.props.snippets[ `i_` + this.props.name + `Label` ] }
+        name      = { this.props.name }
+        onChange  = { this.handleRadioChange } />
+    );
+  }
+}
 
 
 /** Asks which benefits the user is currently receiving
@@ -23,30 +29,30 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientVal
  *
  * @function
  * @param {object} props
- * @property {object} props.current Client current info.
- * @property {function} props.updateClientValue Updates state upstream.
+ * @property {Immutable.Map} props.currentClient Client current info.
+ * @property {function} props.setHasBenefit Sets whether the client has a particular benefit.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
+const CurrentBenefitsContent = ({ currentClient, setHasBenefit, snippets }) => {
 
   var sharedProps = {
-    updateClientValue: updateClientValue,
-    snippets:          snippets,
+    setHasBenefit,
+    snippets,
   };
 
   return (
     <div >
       <LocalizedRadioYesNo
         { ...sharedProps }
-        checked = { current.hasSection8 }
+        checked = { currentClient.get('hasSection8') }
         name    = { 'hasSection8' } />
       <div className = { `question-spacer` } />
       <LocalizedRadioYesNo
         { ...sharedProps }
-        checked = { current.hasSnap }
+        checked = { currentClient.get('hasSnap') }
         name    = { 'hasSnap' } />
     </div>
   );  // end return
@@ -58,15 +64,14 @@ const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
  *
  * @function
  * @param {object} props
- * @property {function} props.updateClientValue Updates state upstream.
  * @property {object} props.navData Bottom row buttons
- * @property {object} props.client JSON object with future and current values.
+ * @property {Immutable.Map} props.currentClient Immutable Map with current values.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) => {
+const CurrentBenefitsStep = ({ setHasBenefit, navData, currentClient, snippets }) => {
 
   return (
     <FormPartsContainer
@@ -76,8 +81,8 @@ const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) =
       formClass = { `benefits` }
       formSize  = { `massive` }>
       <CurrentBenefitsContent
-        updateClientValue = { updateClientValue }
-        current      = { client.current }
+        setHasBenefit = { setHasBenefit }
+        currentClient      = { currentClient }
         snippets     = { snippets } />
     </FormPartsContainer>
   );
