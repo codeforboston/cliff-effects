@@ -1,5 +1,4 @@
-/** @todo Implement test for valueFixers */
-import { /* valueFixers, */ returnSame, stringToNumber, toBoolean } from '../../utils/valueFixers';
+import { returnSame, stringToNumber, toBoolean } from '../../utils/valueFixers';
 
 
 test('returnSame()', ()=>{
@@ -19,8 +18,12 @@ test('returnSame()', ()=>{
 
 test('stringToNumber()', ()=>{
 
+  let wrongStr = function () {
+    stringToNumber('A');
+  };
+
+  expect(wrongStr).toThrow();
   expect(stringToNumber('1')).toBe(1);
-  expect(stringToNumber('A')).toEqual(NaN);
   expect(stringToNumber('.2')).toBe(.2);
   expect(stringToNumber('2.2')).toBe(2.2);
 });

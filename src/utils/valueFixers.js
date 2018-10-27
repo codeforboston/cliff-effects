@@ -24,7 +24,24 @@ const toBoolean = function (value) {
 };
 
 const stringToNumber = function (str) {
-  return Number(str);
+  // In case it's `null` or something, which can be turned into 0, but shouldn't be a number.
+  if (typeof str !== `string`) {
+    throw new TypeError(`Expected 'str' to be a string, not a`, typeof str);
+  }
+
+  if (str === ``) {
+    throw new TypeError(`Expected 'str' to be a string that can be converted to a number, not an empty string.`);
+  }
+
+  let number = Number(str);
+  // In case it's a string of letters instead of numbers
+  // This doesn't stop cases like 3e5 or something, but this function
+  // isn't meant to guard against that currently.
+  if (typeof number === `number` && !isNaN(number)) {
+    return number;
+  } else {
+    throw new TypeError(`Expected 'str' to be an integer or decimal number and it wasn't.`);
+  }
 };
 
 /**
