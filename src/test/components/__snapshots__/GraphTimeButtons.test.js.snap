@@ -2,7 +2,7 @@
 
 exports[`<GraphTimeButtons> renders with provided props 1`] = `
 <GraphTimeButtons
-  activeID="not sure what this should be"
+  activeID="Monthly"
   onClick={[Function]}
   otherProps="I don't get passed through =("
 >
@@ -14,7 +14,7 @@ exports[`<GraphTimeButtons> renders with provided props 1`] = `
       className="ui basic buttons graph-time-options"
     >
       <GraphButton
-        activeID="not sure what this should be"
+        activeID="Monthly"
         id="Weekly"
         onClick={[Function]}
       >
@@ -35,18 +35,18 @@ exports[`<GraphTimeButtons> renders with provided props 1`] = `
         </Button>
       </GraphButton>
       <GraphButton
-        activeID="not sure what this should be"
+        activeID="Monthly"
         id="Monthly"
         onClick={[Function]}
       >
         <Button
-          active={false}
+          active={true}
           as="button"
           id="Monthly"
           onClick={[Function]}
         >
           <button
-            className="ui button"
+            className="ui active button"
             id="Monthly"
             onClick={[Function]}
             role="button"
@@ -56,7 +56,7 @@ exports[`<GraphTimeButtons> renders with provided props 1`] = `
         </Button>
       </GraphButton>
       <GraphButton
-        activeID="not sure what this should be"
+        activeID="Monthly"
         id="Yearly"
         onClick={[Function]}
       >
