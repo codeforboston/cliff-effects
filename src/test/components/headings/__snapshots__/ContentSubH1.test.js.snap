@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ContentSubH1> matches snapshot 1`] = `
+exports[`<ContentSubH1> renders content 1`] = `
 <ContentSubH1>
   <div
     className="text-sub-h1"

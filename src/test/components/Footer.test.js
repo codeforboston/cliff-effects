@@ -6,6 +6,8 @@ import { snippets } from '../helpers';
 
 describe('<Footer>', () => {
   it('matches snapshot', () => {
-    expect(mount(<Footer snippets={ snippets } />)).toMatchSnapshot();
+    expect(() => {
+      mount(<Footer snippets={ snippets } />);
+    }).not.toThrow();
   });
 });

@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { PageLayout } from '../../components/PageLayout';
 
 describe('<PageLayout>', () => {
-  it('matches snapshot', () => {
+  it('renders children', () => {
     const wrapper = mount(
       <PageLayout>
         Some content
