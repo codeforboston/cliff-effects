@@ -3,7 +3,7 @@ import {
   Container,
   Responsive,
 } from 'semantic-ui-react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // DATA MANAGEMENT
 import { setNestedProperty } from '../utils/setNestedProperty';
@@ -22,15 +22,11 @@ import ErrorListener from '../components/prompts/ErrorListener';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
-import { CurrentIncomeStep } from '../forms/CurrentIncome';
-import { CurrentExpensesStep } from '../forms/CurrentExpenses';
-import { PredictionsStep } from '../forms/Predictions';
-import { HouseholdStep } from '../forms/Household';
-import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
 import PredictionsWarning from '../components/prompts/PredictionsWarning';
+import { STEPS } from '../constants';
 
 class VisitPage extends Component {
   constructor (props) {
@@ -56,37 +52,19 @@ class VisitPage extends Component {
       userChanged:           {},
       snippets:              props.snippets,
     };  // end this.state {}
-
-    this.steps = [
-      {
-        form:              CurrentBenefitsStep,
-        key:               'currentBenefits',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              HouseholdStep,
-        key:               'household',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              CurrentIncomeStep,
-        key:               'currentIncome',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              CurrentExpensesStep,
-        key:               'currentExpenses',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              PredictionsStep,
-        key:               'predictions',
-        updateClientValue: this.changeFuture,
-      },//,
-    //  { title: 'Graphs', form: ResultsGraph }
-    ];  // end this.steps {}
-
   };  // End constructor()
+
+  componentDidMount() {
+    // If the user has refreshed the page while they were on a later step, then we will
+    // go back to that step, but since the client data is currently stored in memory, the
+    // client data will be lost. So if we are loading on a step that is not the first step,
+    // go back to the first step to start again
+    const firstStepURL = `${this.getPathPrefix()}/${STEPS[ 0 ].key}`;
+
+    if (this.props.history.location !== firstStepURL) {
+      this.props.history.replace(firstStepURL);
+    }
+  }
 
   resetClientIfOk = (shouldReset) => {
 
@@ -101,7 +79,7 @@ class VisitPage extends Component {
       userChanged: {},
     });
 
-    this.goToStep(1);
+    this.goToStep({ index: 0 });
   };
 
   askToResetClient = (promptData) => {
@@ -110,7 +88,7 @@ class VisitPage extends Component {
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
-      this.goToStep(1);
+      this.goToStep({ index: 0 });
     } else {
       // Otherwise, suggest the user submit feedback
       this.askForFeedback(this.resetClientIfOk, promptData);
@@ -217,11 +195,11 @@ class VisitPage extends Component {
   nextStep = () => {
     const nextStepIndex = this.getCurrentStepIndex() + 1;
     
-    if (nextStepIndex === this.steps.length) {
+    if (nextStepIndex === STEPS.length) {
       return;
     }
     
-    this.goToStep(nextStepIndex + 1);
+    this.goToStep({ index: nextStepIndex });
     this.scrollToTop();
   };
   
@@ -232,24 +210,36 @@ class VisitPage extends Component {
       return;
     }
 
-    this.goToStep(prevStepIndex);
+    this.goToStep({ index: prevStepIndex });
     this.scrollToTop();
   };
 
-  goToStep = (index) => {
-    this.props.history.push(`/visit/${this.props.clientId}/${this.props.visitId}/${this.steps[ index - 1 ].key}`);
+  goToStep = ({ key, index }) => {
+    if (!key) {
+      key = STEPS[ index ].key;
+    }
+
+    this.props.history.push(`${this.getPathPrefix()}/${key}`);
+  };
+
+  getPathPrefix = () => {
+    return `/visit/${this.props.clientId}/${this.props.visitId}`;
   };
 
   getCurrentStepIndex = () => {
-    return this.steps.findIndex((step) => {
+    return STEPS.findIndex((step) => {
       return step.key === this.props.stepKey;
     });
+  };
+
+  shouldConfirmLeave = ({ location }) => {
+    return !location.pathname.startsWith(this.getPathPrefix());
   };
 
   render() {
     if (!this.props.stepKey) {
       return (
-        <Redirect to={ `/visit/${this.props.clientId}/${this.props.visitId}/${this.steps[ 0 ].key }` } />
+        <Redirect to={ `${this.getPathPrefix()}/${STEPS[ 0 ].key }` } />
       );
     }
 
@@ -268,7 +258,7 @@ class VisitPage extends Component {
     }
 
     // If it's not the last step
-    if (stepIndex !== (this.steps.length - 1)) {
+    if (stepIndex !== (STEPS.length - 1)) {
       // use normal 'next' component
       nextContent = (
         <BigButton onClick = { this.nextStep }>
@@ -290,7 +280,7 @@ class VisitPage extends Component {
       right:  nextContent,
     };
 
-    const step = this.steps[ stepIndex ];
+    const step = STEPS[ stepIndex ];
 
     const StepComponent = step.form;
 
@@ -321,6 +311,7 @@ class VisitPage extends Component {
         <ReactRouterLeaveListener
           askForFeedback={ this.askForFeedback }
           confirmer = { this.props.confirmer }
+          shouldRequestConfirmation={ this.shouldConfirmLeave }
           isBlocking={ this.state.isBlocking } />
 
         {/* = LINKS? = */}
@@ -345,7 +336,6 @@ class VisitPage extends Component {
             style={{ padding: '14px 0' }}>
             <StepBar
               currentStepKey={ this.props.stepKey }
-              steps={ this.steps }
               goToStep={ this.goToStep }
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
@@ -355,7 +345,11 @@ class VisitPage extends Component {
             <StepComponent
               component={ step.form }
               snippets={ snippets[ step.key ] }
-              updateClientValue={ step.updateClientValue }
+              updateClientValue={
+                step.time === 'current' ?
+                  this.changeCurrent :
+                  this.changeFuture
+              }
               currentStep={ stepIndex }
               navData={ navData }
               saveForm={ this.saveForm }
@@ -390,4 +384,4 @@ class VisitPage extends Component {
   }
 }
 
-export default withRouter(VisitPage);
+export default VisitPage;

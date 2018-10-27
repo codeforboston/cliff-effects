@@ -231,12 +231,13 @@ class App extends Component {
                 } } />
               <Route
                 path="/visit/:clientId/:visitId/:stepKey?"
-                component={ ({ match, ...props }) => {
+                component={ ({ match, history, ...props }) => {
                   const { clientId, visitId, stepKey } = match.params;
 
                   return (
                     <VisitPage
                       { ...props }
+                      history           = { history }
                       clientId          = { clientId }
                       visitId           = { visitId }
                       stepKey           = { stepKey }

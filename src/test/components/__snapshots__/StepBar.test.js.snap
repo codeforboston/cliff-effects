@@ -2,22 +2,9 @@
 
 exports[`<StepBar> matches snapshot 1`] = `
 <StepBar
-  currentStepIndex={1}
+  currentStepKey="currentBenefits"
   goToStep={[Function]}
   snippets={null}
-  steps={
-    Array [
-      Object {
-        "key": "firstStep",
-      },
-      Object {
-        "key": "secondStep",
-      },
-      Object {
-        "key": "thirdStep",
-      },
-    ]
-  }
 >
   <StepGroup
     className="six"
@@ -42,6 +29,22 @@ exports[`<StepBar> matches snapshot 1`] = `
         Object {
           "active": false,
           "key": 2,
+          "onClick": [Function],
+          "title": Object {
+            "content": "Some translated text.",
+          },
+        },
+        Object {
+          "active": false,
+          "key": 3,
+          "onClick": [Function],
+          "title": Object {
+            "content": "Some translated text.",
+          },
+        },
+        Object {
+          "active": false,
+          "key": 4,
           "onClick": [Function],
           "title": Object {
             "content": "Some translated text.",
@@ -132,6 +135,80 @@ exports[`<StepBar> matches snapshot 1`] = `
       <Step
         active={false}
         key="2"
+        onClick={[Function]}
+        title={
+          Object {
+            "content": "Some translated text.",
+          }
+        }
+      >
+        <a
+          className="step"
+          onClick={[Function]}
+        >
+          <StepContent
+            title={
+              Object {
+                "content": "Some translated text.",
+              }
+            }
+          >
+            <div
+              className="content"
+            >
+              <StepTitle
+                content="Some translated text."
+              >
+                <div
+                  className="title"
+                >
+                  Some translated text.
+                </div>
+              </StepTitle>
+            </div>
+          </StepContent>
+        </a>
+      </Step>
+      <Step
+        active={false}
+        key="3"
+        onClick={[Function]}
+        title={
+          Object {
+            "content": "Some translated text.",
+          }
+        }
+      >
+        <a
+          className="step"
+          onClick={[Function]}
+        >
+          <StepContent
+            title={
+              Object {
+                "content": "Some translated text.",
+              }
+            }
+          >
+            <div
+              className="content"
+            >
+              <StepTitle
+                content="Some translated text."
+              >
+                <div
+                  className="title"
+                >
+                  Some translated text.
+                </div>
+              </StepTitle>
+            </div>
+          </StepContent>
+        </a>
+      </Step>
+      <Step
+        active={false}
+        key="4"
         onClick={[Function]}
         title={
           Object {
