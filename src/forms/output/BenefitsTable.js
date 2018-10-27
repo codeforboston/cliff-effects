@@ -22,11 +22,11 @@ const getSignSymbol = function (num) {
 
 const BenefitsTable = function ({ client, snippets }) {
 
-  var clone = cloneDeep(client);
-  var curr = clone.current;
+  const clone = cloneDeep(client);
+  const curr = clone.current;
 
-  var allData         = {},
-      activeBenefits  = [ `income` ];
+  const allData         = {},
+        activeBenefits  = [ `income` ];
 
   if (curr.hasSection8) {
     activeBenefits.push(`section8`);
@@ -36,7 +36,7 @@ const BenefitsTable = function ({ client, snippets }) {
     activeBenefits.push(`snap`);
   }
 
-  var currentCalcData = {
+  const currentCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -45,7 +45,7 @@ const BenefitsTable = function ({ client, snippets }) {
   applyAndPushBenefits (currentCalcData);
 
   // Add to the `current` data already there
-  var futureCalcData = {
+  const futureCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -54,11 +54,11 @@ const BenefitsTable = function ({ client, snippets }) {
   applyAndPushBenefits (futureCalcData);
 
   // @todo Abstract getting values for each row
-  var income   = allData.income,
-      section8 = allData.section8,
-      snap     = allData.snap;
+  const income   = allData.income,
+        section8 = allData.section8,
+        snap     = allData.snap;
 
-  var sec8BenefitCurrent = 0,
+  let sec8BenefitCurrent = 0,
       sec8BenefitFuture  = 0,
       SNAPBenefitCurrent = 0,
       SNAPBenefitFuture  = 0;
@@ -73,17 +73,17 @@ const BenefitsTable = function ({ client, snippets }) {
     SNAPBenefitFuture  = Math.round(snap[ 1 ]);
   }
 
-  var SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
-      totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
-      totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
-      totalDiff           = SNAPDiff + sec8Diff,
-      incomeCurrent       = Math.round(income[ 0 ]),
-      incomeFuture        = Math.round(income[ 1 ]),
-      incomeDiff          = incomeFuture - incomeCurrent,
-      netCurrent          = totalBenefitCurrent + incomeCurrent,
-      netFuture           = totalBenefitFuture + incomeFuture,
-      netDiff             = totalDiff + incomeDiff;
+  const SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
+        sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
+        totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
+        totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
+        totalDiff           = SNAPDiff + sec8Diff,
+        incomeCurrent       = Math.round(income[ 0 ]),
+        incomeFuture        = Math.round(income[ 1 ]),
+        incomeDiff          = incomeFuture - incomeCurrent,
+        netCurrent          = totalBenefitCurrent + incomeCurrent,
+        netFuture           = totalBenefitFuture + incomeFuture,
+        netDiff             = totalDiff + incomeDiff;
 
   const columnHeaderStyle = {
           background:    'rgba(0, 181, 173, 1)',

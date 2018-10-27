@@ -31,7 +31,7 @@ test('Rounding infinity', () => {
 });
 
 test('Rounding NaN', () => {
-  var roundedNan = math.roundMoney(NaN);
+  const roundedNan = math.roundMoney(NaN);
   expect(isNaN(roundedNan)).toBe(true);
 });
 

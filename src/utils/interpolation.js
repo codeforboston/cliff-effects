@@ -3,7 +3,7 @@
 import React from 'react';
 
 // To make sure all keys are unique
-var count = 0;
+let count = 0;
 
 /** Interpolate components into a single text block (specified as an array) */
 const interpolateText = function (template, components, langCode) {
@@ -11,7 +11,7 @@ const interpolateText = function (template, components, langCode) {
 
     count++;
 
-    var props = {
+    const props = {
       key:       item.name || langCode + count,
       lang:      langCode,
       className: `snippet`,
@@ -27,7 +27,7 @@ const interpolateText = function (template, components, langCode) {
     }
 
     // Item is component
-    var component = components[ item.name ];
+    const component = components[ item.name ];
     props.className = props.className + ` ` + component.props.className;
 
     if (item.text) {
@@ -42,17 +42,17 @@ const interpolateText = function (template, components, langCode) {
 
 /** Recursively interpolate each template in a snippets object */
 const interpolateSnippets = function (snippets, components) {
-  var named        = {},
-      versionRegex = /_v\d+$/;
+  const named        = {},
+        versionRegex = /_v\d+$/;
 
-  for (let key in snippets) {
-    let newKey = `i_` + key.replace(versionRegex, ``),
-        value = snippets[ key ];
+  for (const key in snippets) {
+    const newKey = `i_` + key.replace(versionRegex, ``),
+          value = snippets[ key ];
 
     count++;
-    var langCode = snippets.langCode;
+    const langCode = snippets.langCode;
 
-    var props = {
+    const props = {
       key:       langCode + count,
       lang:      langCode,
       className: `snippet`,

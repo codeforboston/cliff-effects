@@ -25,7 +25,7 @@ import { ExternalLink } from './../components/ExternalLink';
  */
 const InvalidMessage = function ({ validRow, message }) {
 
-  var result = null;
+  let result = null;
   if (!validRow && message) {
     result = (
       <Label
@@ -40,7 +40,7 @@ const InvalidMessage = function ({ validRow, message }) {
 };  // End <InvalidMessage>
 
 
-var AttentionArrow = function () {
+const AttentionArrow = function () {
 
   return (
     <span className={ 'attention-arrow' }>

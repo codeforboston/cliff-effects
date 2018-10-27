@@ -38,9 +38,9 @@ import { moneyToWholeNum } from './math';
  */
 const getLimitBySize = function (data, numItems, percent) {
   
-  var safePerc  = percent || 100,
-      limit     = null,
-      maxGiven  = getMaxIntKey(data);
+  const safePerc  = percent || 100,
+        maxGiven  = getMaxIntKey(data);
+  let limit     = null;
 
   if (numItems <= maxGiven) {
 
@@ -48,8 +48,8 @@ const getLimitBySize = function (data, numItems, percent) {
 
   } else {
 
-    var numExtra    = numItems - maxGiven,
-        extraAmount = getExtraAmount(data, numExtra);
+    const numExtra    = numItems - maxGiven,
+          extraAmount = getExtraAmount(data, numExtra);
     limit = data[ maxGiven ] + extraAmount;
 
   }
@@ -68,10 +68,10 @@ const getLimitBySize = function (data, numItems, percent) {
 * 
 * @returns {number} The amount created by those extra items.
 */
-var getExtraAmount = function (data, numExtra) {
+const getExtraAmount = function (data, numExtra) {
 
-  var extraAmount     = 0,
-      eachAdditional  = data.eachAdditional;
+  let extraAmount     = 0;
+  const eachAdditional  = data.eachAdditional;
 
   // Either allow additional amount to be calculated
   // or add a hard-coded amount.
@@ -82,7 +82,7 @@ var getExtraAmount = function (data, numExtra) {
   } else {  // Assumed either number or falsy
 
     /** @todo Future discussioin - flexibility vs. consistency */
-    var overageRate = eachAdditional || 0;
+    const overageRate = eachAdditional || 0;
     extraAmount = numExtra * overageRate;
 
   }
@@ -95,11 +95,11 @@ var getExtraAmount = function (data, numExtra) {
 * Of the keys in an object that can be converted to integers,
 * return the highest converted value.
 */
-var getMaxIntKey = function (data) {
-  var max = 0;
-  for (let key in data) {
+const getMaxIntKey = function (data) {
+  let max = 0;
+  for (const key in data) {
 
-    var asInt = parseInt(key, 10);
+    const asInt = parseInt(key, 10);
     if (!isNaN(asInt) && asInt > max) {
       max = asInt;
     }

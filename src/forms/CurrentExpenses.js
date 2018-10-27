@@ -70,8 +70,8 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   /** @todo Save amount temporarily when 'source'
    *      amount is set to 0. */
-  var reset = function (evnt) {
-    var { childPropName, update } = propData;
+  const reset = function (evnt) {
+    const { childPropName, update } = propData;
 
     update(evnt, {
       name:  childPropName,
@@ -81,8 +81,8 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   if (hasExpenses) {
 
-    var { childPropName, client } = propData;
-    var showProps = {
+    const { childPropName, client } = propData;
+    const showProps = {
       childName:           childPropName,
       showChildrenAtStart: client[ childPropName ] > 0,
       question:            label,
@@ -109,18 +109,18 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
 const Utilities = function ({ current, type, time, updateClientValue }) {
 
-  let hasClimate     = current.climateControl,
-      hasElectricity = current.nonHeatElectricity,
-      hasPhone       = current.phone,
-      hasFuelAssist  = current.fuelAssistance;
+  const hasClimate     = current.climateControl,
+        hasElectricity = current.nonHeatElectricity,
+        hasPhone       = current.phone,
+        hasFuelAssist  = current.fuelAssistance;
 
-  let setChecked = function (evnt, inputProps) {
-    var obj = { ...inputProps, value: inputProps.checked };
+  const setChecked = function (evnt, inputProps) {
+    const obj = { ...inputProps, value: inputProps.checked };
     updateClientValue(evnt, obj);
   };  // End setChecked()
 
   // For keyboard access (already does spacebar)
-  let onKeyDown = function (evnt) {
+  const onKeyDown = function (evnt) {
     if (evnt.key === `Enter`) {
       evnt.target.click();
     }
@@ -168,14 +168,14 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
 
 const HousingDetails = function ({ current, type, time, updateClientValue }) {
 
-  let housing = current.housing,
-      sharedProps = {
-        timeState:         current,
-        current:           current,
-        type:              type,
-        time:              time,
-        updateClientValue: updateClientValue,
-      };
+  const housing = current.housing,
+        sharedProps = {
+          timeState:         current,
+          current:           current,
+          type:              type,
+          time:              time,
+          updateClientValue: updateClientValue,
+        };
 
   if (current.housing === 'voucher') {
     return (
@@ -224,7 +224,7 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
 
 const HousingRadio = function ({ currentValue, label, time, updateClientValue }) {
 
-  var value = label.toLowerCase();
+  const value = label.toLowerCase();
 
   return (
     <Form.Field>
@@ -253,12 +253,12 @@ const HousingRadio = function ({ currentValue, label, time, updateClientValue })
 const Housing = function ({ current, type, time, updateClientValue }) {
 
   /** @deprecated This is handled differently now */
-  let ensureRouteAndValue = function (evnt, inputProps) {
-    var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
+  const ensureRouteAndValue = function (evnt, inputProps) {
+    const obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
     updateClientValue(evnt, obj);
   };
 
-  let sharedProps = {
+  const sharedProps = {
     current:           current,
     type:              type,
     time:              time,
@@ -313,32 +313,32 @@ const Housing = function ({ current, type, time, updateClientValue }) {
  */
 const ExpensesFormContent = function ({ current, time, updateClientValue, snippets }) {
 
-  let type        = 'expense',
-      household   = current.household,
-      sharedProps = {
-        timeState:         current,
-        type:              type,
-        time:              time,
-        updateClientValue: updateClientValue,
-      };
+  const type        = 'expense',
+        household   = current.household,
+        sharedProps = {
+          timeState:         current,
+          type:              type,
+          time:              time,
+          updateClientValue: updateClientValue,
+        };
 
   /* @todo Make a more general age-checking function to keep
    * household data format under control in one place. */
-  var isOver12 = function (member) {
+  const isOver12 = function (member) {
     return !isUnder13(member);
   };
 
   // Won't include head or spouse
-  var allDependents = getDependentMembers(household),
-      under13       = getEveryMember(allDependents, isUnder13),
-      over12        = getEveryMember(allDependents, isOver12);
+  const allDependents = getDependentMembers(household),
+        under13       = getEveryMember(allDependents, isUnder13),
+        over12        = getEveryMember(allDependents, isOver12);
 
   // 'Elderly' here is using the lowest common denominator - SNAP standards.
-  var isElderlyOrDisabled = function (member) {
+  const isElderlyOrDisabled = function (member) {
     return isDisabled(member) || member.m_age >= 60;
   };
-  var elderlyOrDisabled = getEveryMember(household, isElderlyOrDisabled),
-      elderlyOrDisabledHeadOrSpouse = getEveryMember(elderlyOrDisabled, isHeadOrSpouse);
+  const elderlyOrDisabled = getEveryMember(household, isElderlyOrDisabled),
+        elderlyOrDisabledHeadOrSpouse = getEveryMember(elderlyOrDisabled, isHeadOrSpouse);
 
   return (
     <div className='field-aligner two-column'>

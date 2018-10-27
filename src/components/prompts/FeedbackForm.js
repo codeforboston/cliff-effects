@@ -66,16 +66,16 @@ class AskPermission extends React.Component {
         disabled = { this.state.submitType === null }
         color    ='teal'>
         { (this.state.submitType === `withData`) ? (
-            `Send with my information`
-          ) : (
-            null
-          )
+          `Send with my information`
+        ) : (
+          null
+        )
         }
         { (this.state.submitType === `withoutData`) ? (
-            `Send without my information`
-          ) : (
-            null
-          )
+          `Send without my information`
+        ) : (
+          null
+        )
         }
         { (this.state.submitType === null) ? (`Send`) : (null) }
       </Button>
@@ -124,7 +124,7 @@ class FeedbackPrompt extends React.Component {
         if (response.ok) {
           return response;
         } else {
-          var error = new Error(response.statusText);
+          const error = new Error(response.statusText);
           error.response = response;
           throw error;
         }

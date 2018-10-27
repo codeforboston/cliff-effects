@@ -17,7 +17,7 @@ const formatLabel =  function(tooltipItem, data) {
 };
 
 const formatBenefitLinesTitle = function (tooltipItems, data) {
-  var toFormat = data.labels[ tooltipItems[ 0 ].index ];
+  const toFormat = data.labels[ tooltipItems[ 0 ].index ];
   return toFancyMoneyStr(toFormat);
 };
 

@@ -72,8 +72,9 @@
  */
 const getKeyPathsArray = (obj, stripVersions, base = []) => {
   // Array to contain our keys paths (if any)
-  let pathsArr = [],
-      versionRegex = /_v\d+$/;
+  let pathsArr = [];
+
+  const versionRegex = /_v\d+$/;
 
   // Arrays in localization are interpolated into translated strings, so don't do anything
   if (Array.isArray(obj)) {
@@ -89,21 +90,21 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
 
     // Otherwise, loop through the keys and recursively call getKeyPathsArray()
     } else {
-      for (let key of keys) {
+      for (const key of keys) {
         // Allow for removing version info from key myKey_v1.0 becomes just myKey in the returned structure.
         let cleanedKey = key;
         if (stripVersions) {
           cleanedKey = cleanedKey.replace(versionRegex, ``);
         }
         // Append this key to the base path array
-        let newBase = [ 
+        const newBase = [ 
           ...base,
           cleanedKey,
         ];
         pathsArr.push(newBase);
 
         // Pass this object back to our function to get paths to any children
-        let childPaths = getKeyPathsArray(obj[ key ], stripVersions, newBase);
+        const childPaths = getKeyPathsArray(obj[ key ], stripVersions, newBase);
         
         // Add any child paths to our array before returning
         pathsArr = pathsArr.concat(childPaths);

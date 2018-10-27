@@ -28,11 +28,10 @@ import { cloneDeep } from 'lodash';
  */
 const StackedBarGraph = function({ client }) {
 
-  var clone = cloneDeep(client),
-      curr  = clone.current;
-
-  var allData         = {},
-      activeBenefits  = [ `income` ];
+  const clone = cloneDeep(client),
+        curr  = clone.current,
+        allData         = {},
+        activeBenefits  = [ `income` ];
 
   if (curr.hasSection8) {
     activeBenefits.push(`section8`);
@@ -42,7 +41,7 @@ const StackedBarGraph = function({ client }) {
     activeBenefits.push(`snap`);
   }
 
-  var currentCalcData = {
+  const currentCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -51,7 +50,7 @@ const StackedBarGraph = function({ client }) {
   applyAndPushBenefits (currentCalcData);
 
   // Add to the `current` data already there
-  var futureCalcData = {
+  const futureCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -59,20 +58,20 @@ const StackedBarGraph = function({ client }) {
   };
   applyAndPushBenefits (futureCalcData);
 
-  var datasets    = [],
-      moneyLabels = [];
-  for (let bName of activeBenefits) {
+  const datasets    = [],
+        moneyLabels = [];
+  for (const bName of activeBenefits) {
 
-    let frosting = PROGRAM_CHART_VALUES[ bName ],
-        dataset  = {
-          label:           frosting.name,
-          backgroundColor: frosting.color,
-          data:            allData[ bName ],
-        };
+    const frosting = PROGRAM_CHART_VALUES[ bName ],
+          dataset  = {
+            label:           frosting.name,
+            backgroundColor: frosting.color,
+            data:            allData[ bName ],
+          };
 
     if (bName === `income`) {
       dataset.fill = `origin`;
-      for (let amount of dataset.data) {
+      for (const amount of dataset.data) {
         moneyLabels.push(Math.round(amount));
       }
     }

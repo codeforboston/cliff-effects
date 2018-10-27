@@ -18,7 +18,7 @@ import { SNAPData } from '../../../../data/federal/2017/SNAPData';
 // ==================
 // HELPERS
 // ==================
-var addNumMembers = function (num, household) {
+const addNumMembers = function (num, household) {
   while (num > 0) {
     household.push({ m_age: 30, m_role: 'member', m_disabled: false });
     num -= 1;
@@ -44,12 +44,12 @@ describe('SNAPhelpers', () => {
       expect(SNAPhelpers.getHouseholdSize(defaultCurrent)).toEqual(1);
     });
     it('5', () => {
-      let current = cloneDeep(defaultCurrent);
+      const current = cloneDeep(defaultCurrent);
       addNumMembers(4, current.household);
       expect(SNAPhelpers.getHouseholdSize(current)).toEqual(5);
     });
     it('15', () => {
-      let current = cloneDeep(defaultCurrent);
+      const current = cloneDeep(defaultCurrent);
       addNumMembers(14, current.household);
       expect(SNAPhelpers.getHouseholdSize(current)).toEqual(15);
     });
@@ -319,11 +319,11 @@ describe('SNAPhelpers', () => {
   // `SNAPhelpers.getUtilityCostByBracket()`
   describe('`.getUtilityCostByBracket( timeClient )` given a time-restricted client object', () => {
 
-    let climate   = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
-        // fuel      = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
-        electric  = SNAPData.UTILITY_COST_BRACKETS[ 'Non-heating' ],
-        phone     = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ],
-        none      = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
+    const climate   = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
+          // fuel      = SNAPData.UTILITY_COST_BRACKETS[ 'Heating' ],
+          electric  = SNAPData.UTILITY_COST_BRACKETS[ 'Non-heating' ],
+          phone     = SNAPData.UTILITY_COST_BRACKETS[ 'Telephone' ],
+          none      = SNAPData.UTILITY_COST_BRACKETS[ 'Zero Utility Expenses' ];
 
     let current;
     beforeEach(() => {
@@ -332,7 +332,7 @@ describe('SNAPhelpers', () => {
     });
 
     it('that is "homeless", shoud return 0', () => {
-      let special = cloneDeep(defaultCurrent);  // Already homeless
+      const special = cloneDeep(defaultCurrent);  // Already homeless
       special.climateControl      = true;
       special.fuelAssistance      = true;
       special.nonHeatElectricity  = true;
@@ -396,8 +396,8 @@ describe('SNAPhelpers', () => {
       current = cloneDeep(defaultCurrent);
     });
 
-    let one = 160,
-        six = 228;
+    const one = 160,
+          six = 228;
     it('1 should return amount equal to STANDARD_DEDUCTIONS bracket 1', () => {
       expect(SNAPhelpers.getStandardDeduction(defaultCurrent)).toEqual(one);
     });
@@ -406,7 +406,7 @@ describe('SNAPhelpers', () => {
       expect(SNAPhelpers.getStandardDeduction(current)).toEqual(six);
     });
     it('8 should return the same amount as a six-member household', () => {
-      let current = cloneDeep(defaultCurrent);
+      const current = cloneDeep(defaultCurrent);
       addNumMembers(14, current.household);
       expect(SNAPhelpers.getStandardDeduction(current)).toEqual(six);
     });

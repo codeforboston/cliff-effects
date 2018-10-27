@@ -49,9 +49,10 @@ class FeedbackPrompt extends React.Component {
     }
 
     // Otherwise, set up the prompt
-    var realLeave   = leaveText || 'Leave',
-        realStay    = stayText || `Cancel`,
-        realMessage = message;
+    const realLeave   = leaveText || 'Leave',
+          realStay    = stayText || `Cancel`;
+        
+    let realMessage = message;
     if (message === 'default') {
       realMessage = `Clicking "${realLeave}" will erase the information you have put into the form. Do you want to tell us something about the app first? That information could help us. You will still be able to come back and click "${realLeave}" afterwards.`;
     }

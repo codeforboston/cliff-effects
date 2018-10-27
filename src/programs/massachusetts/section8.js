@@ -40,21 +40,20 @@ const getSection8Benefit = function (client, timeframe) {
     return client.current.contractRent - client.current.rentShare;
   }
 
-  var ttps        = hlp.getTTPs(client),
-      diff        = ttps.newTTP - ttps.oldTTP,
-      newShare    = diff + client.current.rentShare,
-      contrRent   = client.current.contractRent;
-
-  // Don't pay more rent than the landlord is asking for
-  var maxShare    = Math.min(contrRent, newShare),
-      newSubsidy  = contrRent - maxShare;
+  const ttps        = hlp.getTTPs(client),
+        diff        = ttps.newTTP - ttps.oldTTP,
+        newShare    = diff + client.current.rentShare,
+        contrRent   = client.current.contractRent,
+        // Don't pay more rent than the landlord is asking for
+        maxShare    = Math.min(contrRent, newShare),
+        newSubsidy  = contrRent - maxShare;
 
   return newSubsidy;
 };  // End getSection8Benefit
 
 
-var section8Helpers = {},
-    hlp             = section8Helpers;
+const section8Helpers = {},
+      hlp             = section8Helpers;
 
 /** Returns total tenant payment (TTP). Uses raw monthly values or
  *     converts values to monthly amounts where gov tables give
@@ -72,10 +71,10 @@ var section8Helpers = {},
  *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf}
  */
 hlp.getTTPs = function (client) {
-  var oldNet = hlp.getNetIncome(client, 'current'),
-      newNet = hlp.getNetIncome(client, 'future');
+  const oldNet = hlp.getNetIncome(client, 'current'),
+        newNet = hlp.getNetIncome(client, 'future');
 
-  var oldAdj = hlp.getAdjustedIncome(client, 'current', oldNet),
+  let oldAdj = hlp.getAdjustedIncome(client, 'current', oldNet),
       newAdj = hlp.getAdjustedIncome(client, 'future', newNet);
 
   /** @todo A placeholder till we know what to do with negative values */
@@ -83,15 +82,15 @@ hlp.getTTPs = function (client) {
   newAdj = Math.max(0, newAdj);
 
   // #17, 30% of Adjusted Monthly Income
-  var oldAdjToTest = oldAdj * 0.3,
-      newAdjToTest = newAdj * 0.3,
-      // #18, 10% of Monthly Income
-      oldNetToTest = oldNet * 0.1,
-      newNetToTest = newNet * 0.1;
+  const oldAdjToTest = oldAdj * 0.3,
+        newAdjToTest = newAdj * 0.3,
+        // #18, 10% of Monthly Income
+        oldNetToTest = oldNet * 0.1,
+        newNetToTest = newNet * 0.1;
 
-  var oldMaxTTP = Math.max(oldNetToTest, oldAdjToTest),
-      newMaxTTP = Math.max(newNetToTest, newAdjToTest),
-      ttps      = { oldTTP: oldMaxTTP, newTTP: newMaxTTP };
+  const oldMaxTTP = Math.max(oldNetToTest, oldAdjToTest),
+        newMaxTTP = Math.max(newNetToTest, newAdjToTest),
+        ttps      = { oldTTP: oldMaxTTP, newTTP: newMaxTTP };
 
   return ttps;
 };  // End hlp.getTTPs()
@@ -102,8 +101,8 @@ hlp.getTTPs = function (client) {
 // =============================
 
 hlp.getNetIncome = function (client, timeframe) {
-  var unearned = getGrossUnearnedIncomeMonthly(client[ timeframe ]),
-      gross    = unearned + client[ timeframe ].earned;
+  const unearned = getGrossUnearnedIncomeMonthly(client[ timeframe ]),
+        gross    = unearned + client[ timeframe ].earned;
   // net = gross - incomeExclusions, but income exclusions not accounted for for MVP
   return gross;
 };  // End hlp.getNetIncome()
@@ -122,28 +121,28 @@ hlp.getNetIncome = function (client, timeframe) {
  */
 hlp.getAdjustedIncome = function (client, timeframe, net) {
 
-  var time       = timeframe,  // shorter
-      allowances = [];
+  const time       = timeframe,  // shorter
+        allowances = [];
 
   // #4 & #5
-  var depAllowanceAnnual = getDependentsOfHousehold(client[ time ]).length * 480;
+  const depAllowanceAnnual = getDependentsOfHousehold(client[ time ]).length * 480;
   allowances.push(depAllowanceAnnual / 12);
   // #6
-  var childcare   = sumProps(client[ time ], UNDER13_CARE_EXPENSES),
-      ccIncome    = client[ time ].earnedBecauseOfChildCare,
-      /* @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
-      ccMin       = Math.min(childcare, ccIncome);
+  const childcare   = sumProps(client[ time ], UNDER13_CARE_EXPENSES),
+        ccIncome    = client[ time ].earnedBecauseOfChildCare,
+        /* @todo If student or looking for work, during those hours the expense isn't limited? 2007 Ch. 5 doc */
+        ccMin       = Math.min(childcare, ccIncome);
   allowances.push(ccMin);
   // #7 - 13
-  var disAndMed = hlp.getDisabledAndMedicalAllowancesSum(client, time, net);
+  const disAndMed = hlp.getDisabledAndMedicalAllowancesSum(client, time, net);
   allowances.push(disAndMed);
   // #14 (yes, they mean head or spouse here)
   if (hlp.hasDsbOrEldHeadOrSpouse(client, time)) { 
     allowances.push(400 / 12); 
   }
 
-  var total = sum(allowances),
-      adj   = net - total;
+  const total = sum(allowances),
+        adj   = net - total;
 
   return Math.max(0, adj);
 };  // End hlp.getAdjustedIncome()
@@ -159,17 +158,17 @@ hlp.getAdjustedIncome = function (client, timeframe, net) {
  */
 hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
 
-  var time          = timeframe,  // shorter
-      netSubtractor = net * 0.03;  // #8, #13
+  const time          = timeframe,  // shorter
+        netSubtractor = net * 0.03;  // #8, #13
 
   // ----- Assistance Allowance #C, #7 - 11 ----- \\
   if (!hlp.hasAnyDsbOrElderly(client, time)) { 
     return 0; 
   }
   // pg 5-30 to 5-31
-  var handcpExpense       = client[ time ].disabledAssistance,  // #7
-      assistanceRemainder = handcpExpense - netSubtractor,  // #9
-      handicapAllowance   = hlp.getMinHandicapAllowance(client, time, assistanceRemainder);  // #10, #11
+  const handcpExpense       = client[ time ].disabledAssistance,  // #7
+        assistanceRemainder = handcpExpense - netSubtractor,  // #9
+        handicapAllowance   = hlp.getMinHandicapAllowance(client, time, assistanceRemainder);  // #10, #11
 
   // ----- Maybe Stop, #D ----- \\
   // Only keep going if there's a disabled/elderly head or spouse (or sole member)
@@ -178,10 +177,10 @@ hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
   }
 
   // ----- Medical Allowance #12 - 13 ----- \\
-  let medicalExpenses = hlp.getMedicalExpenses(client, time);
+  const medicalExpenses = hlp.getMedicalExpenses(client, time);
   // Read all of pg 5-32 and 5-34 for the following conditional.
   // Jumps around because cases are overlapping.
-  var medAllowance = 0;
+  let medAllowance = 0;
   // #13a, pg 5-32 bottom (5-33 to 5-34 example falls in here)
   // Note: #13 forgets the '>=' part and just says '>'
   if (assistanceRemainder >= 0) { 
@@ -190,19 +189,19 @@ hlp.getDisabledAndMedicalAllowancesSum = function (client, timeframe, net) {
   // #13b; pg 5-33 middle /and/ pg 5-32 middle, above "special calcuations"
   // In both cases handcpExpense is >= 0 and can be safely added.
   else {
-    var sum       = medicalExpenses + handcpExpense;
+    const sum       = medicalExpenses + handcpExpense;
     medAllowance  = sum - netSubtractor;
   }
 
-  var medMin = Math.max(0, medAllowance);
+  const medMin = Math.max(0, medAllowance);
   return handicapAllowance + medMin;  // #15 contribution ( #11 + #13 )
 };  // End hlp.getDisabledAndMedicalAllowancesSum()
 
 
 hlp.getMinHandicapAllowance = function (client, time, assistanceRemainder) {
-  let asstIncome     = client[ time ].earnedBecauseOfAdultCare, // #10
-      hcapAllowance  = Math.min(assistanceRemainder, asstIncome),  // #11
-      hcapMin        = Math.max(0, hcapAllowance);  // Don't get negative
+  const asstIncome     = client[ time ].earnedBecauseOfAdultCare, // #10
+        hcapAllowance  = Math.min(assistanceRemainder, asstIncome),  // #11
+        hcapMin        = Math.max(0, hcapAllowance);  // Don't get negative
   return hcapMin;
 };
 
@@ -210,10 +209,10 @@ hlp.getMinHandicapAllowance = function (client, time, assistanceRemainder) {
 hlp.getMedicalExpenses = function (client, time) {
   // ----- Medical Allowance #12 - 13 ----- \\
   // #12, pg 5-31 to 5-32
-  var disOrElderlyMedical = client[ time ].disabledMedical,
-      // pg 5-31 says all medical expenses count for this household
-      otherMedical        = client[ time ].otherMedical,
-      medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
+  const disOrElderlyMedical = client[ time ].disabledMedical,
+        // pg 5-31 says all medical expenses count for this household
+        otherMedical        = client[ time ].otherMedical,
+        medicalExpenses     = disOrElderlyMedical + otherMedical;  // #12
 
   return medicalExpenses;
 };
@@ -226,17 +225,17 @@ hlp.isDisabledOrElderly = function (member) {
 
 // Sure, we could combine these last two, but may be easier to test this way
 hlp.hasAnyDsbOrElderly = function (client, timeframe) {
-  var numMatches = getEveryMemberOfHousehold(client[ timeframe ], hlp.isDisabledOrElderly).length;
+  const numMatches = getEveryMemberOfHousehold(client[ timeframe ], hlp.isDisabledOrElderly).length;
   return numMatches > 0;
 };  // End hlp.hasAnyDsbOrElderly()
 
 
 hlp.hasDsbOrEldHeadOrSpouse = function (client, timeframe) {
 
-  var comboTest = function (member) {
+  const comboTest = function (member) {
     return hlp.isDisabledOrElderly(member) && isHeadOrSpouse(member);
   };
-  var numMatches = getEveryMemberOfHousehold(client[ timeframe ], comboTest).length;
+  const numMatches = getEveryMemberOfHousehold(client[ timeframe ], comboTest).length;
 
   return numMatches > 0;
 

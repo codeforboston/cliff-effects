@@ -12,7 +12,7 @@ class GraphHolder extends Component {
   }
 
   onClick = (evnt) => {
-    var id = evnt.target.id;
+    const id = evnt.target.id;
     this.setState({ activeID: id });
   };
 

@@ -10,7 +10,7 @@ const ButtonReset = function ({ children, onClick, overrides }) {
     overrides = {};
   };
 
-  var clickHandler = function () {
+  const clickHandler = function () {
     onClick({
       header:    ``,
       message:   `default`,

@@ -22,16 +22,16 @@ import { LocalizationReport } from './LocalizationReport.js';
  *    make menu categories collapsible. */
 const DevMenu = function ({ devProps, funcs, data, state }) {
 
-  var langs    = localizations,
-      langOpts = [];
+  const langs    = localizations,
+        langOpts = [];
 
-  for (let key in langs) {
-    var snips = langs[ key ],
-        lang  = {
-          text:  snips.langName,
-          key:   snips.langCode,
-          value: snips.langCode,
-        };
+  for (const key in langs) {
+    const snips = langs[ key ],
+          lang  = {
+            text:  snips.langName,
+            key:   snips.langCode,
+            value: snips.langCode,
+          };
     langOpts.push(lang);
   }
 
@@ -110,29 +110,29 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
 class DevHud extends Component {
 
   toggleHiding = () => {
-    var props    = this.props,
-        setDev   = props.funcs.setDev,
-        devProps = props.devProps;
+    const props    = this.props,
+          setDev   = props.funcs.setDev,
+          devProps = props.devProps;
 
-    var doShow = !devProps.devHidden;
+    const doShow = !devProps.devHidden;
     setDev(`devHidden`, doShow);
   };
 
   toggleEnglish = () => {
-    var setDev  = this.props.funcs.setDev,
-        english = this.props.devProps.english;
+    const setDev  = this.props.funcs.setDev,
+          english = this.props.devProps.english;
     setDev(`english`, !english);
   };
 
   toggleNonEnglish = () => {
-    var setDev     = this.props.funcs.setDev,
-        nonEnglish = this.props.devProps.nonEnglish;
+    const setDev     = this.props.funcs.setDev,
+          nonEnglish = this.props.devProps.nonEnglish;
     setDev(`nonEnglish`, !nonEnglish);
   };
 
   toggleWarning = () => {
-    var setDev  = this.props.funcs.setDev,
-        warning = this.props.devProps.warningOff;
+    const setDev  = this.props.funcs.setDev,
+          warning = this.props.devProps.warningOff;
     setDev(`warningOff`, !warning);
   };
 
@@ -142,19 +142,19 @@ class DevHud extends Component {
 
   render () {
 
-    var {
-          devProps,
-          funcs,
-          data,
-          state,
-        } = this.props,
-        devFuncs = {
-          ...funcs,
-          english:    this.toggleEnglish,
-          nonEnglish: this.toggleNonEnglish,
-          turnOff:    this.turnOff,
-          warning:    this.toggleWarning,
-        };
+    const {
+            devProps,
+            funcs,
+            data,
+            state,
+          } = this.props,
+          devFuncs = {
+            ...funcs,
+            english:    this.toggleEnglish,
+            nonEnglish: this.toggleNonEnglish,
+            turnOff:    this.turnOff,
+            warning:    this.toggleWarning,
+          };
 
     return (
       <Menu
