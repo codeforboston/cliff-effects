@@ -13,7 +13,7 @@ describe('<GraphTimeButtons>', () => {
 
   it('renders with provided props', () => {
     const props = {
-      activeID:   'not sure what this should be',
+      activeID:   'monthly',
       onClick:    jest.fn(),
       otherProps: 'I don\'t get passed through =(',
     };
