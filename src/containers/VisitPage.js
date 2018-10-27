@@ -5,15 +5,6 @@ import {
 } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
-// DATA MANAGEMENT
-import { setNestedProperty } from '../utils/setNestedProperty';
-import { cloneDeep } from 'lodash';
-import { convertForUpdate } from '../utils/convertForUpdate';
-
-// Data
-// import { clientList } from '../config/dummyClients';
-import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
-
 // Our Components
 // import AlertSidebar from '../AlertSidebar'
 import BrowserLeaveListener from '../components/prompts/BrowserLeaveListener';
@@ -39,8 +30,10 @@ class VisitPage extends Component {
 
     var {
       match,
-      clientData,
+      client,
     } = this.props;
+
+    this.client = client;
 
     this.state = {
       clientInfo:  match.params.clientId,
@@ -48,7 +41,7 @@ class VisitPage extends Component {
       currentStep: 1,
       isBlocking:  false,
       redirect:    false,
-      client:      clientData,
+      client:      client.data, // TODO: should you populate by calling in initial subscribe?
       // For `FeedbackPrompt`
       promptData:  {
         open:      false,  // Start as hidden
@@ -58,9 +51,6 @@ class VisitPage extends Component {
         callback:  () => {},
       },
       feedbackFormRequested: false,
-      // Hack for MVP
-      oldHousing:            clientData.current.housing,
-      userChanged:           {},
       snippets:              props.snippets,
     };  // end this.state {}
 
@@ -68,32 +58,44 @@ class VisitPage extends Component {
       {
         form:              CurrentBenefitsStep,
         key:               'currentBenefits',
-        updateClientValue: this.changeCurrent,
+        updateClientValue: this.client.changeCurrent,
       },
       {
         form:              HouseholdStep,
         key:               'household',
-        updateClientValue: this.changeCurrent,
+        updateClientValue: this.client.changeCurrent,
       },
       {
         form:              CurrentIncomeStep,
         key:               'currentIncome',
-        updateClientValue: this.changeCurrent,
+        updateClientValue: this.client.changeCurrent,
       },
       {
         form:              CurrentExpensesStep,
         key:               'currentExpenses',
-        updateClientValue: this.changeCurrent,
+        updateClientValue: this.client.changeCurrent,
       },
       {
         form:              PredictionsStep,
         key:               'predictions',
-        updateClientValue: this.changeFuture,
+        updateClientValue: this.client.changeFuture,
       },//,
     //  { title: 'Graphs', form: ResultsGraph }
     ];  // end this.steps {}
 
   };  // End constructor()
+
+  componentDidMount() {
+    this.unsubscribe = this.client.subscribe((state) => {
+      this.setState(state);
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
 
   resetClientIfOk = (shouldReset) => {
 
@@ -101,14 +103,8 @@ class VisitPage extends Component {
       return;
     }
 
-    this.setState({
-      currentStep: 1,
-      client:      cloneDeep(CLIENT_DEFAULTS),
-      oldHousing:  CLIENT_DEFAULTS.current.housing,
-      isBlocking:  false,
-      userChanged: {},
-    });
-
+    this.setState({ currentStep: 1 });
+    this.client.reset();
   };
 
   askToResetClient = (promptData) => {
@@ -147,61 +143,6 @@ class VisitPage extends Component {
 
   closeFeedback = () => {
     this.setState({ feedbackFormRequested: false });
-  };
-
-  updateClientValue = ({ route, value, time }) => {
-
-    var clone       = cloneDeep(this.state.client),
-        userChanged = { ...this.state.userChanged },  // only 1 deep
-        routeList   = route.split('/'),
-        id          = routeList[ 0 ],  // `routeList` gets mutated
-        newEvent    = { time: time, route: routeList, value: value };
-
-    setNestedProperty(newEvent, clone, this.state.userChanged[ id ]);
-    // Only set if the input was valid...? For now, always.
-    // Also, userChanged should be only one step deep
-    if (time === 'future') {
-      userChanged[ id ] = true;
-    }
-
-    // Hack for MVP (otherwise need dependency + history system)
-    let oldHousing = this.state.oldHousing;
-    if (route === 'housing') {
-      // clone housing should be right now
-      oldHousing = clone.current.housing;
-    }
-
-    if (clone.current.hasSection8) {
-      clone.current.housing = 'voucher';
-    } else {
-      // Restore housing to previous value
-      clone.current.housing = oldHousing;
-    }
-
-    clone.future.housing = clone.current.housing;
-
-    this.setState((prevState) => {
-      return {
-        client:      clone,
-        userChanged: userChanged,
-        oldHousing:  oldHousing,
-        // Form has been changed, data should now be downloadable
-        // Warning sign for leaving forms should be shown
-        isBlocking:  true,
-      };
-    });
-  };  // End onClientChange()
-
-  changeCurrent = (evnt, data) => {
-    data.time = 'current';
-    var newData = convertForUpdate(data);
-    this.updateClientValue(newData);
-  };
-
-  changeFuture = (evnt, data) => {
-    data.time = 'future';
-    var newData = convertForUpdate(data);
-    this.updateClientValue(newData);
   };
 
   // Implement once privacy and security are worked out

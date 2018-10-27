@@ -7,6 +7,7 @@ import {
 import { Helmet } from 'react-helmet';
 
 import { Confirmer } from './utils/getUserConfirmation';
+import ClientModel from './ClientModel';
 
 // CUSTOM COMPONENTS
 import HomePage from './containers/HomePage';
@@ -21,9 +22,6 @@ import { renderIfTrue } from './components/renderIfTrue';
 import { DevSwitch } from './containers/DevSwitch';
 import { DevHud } from './components/dev/DevHud';
 
-// Object Manipulation
-import { cloneDeep } from 'lodash';
-import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
@@ -48,7 +46,7 @@ class App extends Component {
   constructor (props) {
     super(props);
 
-    var defaults = cloneDeep(CLIENT_DEFAULTS);
+    this.client = new ClientModel();
 
     // Development variables are the only things stored
     var localDev = localStorage.getItem(`cliffEffectsDevProps`);
@@ -74,10 +72,6 @@ class App extends Component {
     this.state = {
       langCode: `en`,
       snippets: getTextForLanguage(`en`),
-      clients:  {
-        default: defaults,
-        loaded:  defaults,
-      },
       // All these should be bools. For now, at least.
       // They get added as classes. May want to rethink.
       devProps: {
@@ -126,25 +120,6 @@ class App extends Component {
     });
   };  // End setDev()
 
-  /** Load an individual client's data. Currently, the only source of client
-   * data to load is a text input field in the Dev HUD.
-   * @method
-   * @param {object} params
-   * @param {object} params.toLoad - A JSON object representing the client data
-   * to be loaded. Must match the client data format (See
-   * {@link CLIENT_DEFAULTS} for an example of the correct client data format)
-   */
-  loadClient = ({ toLoad }) => {
-    this.setState((prevState) => {
-
-      const clients  = cloneDeep(prevState.clients),
-            defaults = cloneDeep(clients.default),
-            newData  = Object.assign(defaults, toLoad);
-
-      return { clients: { ...clients, loaded: newData }};
-    });
-  };  // End loadClient()
-
   /** Concatenate the true boolean values in input object to a space-delimited
    * string, for use as a CSS class string. Currently used to convert
    * [devProps]{@link App#state} to classes for the rendered `div`.
@@ -178,7 +153,6 @@ class App extends Component {
       langCode,
       snippets,
       devProps,
-      clients,
       termsAccepted,
     } = this.state;
 
@@ -188,11 +162,10 @@ class App extends Component {
         classes   = this.propsToClasses(devProps),
         devFuncs  = {
           setDev:      this.setDev,
-          loadClient:  this.loadClient,
+          loadClient:  this.client.loadClient,
           setLanguage: this.setLanguage,
         },
-        funcs      = { toggleAcceptTerms: this.toggleAcceptTerms },
-        clientData = clients.loaded;
+        funcs      = { toggleAcceptTerms: this.toggleAcceptTerms };
 
     return (
       <div
@@ -241,7 +214,7 @@ class App extends Component {
                       funcs         = { funcs }
                       confirmer     = { confirmer }
                       snippets      = {{ ...snippets.visitPage, langCode: snippets.langCode }}
-                      clientData    = { clientData } />);
+                      client        = { this.client } />);
                 } } />
 
               {/* For managing our development HUD */}
@@ -263,7 +236,7 @@ class App extends Component {
           <DevHud
             devProps = { devProps }
             funcs    = { devFuncs }
-            data     = {{ default: clients.default }}
+            data     = {{ default: this.client.default }}
             state    = { this.state } />
         ))}
       </div>
