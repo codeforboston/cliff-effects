@@ -37,7 +37,7 @@ const stringToNumber = function (str) {
   // In case it's a string of letters instead of numbers
   // This doesn't stop cases like 3e5 or something, but this function
   // isn't meant to guard against that currently.
-  if (typeof number === `number` && !isNaN(number)) {
+  if (!isNaN(number)) {
     return number;
   } else {
     throw new TypeError(`Expected 'str' to be an integer or decimal number and it wasn't.`);
