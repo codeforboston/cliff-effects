@@ -230,11 +230,16 @@ class App extends Component {
                       snippets={{ ...snippets.aboutPage, langCode: snippets.langCode }} />);
                 } } />
               <Route
-                path="/visit/:clientId/:visitId"
-                component={ (props) => {
+                path="/visit/:clientId/:visitId/:stepKey?"
+                component={ ({ match, ...props }) => {
+                  const { clientId, visitId, stepKey } = match.params;
+
                   return (
                     <VisitPage
                       { ...props }
+                      clientId          = { clientId }
+                      visitId           = { visitId }
+                      stepKey           = { stepKey }
                       distrustConfirmed = { distrustConfirmed || warningOff }
                       funcs             = { funcs }
                       confirmer         = { confirmer }
@@ -258,14 +263,14 @@ class App extends Component {
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
 
         { (devProps.dev === true) ? (
-            <DevHud
-              devProps = { devProps }
-              funcs    = { devFuncs }
-              data     = {{ default: clients.default }}
-              state    = { this.state } />
-          ) : (
-            null
-          )
+          <DevHud
+            devProps = { devProps }
+            funcs    = { devFuncs }
+            data     = {{ default: clients.default }}
+            state    = { this.state } />
+        ) : (
+          null
+        )
         }
       </div>
     );

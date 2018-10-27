@@ -3,7 +3,7 @@ import {
   Container,
   Responsive,
 } from 'semantic-ui-react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 // DATA MANAGEMENT
 import { setNestedProperty } from '../utils/setNestedProperty';
@@ -36,20 +36,14 @@ class VisitPage extends Component {
   constructor (props) {
     super(props);
 
-    var {
-      match,
-      clientData,
-    } = this.props;
+    var { clientData } = this.props;
 
     this.state = {
-      clientInfo:  match.params.clientId,
-      visitId:     match.params.visitId,
-      currentStep: 1,
-      isBlocking:  false,
-      redirect:    false,
-      client:      clientData,
+      isBlocking: false,
+      redirect:   false,
+      client:     clientData,
       // For `FeedbackPrompt`
-      promptData:  {
+      promptData: {
         open:      false,  // Start as hidden
         message:   `default`,
         header:    '',
@@ -101,13 +95,13 @@ class VisitPage extends Component {
     }
 
     this.setState({
-      currentStep: 1,
       client:      cloneDeep(CLIENT_DEFAULTS),
       oldHousing:  CLIENT_DEFAULTS.current.housing,
       isBlocking:  false,
       userChanged: {},
     });
 
+    this.goToStep(1);
   };
 
   askToResetClient = (promptData) => {
@@ -221,55 +215,43 @@ class VisitPage extends Component {
   };
 
   nextStep = () => {
-    this.setState((prevState) => {
-      return { currentStep: prevState.currentStep + 1 };
-    });
+    const nextStepIndex = this.getCurrentStepIndex() + 1;
+    
+    if (nextStepIndex === this.steps.length) {
+      return;
+    }
+    
+    this.goToStep(nextStepIndex + 1);
     this.scrollToTop();
   };
-
+  
   previousStep = () => {
-    this.setState((prevState) => {
-      return { currentStep: prevState.currentStep - 1 };
-    });
+    const prevStepIndex = this.getCurrentStepIndex() - 1;
+
+    if (prevStepIndex < 0) {
+      return;
+    }
+
+    this.goToStep(prevStepIndex);
     this.scrollToTop();
   };
 
   goToStep = (index) => {
-    this.setState({ currentStep: index });
+    this.props.history.push(`/visit/${this.props.clientId}/${this.props.visitId}/${this.steps[ index - 1 ].key}`);
   };
 
   getCurrentStepIndex = () => {
-    // Keep it between 1 and 8
-    var numSteps      = this.steps.length,
-        currStepIndex = this.state.currentStep,
-        limitedByMin  = Math.min(numSteps, currStepIndex),
-        limitedByMax  = Math.max(1, limitedByMin);
-    // Convert to 0 index
-    return limitedByMax - 1;
+    return this.steps.findIndex((step) => {
+      return step.key === this.props.stepKey;
+    });
   };
 
-  getCurrentStep = (navData) => {
-    var stepIndex    = this.getCurrentStepIndex(),
-        step         = this.steps[ stepIndex ],
-        FormSection  = step.form,
-        formSnippets = this.state.snippets[ step.key ];
-    /** @todo With new interpolation, is this needed anymore? */
-    formSnippets.langCode = this.state.snippets.langCode;
-
-    return (
-      <FormSection
-        currentStep={ this.state.currentStep }
-        client={ this.state.client }
-        navData={ navData }
-        updateClientValue={ step.updateClientValue }
-        saveForm={ this.saveForm }
-        askToResetClient={ this.askToResetClient }
-        openFeedback={ this.openFeedback }
-        snippets={ formSnippets } />
-    );
-  };  // End getCurrentStep()
-
   render() {
+    if (!this.props.stepKey) {
+      return (
+        <Redirect to={ `/visit/${this.props.clientId}/${this.props.visitId}/${this.steps[ 0 ].key }` } />
+      );
+    }
 
     var snippets          = this.state.snippets,
         prevContent       = null,
@@ -308,10 +290,12 @@ class VisitPage extends Component {
       right:  nextContent,
     };
 
+    const step = this.steps[ stepIndex ];
+
+    const StepComponent = step.form;
 
     return (
       <div className='forms-container flex-item flex-column'>
-
         {/* = PROMPTS & PROMPT TRIGGERS = */}
         {/* - Sometimes visible - */}
         {/* Triggered by `ReactRouterLeaveListener`,
@@ -345,7 +329,7 @@ class VisitPage extends Component {
          * point. Perhaps a user's page should be a route
          * in VisitPage? Like our form sections will be? */}
         { this.state.redirect ? (
-          <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } />
+          <Redirect to={ `/detail/${this.state.clientId}` } />
         ) : (
           false
         ) }
@@ -360,7 +344,7 @@ class VisitPage extends Component {
             minWidth='874.5'
             style={{ padding: '14px 0' }}>
             <StepBar
-              currentStepIndex={ this.state.currentStep }
+              currentStepKey={ this.props.stepKey }
               steps={ this.steps }
               goToStep={ this.goToStep }
               snippets={ this.state.snippets.stepBar } />
@@ -368,9 +352,17 @@ class VisitPage extends Component {
           <div
             className="flex-item flex-column"
             style={{ padding: '14px 0' }}>
-            { this.getCurrentStep(navData) }
+            <StepComponent
+              component={ step.form }
+              snippets={ snippets[ step.key ] }
+              updateClientValue={ step.updateClientValue }
+              currentStep={ stepIndex }
+              navData={ navData }
+              saveForm={ this.saveForm }
+              askToResetClient={ this.askToResetClient }
+              openFeedback={ this.openFeedback }
+              client={ this.state.client } />
           </div>
-
         </Container>
 
         <Container id={ `alwaysLeftButtons` }>
@@ -398,4 +390,4 @@ class VisitPage extends Component {
   }
 }
 
-export default VisitPage;
+export default withRouter(VisitPage);

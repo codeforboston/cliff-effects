@@ -47,36 +47,36 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       {/* Is this complexity really required? Can we just
       * have children and include a warning in the docs? */}
       { housingCosts > 0 ? (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { housingCosts }
-            generic   = { `housingCosts` }> Payments for housing
-          </CashFlowDisplayRow>
-        ): (
-          null
-        )
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { housingCosts }
+          generic   = { `housingCosts` }> Payments for housing
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
       }
 
       { dependentCare > 0 ? (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { dependentCare }
-            generic   = { `dependentCare` }> Dependent care (other than transportation)
-          </CashFlowDisplayRow>
-        ): (
-          null
-        )
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { dependentCare }
+          generic   = { `dependentCare` }> Dependent care (other than transportation)
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
       }
 
       { dependentTransport > 0 ? (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { dependentTransport }
-            generic   = { `dependentTransport` }> Transportation for dependents
-          </CashFlowDisplayRow>
-        ): (
-          null
-        )
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { dependentTransport }
+          generic   = { `dependentTransport` }> Transportation for dependents
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
       }
 
       <CashFlowInputsRow
@@ -90,14 +90,14 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       </CashFlowInputsRow>
 
       { medExpenses > 0 ? (
-          <CashFlowDisplayRow
-            timeState = { timeState }
-            value     = { medExpenses }
-            generic   = { `medicalTotal` }> Medical expenses you wrote in earlier
-          </CashFlowDisplayRow>
-        ): (
-          null
-        )
+        <CashFlowDisplayRow
+          timeState = { timeState }
+          value     = { medExpenses }
+          generic   = { `medicalTotal` }> Medical expenses you wrote in earlier
+        </CashFlowDisplayRow>
+      ) : (
+        null
+      )
       }
 
       <CashFlowInputsRow
@@ -125,23 +125,23 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       </CashFlowInputsRow>
 
       { housing !== `homeless` ? (
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ `otherExpensesCable` }> Cable/internet costs
-          </CashFlowInputsRow>
-        ): (
-          null
-        )
+        <CashFlowInputsRow
+          { ...sharedProps }
+          generic={ `otherExpensesCable` }> Cable/internet costs
+        </CashFlowInputsRow>
+      ) : (
+        null
+      )
       }
 
       { housing !== `homeless` ? (
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ `otherExpensesUtilities` }> Other utility costs
-          </CashFlowInputsRow>
-        ): (
-          null
-        )
+        <CashFlowInputsRow
+          { ...sharedProps }
+          generic={ `otherExpensesUtilities` }> Other utility costs
+        </CashFlowInputsRow>
+      ) : (
+        null
+      )
       }
 
       <CashFlowInputsRow
