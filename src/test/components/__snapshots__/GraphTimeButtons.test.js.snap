@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<GraphTimeButtons> matches snapshot 1`] = `
-<GraphTimeButtons>
+exports[`<GraphTimeButtons> renders with provided props 1`] = `
+<GraphTimeButtons
+  activeID="Monthly"
+  onClick={[Function]}
+  otherProps="I don't get passed through =("
+>
   <ButtonGroup
     basic={true}
     className="graph-time-options"
@@ -10,12 +14,15 @@ exports[`<GraphTimeButtons> matches snapshot 1`] = `
       className="ui basic buttons graph-time-options"
     >
       <GraphButton
+        activeID="Monthly"
         id="Weekly"
+        onClick={[Function]}
       >
         <Button
           active={false}
           as="button"
           id="Weekly"
+          onClick={[Function]}
         >
           <button
             className="ui button"
@@ -28,15 +35,18 @@ exports[`<GraphTimeButtons> matches snapshot 1`] = `
         </Button>
       </GraphButton>
       <GraphButton
+        activeID="Monthly"
         id="Monthly"
+        onClick={[Function]}
       >
         <Button
-          active={false}
+          active={true}
           as="button"
           id="Monthly"
+          onClick={[Function]}
         >
           <button
-            className="ui button"
+            className="ui active button"
             id="Monthly"
             onClick={[Function]}
             role="button"
@@ -46,12 +56,15 @@ exports[`<GraphTimeButtons> matches snapshot 1`] = `
         </Button>
       </GraphButton>
       <GraphButton
+        activeID="Monthly"
         id="Yearly"
+        onClick={[Function]}
       >
         <Button
           active={false}
           as="button"
           id="Yearly"
+          onClick={[Function]}
         >
           <button
             className="ui button"
