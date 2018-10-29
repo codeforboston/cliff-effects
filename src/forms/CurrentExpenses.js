@@ -10,7 +10,7 @@ import {
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
 import { AttentionArrow } from './formHelpers';
-import { CashFlowInputsRow } from './cashflow';
+import { ImmutableCashFlowInputsRow as CashFlowInputsRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 import {
   ContentH1,
@@ -19,7 +19,7 @@ import {
 import {
   ContractRentField,
   RentShareField,
-  PlainRentRow,
+  ImmutablePlainRentRow as PlainRentRow,
 } from './rentFields';
 import { HeadingWithDetail } from '../components/details';
 // Premature feature temporarily hidden to avoid messy revert
@@ -84,7 +84,7 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
     var { childPropName, client } = propData;
     var showProps = {
       childName:           childPropName,
-      showChildrenAtStart: client[ childPropName ] > 0,
+      showChildrenAtStart: client.get(childPropName) > 0,
       question:            label,
       heading:             null,
       onNo:                reset,
@@ -107,17 +107,23 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 };  // End EarnedFrom
 
 
-const Utilities = function ({ current, type, time, updateClientValue }) {
+const Utilities = function ({ client, setPaysUtility, setGetsFuelAssistance }) {
 
-  let hasClimate     = current.climateControl,
-      hasElectricity = current.nonHeatElectricity,
-      hasPhone       = current.phone,
-      hasFuelAssist  = current.fuelAssistance;
+  let hasClimate     = client.get('climateControl'),
+      hasElectricity = client.get('nonHeatElectricity'),
+      hasPhone       = client.get('phone'),
+      hasFuelAssist  = client.get('fuelAssistance');
 
-  let setChecked = function (evnt, inputProps) {
-    var obj = { ...inputProps, value: inputProps.checked };
-    updateClientValue(evnt, obj);
+  let setChecked = function (evnt, { name, checked }) {
+    setPaysUtility({
+      utility:     name,
+      paysUtility: checked,
+    });
   };  // End setChecked()
+
+  const handleFuelAssistanceChanged = (event, { value }) => {
+    setGetsFuelAssistance({ getsAssistance: value });
+  };
 
   // For keyboard access (already does spacebar)
   let onKeyDown = function (evnt) {
@@ -158,7 +164,7 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
         labelText = { 'Do you get Fuel Assistance?' }
         checked   = { hasFuelAssist }
         name      = { 'fuelAssistance' }
-        onChange  = { updateClientValue } />
+        onChange  = { handleFuelAssistanceChanged } />
 
     </div>
 
@@ -166,23 +172,33 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
 };  // End Utilities(<>)
 
 
-const HousingDetails = function ({ current, type, time, updateClientValue }) {
+const HousingDetails = function ({ client, type, setExpenseValue, setPaysUtility, setGetsFuelAssistance }) {
+  const time = 'current';
 
-  let housing = current.housing,
+  let housing = client.get('housing'),
       sharedProps = {
-        timeState:         current,
-        current:           current,
-        type:              type,
-        time:              time,
-        updateClientValue: updateClientValue,
+        timeState: client,
+        client,
+        type:      type,
+        time,
+        setValue:  setExpenseValue,
       };
+  
+  const utilitiesProps = {
+    timeState: client,
+    client,
+    type,
+    time,
+    setGetsFuelAssistance,
+    setPaysUtility,
+  };
 
-  if (current.housing === 'voucher') {
+  if (housing === 'voucher') {
     return (
       <div>
         <ContractRentField { ...sharedProps } />
         <RentShareField { ...sharedProps } />
-        <Utilities { ...sharedProps } />
+        <Utilities { ...utilitiesProps } />
       </div>
     );
 
@@ -193,8 +209,10 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
     return (
       <div>
         <br />
-        <PlainRentRow { ...sharedProps } />
-        <Utilities { ...sharedProps } />
+        <PlainRentRow
+          timeState={ client }
+          setValue={ setExpenseValue } />
+        <Utilities { ...utilitiesProps } />
       </div>
     );
 
@@ -214,7 +232,7 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
           { ...sharedProps }
           generic={ 'propertyTax' }> Property Tax
         </CashFlowInputsRow>
-        <Utilities { ...sharedProps } />
+        <Utilities { ...utilitiesProps } />
       </div>
     );
 
@@ -222,7 +240,7 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
 };  // End HousingDetails(<>)
 
 
-const HousingRadio = function ({ currentValue, label, time, updateClientValue }) {
+const HousingRadio = function ({ currentValue, label, updateClientValue }) {
 
   var value = label.toLowerCase();
 
@@ -243,26 +261,18 @@ const HousingRadio = function ({ currentValue, label, time, updateClientValue })
 /**
  * @function
  * @param {object} props
- * @param {object} props.current Client data of current user circumstances
+ * @param {object} props.client Client data of current user circumstances
  * @param {string} props.type 'expense' or 'income', etc., for classes
  * @param {string} props.time 'current' or 'future'
  * @param {function} props.updateClientValue Sets state values
  *
  * @returns React element
  */
-const Housing = function ({ current, type, time, updateClientValue }) {
+const Housing = function ({ client, type, time, setHousingType, setExpenseValue, setGetsFuelAssistance, setPaysUtility }) {
 
   /** @deprecated This is handled differently now */
-  let ensureRouteAndValue = function (evnt, inputProps) {
-    var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
-    updateClientValue(evnt, obj);
-  };
-
-  let sharedProps = {
-    current:           current,
-    type:              type,
-    time:              time,
-    updateClientValue: ensureRouteAndValue,
+  const ensureRouteAndValue = function (evnt, { value }) {
+    setHousingType({ housingType: value });
   };
 
   return (
@@ -270,30 +280,36 @@ const Housing = function ({ current, type, time, updateClientValue }) {
 
       <ContentH1>Housing</ContentH1>
 
-      { current.housing === 'voucher' ? (
+      { client.get('housing') === 'voucher' ? (
         null
       ) : (
         <div>
           <Header as='h4'>What is your housing situation?</Header>
           <HousingRadio
-            currentValue={ current.housing }
+            currentValue={ client.get('housing') }
             label={ 'Homeless' }
             time={ time }
             updateClientValue = { ensureRouteAndValue } />
           <HousingRadio
-            currentValue={ current.housing }
+            currentValue={ client.get('housing') }
             label={ 'Renter' }
             time={ time }
             updateClientValue = { ensureRouteAndValue } />
           <HousingRadio
-            currentValue={ current.housing }
+            currentValue={ client.get('housing') }
             label={ 'Homeowner' }
             time={ time }
             updateClientValue = { ensureRouteAndValue } />
         </div>
       ) }
 
-      <HousingDetails { ...sharedProps } />
+      <HousingDetails
+        time={ time }
+        type={ type }
+        client={ client }
+        setPaysUtility={ setPaysUtility }
+        setGetsFuelAssistance={ setGetsFuelAssistance }
+        setExpenseValue={ setExpenseValue } />
 
     </div>
   );
@@ -306,20 +322,20 @@ const Housing = function ({ current, type, time, updateClientValue }) {
  * @param {object} props
  * @param {object} props.current Client data of current user circumstances
  * @param {string} props.time 'current' or 'future'
- * @param {function} props.updateClientValue Sets state values
+ * @param {function} props.setExpenseValue Sets state values
  * @param {object} props.snippets Language-specific content
  *
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, updateClientValue, snippets }) {
+const ExpensesFormContent = function ({ client, setExpenseValue, setHousingType, setPaysUtility, setGetsFuelAssistance, snippets }) {
 
   let type        = 'expense',
-      household   = current.household,
+      household   = client.get('household'),
       sharedProps = {
-        timeState:         current,
-        type:              type,
-        time:              time,
-        updateClientValue: updateClientValue,
+        timeState: client,
+        type:      type,
+        time:      'current',
+        setValue:  setExpenseValue,
       };
 
   /* @todo Make a more general age-checking function to keep
@@ -335,7 +351,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
   // 'Elderly' here is using the lowest common denominator - SNAP standards.
   var isElderlyOrDisabled = function (member) {
-    return isDisabled(member) || member.m_age >= 60;
+    return isDisabled(member) || member.get('m_age') >= 60;
   };
   var elderlyOrDisabled = getEveryMember(household, isElderlyOrDisabled),
       elderlyOrDisabledHeadOrSpouse = getEveryMember(elderlyOrDisabled, isHeadOrSpouse);
@@ -371,12 +387,12 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses = { getUnder13Expenses(current) !== 0 }
+            hasExpenses = { getUnder13Expenses(client) !== 0 }
             label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
             propData = {{
-              client:        current,
+              client,
               childPropName: `earnedBecauseOfChildCare`,
-              update:        updateClientValue,
+              update:        setExpenseValue,
             }}
             CashFlowRow = {
               <CashFlowInputsRow
@@ -391,7 +407,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         null
       ) }
 
-      { current.hasSnap ? (
+      { client.get('hasSnap') ? (
         <div>
           <ContentH1>Child Support</ContentH1>
           <IntervalColumnHeadings type={ type } />
@@ -448,12 +464,12 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
           </CashFlowInputsRow>
 
           <EarnedFrom
-            hasExpenses = { current.disabledAssistance !== 0 }
+            hasExpenses = { client.get('disabledAssistance') !== 0 }
             label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
             propData = {{
-              client:        current,
+              client,
               childPropName: `earnedBecauseOfAdultCare`,
-              update:        updateClientValue,
+              update:        setExpenseValue,
             }}
             CashFlowRow = {
               <CashFlowInputsRow
@@ -472,7 +488,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         * These medical expenses count for Section 8 too if the disabled
         *     person is the head or spouse. From Appendix B, item (D)
         *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf} */}
-      { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0) ? (
+      { elderlyOrDisabledHeadOrSpouse.length > 0 || (client.get('hasSnap') && elderlyOrDisabled.length > 0) ? (
         <div>
           <HeadingWithDetail>
             <ContentH1>Unreimbursed Medical Expenses</ContentH1>
@@ -506,10 +522,12 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       ) }
 
       <Housing
-        current={ current }
-        time={ time }
+        client={ client }
         type={ type }
-        updateClientValue = { updateClientValue } />
+        setPaysUtility={ setPaysUtility }
+        setGetsFuelAssistance={ setGetsFuelAssistance }
+        setExpenseValue={ setExpenseValue }
+        setHousingType={ setHousingType } />
 
       {/* Premature feature temporarily hidden to avoid messy revert
         <ShowOnYes
@@ -540,14 +558,14 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 /**
   * @function
   * @param {object} props
-  * @param {function} props.updateClientValue Setting client state
+  * @param {function} props.setExpenseValue Setting client state
   * @param {object} props.navData Buttons for bottom row
   * @param {object} props.client Data for calculating benefits, `future` and `current`
   * @param {object} props.snippets  Language-specific content
   *
   * @returns React element
   */
-const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
+const CurrentExpensesStep = function ({ setExpenseValue, setHousingType, setPaysUtility, setGetsFuelAssistance, navData, currentClient, snippets }) {
 
   return (
     <FormPartsContainer
@@ -556,9 +574,11 @@ const CurrentExpensesStep = function ({ updateClientValue, navData, client, snip
       navData   = { navData }
       formClass = { `expenses` }>
       <ExpensesFormContent
-        updateClientValue = { updateClientValue }
-        current={ client.current }
-        time={ 'current' }
+        setExpenseValue={ setExpenseValue }
+        setHousingType={ setHousingType }
+        setPaysUtility={ setPaysUtility }
+        setGetsFuelAssistance={ setGetsFuelAssistance }
+        client={ currentClient }
         snippets={ snippets } />
     </FormPartsContainer>
   );

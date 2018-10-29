@@ -34,65 +34,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
   }
 >
   <IncomeForm
-    current={
-      Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 0,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      }
-    }
     snippets={
       Object {
         "SSDI": Object {
@@ -293,8 +234,6 @@ exports[`Income step component renders as snapshot correctly 1`] = `
         },
       }
     }
-    time="current"
-    updateClientValue={[Function]}
   />
 </FormPartsContainer>
 `;

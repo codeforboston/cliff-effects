@@ -11,7 +11,6 @@ import { toMonthlyAmount } from '../utils/math';
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
 
-
 /** Contains cash flow inputs, their label, and any user feedback
  *
  * @function
@@ -45,6 +44,74 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
  */
 const maximum_value_yearly = 999999.99;
 
+
+export class ImmutableCashFlowInputsRow extends React.PureComponent {
+  constructor(...args) {
+    super(...args);
+
+    this.state = { message: '' };
+  }
+
+  
+  // Special store validator that handles maximums and sets error message
+  cashFlowStoreValidator = (max) => {
+    return (str) => {
+      if (!isNonNegNumber(str)) {
+        this.setState({ message: 'Invalid number format' });
+        return false;
+      } else if (parseFloat(str) > max) {
+        this.setState({ message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
+        return false;
+      }
+      this.setState({ message: '' });
+      return true;
+    };
+  };
+
+  setValue = (event, { value }, { interval }) => {
+    this.props.setValue({
+      name:  this.props.generic,
+      value: toMonthlyAmount[ interval ](event, value),
+    });
+  };
+
+  render() {
+    const { children, generic, timeState } = this.props;
+
+    const baseVal = timeState.get(generic);
+
+    const baseProps = {
+      name:             generic,
+      className:        'cashflow-column',
+      store:            this.setValue,
+      displayValidator: hasOnlyNonNegNumberChars,
+      format:           toMoneyStr,
+    };
+
+    return (
+      <CashFlowContainer
+        label={ children }
+        validRow={ !this.state.message }
+        message={ this.state.message }>
+        <ManagedNumberField
+          storeValidator={ this.cashFlowStoreValidator(maximum_value_yearly / 52) }
+          { ...baseProps }
+          value     = { baseVal / (4 + 1 / 3) }
+          otherData = {{ interval: 'weekly' }} />
+        <ManagedNumberField
+          storeValidator={ this.cashFlowStoreValidator(maximum_value_yearly / 12) }
+          { ...baseProps }
+          value     = { baseVal }
+          otherData = {{ interval: 'monthly' }} />
+        <ManagedNumberField
+          storeValidator={ this.cashFlowStoreValidator(maximum_value_yearly) }
+          { ...baseProps }
+          value     = { baseVal * 12 }
+          otherData = {{ interval: 'yearly' }} />
+      </CashFlowContainer>
+    );
+  }
+}
 
 // @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
 // use `includes` array to include only certain columns perhaps.
@@ -200,6 +267,44 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
   );
 
 };  // End <MonthlyCashFlowRow>
+
+
+/** One row for _one_ cash flow input - a monthly value
+ *
+ * @function
+ * @param {object} props
+ * @param {object} props.inputProps Key name, validators, and onBlur
+ * @param {object} props.baseValue Start value of field?
+ * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.rowProps `label`, `validRow`, `message`
+ *
+ * @returns Component
+ */
+export class ImmutableMonthlyCashFlowRow extends React.PureComponent {
+
+  setValue = (event, { value }) => {
+    this.props.setValue({
+      name:  this.props.inputProps.name,
+      value: toMonthlyAmount.monthly(event, value),
+    });
+  };
+
+  render() {
+    const { inputProps, baseValue, rowProps } = this.props;
+    
+    return (
+      <CashFlowContainer { ...rowProps }>
+        <ManagedNumberField
+          { ...inputProps }
+          className="cashflow-column"
+          format={ toMoneyStr }
+          store={ this.setValue }
+          value={ baseValue }
+          otherData={{ interval: 'monthly' }} />
+      </CashFlowContainer>
+    );
+  }
+}; // End <ImmutableMonthlyCashFlowRow>
 
 
 // Ideas of how to handle a different styling situation

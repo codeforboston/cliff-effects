@@ -20,10 +20,6 @@ import {
   hasOnlyNonNegWholeNumberChars,
 } from '../utils/validators';
 
-// OBJECT MANIPULATION
-import { cloneDeep } from 'lodash';
-
-
 // ======================
 // GENERICS
 // ======================
@@ -113,239 +109,228 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // UNIQUE
 // ======================
 
-const Role = function ({ member, setMember, snippets }) {
+class Role extends React.PureComponent {
+  handleRoleChange = (event, { value }) => {
+    this.props.onChange({ role: value });
+  };
 
-  var ThisRole  = null,
-      margin   = '0';
-
-  if (member.index === 0) {
-
-    ThisRole  = <span>{ snippets.i_headOfHousehold }</span>;
-
-  } else if (member.index === 1) {
-
-    margin = '-1em';
-
-    var options = [
-      { text: snippets.i_spouse, value: 'spouse' },
-      { text: snippets.i_childOther, value: 'member' },
-    ];
-
-    ThisRole = <Dropdown
-      selection
-      name={ 'm_role' }
-      value={ member.m_role }
-      options={ options }
-      onChange={ setMember } />;
-
-  } else {
-
-    ThisRole = <span>{ snippets.i_childOther }</span>;
+  render() {
+    const { member, snippets } = this.props;
+    
+    var ThisRole  = null,
+        margin   = '0';
+  
+    if (this.props.index === 0) {
+  
+      ThisRole  = <span>{ snippets.i_headOfHousehold }</span>;
+  
+    } else if (this.props.index === 1) {
+  
+      margin = '-1em';
+  
+      var options = [
+        { text: snippets.i_spouse, value: 'spouse' },
+        { text: snippets.i_childOther, value: 'member' },
+      ];
+  
+      ThisRole = <Dropdown
+        selection
+        name={ 'm_role' }
+        value={ member.get('m_role') }
+        options={ options }
+        onChange={ this.handleRoleChange } />;
+  
+    } else {
+  
+      ThisRole = <span>{ snippets.i_childOther }</span>;
+  
+    }
+  
+    // Styles will have to be adjusted.
+    return (
+      <div style={{ display: 'inline-block', width: '100%', textAlign: 'left', marginLeft: margin }}>
+        { ThisRole }
+      </div>
+    );
 
   }
-
-  // Styles will have to be adjusted.
-  return (
-    <div style={{ display: 'inline-block', width: '100%', textAlign: 'left', marginLeft: margin }}>
-      { ThisRole }
-    </div>
-  );
-
-};  // End Role(<>)
+}  // End Role(<>)
 
 
-const MemberField = function ({ household, time, setHousehold, updateClientValue, snippets }, indx) {
-
-  var member      = household[ indx ],
-      routeStart  = 'household/' + indx + '/';
-  member.index    = indx;  // Just needed as member prop in this file
-
-
-  var onMemberChange = function (evnt, inputProps) {
-    var route = routeStart + inputProps.name;
-    var data  = { route: route, value: inputProps.value };
-    updateClientValue(evnt, data);
+class MemberField extends React.PureComponent {
+  handleDisabledChecked = (event, { checked }) => {
+    this.props.onIsDisabledChange({ isDisabled: checked, index: this.props.index });
   };
 
-
-  var onMemberChecked = function (evnt, inputProps) {
-    var route = routeStart + inputProps.name;
-    var data  = { route: route, value: inputProps.checked };
-    updateClientValue(evnt, data);
-  };
-
-
-  var removeMember = function (evnt, inputProps) {
-    household.splice(indx, 1);
-    setHousehold(evnt, household);
-  };  // End removeMember()
-
-
-  // For keyboard access (already does spacebar)
-  var onKeyDown = function (evnt) {
-    if (evnt.key === `Enter`) {
-      evnt.target.click();
+  handleKeyDown = (event) => {
+    // For keyboard access (already does spacebar)
+    if (event.key === 'Enter') {
+      event.target.click();
     }
   };
 
-
-  // The font size thing is a bit weird, but... later
-  return (
-    <Form.Field
-      className='flex-item'
-      key={ indx }>
-
-      <Columns.One>
-        { indx > 0 ? (
-          <MemberButton
-            className={ 'remove' }
-            onClick={ removeMember }
-            iconName={ 'remove' } />
-        ) : (
-          <span>
-            { household.length > 1 ? (
-              <Icon
-                fitted
-                name={ 'ban' }
-                style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
-            ) : (
-              null
-            ) }
-          </span>
-        ) }
-      </Columns.One>
-
-      <Columns.Two>
-        <Role
-          member={ member }
-          setMember={ onMemberChange }
-          snippets={ snippets } />
-      </Columns.Two>
-
-      <Columns.Three>
-        <ManagedNumberField
-          value            = { member.m_age }
-          name             = { 'm_age' }
-          className        = { time + ' member-age ' + time }
-          displayValidator = { hasOnlyNonNegWholeNumberChars }
-          storeValidator   = { isNonNegWholeNumber }
-          format           = { function (value) { return value; } }
-          store            = { onMemberChange }
-          onBlur           = { function () { return true; } } />
-      </Columns.Three>
-
-      <Columns.Four>
-        <Checkbox
-          name={ 'm_disabled' }
-          checked={ member.m_disabled }
-          onChange={ onMemberChecked }
-          onKeyDown = { onKeyDown } />
-      </Columns.Four>
-
-    </Form.Field>
-  );
-
-};  // End MemberField()
-
-
-const getMembers = function (current, time, setHousehold, updateClientValue, snippets) {
-
-  var household = current.household,
-      props     = {
-        household:         household,
-        time:              time,
-        setHousehold:      setHousehold,
-        updateClientValue: updateClientValue,
-        snippets:          snippets,
-      };
-
-  var mems = [];
-  for (let memi = 0; memi < household.length; memi++) {
-    mems.push(MemberField(props, memi));
+  handleRoleChange = ({ role }) => {
+    this.props.onRoleChange({ role, index: this.props.index });
   };
 
-  return mems;
+  handleAgeChange = (event, { value }) => {
+    this.props.onAgeChange({ age: value, index: this.props.index });
+  };
 
-};  // End getMembers()
+  handleRemove = () => {
+    this.props.remove({ index: this.props.index });
+  };
 
+  render() {
+    const { household, member, snippets, canRemove, index } = this.props;
+  
+    // The font size thing is a bit weird, but... later
+    return (
+      <Form.Field
+        className='flex-item'>
+  
+        <Columns.One>
+          { canRemove ? (
+            <MemberButton
+              className={ 'remove' }
+              onClick={ this.handleRemove }
+              iconName={ 'remove' } />
+          ) : (
+            <span>
+              { household.length > 1 ? (
+                <Icon
+                  fitted
+                  name={ 'ban' }
+                  style={{ color: '#cfcfd0', fontSize: '2.2em', verticalAlign: 'text-top' }} />
+              ) : (
+                null
+              ) }
+            </span>
+          ) }
+        </Columns.One>
+  
+        <Columns.Two>
+          <Role
+            member={ member }
+            index = { index }
+            onChange={ this.handleRoleChange }
+            snippets={ snippets } />
+        </Columns.Two>
+  
+        <Columns.Three>
+          <ManagedNumberField
+            value            = { member.get('m_age') }
+            name             = { 'm_age' }
+            className        = { 'current member-age' }
+            displayValidator = { hasOnlyNonNegWholeNumberChars }
+            storeValidator   = { isNonNegWholeNumber }
+            format           = { function (value) { return value; } }
+            store            = { this.handleAgeChange }
+            onBlur           = { function () { return true; } } />
+        </Columns.Three>
+  
+        <Columns.Four>
+          <Checkbox
+            name={ 'm_disabled' }
+            checked={ member.get('m_disabled') }
+            onChange={ this.handleDisabledChecked }
+            onKeyDown = { this.handleKeyDown } />
+        </Columns.Four>
+  
+      </Form.Field>
+    );
+  }
+}  // End MemberField()
 
-const HouseholdContent = function ({ current, time, updateClientValue, snippets }) {
+class HouseholdContent extends React.PureComponent {
+  getMembers = () => {
+    const { household, setMemberAge, setMemberIsDisabled, setMemberRole, snippets } = this.props;
+    
+    return household.map(
+      (member, index) => {
+        return (
+          <MemberField
+            key={ index }
+            member={ member }
+            household = { household }
+            snippets = { snippets }
+            canRemove={ index > 0 }
+            index = { index }
+            onIsDisabledChange = { setMemberIsDisabled }
+            onAgeChange = { setMemberAge }
+            onRoleChange = { setMemberRole } />
+        );
+      }
+    ).toArray();
+  };  // End getMembers()
 
-  // Don't mutate state properties
-  var household = cloneDeep(current.household);
-
-
-  var setHousehold = function (evnt, newHousehold) {
-
-    var obj = {
-      route: 'household',
-      value: newHousehold,
-    };
-
-    updateClientValue(evnt, obj);
-
-  };  // End setHousehold()
-
-
-  var addMember = function (evnt, inputProps) {
-
+  addMember = () => {
     var member;
-    if (household.length === 1) {
+    if (this.props.household.size === 1) {
       member = { m_age: 30, m_role: 'spouse', m_disabled: false };
     } else {
       member = { m_age: 12, m_role: 'member', m_disabled: false };
     }
 
-    household.push(member);
-    setHousehold(evnt, household);
-
+    this.props.addMember({ member });
   };  // End addMember()
+  
+  render() {
+    const { snippets } = this.props;
 
+    return (
+      <div className='field-aligner two-column'>
+        <div style={{ marginBottom: '.5em' }}>
+          <ColumnHeader columnNum='One' />
+          <ColumnHeader columnNum='Two'> { snippets.i_role }</ColumnHeader>
+          <ColumnHeader columnNum='Three'>{ snippets.i_age }</ColumnHeader>
+          <ColumnHeader columnNum='Four'>{ snippets.i_disabled }</ColumnHeader>
+        </div>
 
-  return (
-    <div className='field-aligner two-column'>
-      <div style={{ marginBottom: '.5em' }}>
-        <ColumnHeader columnNum='One' />
-        <ColumnHeader columnNum='Two'> { snippets.i_role }</ColumnHeader>
-        <ColumnHeader columnNum='Three'>{ snippets.i_age }</ColumnHeader>
-        <ColumnHeader columnNum='Four'>{ snippets.i_disabled }</ColumnHeader>
+        { this.getMembers() }
+
+        <Button
+          type={ 'button' }
+          id={ 'addMember' }
+          basic
+          onClick={ this.addMember }>
+          <Columns.One noMargin={ true }>
+            <Icon
+              name={ 'plus' }
+              circular
+              inverted
+              color={ 'teal' } />
+          </Columns.One>
+
+          <Columns.Two noMargin={ true }>
+            <Header
+              as='h4'
+              color={ 'teal' }>
+              { snippets.i_addMember }
+            </Header>
+          </Columns.Two>
+
+          <Columns.Three noMargin={ true } />
+          <Columns.Four noMargin={ true } />
+        </Button>
+
       </div>
-
-      { getMembers(current, time, setHousehold, updateClientValue, snippets) }
-
-      <Button
-        type={ 'button' }
-        id={ 'addMember' }
-        basic
-        onClick={ addMember }>
-        <Columns.One noMargin={ true }>
-          <Icon
-            name={ 'plus' }
-            circular
-            inverted
-            color={ 'teal' } />
-        </Columns.One>
-
-        <Columns.Two noMargin={ true }>
-          <Header
-            as='h4'
-            color={ 'teal' }>
-            { snippets.i_addMember }
-          </Header>
-        </Columns.Two>
-
-        <Columns.Three noMargin={ true } />
-        <Columns.Four noMargin={ true } />
-      </Button>
-
-    </div>
-  );
-
-};  // End HouseholdContent()
+    );
+  }
+}  // End HouseholdContent()
 
 
 // `props` is a cloned version of the original props. References broken.
-const HouseholdStep = function ({ updateClientValue, navData, client, snippets }) {
+const HouseholdStep = function ({
+  setMemberIsDisabled,
+  setMemberRole,
+  setMemberAge,
+  addMember,
+  removeMember,
+  navData,
+  household,
+  snippets,
+}) {
 
   return (
     <FormPartsContainer
@@ -354,9 +339,12 @@ const HouseholdStep = function ({ updateClientValue, navData, client, snippets }
       navData   = { navData }
       formClass = { `household` }>
       <HouseholdContent
-        updateClientValue = { updateClientValue }
-        current={ client.current }
-        time={ 'current' }
+        setMemberIsDisabled = { setMemberIsDisabled }
+        setMemberAge = { setMemberAge }
+        setMemberRole = { setMemberRole }
+        addMember = { addMember }
+        removeMember = { removeMember }
+        household={ household }
         snippets={ snippets } />
     </FormPartsContainer>
   );

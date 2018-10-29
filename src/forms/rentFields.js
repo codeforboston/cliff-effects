@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MonthlyCashFlowRow } from './cashflow';
+import { MonthlyCashFlowRow, ImmutableMonthlyCashFlowRow } from './cashflow';
 
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 
@@ -135,9 +135,35 @@ const PlainRentRow = function ({ timeState, updateClientValue }) {
 
 };  // End <PlainRentRow>
 
+const ImmutablePlainRentRow = function ({ timeState, setValue }) {
+
+  const inputProps = {
+          name:             'rent',
+          displayValidator: hasOnlyNonNegNumberChars,
+          storeValidator:   isNonNegNumber,
+          onBlur:           function () {},
+        },
+        rowProps = {
+          label:    'Monthly Rent',
+          validRow: true,
+          message:  null,
+        };
+
+  return (
+    <ImmutableMonthlyCashFlowRow
+      inputProps         = { inputProps }
+      baseValue          = { timeState.get('rent') }
+      includes           = { [ 'monthly' ] }
+      setValue           = { setValue }
+      rowProps           = { rowProps } />
+  );
+
+};  // End <PlainRentRow>
+
 
 export {
   ContractRentField,
   RentShareField,
   PlainRentRow,
+  ImmutablePlainRentRow,
 };
