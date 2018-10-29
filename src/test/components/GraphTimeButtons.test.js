@@ -11,7 +11,12 @@ describe('<GraphTimeButtons>', () => {
     expect(wrapper.find('#Yearly').exists()).toBe(true);
   });
 
-  it('matches snapshot', () => {
-    expect(mount(<GraphTimeButtons />)).toMatchSnapshot();
+  it('renders with provided props', () => {
+    const props = {
+      activeID:   'Monthly',
+      onClick:    jest.fn(),
+      otherProps: 'I don\'t get passed through =(',
+    };
+    expect(mount(<GraphTimeButtons { ...props } />)).toMatchSnapshot();
   });
 });

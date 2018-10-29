@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ColumnHeading> matches snapshot 1`] = `
+exports[`<ColumnHeading> renders with provided props and calculated class name 1`] = `
 <ColumnHeading
   colName="income"
   style={

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CashFlowDisplayRow> matches snapshot 1`] = `
+exports[`<CashFlowDisplayRow> renders using provided value 1`] = `
 <CashFlowDisplayRow
   generic="potatoes"
   value={12}
@@ -36,7 +36,7 @@ exports[`<CashFlowDisplayRow> matches snapshot 1`] = `
 </CashFlowDisplayRow>
 `;
 
-exports[`<CashFlowDisplayRow> matches snapshot 2`] = `
+exports[`<CashFlowDisplayRow> renders using value in timeState 1`] = `
 <CashFlowDisplayRow
   generic="potatoes"
   timeState={
