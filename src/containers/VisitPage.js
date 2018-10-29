@@ -357,8 +357,7 @@ class VisitPage extends Component {
           className='flex-item flex-column'>
           <Responsive
             id = { `form-nav` }
-            minWidth='874.5'
-            >
+            minWidth='874.5'>
             <StepBar
               currentStepIndex={ this.state.currentStep }
               steps={ this.steps }
@@ -366,8 +365,7 @@ class VisitPage extends Component {
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
           <div
-            className="flex-item flex-column current-step-component"
-            >
+            className="flex-item flex-column current-step-component">
             { this.getCurrentStep(navData) }
           </div>
 

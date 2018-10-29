@@ -70,7 +70,7 @@ describe('<BenefitsLineGraph>', () => {
 
   it('renders with both snap and section8', () => {
     activePrograms.push('snap');
-    activePrograms.push('section8')
+    activePrograms.push('section8');
     set(client, 'current.earned', 100);
     set(client, 'future.earned', 200);
 
