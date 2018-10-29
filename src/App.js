@@ -258,15 +258,14 @@ class App extends Component {
         <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
 
         { (devProps.dev === true) ? (
-            <DevHud
-              devProps = { devProps }
-              funcs    = { devFuncs }
-              data     = {{ default: clients.default }}
-              state    = { this.state } />
-          ) : (
-            null
-          )
-        }
+          <DevHud
+            devProps = { devProps }
+            funcs    = { devFuncs }
+            data     = {{ default: clients.default }}
+            state    = { this.state } />
+        ) : (
+          null
+        ) }
       </div>
     );
   };  // End render()

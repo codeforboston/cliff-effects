@@ -13,8 +13,20 @@ const MainMenu = function ({ snippets }) {
       secondary
       size='large'>
 
-      <Menu.Item><Link className="main-nav" to="/">{ snippets.i_homeNav }</Link></Menu.Item>
-      <Menu.Item><Link className="main-nav" to="/about">{ snippets.i_aboutNav }</Link></Menu.Item>
+      <Menu.Item>
+        <Link
+          className="main-nav"
+          to="/">
+          { snippets.i_homeNav }
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link
+          className="main-nav"
+          to="/about">
+          { snippets.i_aboutNav }
+        </Link>
+      </Menu.Item>
       <Menu.Item>{ snippets.i_githubNav }</Menu.Item>
       <Menu.Item position='right'>
         {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
