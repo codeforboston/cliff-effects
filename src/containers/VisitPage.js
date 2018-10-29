@@ -55,15 +55,12 @@ class VisitPage extends Component {
   };  // End constructor()
 
   componentDidMount() {
-    // If the user has refreshed the page while they were on a later step, then we will
-    // go back to that step, but since the client data is currently stored in memory, the
-    // client data will be lost. So if we are loading on a step that is not the first step,
-    // go back to the first step to start again
+    // We currently store client data in memory, so when the user reloads, the client data
+    // will disappear. In that case, we move the user back to the first step so that they
+    // can re-enter the data.
     const firstStepURL = `${this.getPathPrefix()}/${STEPS[ 0 ].key}`;
 
-    if (this.props.history.location !== firstStepURL) {
-      this.props.history.replace(firstStepURL);
-    }
+    this.props.history.replace(firstStepURL);
   }
 
   resetClientIfOk = (shouldReset) => {
@@ -318,9 +315,9 @@ class VisitPage extends Component {
         {/* We should probably remove this. If we want to
          * do this we might do this a different way at this
          * point. Perhaps a user's page should be a route
-         * in VisitPage? Like our form sections will be? */}
+         * in VisitPage? */}
         { this.state.redirect ? (
-          <Redirect to={ `/detail/${this.state.clientId}` } />
+          <Redirect to={ `/detail/${this.props.clientId}` } />
         ) : (
           false
         ) }
