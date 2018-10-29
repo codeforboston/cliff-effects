@@ -6,7 +6,7 @@ import { AttentionArrow } from '../../../forms/formHelpers';
 describe('<AttentionArrow>', () => {
   it('renders', () => {
     expect(() => {
-      mount(<AttentionArrow />)
+      mount(<AttentionArrow />);
     }).not.toThrow();
   });
 });

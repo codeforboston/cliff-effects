@@ -12,7 +12,7 @@ describe('<MonthlyCashFlowRow>', () => {
       rowProps:          {},
     };
     expect(() => {
-      mount(<MonthlyCashFlowRow { ...props } />)
+      mount(<MonthlyCashFlowRow { ...props } />);
     }).not.toThrow();
   });
 });

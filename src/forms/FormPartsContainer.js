@@ -60,9 +60,7 @@ const FormBottomRow = function({ left, middle, right }) {
 
   /* @todo Move styles to CSS */
   return (
-    <div
-      className = { `form-section-bottom-row` }
-    >
+    <div className = { `form-section-bottom-row` }>
       { children }
     </div>
   );
