@@ -75,11 +75,20 @@ class CashFlowInputsRow extends Component {
   cashFlowStoreValidator = (max) => {
     return (str) => {
       if (!isNonNegNumber(str)) {
-        this.setState({ valid: false, message: 'Invalid number format' });
+        let message    = `That number doesn't look right`,
+            numPeriods = str.match(/\./g) || [];
+
+        // Have a more detailed message if possible
+        if (numPeriods.length > 1) {
+          message = `The number should only have one decimal point`;
+        }
+
+        this.setState({ valid: false, message: message });
         return false;
       }
       else if (parseFloat(str) > max) {
-        this.setState({ valid: false, message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
+        // @todo Value should match up with the input that's being edited
+        this.setState({ valid: false, message: (`The biggest number you can put in here is $` + maximum_value_yearly + `/yr`) });
         return false;
       }
       this.setState({ valid: true, message: null });
@@ -95,9 +104,7 @@ class CashFlowInputsRow extends Component {
           obj     = { name: generic, value: monthly };
       updateClientValue(evnt, obj);
     };
-  
-    
-  
+
     /* Get the time ('future' or 'current') monthly value unless there is
      * none, in which case, get the 'current' monthly cash flow value
      * (to prefill future values with 'current' ones if needed).
@@ -119,7 +126,7 @@ class CashFlowInputsRow extends Component {
     return (
       <CashFlowRow
         label={ children }
-        validRow={ true }
+        validRow={ this.state.valid }
         message={ this.state.message }>
         <ManagedNumberField
           storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
