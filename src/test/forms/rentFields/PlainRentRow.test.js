@@ -6,11 +6,13 @@ import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 import { PlainRentRow } from '../../../forms/rentFields';
 
 describe('<PlainRentRow>', () => {
-  it('matches snapshot', () => {
+  it('renders', () => {
     const props = {
       timeState:         cloneDeep(CLIENT_DEFAULTS.current),
       updateClientValue: jest.fn(),
     };
-    expect(mount(<PlainRentRow { ...props } />)).toMatchSnapshot();
+    expect(() => {
+      mount(<PlainRentRow { ...props } />);
+    }).not.toThrow();
   });
 });

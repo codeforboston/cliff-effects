@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { ColumnHeading } from '../../../components/headings';
 
 describe('<ColumnHeading>', () => {
-  it('matches snapshot', () => {
+  it('renders with provided props and calculated class name', () => {
     const props = {
       type:     'Monthly',
       colName:  'income',

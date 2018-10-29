@@ -1,12 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ExternalLink> matches snapshot 1`] = `
+exports[`<ExternalLink> renders with provided props 1`] = `
 <ExternalLink
+  anotherprop="pass me through please"
   href="http://example.com"
 >
   <a
+    anotherprop="pass me through please"
     href="http://example.com"
     target="_blank"
-  />
+  >
+    <span
+      className="some-icon"
+    />
+  </a>
 </ExternalLink>
 `;

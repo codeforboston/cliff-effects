@@ -41,8 +41,4 @@ describe('<StepBar>', () => {
     wrapper.find('Step').at(2).simulate('click');
     expect(goToStep).toHaveBeenLastCalledWith({ key: STEPS[ 2 ].key });
   });
-
-  it('matches snapshot', () => {
-    expect(buildWrapper()).toMatchSnapshot();
-  });
 });

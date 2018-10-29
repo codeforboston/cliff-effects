@@ -4,7 +4,9 @@ import { mount } from 'enzyme';
 import { AttentionArrow } from '../../../forms/formHelpers';
 
 describe('<AttentionArrow>', () => {
-  it('matches snapshot', () => {
-    expect(mount(<AttentionArrow />)).toMatchSnapshot();
+  it('renders', () => {
+    expect(() => {
+      mount(<AttentionArrow />);
+    }).not.toThrow();
   });
 });

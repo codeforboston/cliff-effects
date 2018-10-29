@@ -4,21 +4,24 @@ import { mount } from 'enzyme';
 import { CashFlowContainer } from '../../../forms/cashflow';
 
 describe('<CashFlowContainer>', () => {
-  it('matches snapshot', () => {
-    const child = <span>Some content</span>;
+  const defaultProps = {
+    label:    'Rent',
+    children: <span>Some content</span>,
+  };
 
+  it('renders with no message', () => {
     const validProps = {
-      label:    'Rent',
+      ...defaultProps,
       validRow: true,
-      children: child,
     };
     expect(mount(<CashFlowContainer { ...validProps } />)).toMatchSnapshot();
+  });
 
+  it('renders with message', () => {
     const invalidProps = {
-      label:    'Rent',
+      ...defaultProps,
       validRow: false,
       message:  'What did you enter!?',
-      children: child,
     };
     expect(mount(<CashFlowContainer { ...invalidProps } />)).toMatchSnapshot();
   });
