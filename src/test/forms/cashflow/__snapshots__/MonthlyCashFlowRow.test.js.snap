@@ -7,7 +7,7 @@ exports[`<MonthlyCashFlowRow> matches snapshot 1`] = `
   rowProps={Object {}}
   updateClientValue={[Function]}
 >
-  <CashFlowContainer>
+  <CashFlowRow>
     <FormField
       className="cashflow"
       inline={true}
@@ -15,71 +15,95 @@ exports[`<MonthlyCashFlowRow> matches snapshot 1`] = `
       <div
         className="inline field cashflow"
       >
-        <ManagedNumberField
-          className="cashflow-column"
-          format={[Function]}
-          otherData={
-            Object {
-              "interval": "monthly",
-            }
+        <Surrounder
+          Top={
+            <InvalidMessage
+              validRow={undefined}
+            />
           }
-          store={[Function]}
-          value={0}
         >
-          <FormInput
-            as={[Function]}
-            className="cashflow-column output-number"
-            control={[Function]}
-            error={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            value="0.00"
+          <div
+            className="surrounder"
           >
-            <FormField
-              className="cashflow-column output-number"
-              control={[Function]}
-              error={false}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              value="0.00"
+            <div
+              className="top horizontal"
+            >
+              <InvalidMessage />
+            </div>
+            <div
+              className="middle horizontal"
             >
               <div
-                className="field cashflow-column output-number"
+                className="center horizontal content"
               >
-                <Input
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  type="text"
-                  value="0.00"
+                <ManagedNumberField
+                  className="cashflow-column"
+                  format={[Function]}
+                  otherData={
+                    Object {
+                      "interval": "monthly",
+                    }
+                  }
+                  store={[Function]}
+                  value={0}
                 >
-                  <div
-                    className="ui input"
+                  <FormInput
+                    as={[Function]}
+                    className="cashflow-column output-number"
+                    control={[Function]}
+                    error={false}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    value="0.00"
                   >
-                    <input
-                      key="text"
+                    <FormField
+                      className="cashflow-column output-number"
+                      control={[Function]}
+                      error={false}
                       onBlur={[Function]}
                       onChange={[Function]}
                       onFocus={[Function]}
-                      type="text"
                       value="0.00"
-                    />
-                  </div>
-                </Input>
+                    >
+                      <div
+                        className="field cashflow-column output-number"
+                      >
+                        <Input
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          type="text"
+                          value="0.00"
+                        >
+                          <div
+                            className="ui input"
+                          >
+                            <input
+                              key="text"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="text"
+                              value="0.00"
+                            />
+                          </div>
+                        </Input>
+                      </div>
+                    </FormField>
+                  </FormInput>
+                </ManagedNumberField>
+                <div
+                  className="cashflow-column cashflow-column-last-child"
+                >
+                  <label />
+                </div>
               </div>
-            </FormField>
-          </FormInput>
-        </ManagedNumberField>
-        <div
-          className="cashflow-column cashflow-column-last-child"
-        >
-          <label />
-        </div>
-        <InvalidMessage />
+            </div>
+          </div>
+        </Surrounder>
       </div>
     </FormField>
-  </CashFlowContainer>
+  </CashFlowRow>
 </MonthlyCashFlowRow>
 `;

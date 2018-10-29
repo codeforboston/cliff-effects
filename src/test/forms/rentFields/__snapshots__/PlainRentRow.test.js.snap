@@ -87,7 +87,7 @@ exports[`<PlainRentRow> matches snapshot 1`] = `
     }
     updateClientValue={[Function]}
   >
-    <CashFlowContainer
+    <CashFlowRow
       label="Monthly Rent"
       message={null}
       validRow={true}
@@ -99,85 +99,102 @@ exports[`<PlainRentRow> matches snapshot 1`] = `
         <div
           className="inline field cashflow"
         >
-          <ManagedNumberField
-            className="cashflow-column"
-            displayValidator={[Function]}
-            format={[Function]}
-            name="rent"
-            onBlur={[Function]}
-            otherData={
-              Object {
-                "interval": "monthly",
-              }
-            }
-            store={[Function]}
-            storeValidator={[Function]}
-            value={0}
+          <Surrounder
+            Top={<span />}
           >
-            <FormInput
-              as={[Function]}
-              className="cashflow-column output-number"
-              control={[Function]}
-              error={false}
-              name="rent"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              value="0.00"
+            <div
+              className="surrounder"
             >
-              <FormField
-                className="cashflow-column output-number"
-                control={[Function]}
-                error={false}
-                name="rent"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                value="0.00"
+              <div
+                className="top horizontal"
+              >
+                <span />
+              </div>
+              <div
+                className="middle horizontal"
               >
                 <div
-                  className="field cashflow-column output-number"
+                  className="center horizontal content"
                 >
-                  <Input
+                  <ManagedNumberField
+                    className="cashflow-column"
+                    displayValidator={[Function]}
+                    format={[Function]}
                     name="rent"
                     onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    type="text"
-                    value="0.00"
+                    otherData={
+                      Object {
+                        "interval": "monthly",
+                      }
+                    }
+                    store={[Function]}
+                    storeValidator={[Function]}
+                    value={0}
                   >
-                    <div
-                      className="ui input"
+                    <FormInput
+                      as={[Function]}
+                      className="cashflow-column output-number"
+                      control={[Function]}
+                      error={false}
+                      name="rent"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      value="0.00"
                     >
-                      <input
-                        key="text"
+                      <FormField
+                        className="cashflow-column output-number"
+                        control={[Function]}
+                        error={false}
                         name="rent"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onFocus={[Function]}
-                        type="text"
                         value="0.00"
-                      />
-                    </div>
-                  </Input>
+                      >
+                        <div
+                          className="field cashflow-column output-number"
+                        >
+                          <Input
+                            name="rent"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            type="text"
+                            value="0.00"
+                          >
+                            <div
+                              className="ui input"
+                            >
+                              <input
+                                key="text"
+                                name="rent"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                type="text"
+                                value="0.00"
+                              />
+                            </div>
+                          </Input>
+                        </div>
+                      </FormField>
+                    </FormInput>
+                  </ManagedNumberField>
+                  <div
+                    className="cashflow-column cashflow-column-last-child"
+                  >
+                    <label>
+                      Monthly Rent
+                    </label>
+                  </div>
                 </div>
-              </FormField>
-            </FormInput>
-          </ManagedNumberField>
-          <div
-            className="cashflow-column cashflow-column-last-child"
-          >
-            <label>
-              Monthly Rent
-            </label>
-          </div>
-          <InvalidMessage
-            message={null}
-            validRow={true}
-          />
+              </div>
+            </div>
+          </Surrounder>
         </div>
       </FormField>
-    </CashFlowContainer>
+    </CashFlowRow>
   </MonthlyCashFlowRow>
 </PlainRentRow>
 `;

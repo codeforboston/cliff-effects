@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { CashFlowContainer } from '../../../forms/cashflow';
+import { CashFlowRow } from '../../../forms/cashflow';
 
-describe('<CashFlowContainer>', () => {
+describe('<CashFlowRow>', () => {
   it('matches snapshot', () => {
     const child = <span>Some content</span>;
 
@@ -12,7 +12,7 @@ describe('<CashFlowContainer>', () => {
       validRow: true,
       children: child,
     };
-    expect(mount(<CashFlowContainer { ...validProps } />)).toMatchSnapshot();
+    expect(mount(<CashFlowRow { ...validProps } />)).toMatchSnapshot();
 
     const invalidProps = {
       label:    'Rent',
@@ -20,6 +20,6 @@ describe('<CashFlowContainer>', () => {
       message:  'What did you enter!?',
       children: child,
     };
-    expect(mount(<CashFlowContainer { ...invalidProps } />)).toMatchSnapshot();
+    expect(mount(<CashFlowRow { ...invalidProps } />)).toMatchSnapshot();
   });
 });

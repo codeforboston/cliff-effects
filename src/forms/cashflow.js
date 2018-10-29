@@ -4,6 +4,7 @@ import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { ManagedNumberField } from './inputs';
+import { Surrounder } from '../components/Surrounder';
 import { InvalidMessage } from './formHelpers';
 
 // UTILITIES
@@ -23,28 +24,35 @@ import { toMoneyStr } from '../utils/prettifiers';
  *
  * @returns React element
  */
-const CashFlowContainer = function ({ children, label, validRow, message }) {
+const CashFlowRow = function ({ children, label, validRow, message }) {
+
+  var Top;
+  if (!validRow) {
+    Top = (<InvalidMessage validRow={ validRow }>{ message }</InvalidMessage>);
+  } else {
+    Top = (<span>{ message }</span>);
+  }
+
   return (
     <Form.Field
       inline
       className={ 'cashflow' }>
-      { children }
-      <div className={ 'cashflow-column cashflow-column-last-child' }>
-        <label>{ label }</label>
-      </div>
-      <InvalidMessage
-        validRow={ validRow }
-        message={ message } />
+      <Surrounder Top = { Top }>
+        { children }
+        <div className={ 'cashflow-column cashflow-column-last-child' }>
+          <label>{ label }</label>
+        </div>
+      </Surrounder>
     </Form.Field>
   );
-};  // End <CashFlowContainer>
+};  // End <CashFlowRow>
+
 
 /** Maximum input value of yearly income allowed in the textbox,
  *     monthly/daily will be scaled
  * @var
  */
 const maximum_value_yearly = 999999.99;
-
 
 // @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
 // use `includes` array to include only certain columns perhaps.
@@ -60,21 +68,21 @@ const maximum_value_yearly = 999999.99;
 class CashFlowInputsRow extends Component {
   constructor(props) {
     super(props);
-    this.state = { message: '' };
+    this.state = { valid: true, message: null };
   }
 
   // Special store validator that handles maximums and sets error message
   cashFlowStoreValidator = (max) => {
     return (str) => {
       if (!isNonNegNumber(str)) {
-        this.setState({ message: 'Invalid number format' });
+        this.setState({ valid: false, message: 'Invalid number format' });
         return false;
       }
       else if (parseFloat(str) > max) {
-        this.setState({ message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
+        this.setState({ valid: false, message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
         return false;
       }
-      this.setState({ message: '' });
+      this.setState({ valid: true, message: null });
       return true;
     };
   };
@@ -109,9 +117,9 @@ class CashFlowInputsRow extends Component {
     var cashFlowStoreValidator = this.cashFlowStoreValidator;
   
     return (
-      <CashFlowContainer
+      <CashFlowRow
         label={ children }
-        validRow={ !this.state.message }
+        validRow={ true }
         message={ this.state.message }>
         <ManagedNumberField
           storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
@@ -128,7 +136,7 @@ class CashFlowInputsRow extends Component {
           { ...baseProps }
           value     = { baseVal * 12 }
           otherData = {{ interval: 'yearly' }} />
-      </CashFlowContainer>
+      </CashFlowRow>
     );
   }
 }
@@ -191,12 +199,12 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
   };
 
   return (
-    <CashFlowContainer { ...rowProps }>
+    <CashFlowRow { ...rowProps }>
       <ManagedNumberField
         { ...inputProps }
         value={ baseValue }
         otherData={{ interval: 'monthly' }} />
-    </CashFlowContainer>
+    </CashFlowRow>
   );
 
 };  // End <MonthlyCashFlowRow>
@@ -219,7 +227,7 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
 
 
 export {
-  CashFlowContainer,
+  CashFlowRow,
   CashFlowInputsRow,
   CashFlowDisplayRow,
   MonthlyCashFlowRow,

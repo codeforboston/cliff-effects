@@ -116,7 +116,6 @@ Used to fill vertical space.
 
 .ui.form h4.ui.header.cashflow-column,
 .ui.form .cashflow .cashflow-column {
-  display: inline-block;
   margin-right: .2em !important;
   width: 7em;
   text-align: center;
@@ -124,6 +123,7 @@ Used to fill vertical space.
 
 .ui.form h4.ui.header.cashflow-column {
   margin-top: 0;
+  display: inline-block;
 }
 
 #cliff-effects-tool .form .cashflow .cashflow-column.output-number,
@@ -144,11 +144,15 @@ Used to fill vertical space.
 }
 
 .ui.form h4.ui.header.cashflow-column:last-child,
-.ui.form .cashflow .cashflow-column:last-child,
 .ui.form .cashflow .cashflow-column-last-child {
   text-align: left;
   width: auto;
   padding-left: 1em !important;
+}
+
+.ui.form .cashflow .cashflow-column {
+  display: flex;
+  align-items: center;
 }
 
 /* One of these two groups */
@@ -383,13 +387,12 @@ i.icon.details-icon {
 .surrounder .horizontal,
 .surrounder .vertical {
   display: flex;
-  justify-content: space-between;
   align-content: stretch;
-  align-items: stretch;
 }
 
 .surrounder .horizontal {
   flex-direction: row;
+  justify-content: space-between;
   align-items: stretch;
 }
 
@@ -513,6 +516,12 @@ STYLES FOR COMMUNICATION
 
 #App .button.caution:hover {
   background-color: #d16614;
+}
+
+#root .invalid {
+  color: red;
+  font-weight: 700;
+  margin-bottom: .4rem;
 }
 
 /*

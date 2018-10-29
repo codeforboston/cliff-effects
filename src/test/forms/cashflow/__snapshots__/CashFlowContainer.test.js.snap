@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CashFlowContainer> matches snapshot 1`] = `
-<CashFlowContainer
+exports[`<CashFlowRow> matches snapshot 1`] = `
+<CashFlowRow
   label="Rent"
   validRow={true}
 >
@@ -12,26 +12,44 @@ exports[`<CashFlowContainer> matches snapshot 1`] = `
     <div
       className="inline field cashflow"
     >
-      <span>
-        Some content
-      </span>
-      <div
-        className="cashflow-column cashflow-column-last-child"
+      <Surrounder
+        Top={<span />}
       >
-        <label>
-          Rent
-        </label>
-      </div>
-      <InvalidMessage
-        validRow={true}
-      />
+        <div
+          className="surrounder"
+        >
+          <div
+            className="top horizontal"
+          >
+            <span />
+          </div>
+          <div
+            className="middle horizontal"
+          >
+            <div
+              className="center horizontal content"
+            >
+              <span>
+                Some content
+              </span>
+              <div
+                className="cashflow-column cashflow-column-last-child"
+              >
+                <label>
+                  Rent
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Surrounder>
     </div>
   </FormField>
-</CashFlowContainer>
+</CashFlowRow>
 `;
 
-exports[`<CashFlowContainer> matches snapshot 2`] = `
-<CashFlowContainer
+exports[`<CashFlowRow> matches snapshot 2`] = `
+<CashFlowRow
   label="Rent"
   message="What did you enter!?"
   validRow={false}
@@ -43,34 +61,52 @@ exports[`<CashFlowContainer> matches snapshot 2`] = `
     <div
       className="inline field cashflow"
     >
-      <span>
-        Some content
-      </span>
-      <div
-        className="cashflow-column cashflow-column-last-child"
-      >
-        <label>
-          Rent
-        </label>
-      </div>
-      <InvalidMessage
-        message="What did you enter!?"
-        validRow={false}
-      >
-        <Label
-          basic={true}
-          color="red"
-          pointing="left"
-        >
-          <div
-            className="ui red left pointing basic label"
-            onClick={[Function]}
+      <Surrounder
+        Top={
+          <InvalidMessage
+            validRow={false}
           >
             What did you enter!?
+          </InvalidMessage>
+        }
+      >
+        <div
+          className="surrounder"
+        >
+          <div
+            className="top horizontal"
+          >
+            <InvalidMessage
+              validRow={false}
+            >
+              <div
+                className="invalid "
+              >
+                What did you enter!?
+              </div>
+            </InvalidMessage>
           </div>
-        </Label>
-      </InvalidMessage>
+          <div
+            className="middle horizontal"
+          >
+            <div
+              className="center horizontal content"
+            >
+              <span>
+                Some content
+              </span>
+              <div
+                className="cashflow-column cashflow-column-last-child"
+              >
+                <label>
+                  Rent
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Surrounder>
     </div>
   </FormField>
-</CashFlowContainer>
+</CashFlowRow>
 `;
