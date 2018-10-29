@@ -19,7 +19,7 @@ import {
 *
 * @returns {object} React element
 */
-const BigButton = function ({ children, className, overrides }) {
+const BigButton = function ({ children, className, overrides, ...otherProps }) {
 
   if (!overrides) {
     overrides = {};
@@ -31,6 +31,7 @@ const BigButton = function ({ children, className, overrides }) {
   }
 
   const overriddenDefaults = {
+    ...otherProps,
     type:      `button`,
     color:     `teal`,
     size:      `large`,
