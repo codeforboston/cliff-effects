@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ContentH1> matches snapshot 1`] = `
+exports[`<ContentH1> renders subheading 1`] = `
 <ContentH1
   subheading="Less important text"
 >

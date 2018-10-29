@@ -11,7 +11,9 @@ describe('Test ButtonReset component', () => {
   it('Test click event', () => {
     let mockCallBack = jest.fn();
 
-    let button = shallow(<ButtonReset onClick={mockCallBack} snippets={{}}></ButtonReset> )
+    let button = shallow(<ButtonReset
+      onClick={ mockCallBack }
+      snippets={{}} />);
     button.find('BigButton').simulate('click');
 
     expect(mockCallBack).toHaveBeenCalled();

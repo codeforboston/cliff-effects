@@ -1,520 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<StackedBarGraph> matches snapshot 1`] = `
-<StackedBarGraph
-  client={
-    Object {
-      "current": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 0,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-      "future": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 0,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-    }
-  }
->
-  <Bar
-    data={
-      Object {
-        "datasets": Array [
-          Object {
-            "backgroundColor": "rgb(136, 187, 236)",
-            "data": Array [
-              0,
-              0,
-            ],
-            "fill": "origin",
-            "label": "Income",
-          },
-        ],
-        "labels": Array [
-          0,
-          0,
-        ],
-      }
-    }
-    options={
-      Object {
-        "scales": Object {
-          "xAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Monthly Income ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "callback": [Function],
-              },
-            },
-          ],
-          "yAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Total Money Coming In ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "beginAtZero": true,
-                "callback": [Function],
-              },
-            },
-          ],
-        },
-        "title": Object {
-          "display": true,
-          "text": "Money Coming In as Income Changes",
-        },
-        "tooltips": Object {
-          "callbacks": Object {
-            "label": [Function],
-            "title": [Function],
-          },
-        },
-      }
-    }
-  >
-    <BarMock
-      data={
-        Object {
-          "datasets": Array [
-            Object {
-              "backgroundColor": "rgb(136, 187, 236)",
-              "data": Array [
-                0,
-                0,
-              ],
-              "fill": "origin",
-              "label": "Income",
-            },
-          ],
-          "labels": Array [
-            0,
-            0,
-          ],
-        }
-      }
-      options={
-        Object {
-          "scales": Object {
-            "xAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Monthly Income ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "callback": [Function],
-                },
-              },
-            ],
-            "yAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Total Money Coming In ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "beginAtZero": true,
-                  "callback": [Function],
-                },
-              },
-            ],
-          },
-          "title": Object {
-            "display": true,
-            "text": "Money Coming In as Income Changes",
-          },
-          "tooltips": Object {
-            "callbacks": Object {
-              "label": [Function],
-              "title": [Function],
-            },
-          },
-        }
-      }
-    />
-  </Bar>
-</StackedBarGraph>
-`;
-
-exports[`<StackedBarGraph> matches snapshot 2`] = `
-<StackedBarGraph
-  client={
-    Object {
-      "current": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 0,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": true,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-      "future": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 0,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-    }
-  }
->
-  <Bar
-    data={
-      Object {
-        "datasets": Array [
-          Object {
-            "backgroundColor": "rgb(136, 187, 236)",
-            "data": Array [
-              0,
-              0,
-            ],
-            "fill": "origin",
-            "label": "Income",
-          },
-          Object {
-            "backgroundColor": "rgba(101, 47, 138, 1)",
-            "data": Array [
-              192,
-              192,
-            ],
-            "label": "SNAP",
-          },
-        ],
-        "labels": Array [
-          0,
-          0,
-        ],
-      }
-    }
-    options={
-      Object {
-        "scales": Object {
-          "xAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Monthly Income ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "callback": [Function],
-              },
-            },
-          ],
-          "yAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Total Money Coming In ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "beginAtZero": true,
-                "callback": [Function],
-              },
-            },
-          ],
-        },
-        "title": Object {
-          "display": true,
-          "text": "Money Coming In as Income Changes",
-        },
-        "tooltips": Object {
-          "callbacks": Object {
-            "label": [Function],
-            "title": [Function],
-          },
-        },
-      }
-    }
-  >
-    <BarMock
-      data={
-        Object {
-          "datasets": Array [
-            Object {
-              "backgroundColor": "rgb(136, 187, 236)",
-              "data": Array [
-                0,
-                0,
-              ],
-              "fill": "origin",
-              "label": "Income",
-            },
-            Object {
-              "backgroundColor": "rgba(101, 47, 138, 1)",
-              "data": Array [
-                192,
-                192,
-              ],
-              "label": "SNAP",
-            },
-          ],
-          "labels": Array [
-            0,
-            0,
-          ],
-        }
-      }
-      options={
-        Object {
-          "scales": Object {
-            "xAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Monthly Income ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "callback": [Function],
-                },
-              },
-            ],
-            "yAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Total Money Coming In ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "beginAtZero": true,
-                  "callback": [Function],
-                },
-              },
-            ],
-          },
-          "title": Object {
-            "display": true,
-            "text": "Money Coming In as Income Changes",
-          },
-          "tooltips": Object {
-            "callbacks": Object {
-              "label": [Function],
-              "title": [Function],
-            },
-          },
-        }
-      }
-    />
-  </Bar>
-</StackedBarGraph>
-`;
-
-exports[`<StackedBarGraph> matches snapshot 3`] = `
+exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
 <StackedBarGraph
   client={
     Object {
@@ -540,272 +26,7 @@ exports[`<StackedBarGraph> matches snapshot 3`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": true,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-      "future": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 0,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-    }
-  }
->
-  <Bar
-    data={
-      Object {
-        "datasets": Array [
-          Object {
-            "backgroundColor": "rgb(136, 187, 236)",
-            "data": Array [
-              100,
-              0,
-            ],
-            "fill": "origin",
-            "label": "Income",
-          },
-          Object {
-            "backgroundColor": "rgba(101, 47, 138, 1)",
-            "data": Array [
-              192,
-              192,
-            ],
-            "label": "SNAP",
-          },
-        ],
-        "labels": Array [
-          100,
-          0,
-        ],
-      }
-    }
-    options={
-      Object {
-        "scales": Object {
-          "xAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Monthly Income ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "callback": [Function],
-              },
-            },
-          ],
-          "yAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Total Money Coming In ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "beginAtZero": true,
-                "callback": [Function],
-              },
-            },
-          ],
-        },
-        "title": Object {
-          "display": true,
-          "text": "Money Coming In as Income Changes",
-        },
-        "tooltips": Object {
-          "callbacks": Object {
-            "label": [Function],
-            "title": [Function],
-          },
-        },
-      }
-    }
-  >
-    <BarMock
-      data={
-        Object {
-          "datasets": Array [
-            Object {
-              "backgroundColor": "rgb(136, 187, 236)",
-              "data": Array [
-                100,
-                0,
-              ],
-              "fill": "origin",
-              "label": "Income",
-            },
-            Object {
-              "backgroundColor": "rgba(101, 47, 138, 1)",
-              "data": Array [
-                192,
-                192,
-              ],
-              "label": "SNAP",
-            },
-          ],
-          "labels": Array [
-            100,
-            0,
-          ],
-        }
-      }
-      options={
-        Object {
-          "scales": Object {
-            "xAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Monthly Income ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "callback": [Function],
-                },
-              },
-            ],
-            "yAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Total Money Coming In ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "beginAtZero": true,
-                  "callback": [Function],
-                },
-              },
-            ],
-          },
-          "title": Object {
-            "display": true,
-            "text": "Money Coming In as Income Changes",
-          },
-          "tooltips": Object {
-            "callbacks": Object {
-              "label": [Function],
-              "title": [Function],
-            },
-          },
-        }
-      }
-    />
-  </Bar>
-</StackedBarGraph>
-`;
-
-exports[`<StackedBarGraph> matches snapshot 4`] = `
-<StackedBarGraph
-  client={
-    Object {
-      "current": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 100,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
+        "hasSection8": true,
         "hasSnap": true,
         "household": Array [
           Object {
@@ -914,6 +135,817 @@ exports[`<StackedBarGraph> matches snapshot 4`] = `
             "label": "Income",
           },
           Object {
+            "backgroundColor": "rgba(206, 203, 61, 1)",
+            "data": Array [
+              0,
+              0,
+            ],
+            "label": "Section 8 Housing",
+          },
+          Object {
+            "backgroundColor": "rgba(101, 47, 138, 1)",
+            "data": Array [
+              192,
+              192,
+            ],
+            "label": "SNAP",
+          },
+        ],
+        "labels": Array [
+          100,
+          200,
+        ],
+      }
+    }
+    options={
+      Object {
+        "scales": Object {
+          "xAxes": Array [
+            Object {
+              "scaleLabel": Object {
+                "display": true,
+                "labelString": "Monthly Income ($)",
+              },
+              "stacked": true,
+              "ticks": Object {
+                "callback": [Function],
+              },
+            },
+          ],
+          "yAxes": Array [
+            Object {
+              "scaleLabel": Object {
+                "display": true,
+                "labelString": "Total Money Coming In ($)",
+              },
+              "stacked": true,
+              "ticks": Object {
+                "beginAtZero": true,
+                "callback": [Function],
+              },
+            },
+          ],
+        },
+        "title": Object {
+          "display": true,
+          "text": "Money Coming In as Income Changes",
+        },
+        "tooltips": Object {
+          "callbacks": Object {
+            "label": [Function],
+            "title": [Function],
+          },
+        },
+      }
+    }
+  >
+    <BarMock
+      data={
+        Object {
+          "datasets": Array [
+            Object {
+              "backgroundColor": "rgb(136, 187, 236)",
+              "data": Array [
+                100,
+                200,
+              ],
+              "fill": "origin",
+              "label": "Income",
+            },
+            Object {
+              "backgroundColor": "rgba(206, 203, 61, 1)",
+              "data": Array [
+                0,
+                0,
+              ],
+              "label": "Section 8 Housing",
+            },
+            Object {
+              "backgroundColor": "rgba(101, 47, 138, 1)",
+              "data": Array [
+                192,
+                192,
+              ],
+              "label": "SNAP",
+            },
+          ],
+          "labels": Array [
+            100,
+            200,
+          ],
+        }
+      }
+      options={
+        Object {
+          "scales": Object {
+            "xAxes": Array [
+              Object {
+                "scaleLabel": Object {
+                  "display": true,
+                  "labelString": "Monthly Income ($)",
+                },
+                "stacked": true,
+                "ticks": Object {
+                  "callback": [Function],
+                },
+              },
+            ],
+            "yAxes": Array [
+              Object {
+                "scaleLabel": Object {
+                  "display": true,
+                  "labelString": "Total Money Coming In ($)",
+                },
+                "stacked": true,
+                "ticks": Object {
+                  "beginAtZero": true,
+                  "callback": [Function],
+                },
+              },
+            ],
+          },
+          "title": Object {
+            "display": true,
+            "text": "Money Coming In as Income Changes",
+          },
+          "tooltips": Object {
+            "callbacks": Object {
+              "label": [Function],
+              "title": [Function],
+            },
+          },
+        }
+      }
+    />
+  </Bar>
+</StackedBarGraph>
+`;
+
+exports[`<StackedBarGraph> renders with section8 1`] = `
+<StackedBarGraph
+  client={
+    Object {
+      "current": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 100,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": true,
+        "hasSnap": false,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+      "future": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 200,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": false,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+    }
+  }
+>
+  <Bar
+    data={
+      Object {
+        "datasets": Array [
+          Object {
+            "backgroundColor": "rgb(136, 187, 236)",
+            "data": Array [
+              100,
+              200,
+            ],
+            "fill": "origin",
+            "label": "Income",
+          },
+          Object {
+            "backgroundColor": "rgba(206, 203, 61, 1)",
+            "data": Array [
+              0,
+              0,
+            ],
+            "label": "Section 8 Housing",
+          },
+        ],
+        "labels": Array [
+          100,
+          200,
+        ],
+      }
+    }
+    options={
+      Object {
+        "scales": Object {
+          "xAxes": Array [
+            Object {
+              "scaleLabel": Object {
+                "display": true,
+                "labelString": "Monthly Income ($)",
+              },
+              "stacked": true,
+              "ticks": Object {
+                "callback": [Function],
+              },
+            },
+          ],
+          "yAxes": Array [
+            Object {
+              "scaleLabel": Object {
+                "display": true,
+                "labelString": "Total Money Coming In ($)",
+              },
+              "stacked": true,
+              "ticks": Object {
+                "beginAtZero": true,
+                "callback": [Function],
+              },
+            },
+          ],
+        },
+        "title": Object {
+          "display": true,
+          "text": "Money Coming In as Income Changes",
+        },
+        "tooltips": Object {
+          "callbacks": Object {
+            "label": [Function],
+            "title": [Function],
+          },
+        },
+      }
+    }
+  >
+    <BarMock
+      data={
+        Object {
+          "datasets": Array [
+            Object {
+              "backgroundColor": "rgb(136, 187, 236)",
+              "data": Array [
+                100,
+                200,
+              ],
+              "fill": "origin",
+              "label": "Income",
+            },
+            Object {
+              "backgroundColor": "rgba(206, 203, 61, 1)",
+              "data": Array [
+                0,
+                0,
+              ],
+              "label": "Section 8 Housing",
+            },
+          ],
+          "labels": Array [
+            100,
+            200,
+          ],
+        }
+      }
+      options={
+        Object {
+          "scales": Object {
+            "xAxes": Array [
+              Object {
+                "scaleLabel": Object {
+                  "display": true,
+                  "labelString": "Monthly Income ($)",
+                },
+                "stacked": true,
+                "ticks": Object {
+                  "callback": [Function],
+                },
+              },
+            ],
+            "yAxes": Array [
+              Object {
+                "scaleLabel": Object {
+                  "display": true,
+                  "labelString": "Total Money Coming In ($)",
+                },
+                "stacked": true,
+                "ticks": Object {
+                  "beginAtZero": true,
+                  "callback": [Function],
+                },
+              },
+            ],
+          },
+          "title": Object {
+            "display": true,
+            "text": "Money Coming In as Income Changes",
+          },
+          "tooltips": Object {
+            "callbacks": Object {
+              "label": [Function],
+              "title": [Function],
+            },
+          },
+        }
+      }
+    />
+  </Bar>
+</StackedBarGraph>
+`;
+
+exports[`<StackedBarGraph> renders with snap and current earned greater than future earned 1`] = `
+<StackedBarGraph
+  client={
+    Object {
+      "current": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 200,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": true,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+      "future": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 100,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": false,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+    }
+  }
+>
+  <Bar
+    data={
+      Object {
+        "datasets": Array [
+          Object {
+            "backgroundColor": "rgb(136, 187, 236)",
+            "data": Array [
+              200,
+              100,
+            ],
+            "fill": "origin",
+            "label": "Income",
+          },
+          Object {
+            "backgroundColor": "rgba(101, 47, 138, 1)",
+            "data": Array [
+              192,
+              192,
+            ],
+            "label": "SNAP",
+          },
+        ],
+        "labels": Array [
+          200,
+          100,
+        ],
+      }
+    }
+    options={
+      Object {
+        "scales": Object {
+          "xAxes": Array [
+            Object {
+              "scaleLabel": Object {
+                "display": true,
+                "labelString": "Monthly Income ($)",
+              },
+              "stacked": true,
+              "ticks": Object {
+                "callback": [Function],
+              },
+            },
+          ],
+          "yAxes": Array [
+            Object {
+              "scaleLabel": Object {
+                "display": true,
+                "labelString": "Total Money Coming In ($)",
+              },
+              "stacked": true,
+              "ticks": Object {
+                "beginAtZero": true,
+                "callback": [Function],
+              },
+            },
+          ],
+        },
+        "title": Object {
+          "display": true,
+          "text": "Money Coming In as Income Changes",
+        },
+        "tooltips": Object {
+          "callbacks": Object {
+            "label": [Function],
+            "title": [Function],
+          },
+        },
+      }
+    }
+  >
+    <BarMock
+      data={
+        Object {
+          "datasets": Array [
+            Object {
+              "backgroundColor": "rgb(136, 187, 236)",
+              "data": Array [
+                200,
+                100,
+              ],
+              "fill": "origin",
+              "label": "Income",
+            },
+            Object {
+              "backgroundColor": "rgba(101, 47, 138, 1)",
+              "data": Array [
+                192,
+                192,
+              ],
+              "label": "SNAP",
+            },
+          ],
+          "labels": Array [
+            200,
+            100,
+          ],
+        }
+      }
+      options={
+        Object {
+          "scales": Object {
+            "xAxes": Array [
+              Object {
+                "scaleLabel": Object {
+                  "display": true,
+                  "labelString": "Monthly Income ($)",
+                },
+                "stacked": true,
+                "ticks": Object {
+                  "callback": [Function],
+                },
+              },
+            ],
+            "yAxes": Array [
+              Object {
+                "scaleLabel": Object {
+                  "display": true,
+                  "labelString": "Total Money Coming In ($)",
+                },
+                "stacked": true,
+                "ticks": Object {
+                  "beginAtZero": true,
+                  "callback": [Function],
+                },
+              },
+            ],
+          },
+          "title": Object {
+            "display": true,
+            "text": "Money Coming In as Income Changes",
+          },
+          "tooltips": Object {
+            "callbacks": Object {
+              "label": [Function],
+              "title": [Function],
+            },
+          },
+        }
+      }
+    />
+  </Bar>
+</StackedBarGraph>
+`;
+
+exports[`<StackedBarGraph> renders with snap and current earned less than future earned 1`] = `
+<StackedBarGraph
+  client={
+    Object {
+      "current": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 100,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": true,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+      "future": Object {
+        "SSDI": 0,
+        "SSI": 0,
+        "TAFDC": 0,
+        "adultDirectCare": 0,
+        "adultOtherCare": 0,
+        "adultTransportation": 0,
+        "alimony": 0,
+        "childBeforeAndAfterSchoolCare": 0,
+        "childDirectCare": 0,
+        "childOtherCare": 0,
+        "childSupportIn": 0,
+        "childSupportPaidOut": 0,
+        "childTransportation": 0,
+        "climateControl": false,
+        "contractRent": 0,
+        "disabledAssistance": 0,
+        "disabledMedical": 0,
+        "earned": 200,
+        "earnedBecauseOfAdultCare": 0,
+        "earnedBecauseOfChildCare": 0,
+        "fuelAssistance": false,
+        "hasSection8": false,
+        "hasSnap": false,
+        "household": Array [
+          Object {
+            "m_age": 30,
+            "m_disabled": false,
+            "m_role": "head",
+          },
+        ],
+        "housing": "homeless",
+        "housingInsurance": 0,
+        "mortgage": 0,
+        "nonHeatElectricity": false,
+        "otherExpensesCable": 0,
+        "otherExpensesCareProducts": 0,
+        "otherExpensesClothes": 0,
+        "otherExpensesEntertainment": 0,
+        "otherExpensesFood": 0,
+        "otherExpensesMedical": 0,
+        "otherExpensesOther": 0,
+        "otherExpensesPhone": 0,
+        "otherExpensesTransport": 0,
+        "otherExpensesUtilities": 0,
+        "otherIncome": 0,
+        "otherMedical": 0,
+        "pension": 0,
+        "phone": false,
+        "propertyTax": 0,
+        "rent": 0,
+        "rentShare": 0,
+        "socialSecurity": 0,
+        "unemployment": 0,
+        "wantsToSeeOtherExpenses": false,
+        "workersComp": 0,
+      },
+    }
+  }
+>
+  <Bar
+    data={
+      Object {
+        "datasets": Array [
+          Object {
+            "backgroundColor": "rgb(136, 187, 236)",
+            "data": Array [
+              100,
+              200,
+            ],
+            "fill": "origin",
+            "label": "Income",
+          },
+          Object {
             "backgroundColor": "rgba(101, 47, 138, 1)",
             "data": Array [
               192,
@@ -995,833 +1027,6 @@ exports[`<StackedBarGraph> matches snapshot 4`] = `
           "labels": Array [
             100,
             200,
-          ],
-        }
-      }
-      options={
-        Object {
-          "scales": Object {
-            "xAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Monthly Income ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "callback": [Function],
-                },
-              },
-            ],
-            "yAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Total Money Coming In ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "beginAtZero": true,
-                  "callback": [Function],
-                },
-              },
-            ],
-          },
-          "title": Object {
-            "display": true,
-            "text": "Money Coming In as Income Changes",
-          },
-          "tooltips": Object {
-            "callbacks": Object {
-              "label": [Function],
-              "title": [Function],
-            },
-          },
-        }
-      }
-    />
-  </Bar>
-</StackedBarGraph>
-`;
-
-exports[`<StackedBarGraph> matches snapshot 5`] = `
-<StackedBarGraph
-  client={
-    Object {
-      "current": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 300,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": true,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-      "future": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 200,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-    }
-  }
->
-  <Bar
-    data={
-      Object {
-        "datasets": Array [
-          Object {
-            "backgroundColor": "rgb(136, 187, 236)",
-            "data": Array [
-              300,
-              200,
-            ],
-            "fill": "origin",
-            "label": "Income",
-          },
-          Object {
-            "backgroundColor": "rgba(101, 47, 138, 1)",
-            "data": Array [
-              192,
-              192,
-            ],
-            "label": "SNAP",
-          },
-        ],
-        "labels": Array [
-          300,
-          200,
-        ],
-      }
-    }
-    options={
-      Object {
-        "scales": Object {
-          "xAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Monthly Income ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "callback": [Function],
-              },
-            },
-          ],
-          "yAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Total Money Coming In ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "beginAtZero": true,
-                "callback": [Function],
-              },
-            },
-          ],
-        },
-        "title": Object {
-          "display": true,
-          "text": "Money Coming In as Income Changes",
-        },
-        "tooltips": Object {
-          "callbacks": Object {
-            "label": [Function],
-            "title": [Function],
-          },
-        },
-      }
-    }
-  >
-    <BarMock
-      data={
-        Object {
-          "datasets": Array [
-            Object {
-              "backgroundColor": "rgb(136, 187, 236)",
-              "data": Array [
-                300,
-                200,
-              ],
-              "fill": "origin",
-              "label": "Income",
-            },
-            Object {
-              "backgroundColor": "rgba(101, 47, 138, 1)",
-              "data": Array [
-                192,
-                192,
-              ],
-              "label": "SNAP",
-            },
-          ],
-          "labels": Array [
-            300,
-            200,
-          ],
-        }
-      }
-      options={
-        Object {
-          "scales": Object {
-            "xAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Monthly Income ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "callback": [Function],
-                },
-              },
-            ],
-            "yAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Total Money Coming In ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "beginAtZero": true,
-                  "callback": [Function],
-                },
-              },
-            ],
-          },
-          "title": Object {
-            "display": true,
-            "text": "Money Coming In as Income Changes",
-          },
-          "tooltips": Object {
-            "callbacks": Object {
-              "label": [Function],
-              "title": [Function],
-            },
-          },
-        }
-      }
-    />
-  </Bar>
-</StackedBarGraph>
-`;
-
-exports[`<StackedBarGraph> matches snapshot 6`] = `
-<StackedBarGraph
-  client={
-    Object {
-      "current": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 300,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": true,
-        "hasSnap": true,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-      "future": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 200,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-    }
-  }
->
-  <Bar
-    data={
-      Object {
-        "datasets": Array [
-          Object {
-            "backgroundColor": "rgb(136, 187, 236)",
-            "data": Array [
-              300,
-              200,
-            ],
-            "fill": "origin",
-            "label": "Income",
-          },
-          Object {
-            "backgroundColor": "rgba(206, 203, 61, 1)",
-            "data": Array [
-              0,
-              30,
-            ],
-            "label": "Section 8 Housing",
-          },
-          Object {
-            "backgroundColor": "rgba(101, 47, 138, 1)",
-            "data": Array [
-              192,
-              192,
-            ],
-            "label": "SNAP",
-          },
-        ],
-        "labels": Array [
-          300,
-          200,
-        ],
-      }
-    }
-    options={
-      Object {
-        "scales": Object {
-          "xAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Monthly Income ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "callback": [Function],
-              },
-            },
-          ],
-          "yAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Total Money Coming In ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "beginAtZero": true,
-                "callback": [Function],
-              },
-            },
-          ],
-        },
-        "title": Object {
-          "display": true,
-          "text": "Money Coming In as Income Changes",
-        },
-        "tooltips": Object {
-          "callbacks": Object {
-            "label": [Function],
-            "title": [Function],
-          },
-        },
-      }
-    }
-  >
-    <BarMock
-      data={
-        Object {
-          "datasets": Array [
-            Object {
-              "backgroundColor": "rgb(136, 187, 236)",
-              "data": Array [
-                300,
-                200,
-              ],
-              "fill": "origin",
-              "label": "Income",
-            },
-            Object {
-              "backgroundColor": "rgba(206, 203, 61, 1)",
-              "data": Array [
-                0,
-                30,
-              ],
-              "label": "Section 8 Housing",
-            },
-            Object {
-              "backgroundColor": "rgba(101, 47, 138, 1)",
-              "data": Array [
-                192,
-                192,
-              ],
-              "label": "SNAP",
-            },
-          ],
-          "labels": Array [
-            300,
-            200,
-          ],
-        }
-      }
-      options={
-        Object {
-          "scales": Object {
-            "xAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Monthly Income ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "callback": [Function],
-                },
-              },
-            ],
-            "yAxes": Array [
-              Object {
-                "scaleLabel": Object {
-                  "display": true,
-                  "labelString": "Total Money Coming In ($)",
-                },
-                "stacked": true,
-                "ticks": Object {
-                  "beginAtZero": true,
-                  "callback": [Function],
-                },
-              },
-            ],
-          },
-          "title": Object {
-            "display": true,
-            "text": "Money Coming In as Income Changes",
-          },
-          "tooltips": Object {
-            "callbacks": Object {
-              "label": [Function],
-              "title": [Function],
-            },
-          },
-        }
-      }
-    />
-  </Bar>
-</StackedBarGraph>
-`;
-
-exports[`<StackedBarGraph> matches snapshot 7`] = `
-<StackedBarGraph
-  client={
-    Object {
-      "current": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 300,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": true,
-        "hasSnap": true,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-      "future": Object {
-        "SSDI": 0,
-        "SSI": 0,
-        "TAFDC": 0,
-        "adultDirectCare": 0,
-        "adultOtherCare": 0,
-        "adultTransportation": 0,
-        "alimony": 0,
-        "childBeforeAndAfterSchoolCare": 0,
-        "childDirectCare": 0,
-        "childOtherCare": 0,
-        "childSupportIn": 0,
-        "childSupportPaidOut": 0,
-        "childTransportation": 0,
-        "climateControl": false,
-        "contractRent": 0,
-        "disabledAssistance": 0,
-        "disabledMedical": 0,
-        "earned": 400,
-        "earnedBecauseOfAdultCare": 0,
-        "earnedBecauseOfChildCare": 0,
-        "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
-        "household": Array [
-          Object {
-            "m_age": 30,
-            "m_disabled": false,
-            "m_role": "head",
-          },
-        ],
-        "housing": "homeless",
-        "housingInsurance": 0,
-        "mortgage": 0,
-        "nonHeatElectricity": false,
-        "otherExpensesCable": 0,
-        "otherExpensesCareProducts": 0,
-        "otherExpensesClothes": 0,
-        "otherExpensesEntertainment": 0,
-        "otherExpensesFood": 0,
-        "otherExpensesMedical": 0,
-        "otherExpensesOther": 0,
-        "otherExpensesPhone": 0,
-        "otherExpensesTransport": 0,
-        "otherExpensesUtilities": 0,
-        "otherIncome": 0,
-        "otherMedical": 0,
-        "pension": 0,
-        "phone": false,
-        "propertyTax": 0,
-        "rent": 0,
-        "rentShare": 0,
-        "socialSecurity": 0,
-        "unemployment": 0,
-        "wantsToSeeOtherExpenses": false,
-        "workersComp": 0,
-      },
-    }
-  }
->
-  <Bar
-    data={
-      Object {
-        "datasets": Array [
-          Object {
-            "backgroundColor": "rgb(136, 187, 236)",
-            "data": Array [
-              300,
-              400,
-            ],
-            "fill": "origin",
-            "label": "Income",
-          },
-          Object {
-            "backgroundColor": "rgba(206, 203, 61, 1)",
-            "data": Array [
-              0,
-              0,
-            ],
-            "label": "Section 8 Housing",
-          },
-          Object {
-            "backgroundColor": "rgba(101, 47, 138, 1)",
-            "data": Array [
-              192,
-              186.9,
-            ],
-            "label": "SNAP",
-          },
-        ],
-        "labels": Array [
-          300,
-          400,
-        ],
-      }
-    }
-    options={
-      Object {
-        "scales": Object {
-          "xAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Monthly Income ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "callback": [Function],
-              },
-            },
-          ],
-          "yAxes": Array [
-            Object {
-              "scaleLabel": Object {
-                "display": true,
-                "labelString": "Total Money Coming In ($)",
-              },
-              "stacked": true,
-              "ticks": Object {
-                "beginAtZero": true,
-                "callback": [Function],
-              },
-            },
-          ],
-        },
-        "title": Object {
-          "display": true,
-          "text": "Money Coming In as Income Changes",
-        },
-        "tooltips": Object {
-          "callbacks": Object {
-            "label": [Function],
-            "title": [Function],
-          },
-        },
-      }
-    }
-  >
-    <BarMock
-      data={
-        Object {
-          "datasets": Array [
-            Object {
-              "backgroundColor": "rgb(136, 187, 236)",
-              "data": Array [
-                300,
-                400,
-              ],
-              "fill": "origin",
-              "label": "Income",
-            },
-            Object {
-              "backgroundColor": "rgba(206, 203, 61, 1)",
-              "data": Array [
-                0,
-                0,
-              ],
-              "label": "Section 8 Housing",
-            },
-            Object {
-              "backgroundColor": "rgba(101, 47, 138, 1)",
-              "data": Array [
-                192,
-                186.9,
-              ],
-              "label": "SNAP",
-            },
-          ],
-          "labels": Array [
-            300,
-            400,
           ],
         }
       }

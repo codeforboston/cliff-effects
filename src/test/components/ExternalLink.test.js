@@ -4,7 +4,12 @@ import { mount } from 'enzyme';
 import { ExternalLink } from '../../components/ExternalLink';
 
 describe('<ExternalLink>', () => {
-  it('matches snapshot', () => {
-    expect(mount(<ExternalLink href="http://example.com" />)).toMatchSnapshot();
+  it('renders with provided props', () => {
+    const props = {
+      children:    <span className="some-icon" />,
+      href:        'http://example.com',
+      anotherprop: 'pass me through please',
+    };
+    expect(mount(<ExternalLink { ...props } />)).toMatchSnapshot();
   });
 });

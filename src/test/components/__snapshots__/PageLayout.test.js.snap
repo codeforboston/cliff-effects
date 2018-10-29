@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PageLayout> matches snapshot 1`] = `
+exports[`<PageLayout> renders children 1`] = `
 <PageLayout>
   <div>
     <Segment

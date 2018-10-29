@@ -1,54 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CashFlowRow> matches snapshot 1`] = `
-<CashFlowRow
-  label="Rent"
-  validRow={true}
->
-  <FormField
-    className="cashflow"
-    inline={true}
-  >
-    <div
-      className="inline field cashflow"
-    >
-      <Surrounder
-        Top={<span />}
-      >
-        <div
-          className="surrounder"
-        >
-          <div
-            className="top horizontal"
-          >
-            <span />
-          </div>
-          <div
-            className="middle horizontal"
-          >
-            <div
-              className="center horizontal content"
-            >
-              <span>
-                Some content
-              </span>
-              <div
-                className="cashflow-column cashflow-column-last-child"
-              >
-                <label>
-                  Rent
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Surrounder>
-    </div>
-  </FormField>
-</CashFlowRow>
-`;
-
-exports[`<CashFlowRow> matches snapshot 2`] = `
+exports[`<CashFlowRow> renders with message 1`] = `
 <CashFlowRow
   label="Rent"
   message="What did you enter!?"
@@ -85,6 +37,54 @@ exports[`<CashFlowRow> matches snapshot 2`] = `
                 What did you enter!?
               </div>
             </InvalidMessage>
+          </div>
+          <div
+            className="middle horizontal"
+          >
+            <div
+              className="center horizontal content"
+            >
+              <span>
+                Some content
+              </span>
+              <div
+                className="cashflow-column cashflow-column-last-child"
+              >
+                <label>
+                  Rent
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Surrounder>
+    </div>
+  </FormField>
+</CashFlowRow>
+`;
+
+exports[`<CashFlowRow> renders with no message 1`] = `
+<CashFlowRow
+  label="Rent"
+  validRow={true}
+>
+  <FormField
+    className="cashflow"
+    inline={true}
+  >
+    <div
+      className="inline field cashflow"
+    >
+      <Surrounder
+        Top={<span />}
+      >
+        <div
+          className="surrounder"
+        >
+          <div
+            className="top horizontal"
+          >
+            <span />
           </div>
           <div
             className="middle horizontal"

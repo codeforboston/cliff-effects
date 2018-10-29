@@ -4,11 +4,11 @@ import { mount } from 'enzyme';
 import { ContentSubH1 } from '../../../components/headings';
 
 describe('<ContentSubH1>', () => {
-  it('renders null when no children provided', () => {
-    expect(mount(<ContentSubH1 />).html()).toBe(null);
+  it('renders nothing when no children provided', () => {
+    expect(mount(<ContentSubH1 />).children().exists()).toBe(false);
   });
 
-  it('matches snapshot', () => {
+  it('renders content', () => {
     const wrapper = mount(
       <ContentSubH1>
         Some text
