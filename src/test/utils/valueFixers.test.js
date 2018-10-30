@@ -1,4 +1,4 @@
-import { returnSame, stringToNumber, toBoolean } from '../../utils/valueFixers';
+import { returnSame, toNumber, toBoolean } from '../../utils/valueFixers';
 
 
 test('returnSame()', ()=>{
@@ -16,16 +16,16 @@ test('returnSame()', ()=>{
   ]);
 });
 
-test('stringToNumber()', ()=>{
+test('toNumber()', ()=>{
 
   let wrongStr = function () {
-    stringToNumber('A');
+    toNumber('A');
   };
 
   expect(wrongStr).toThrow();
-  expect(stringToNumber('1')).toBe(1);
-  expect(stringToNumber('.2')).toBe(.2);
-  expect(stringToNumber('2.2')).toBe(2.2);
+  expect(toNumber('1')).toBe(1);
+  expect(toNumber('.2')).toBe(.2);
+  expect(toNumber('2.2')).toBe(2.2);
 });
 
 test('toBoolean()', ()=>{
