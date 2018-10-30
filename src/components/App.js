@@ -271,8 +271,7 @@ class App extends Component {
             state    = { this.state } />
         ) : (
           null
-        )
-        }
+        ) }
       </div>
     );
   };  // End render()
