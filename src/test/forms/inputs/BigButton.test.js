@@ -16,4 +16,14 @@ describe('<BigButton>', () => {
     expect(button.prop('color')).toEqual('red');
     expect(button.prop('className')).toEqual('big-button test');
   });
+
+  it(`renders BigButton with any given props`, () => {
+    const child = <span>Click me!</span>;
+    const button = mount(
+      <BigButton alt={ `test` }>
+        {child}
+      </BigButton>
+    ).find('Button');
+    expect(button.prop(`alt`)).toEqual(`test`);
+  });
 });
