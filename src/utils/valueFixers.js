@@ -24,8 +24,12 @@ const toBoolean = function (value) {
   }
 };
 
-/** Given a number or a string representing a number,
- *     returns a number.
+/** Given a number or a string representing a number, returns
+ *     a number. Needs both because it's used in setting valid
+ *     client values. Cash values will come in as numbers because
+ *     they have to be converted to monthly values. Other number
+ *     values, like age, will still be strings.
+ *
  * @param {number|string} numberOrString
  * @returns {number}
  */
