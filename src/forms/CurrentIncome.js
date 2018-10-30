@@ -5,7 +5,7 @@ import { Form } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
-import { ImmutableCashFlowInputsRow as CashFlowInputsRow } from './cashflow';
+import { CashFlowInputsRow } from './cashflow';
 
 
 // ========================================

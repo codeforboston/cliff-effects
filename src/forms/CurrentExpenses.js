@@ -10,7 +10,7 @@ import {
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
 import { AttentionArrow } from './formHelpers';
-import { ImmutableCashFlowInputsRow as CashFlowInputsRow } from './cashflow';
+import { CashFlowInputsRow } from './cashflow';
 import { ControlledRadioYesNo } from './inputs';
 import {
   ContentH1,
@@ -22,8 +22,6 @@ import {
   ImmutablePlainRentRow as PlainRentRow,
 } from './rentFields';
 import { HeadingWithDetail } from '../components/details';
-// Premature feature temporarily hidden to avoid messy revert
-// import { ExpensesOther } from './ExpensesOther';
 import { ShowOnYes } from './ShowOnYes';
 
 // LOGIC
@@ -528,17 +526,6 @@ const ExpensesFormContent = function ({ client, setExpenseValue, setHousingType,
         setGetsFuelAssistance={ setGetsFuelAssistance }
         setExpenseValue={ setExpenseValue }
         setHousingType={ setHousingType } />
-
-      {/* Premature feature temporarily hidden to avoid messy revert
-        <ShowOnYes
-          clientPartial = { current }
-          propName = { `wantsToSeeOtherExpenses` }
-          updateClientValue = { updateClientValue }
-          question = { `Do you want to enter your other expenses so you can see if you need to make a different plan?` }
-          heading = { `Other Expenses` }>
-          <ExpensesOther { ...sharedProps } />
-        </ShowOnYes>
-      */}
     </div>
   );
 

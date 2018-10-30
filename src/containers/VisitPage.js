@@ -25,7 +25,7 @@ import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
 import { CurrentIncomeStep } from '../containers/forms/CurrentIncome';
 import { CurrentExpensesStep } from '../containers/forms/CurrentExpenses';
-import { PredictionsStep } from '../forms/Predictions';
+import { PredictionsStep } from '../containers/forms/Predictions';
 import { HouseholdStep } from '../containers/forms/Household';
 import { CurrentBenefitsStep } from './forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
@@ -360,8 +360,7 @@ class VisitPage extends Component {
           className='flex-item flex-column'>
           <Responsive
             id = { `form-nav` }
-            minWidth='874.5'
-            >
+            minWidth='874.5'>
             <StepBar
               currentStepIndex={ this.state.currentStep }
               steps={ this.steps }
@@ -369,8 +368,7 @@ class VisitPage extends Component {
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
           <div
-            className="flex-item flex-column current-step-component"
-            >
+            className="flex-item flex-column current-step-component">
             { this.getCurrentStep(navData) }
           </div>
 

@@ -9,7 +9,6 @@ import { Header, Button } from 'semantic-ui-react';
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 // DATA MANIPULATION
-import { cloneDeep } from 'lodash';
 import { toMoneyStr } from '../../utils/prettifiers';
 
 // BENEFIT LOGIC
@@ -194,10 +193,10 @@ var fillInMoneyValues = (keys, sourceObject, index) => {
  * @returns {object}
  */
 var getBenefitData = function(client, resourceKeys) {
-
-  var clone  = cloneDeep(client),
-      // This is the data we need in the groupings we need it
-      result = {
+  // @todo: refactor to use Immutable collections
+  client = client.toJS();
+  // This is the data we need in the groupings we need it
+  var result = {
         current:  null,  // current money values,
         future:   null,  // future money values,
         diff:     0,
@@ -209,7 +208,7 @@ var getBenefitData = function(client, resourceKeys) {
   var defaultProps = {
     activeBenefits: resourceKeys,
     dataToAddTo:    accumulated,
-    clientToChange: clone,
+    clientToChange: client,
     timeframe:      `current`,
   };
   var currentCalcData = defaultProps;
@@ -238,7 +237,7 @@ var getBenefitData = function(client, resourceKeys) {
     // till the client is making more money than they are now
     while (recoveryAmount - resultCurr.total <= 0) {
 
-      clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
+      client.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
       applyAndPushBenefits(futureCalcData);
       // If has dramatic cliff, must have recovery
       recoveryAmount = totalLastItemsOfArraysInObject(accumulated);

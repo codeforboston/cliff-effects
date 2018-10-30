@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -45,7 +45,7 @@ const CashFlowContainer = function ({ children, label, validRow, message }) {
 const maximum_value_yearly = 999999.99;
 
 
-export class ImmutableCashFlowInputsRow extends React.PureComponent {
+class CashFlowInputsRow extends React.PureComponent {
   constructor(...args) {
     super(...args);
 
@@ -112,94 +112,6 @@ export class ImmutableCashFlowInputsRow extends React.PureComponent {
     );
   }
 }
-
-// @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
-// use `includes` array to include only certain columns perhaps.
-/** One row for cash flow inputs - weekly, monthly, yearly
- *
- * @param {object} props
- * @param {object} props.generic Base name for the client property that
- *     needs to be updated (now the code has changed, this may be a misnomer)
- * @param {object} props.timeState Client, either future values or current values
- * @param {object} props.updateClientValue Updates client state
- * @param {object} props.children Text for the row label
- */
-class CashFlowInputsRow extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { message: '' };
-  }
-
-  // Special store validator that handles maximums and sets error message
-  cashFlowStoreValidator = (max) => {
-    return (str) => {
-      if (!isNonNegNumber(str)) {
-        this.setState({ message: 'Invalid number format' });
-        return false;
-      }
-      else if (parseFloat(str) > max) {
-        this.setState({ message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
-        return false;
-      }
-      this.setState({ message: '' });
-      return true;
-    };
-  };
-
-  render() {
-    var { generic, timeState, updateClientValue, children } = this.props;
-
-    var updateClient = function (evnt, inputProps, data) {
-      var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
-          obj     = { name: generic, value: monthly };
-      updateClientValue(evnt, obj);
-    };
-  
-    
-  
-    /* Get the time ('future' or 'current') monthly value unless there is
-     * none, in which case, get the 'current' monthly cash flow value
-     * (to prefill future values with 'current' ones if needed).
-     *
-     * @todo Add some kind of UI indication when it's the same as the 'current'
-     * value. What if some of the row's values are the same and some are
-     * different? */
-    var baseVal   = timeState[ generic ],
-        baseProps = {
-          name:             generic,
-          className:        'cashflow-column',
-          store:            updateClient,
-          displayValidator: hasOnlyNonNegNumberChars,
-          format:           toMoneyStr,
-        };
-
-    var cashFlowStoreValidator = this.cashFlowStoreValidator;
-  
-    return (
-      <CashFlowContainer
-        label={ children }
-        validRow={ !this.state.message }
-        message={ this.state.message }>
-        <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
-          { ...baseProps }
-          value     = { baseVal / (4 + 1 / 3) }
-          otherData = {{ interval: 'weekly' }} />
-        <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 12) }
-          { ...baseProps }
-          value     = { baseVal }
-          otherData = {{ interval: 'monthly' }} />
-        <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly) }
-          { ...baseProps }
-          value     = { baseVal * 12 }
-          otherData = {{ interval: 'yearly' }} />
-      </CashFlowContainer>
-    );
-  }
-}
-
 
 /** Show a value, or the sum of multiple values, of data
  *     that the user has already put in from another input.
