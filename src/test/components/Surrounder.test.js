@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { Surrounder } from '../../components/Surrounder';
 
 describe('<Surrounder>', () => {
-  it('matches snapshot', () => {
+  it('renders provided nodes', () => {
     const Top = () => {
       return null;
     };

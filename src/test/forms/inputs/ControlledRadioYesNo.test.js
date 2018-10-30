@@ -4,25 +4,25 @@ import { last } from 'lodash';
 
 import { ControlledRadioYesNo } from '../../../forms/inputs';
 
-const yesRadio = (control) => {
-  return control.find('Radio[label="Yes"]');
+const yesRadio = (wrapper) => {
+  return wrapper.find('Radio[label="Yes"]');
 };
-const noRadio = (control) => {
-  return control.find('Radio[label="No"]');
+const noRadio = (wrapper) => {
+  return wrapper.find('Radio[label="No"]');
 };
-const selectYes = (control) => {
-  control.instance().handleChange({}, { value: 'Yes' });
-  control.update();
+const selectYes = (wrapper) => {
+  wrapper.instance().handleChange({}, { value: 'Yes' });
+  wrapper.update();
 };
-const selectNo = (control) => {
-  noRadio(control).simulate('click');
+const selectNo = (wrapper) => {
+  wrapper.instance().handleChange({}, { value: 'No' });
+  wrapper.update();
 };
 const latestCall = (mockFn) => {
   return last(mockFn.mock.calls)[ 1 ];
 };
 
 describe('<ControlledRadioYesNo>', () => {
-  let control;
   const update = jest.fn();
   const defaultProps = {
     labelText: 'Pie?',
@@ -31,35 +31,39 @@ describe('<ControlledRadioYesNo>', () => {
     onChange:  update,
   };
 
-  const buildControl = (props = {}) => {
-    return (
-      mount(<ControlledRadioYesNo
+  const buildWrapper = (props = {}) => {
+    return mount(
+      <ControlledRadioYesNo
         { ...defaultProps }
-        { ...props } />)
+        { ...props } />
     );
   };
-
-  beforeEach(() => {
-    control = buildControl();
-  });
 
   afterEach(() => {
     update.mockClear();
   });
 
   test('when checked, yes radio button is selected', () => {
-    const control = buildControl({ checked: true });
-    expect(yesRadio(control).prop('checked')).toBe(true);
-    expect(noRadio(control).prop('checked')).toBe(false);
+    const wrapper = buildWrapper({ checked: true });
+    expect(yesRadio(wrapper).prop('checked')).toBe(true);
+    expect(noRadio(wrapper).prop('checked')).toBe(false);
+  });
+
+  test('when not checked, no radio button is selected', () => {
+    const wrapper = buildWrapper({ checked: false });
+    expect(yesRadio(wrapper).prop('checked')).toBe(false);
+    expect(noRadio(wrapper).prop('checked')).toBe(true);
   });
 
   test('when yes selected, calls update with value true', () => {
-    selectYes(control);
+    const wrapper = buildWrapper();
+    selectYes(wrapper);
     expect(latestCall(update)).toHaveProperty('value', true);
   });
 
   test('when no selected, calls update with value false', () => {
-    selectNo(control);
+    const wrapper = buildWrapper();
+    selectNo(wrapper);
     expect(latestCall(update)).toHaveProperty('value', false);
   });
 });

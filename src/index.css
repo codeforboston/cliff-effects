@@ -36,6 +36,13 @@ body {
   padding: 2em 0em;
 }
 
+/* FormPartsContainer.js styles */
+
+.form-section-bottom-row {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Header.js styles */
 
 #appHeader {
@@ -74,6 +81,12 @@ body {
 
 .prediction-message {
   text-align: center;
+}
+
+/* VisitPage.js styles */
+
+#form-nav, .current-step-component {
+  padding: 14px 0;
 }
 
 form .field-aligner {

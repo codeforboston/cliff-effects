@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
+exports[`<IntervalColumnHeadings> renders with alphanumeric type 1`] = `
 <IntervalColumnHeadings
-  type="ALL CAPS"
+  type="1WITH 2NUMBERS"
 >
   <div
     style={
@@ -18,11 +18,11 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
           "fontSize": "14px",
         }
       }
-      type="ALL CAPS"
+      type="1WITH 2NUMBERS"
     >
       <Header
         as="h4"
-        className="ALL CAPS-column cashflow-column header weekly"
+        className="1WITH 2NUMBERS-column cashflow-column header weekly"
         color="teal"
         style={
           Object {
@@ -31,7 +31,7 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
         }
       >
         <h4
-          className="ui teal header ALL CAPS-column cashflow-column header weekly"
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header weekly"
           style={
             Object {
               "fontSize": "14px",
@@ -49,11 +49,11 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
           "fontSize": "14px",
         }
       }
-      type="ALL CAPS"
+      type="1WITH 2NUMBERS"
     >
       <Header
         as="h4"
-        className="ALL CAPS-column cashflow-column header monthly"
+        className="1WITH 2NUMBERS-column cashflow-column header monthly"
         color="teal"
         style={
           Object {
@@ -62,7 +62,7 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
         }
       >
         <h4
-          className="ui teal header ALL CAPS-column cashflow-column header monthly"
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header monthly"
           style={
             Object {
               "fontSize": "14px",
@@ -80,11 +80,11 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
           "fontSize": "14px",
         }
       }
-      type="ALL CAPS"
+      type="1WITH 2NUMBERS"
     >
       <Header
         as="h4"
-        className="ALL CAPS-column cashflow-column header yearly"
+        className="1WITH 2NUMBERS-column cashflow-column header yearly"
         color="teal"
         style={
           Object {
@@ -93,7 +93,7 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
         }
       >
         <h4
-          className="ui teal header ALL CAPS-column cashflow-column header yearly"
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header yearly"
           style={
             Object {
               "fontSize": "14px",
@@ -105,18 +105,18 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
       </Header>
     </ColumnHeading>
     <ColumnHeading
-      colName="ALL CAPS"
-      columnTitle="All Caps Type"
+      colName="1WITH 2NUMBERS"
+      columnTitle="1with 2numbers Type"
       style={
         Object {
           "fontSize": "14px",
         }
       }
-      type="ALL CAPS"
+      type="1WITH 2NUMBERS"
     >
       <Header
         as="h4"
-        className="ALL CAPS-column cashflow-column header ALL CAPS"
+        className="1WITH 2NUMBERS-column cashflow-column header 1WITH 2NUMBERS"
         color="teal"
         style={
           Object {
@@ -125,14 +125,14 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
         }
       >
         <h4
-          className="ui teal header ALL CAPS-column cashflow-column header ALL CAPS"
+          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header 1WITH 2NUMBERS"
           style={
             Object {
               "fontSize": "14px",
             }
           }
         >
-          All Caps Type
+          1with 2numbers Type
         </h4>
       </Header>
     </ColumnHeading>
@@ -140,7 +140,7 @@ exports[`<IntervalColumnHeadings> matches snapshot 1`] = `
 </IntervalColumnHeadings>
 `;
 
-exports[`<IntervalColumnHeadings> matches snapshot 2`] = `
+exports[`<IntervalColumnHeadings> renders with lowercase type 1`] = `
 <IntervalColumnHeadings
   type="all lowercase"
 >
@@ -280,9 +280,9 @@ exports[`<IntervalColumnHeadings> matches snapshot 2`] = `
 </IntervalColumnHeadings>
 `;
 
-exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
+exports[`<IntervalColumnHeadings> renders with uppercase type 1`] = `
 <IntervalColumnHeadings
-  type="1WITH 2NUMBERS"
+  type="ALL CAPS"
 >
   <div
     style={
@@ -298,11 +298,11 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
           "fontSize": "14px",
         }
       }
-      type="1WITH 2NUMBERS"
+      type="ALL CAPS"
     >
       <Header
         as="h4"
-        className="1WITH 2NUMBERS-column cashflow-column header weekly"
+        className="ALL CAPS-column cashflow-column header weekly"
         color="teal"
         style={
           Object {
@@ -311,7 +311,7 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
         }
       >
         <h4
-          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header weekly"
+          className="ui teal header ALL CAPS-column cashflow-column header weekly"
           style={
             Object {
               "fontSize": "14px",
@@ -329,11 +329,11 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
           "fontSize": "14px",
         }
       }
-      type="1WITH 2NUMBERS"
+      type="ALL CAPS"
     >
       <Header
         as="h4"
-        className="1WITH 2NUMBERS-column cashflow-column header monthly"
+        className="ALL CAPS-column cashflow-column header monthly"
         color="teal"
         style={
           Object {
@@ -342,7 +342,7 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
         }
       >
         <h4
-          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header monthly"
+          className="ui teal header ALL CAPS-column cashflow-column header monthly"
           style={
             Object {
               "fontSize": "14px",
@@ -360,11 +360,11 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
           "fontSize": "14px",
         }
       }
-      type="1WITH 2NUMBERS"
+      type="ALL CAPS"
     >
       <Header
         as="h4"
-        className="1WITH 2NUMBERS-column cashflow-column header yearly"
+        className="ALL CAPS-column cashflow-column header yearly"
         color="teal"
         style={
           Object {
@@ -373,7 +373,7 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
         }
       >
         <h4
-          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header yearly"
+          className="ui teal header ALL CAPS-column cashflow-column header yearly"
           style={
             Object {
               "fontSize": "14px",
@@ -385,18 +385,18 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
       </Header>
     </ColumnHeading>
     <ColumnHeading
-      colName="1WITH 2NUMBERS"
-      columnTitle="1with 2numbers Type"
+      colName="ALL CAPS"
+      columnTitle="All Caps Type"
       style={
         Object {
           "fontSize": "14px",
         }
       }
-      type="1WITH 2NUMBERS"
+      type="ALL CAPS"
     >
       <Header
         as="h4"
-        className="1WITH 2NUMBERS-column cashflow-column header 1WITH 2NUMBERS"
+        className="ALL CAPS-column cashflow-column header ALL CAPS"
         color="teal"
         style={
           Object {
@@ -405,14 +405,14 @@ exports[`<IntervalColumnHeadings> matches snapshot 3`] = `
         }
       >
         <h4
-          className="ui teal header 1WITH 2NUMBERS-column cashflow-column header 1WITH 2NUMBERS"
+          className="ui teal header ALL CAPS-column cashflow-column header ALL CAPS"
           style={
             Object {
               "fontSize": "14px",
             }
           }
         >
-          1with 2numbers Type
+          All Caps Type
         </h4>
       </Header>
     </ColumnHeading>
