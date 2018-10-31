@@ -10,11 +10,6 @@ import {
   Icon,
 } from 'semantic-ui-react';
 
-// PROJECT COMPONENTS
-// @todo Move all references to this component to the actual component file
-import { ExternalLink } from './../components/ExternalLink';
-
-
 // ========================================
 // INPUT CONTAINER COMPONENTS
 // ========================================
@@ -61,7 +56,6 @@ var AttentionArrow = function () {
 
 
 export {
-  ExternalLink,
   InvalidMessage,
   AttentionArrow,
 };
