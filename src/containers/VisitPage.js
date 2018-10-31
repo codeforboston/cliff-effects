@@ -364,8 +364,7 @@ class VisitPage extends Component {
               goToStep={ this.goToStep }
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
-          <div
-            className="flex-item flex-column current-step-component">
+          <div className="flex-item flex-column current-step-component">
             { this.getCurrentStep(navData) }
           </div>
 
@@ -380,7 +379,7 @@ class VisitPage extends Component {
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
-        {
+        { 
           distrustConfirmed === false ? (
             <PredictionsWarning
               distrustConfirmed       = { distrustConfirmed }

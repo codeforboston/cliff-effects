@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { CashFlowContainer } from '../../../forms/cashflow';
+import { CashFlowRow } from '../../../forms/cashflow';
 
-describe('<CashFlowContainer>', () => {
+describe('<CashFlowRow>', () => {
   const defaultProps = {
     label:    'Rent',
     children: <span>Some content</span>,
@@ -14,7 +14,7 @@ describe('<CashFlowContainer>', () => {
       ...defaultProps,
       validRow: true,
     };
-    expect(mount(<CashFlowContainer { ...validProps } />)).toMatchSnapshot();
+    expect(mount(<CashFlowRow { ...validProps } />)).toMatchSnapshot();
   });
 
   it('renders with message', () => {
@@ -23,6 +23,6 @@ describe('<CashFlowContainer>', () => {
       validRow: false,
       message:  'What did you enter!?',
     };
-    expect(mount(<CashFlowContainer { ...invalidProps } />)).toMatchSnapshot();
+    expect(mount(<CashFlowRow { ...invalidProps } />)).toMatchSnapshot();
   });
 });
