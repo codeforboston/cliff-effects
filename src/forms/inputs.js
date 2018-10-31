@@ -19,7 +19,7 @@ import {
 *
 * @returns {object} React element
 */
-const BigButton = function ({ children, className, overrides }) {
+const BigButton = function ({ children, className, overrides, ...otherProps }) {
 
   if (!overrides) {
     overrides = {};
@@ -31,10 +31,14 @@ const BigButton = function ({ children, className, overrides }) {
   }
 
   const overriddenDefaults = {
+    // First adds any random prop
+    ...otherProps,
+    // then overrides BigButton-specific props
     type:      `button`,
     color:     `teal`,
     size:      `large`,
     className: allClasses,
+    // then overrides those with props given just for that
     ...overrides,
   };
 
@@ -125,7 +129,13 @@ class ManagedNumberField extends Component {
   }  // End constructor()
 
   //change form to blank string after click, before input
-  handleFocus = (evnt) => {
+  handleFocus = (evnt, inputProps) => {
+
+    let onFocus = this.props.onFocus;
+    if (onFocus) {
+      onFocus(evnt, inputProps);
+    }
+
     // This makes sure that only zeroes and blanks get reset
     var { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
@@ -135,11 +145,21 @@ class ManagedNumberField extends Component {
     }
   };
 
-  handleBlur = (evnt) => {
+  handleBlur = (evnt, inputProps) => {
+    let onBlur = this.props.onBlur;
+    if (onBlur) {
+      onBlur(evnt, inputProps);
+    }
     this.setState({ focused: false, valid: true });
   };
 
   handleChange = (evnt, inputProps) => {
+
+    let onChange = this.props.onChange;
+    if (onChange) {
+      onChange(evnt, inputProps);
+    }
+
     var { displayValidator, storeValidator, store, otherData } = this.props;
     var focusedVal = inputProps.value;
 
@@ -161,8 +181,8 @@ class ManagedNumberField extends Component {
   };  // End handleChange()
 
   render() {
-    var { valid, focused, focusedVal }      = this.state;
-    var { value, name, className, format }  = this.props;
+    var { valid, focused, focusedVal }     = this.state;
+    var { value, name, className, format } = this.props;
 
     // Format correctly when neighbors are updated, if needed
     if (!focused) {

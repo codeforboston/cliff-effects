@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { ExternalLink } from '../forms/formHelpers';
+import { ExternalLink } from './../components/ExternalLink';
 import contributors from './contributors';
 
 /** @name inlineComponents

@@ -54,8 +54,7 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
         </CashFlowDisplayRow>
       ) : (
         null
-      )
-      }
+      ) }
 
       { dependentCare > 0 ? (
         <CashFlowDisplayRow
@@ -65,8 +64,7 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
         </CashFlowDisplayRow>
       ) : (
         null
-      )
-      }
+      ) }
 
       { dependentTransport > 0 ? (
         <CashFlowDisplayRow
@@ -76,8 +74,7 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
         </CashFlowDisplayRow>
       ) : (
         null
-      )
-      }
+      ) }
 
       <CashFlowInputsRow
         { ...sharedProps }
@@ -97,8 +94,7 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
         </CashFlowDisplayRow>
       ) : (
         null
-      )
-      }
+      ) }
 
       <CashFlowInputsRow
         { ...sharedProps }

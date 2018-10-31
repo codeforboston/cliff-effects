@@ -363,7 +363,7 @@ class VisitPage extends Component {
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
-        {
+        { 
           distrustConfirmed === false ? (
             <PredictionsWarning
               distrustConfirmed       = { distrustConfirmed }

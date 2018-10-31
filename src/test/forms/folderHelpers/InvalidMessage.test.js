@@ -5,15 +5,13 @@ import { InvalidMessage } from '../../../forms/formHelpers';
 
 const NOT_EMPTY = 'Hi! I\'m not an empty string.';
 
-const label = (wrapper) => {
-  return wrapper.find('Label');
+const div = (wrapper) => {
+  return wrapper.find('div');
 };
 
 describe('<InvalidMessage>', () => {
   it('renders null if valid', () => {
-    const wrapper = mount(<InvalidMessage
-      validRow={ true }
-      message={ NOT_EMPTY } />);
+    const wrapper = mount(<InvalidMessage validRow={ true }>{ NOT_EMPTY }</InvalidMessage>);
     expect(wrapper.children().exists()).toBe(false);
   });
 
@@ -22,11 +20,9 @@ describe('<InvalidMessage>', () => {
     expect(wrapper.children().exists()).toBe(false);
   });
 
-  it('renders label if invalid', () => {
-    const wrapper = mount(<InvalidMessage
-      validRow={ false }
-      message={ NOT_EMPTY } />);
-    expect(label(wrapper)).toHaveLength(1);
-    expect(label(wrapper).text()).toEqual(NOT_EMPTY);
+  it('renders message if invalid', () => {
+    const wrapper = mount(<InvalidMessage validRow={ false }>{ NOT_EMPTY }</InvalidMessage>);
+    expect(div(wrapper)).toHaveLength(1);
+    expect(div(wrapper).text()).toEqual(NOT_EMPTY);
   });
 });

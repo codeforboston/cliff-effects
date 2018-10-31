@@ -69,14 +69,12 @@ class AskPermission extends React.Component {
           `Send with my information`
         ) : (
           null
-        )
-        }
+        ) }
         { (this.state.submitType === `withoutData`) ? (
           `Send without my information`
         ) : (
           null
-        )
-        }
+        ) }
         { (this.state.submitType === null) ? (`Send`) : (null) }
       </Button>
     </Modal.Actions>,

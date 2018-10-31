@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CashFlowInputsRow should match snapshot 1`] = `
-<CashFlowContainer
+<CashFlowRow
   label="label"
-  message=""
+  message={null}
   validRow={true}
 >
   <ManagedNumberField
@@ -48,5 +48,5 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     storeValidator={[Function]}
     value={0}
   />
-</CashFlowContainer>
+</CashFlowRow>
 `;

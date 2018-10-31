@@ -4,35 +4,22 @@
 
 // REACT COMPONENTS
 import React from 'react';
-import {
-  // Generic Form stuff
-  Label,
-  Icon,
-} from 'semantic-ui-react';
-
-// PROJECT COMPONENTS
-// @todo Move all references to this component to the actual component file
-import { ExternalLink } from './../components/ExternalLink';
-
+import { Icon } from 'semantic-ui-react';
 
 // ========================================
 // INPUT CONTAINER COMPONENTS
 // ========================================
 
-// @todo Put above input instead, using `.Top` of `<Surrounder>`
-/** Adds an option for an 'invalid input' message to the right
- *     of the last element
- */
-const InvalidMessage = function ({ validRow, message }) {
+/** Red bold text that only appears if `validRow` is `false` */
+const InvalidMessage = function ({ validRow, className, children }) {
+  className = className || ``;
 
   var result = null;
-  if (!validRow && message) {
+  if (!validRow && children) {
     result = (
-      <Label
-        basic
-        color='red'
-        pointing="left">{message}
-      </Label>
+      <div className = { `invalid ` + className }>
+        { children }
+      </div>
     );
   }
 
@@ -61,7 +48,6 @@ var AttentionArrow = function () {
 
 
 export {
-  ExternalLink,
   InvalidMessage,
   AttentionArrow,
 };
