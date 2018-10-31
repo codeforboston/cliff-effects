@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header, Message } from 'semantic-ui-react';
-import { ExternalLink } from '../forms/formHelpers';
+import { ExternalLink } from './ExternalLink';
 
 // CUSTOM COMPONENTS
 
