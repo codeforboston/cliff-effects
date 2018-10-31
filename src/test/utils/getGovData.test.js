@@ -30,7 +30,7 @@ const testAdditionalFunction = function (data, extraAmount) {
 };
 
 // ************** Main body ************** /
-var fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
+let fedPovertyGuidelines = { 0: 0, 1: 12060, 2: 16240, eachAdditional: 4180 };
 
 testYearlyLimit ('1. Default percent test',         fedPovertyGuidelines, 1, undefinedString,12060);
 testYearlyLimit ('2. Default percent test',         fedPovertyGuidelines, 2, undefinedString,16240);

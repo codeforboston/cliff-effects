@@ -3,8 +3,8 @@ import { allBenefitOrders } from './allBenefitOrders';
 import { allBenefitOps } from './allBenefitOps';
 
 
-var baseBenefits = [ `income` ];
-var baseOps = {
+let baseBenefits = [ `income` ];
+let baseOps = {
   income: {
     calc: function (client, timeframe) {
       return client[ timeframe ].earned;
@@ -35,7 +35,7 @@ var baseOps = {
 const applyAndPushBenefits = function ({ activeBenefits, dataToAddTo, clientToChange, timeframe, USState }) {
 
   USState = USState || `MA`;  // For now, till value is actually needed
-  var benefitsInOrder = baseBenefits.concat(allBenefitOrders[ USState ]),
+  let benefitsInOrder = baseBenefits.concat(allBenefitOrders[ USState ]),
       benefitOps      = { ...baseOps, ...allBenefitOps[ USState ] };
 
   for (let benefiti = 0; benefiti < benefitsInOrder.length; benefiti ++) {

@@ -23,7 +23,7 @@ import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 
 // Graphs get things in monthly values, so we'll convert from there
-var multipliers = timescaleMultipliers.fromMonthly,
+let multipliers = timescaleMultipliers.fromMonthly,
     // Each graph controls its own scaling
     limits      = PROGRAM_CHART_VALUES.limits;
 
@@ -44,10 +44,10 @@ class BenefitsLineGraph extends Component {
     }
 
     // Adjust to time-interval, round to hundreds
-    var max       = Math.ceil((limits.max * multiplier) / 100) * 100,
+    let max       = Math.ceil((limits.max * multiplier) / 100) * 100,
         interval  = Math.ceil((max / 100) / 10) * 10;
 
-    var xRange      = _.range(limits.min, max, interval),  // x-axis/income numbers
+    let xRange      = _.range(limits.min, max, interval),  // x-axis/income numbers
         extraProps  = { snap: { fill: false }, section8: { fill: false }},
         datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
 
@@ -58,12 +58,12 @@ class BenefitsLineGraph extends Component {
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var income  = client.future.earned * multiplier,
+    let income  = client.future.earned * multiplier,
         hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.income = income;
 
-    var lineProps = {
+    let lineProps = {
       data: {
         labels:   xRange,
         datasets: datasets,

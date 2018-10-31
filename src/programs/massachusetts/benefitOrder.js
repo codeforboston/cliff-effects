@@ -1,5 +1,5 @@
 
-var benefitOrder = [
+let benefitOrder = [
   `snap`,
   `section8`,
 ];

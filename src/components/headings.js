@@ -83,7 +83,7 @@ const ContentSubH1 = function ({ children }) {
 */
 const IntervalColumnHeadings = function ({ type }) {
 
-  var columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {
+  let columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {
         return letter.toUpperCase();
       }) + ' Type',
       styles      = { fontSize: '14px' };
@@ -130,7 +130,7 @@ const IntervalColumnHeadings = function ({ type }) {
 * @returns Component
 */
 const ColumnHeading = function ({ type, colName, style, children }) {
-  var classes = type + '-column cashflow-column header ' + colName;
+  let classes = type + '-column cashflow-column header ' + colName;
   return (
     <Header
       as='h4'

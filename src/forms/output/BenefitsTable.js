@@ -22,10 +22,10 @@ const getSignSymbol = function (num) {
 
 const BenefitsTable = function ({ client, snippets }) {
 
-  var clone = cloneDeep(client);
-  var curr = clone.current;
+  let clone = cloneDeep(client);
+  let curr = clone.current;
 
-  var allData         = {},
+  let allData         = {},
       activeBenefits  = [ `income` ];
 
   if (curr.hasSection8) {
@@ -36,7 +36,7 @@ const BenefitsTable = function ({ client, snippets }) {
     activeBenefits.push(`snap`);
   }
 
-  var currentCalcData = {
+  let currentCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -45,7 +45,7 @@ const BenefitsTable = function ({ client, snippets }) {
   applyAndPushBenefits (currentCalcData);
 
   // Add to the `current` data already there
-  var futureCalcData = {
+  let futureCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -54,11 +54,11 @@ const BenefitsTable = function ({ client, snippets }) {
   applyAndPushBenefits (futureCalcData);
 
   // @todo Abstract getting values for each row
-  var income   = allData.income,
+  let income   = allData.income,
       section8 = allData.section8,
       snap     = allData.snap;
 
-  var sec8BenefitCurrent = 0,
+  let sec8BenefitCurrent = 0,
       sec8BenefitFuture  = 0,
       SNAPBenefitCurrent = 0,
       SNAPBenefitFuture  = 0;
@@ -73,7 +73,7 @@ const BenefitsTable = function ({ client, snippets }) {
     SNAPBenefitFuture  = Math.round(snap[ 1 ]);
   }
 
-  var SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
+  let SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
       sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,

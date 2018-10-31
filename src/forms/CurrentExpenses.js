@@ -70,8 +70,8 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   /** @todo Save amount temporarily when 'source'
    *      amount is set to 0. */
-  var reset = function (evnt) {
-    var { childPropName, update } = propData;
+  let reset = function (evnt) {
+    let { childPropName, update } = propData;
 
     update(evnt, {
       name:  childPropName,
@@ -81,8 +81,8 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   if (hasExpenses) {
 
-    var { childPropName, client } = propData;
-    var showProps = {
+    let { childPropName, client } = propData;
+    let showProps = {
       childName:           childPropName,
       showChildrenAtStart: client[ childPropName ] > 0,
       question:            label,
@@ -115,7 +115,7 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
       hasFuelAssist  = current.fuelAssistance;
 
   let setChecked = function (evnt, inputProps) {
-    var obj = { ...inputProps, value: inputProps.checked };
+    let obj = { ...inputProps, value: inputProps.checked };
     updateClientValue(evnt, obj);
   };  // End setChecked()
 
@@ -224,7 +224,7 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
 
 const HousingRadio = function ({ currentValue, label, time, updateClientValue }) {
 
-  var value = label.toLowerCase();
+  let value = label.toLowerCase();
 
   return (
     <Form.Field>
@@ -254,7 +254,7 @@ const Housing = function ({ current, type, time, updateClientValue }) {
 
   /** @deprecated This is handled differently now */
   let ensureRouteAndValue = function (evnt, inputProps) {
-    var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
+    let obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
     updateClientValue(evnt, obj);
   };
 
@@ -324,20 +324,20 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
   /* @todo Make a more general age-checking function to keep
    * household data format under control in one place. */
-  var isOver12 = function (member) {
+  let isOver12 = function (member) {
     return !isUnder13(member);
   };
 
   // Won't include head or spouse
-  var allDependents = getDependentMembers(household),
+  let allDependents = getDependentMembers(household),
       under13       = getEveryMember(allDependents, isUnder13),
       over12        = getEveryMember(allDependents, isOver12);
 
   // 'Elderly' here is using the lowest common denominator - SNAP standards.
-  var isElderlyOrDisabled = function (member) {
+  let isElderlyOrDisabled = function (member) {
     return isDisabled(member) || member.m_age >= 60;
   };
-  var elderlyOrDisabled = getEveryMember(household, isElderlyOrDisabled),
+  let elderlyOrDisabled = getEveryMember(household, isElderlyOrDisabled),
       elderlyOrDisabledHeadOrSpouse = getEveryMember(elderlyOrDisabled, isHeadOrSpouse);
 
   return (

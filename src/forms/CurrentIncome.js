@@ -48,17 +48,17 @@ import { CashFlowInputsRow } from './cashflow';
  */
 const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
 
-  var type = 'income';
+  let type = 'income';
 
   /** Makes sure values are propagated to 'future' properties if needed
    * @member
    * @depricated
    */
-  var ensureFuture = function (evnt, inputProps) {
+  let ensureFuture = function (evnt, inputProps) {
     updateClientValue(evnt, { ...inputProps, fillFuture: true });
   };  // End ensureFuture()
 
-  var sharedProps = {
+  let sharedProps = {
     timeState:         current,
     time:              time,
     type:              type,

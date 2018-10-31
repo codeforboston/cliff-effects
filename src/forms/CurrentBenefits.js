@@ -32,7 +32,7 @@ const LocalizedRadioYesNo = function ({ snippets, checked, name, updateClientVal
  */
 const CurrentBenefitsContent = ({ current, updateClientValue, snippets }) => {
 
-  var sharedProps = {
+  let sharedProps = {
     updateClientValue: updateClientValue,
     snippets:          snippets,
   };

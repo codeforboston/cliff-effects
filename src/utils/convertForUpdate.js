@@ -3,7 +3,7 @@
  */
 const convertForUpdate = function ({ name, route, ...otherProps }) {
 
-  var forUpdate = {
+  let forUpdate = {
     ...otherProps,
     route: route || name,
   };

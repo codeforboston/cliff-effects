@@ -36,7 +36,7 @@ class VisitPage extends Component {
   constructor (props) {
     super(props);
 
-    var {
+    let {
       match,
       clientData,
     } = this.props;
@@ -127,7 +127,7 @@ class VisitPage extends Component {
 
     // When user exits feedback prompt somehow,
     // close it before finishing the callback.
-    var closePrompt = (isOk) => {
+    let closePrompt = (isOk) => {
       this.setState({ promptData: { open: false }});
       callback(isOk);
     };
@@ -152,7 +152,7 @@ class VisitPage extends Component {
 
   updateClientValue = ({ route, value, time }) => {
 
-    var clone       = cloneDeep(this.state.client),
+    let clone       = cloneDeep(this.state.client),
         userChanged = { ...this.state.userChanged },  // only 1 deep
         routeList   = route.split('/'),
         id          = routeList[ 0 ],  // `routeList` gets mutated
@@ -195,13 +195,13 @@ class VisitPage extends Component {
 
   changeCurrent = (evnt, data) => {
     data.time = 'current';
-    var newData = convertForUpdate(data);
+    let newData = convertForUpdate(data);
     this.updateClientValue(newData);
   };
 
   changeFuture = (evnt, data) => {
     data.time = 'future';
-    var newData = convertForUpdate(data);
+    let newData = convertForUpdate(data);
     this.updateClientValue(newData);
   };
 
@@ -240,7 +240,7 @@ class VisitPage extends Component {
 
   getCurrentStepIndex = () => {
     // Keep it between 1 and 8
-    var numSteps      = this.steps.length,
+    let numSteps      = this.steps.length,
         currStepIndex = this.state.currentStep,
         limitedByMin  = Math.min(numSteps, currStepIndex),
         limitedByMax  = Math.max(1, limitedByMin);
@@ -249,7 +249,7 @@ class VisitPage extends Component {
   };
 
   getCurrentStep = (navData) => {
-    var stepIndex    = this.getCurrentStepIndex(),
+    let stepIndex    = this.getCurrentStepIndex(),
         step         = this.steps[ stepIndex ],
         FormSection  = step.form,
         formSnippets = this.state.snippets[ step.key ];
@@ -271,7 +271,7 @@ class VisitPage extends Component {
 
   render() {
 
-    var snippets          = this.state.snippets,
+    let snippets          = this.state.snippets,
         prevContent       = null,
         nextContent       = null,
         stepIndex         = this.getCurrentStepIndex(),
@@ -302,7 +302,7 @@ class VisitPage extends Component {
       );
     }
 
-    var navData = {
+    let navData = {
       left:   prevContent,
       middle: null,
       right:  nextContent,

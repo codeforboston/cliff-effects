@@ -9,7 +9,7 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
-var snippets = getTextForLanguage(`en`);
+let snippets = getTextForLanguage(`en`);
 
 test('Income step component renders as snapshot correctly', () => {
   const navData = {

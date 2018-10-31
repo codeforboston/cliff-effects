@@ -2,7 +2,7 @@ import { getSection8Benefit } from './section8';
 import { getSNAPBenefits } from '../federal/snap';
 
 
-var benefitOps = {
+let benefitOps = {
   section8: {
     calc:        getSection8Benefit,
     getNewProps: function (client, timeframe, newSubsidy) {

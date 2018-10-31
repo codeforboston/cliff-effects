@@ -22,11 +22,11 @@ import { LocalizationReport } from './LocalizationReport.js';
  *    make menu categories collapsible. */
 const DevMenu = function ({ devProps, funcs, data, state }) {
 
-  var langs    = localizations,
+  let langs    = localizations,
       langOpts = [];
 
   for (let key in langs) {
-    var snips = langs[ key ],
+    let snips = langs[ key ],
         lang  = {
           text:  snips.langName,
           key:   snips.langCode,
@@ -110,28 +110,28 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
 class DevHud extends Component {
 
   toggleHiding = () => {
-    var props    = this.props,
+    let props    = this.props,
         setDev   = props.funcs.setDev,
         devProps = props.devProps;
 
-    var doShow = !devProps.devHidden;
+    let doShow = !devProps.devHidden;
     setDev(`devHidden`, doShow);
   };
 
   toggleEnglish = () => {
-    var setDev  = this.props.funcs.setDev,
+    let setDev  = this.props.funcs.setDev,
         english = this.props.devProps.english;
     setDev(`english`, !english);
   };
 
   toggleNonEnglish = () => {
-    var setDev     = this.props.funcs.setDev,
+    let setDev     = this.props.funcs.setDev,
         nonEnglish = this.props.devProps.nonEnglish;
     setDev(`nonEnglish`, !nonEnglish);
   };
 
   toggleWarning = () => {
-    var setDev  = this.props.funcs.setDev,
+    let setDev  = this.props.funcs.setDev,
         warning = this.props.devProps.warningOff;
     setDev(`warningOff`, !warning);
   };
@@ -142,7 +142,7 @@ class DevHud extends Component {
 
   render () {
 
-    var {
+    let {
           devProps,
           funcs,
           data,

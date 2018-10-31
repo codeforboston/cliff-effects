@@ -65,7 +65,7 @@ test('updateClientValue gets called correctly when each value is changed', () =>
     1,
     1 / 12,
   ];
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     // `input` is an actual `<input>` node
     const input = wrapper.childAt(i).shallow();
     const newValue = (i + 1) * 10;

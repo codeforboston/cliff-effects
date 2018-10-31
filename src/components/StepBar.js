@@ -3,10 +3,10 @@ import { Step } from 'semantic-ui-react';
 
 const StepBar = ({ steps, currentStepIndex, goToStep, snippets }) => {
 
-  var cleanSteps = [];
+  let cleanSteps = [];
 
   steps.forEach((step, index) => {
-    var newStep = { title: { content: snippets[ `i_` + step.key ] }};
+    let newStep = { title: { content: snippets[ `i_` + step.key ] }};
     newStep.active = index === (currentStepIndex - 1);
     newStep.onClick = (e) => {
       goToStep(index + 1);

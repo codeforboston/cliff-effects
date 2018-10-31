@@ -24,7 +24,7 @@ import { Prompt } from 'react-router-dom';
 class ReactRouterLeaveListener extends React.Component {
   componentDidMount() {
 
-    var { confirmer, askForFeedback } = this.props;
+    let { confirmer, askForFeedback } = this.props;
 
     const tempConfirm = (message, reactCallback) => {
       // `message` is passed indirectly to `<FeedbackPrompt>`
