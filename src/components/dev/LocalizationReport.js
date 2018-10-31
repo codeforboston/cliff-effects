@@ -24,7 +24,7 @@ const ReportItem = function ({ keyPath, test, locKey, pass }) {
         color={ pass ? 'green' : 'red' }
         verticalAlign='middle' />
       <List.Content>
-        { keyPath } { test } '{ locKey }'.
+        { keyPath } { test }.
       </List.Content>
     </List.Item>
   );
@@ -117,7 +117,7 @@ class LocalizationReport extends Component {
 
         return {
           keyPath: keyPathAsStr,
-          test:    'should exist in',
+          test:    'should exist',
           locKey:  compareLocKey,
           pass:    keyExistsInLoc,
         };
@@ -156,7 +156,7 @@ class LocalizationReport extends Component {
         if (!keyExistsInLoc) {
           extraKeyPaths.push({
             keyPath: keyPathAsStr,
-            test:    'should not exist in',
+            test:    'should not exist',
             locKey:  compareLocKey,
             pass:    keyExistsInLoc,
           });
