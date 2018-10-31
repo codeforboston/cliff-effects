@@ -19,7 +19,7 @@ import {
 *
 * @returns {object} React element
 */
-const BigButton = function ({ children, className, overrides }) {
+const BigButton = function ({ children, className, overrides, ...otherProps }) {
 
   if (!overrides) {
     overrides = {};
@@ -31,10 +31,14 @@ const BigButton = function ({ children, className, overrides }) {
   }
 
   const overriddenDefaults = {
+    // First adds any random prop
+    ...otherProps,
+    // then overrides BigButton-specific props
     type:      `button`,
     color:     `teal`,
     size:      `large`,
     className: allClasses,
+    // then overrides those with props given just for that
     ...overrides,
   };
 
