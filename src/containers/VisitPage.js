@@ -196,7 +196,6 @@ class VisitPage extends Component {
     }
     
     this.goToStep({ index: nextStepIndex });
-    this.scrollToTop();
   };
   
   previousStep = () => {
@@ -207,7 +206,6 @@ class VisitPage extends Component {
     }
 
     this.goToStep({ index: prevStepIndex });
-    this.scrollToTop();
   };
 
   goToStep = ({ key, index }) => {
@@ -216,6 +214,7 @@ class VisitPage extends Component {
     }
 
     this.props.history.push(`${this.getPathPrefix()}/${key}`);
+    this.scrollToTop();
   };
 
   getPathPrefix = () => {
