@@ -65,7 +65,7 @@ class LocalizationReport extends Component {
     modalOpen:        false,
     modelLocKey:      null,
     compareLocKey:    null,
-    filter:           'all',
+    filter:           'false',
     localizationKeys: [],
   };
 
