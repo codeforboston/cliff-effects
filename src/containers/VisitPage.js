@@ -338,7 +338,6 @@ class VisitPage extends Component {
           <div
             className="flex-item flex-column current-step-component">
             <StepComponent
-              component={ step.form }
               snippets={ snippets[ step.key ] }
               updateClientValue={
                 step.time === 'current' ?
