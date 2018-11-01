@@ -331,7 +331,7 @@ class VisitPage extends Component {
             id = { `form-nav` }
             minWidth='874.5'>
             <StepBar
-              currentStepKey={ this.props.stepKey }
+              currentStepKey={ step.key }
               goToStep={ this.goToStep }
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
@@ -345,7 +345,6 @@ class VisitPage extends Component {
                   this.changeCurrent :
                   this.changeFuture
               }
-              currentStep={ stepIndex }
               navData={ navData }
               saveForm={ this.saveForm }
               askToResetClient={ this.askToResetClient }
