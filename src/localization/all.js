@@ -1,14 +1,27 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 import DE from './de';
 import EN from './en';
 import VI from './vi';
 import ZH from './zh';
 
-/** Contains and exports all the language snippet objects */
-var localizations = {
-  de: DE,
-  en: EN,
-  vi: VI,
-  zh: ZH,
+/** 
+ * @returns {function}
+ * 
+ * @summary Exports a function which returns a deep clone of the language snippet objects.
+ * 
+ * @description 
+ * getTextForLanguage() mutates it's localization object, whereas Localization Report in DevHud
+ * compares the raw objects contained in localization files.  By providing a function which returns 
+ * cloned data instead of a reference to the imported objects, the two can coexist.
+*/
+const getLocalizationData = () => {
+  return cloneDeep({
+    de: DE,
+    en: EN,
+    vi: VI,
+    zh: ZH,
+  });
 };
 
-export { localizations };
+export { getLocalizationData };
