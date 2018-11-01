@@ -24,7 +24,6 @@ test('Expenses step component renders as snapshot correctly', () => {
 
   const wrapper = shallow(
     <CurrentExpensesStep
-      currentStep       = { 4 }
       client            = { CLIENT_DEFAULTS }
       navData           = { navData }
       updateClientValue      = { updateClientValue }

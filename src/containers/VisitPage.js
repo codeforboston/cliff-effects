@@ -345,7 +345,6 @@ class VisitPage extends Component {
                   this.changeCurrent :
                   this.changeFuture
               }
-              currentStep={ stepIndex }
               navData={ navData }
               saveForm={ this.saveForm }
               askToResetClient={ this.askToResetClient }

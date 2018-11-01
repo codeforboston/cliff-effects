@@ -24,7 +24,6 @@ test('Household step component renders as snapshot correctly', () => {
 
   const wrapper = shallow(
     <HouseholdStep
-      currentStep       = { 2 }
       client            = { CLIENT_DEFAULTS }
       navData           = { navData }
       updateClientValue      = { updateClientValue }
