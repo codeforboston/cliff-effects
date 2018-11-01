@@ -88,10 +88,6 @@ class App extends Component {
       },
       distrustConfirmed: false,
     };
-
-
-
-    console.log(getTextForLanguage(`zh`));
   };  // End constructor()
 
   /**
