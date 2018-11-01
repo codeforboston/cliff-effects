@@ -59,7 +59,6 @@ class VisitPage extends Component {
     // will disappear. In that case, we move the user back to the first step so that they
     // can re-enter the data.
     const firstStepURL = `${this.getPathPrefix()}/${STEPS[ 0 ].key}`;
-
     this.props.history.replace(firstStepURL);
   }
 
