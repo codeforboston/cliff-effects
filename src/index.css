@@ -258,6 +258,11 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* FORM ELEMENTS */
 
+.form-section-bottom-row {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* - Yes/No Toggle - */
 /* WARNING: Non-column appearance will remain until radio
 buttons are put on the left side. */
