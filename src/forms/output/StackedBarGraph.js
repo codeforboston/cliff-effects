@@ -32,7 +32,7 @@ const StackedBarGraph = function({ client }) {
       curr  = clone.current;
 
   var allData         = {},
-      activeBenefits  = [ `income` ];
+      activeBenefits  = [ `earned` ];
 
   if (curr.hasSection8) {
     activeBenefits.push(`section8`);
@@ -70,7 +70,7 @@ const StackedBarGraph = function({ client }) {
           data:            allData[ bName ],
         };
 
-    if (bName === `income`) {
+    if (bName === `earned`) {
       dataset.fill = `origin`;
       for (let amount of dataset.data) {
         moneyLabels.push(Math.round(amount));
@@ -88,7 +88,7 @@ const StackedBarGraph = function({ client }) {
     options: {
       title: {
         display: true,
-        text:    'Money Coming In as Income Changes',
+        text:    'Money Coming In as Pay Changes',
       },
       scales: {
         yAxes: [
@@ -109,7 +109,7 @@ const StackedBarGraph = function({ client }) {
             stacked:    true,
             scaleLabel: {
               display:     true,
-              labelString: 'Monthly Income ($)',
+              labelString: 'Monthly Pay ($)',
             },
             ticks: { callback: formatAxis },
           },
