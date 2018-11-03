@@ -3,9 +3,9 @@ import { allBenefitOrders } from './allBenefitOrders';
 import { allBenefitOps } from './allBenefitOps';
 
 
-var baseBenefits = [ `income` ];
+var baseBenefits = [ `earned` ];
 var baseOps = {
-  income: {
+  earned: {
     calc: function (client, timeframe) {
       return client[ timeframe ].earned;
     },

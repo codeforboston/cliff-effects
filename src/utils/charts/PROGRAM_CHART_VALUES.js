@@ -1,7 +1,7 @@
 
 const PROGRAM_CHART_VALUES = {
-  income: {
-    name:  'Income',
+  earned: {
+    name:  'Earned',
     color: 'rgb(136, 187, 236)',
   },
   snap: {
