@@ -67,25 +67,6 @@ const WithMessageAbove = function ({ children, ariaName, isUserError, message, c
 };
 
 
-/** Red bold text that only appears if `validRow` is `false` */
-const InvalidMessage = function ({ validRow, className, children, ...otherProps }) {
-  className = className || ``;
-
-  var result = null;
-  if (!validRow && children) {
-    result = (
-      <div
-        { ...otherProps }
-        className = { `invalid ` + className }>
-        { children }
-      </div>
-    );
-  }
-
-  return result;
-};  // End <InvalidMessage>
-
-
 // ========================================
 // NECESSARY VISUAL SUGAR
 // ========================================
@@ -112,6 +93,5 @@ var AttentionArrow = function () {
 
 export {
   WithMessageAbove,
-  InvalidMessage,
   AttentionArrow,
 };
