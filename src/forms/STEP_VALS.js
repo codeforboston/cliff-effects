@@ -4,7 +4,7 @@ import { PredictionsStep } from './Predictions';
 import { HouseholdStep } from './Household';
 import { CurrentBenefitsStep } from './CurrentBenefits';
 
-export const STEP_PROPS = [
+export const STEP_VALS = [
   {
     form: CurrentBenefitsStep,
     key:  'currentBenefits',
@@ -30,4 +30,4 @@ export const STEP_PROPS = [
     key:  'predictions',
     time: 'future',
   },
-]; // end STEP_PROPS
+]; // end STEP_VALS

@@ -26,7 +26,7 @@ import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
 import PredictionsWarning from '../components/prompts/PredictionsWarning';
-import { STEP_PROPS } from '../forms/STEP_PROPS';
+import { STEP_VALS } from '../forms/STEP_VALS';
 
 class VisitPage extends Component {
   constructor (props) {
@@ -58,7 +58,7 @@ class VisitPage extends Component {
     // We currently store client data in memory, so when the user reloads, the client data
     // will disappear. In that case, we move the user back to the first step so that they
     // can re-enter the data.
-    const firstStepURL = `${this.getPathPrefix()}/${STEP_PROPS[ 0 ].key}`;
+    const firstStepURL = `${this.getPathPrefix()}/${STEP_VALS[ 0 ].key}`;
     this.props.history.replace(firstStepURL);
   }
 
@@ -191,7 +191,7 @@ class VisitPage extends Component {
   nextStep = () => {
     const nextStepIndex = this.getCurrentStepIndex() + 1;
     
-    if (nextStepIndex === STEP_PROPS.length) {
+    if (nextStepIndex === STEP_VALS.length) {
       return;
     }
     
@@ -210,7 +210,7 @@ class VisitPage extends Component {
 
   goToStep = ({ key, index }) => {
     if (!key) {
-      key = STEP_PROPS[ index ].key;
+      key = STEP_VALS[ index ].key;
     }
 
     this.props.history.push(`${this.getPathPrefix()}/${key}`);
@@ -222,7 +222,7 @@ class VisitPage extends Component {
   };
 
   getCurrentStepIndex = () => {
-    return STEP_PROPS.findIndex((step) => {
+    return STEP_VALS.findIndex((step) => {
       return step.key === this.props.stepKey;
     });
   };
@@ -234,7 +234,7 @@ class VisitPage extends Component {
   render() {
     if (!this.props.stepKey) {
       return (
-        <Redirect to={ `${this.getPathPrefix()}/${STEP_PROPS[ 0 ].key }` } />
+        <Redirect to={ `${this.getPathPrefix()}/${STEP_VALS[ 0 ].key }` } />
       );
     }
 
@@ -253,7 +253,7 @@ class VisitPage extends Component {
     }
 
     // If it's not the last step
-    if (stepIndex !== (STEP_PROPS.length - 1)) {
+    if (stepIndex !== (STEP_VALS.length - 1)) {
       // use normal 'next' component
       nextContent = (
         <BigButton onClick = { this.nextStep }>
@@ -275,7 +275,7 @@ class VisitPage extends Component {
       right:  nextContent,
     };
 
-    const step = STEP_PROPS[ stepIndex ];
+    const step = STEP_VALS[ stepIndex ];
 
     const StepComponent = step.form;
 

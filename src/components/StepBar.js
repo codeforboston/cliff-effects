@@ -1,13 +1,13 @@
 import React from 'react';
 import { Step } from 'semantic-ui-react';
 
-import { STEP_PROPS } from '../forms/STEP_PROPS';
+import { STEP_VALS } from '../forms/STEP_VALS';
 
 const StepBar = ({ currentStepKey, goToStep, snippets }) => {
 
   var cleanSteps = [];
 
-  STEP_PROPS.forEach((step, index) => {
+  STEP_VALS.forEach((step, index) => {
     var newStep = { title: { content: snippets[ `i_` + step.key ] }};
     newStep.active = step.key === currentStepKey;
     newStep.onClick = (e) => {
