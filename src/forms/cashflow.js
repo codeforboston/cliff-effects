@@ -96,6 +96,10 @@ class CashFlowInputsRow extends Component {
     };
   };
 
+  onBlur = (evnt) => {
+    this.setState({ valid: true, message: null });
+  };
+
   render() {
     var { generic, timeState, updateClientValue, children } = this.props;
 
@@ -119,6 +123,7 @@ class CashFlowInputsRow extends Component {
           store:            updateClient,
           displayValidator: hasOnlyNonNegNumberChars,
           format:           toMoneyStr,
+          onBlur:           this.onBlur,
         };
 
     var cashFlowStoreValidator = this.cashFlowStoreValidator;
