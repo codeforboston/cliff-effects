@@ -19,7 +19,8 @@ describe(`<WithMessageAbove>`, () => {
         isUserError = { false }
         ariaName    = { ariaName }>
         { NOT_EMPTY }
-      </WithMessageAbove>);
+      </WithMessageAbove>
+    );
     expect(getMessage(wrapper)).toHaveLength(0);
   });
 
@@ -29,7 +30,8 @@ describe(`<WithMessageAbove>`, () => {
         isUserError = { true }
         ariaName    = { ariaName }>
         { NOT_EMPTY }
-      </WithMessageAbove>);
+      </WithMessageAbove>
+    );
     expect(getMessage(wrapper)).toHaveLength(0);
   });
 
@@ -40,7 +42,8 @@ describe(`<WithMessageAbove>`, () => {
         ariaName    = { ariaName }
         message     = { NOT_EMPTY }>
         { NOT_EMPTY }
-      </WithMessageAbove>);
+      </WithMessageAbove>
+    );
     expect(getMessage(wrapper)).toHaveLength(1);
   });
 
@@ -51,7 +54,8 @@ describe(`<WithMessageAbove>`, () => {
         ariaName    = { ariaName }
         message     = { NOT_EMPTY }>
         { NOT_EMPTY }
-      </WithMessageAbove>);
+      </WithMessageAbove>
+    );
     expect(getMessage(wrapper)).toHaveLength(1);
   });
 
