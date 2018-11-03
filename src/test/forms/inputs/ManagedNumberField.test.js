@@ -8,7 +8,9 @@ test('ManagedNumberField should match snapshot', () => {
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      value={ 0 } />
+      value={ 0 }
+      name={ `test` }
+      otherData={{ interval: `monthly` }} />
   );
   expect(wrapper).toMatchSnapshot();
 });
@@ -18,7 +20,8 @@ test('should set focused state to true on focus if current value of FormInput is
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      value={ value } />
+      value={ value }
+      otherData={{ interval: `monthly` }} />
   );
   wrapper.find('FormInput').simulate('focus', { target: { value }});
   expect(wrapper.state('focused')).toBe(true);
@@ -29,7 +32,8 @@ test('should set focused state to true on focus if current value of FormInput is
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      value={ value } />
+      value={ value }
+      otherData={{ interval: `monthly` }} />
   );
   wrapper.find('FormInput').simulate('focus', { target: { value }});
   expect(wrapper.state('focused')).toBe(true);
@@ -40,7 +44,8 @@ test('should blank focusedVal state before focus if current value of FormInput i
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      value={ 0 } />
+      value={ 0 }
+      otherData={{ interval: `monthly` }} />
   );
   wrapper.find('FormInput').simulate('focus', { target: { value: inputValue }});
   expect(wrapper.state('focusedVal')).toBe('');
@@ -51,7 +56,8 @@ test('should set focused state to false on blur', () => {
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      value={ value } />
+      value={ value }
+      otherData={{ interval: `monthly` }} />
   );
   wrapper.setState({ focused: true });
   wrapper.find('FormInput').simulate('blur', { target: { value }});
@@ -73,7 +79,8 @@ test('should change local and app state correctly when user inputs positive numb
       store={ mockStore }
       storeValidator={ mockValidator }
       displayValidator={ mockValidator }
-      value={ 0 } />
+      value={ 0 }
+      otherData={{ interval: `monthly` }} />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput });
 
@@ -101,7 +108,8 @@ test('should change local and app state correctly when user inputs empty string'
       store={ mockStore }
       displayValidator={ mockValidator }
       storeValidator={ mockValidator }
-      value={ 0 } />
+      value={ 0 }
+      otherData={{ interval: `monthly` }} />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput });
 
@@ -134,7 +142,8 @@ test('should change local and app state correctly when user inputs negative numb
       store={ mockStore }
       displayValidator={ mockDisplayValidator }
       storeValidator={ mockStoreValidator }
-      value={ 0 } />
+      value={ 0 }
+      otherData={{ interval: `monthly` }} />
   );
   wrapper.find('FormInput').simulate('change', {}, { value: userInput1 });
   wrapper.find('FormInput').simulate('change', {}, { value: userInput2 });
@@ -151,7 +160,8 @@ test('should set FormInput error state properly when valid condition changes', (
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      value={ 0 } />
+      value={ 0 }
+      otherData={{ interval: `monthly` }} />
   );
   // Set valid to false -- FormInput error should be true
   wrapper.setState({ valid: false });

@@ -40,6 +40,7 @@ class RentShareField extends Component {
           },
           rowProps = {
             label:    'Your Monthly Rent Share (how much of the total rent you have to pay)',
+            name:     `rentShare`,
             validRow: valid,
             message:  message,
           };
@@ -92,6 +93,7 @@ class ContractRentField extends Component {
           },
           rowProps = {
             label:    'Monthly Contract Rent (the total rent for your apartment)',
+            name:     `contractRent`,
             validRow: valid,
             message:  message,
           };

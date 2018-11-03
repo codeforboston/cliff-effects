@@ -4,6 +4,7 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
 <CashFlowRow
   label="label"
   message={null}
+  name="name"
   validRow={true}
 >
   <ManagedNumberField

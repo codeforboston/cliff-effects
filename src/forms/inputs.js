@@ -181,8 +181,8 @@ class ManagedNumberField extends Component {
   };  // End handleChange()
 
   render() {
-    var { valid, focused, focusedVal }     = this.state;
-    var { value, name, className, format } = this.props;
+    var { valid, focused, focusedVal }                = this.state;
+    var { value, name, className, format, otherData } = this.props;
 
     // Format correctly when neighbors are updated, if needed
     if (!focused) {
@@ -193,15 +193,19 @@ class ManagedNumberField extends Component {
 
     // @todo Different class for something 'future' that has a
     // current value that isn't 0?
+    // `aria` from https://www.w3.org/WAI/tutorials/forms/instructions/#using-aria-labelledby
     return (
       <Form.Input
         error     = { !valid }
         value     = { value }
         name      = { name }
+        id        = { name + `_` + otherData.interval }
         className = { className + ` output-number` }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
-        onBlur    = { this.handleBlur } />
+        onBlur    = { this.handleBlur }
+        aria-labelledby  = { name + `Label` }
+        aria-describedby = { name + `Message` } />
     );
   }  // End render()
 
