@@ -11,13 +11,15 @@ import { Icon } from 'semantic-ui-react';
 // ========================================
 
 /** Red bold text that only appears if `validRow` is `false` */
-const InvalidMessage = function ({ validRow, className, children }) {
+const InvalidMessage = function ({ validRow, className, children, ...otherProps }) {
   className = className || ``;
 
   var result = null;
   if (!validRow && children) {
     result = (
-      <div className = { `invalid ` + className }>
+      <div
+        { ...otherProps }
+        className = { `invalid ` + className }>
         { children }
       </div>
     );

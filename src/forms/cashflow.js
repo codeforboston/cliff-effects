@@ -24,13 +24,24 @@ import { toMoneyStr } from '../utils/prettifiers';
  *
  * @returns React element
  */
-const CashFlowRow = function ({ children, label, validRow, message }) {
+const CashFlowRow = function ({ children, label, name, validRow, message }) {
+
+  // `for` and `id` for accessibility purposes
+  // `for` can only be for one of the inputs, from what I can tell
+  // https://www.w3.org/WAI/tutorials/forms/instructions/#using-aria-labelledby
+  // `tab-index` for IE (see 'note')
 
   var Top;
   if (!validRow) {
-    Top = (<InvalidMessage validRow={ validRow }>{ message }</InvalidMessage>);
+    Top = (
+      <InvalidMessage
+        validRow = { validRow }
+        id       = { name + `Message` }>
+        { message }
+      </InvalidMessage>
+    );
   } else {
-    Top = (<span>{ message }</span>);
+    Top = (<span id={ name + `Message` }>{ message }</span>);
   }
 
   return (
@@ -40,7 +51,12 @@ const CashFlowRow = function ({ children, label, validRow, message }) {
       <Surrounder Top = { Top }>
         { children }
         <div className={ 'cashflow-column cashflow-column-last-child' }>
-          <label>{ label }</label>
+          <label
+            htmlFor   = { name + `_monthly` }
+            id        = { name + `Label` }
+            tabIndex  = { `-1` }>
+            { label }
+          </label>
         </div>
       </Surrounder>
     </Form.Field>
@@ -126,6 +142,7 @@ class CashFlowInputsRow extends Component {
     return (
       <CashFlowRow
         label={ children }
+        name={ generic }
         validRow={ this.state.valid }
         message={ this.state.message }>
         <ManagedNumberField
