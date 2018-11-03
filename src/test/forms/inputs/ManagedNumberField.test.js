@@ -75,7 +75,6 @@ test('should change local and app state correctly when user inputs positive numb
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      otherData={ null }
       store={ mockStore }
       storeValidator={ mockValidator }
       displayValidator={ mockValidator }
@@ -104,7 +103,6 @@ test('should change local and app state correctly when user inputs empty string'
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      otherData={ null }
       store={ mockStore }
       displayValidator={ mockValidator }
       storeValidator={ mockValidator }
@@ -138,7 +136,6 @@ test('should change local and app state correctly when user inputs negative numb
   const wrapper = shallow(
     <ManagedNumberField
       format={ () => {} }
-      otherData={ null }
       store={ mockStore }
       displayValidator={ mockDisplayValidator }
       storeValidator={ mockStoreValidator }
