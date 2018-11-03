@@ -59,7 +59,6 @@ class VisitPage extends Component {
     // will disappear. In that case, we move the user back to the first step so that they
     // can re-enter the data.
     const firstStepURL = `${this.getPathPrefix()}/${STEP_PROPS[ 0 ].key}`;
-
     this.props.history.replace(firstStepURL);
   }
 
@@ -197,7 +196,6 @@ class VisitPage extends Component {
     }
     
     this.goToStep({ index: nextStepIndex });
-    this.scrollToTop();
   };
   
   previousStep = () => {
@@ -208,7 +206,6 @@ class VisitPage extends Component {
     }
 
     this.goToStep({ index: prevStepIndex });
-    this.scrollToTop();
   };
 
   goToStep = ({ key, index }) => {
@@ -217,6 +214,7 @@ class VisitPage extends Component {
     }
 
     this.props.history.push(`${this.getPathPrefix()}/${key}`);
+    this.scrollToTop();
   };
 
   getPathPrefix = () => {
@@ -331,21 +329,19 @@ class VisitPage extends Component {
             id = { `form-nav` }
             minWidth='874.5'>
             <StepBar
-              currentStepKey={ this.props.stepKey }
+              currentStepKey={ step.key }
               goToStep={ this.goToStep }
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
           <div
             className="flex-item flex-column current-step-component">
             <StepComponent
-              component={ step.form }
               snippets={ snippets[ step.key ] }
               updateClientValue={
                 step.time === 'current' ?
                   this.changeCurrent :
                   this.changeFuture
               }
-              currentStep={ stepIndex }
               navData={ navData }
               saveForm={ this.saveForm }
               askToResetClient={ this.askToResetClient }

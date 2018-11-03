@@ -5,8 +5,11 @@ import { mergeWith } from 'lodash';
 import { interpolateSnippets } from './interpolation.js';
 
 // DATA
-import { localizations } from '../localization/all';
+import { getLocalizationData } from '../localization/all';
 import inlineComponents from '../localization/inlineComponents';
+
+// Get copy of localization data
+const localizations = getLocalizationData();
 
 // store interpolated and (if necessary) merged snippets objects
 let finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };

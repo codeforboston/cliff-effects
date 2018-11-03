@@ -24,7 +24,6 @@ test('Benefits step component renders as snapshot correctly', () => {
 
   const wrapper = shallow(
     <CurrentBenefitsStep
-      currentStep       = { 1 }
       client            = { CLIENT_DEFAULTS }
       navData           = { navData }
       updateClientValue      = { updateClientValue }

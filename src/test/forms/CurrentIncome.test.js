@@ -25,7 +25,6 @@ test('Income step component renders as snapshot correctly', () => {
 
   const wrapper = shallow(
     <CurrentIncomeStep
-      currentStep       = { 3 }
       client            = { CLIENT_DEFAULTS }
       navData           = { navData }
       updateClientValue      = { updateClientValue }
