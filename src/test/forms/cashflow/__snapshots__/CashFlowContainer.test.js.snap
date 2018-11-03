@@ -16,6 +16,7 @@ exports[`<CashFlowRow> renders with message 1`] = `
       <Surrounder
         Top={
           <InvalidMessage
+            id="undefinedMessage"
             validRow={false}
           >
             What did you enter!?
@@ -29,10 +30,12 @@ exports[`<CashFlowRow> renders with message 1`] = `
             className="top horizontal"
           >
             <InvalidMessage
+              id="undefinedMessage"
               validRow={false}
             >
               <div
                 className="invalid "
+                id="undefinedMessage"
               >
                 What did you enter!?
               </div>
@@ -50,7 +53,11 @@ exports[`<CashFlowRow> renders with message 1`] = `
               <div
                 className="cashflow-column cashflow-column-last-child"
               >
-                <label>
+                <label
+                  htmlFor="undefined_monthly"
+                  id="undefinedLabel"
+                  tabIndex="-1"
+                >
                   Rent
                 </label>
               </div>
@@ -76,7 +83,11 @@ exports[`<CashFlowRow> renders with no message 1`] = `
       className="inline field cashflow"
     >
       <Surrounder
-        Top={<span />}
+        Top={
+          <span
+            id="undefinedMessage"
+          />
+        }
       >
         <div
           className="surrounder"
@@ -84,7 +95,9 @@ exports[`<CashFlowRow> renders with no message 1`] = `
           <div
             className="top horizontal"
           >
-            <span />
+            <span
+              id="undefinedMessage"
+            />
           </div>
           <div
             className="middle horizontal"
@@ -98,7 +111,11 @@ exports[`<CashFlowRow> renders with no message 1`] = `
               <div
                 className="cashflow-column cashflow-column-last-child"
               >
-                <label>
+                <label
+                  htmlFor="undefined_monthly"
+                  id="undefinedLabel"
+                  tabIndex="-1"
+                >
                   Rent
                 </label>
               </div>
