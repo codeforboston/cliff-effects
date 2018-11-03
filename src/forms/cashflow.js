@@ -5,7 +5,7 @@ import { Form } from 'semantic-ui-react';
 // PROJECT COMPONENTS
 import { ManagedNumberField } from './inputs';
 import { Surrounder } from '../components/Surrounder';
-import { InvalidMessage } from './formHelpers';
+import { InvalidMessage, WithMessageAbove } from './formHelpers';
 
 // UTILITIES
 import { toMonthlyAmount } from '../utils/math';
@@ -48,9 +48,25 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
     <Form.Field
       inline
       className={ 'cashflow' }>
+      <WithMessageAbove
+        ariaName    = { name }
+        isUserError = { validRow === false }
+        message     = { message }>
+        <div className={ `flex-row` }>
+          { children }
+          <div className={ 'cashflow-column cashflow-column-label' }>
+            <label
+              htmlFor   = { name + `_monthly` }
+              id        = { name + `Label` }
+              tabIndex  = { `-1` }>
+              { label }
+            </label>
+          </div>
+        </div>
+      </WithMessageAbove>
       <Surrounder Top = { Top }>
         { children }
-        <div className={ 'cashflow-column cashflow-column-last-child' }>
+        <div className={ 'cashflow-column cashflow-column-label' }>
           <label
             htmlFor   = { name + `_monthly` }
             id        = { name + `Label` }
@@ -197,7 +213,7 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
       <div className = { colClassName + ` ` + generic + ` output-number` } >
         { yearly }
       </div>
-      <div className = { colClassName + ` cashflow-column-last-child` }>
+      <div className = { colClassName + ` cashflow-column-label` }>
         <label>{ children }</label>
       </div>
 

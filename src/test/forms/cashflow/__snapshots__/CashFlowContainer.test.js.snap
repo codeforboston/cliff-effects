@@ -13,6 +13,44 @@ exports[`<CashFlowRow> renders with message 1`] = `
     <div
       className="inline field cashflow"
     >
+      <WithMessageAbove
+        isUserError={true}
+        message="What did you enter!?"
+      >
+        <div
+          className="with-message-above "
+        >
+          <div
+            className="message-above invalid"
+            id="undefinedMessage"
+            tabIndex={-1}
+          >
+            What did you enter!?
+          </div>
+          <div
+            className="below-message"
+          >
+            <div
+              className="flex-row"
+            >
+              <span>
+                Some content
+              </span>
+              <div
+                className="cashflow-column cashflow-column-label"
+              >
+                <label
+                  htmlFor="undefined_monthly"
+                  id="undefinedLabel"
+                  tabIndex="-1"
+                >
+                  Rent
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </WithMessageAbove>
       <Surrounder
         Top={
           <InvalidMessage
@@ -51,7 +89,7 @@ exports[`<CashFlowRow> renders with message 1`] = `
                 Some content
               </span>
               <div
-                className="cashflow-column cashflow-column-last-child"
+                className="cashflow-column cashflow-column-label"
               >
                 <label
                   htmlFor="undefined_monthly"
@@ -82,6 +120,36 @@ exports[`<CashFlowRow> renders with no message 1`] = `
     <div
       className="inline field cashflow"
     >
+      <WithMessageAbove
+        isUserError={false}
+      >
+        <div
+          className="with-message-above "
+        >
+          <div
+            className="below-message"
+          >
+            <div
+              className="flex-row"
+            >
+              <span>
+                Some content
+              </span>
+              <div
+                className="cashflow-column cashflow-column-label"
+              >
+                <label
+                  htmlFor="undefined_monthly"
+                  id="undefinedLabel"
+                  tabIndex="-1"
+                >
+                  Rent
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </WithMessageAbove>
       <Surrounder
         Top={
           <span
@@ -109,7 +177,7 @@ exports[`<CashFlowRow> renders with no message 1`] = `
                 Some content
               </span>
               <div
-                className="cashflow-column cashflow-column-last-child"
+                className="cashflow-column cashflow-column-label"
               >
                 <label
                   htmlFor="undefined_monthly"
