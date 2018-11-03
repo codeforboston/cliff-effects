@@ -1,10 +1,10 @@
-import { CurrentIncomeStep } from './forms/CurrentIncome';
-import { CurrentExpensesStep } from './forms/CurrentExpenses';
-import { PredictionsStep } from './forms/Predictions';
-import { HouseholdStep } from './forms/Household';
-import { CurrentBenefitsStep } from './forms/CurrentBenefits';
+import { CurrentIncomeStep } from './CurrentIncome';
+import { CurrentExpensesStep } from './CurrentExpenses';
+import { PredictionsStep } from './Predictions';
+import { HouseholdStep } from './Household';
+import { CurrentBenefitsStep } from './CurrentBenefits';
 
-export const STEPS = [
+export const STEP_VALS = [
   {
     form: CurrentBenefitsStep,
     key:  'currentBenefits',
@@ -29,6 +29,5 @@ export const STEPS = [
     form: PredictionsStep,
     key:  'predictions',
     time: 'future',
-  }, //,
-  //  { title: 'Graphs', form: ResultsGraph }
-]; // end STEPS
+  },
+]; // end STEP_VALS
