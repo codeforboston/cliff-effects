@@ -51,58 +51,6 @@ exports[`<CashFlowRow> renders with message 1`] = `
           </div>
         </div>
       </WithMessageAbove>
-      <Surrounder
-        Top={
-          <InvalidMessage
-            id="undefinedMessage"
-            validRow={false}
-          >
-            What did you enter!?
-          </InvalidMessage>
-        }
-      >
-        <div
-          className="surrounder"
-        >
-          <div
-            className="top horizontal"
-          >
-            <InvalidMessage
-              id="undefinedMessage"
-              validRow={false}
-            >
-              <div
-                className="invalid "
-                id="undefinedMessage"
-              >
-                What did you enter!?
-              </div>
-            </InvalidMessage>
-          </div>
-          <div
-            className="middle horizontal"
-          >
-            <div
-              className="center horizontal content"
-            >
-              <span>
-                Some content
-              </span>
-              <div
-                className="cashflow-column cashflow-column-label"
-              >
-                <label
-                  htmlFor="undefined_monthly"
-                  id="undefinedLabel"
-                  tabIndex="-1"
-                >
-                  Rent
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Surrounder>
     </div>
   </FormField>
 </CashFlowRow>
@@ -150,47 +98,6 @@ exports[`<CashFlowRow> renders with no message 1`] = `
           </div>
         </div>
       </WithMessageAbove>
-      <Surrounder
-        Top={
-          <span
-            id="undefinedMessage"
-          />
-        }
-      >
-        <div
-          className="surrounder"
-        >
-          <div
-            className="top horizontal"
-          >
-            <span
-              id="undefinedMessage"
-            />
-          </div>
-          <div
-            className="middle horizontal"
-          >
-            <div
-              className="center horizontal content"
-            >
-              <span>
-                Some content
-              </span>
-              <div
-                className="cashflow-column cashflow-column-label"
-              >
-                <label
-                  htmlFor="undefined_monthly"
-                  id="undefinedLabel"
-                  tabIndex="-1"
-                >
-                  Rent
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Surrounder>
     </div>
   </FormField>
 </CashFlowRow>

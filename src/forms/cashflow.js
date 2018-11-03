@@ -4,8 +4,7 @@ import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { ManagedNumberField } from './inputs';
-import { Surrounder } from '../components/Surrounder';
-import { InvalidMessage, WithMessageAbove } from './formHelpers';
+import { WithMessageAbove } from './formHelpers';
 
 // UTILITIES
 import { toMonthlyAmount } from '../utils/math';
@@ -31,19 +30,6 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
   // https://www.w3.org/WAI/tutorials/forms/instructions/#using-aria-labelledby
   // `tab-index` for IE (see 'note')
 
-  var Top;
-  if (!validRow) {
-    Top = (
-      <InvalidMessage
-        validRow = { validRow }
-        id       = { name + `Message` }>
-        { message }
-      </InvalidMessage>
-    );
-  } else {
-    Top = (<span id={ name + `Message` }>{ message }</span>);
-  }
-
   return (
     <Form.Field
       inline
@@ -64,17 +50,6 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
           </div>
         </div>
       </WithMessageAbove>
-      <Surrounder Top = { Top }>
-        { children }
-        <div className={ 'cashflow-column cashflow-column-label' }>
-          <label
-            htmlFor   = { name + `_monthly` }
-            id        = { name + `Label` }
-            tabIndex  = { `-1` }>
-            { label }
-          </label>
-        </div>
-      </Surrounder>
     </Form.Field>
   );
 };  // End <CashFlowRow>
