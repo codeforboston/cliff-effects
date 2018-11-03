@@ -57,6 +57,7 @@ describe(`<WithMessageAbove>`, () => {
       </WithMessageAbove>
     );
     expect(getMessage(wrapper)).toHaveLength(1);
+    expect(getMessage(wrapper).find(`.invalid`)).toHaveLength(1);
   });
 
 });
