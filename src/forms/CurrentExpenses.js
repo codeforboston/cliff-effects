@@ -41,264 +41,44 @@ import { getUnder13Expenses } from '../utils/cashflow';
 // COMPONENTS
 // ========================================
 
-/** Renders a yes/no choice that will reveal the cash
- *     flow component given when the user selects 'yes'.
- *
- *     We added this extra step between the user and
- *     the input because people kept skipping that question.
- *
- * @param {object} props
- * @param {bool} props.hasExpenses True if client has any
- *     expenses here that could affect their income.
- * @param {object} props.CashFlowRow To be rendered if user
- *     chooses 'yes'.
- * @param {string | object} props.label To be rendered as
- *     the yes/no question.
- * @param {object} props.propData Data for the prop changed
- *     by the given cash flow component. (move component in
- *     here?)
- * @param {string} props.propData.childPropName Name of cash
- *     flow client prop to be updated.
- * @param {object} props.propData client Current or future
- *     client data.
- * @param {function} props.propData update Updates client
- *     values
- *
- * @returns Value that React can render
+/* Move these to SNAP calc logic scripts:
+ * @todo SNAP: Does a medical assistant's payments count as a medical expense?
+ *     (Answer: Yes. @see {@link https://www.mass.gov/service-details/snap-verifications})
+ * @todo SNAP: Medical expense only matters if household has elder/disabled, but
+ *     are they any medical expenses or only those of the disabled person? "Medical
+ *     Expenses for Disabled or Elderly". Also, do they sometimes need to
+ *     enter medical expenses even if they don't have an elderly or disabled
+ *     household member?
  */
-const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
-  /** @todo Save amount temporarily when 'source'
-   *      amount is set to 0. */
-  var reset = function (evnt) {
-    var { childPropName, update } = propData;
-
-    update(evnt, {
-      name:  childPropName,
-      value: 0,
-    });
-  };
-
-  if (hasExpenses) {
-
-    var { childPropName, client } = propData;
-    var showProps = {
-      childName:           childPropName,
-      showChildrenAtStart: client[ childPropName ] > 0,
-      question:            label,
-      heading:             null,
-      onNo:                reset,
-      // `<Surrounder>` props
-      Left:                <AttentionArrow />,
-    };
-
-    return (
-      <div className= { 'earned-from' }>
-        <ShowOnYes { ...showProps }>
-          { CashFlowRow }
-        </ShowOnYes>
-      </div>
-    );
-
-  } else {
-    return null;
-  }
-
-};  // End EarnedFrom
-
-
-const Utilities = function ({ current, type, time, updateClientValue }) {
-
-  let hasClimate     = current.climateControl,
-      hasElectricity = current.nonHeatElectricity,
-      hasPhone       = current.phone,
-      hasFuelAssist  = current.fuelAssistance;
-
-  let setChecked = function (evnt, inputProps) {
-    var obj = { ...inputProps, value: inputProps.checked };
-    updateClientValue(evnt, obj);
-  };  // End setChecked()
-
-  // For keyboard access (already does spacebar)
-  let onKeyDown = function (evnt) {
-    if (evnt.key === `Enter`) {
-      evnt.target.click();
-    }
-  };
-
-  // May want to change name to 'utilities' and value to what's 'name' now
-  // Will require more work in the change handler
-  return (
-    <div>
-      <Header as='h4'>Which of these utilities do you pay for?</Header>
-
-      <Checkbox
-        name={ 'climateControl' }
-        label={ 'Heating or cooling (e.g. A/C during summer)' }
-        checked={ hasClimate }
-        onChange={ setChecked }
-        onKeyDown = { onKeyDown } />
-      <br />
-      <Checkbox
-        name={ 'nonHeatElectricity' }
-        label={ 'Electricity for non-heating purposes' }
-        checked={ hasElectricity }
-        onChange={ setChecked }
-        onKeyDown = { onKeyDown } />
-      <br />
-      <Checkbox
-        name={ 'phone' }
-        label={ 'Telephone service' }
-        checked={ hasPhone }
-        onChange={ setChecked }
-        onKeyDown = { onKeyDown } />
-      <br />
-      <br />
-      <ControlledRadioYesNo
-        labelText = { 'Do you get Fuel Assistance?' }
-        checked   = { hasFuelAssist }
-        name      = { 'fuelAssistance' }
-        onChange  = { updateClientValue } />
-
-    </div>
-
-  );
-};  // End Utilities(<>)
-
-
-const HousingDetails = function ({ current, type, time, updateClientValue }) {
-
-  let housing = current.housing,
-      sharedProps = {
-        timeState:         current,
-        current:           current,
-        type:              type,
-        time:              time,
-        updateClientValue: updateClientValue,
-      };
-
-  if (current.housing === 'voucher') {
-    return (
-      <div>
-        <ContractRentField { ...sharedProps } />
-        <RentShareField { ...sharedProps } />
-        <Utilities { ...sharedProps } />
-      </div>
-    );
-
-  } else if (housing === 'homeless') {
-    return null;
-
-  } else if (housing === 'renter') {
-    return (
-      <div>
-        <br />
-        <PlainRentRow { ...sharedProps } />
-        <Utilities { ...sharedProps } />
-      </div>
-    );
-
-  } else if (housing === 'homeowner') {
-    return (
-      <div>
-        <IntervalColumnHeadings type={ type } />
-        <CashFlowInputsRow
-          { ...sharedProps }
-          generic={ 'mortgage' }> Mortgage
-        </CashFlowInputsRow>
-        <CashFlowInputsRow
-          { ...sharedProps }
-          generic={ 'housingInsurance' }> Insurance Costs
-        </CashFlowInputsRow>
-        <CashFlowInputsRow
-          { ...sharedProps }
-          generic={ 'propertyTax' }> Property Tax
-        </CashFlowInputsRow>
-        <Utilities { ...sharedProps } />
-      </div>
-    );
-
-  }  // end which expenses
-};  // End HousingDetails(<>)
-
-
-const HousingRadio = function ({ currentValue, label, time, updateClientValue }) {
-
-  var value = label.toLowerCase();
-
-  return (
-    <Form.Field>
-      <Radio
-        name={ 'housing' }
-        label={ label }
-        value={ value }
-        checked={ currentValue === value }
-        onChange = { updateClientValue } />
-    </Form.Field>
-  );
-
-};  // End HousingRadio(<>)
-
-
+// `props` is a cloned version of the original props. References broken.
 /**
- * @function
- * @param {object} props
- * @param {object} props.current Client data of current user circumstances
- * @param {string} props.type 'expense' or 'income', etc., for classes
- * @param {string} props.time 'current' or 'future'
- * @param {function} props.updateClientValue Sets state values
- *
- * @returns React element
- */
-const Housing = function ({ current, type, time, updateClientValue }) {
-
-  /** @deprecated This is handled differently now */
-  let ensureRouteAndValue = function (evnt, inputProps) {
-    var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
-    updateClientValue(evnt, obj);
-  };
-
-  let sharedProps = {
-    current:           current,
-    type:              type,
-    time:              time,
-    updateClientValue: ensureRouteAndValue,
-  };
+  * @function
+  * @param {object} props
+  * @param {function} props.updateClientValue Setting client state
+  * @param {object} props.navData Buttons for bottom row
+  * @param {object} props.client Data for calculating benefits, `future` and `current`
+  * @param {object} props.snippets  Language-specific content
+  *
+  * @returns React element
+  */
+const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
 
   return (
-    <div>
-
-      <ContentH1>Housing</ContentH1>
-
-      { current.housing === 'voucher' ? (
-        null
-      ) : (
-        <div>
-          <Header as='h4'>What is your housing situation?</Header>
-          <HousingRadio
-            currentValue={ current.housing }
-            label={ 'Homeless' }
-            time={ time }
-            updateClientValue = { ensureRouteAndValue } />
-          <HousingRadio
-            currentValue={ current.housing }
-            label={ 'Renter' }
-            time={ time }
-            updateClientValue = { ensureRouteAndValue } />
-          <HousingRadio
-            currentValue={ current.housing }
-            label={ 'Homeowner' }
-            time={ time }
-            updateClientValue = { ensureRouteAndValue } />
-        </div>
-      ) }
-
-      <HousingDetails { ...sharedProps } />
-
-    </div>
+    <FormPartsContainer
+      title     = { snippets.i_title }
+      clarifier = { snippets.i_clarifier }
+      navData   = { navData }
+      formClass = { `expenses` }>
+      <ExpensesFormContent
+        updateClientValue = { updateClientValue }
+        current={ client.current }
+        time={ 'current' }
+        snippets={ snippets } />
+    </FormPartsContainer>
   );
 
-};  // End Housing()
+};  // Ends CurrentExpensesStep()
 
 
 /** Abstracted for future use in 'future' value setting as well.
@@ -524,46 +304,267 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
     </div>
   );
 
-};  // End ExpensesFormContent()
+};  // Ends <ExpensesFormContent>
 
-/* Move these to SNAP calc logic scripts:
- * @todo SNAP: Does a medical assistant's payments count as a medical expense?
- *     (Answer: Yes. @see {@link https://www.mass.gov/service-details/snap-verifications})
- * @todo SNAP: Medical expense only matters if household has elder/disabled, but
- *     are they any medical expenses or only those of the disabled person? "Medical
- *     Expenses for Disabled or Elderly". Also, do they sometimes need to
- *     enter medical expenses even if they don't have an elderly or disabled
- *     household member?
- */
 
-// `props` is a cloned version of the original props. References broken.
 /**
-  * @function
-  * @param {object} props
-  * @param {function} props.updateClientValue Setting client state
-  * @param {object} props.navData Buttons for bottom row
-  * @param {object} props.client Data for calculating benefits, `future` and `current`
-  * @param {object} props.snippets  Language-specific content
-  *
-  * @returns React element
-  */
-const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
+ * @function
+ * @param {object} props
+ * @param {object} props.current Client data of current user circumstances
+ * @param {string} props.type 'expense' or 'income', etc., for classes
+ * @param {string} props.time 'current' or 'future'
+ * @param {function} props.updateClientValue Sets state values
+ *
+ * @returns React element
+ */
+const Housing = function ({ current, type, time, updateClientValue }) {
+
+  /** @deprecated This is handled differently now */
+  let ensureRouteAndValue = function (evnt, inputProps) {
+    var obj = { ...inputProps, name: inputProps.name, value: inputProps.value, checked: null };
+    updateClientValue(evnt, obj);
+  };
+
+  let sharedProps = {
+    current:           current,
+    type:              type,
+    time:              time,
+    updateClientValue: ensureRouteAndValue,
+  };
 
   return (
-    <FormPartsContainer
-      title     = { snippets.i_title }
-      clarifier = { snippets.i_clarifier }
-      navData   = { navData }
-      formClass = { `expenses` }>
-      <ExpensesFormContent
-        updateClientValue = { updateClientValue }
-        current={ client.current }
-        time={ 'current' }
-        snippets={ snippets } />
-    </FormPartsContainer>
+    <div>
+
+      <ContentH1>Housing</ContentH1>
+
+      { current.housing === 'voucher' ? (
+        null
+      ) : (
+        <div>
+          <Header as='h4'>What is your housing situation?</Header>
+          <HousingRadio
+            currentValue={ current.housing }
+            label={ 'Homeless' }
+            time={ time }
+            updateClientValue = { ensureRouteAndValue } />
+          <HousingRadio
+            currentValue={ current.housing }
+            label={ 'Renter' }
+            time={ time }
+            updateClientValue = { ensureRouteAndValue } />
+          <HousingRadio
+            currentValue={ current.housing }
+            label={ 'Homeowner' }
+            time={ time }
+            updateClientValue = { ensureRouteAndValue } />
+        </div>
+      ) }
+
+      <HousingDetails { ...sharedProps } />
+
+    </div>
   );
 
-};  // End CurrentExpensesStep()
+};  // Ends <Housing>
+
+
+const HousingRadio = function ({ currentValue, label, time, updateClientValue }) {
+
+  var value = label.toLowerCase();
+
+  return (
+    <Form.Field>
+      <Radio
+        name={ 'housing' }
+        label={ label }
+        value={ value }
+        checked={ currentValue === value }
+        onChange = { updateClientValue } />
+    </Form.Field>
+  );
+
+};  // Ends <HousingRadio>
+
+
+const HousingDetails = function ({ current, type, time, updateClientValue }) {
+
+  let housing = current.housing,
+      sharedProps = {
+        timeState:         current,
+        current:           current,
+        type:              type,
+        time:              time,
+        updateClientValue: updateClientValue,
+      };
+
+  if (current.housing === 'voucher') {
+    return (
+      <div>
+        <ContractRentField { ...sharedProps } />
+        <RentShareField { ...sharedProps } />
+        <Utilities { ...sharedProps } />
+      </div>
+    );
+
+  } else if (housing === 'homeless') {
+    return null;
+
+  } else if (housing === 'renter') {
+    return (
+      <div>
+        <br />
+        <PlainRentRow { ...sharedProps } />
+        <Utilities { ...sharedProps } />
+      </div>
+    );
+
+  } else if (housing === 'homeowner') {
+    return (
+      <div>
+        <IntervalColumnHeadings type={ type } />
+        <CashFlowInputsRow
+          { ...sharedProps }
+          generic={ 'mortgage' }> Mortgage
+        </CashFlowInputsRow>
+        <CashFlowInputsRow
+          { ...sharedProps }
+          generic={ 'housingInsurance' }> Insurance Costs
+        </CashFlowInputsRow>
+        <CashFlowInputsRow
+          { ...sharedProps }
+          generic={ 'propertyTax' }> Property Tax
+        </CashFlowInputsRow>
+        <Utilities { ...sharedProps } />
+      </div>
+    );
+
+  }  // ends which expenses
+};  // Ends <HousingDetails>
+
+
+const Utilities = function ({ current, type, time, updateClientValue }) {
+
+  let hasClimate     = current.climateControl,
+      hasElectricity = current.nonHeatElectricity,
+      hasPhone       = current.phone,
+      hasFuelAssist  = current.fuelAssistance;
+
+  let setChecked = function (evnt, inputProps) {
+    var obj = { ...inputProps, value: inputProps.checked };
+    updateClientValue(evnt, obj);
+  };
+
+  // For keyboard access (already does spacebar)
+  let onKeyDown = function (evnt) {
+    if (evnt.key === `Enter`) {
+      evnt.target.click();
+    }
+  };
+
+  // May want to change name to 'utilities' and value to what's 'name' now
+  // Will require more work in the change handler
+  return (
+    <div>
+      <Header as='h4'>Which of these utilities do you pay for?</Header>
+
+      <Checkbox
+        name={ 'climateControl' }
+        label={ 'Heating or cooling (e.g. A/C during summer)' }
+        checked={ hasClimate }
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
+      <br />
+      <Checkbox
+        name={ 'nonHeatElectricity' }
+        label={ 'Electricity for non-heating purposes' }
+        checked={ hasElectricity }
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
+      <br />
+      <Checkbox
+        name={ 'phone' }
+        label={ 'Telephone service' }
+        checked={ hasPhone }
+        onChange={ setChecked }
+        onKeyDown = { onKeyDown } />
+      <br />
+      <br />
+      <ControlledRadioYesNo
+        labelText = { 'Do you get Fuel Assistance?' }
+        checked   = { hasFuelAssist }
+        name      = { 'fuelAssistance' }
+        onChange  = { updateClientValue } />
+
+    </div>
+
+  );
+};  // Ends <Utilities>
+
+
+/** Renders a yes/no choice that will reveal the cash
+ *     flow component given when the user selects 'yes'.
+ *
+ *     We added this extra step between the user and
+ *     the input because people kept skipping that question.
+ *
+ * @param {object} props
+ * @param {bool} props.hasExpenses True if client has any
+ *     expenses here that could affect their income.
+ * @param {object} props.CashFlowRow To be rendered if user
+ *     chooses 'yes'.
+ * @param {string | object} props.label To be rendered as
+ *     the yes/no question.
+ * @param {object} props.propData Data for the prop changed
+ *     by the given cash flow component. (move component in
+ *     here?)
+ * @param {string} props.propData.childPropName Name of cash
+ *     flow client prop to be updated.
+ * @param {object} props.propData client Current or future
+ *     client data.
+ * @param {function} props.propData update Updates client
+ *     values
+ *
+ * @returns Value that React can render
+ */
+const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
+
+  /** @todo Save amount temporarily when 'source'
+   *      amount is set to 0. */
+  var reset = function (evnt) {
+    var { childPropName, update } = propData;
+
+    update(evnt, {
+      name:  childPropName,
+      value: 0,
+    });
+  };
+
+  if (hasExpenses) {
+
+    var { childPropName, client } = propData;
+    var showProps = {
+      childName:           childPropName,
+      showChildrenAtStart: client[ childPropName ] > 0,
+      question:            label,
+      heading:             null,
+      onNo:                reset,
+      // `<Surrounder>` props
+      Left:                <AttentionArrow />,
+    };
+
+    return (
+      <div className= { 'earned-from' }>
+        <ShowOnYes { ...showProps }>
+          { CashFlowRow }
+        </ShowOnYes>
+      </div>
+    );
+
+  } else {
+    return null;
+  }
+
+};  // Ends <EarnedFrom>
 
 
 export { CurrentExpensesStep };
