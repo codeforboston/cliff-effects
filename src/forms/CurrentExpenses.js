@@ -144,24 +144,9 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
       {/* Head or spouse can't be a dependent, so they don't count. */}
       { over12.length > 0 ? (
-        <div>
-          <ContentH1 subheading = { 'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n' }>
-            Dependent Care of Persons Over 12 Years of Age
-          </ContentH1>
-          <IntervalColumnHeadings type={ type } />
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'adultDirectCare' }> Direct care costs
-          </CashFlowInputsRow>
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'adultTransportation' }> Transportation costs
-          </CashFlowInputsRow>
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'adultOtherCare' }> Other care
-          </CashFlowInputsRow>
-        </div>
+        <DependentsOver12
+          type        = { type }
+          sharedProps = { sharedProps } />
       ) : (
         null
       ) }
@@ -326,6 +311,30 @@ const ChildSupport = function ({ type, sharedProps }) {
     </div>
   );
 };
+
+
+const DependentsOver12 = function ({ type, sharedProps }) {
+  return (
+    <div>
+      <ContentH1 subheading = { 'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n' }>
+        Dependent Care of Persons Over 12 Years of Age
+      </ContentH1>
+      <IntervalColumnHeadings type={ type } />
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'adultDirectCare' }> Direct care costs
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'adultTransportation' }> Transportation costs
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'adultOtherCare' }> Other care
+      </CashFlowInputsRow>
+    </div>
+  );
+};  // Ends <DependentsOver12>
 
 
 /**
