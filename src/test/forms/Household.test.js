@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { HouseholdStep } from '../../forms/Household';
 
@@ -10,28 +10,28 @@ import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
 var snippets = getTextForLanguage(`en`);
-test('Household step component renders as snapshot correctly', () => {
+test('Household step component should render without error', () => {
   const navData = {
-          left:   { text: 'Previous', onClick: jest.fn() },
+          left:   (<div>House left</div>),
           middle: null,
-          right:  { text: 'Next', onClick: jest.fn() },
+          right:  (<div>House right</div>),
         },
-        updateClientValue     = jest.fn(),
-        saveForm         = jest.fn(),
-        askToResetClient = jest.fn(),
-        openFeedback     = jest.fn(),
-        formSnippets     = snippets.visitPage.household;
+        updateClientValue = jest.fn(),
+        saveForm          = jest.fn(),
+        askToResetClient  = jest.fn(),
+        openFeedback      = jest.fn(),
+        formSnippets      = snippets.visitPage.household;
 
-  const wrapper = shallow(
-    <HouseholdStep
-      client            = { CLIENT_DEFAULTS }
-      navData           = { navData }
-      updateClientValue      = { updateClientValue }
-      saveForm          = { saveForm }
-      askToResetClient  = { askToResetClient }
-      openFeedback      = { openFeedback }
-      snippets          = { formSnippets } />
-  );
-
-  expect(wrapper).toMatchSnapshot();
+  expect(() => {
+    mount(
+      <HouseholdStep
+        client            = { CLIENT_DEFAULTS }
+        navData           = { navData }
+        updateClientValue = { updateClientValue }
+        saveForm          = { saveForm }
+        askToResetClient  = { askToResetClient }
+        openFeedback      = { openFeedback }
+        snippets          = { formSnippets } />
+    );
+  }).not.toThrow();
 });
