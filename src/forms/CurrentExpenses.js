@@ -124,49 +124,12 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
     <div className='field-aligner two-column'>
 
       { under13.length > 0 ? (
-        <div>
-          <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.i_subheading }>
-            { snippets.unreimbursedNonMedicalChildCare.i_sectionHeading }
-          </ContentH1>
-          <IntervalColumnHeadings type={ type } />
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'childDirectCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
-          </CashFlowInputsRow>
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'childBeforeAndAfterSchoolCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
-          </CashFlowInputsRow>
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'childTransportation' }>
-            { snippets.unreimbursedNonMedicalChildCare.childTransportation.i_label }
-          </CashFlowInputsRow>
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'childOtherCare' }>
-            { snippets.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
-          </CashFlowInputsRow>
-
-          <EarnedFrom
-            hasExpenses = { getUnder13Expenses(current) !== 0 }
-            label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
-            propData = {{
-              client:        current,
-              childPropName: `earnedBecauseOfChildCare`,
-              update:        updateClientValue,
-            }}
-            CashFlowRow = {
-              <CashFlowInputsRow
-                { ...sharedProps }
-                generic = { `earnedBecauseOfChildCare` }>
-                { `How much less would you make?` }
-              </CashFlowInputsRow>
-            } />
-
-        </div>
+        <Under13
+          snippets          = { snippets }
+          type              = { type }
+          sharedProps       = { sharedProps }
+          current           = { current }
+          updateClientValue = { updateClientValue } />
       ) : (
         null
       ) }
@@ -305,6 +268,55 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
   );
 
 };  // Ends <ExpensesFormContent>
+
+
+const Under13 = function ({ snippets, type, sharedProps, current, updateClientValue }) {
+  return (
+    <div>
+      <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.i_subheading }>
+        { snippets.unreimbursedNonMedicalChildCare.i_sectionHeading }
+      </ContentH1>
+      <IntervalColumnHeadings type={ type } />
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'childDirectCare' }>
+        { snippets.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'childBeforeAndAfterSchoolCare' }>
+        { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'childTransportation' }>
+        { snippets.unreimbursedNonMedicalChildCare.childTransportation.i_label }
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'childOtherCare' }>
+        { snippets.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
+      </CashFlowInputsRow>
+
+      <EarnedFrom
+        hasExpenses = { getUnder13Expenses(current) !== 0 }
+        label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
+        propData = {{
+          client:        current,
+          childPropName: `earnedBecauseOfChildCare`,
+          update:        updateClientValue,
+        }}
+        CashFlowRow = {
+          <CashFlowInputsRow
+            { ...sharedProps }
+            generic = { `earnedBecauseOfChildCare` }>
+            { `How much less would you make?` }
+          </CashFlowInputsRow>
+        } />
+
+    </div>
+  );
+};  // Ends <Under13>
 
 
 /**
