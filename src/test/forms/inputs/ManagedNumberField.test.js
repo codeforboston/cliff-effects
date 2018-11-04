@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { ManagedNumberField } from '../../../forms/inputs';
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../../../utils/validators';
@@ -20,9 +20,9 @@ let getMNF = function (value, store, validator, displayValidator) {
 
 
 test('ManagedNumberField should render', () => {
-    expect(() => {
-      mount(getMNF(0));
-    }).not.toThrow();
+  expect(() => {
+    mount(getMNF(0));
+  }).not.toThrow();
 });
 
 test('should set focused state to true on focus if current value of input is positive number', () => {
@@ -70,7 +70,7 @@ test('should change local and app state correctly when user inputs positive numb
   mockValidator.mockReturnValue(true);
 
   const wrapper = mount(getMNF(0, mockStore, mockValidator));
-  wrapper.find('input').simulate('change', { target: { value: userInput } });
+  wrapper.find('input').simulate('change', { target: { value: userInput }});
 
   // sending the proper call to change the application's state
   expect(mockStore.mock.calls[ 0 ][ 1 ].value).toEqual(userInput);
@@ -89,7 +89,7 @@ test('should change local and app state correctly to 0 when user inputs empty st
   mockValidator.mockReturnValue(true);
 
   const wrapper = mount(getMNF(10, mockStore, mockValidator));
-  wrapper.find('input').simulate('change', { target: { value: userInput } });
+  wrapper.find('input').simulate('change', { target: { value: userInput }});
 
   // sending the proper call to change the application's state
   // Since value is empty string, store should be given 0 as value
