@@ -620,4 +620,17 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 };  // Ends <EarnedFrom>
 
 
-export { CurrentExpensesStep };
+export {
+  CurrentExpensesStep,
+  ExpensesFormContent,
+  Under13,
+  ChildSupport,
+  DependentsOver12,
+  ElderlyOrDisabled1,
+  ElderlyOrDisabled2,
+  Housing,
+  HousingRadio,
+  HousingDetails,
+  Utilities,
+  EarnedFrom,
+};
