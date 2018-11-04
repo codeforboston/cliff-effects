@@ -184,6 +184,12 @@ class ManagedNumberField extends Component {
     var { valid, focused, focusedVal }                = this.state;
     var { value, name, className, format, otherData } = this.props;
 
+    // @todo Bad var name. Find more useful name for this.
+    let id = name;
+    if (otherData && otherData.interval) {
+      id = name + `_` + otherData.interval;
+    }
+
     // Format correctly when neighbors are updated, if needed
     if (!focused) {
       value = format(value);
@@ -199,7 +205,7 @@ class ManagedNumberField extends Component {
         error     = { !valid }
         value     = { value }
         name      = { name }
-        id        = { name + `_` + otherData.interval }
+        id        = { id }
         className = { className + ` output-number` }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
