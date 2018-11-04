@@ -136,6 +136,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
       { current.hasSnap ? (
         <ChildSupport
+          snippets    = { snippets }
           type        = { type }
           sharedProps = { sharedProps } />
       ) : (
@@ -145,6 +146,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       {/* Head or spouse can't be a dependent, so they don't count. */}
       { over12.length > 0 ? (
         <DependentsOver12
+          snippets    = { snippets }
           type        = { type }
           sharedProps = { sharedProps } />
       ) : (
@@ -152,41 +154,12 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       ) }
 
       { elderlyOrDisabled.length > 0 ? (
-        <div>
-          <HeadingWithDetail>
-            <ContentH1>Unreimbursed Disabled/Handicapped/Elderly Assistance</ContentH1>
-            <div>
-              <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
-              <div>Examples of eligible disability assistance expenses:</div>
-              <ul>
-                <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
-                <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
-              </ul>
-            </div>
-          </HeadingWithDetail>
-          <IntervalColumnHeadings type={ type } />
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'disabledAssistance' }> Disabled/Handicapped assistance
-          </CashFlowInputsRow>
-
-          <EarnedFrom
-            hasExpenses = { current.disabledAssistance !== 0 }
-            label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
-            propData = {{
-              client:        current,
-              childPropName: `earnedBecauseOfAdultCare`,
-              update:        updateClientValue,
-            }}
-            CashFlowRow = {
-              <CashFlowInputsRow
-                { ...sharedProps }
-                generic = { `earnedBecauseOfAdultCare` }>
-                { `How much less would you make?` }
-              </CashFlowInputsRow>
-            } />
-
-        </div>
+        <ElderlyOrDisabled
+          snippets          = { snippets }
+          type              = { type }
+          sharedProps       = { sharedProps }
+          current           = { current }
+          updateClientValue = { updateClientValue } />
       ) : (
         null
       ) }
@@ -335,6 +308,46 @@ const DependentsOver12 = function ({ type, sharedProps }) {
     </div>
   );
 };  // Ends <DependentsOver12>
+
+
+const ElderlyOrDisabled = function ({ current, type, sharedProps, updateClientValue }) {
+  return (
+    <div>
+      <HeadingWithDetail>
+        <ContentH1>Unreimbursed Disabled/Handicapped/Elderly Assistance</ContentH1>
+        <div>
+          <div>Unreimbursed expenses to cover care attendants and auxiliary apparatus for any family member who is elderly or is a person with disabilities. Auxiliary apparatus are items such as wheelchairs, ramps, adaptations to vehicles, or special equipment to enable a blind person to read or type, but only if these items are directly related to permitting the disabled person or other family member to work.</div>
+          <div>Examples of eligible disability assistance expenses:</div>
+          <ul>
+            <li>The payments made on a motorized wheelchair for the 42 year old son of the head of household enable the son to leave the house and go to work each day on his own. Prior to the purchase of the motorized wheelchair, the son was unable to make the commute to work. These payments are an eligible disability assistance expense.</li>
+            <li>Payments to a care attendant to stay with a disabled 16-year-old child allow the child’s mother to go to work every day. These payments are an eligible disability assistance allowance.</li>
+          </ul>
+        </div>
+      </HeadingWithDetail>
+      <IntervalColumnHeadings type={ type } />
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'disabledAssistance' }> Disabled/Handicapped assistance
+      </CashFlowInputsRow>
+
+      <EarnedFrom
+        hasExpenses = { current.disabledAssistance !== 0 }
+        label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
+        propData = {{
+          client:        current,
+          childPropName: `earnedBecauseOfAdultCare`,
+          update:        updateClientValue,
+        }}
+        CashFlowRow = {
+          <CashFlowInputsRow
+            { ...sharedProps }
+            generic = { `earnedBecauseOfAdultCare` }>
+            { `How much less would you make?` }
+          </CashFlowInputsRow>
+        } />
+    </div>
+  );
+};  // Ends <ElderlyOrDisabled>
 
 
 /**
