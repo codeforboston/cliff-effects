@@ -154,7 +154,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       ) }
 
       { elderlyOrDisabled.length > 0 ? (
-        <ElderlyOrDisabled
+        <ElderlyOrDisabled1
           snippets          = { snippets }
           type              = { type }
           sharedProps       = { sharedProps }
@@ -169,34 +169,10 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         *     person is the head or spouse. From Appendix B, item (D)
         *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf} */}
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0) ? (
-        <div>
-          <HeadingWithDetail>
-            <ContentH1>Unreimbursed Medical Expenses</ContentH1>
-            <div>
-              <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
-              <ul>
-                <li>The orthodontist expenses for a child’s braces.</li>
-                <li>Services of doctors and health care professionals.</li>
-                <li>Services of health care facilities.</li>
-                <li>Medical insurance premiums. </li>
-                <li>Prescription/non-prescription medicines (prescribed by a physician).</li>
-                <li>Transportation to treatment (cab fare, bus fare, mileage).</li>
-                <li>Dental expenses, eyeglasses, hearing aids, batteries.</li>
-                <li>Live-in or periodic medical assistance.</li>
-                <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
-              </ul>
-            </div>
-          </HeadingWithDetail>
-          <IntervalColumnHeadings type={ type } />
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic='disabledMedical'> Disabled/Elderly medical expenses
-          </CashFlowInputsRow>
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic='otherMedical'> Medical expenses of other members
-          </CashFlowInputsRow>
-        </div>
+        <ElderlyOrDisabled2
+          snippets    = { snippets }
+          type        = { type }
+          sharedProps = { sharedProps } />
       ) : (
         null
       ) }
@@ -310,7 +286,7 @@ const DependentsOver12 = function ({ type, sharedProps }) {
 };  // Ends <DependentsOver12>
 
 
-const ElderlyOrDisabled = function ({ current, type, sharedProps, updateClientValue }) {
+const ElderlyOrDisabled1 = function ({ current, type, sharedProps, updateClientValue }) {
   return (
     <div>
       <HeadingWithDetail>
@@ -347,7 +323,41 @@ const ElderlyOrDisabled = function ({ current, type, sharedProps, updateClientVa
         } />
     </div>
   );
-};  // Ends <ElderlyOrDisabled>
+};  // Ends <ElderlyOrDisabled1>
+
+
+const ElderlyOrDisabled2 = function ({ type, sharedProps }) {
+  return (
+    <div>
+      <HeadingWithDetail>
+        <ContentH1>Unreimbursed Medical Expenses</ContentH1>
+        <div>
+          <div>Do not repeat anything you already listed in the section above. Examples of allowable medical expenses:</div>
+          <ul>
+            <li>The orthodontist expenses for a child’s braces.</li>
+            <li>Services of doctors and health care professionals.</li>
+            <li>Services of health care facilities.</li>
+            <li>Medical insurance premiums. </li>
+            <li>Prescription/non-prescription medicines (prescribed by a physician).</li>
+            <li>Transportation to treatment (cab fare, bus fare, mileage).</li>
+            <li>Dental expenses, eyeglasses, hearing aids, batteries.</li>
+            <li>Live-in or periodic medical assistance.</li>
+            <li>Monthly payment on accumulated medical bills (regular monthly payments on a bill that was previously incurred).</li>
+          </ul>
+        </div>
+      </HeadingWithDetail>
+      <IntervalColumnHeadings type={ type } />
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic='disabledMedical'> Disabled/Elderly medical expenses
+      </CashFlowInputsRow>
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic='otherMedical'> Medical expenses of other members
+      </CashFlowInputsRow>
+    </div>
+  );
+};  // Ends <ElderlyOrDisabled2>
 
 
 /**
