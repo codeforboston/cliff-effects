@@ -1,63 +1,75 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { CashFlowInputsRow } from '../../../forms/cashflow';
 
-test('CashFlowInputsRow should match snapshot', () => {
-  const wrapper = shallow(
-    <CashFlowInputsRow
-      generic='name'
-      timeState={{ name: 0 }}
-      updateClientValue={ () => {} } >
-      label
-    </CashFlowInputsRow>
-  );
-  expect(wrapper).toMatchSnapshot();
+
+const monthlyVal = 200,
+      propName   = `clientProp`,
+      // Without 'input', just the id selector finds 4 items. Why is that?
+      idBase     = `input#` + propName + `_`;
+
+test('CashFlowInputsRow should render', () => {
+  expect(() => {
+    mount(
+      <CashFlowInputsRow
+        generic={ propName }
+        timeState={{ [propName]: 0 }}
+        updateClientValue={ () => {} } >
+        label
+      </CashFlowInputsRow>
+    );
+  }).not.toThrow();
 });
 
-test('Second ManagedNumberField child should have value of timeState[ generic ]', () => {
-  const monthlyVal = 200.0;
-  const wrapper = shallow(
+test(`Second ManagedNumberField child should have value of timeState[ 'clientProp' ]`, () =>  {
+  const wrapper = mount(
     <CashFlowInputsRow
-      generic='name'
-      timeState={{ name: monthlyVal }}
-      updateClientValue={ () => {} } />
+      generic={ propName }
+      timeState={{ [propName]: monthlyVal }}
+      updateClientValue={ () => {} }>
+        label
+    </CashFlowInputsRow>
   );
-  const monthlyInput = wrapper.childAt(1);
-  expect(monthlyInput.prop('value')).toBe(monthlyVal);
+  const monthlyMNF = wrapper.find(idBase + `monthly`).closest(`ManagedNumberField`);
+  expect(monthlyMNF.prop(`value`)).toBe(monthlyVal);
 });
 
 test('First ManagedNumberField child should have weekly value', () => {
-  const monthlyVal = 200.0;
-  const wrapper = shallow(
+  const wrapper = mount(
     <CashFlowInputsRow
-      generic='name'
-      timeState={{ name: monthlyVal }}
-      updateClientValue={ () => {} } />
+      generic={ propName }
+      timeState={{ [propName]: monthlyVal }}
+      updateClientValue={ () => {} }>
+        label
+    </CashFlowInputsRow>
   );
-  const weeklyInput = wrapper.childAt(0);
-  expect(weeklyInput.prop('value')).toBeCloseTo(monthlyVal / (4 + 1 / 3));
+  const weeklyMNF = wrapper.find(idBase + `weekly`).closest(`ManagedNumberField`);
+  expect(weeklyMNF.prop(`value`)).toBeCloseTo(monthlyVal / (4 + 1 / 3));
 });
 
 test('Third ManagedNumberField child should have yearly value', () => {
-  const monthlyVal = 200.0;
-  const wrapper = shallow(
+  const wrapper = mount(
     <CashFlowInputsRow
-      generic='name'
-      timeState={{ name: monthlyVal }}
-      updateClientValue={ () => {} } />
+      generic={ propName }
+      timeState={{ [propName]: monthlyVal }}
+      updateClientValue={ () => {} }>
+        label
+    </CashFlowInputsRow>
   );
-  const yearlyInput = wrapper.childAt(2);
-  expect(yearlyInput.prop('value')).toBeCloseTo(monthlyVal * 12);
+  const yearlyInput = wrapper.find(idBase + `yearly`).closest(`ManagedNumberField`);
+  expect(yearlyInput.prop(`value`)).toBeCloseTo(monthlyVal * 12);
 });
 
 test('updateClientValue gets called correctly when each value is changed', () => {
   const mockSetClientProperty = jest.fn();
   const wrapper = shallow(
     <CashFlowInputsRow
-      generic='name'
-      timeState={{ name: 200.0 }}
-      updateClientValue={ mockSetClientProperty } />
+      generic={ propName }
+      timeState={{ [propName]: monthlyVal }}
+      updateClientValue={ mockSetClientProperty }>
+        label
+    </CashFlowInputsRow>
   );
 
   const multipliers = [
@@ -66,15 +78,15 @@ test('updateClientValue gets called correctly when each value is changed', () =>
     1 / 12,
   ];
   for (var i = 0; i < 3; i++) {
-    // `input` is an actual `<input>` node
-    const input = wrapper.childAt(i).shallow();
+    // ManagedNumberField
+    const MNF = wrapper.childAt(i).shallow();
     const newValue = (i + 1) * 10;
-    const evnt = { target: input };
-    input.prop('onChange')(evnt, { value: newValue });
+    const evnt = { target: MNF };
+    MNF.prop('onChange')(evnt, { value: newValue });
 
     expect(mockSetClientProperty.mock.calls).toHaveLength(i + 1);
     expect(mockSetClientProperty.mock.calls[ i ][ 0 ]).toBe(evnt);
-    expect(mockSetClientProperty.mock.calls[ i ][ 1 ].name).toBe('name');
+    expect(mockSetClientProperty.mock.calls[ i ][ 1 ].name).toBe(propName) ;
     expect(mockSetClientProperty.mock.calls[ i ][ 1 ].value).toBeCloseTo(newValue * multipliers[ i ]);
   }
 });
