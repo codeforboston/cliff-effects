@@ -135,14 +135,9 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       ) }
 
       { current.hasSnap ? (
-        <div>
-          <ContentH1>Child Support</ContentH1>
-          <IntervalColumnHeadings type={ type } />
-          <CashFlowInputsRow
-            { ...sharedProps }
-            generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support
-          </CashFlowInputsRow>
-        </div>
+        <ChildSupport
+          type        = { type }
+          sharedProps = { sharedProps } />
       ) : (
         null
       ) }
@@ -317,6 +312,20 @@ const Under13 = function ({ snippets, type, sharedProps, current, updateClientVa
     </div>
   );
 };  // Ends <Under13>
+
+
+const ChildSupport = function ({ type, sharedProps }) {
+  return (
+    <div>
+      <ContentH1>Child Support</ContentH1>
+      <IntervalColumnHeadings type={ type } />
+      <CashFlowInputsRow
+        { ...sharedProps }
+        generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support
+      </CashFlowInputsRow>
+    </div>
+  );
+};
 
 
 /**
