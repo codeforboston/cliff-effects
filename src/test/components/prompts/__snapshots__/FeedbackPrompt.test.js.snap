@@ -1,42 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`A feedback prompt should match the snapshot 1`] = `
-<Modal
-  closeOnDimmerClick={true}
-  closeOnDocumentClick={false}
-  dimmer={true}
-  eventPool="Modal"
-  mountNode={null}
+<FeedbackPrompt
+  header="Test prompt data"
+  isBlocking={true}
+  leaveText="Reset"
+  openFeedback={[Function]}
 >
-  <ModalHeader>
-    Test prompt data
-  </ModalHeader>
-  <ModalContent>
-    <p>
-       
-       
-    </p>
-  </ModalContent>
-  <ModalActions>
-    <Button
-      as="button"
-      onClick={[Function]}
-    >
-      Cancel
-    </Button>
-    <Button
-      as="button"
-      onClick={[Function]}
-    >
-      Reset
-    </Button>
-    <Button
-      as="button"
-      onClick={[Function]}
-      primary={true}
-    >
-      Tell Us More
-    </Button>
-  </ModalActions>
-</Modal>
+  <Modal
+    closeOnDimmerClick={true}
+    closeOnDocumentClick={false}
+    dimmer={true}
+    eventPool="Modal"
+    mountNode={null}
+  >
+    <Portal
+      className="ui page modals dimmer transition visible active"
+      closeOnDocumentClick={false}
+      closeOnEscape={true}
+      closeOnRootNodeClick={true}
+      eventPool="Modal"
+      mountNode={<body />}
+      onClose={[Function]}
+      onMount={[Function]}
+      onOpen={[Function]}
+      onUnmount={[Function]}
+      openOnTriggerClick={true}
+    />
+  </Modal>
+</FeedbackPrompt>
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 
 import FeedbackPrompt from '../../../components/prompts/FeedbackPrompt';
@@ -12,7 +12,7 @@ test('A feedback prompt should match the snapshot', () => {
     leaveText: 'Reset',
   };
 
-  const wrapper = shallow(
+  const wrapper = mount(
     <FeedbackPrompt
       { ...promptData }
       isBlocking={ isBlocking }
