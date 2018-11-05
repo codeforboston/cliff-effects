@@ -45,7 +45,7 @@ const WithMessageAbove = function ({ children, ariaName, isUserError, message, c
       messageClasses += `invalid`;
     }
     // `id` is for aria description hook
-    // tabIndex is for
+    // tabIndex is for IE (see link in description)
     messageElem = (
       <div
         className = { messageClasses }
