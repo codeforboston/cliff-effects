@@ -47,7 +47,7 @@ class BenefitsLineGraph extends Component {
     var max       = Math.ceil((limits.max * multiplier) / 100) * 100,
         interval  = Math.ceil((max / 100) / 10) * 10;
 
-    var xRange      = _.range(limits.min, max, interval),  // x-axis/income numbers
+    var xRange      = _.range(limits.min, max, interval),  // x-axis/earned income numbers
         extraProps  = { snap: { fill: false }, section8: { fill: false }},
         datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
 
@@ -58,10 +58,10 @@ class BenefitsLineGraph extends Component {
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var income  = client.future.earned * multiplier,
+    var earned  = client.future.earned * multiplier,
         hack    = this.state.verticalLine;
     hack.xRange = xRange;
-    hack.income = income;
+    hack.earned = earned;
 
     var lineProps = {
       data: {
@@ -71,7 +71,7 @@ class BenefitsLineGraph extends Component {
       options: {
         title: {
           display: true,
-          text:    'Individual Benefit Amounts for Household as Income Changes',
+          text:    'Individual Benefit Amounts for Household as Pay Changes',
         },
         showLines: true,
         scales:    {
@@ -92,7 +92,7 @@ class BenefitsLineGraph extends Component {
             {
               scaleLabel: {
                 display:     true,
-                labelString: timescale + ' Income ($)',
+                labelString: timescale + ' Pay ($)',
               },
               ticks: { callback: formatAxis },
             }, 

@@ -2,10 +2,14 @@
 
 exports[`ManagedNumberField should match snapshot 1`] = `
 <FormInput
+  aria-describedby="testMessage"
+  aria-labelledby="testLabel"
   as={[Function]}
   className="undefined output-number"
   control={[Function]}
   error={false}
+  id="test_monthly"
+  name="test"
   onBlur={[Function]}
   onChange={[Function]}
   onFocus={[Function]}

@@ -33,18 +33,13 @@
     "deploy": "npm run build && gh-pages -d build",
     "generateSNAPTests": "./node_modules/.bin/babel-node src/test/programs/federal/snap/generateTestCases",
     "lint": "./node_modules/.bin/eslint src --fix",
-    "docs": "./node_modules/.bin/jsdoc src -R OVERVIEW.md -r -c jsdoc.json -d docs"
+    "docs": "./node_modules/.bin/jsdoc src -R OVERVIEW.md -r -c jsdoc.json -d docs",
+    "pre-commit": "npm run lint && git add"
   },
   "homepage": "https://codeforboston.github.io/cliff-effects/app",
-  "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run pre-commit"
     }
   },
   "devDependencies": {
@@ -59,7 +54,6 @@
     "gh-pages": "1.2.0",
     "husky": "^1.1.2",
     "jsdoc": "3.5.5",
-    "lint-staged": "^7.3.0",
     "react-test-renderer": "16.3.2"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",

@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CashFlowInputsRow should match snapshot 1`] = `
-<CashFlowContainer
+<CashFlowRow
   label="label"
-  message=""
+  message={null}
+  name="name"
   validRow={true}
 >
   <ManagedNumberField
@@ -11,6 +12,7 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     displayValidator={[Function]}
     format={[Function]}
     name="name"
+    onBlur={[Function]}
     otherData={
       Object {
         "interval": "weekly",
@@ -25,6 +27,7 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     displayValidator={[Function]}
     format={[Function]}
     name="name"
+    onBlur={[Function]}
     otherData={
       Object {
         "interval": "monthly",
@@ -39,6 +42,7 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     displayValidator={[Function]}
     format={[Function]}
     name="name"
+    onBlur={[Function]}
     otherData={
       Object {
         "interval": "yearly",
@@ -48,5 +52,5 @@ exports[`CashFlowInputsRow should match snapshot 1`] = `
     storeValidator={[Function]}
     value={0}
   />
-</CashFlowContainer>
+</CashFlowRow>
 `;

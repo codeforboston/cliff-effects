@@ -26,7 +26,7 @@ const BenefitsTable = function ({ client, snippets }) {
   var curr = clone.current;
 
   var allData         = {},
-      activeBenefits  = [ `income` ];
+      activeBenefits  = [ `earned` ];
 
   if (curr.hasSection8) {
     activeBenefits.push(`section8`);
@@ -54,7 +54,7 @@ const BenefitsTable = function ({ client, snippets }) {
   applyAndPushBenefits (futureCalcData);
 
   // @todo Abstract getting values for each row
-  var income   = allData.income,
+  var earned   = allData.earned,
       section8 = allData.section8,
       snap     = allData.snap;
 
@@ -78,12 +78,12 @@ const BenefitsTable = function ({ client, snippets }) {
       totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
       totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
       totalDiff           = SNAPDiff + sec8Diff,
-      incomeCurrent       = Math.round(income[ 0 ]),
-      incomeFuture        = Math.round(income[ 1 ]),
-      incomeDiff          = incomeFuture - incomeCurrent,
-      netCurrent          = totalBenefitCurrent + incomeCurrent,
-      netFuture           = totalBenefitFuture + incomeFuture,
-      netDiff             = totalDiff + incomeDiff;
+      earnedCurrent       = Math.round(earned[ 0 ]),
+      earnedFuture        = Math.round(earned[ 1 ]),
+      earnedDiff          = earnedFuture - earnedCurrent,
+      netCurrent          = totalBenefitCurrent + earnedCurrent,
+      netFuture           = totalBenefitFuture + earnedFuture,
+      netDiff             = totalDiff + earnedDiff;
 
   const columnHeaderStyle = {
           background:    'rgba(0, 181, 173, 1)',
@@ -176,13 +176,13 @@ const BenefitsTable = function ({ client, snippets }) {
     );
   };
 
-  const IncomeRow = function ({ snippets }) {
+  const EarnedRow = function ({ snippets }) {
     return (
       <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowIncome }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{incomeCurrent}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{incomeFuture}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } { snippets.i_beforeMoney }{ Math.abs(incomeDiff) }{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowEarned }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{earnedCurrent}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{earnedFuture}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(earnedDiff) } { snippets.i_beforeMoney }{ Math.abs(earnedDiff) }{ snippets.i_afterMoney }</Table.Cell>
       </Table.Row>
     );
   };
@@ -247,7 +247,7 @@ const BenefitsTable = function ({ client, snippets }) {
           <TotalBenefitsRow 
             client={ clone } 
             snippets={ snippets } />
-          <IncomeRow snippets={ snippets } />
+          <EarnedRow snippets={ snippets } />
           <TotalsRow snippets={ snippets } />
         </Table.Body>
       </Table>

@@ -42,7 +42,7 @@ const IncomeForm = function ({ future, setPredictionValue, snippets }) {
         time="future"
         setValue = { setPredictionValue }
         generic='earned'
-        labelInfo='(Weekly income = hourly wage times average number of work hours per week)'>
+        labelInfo='(Weekly pay = hourly wage times average number of work hours per week)'>
         { snippets.i_futureIncomeQuestion }
       </CashFlowInputsRow>
     </div>

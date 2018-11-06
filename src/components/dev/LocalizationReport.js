@@ -9,15 +9,14 @@ import {
 } from 'semantic-ui-react';
 import _ from 'lodash';
 import { getKeyPathsArray, getKeyPathStrings } from '../../utils/objectKeyPaths';
+import { getLocalizationData } from '../../localization/all';
 
-// DATA
-import { localizations } from '../../localization/all';
-
+// Get copy of localization data
+const localizations = getLocalizationData();
 
 const ReportItem = function ({ keyPath, test, locKey, pass }) {
   return (
-    <List.Item
-      key={ keyPath }>
+    <List.Item>
       <List.Icon
         name={ pass ? 'check square' : 'window close' }
         size='large'
@@ -48,7 +47,11 @@ const ReportList = function ({ results }) {
     <List>
       { 
         results.map((filteredResult) => {
-          return <ReportListItems { ...filteredResult } />;
+          return (
+            <ReportListItems
+              key={ filteredResult.keyPath }
+              { ...filteredResult } />
+          );
         })
       }
     </List>
@@ -62,7 +65,7 @@ class LocalizationReport extends Component {
     modalOpen:        false,
     modelLocKey:      null,
     compareLocKey:    null,
-    filter:           'all',
+    filter:           'false',
     localizationKeys: [],
   };
 

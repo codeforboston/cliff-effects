@@ -52,11 +52,11 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  *     those benefits.
  *
  * @param {array} keys Contains keys to use on `sourceObject`.
- * @param {object} sourceObject MUST CONTAIN `income` property!
- *     Contains `income` and benefit keys that each have an
+ * @param {object} sourceObject MUST CONTAIN `earned` property!
+ *     Contains `earned` and benefit keys that each have an
  *     array of numerical values (which are meant to be money
  *     values right now).
- * @param {array} sourceObject.income Earned income values.
+ * @param {array} sourceObject.earned Earned income values.
  * @param {int} index Which item in each array should be used to
  *      accumulate values.
  *
@@ -74,7 +74,7 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * ];
  *
  * let accumulated = {
- *  income:   [ 450, 500 ],
+ *  earned:   [ 450, 500 ],
  *  benefit1: [ 80, 30 ],
  *  benefit2: [ 40, 10 ],
  * };
@@ -113,8 +113,8 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  */
 var fillInMoneyValues = (keys, sourceObject, index) => {
 
-  if (!Array.isArray(sourceObject.income)) {
-    throw new TypeError(`The given resources object requires an 'income' property that is an array of numbers.`);
+  if (!Array.isArray(sourceObject.earned)) {
+    throw new TypeError(`The given resources object requires an 'earned' property that is an array of numbers.`);
   }
 
   var moneyValues = {
@@ -124,18 +124,18 @@ var fillInMoneyValues = (keys, sourceObject, index) => {
     total:         0,
   };
 
-  // Item names can be `income` or benefit keys
+  // Item names can be `earned` or benefit keys
   for (let itemKey of keys) {
     let amount = sourceObject[ itemKey ][ index ];
 
-    if (itemKey === `income`) {
+    if (itemKey === `earned`) {
       moneyValues.earned = amount;
     } else {
       moneyValues.benefits.push({
         label:  PROGRAM_CHART_VALUES[ itemKey ].name,
         amount: amount,
       });
-      // Add up all benefits (we're not including income)
+      // Add up all benefits (we're not including earned income)
       moneyValues.benefitsTotal += amount;
     }
   }  // ends for every item key name
@@ -156,7 +156,7 @@ var fillInMoneyValues = (keys, sourceObject, index) => {
  * @param {Array.<String>} resourceKeys List of...
  *     'programs'... in the order in which we eventually
  *     want to show them. It often also includes
- *     'income' as the first value, so it's not a list
+ *     'earned' as the first value, so it's not a list
  *     of 'benefit programs' per se.
  *
  * @example
@@ -164,7 +164,7 @@ var fillInMoneyValues = (keys, sourceObject, index) => {
  * // This example uses the sample `client` data from row 3,
  * // column 'clientData' here:
  * // https://docs.google.com/spreadsheets/d/15LyR9yELAfcngj-c7vMdI630b6DwuuXV-dQEJDvU4gE/edit?usp=sharing
- * var items = [ 'income', 'section8', 'snap' ];
+ * var items = [ 'earned', 'section8', 'snap' ];
  * var data = getBenefitData(client, items);
  * console.log(data);
  * // {
@@ -215,10 +215,10 @@ var getBenefitData = function(client, resourceKeys) {
   applyAndPushBenefits(currentCalcData);
   var futureCalcData = { ...defaultProps, timeframe: `future` };
   applyAndPushBenefits(futureCalcData);
-  // Now have: { income: [c, f], n: [c, f], ... }
+  // Now have: { earned: [c, f], n: [c, f], ... }
 
   // 2. Get totals
-  // Fill income values for both current and future income objects
+  // Fill earned values for both current and future earned objects
   result.current = fillInMoneyValues(resourceKeys, accumulated, 0);
   result.future  = fillInMoneyValues(resourceKeys, accumulated, 1);
   var resultCurr  = result.current,
@@ -230,7 +230,7 @@ var getBenefitData = function(client, resourceKeys) {
 
   // 4. If implicit taxes > 100% (has dramatic cliff)
   let recoveryAmount = 0,
-      income         = accumulated.income;
+      earned         = accumulated.earned;
   if (result.diff <= 0) {
     // 5. The lowest point in their cliff is behind -
     // as is the nature of cliffs. Now try getting raises
@@ -244,7 +244,7 @@ var getBenefitData = function(client, resourceKeys) {
 
     }  // ends while making less money than now
     result.recovery.total  = recoveryAmount;
-    result.recovery.earned = income[ income.length - 1 ];
+    result.recovery.earned = earned[ earned.length - 1 ];
 
   }  // ends if hit dramatic cliff
 
@@ -272,7 +272,7 @@ var getBenefitData = function(client, resourceKeys) {
  */
 const Summary = function ({ client, openFeedback, snippets }) {
 
-  var resourceKeys = [ `income` ];
+  var resourceKeys = [ `earned` ];
   // Benefits, in order of appearance
   // So can't wait till `.benefits` is an array of benefit names...
   if (client.getIn([
