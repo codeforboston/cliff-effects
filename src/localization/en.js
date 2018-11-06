@@ -224,10 +224,7 @@ export default {
       childSupport: {
         sectionHeading_v1:    `Child Support`,
         columnExpenseType_v1: `Expense`,
-        childSupportPaidOut:  {
-          legallyObligated_v1: `Legally obligated`,
-          childSupport_v1:     ` child support`,
-        },
+        childSupportPaidOut_v1: `Child support you are legally required to pay`,
       },
       housing: {
         sectionHeading_v1:   `Housing`,

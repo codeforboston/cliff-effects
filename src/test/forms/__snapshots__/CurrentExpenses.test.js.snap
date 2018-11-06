@@ -88,21 +88,12 @@ exports[`Expenses step component renders as snapshot correctly 1`] = `
     snippets={
       Object {
         "childSupport": Object {
-          "childSupportPaidOut": Object {
-            "i_childSupport": <span
-              className="snippet"
-              lang="en"
+          "i_childSupportPaidOut": <span
+            className="snippet"
+            lang="en"
       >
-               child support
+            Child support you are legally required to pay
       </span>,
-            "i_legallyObligated": <span
-              className="snippet"
-              lang="en"
-      >
-              Legally obligated
-      </span>,
-            "langCode": "en",
-          },
           "i_columnExpenseType": <span
             className="snippet"
             lang="en"
