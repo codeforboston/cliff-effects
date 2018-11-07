@@ -32,6 +32,7 @@ import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { ManagedNumberField } from './inputs';
+import { Surrounder } from '../components/Surrounder';
 import { InvalidMessage } from './formHelpers';
 
 // UTILITIES
@@ -51,28 +52,51 @@ import { toMoneyStr } from '../utils/prettifiers';
  *
  * @returns React element
  */
-const CashFlowContainer = function ({ children, label, validRow, message }) {
+const CashFlowRow = function ({ children, label, name, validRow, message }) {
+
+  // `for` and `id` for accessibility purposes
+  // `for` can only be for one of the inputs, from what I can tell
+  // https://www.w3.org/WAI/tutorials/forms/instructions/#using-aria-labelledby
+  // `tab-index` for IE (see 'note')
+
+  var Top;
+  if (!validRow) {
+    Top = (
+      &lt;InvalidMessage
+        validRow = { validRow }
+        id       = { name + `Message` }>
+        { message }
+      &lt;/InvalidMessage>
+    );
+  } else {
+    Top = (&lt;span id={ name + `Message` }>{ message }&lt;/span>);
+  }
+
   return (
     &lt;Form.Field
       inline
       className={ 'cashflow' }>
-      { children }
-      &lt;div className={ 'cashflow-column cashflow-column-last-child' }>
-        &lt;label>{ label }&lt;/label>
-      &lt;/div>
-      &lt;InvalidMessage
-        validRow={ validRow }
-        message={ message } />
+      &lt;Surrounder Top = { Top }>
+        { children }
+        &lt;div className={ 'cashflow-column cashflow-column-last-child' }>
+          &lt;label
+            htmlFor   = { name + `_monthly` }
+            id        = { name + `Label` }
+            tabIndex  = { `-1` }>
+            { label }
+          &lt;/label>
+        &lt;/div>
+      &lt;/Surrounder>
     &lt;/Form.Field>
   );
-};  // End &lt;CashFlowContainer>
+};  // End &lt;CashFlowRow>
+
 
 /** Maximum input value of yearly income allowed in the textbox,
  *     monthly/daily will be scaled
  * @var
  */
 const maximum_value_yearly = 999999.99;
-
 
 // @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
 // use `includes` array to include only certain columns perhaps.
@@ -88,23 +112,36 @@ const maximum_value_yearly = 999999.99;
 class CashFlowInputsRow extends Component {
   constructor(props) {
     super(props);
-    this.state = { message: '' };
+    this.state = { valid: true, message: null };
   }
 
   // Special store validator that handles maximums and sets error message
   cashFlowStoreValidator = (max) => {
     return (str) => {
       if (!isNonNegNumber(str)) {
-        this.setState({ message: 'Invalid number format' });
+        let message    = `That number doesn't look right`,
+            numPeriods = str.match(/\./g) || [];
+
+        // Have a more detailed message if possible
+        if (numPeriods.length > 1) {
+          message = `The number should only have one decimal point`;
+        }
+
+        this.setState({ valid: false, message: message });
         return false;
       }
       else if (parseFloat(str) > max) {
-        this.setState({ message: ('The input number exceeds the maximum of $' + maximum_value_yearly + '/yr') });
+        // @todo Value should match up with the input that's being edited
+        this.setState({ valid: false, message: (`The biggest number you can put in here is $` + maximum_value_yearly + `/yr`) });
         return false;
       }
-      this.setState({ message: '' });
+      this.setState({ valid: true, message: null });
       return true;
     };
+  };
+
+  onBlur = (evnt) => {
+    this.setState({ valid: true, message: null });
   };
 
   render() {
@@ -115,9 +152,7 @@ class CashFlowInputsRow extends Component {
           obj     = { name: generic, value: monthly };
       updateClientValue(evnt, obj);
     };
-  
-    
-  
+
     /* Get the time ('future' or 'current') monthly value unless there is
      * none, in which case, get the 'current' monthly cash flow value
      * (to prefill future values with 'current' ones if needed).
@@ -132,14 +167,16 @@ class CashFlowInputsRow extends Component {
           store:            updateClient,
           displayValidator: hasOnlyNonNegNumberChars,
           format:           toMoneyStr,
+          onBlur:           this.onBlur,
         };
 
     var cashFlowStoreValidator = this.cashFlowStoreValidator;
   
     return (
-      &lt;CashFlowContainer
+      &lt;CashFlowRow
         label={ children }
-        validRow={ !this.state.message }
+        name={ generic }
+        validRow={ this.state.valid }
         message={ this.state.message }>
         &lt;ManagedNumberField
           storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
@@ -156,7 +193,7 @@ class CashFlowInputsRow extends Component {
           { ...baseProps }
           value     = { baseVal * 12 }
           otherData = {{ interval: 'yearly' }} />
-      &lt;/CashFlowContainer>
+      &lt;/CashFlowRow>
     );
   }
 }
@@ -219,12 +256,12 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
   };
 
   return (
-    &lt;CashFlowContainer { ...rowProps }>
+    &lt;CashFlowRow { ...rowProps }>
       &lt;ManagedNumberField
         { ...inputProps }
         value={ baseValue }
         otherData={{ interval: 'monthly' }} />
-    &lt;/CashFlowContainer>
+    &lt;/CashFlowRow>
   );
 
 };  // End &lt;MonthlyCashFlowRow>
@@ -247,7 +284,7 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
 
 
 export {
-  CashFlowContainer,
+  CashFlowRow,
   CashFlowInputsRow,
   CashFlowDisplayRow,
   MonthlyCashFlowRow,
@@ -262,13 +299,13 @@ export {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_cashflow.html">utils/cashflow</a></li><li><a href="module-utils_convert-by-timescale.html">utils/convert-by-timescale</a></li><li><a href="module-utils_getGovData.html">utils/getGovData</a></li><li><a href="module-utils_getMembers.html">utils/getMembers</a></li><li><a href="module-utils_getSideEffects.html">utils/getSideEffects</a></li><li><a href="module-utils_getTextForLanguage.html">utils/getTextForLanguage</a></li><li><a href="module-utils_getTimeFrames.html">utils/getTimeFrames</a></li><li><a href="module-utils_interpolation.html">utils/interpolation</a></li><li><a href="module-utils_math.html">utils/math</a></li><li><a href="module-utils_objectKeyPaths.html">utils/objectKeyPaths</a></li><li><a href="module-utils_setNestedProperty.html">utils/setNestedProperty</a></li><li><a href="module-utils_validators.html">utils/validators</a></li><li><a href="module-utils_valueFixers.html">utils/valueFixers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowContainer">CashFlowContainer</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#localizations">localizations</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-formHelpers.html">formHelpers</a></li><li><a href="module-utils_validators.html">utils/validators</a></li><li><a href="module-utils_valueFixers.html">utils/valueFixers</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AskPermission.html">AskPermission</a></li><li><a href="BrowserLeaveListener.html">BrowserLeaveListener</a></li><li><a href="CashFlowInputsRow.html">CashFlowInputsRow</a></li><li><a href="Confirmer.html">Confirmer</a></li><li><a href="ControlledRadioYesNo.html">ControlledRadioYesNo</a></li><li><a href="CustomClient.html">CustomClient</a></li><li><a href="ErrorListener.html">ErrorListener</a></li><li><a href="FeedbackPrompt.html">FeedbackPrompt</a></li><li><a href="HeadingWithDetail.html">HeadingWithDetail</a></li><li><a href="ManagedNumberField.html">ManagedNumberField</a></li><li><a href="ReactRouterLeaveListener.html">ReactRouterLeaveListener</a></li><li><a href="RowWithDetail.html">RowWithDetail</a></li><li><a href="ShowOnYes.html">ShowOnYes</a></li><li><a href="TermsAndConditions.html">TermsAndConditions</a></li><li><a href="VerticalLine.html">VerticalLine</a></li></ul><h3>Namespaces</h3><ul><li><a href="SNAPhelpers.html">SNAPhelpers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#applyAndPushBenefits">applyAndPushBenefits</a></li><li><a href="global.html#applySideEffects">applySideEffects</a></li><li><a href="global.html#BottomRowButton">BottomRowButton</a></li><li><a href="global.html#CashFlowDisplayRow">CashFlowDisplayRow</a></li><li><a href="global.html#CashFlowRow">CashFlowRow</a></li><li><a href="global.html#CLIENT_DEFAULTS">CLIENT_DEFAULTS</a></li><li><a href="global.html#ColumnHeading">ColumnHeading</a></li><li><a href="global.html#ContentH1">ContentH1</a></li><li><a href="global.html#ContentSubH1">ContentSubH1</a></li><li><a href="global.html#convertForUpdate">convertForUpdate</a></li><li><a href="global.html#CurrentBenefitsContent">CurrentBenefitsContent</a></li><li><a href="global.html#CurrentBenefitsStep">CurrentBenefitsStep</a></li><li><a href="global.html#CurrentExpensesStep">CurrentExpensesStep</a></li><li><a href="global.html#CurrentIncomeStep">CurrentIncomeStep</a></li><li><a href="global.html#DevMenu">DevMenu</a></li><li><a href="global.html#EarnedFrom">EarnedFrom</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#ExpensesFormContent">ExpensesFormContent</a></li><li><a href="global.html#ExternalLink">ExternalLink</a></li><li><a href="global.html#FormPartsContainer">FormPartsContainer</a></li><li><a href="global.html#getBenefitData">getBenefitData</a></li><li><a href="global.html#getBenefitTimeFrames">getBenefitTimeFrames</a></li><li><a href="global.html#getChartData">getChartData</a></li><li><a href="global.html#getDependentCostsMonthly">getDependentCostsMonthly</a></li><li><a href="global.html#getEveryMember">getEveryMember</a></li><li><a href="global.html#getEveryMemberOfHousehold">getEveryMemberOfHousehold</a></li><li><a href="global.html#getExtraAmount">getExtraAmount</a></li><li><a href="global.html#getGrossUnearnedIncomeMonthly">getGrossUnearnedIncomeMonthly</a></li><li><a href="global.html#getKeyPathsArray">getKeyPathsArray</a></li><li><a href="global.html#getKeyPathStrings">getKeyPathStrings</a></li><li><a href="global.html#getLimitBySize">getLimitBySize</a></li><li><a href="global.html#getLocalizationData">getLocalizationData</a></li><li><a href="global.html#getMaxIntKey">getMaxIntKey</a></li><li><a href="global.html#getSection8Benefit">getSection8Benefit</a></li><li><a href="global.html#getSimpleGrossIncomeMonthly">getSimpleGrossIncomeMonthly</a></li><li><a href="global.html#getSNAPBenefits">getSNAPBenefits</a></li><li><a href="global.html#getTextForLanguage">getTextForLanguage</a></li><li><a href="global.html#getUnder13Expenses">getUnder13Expenses</a></li><li><a href="global.html#Housing">Housing</a></li><li><a href="global.html#IncomeForm">IncomeForm</a></li><li><a href="global.html#inlineComponents">inlineComponents</a></li><li><a href="global.html#interpolateSnippets">interpolateSnippets</a></li><li><a href="global.html#interpolateText">interpolateText</a></li><li><a href="global.html#IntervalColumnHeadings">IntervalColumnHeadings</a></li><li><a href="global.html#isDependent">isDependent</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#maximum_value_yearly">maximum_value_yearly</a></li><li><a href="global.html#mergeCustomizer">mergeCustomizer</a></li><li><a href="global.html#moneyToWholeNum">moneyToWholeNum</a></li><li><a href="global.html#MonthlyCashFlowRow">MonthlyCashFlowRow</a></li><li><a href="global.html#round$">round$</a></li><li><a href="global.html#sampleClients">sampleClients</a></li><li><a href="global.html#SpaceHolder">SpaceHolder</a></li><li><a href="global.html#StackedBarGraph">StackedBarGraph</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#sumProps">sumProps</a></li><li><a href="global.html#toMoneyStr">toMoneyStr</a></li><li><a href="global.html#toMonthlyFrom">toMonthlyFrom</a></li><li><a href="global.html#totalLastItemsOfArraysInObject">totalLastItemsOfArraysInObject</a></li><li><a href="global.html#toWeeklyFrom">toWeeklyFrom</a></li><li><a href="global.html#toYearlyFrom">toYearlyFrom</a></li><li><a href="global.html#undefinedString">undefinedString</a></li><li><a href="global.html#UNDER13_NON_TRANSPORT_CARE">UNDER13_NON_TRANSPORT_CARE</a></li><li><a href="global.html#UNEARNED_INCOME_SOURCES">UNEARNED_INCOME_SOURCES</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Nov 03 2018 22:54:45 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Nov 07 2018 06:20:53 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
