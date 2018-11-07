@@ -33,7 +33,7 @@ import { Icon } from 'semantic-ui-react';
  *
  * @returns React element
  */
-const WithMessageAbove = function ({ children, ariaName, isUserError, message, className }) {
+const ValidationError = function ({ children, ariaName, isUserError, message, className }) {
 
   className = className || ``;
 
@@ -92,6 +92,6 @@ var AttentionArrow = function () {
 
 
 export {
-  WithMessageAbove,
+  ValidationError,
   AttentionArrow,
 };

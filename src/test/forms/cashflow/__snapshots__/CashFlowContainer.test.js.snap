@@ -13,7 +13,7 @@ exports[`<CashFlowRow> renders with message 1`] = `
     <div
       className="inline field cashflow"
     >
-      <WithMessageAbove
+      <ValidationError
         isUserError={true}
         message="What did you enter!?"
       >
@@ -50,7 +50,7 @@ exports[`<CashFlowRow> renders with message 1`] = `
             </div>
           </div>
         </div>
-      </WithMessageAbove>
+      </ValidationError>
     </div>
   </FormField>
 </CashFlowRow>
@@ -68,7 +68,7 @@ exports[`<CashFlowRow> renders with no message 1`] = `
     <div
       className="inline field cashflow"
     >
-      <WithMessageAbove
+      <ValidationError
         isUserError={false}
       >
         <div
@@ -97,7 +97,7 @@ exports[`<CashFlowRow> renders with no message 1`] = `
             </div>
           </div>
         </div>
-      </WithMessageAbove>
+      </ValidationError>
     </div>
   </FormField>
 </CashFlowRow>

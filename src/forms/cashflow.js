@@ -4,7 +4,7 @@ import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { ManagedNumberField } from './inputs';
-import { WithMessageAbove } from './formHelpers';
+import { ValidationError } from './formHelpers';
 
 // UTILITIES
 import { toMonthlyAmount } from '../utils/math';
@@ -34,7 +34,7 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
     <Form.Field
       inline
       className={ 'cashflow' }>
-      <WithMessageAbove
+      <ValidationError
         ariaName    = { name }
         isUserError = { validRow === false }
         message     = { message }>
@@ -49,7 +49,7 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
             </label>
           </div>
         </div>
-      </WithMessageAbove>
+      </ValidationError>
     </Form.Field>
   );
 };  // End <CashFlowRow>
