@@ -3,11 +3,12 @@ import React from 'react';
 import {
   Button,
   Form,
-  Dropdown,
   Header,
   Checkbox,
   Icon,
 } from 'semantic-ui-react';
+
+import Select from 'react-select';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -114,6 +115,7 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // ======================
 
 const Role = function ({ member, setMember, snippets }) {
+  console.log('Role', member, setMember, snippets);
 
   var ThisRole  = null,
       margin   = '0';
@@ -127,14 +129,18 @@ const Role = function ({ member, setMember, snippets }) {
     margin = '-1em';
 
     var options = [
-      { text: snippets.i_spouse, value: 'spouse' },
-      { text: snippets.i_childOther, value: 'member' },
+      { label: snippets.i_spouse, value: 'spouse', name: 'm_role' },
+      { label: snippets.i_childOther, value: 'member', name: 'm_role' },
     ];
 
-    ThisRole = <Dropdown
-      selection
+    var selectedValue = options.find((obj) => {
+      return obj.value === member.m_role;
+    });
+
+
+    ThisRole = <Select
       name={ 'm_role' }
-      value={ member.m_role }
+      value={ selectedValue }
       options={ options }
       onChange={ setMember } />;
 
@@ -162,8 +168,8 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
 
 
   var onMemberChange = function (evnt, inputProps) {
-    var route = routeStart + inputProps.name;
-    var data  = { route: route, value: inputProps.value };
+    var route = routeStart + evnt.name;
+    var data  = { route: route, value: evnt.value };
     updateClientValue(evnt, data);
   };
 
