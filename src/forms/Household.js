@@ -115,7 +115,6 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // ======================
 
 const Role = function ({ member, setMember, snippets }) {
-  console.log('Role', member, setMember, snippets);
 
   var ThisRole  = null,
       margin   = '0';
@@ -167,10 +166,10 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
   member.index    = indx;  // Just needed as member prop in this file
 
 
-  var onMemberChange = function (evnt, inputProps) {
-    var route = routeStart + evnt.name;
-    var data  = { route: route, value: evnt.value };
-    updateClientValue(evnt, data);
+  var onMemberChange = function (selectedOption) {
+    var route = routeStart + selectedOption.name;
+    var data  = { route: route, value: selectedOption.value };
+    updateClientValue(selectedOption, data);
   };
 
 
