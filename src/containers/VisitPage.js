@@ -277,7 +277,7 @@ class VisitPage extends Component {
 
     const step = STEP_VALS[ stepIndex ];
 
-    const StepComponent = step.form;
+    const StepComponent = step.component;
 
     return (
       <div className='forms-container flex-item flex-column'>
