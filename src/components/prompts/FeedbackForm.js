@@ -38,50 +38,50 @@ class AskPermission extends React.Component {
     const { question, submitting } = this.props;
     const { submitType } = this.state;
     return ([
-    <Modal.Content key = { `ask-permission-content` }>
-      <p>{ question }</p>
+      <Modal.Content key = { `ask-permission-content` }>
+        <p>{ question }</p>
 
-      <Form.Field>
-        <Radio
-          name     = { `data-ask` }
-          value    = { `withData` }
-          label    = { `Yes` }
-          checked  = { submitType === `withData` }
-          onChange = { this.setSubmitType } />
-      </Form.Field>
-      <Form.Field>
-        <Radio
-          name     = { `data-ask` }
-          value    = { `withoutData` }
-          label    = { `No` }
-          checked  = { submitType === `withoutData` }
-          onChange = { this.setSubmitType } />
-      </Form.Field>
-    </Modal.Content>,
-    <Modal.Actions key = { `ask-permission-actions` }>
-      <Button
-        onClick  ={ this.close }
-        disabled ={ submitting }>Cancel
-      </Button>
-      <Button
-        onClick  = { this.submit }
-        loading  = { submitting }
-        disabled = { submitType === null }
-        color    ='teal'>
-        { (submitType === `withData`) ? (
-          `Send with my information`
-        ) : (
-          null
-        ) }
-        { (submitType === `withoutData`) ? (
-          `Send without my information`
-        ) : (
-          null
-        ) }
-        { (submitType === null) ? (`Send`) : (null) }
-      </Button>
-    </Modal.Actions>,
-  ]);}
+        <Form.Field>
+          <Radio
+            name     = { `data-ask` }
+            value    = { `withData` }
+            label    = { `Yes` }
+            checked  = { submitType === `withData` }
+            onChange = { this.setSubmitType } />
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            name     = { `data-ask` }
+            value    = { `withoutData` }
+            label    = { `No` }
+            checked  = { submitType === `withoutData` }
+            onChange = { this.setSubmitType } />
+        </Form.Field>
+      </Modal.Content>,
+      <Modal.Actions key = { `ask-permission-actions` }>
+        <Button
+          onClick  ={ this.close }
+          disabled ={ submitting }>Cancel
+        </Button>
+        <Button
+          onClick  = { this.submit }
+          loading  = { submitting }
+          disabled = { submitType === null }
+          color    ='teal'>
+          { (submitType === `withData`) ? (
+            `Send with my information`
+          ) : (
+            null
+          ) }
+          { (submitType === `withoutData`) ? (
+            `Send without my information`
+          ) : (
+            null
+          ) }
+          { (submitType === null) ? (`Send`) : (null) }
+        </Button>
+      </Modal.Actions>,
+    ]);}
 }
 
 

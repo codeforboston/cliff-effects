@@ -24,7 +24,7 @@ exports[`<CashFlowDisplayRow> renders using provided value 1`] = `
       144.00
     </div>
     <div
-      className="cashflow-column cashflow-column-last-child"
+      className="cashflow-column cashflow-column-label"
     >
       <label>
         <span>
@@ -64,7 +64,7 @@ exports[`<CashFlowDisplayRow> renders using value in timeState 1`] = `
       180.00
     </div>
     <div
-      className="cashflow-column cashflow-column-last-child"
+      className="cashflow-column cashflow-column-label"
     >
       <label>
         <span>

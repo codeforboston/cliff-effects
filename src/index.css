@@ -150,7 +150,7 @@ Used to fill vertical space.
 }
 
 .ui.form h4.ui.header.cashflow-column:last-child,
-.ui.form .cashflow .cashflow-column-last-child {
+.ui.form .cashflow .cashflow-column-label {
   text-align: left;
   width: auto;
   padding-left: 1em !important;
@@ -395,12 +395,14 @@ i.icon.details-icon {
   height: 1em;
 }
 
+.flex-row,
 .surrounder .horizontal,
 .surrounder .vertical {
   display: flex;
   align-content: stretch;
 }
 
+.flex-row,
 .surrounder .horizontal {
   flex-direction: row;
   justify-content: space-between;
@@ -527,6 +529,11 @@ STYLES FOR COMMUNICATION
 
 #App .button.caution:hover {
   background-color: #d16614;
+}
+
+#root .message-above {
+  font-weight: 700;
+  margin-bottom: .4rem;
 }
 
 #root .invalid {
