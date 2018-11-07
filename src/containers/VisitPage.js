@@ -56,11 +56,6 @@ class VisitPage extends Component {
 
   componentDidMount() {
     this.didMount = true;
-    // We currently store client data in memory, so when the user reloads, the client data
-    // will disappear. In that case, we move the user back to the first step so that they
-    // can re-enter the data.
-    const firstStepURL = `${this.getPathPrefix()}/${STEP_VALS[ 0 ].key}`;
-    this.props.history.replace(firstStepURL);
   }
 
   resetClientIfOk = (shouldReset) => {
