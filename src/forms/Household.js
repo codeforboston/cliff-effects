@@ -114,7 +114,7 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // UNIQUE
 // ======================
 
-const Role = function ({ member, setMember, snippets }) {
+const Role = function ({ member, setMember, setDropdownMember, snippets }) {
 
   var ThisRole  = null,
       margin   = '0';
@@ -141,7 +141,7 @@ const Role = function ({ member, setMember, snippets }) {
       name={ 'm_role' }
       value={ selectedValue }
       options={ options }
-      onChange={ setMember } />;
+      onChange={ setDropdownMember } />;
 
   } else {
 
@@ -166,7 +166,13 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
   member.index    = indx;  // Just needed as member prop in this file
 
 
-  var onMemberChange = function (selectedOption) {
+  var onMemberChange = function (evnt, inputProps) {
+    var route = routeStart + inputProps.name;
+    var data  = { route: route, value: inputProps.value };
+    updateClientValue(evnt, data);
+  };
+
+  var onMemberDropdownChange = function (selectedOption) {
     var route = routeStart + selectedOption.name;
     var data  = { route: route, value: selectedOption.value };
     updateClientValue(selectedOption, data);
@@ -224,6 +230,7 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
         <Role
           member={ member }
           setMember={ onMemberChange }
+          setDropdownMember={ onMemberDropdownChange }
           snippets={ snippets } />
       </Columns.Two>
 
