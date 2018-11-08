@@ -271,16 +271,10 @@ var getBenefitData = function(client, resourceKeys) {
  */
 const Summary = function ({ client, openFeedback, snippets }) {
 
-  var resourceKeys = [ `earned` ];
-  // Benefits, in order of appearance
-  // So can't wait till `.benefits` is an array of benefit names...
-  if (client.current.hasSection8) {
-    resourceKeys.push(`section8`);
-  }
-  if (client.current.hasSnap) {
-    resourceKeys.push(`snap`);
-  }
-
+  var resourceKeys = [
+    `earned`,
+    ...client.current.benefits,
+  ];
 
   // Really quick returns if other calcs not needed
   if (resourceKeys.length <= 1) {

@@ -122,12 +122,11 @@ export default {
     },
 
     currentBenefits: {
-      currentBenefits_v1:  `Current Benefits`,
-      selectBenefits_v1:   `Select the benefits you currently receive`,
-      hasSection8Label_v1: `Do you have Section 8 Housing?`,
-      hasSection8Hint_v1:  `Section 8 provides rental housing assistance.`,
-      hasSnapLabel_v1:     `Do you have SNAP?`,
-      hasSnapHint_v1:      `SNAP provides assistance with buying food`,
+      currentBenefits_v1:      `Current Benefits`,
+      selectBenefits_v1:       `Select the benefits you currently receive`,
+      has_section8_label_v1:   `Do you have Section 8 Housing?`,
+      has_snap_label_v1:       `Do you have SNAP?`,
+      has_xrayVision_label_v1: `Do you have X-ray vision?`,
     },
 
     household: {
@@ -306,8 +305,8 @@ export default {
       columnCurrentBenefits_v1:   `Current Benefits`, // see BenefitsTable.js
       columnNewEstimate_v1:       `New Estimate`, // see BenefitsTable.js
       columnDifference_v1:        `Difference`, // see BenefitsTable.js
-      rowSNAP_v1:                 `SNAP`, // see BenefitsTable.js
-      rowSection8_v1:             `Section 8 Housing`, // see BenefitsTable.js
+      row_snap_v1:                `SNAP`, // see BenefitsTable.js
+      row_section8_v1:            `Section 8 Housing`, // see BenefitsTable.js
       rowTotalBenefits_v1:        `Total Benefits`, // see BenefitsTable.js
       rowEarned_v2:               `Earned`, // see BenefitsTable.js
       rowNetTotal_v1:             `Net Total`, // see BenefitsTable.js

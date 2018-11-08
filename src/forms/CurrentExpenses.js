@@ -391,7 +391,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         null
       ) }
 
-      { current.hasSnap ? (
+      { current.benefits.includes('snap') ? (
         <div>
           <ContentH1>Child Support</ContentH1>
           <IntervalColumnHeadings type={ type } />
@@ -472,7 +472,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         * These medical expenses count for Section 8 too if the disabled
         *     person is the head or spouse. From Appendix B, item (D)
         *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf} */}
-      { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0) ? (
+      { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.benefits.includes('snap') && elderlyOrDisabled.length > 0) ? (
         <div>
           <HeadingWithDetail>
             <ContentH1>Unreimbursed Medical Expenses</ContentH1>

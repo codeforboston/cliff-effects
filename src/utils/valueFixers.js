@@ -51,8 +51,7 @@ const toNumber = function (numberOrString) {
  */
 const valueFixers = {
   // Current programs
-  hasSnap:                       returnSame,
-  hasSection8:                   returnSame,
+  benefits:                      returnSame,
   // Household
   household:                     returnSame,
   m_age:                         returnSame,  // to positive int (validate in component?)
