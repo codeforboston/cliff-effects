@@ -4,7 +4,6 @@ import { Table } from 'semantic-ui-react';
 
 // BENEFIT LOGIC
 import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
-import { allBenefitOrders } from '../../programs/allBenefitOrders';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';

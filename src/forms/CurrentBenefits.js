@@ -31,6 +31,15 @@ class CurrentBenefitsContent extends React.Component {
 
     if (inputProps.value) {
       value.push(benefitName);
+      value.sort(
+        // Make sure benefits are in the correct order
+        (a, b) => {
+          const aIndex = this.props.benefits.indexOf(a);
+          const bIndex = this.props.benefits.indexOf(b);
+
+          return aIndex - bIndex;
+        }
+      );
     }
     else {
       const index = value.indexOf(benefitName);
