@@ -64,7 +64,7 @@
     
 
     
-    <h4 class="name" id="~InvalidMessage"><span class="type-signature">(inner) </span>InvalidMessage<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~ValidationError"><span class="type-signature">(inner) </span>ValidationError<span class="signature">(children, ariaName, className<span class="signature-attributes">opt</span>, message<span class="signature-attributes">opt</span>, isUserError<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -72,7 +72,10 @@
 
 
 <div class="description">
-    <p>Red bold text that only appears if <code>validRow</code> is <code>false</code></p>
+    <p>It should always be the only item in its
+    row - block content. Currently meant to be used with
+    an input row to give short instructions or user error
+    message. It also attempts to conform to accessibility:</p>
 </div>
 
 
@@ -81,6 +84,210 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>children</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Objects react can render.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ariaName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of node this message will be
+    describing.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional classes to add to allow
+    access with css.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>To be rendered above
+    the children.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isUserError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Is this an error message?
+    Another option would be <code>type</code> instead - descriptor(s)
+    for the message that will currently be turned into
+    classes. Things like 'invalid'.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -116,12 +323,21 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="forms_formHelpers.js.html">forms/formHelpers.js</a>, <a href="forms_formHelpers.js.html#line14">line 14</a>
+        <a href="forms_formHelpers.js.html">forms/formHelpers.js</a>, <a href="forms_formHelpers.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>{link https://www.w3.org/WAI/tutorials/forms/instructions/#using-aria-labelledby}. 
+    It's given a hook to allow an input to label it as a
+    description with aria. `tab-index` for IE (see 'note').</li>
+        </ul>
+    </dd>
     
 
     
@@ -139,6 +355,16 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>React element</p>
+</div>
+
+
+
+    
 
 
 
@@ -166,7 +392,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Nov 07 2018 06:20:53 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 08 2018 10:40:30 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
