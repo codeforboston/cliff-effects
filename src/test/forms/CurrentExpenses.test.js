@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { CurrentExpensesStep } from '../../forms/CurrentExpenses';
 
@@ -10,28 +10,28 @@ import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
 var snippets = getTextForLanguage(`en`);
-test('Expenses step component renders as snapshot correctly', () => {
+test('Expenses step component should render without error', () => {
   const navData = {
-          left:   { text: 'Previous', onClick: jest.fn() },
+          left:   (<div>Exp left</div>),
           middle: null,
-          right:  { text: 'Next', onClick: jest.fn() },
+          right:  (<div>Exp right</div>),
         },
-        updateClientValue     = jest.fn(),
-        saveForm         = jest.fn(),
-        askToResetClient = jest.fn(),
-        openFeedback     = jest.fn(),
-        formSnippets     = snippets.visitPage.currentExpenses;
+        updateClientValue = jest.fn(),
+        saveForm          = jest.fn(),
+        askToResetClient  = jest.fn(),
+        openFeedback      = jest.fn(),
+        formSnippets      = snippets.visitPage.currentExpenses;
 
-  const wrapper = shallow(
-    <CurrentExpensesStep
-      client            = { CLIENT_DEFAULTS }
-      navData           = { navData }
-      updateClientValue      = { updateClientValue }
-      saveForm          = { saveForm }
-      askToResetClient  = { askToResetClient }
-      openFeedback      = { openFeedback }
-      snippets          = { formSnippets } />
-  );
-
-  expect(wrapper).toMatchSnapshot();
+  expect(() => {
+    mount(
+      <CurrentExpensesStep
+        client            = { CLIENT_DEFAULTS }
+        navData           = { navData }
+        updateClientValue = { updateClientValue }
+        saveForm          = { saveForm }
+        askToResetClient  = { askToResetClient }
+        openFeedback      = { openFeedback }
+        snippets          = { formSnippets } />
+    );
+  }).not.toThrow();
 });
