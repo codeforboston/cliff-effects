@@ -157,7 +157,7 @@ Used to fill vertical space.
 }
 
 .ui.form .cashflow .cashflow-column {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
@@ -399,14 +399,12 @@ i.icon.details-icon {
   margin-bottom: 1em;
 }
 
-.flex-row,
 .surrounder .horizontal,
 .surrounder .vertical {
   display: flex;
   align-content: stretch;
 }
 
-.flex-row,
 .surrounder .horizontal {
   flex-direction: row;
   justify-content: space-between;

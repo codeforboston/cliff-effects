@@ -31,7 +31,7 @@ exports[`<CashFlowRow> renders with message 1`] = `
             className="below-message"
           >
             <div
-              className="flex-row"
+              className="cashflow-row"
             >
               <span>
                 Some content
@@ -78,7 +78,7 @@ exports[`<CashFlowRow> renders with no message 1`] = `
             className="below-message"
           >
             <div
-              className="flex-row"
+              className="cashflow-row"
             >
               <span>
                 Some content

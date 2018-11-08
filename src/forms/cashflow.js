@@ -38,7 +38,7 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
         ariaName    = { name }
         isUserError = { validRow === false }
         message     = { message }>
-        <div className={ `flex-row` }>
+        <div className={ `cashflow-row` }>
           { children }
           <div className={ 'cashflow-column cashflow-column-label' }>
             <label
