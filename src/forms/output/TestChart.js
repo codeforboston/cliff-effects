@@ -6,6 +6,7 @@ import {
   HighchartsChart,
   Chart,
   Title,
+  Legend,
   XAxis,
   YAxis,
   LineSeries,
@@ -49,6 +50,10 @@ class TestChartComp extends Component {
 
           <Title>Test</Title>
 
+          <Legend
+            align         = { `center` }
+            verticalAlign = { `top` } />
+
           <XAxis>
             <XAxis.Title>Pay</XAxis.Title>
           </XAxis>
@@ -56,7 +61,27 @@ class TestChartComp extends Component {
           <YAxis>
             <YAxis.Title>Benefit Value</YAxis.Title>
 
-            <LineSeries data={ [ 1, 2, 3, 2, 3, 2, 1, 2, 3, ] } />
+            <LineSeries data={ [
+              1,
+              2,
+              3,
+              2,
+              3,
+              2,
+              1,
+              2,
+              3, 
+            ] } /><LineSeries data={ [
+              6,
+              5,
+              4,
+              5,
+              4,
+              5,
+              6,
+              5,
+              4, 
+            ] } />
           </YAxis>
 
         </HighchartsChart>
