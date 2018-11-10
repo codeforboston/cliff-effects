@@ -10,6 +10,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  PlotLine,
   LineSeries,
   withHighcharts,
 } from 'react-jsx-highcharts';
@@ -17,7 +18,7 @@ import {
 // // LOGIC
 // import { timescaleMultipliers } from '../../utils/convert-by-timescale';
 // import { getChartData } from '../../utils/charts/getChartData';
-// import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
+import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
 
 // // DATA
 // // In future, graphs will control their own aspect ratio,
@@ -32,10 +33,27 @@ import {
 //     limits      = PROGRAM_CHART_VALUES.limits;
 
 
+// Add/remove plotLine
+// https://stackoverflow.com/a/14632292/3791179
+// Also has a mousein and mouseout hook we can use
+// to make it bigger when hovered over.
+
+// Remove point markers
+// https://stackoverflow.com/a/14642909/3791179
+
+// (Note: If we have room to include the plot lines amount
+// in the label, we probably don't need tooltips for them.)
+// Possible way to handle tooltips for plot lines
+// https://stackoverflow.com/questions/12451549/highcharts-plotband-tooltip-hover-default-styling#21277491
+// Dunno if I like the CSS solution since it then hides the label text except on hover.
+// Maybe could use something similar where the HTML has the label part and then a separate tooltip part...
+
+
 // Going to copy the benefits line graph into here
 class TestChartComp extends Component {
   render () {
-    const { className } = this.props;
+    const { className } = this.props,
+          currentEarned = 3.3056;
 
     // zoomKey doesn't work without another package
 
@@ -63,11 +81,18 @@ class TestChartComp extends Component {
             padding       = { 8 }
             borderRadius  = { 4 }
             borderColor   = { `transparent`  }
-            hideDelay     = { 300 }
-          />
+            hideDelay     = { 300 } />
 
           <XAxis>
             <XAxis.Title>Pay</XAxis.Title>
+            <PlotLine
+              useHTML   = { true }
+              value     = { currentEarned }
+              label     = {{ text: `Current pay:<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
+              zIndex    = { 5 }
+              width     = { 2 }
+              color     = { `gray` }
+              dashStyle = { `ShortDashDot` } />
           </XAxis>
 
           <YAxis>
