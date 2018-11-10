@@ -6,6 +6,7 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
+import { TestChart } from './output/TestChart';
 import { Summary } from './output/Summary';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
@@ -57,6 +58,24 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
       panes={ [
+        {
+          menuItem: (
+            <Menu.Item
+              key = { `tab5` }
+              as  = { Button }>
+              { `Test` }
+            </Menu.Item>
+          ),
+          render: () => {
+            return (
+              <Tab.Pane>
+                <GraphHolder
+                  client={ client }
+                  Graph={ TestChart } />
+              </Tab.Pane>
+            );
+          },
+        },
         {
           menuItem: (
             <Menu.Item

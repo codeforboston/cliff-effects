@@ -251,6 +251,10 @@ input[type=number]::-webkit-outer-spin-button {
   right: 0;
 }
 
+.test-chart {
+  width: 100%;
+}
+
 .client-graph.ui.message {
   flex: 1;
   margin-bottom: 0;
