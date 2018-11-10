@@ -35,11 +35,17 @@ class TestChartComp extends Component {
   render () {
     const { className } = this.props;
 
+    // zoomKey doesn't work without another package
+
     return (
       <div className={ `test-chart ` + (className || ``) }>
         <HighchartsChart>
-                
-          <Chart />
+
+          <Chart
+            zoomType = { `x` }
+            panning  = { true }
+            panKey   = { `alt` }
+            resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
           <Title>Test</Title>
 
@@ -50,11 +56,7 @@ class TestChartComp extends Component {
           <YAxis>
             <YAxis.Title>Benefit Value</YAxis.Title>
 
-            <LineSeries data={ [
-              1,
-              2,
-              3, 
-            ] } />
+            <LineSeries data={ [ 1, 2, 3, 2, 3, 2, 1, 2, 3, ] } />
           </YAxis>
 
         </HighchartsChart>
