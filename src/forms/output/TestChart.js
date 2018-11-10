@@ -53,7 +53,8 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 
 // Still @todo
-// - [ ] Bottom ticks' number format
+// - [ ] Bottom ticks' number format (labels?) (https://stackoverflow.com/a/26128177/3791179)
+// - [ ] Bottom tooltip's number format (maybe the same thing as ticks)
 // - [ ] Snippets
 // - [ ] Function descriptions
 // - [ ] Hover style for legend items
@@ -64,6 +65,13 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 
 class TestChartComp extends Component {
+
+  // @todo Abstract to prettifiers?
+  formatMoneyK = function () {
+    const withMoney = '$' + this.axis.defaultLabelFormatter.call(this);
+    return withMoney;
+  };
+
   render () {
     const { client, timescale, activePrograms, className } = this.props,
           multiplier    = multipliers[ timescale ],
@@ -121,7 +129,9 @@ class TestChartComp extends Component {
             borderColor   = { `transparent`  }
             hideDelay     = { 300 } />
 
-          <XAxis endOnTick={ false }>
+          <XAxis
+            endOnTick = { false }
+            labels    = {{ formatter: this.formatMoneyK }}>
             <XAxis.Title>{ `${timescale} Pay` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
@@ -133,7 +143,11 @@ class TestChartComp extends Component {
               dashStyle = { `ShortDashDot` } />
           </XAxis>
 
-          <YAxis endOnTick={ false }>
+          <YAxis
+            endOnTick = { false }
+            labels    = {{ formatter: this.formatMoneyK }}
+            style     = {{ width: `30px` }}
+            textLength = { `30px` }>
             <YAxis.Title>Benefit Value</YAxis.Title>
             { lines }
           </YAxis>
