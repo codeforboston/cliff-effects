@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { range } from 'lodash';
 
 // HIGHCHARTS
 import Highcharts from 'highcharts';
@@ -15,22 +16,19 @@ import {
   withHighcharts,
 } from 'react-jsx-highcharts';
 
-// // LOGIC
-// import { timescaleMultipliers } from '../../utils/convert-by-timescale';
-// import { getChartData } from '../../utils/charts/getChartData';
+// LOGIC
+import { timescaleMultipliers } from '../../utils/convert-by-timescale';
+import { getChartData } from '../../utils/charts/getChartData';
 import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
 
-// // DATA
-// // In future, graphs will control their own aspect ratio,
-// // zoom levels, etc., so for now they'll have access to
-// // the limit values.
-// import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
+// DATA
+import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 
-// // Graphs get things in monthly values, so we'll convert from there
-// let multipliers = timescaleMultipliers.fromMonthly,
-//     // Each graph controls its own scaling
-//     limits      = PROGRAM_CHART_VALUES.limits;
+// Graphs get things in monthly values, so we'll convert from there
+let multipliers = timescaleMultipliers.fromMonthly,
+    // Each graph controls its own scaling
+    limits      = PROGRAM_CHART_VALUES.limits;
 
 
 // Add/remove plotLine
@@ -54,23 +52,54 @@ import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
 // Not sure how it would act with zoom.
 
 
-// Going to copy the benefits line graph into here
+// Still @todo
+// - [ ] Bottom ticks' number format
+// - [ ] Snippets
+// - [ ] Function descriptions
+// - [ ] Hover style for legend items
+// - [ ] Hover style for plot line
+// - [ ] Fixed width for ticks' text
+// - [ ] Button placement
+// - [ ] Bigger font?
+
+
 class TestChartComp extends Component {
   render () {
-    const { className } = this.props,
-          currentEarned = 3.3056,
-          interval      = 0.07;
+    const { client, timescale, activePrograms, className } = this.props,
+          multiplier    = multipliers[ timescale ],
+          resources     = activePrograms,
+          currentEarned = client.current.earned * multiplier;
 
+    // Adjust to time-interval. Highcharts will round
+    // for ticks displayed.
+    const max      = (limits.max * multiplier),
+          interval = ((max / 100) / 10) * 30;
+
+    const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
+          datasets = getChartData(xRange, multiplier, client, resources, {});
+
+    // Individual benefit lines
+    const lines = [];
+    for (let dataset of datasets) {
+      let line = (
+        <LineSeries
+          key  = { dataset.label }
+          id   = { dataset.label.replace(` `, ``) }
+          name = { dataset.label }
+          data = { dataset.data } />
+      );
+
+      lines.push(line);
+    }
+
+
+    // `zoomKey` doesn't work without another package
     const plotOptions =  { line: { pointInterval: interval }};
-
-    // zoomKey doesn't work without another package
-
     return (
-      <div className={ `test-chart ` + (className || ``) }>
+      <div className={ `benefit-lines-graph ` + (className || ``) }>
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-
             tooltip  = {{ enabled: true }}
             zoomType = { `xy` }
             panning  = { true }
@@ -93,45 +122,20 @@ class TestChartComp extends Component {
             hideDelay     = { 300 } />
 
           <XAxis endOnTick={ false }>
-
-            <XAxis.Title>Pay</XAxis.Title>
+            <XAxis.Title>{ `${timescale} Pay` }</XAxis.Title>
             <PlotLine
-              useHTML   = { true }
               value     = { currentEarned }
+              useHTML   = { true }
               label     = {{ text: `Current pay:<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
               zIndex    = { 5 }
               width     = { 2 }
               color     = { `gray` }
               dashStyle = { `ShortDashDot` } />
-
           </XAxis>
 
           <YAxis endOnTick={ false }>
-
             <YAxis.Title>Benefit Value</YAxis.Title>
-
-            <LineSeries data={ [
-              1.23445,
-              2.23445,
-              3.23445,
-              2.23445,
-              3.23445,
-              8.23445,
-              1.23445,
-              2.23445,
-              3.23445, 
-            ] } /><LineSeries data={ [
-              6.23445,
-              5.23445,
-              4.23445,
-              5.23445,
-              4.23445,
-              5.23445,
-              6.23445,
-              5.23445,
-              4.23445, 
-            ] } />
-
+            { lines }
           </YAxis>
 
         </HighchartsChart>
