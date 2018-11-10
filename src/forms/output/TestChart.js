@@ -53,8 +53,9 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 
 // Still @todo
-// - [x] Bottom/left ticks' number format (labels?) (https://stackoverflow.com/a/26128177/3791179)
+// - [x] Bottom/left ticks' number format (labels headers!) (https://stackoverflow.com/a/26128177/3791179)
 // - [x] Fixed width for ticks' text - width to not change on interval change
+// - [x] Thousands separator
 // - [ ] Bottom tooltip's number format ~(maybe the same thing as ticks)~
 // - [ ] Snippets
 // - [ ] Function descriptions
@@ -62,6 +63,12 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [ ] Hover style for plot line
 // - [ ] Button placement
 // - [ ] Bigger font?
+
+
+// This doesn't affect the strings we put in there, just pure numbers
+Highcharts.setOptions({
+  lang: { thousandsSep: `,` }
+});
 
 
 class TestChartComp extends Component {
@@ -101,6 +108,11 @@ class TestChartComp extends Component {
       lines.push(line);
     }
 
+    // Get 'Unexpected template string expression' warning otherwise
+    const headerFormatStart = `<span style="font-size: 10px">$`,
+          headerFormatEnd   = `{point.key:,.2f}</span><br/>`,
+          headerFormat      = headerFormatStart + headerFormatEnd;
+
 
     // `zoomKey` doesn't work without another package
     const plotOptions =  { line: { pointInterval: interval }};
@@ -123,6 +135,7 @@ class TestChartComp extends Component {
 
           <Tooltip
             split         = { true }
+            headerFormat  = { headerFormat }
             valuePrefix   = { `$` }
             valueDecimals = { 2 }
             padding       = { 8 }
