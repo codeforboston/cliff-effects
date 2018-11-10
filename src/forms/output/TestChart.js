@@ -7,6 +7,7 @@ import {
   Chart,
   Title,
   Legend,
+  Tooltip,
   XAxis,
   YAxis,
   LineSeries,
@@ -43,6 +44,7 @@ class TestChartComp extends Component {
         <HighchartsChart>
 
           <Chart
+            tooltip  = {{ enabled: true }}
             zoomType = { `x` }
             panning  = { true }
             panKey   = { `alt` }
@@ -54,6 +56,16 @@ class TestChartComp extends Component {
             align         = { `center` }
             verticalAlign = { `top` } />
 
+          <Tooltip
+            split         = { true }
+            valuePrefix   = { `$` }
+            valueDecimals = { 2 }
+            padding       = { 8 }
+            borderRadius  = { 4 }
+            borderColor   = { `transparent`  }
+            hideDelay     = { 300 }
+          />
+
           <XAxis>
             <XAxis.Title>Pay</XAxis.Title>
           </XAxis>
@@ -62,25 +74,25 @@ class TestChartComp extends Component {
             <YAxis.Title>Benefit Value</YAxis.Title>
 
             <LineSeries data={ [
-              1,
-              2,
-              3,
-              2,
-              3,
-              2,
-              1,
-              2,
-              3, 
+              1.23445,
+              2.23445,
+              3.23445,
+              2.23445,
+              3.23445,
+              2.23445,
+              1.23445,
+              2.23445,
+              3.23445, 
             ] } /><LineSeries data={ [
-              6,
-              5,
-              4,
-              5,
-              4,
-              5,
-              6,
-              5,
-              4, 
+              6.23445,
+              5.23445,
+              4.23445,
+              5.23445,
+              4.23445,
+              5.23445,
+              6.23445,
+              5.23445,
+              4.23445, 
             ] } />
           </YAxis>
 
