@@ -53,13 +53,13 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 
 // Still @todo
-// - [ ] Bottom ticks' number format (labels?) (https://stackoverflow.com/a/26128177/3791179)
-// - [ ] Bottom tooltip's number format (maybe the same thing as ticks)
+// - [x] Bottom/left ticks' number format (labels?) (https://stackoverflow.com/a/26128177/3791179)
+// - [x] Fixed width for ticks' text - width to not change on interval change
+// - [ ] Bottom tooltip's number format ~(maybe the same thing as ticks)~
 // - [ ] Snippets
 // - [ ] Function descriptions
 // - [ ] Hover style for legend items
 // - [ ] Hover style for plot line
-// - [ ] Fixed width for ticks' text
 // - [ ] Button placement
 // - [ ] Bigger font?
 
@@ -67,9 +67,10 @@ let multipliers = timescaleMultipliers.fromMonthly,
 class TestChartComp extends Component {
 
   // @todo Abstract to prettifiers?
-  formatMoneyK = function () {
-    const withMoney = '$' + this.axis.defaultLabelFormatter.call(this);
-    return withMoney;
+  formatMoneyWithK = function () {
+    const withMoney = '$' + this.axis.defaultLabelFormatter.call(this),
+          asHTML    = `<span class="graph-label">${withMoney}</span>`;
+    return asHTML;
   };
 
   render () {
@@ -131,7 +132,8 @@ class TestChartComp extends Component {
 
           <XAxis
             endOnTick = { false }
-            labels    = {{ formatter: this.formatMoneyK }}>
+            labels    = {{ formatter: this.formatMoneyWithK }}>
+
             <XAxis.Title>{ `${timescale} Pay` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
@@ -141,15 +143,18 @@ class TestChartComp extends Component {
               width     = { 2 }
               color     = { `gray` }
               dashStyle = { `ShortDashDot` } />
+
           </XAxis>
 
           <YAxis
             endOnTick = { false }
-            labels    = {{ formatter: this.formatMoneyK }}
+            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
             style     = {{ width: `30px` }}
             textLength = { `30px` }>
+
             <YAxis.Title>Benefit Value</YAxis.Title>
             { lines }
+
           </YAxis>
 
         </HighchartsChart>
