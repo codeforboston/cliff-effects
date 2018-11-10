@@ -48,22 +48,31 @@ import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
 // Dunno if I like the CSS solution since it then hides the label text except on hover.
 // Maybe could use something similar where the HTML has the label part and then a separate tooltip part...
 
+// Haven't figured out how to pan vertically
+// This might help, but means chart may have set dimensions:
+// https://api.highcharts.com/highcharts/chart.scrollablePlotArea
+// Not sure how it would act with zoom.
+
 
 // Going to copy the benefits line graph into here
 class TestChartComp extends Component {
   render () {
     const { className } = this.props,
-          currentEarned = 3.3056;
+          currentEarned = 3.3056,
+          interval      = 0.07;
+
+    const plotOptions =  { line: { pointInterval: interval }};
 
     // zoomKey doesn't work without another package
 
     return (
       <div className={ `test-chart ` + (className || ``) }>
-        <HighchartsChart>
+        <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
+
             tooltip  = {{ enabled: true }}
-            zoomType = { `x` }
+            zoomType = { `xy` }
             panning  = { true }
             panKey   = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
@@ -83,7 +92,8 @@ class TestChartComp extends Component {
             borderColor   = { `transparent`  }
             hideDelay     = { 300 } />
 
-          <XAxis>
+          <XAxis endOnTick={ false }>
+
             <XAxis.Title>Pay</XAxis.Title>
             <PlotLine
               useHTML   = { true }
@@ -93,9 +103,11 @@ class TestChartComp extends Component {
               width     = { 2 }
               color     = { `gray` }
               dashStyle = { `ShortDashDot` } />
+
           </XAxis>
 
-          <YAxis>
+          <YAxis endOnTick={ false }>
+
             <YAxis.Title>Benefit Value</YAxis.Title>
 
             <LineSeries data={ [
@@ -104,7 +116,7 @@ class TestChartComp extends Component {
               3.23445,
               2.23445,
               3.23445,
-              2.23445,
+              8.23445,
               1.23445,
               2.23445,
               3.23445, 
@@ -119,6 +131,7 @@ class TestChartComp extends Component {
               5.23445,
               4.23445, 
             ] } />
+
           </YAxis>
 
         </HighchartsChart>
