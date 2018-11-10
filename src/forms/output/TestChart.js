@@ -66,7 +66,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 class TestChartComp extends Component {
 
-  // @todo Abstract to prettifiers?
+  // @todo Abstract to utils/prettifiers?
   formatMoneyWithK = function () {
     const withMoney = '$' + this.axis.defaultLabelFormatter.call(this),
           asHTML    = `<span class="graph-label">${withMoney}</span>`;
@@ -132,7 +132,8 @@ class TestChartComp extends Component {
 
           <XAxis
             endOnTick = { false }
-            labels    = {{ formatter: this.formatMoneyWithK }}>
+            labels    = {{ formatter: this.formatMoneyWithK }}
+            crosshair = {{}}>
 
             <XAxis.Title>{ `${timescale} Pay` }</XAxis.Title>
             <PlotLine
