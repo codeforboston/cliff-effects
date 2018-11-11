@@ -15,7 +15,7 @@ test('CashFlowInputsRow should render', () => {
     mount(
       <CashFlowInputsRow
         generic={ propName }
-        timeState={fromJS({ [ propName ]: 0 })}
+        timeState={ fromJS({ [ propName ]: 0 }) }
         setValue={ () => {} } >
         label
       </CashFlowInputsRow>
@@ -27,7 +27,7 @@ test(`Second ManagedNumberField child should have value of timeState[ 'clientPro
   const wrapper = mount(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={fromJS({ [ propName ]: monthlyVal })}
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
       setValue={ () => {} }>
         label
     </CashFlowInputsRow>
@@ -40,7 +40,7 @@ test('First ManagedNumberField child should have weekly value', () => {
   const wrapper = mount(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={fromJS({ [ propName ]: monthlyVal })}
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
       setValue={ () => {} }>
         label
     </CashFlowInputsRow>
@@ -53,7 +53,7 @@ test('Third ManagedNumberField child should have yearly value', () => {
   const wrapper = mount(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={fromJS({ [ propName ]: monthlyVal })}
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
       setValue={ () => {} }>
         label
     </CashFlowInputsRow>
@@ -67,7 +67,7 @@ test('setValue gets called correctly when each value is changed', () => {
   const wrapper = shallow(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={fromJS({ [ propName ]: monthlyVal })}
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
       setValue={ mockSetClientProperty }>
         label
     </CashFlowInputsRow>

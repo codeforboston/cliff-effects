@@ -3,10 +3,10 @@ import { mount } from 'enzyme';
 
 import { CurrentBenefitsStep } from '../../forms/CurrentBenefits';
 
-import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
-
 // LOCALIZATION
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
+
+import createReducer from '../../reducers';
 
 
 var snippets = getTextForLanguage(`en`);
@@ -16,19 +16,23 @@ test('Benefits step component should render without error', () => {
           middle: null,
           right:  (<div>CB right</div>),
         },
-        updateClientValue = jest.fn(),
-        saveForm          = jest.fn(),
         askToResetClient  = jest.fn(),
         openFeedback      = jest.fn(),
         benefitsSnippets  = snippets.visitPage.currentBenefits;
 
   expect(() => {
+    const reducer = createReducer();
+
+    const state = reducer(undefined, {});
+
     mount(
       <CurrentBenefitsStep
-        client            = { CLIENT_DEFAULTS }
+        currentClient     = { state.getIn([
+          'client',
+          'current', 
+        ]) }
+        setHasBenefit     = { () => {} }
         navData           = { navData }
-        updateClientValue = { updateClientValue }
-        saveForm          = { saveForm }
         askToResetClient  = { askToResetClient }
         openFeedback      = { openFeedback }
         snippets          = { benefitsSnippets } />
