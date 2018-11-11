@@ -39,7 +39,7 @@ To follow these instructions, it'd help if you:
 Instructions:
 1. If you're new to github look at [How to: fork a repo](https://help.github.com/articles/fork-a-repo/). Otherwise, fork and clone the repo, creating a link (remote branch) to the Code for Boston repo.
 2. In your termainal/command prompt, do `git checkout dev`. *Do not touch the `master` branch.*
-3. If you have [nodejs](https://nodejs.org/en/), version v10.13.0 is desired. If you don't, [install it](https://nodejs.org/en/download/). If you don't know, do `node --version` in your terminal/command prompt. If you don't get a number, you don't have it. You can also install [NVM](https://github.com/creationix/nvm) and run `nvm use` in your terminal to use the correct version (you may have to `nvm install` if you don't currently have the correct version installed).
+3. If you have [nodejs](https://nodejs.org/en/), version 10.13.0 is desired. If you don't, [install it](https://nodejs.org/en/download/). If you don't know, do `node --version` in your terminal/command prompt. If you don't get a number, you don't have it. You can also install [NVM](https://github.com/creationix/nvm) and run `nvm use` in your terminal to use the correct version (you may have to `nvm install` if you don't currently have the correct version installed).
 4. In your command prompt/terminal, do `npm install`. This might take a few minutes. Now you'll be able to try out the current UI or play with the code!
 5. Do `npm start` in terminal to automatically open a new browser tab and see a local version of the site. Works best in Chrome.
 6. npm bug workaround: please run `git checkout .` after any instances of running `npm install`. This is to circumvent a bug affecting the integrity of the package-lock.json file.
