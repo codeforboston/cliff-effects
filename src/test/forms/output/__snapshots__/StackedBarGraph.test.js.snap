@@ -4,6 +4,7 @@ exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
 <StackedBarGraph
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -12,6 +13,10 @@ exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [
+          "snap",
+          "section8",
+        ],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -26,8 +31,6 @@ exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": true,
-        "hasSnap": true,
         "household": Array [
           Object {
             "m_age": 30,
@@ -69,6 +72,7 @@ exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -83,8 +87,6 @@ exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -135,20 +137,20 @@ exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
             "label": "Earned",
           },
           Object {
-            "backgroundColor": "rgba(206, 203, 61, 1)",
-            "data": Array [
-              0,
-              0,
-            ],
-            "label": "Section 8 Housing",
-          },
-          Object {
             "backgroundColor": "rgba(101, 47, 138, 1)",
             "data": Array [
               192,
               192,
             ],
             "label": "SNAP",
+          },
+          Object {
+            "backgroundColor": "rgba(206, 203, 61, 1)",
+            "data": Array [
+              0,
+              0,
+            ],
+            "label": "Section 8 Housing",
           },
         ],
         "labels": Array [
@@ -213,20 +215,20 @@ exports[`<StackedBarGraph> renders with both snap and section8 1`] = `
               "label": "Earned",
             },
             Object {
-              "backgroundColor": "rgba(206, 203, 61, 1)",
-              "data": Array [
-                0,
-                0,
-              ],
-              "label": "Section 8 Housing",
-            },
-            Object {
               "backgroundColor": "rgba(101, 47, 138, 1)",
               "data": Array [
                 192,
                 192,
               ],
               "label": "SNAP",
+            },
+            Object {
+              "backgroundColor": "rgba(206, 203, 61, 1)",
+              "data": Array [
+                0,
+                0,
+              ],
+              "label": "Section 8 Housing",
             },
           ],
           "labels": Array [
@@ -285,6 +287,7 @@ exports[`<StackedBarGraph> renders with section8 1`] = `
 <StackedBarGraph
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -293,6 +296,9 @@ exports[`<StackedBarGraph> renders with section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [
+          "section8",
+        ],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -307,8 +313,6 @@ exports[`<StackedBarGraph> renders with section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": true,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -350,6 +354,7 @@ exports[`<StackedBarGraph> renders with section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -364,8 +369,6 @@ exports[`<StackedBarGraph> renders with section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -550,6 +553,7 @@ exports[`<StackedBarGraph> renders with snap and current earned greater than fut
 <StackedBarGraph
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -558,6 +562,9 @@ exports[`<StackedBarGraph> renders with snap and current earned greater than fut
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [
+          "snap",
+        ],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -572,8 +579,6 @@ exports[`<StackedBarGraph> renders with snap and current earned greater than fut
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": true,
         "household": Array [
           Object {
             "m_age": 30,
@@ -615,6 +620,7 @@ exports[`<StackedBarGraph> renders with snap and current earned greater than fut
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -629,8 +635,6 @@ exports[`<StackedBarGraph> renders with snap and current earned greater than fut
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -815,6 +819,7 @@ exports[`<StackedBarGraph> renders with snap and current earned less than future
 <StackedBarGraph
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -823,6 +828,9 @@ exports[`<StackedBarGraph> renders with snap and current earned less than future
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [
+          "snap",
+        ],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -837,8 +845,6 @@ exports[`<StackedBarGraph> renders with snap and current earned less than future
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": true,
         "household": Array [
           Object {
             "m_age": 30,
@@ -880,6 +886,7 @@ exports[`<StackedBarGraph> renders with snap and current earned less than future
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -894,8 +901,6 @@ exports[`<StackedBarGraph> renders with snap and current earned less than future
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,

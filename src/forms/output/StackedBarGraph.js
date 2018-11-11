@@ -32,15 +32,10 @@ const StackedBarGraph = function({ client }) {
       curr  = clone.current;
 
   var allData         = {},
-      activeBenefits  = [ `earned` ];
-
-  if (curr.hasSection8) {
-    activeBenefits.push(`section8`);
-  }
-
-  if (curr.hasSnap) {
-    activeBenefits.push(`snap`);
-  }
+      activeBenefits  = [
+        `earned`,
+        ...curr.benefits,
+      ];
 
   var currentCalcData = {
     activeBenefits: activeBenefits,

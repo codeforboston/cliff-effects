@@ -47,8 +47,13 @@ class BenefitsLineGraph extends Component {
     var max       = Math.ceil((limits.max * multiplier) / 100) * 100,
         interval  = Math.ceil((max / 100) / 10) * 10;
 
+    let extraProps  = {};
+    
+    for (let benefitIndex = 0; benefitIndex < activePrograms.length; benefitIndex++) {
+      extraProps[ activePrograms[ benefitIndex ] ] = { fill: false };
+    }
+
     var xRange      = _.range(limits.min, max, interval),  // x-axis/earned income numbers
-        extraProps  = { snap: { fill: false }, section8: { fill: false }},
         datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table

@@ -8,16 +8,18 @@ import { cloneDeep } from 'lodash';
  *     two decimal places.
  */
 const CLIENT_DEFAULTS = {
-
+  
   // Property Name                | Default Value   | Valid Value Description
+
+  // @todo get this value from the app somewhere  
+  USState: 'MA',                   // Two-letter code denoting the state the client is in
 
   current: {
     // Current programs
-    hasSnap:     false,            // boolean
-    hasSection8: false,            // boolean
+    benefits:  [],         // Benefit names (e.g. 'snap', 'section8')
     // Household
     // 'm_' for 'member'
-    household:   [
+    household: [
       {                  // 'head' member  // one or more member objects
         m_age:      30,               // whole number
         m_role:     'head',           // 'head', 'spouse', 'member'
