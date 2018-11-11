@@ -245,12 +245,14 @@ export default {
       'submitFeedback_v1':          `發送建議`,
 
 
-      beforeMoney_v1:         `$`,
-      afterMoney_v1:          ``,
-      thousandsSeparator_v0:  `,`,
-      beforeMoneyWithTime_v1: `$`,
-      afterMoneyWithTime_v1:  ` /月`,
-      xAxisTitle_v0:          ` Pay<br/>Click and drag to zoom`,
+      beforeMoney_v1:             `$`,
+      afterMoney_v1:              ``,
+      thousandsSeparator_v0:      `,`,
+      beforeMoneyWithTime_v1:     `$`,
+      afterMoneyWithTime_v1:      ` /月`,
+      xAxisTitleEnd_v0:           ` Pay`,
+      zoomInstructions_v0:        `Click and drag to zoom`,
+      currentPayPlotLineLabel_v0: `Current pay:`,
 
       'benefitsTableTitle_v1':    `收入變化`,
       'columnBenefit_v1':         `補助`,

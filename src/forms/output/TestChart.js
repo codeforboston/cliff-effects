@@ -57,7 +57,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Fixed width for ticks' text - width to not change on interval change
 // - [x] Thousands separator
 // - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
-// - [ ] Snippets
+// - [x] Snippets
 // - [ ] Function descriptions
 // - [ ] Hover style for legend items
 // - [ ] Hover style for plot line
@@ -78,7 +78,8 @@ class TestChartComp extends Component {
     const { client, timescale, activePrograms, className, snippets } = this.props,
           multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
-          currentEarned = client.current.earned * multiplier;
+          currentEarned = client.current.earned * multiplier,
+          getText       = this.getTranslatedText;
 
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
@@ -125,7 +126,7 @@ class TestChartComp extends Component {
             panKey   = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
-          <Title>Test</Title>
+          <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>
 
           <Legend
             align         = { `center` }
@@ -146,11 +147,11 @@ class TestChartComp extends Component {
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <XAxis.Title>{ `${timescale} ${this.getTranslatedText(snippets.i_xAxisTitle)}` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_zoomInstructions)}` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
               useHTML   = { true }
-              label     = {{ text: `Current pay:<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
+              label     = {{ text: `${getText(snippets.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
               zIndex    = { 5 }
               width     = { 2 }
               color     = { `gray` }
@@ -164,7 +165,7 @@ class TestChartComp extends Component {
             style     = {{ width: `30px` }}
             textLength = { `30px` }>
 
-            <YAxis.Title>Benefit Value</YAxis.Title>
+            <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
             { lines }
 
           </YAxis>

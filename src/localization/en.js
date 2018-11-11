@@ -275,7 +275,9 @@ export default {
       thousandsSeparator_v1:      `,`,
       beforeMoneyWithTime_v1:     `$`, // see BenefitsTable.js multiple lines
       afterMoneyWithTime_v1:      ` / month`, // see BenefitsTable.js multiple lines
-      xAxisTitle_v1:              ` Pay<br/>Click and drag to zoom`,
+      xAxisTitleEnd_v1:           ` Pay`,
+      zoomInstructions_v1:        `Click and drag to zoom`,
+      currentPayPlotLineLabel_v1: `Current pay:`,
       // Text Summary:
       summaryTitle_v1:            `Summary`,
       noBenefitsChosen_v1:        `On the first page of questions you didn't choose any of the benefits. If you're not getting any benefits now, this tool can't tell you if you will get any in the future. If you're trying to find help getting into a benefit program, try searching for "social services" in your local area.`,
@@ -323,7 +325,7 @@ export default {
       stackedAreaGraphTitle_v1:   `Stacked Incomes`, // see line 267 above
       allMoneyComingIn_v2:        `All Money Coming In as Pay Changes`, // see StackedAreaGraph.js
       // Benefit Programs Graph, showing benefit programs as lines not areas:
-      benefitProgramsTitle_v2:    `Individual Benefit Amounts for Household as Pay Changes`, // maybe rename as benefitProgramsSubTitle_v1 ? see also BenefitsLineGraph.js
+      benefitProgramsTitle_v3:    `Individual Benefit Amounts as Pay Changes`, // maybe rename as benefitProgramsSubTitle_v1 ? see also BenefitsLineGraph.js
       benefitValue_v1:            `Benefit Value ($)`, // see BenefitsLineGraph.js
       // Snippets that are used in more than one chart, table, or graph:
       totalMoney_v1:              `Total Money Coming In ($)`, // see StackedAreaGraph.js, StackedBarGraph.js
