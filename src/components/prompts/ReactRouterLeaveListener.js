@@ -40,14 +40,29 @@ class ReactRouterLeaveListener extends React.Component {
     this.props.confirmer.unset();
   }
 
+  getConfirmationMessage = (location) => {
+    // Allow component consumer to determine whether to request confirmation based on
+    // destination location
+    if (typeof this.props.shouldRequestConfirmation === 'function') {
+      if (
+        !this.props.shouldRequestConfirmation({ location })
+      ) {
+        return true;
+      }
+    }
+
+    return `If you leave you'll lose this data. Are you sure you want to leave?`;
+  };
+
   render() {
     const { isBlocking } = this.props;
+
     // This is always invisible and waits for the user
     // to navigate to a different React Page/Route.
     // This message doesn't usually show up, but sometimes does.
     return <Prompt
       when    = { isBlocking }
-      message = { `If you leave you'll lose this data. Are you sure you want to leave?` } />;
+      message = { this.getConfirmationMessage } />;
   }
 }
 

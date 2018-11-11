@@ -47,9 +47,14 @@ class BenefitsLineGraph extends Component {
     let max       = Math.ceil((limits.max * multiplier) / 100) * 100,
         interval  = Math.ceil((max / 100) / 10) * 10;
 
-    let xRange      = _.range(limits.min, max, interval),  // x-axis/income numbers
-        extraProps  = { snap: { fill: false }, section8: { fill: false }},
-        datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
+    let extraProps  = {};
+    
+    for (let benefitIndex = 0; benefitIndex < activePrograms.length; benefitIndex++) {
+      extraProps[ activePrograms[ benefitIndex ] ] = { fill: false };
+    }
+
+    const xRange      = _.range(limits.min, max, interval),  // x-axis/earned income numbers
+          datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
     if (datasets.length === 0) {
@@ -58,10 +63,10 @@ class BenefitsLineGraph extends Component {
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    let income  = client.future.earned * multiplier,
-        hack    = this.state.verticalLine;
+    const earned  = client.future.earned * multiplier,
+          hack    = this.state.verticalLine;
     hack.xRange = xRange;
-    hack.income = income;
+    hack.earned = earned;
 
     let lineProps = {
       data: {
@@ -71,7 +76,7 @@ class BenefitsLineGraph extends Component {
       options: {
         title: {
           display: true,
-          text:    'Individual Benefit Amounts for Household as Income Changes',
+          text:    'Individual Benefit Amounts for Household as Pay Changes',
         },
         showLines: true,
         scales:    {
@@ -92,7 +97,7 @@ class BenefitsLineGraph extends Component {
             {
               scaleLabel: {
                 display:     true,
-                labelString: timescale + ' Income ($)',
+                labelString: timescale + ' Pay ($)',
               },
               ticks: { callback: formatAxis },
             }, 

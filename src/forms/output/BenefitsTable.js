@@ -21,26 +21,21 @@ const getSignSymbol = function (num) {
 
 
 const BenefitsTable = function ({ client, snippets }) {
-
-  let clone = cloneDeep(client);
-  let curr = clone.current;
+  const clone = cloneDeep(client);
+  const curr = clone.current;
 
   let allData         = {},
-      activeBenefits  = [ `income` ];
-
-  if (curr.hasSection8) {
-    activeBenefits.push(`section8`);
-  }
-
-  if (curr.hasSnap) {
-    activeBenefits.push(`snap`);
-  }
+      activeBenefits  = [
+        `earned`,
+        ...curr.benefits,
+      ];
 
   let currentCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
     timeframe:      `current`,
+    USState:        client.USState,
   };
   applyAndPushBenefits (currentCalcData);
 
@@ -50,40 +45,53 @@ const BenefitsTable = function ({ client, snippets }) {
     dataToAddTo:    allData,
     clientToChange: clone,
     timeframe:      `future`,
+    USState:        client.USState,
   };
   applyAndPushBenefits (futureCalcData);
 
-  // @todo Abstract getting values for each row
-  let income   = allData.income,
-      section8 = allData.section8,
-      snap     = allData.snap;
+  const earned = allData.earned;
+  
+  const currentBenefits = {};
+  const futureBenefits = {};
+  const benefitDiffs = {};
+  let totalDiff = 0;
+  let totalBenefitCurrent = 0;
+  let totalBenefitFuture = 0;
 
-  let sec8BenefitCurrent = 0,
-      sec8BenefitFuture  = 0,
-      SNAPBenefitCurrent = 0,
-      SNAPBenefitFuture  = 0;
+  for (let benefitIndex = 0; benefitIndex < curr.benefits.length; benefitIndex++) {
+    const benefit = curr.benefits[ benefitIndex ];
 
-  if (curr.hasSection8) {
-    sec8BenefitCurrent     = Math.round(section8[ 0 ]);
-    sec8BenefitFuture      = Math.round(section8[ 1 ]);
+    const benefitData = allData[ benefit ];
+    
+    if (benefitData) {
+      const [
+        currentBenefit,
+        futureBenefit, 
+      ] = benefitData;
+      
+      currentBenefits[ benefit ] = Math.round(currentBenefit);
+  
+      futureBenefits[ benefit ] = Math.round(futureBenefit);
+
+      totalBenefitCurrent += currentBenefits[ benefit ];
+      totalBenefitFuture += futureBenefits[ benefit ];
+    }
+    else {
+      currentBenefits[ benefit ] = 0;
+
+      futureBenefits[ benefit ] = 0;
+    }
+
+    benefitDiffs[ benefit ] = futureBenefits[ benefit ] - currentBenefits[ benefit ];
+    totalDiff += benefitDiffs[ benefit ];
   }
 
-  if (curr.hasSnap) {
-    SNAPBenefitCurrent = Math.round(snap[ 0 ]);
-    SNAPBenefitFuture  = Math.round(snap[ 1 ]);
-  }
-
-  let SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
-      totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
-      totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
-      totalDiff           = SNAPDiff + sec8Diff,
-      incomeCurrent       = Math.round(income[ 0 ]),
-      incomeFuture        = Math.round(income[ 1 ]),
-      incomeDiff          = incomeFuture - incomeCurrent,
-      netCurrent          = totalBenefitCurrent + incomeCurrent,
-      netFuture           = totalBenefitFuture + incomeFuture,
-      netDiff             = totalDiff + incomeDiff;
+  const earnedCurrent       = Math.round(earned[ 0 ]),
+        earnedFuture        = Math.round(earned[ 1 ]),
+        earnedDiff          = earnedFuture - earnedCurrent,
+        netCurrent          = totalBenefitCurrent + earnedCurrent,
+        netFuture           = totalBenefitFuture + earnedFuture,
+        netDiff             = totalDiff + earnedDiff;
 
   const columnHeaderStyle = {
           background:    'rgba(0, 181, 173, 1)',
@@ -113,40 +121,8 @@ const BenefitsTable = function ({ client, snippets }) {
           padingTop:  '0.25em',
         };
 
-
-  const SNAPBenefitRow = function({ client, snippets }){
-
-    if (!client.current.hasSnap) {
-      return (null);
-    }
-
-    return (
-      <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowSNAP }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{SNAPBenefitCurrent}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{SNAPBenefitFuture}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.i_beforeMoney }{ Math.abs(SNAPDiff) }{ snippets.i_afterMoney }</Table.Cell>
-      </Table.Row>
-    );
-  };
-
-  const Sec8BenefitRow  = function({ client, snippets }){
-    if (!client.current.hasSection8) {
-      return (null);
-    }
-
-    return (
-      <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowSection8 }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{sec8BenefitCurrent}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{sec8BenefitFuture}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } { snippets.i_beforeMoney }{ Math.abs(sec8Diff) }{ snippets.i_afterMoney }</Table.Cell>
-      </Table.Row>
-    );
-  };
-
   const TotalBenefitsRow = function({ client, snippets }){
-    if (!client.current.hasSnap || !client.current.hasSection8) {
+    if (client.current.benefits.length <= 1) {
       return (null);
     }
 
@@ -176,13 +152,13 @@ const BenefitsTable = function ({ client, snippets }) {
     );
   };
 
-  const IncomeRow = function ({ snippets }) {
+  const EarnedRow = function ({ snippets }) {
     return (
       <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowIncome }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{incomeCurrent}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{incomeFuture}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(incomeDiff) } { snippets.i_beforeMoney }{ Math.abs(incomeDiff) }{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowEarned }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{earnedCurrent}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{earnedFuture}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(earnedDiff) } { snippets.i_beforeMoney }{ Math.abs(earnedDiff) }{ snippets.i_afterMoney }</Table.Cell>
       </Table.Row>
     );
   };
@@ -214,6 +190,26 @@ const BenefitsTable = function ({ client, snippets }) {
     );
   };
 
+  const benefitRows = [];
+
+  for (let benefitIndex = 0; benefitIndex < curr.benefits.length; benefitIndex++) {
+    const benefit = curr.benefits[ benefitIndex ];
+
+    const diff = benefitDiffs[ benefit ];
+
+    const label = snippets[ `i_row_${benefit}` ];
+
+    benefitRows.push(
+      <Table.Row
+        key={ benefit }>
+        <Table.Cell style={ rowHeaderStyle }>{ label }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{currentBenefits[ benefit ]}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{futureBenefits[ benefit ]}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(diff) } { snippets.i_beforeMoney }{ Math.abs(diff) }{ snippets.i_afterMoney }</Table.Cell>
+      </Table.Row>
+    );
+  }
+
   return (
     <div>
       <Table celled>
@@ -238,16 +234,11 @@ const BenefitsTable = function ({ client, snippets }) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow 
-            client={ clone }
-            snippets={ snippets } />
-          <Sec8BenefitRow 
-            client={ clone }
-            snippets={ snippets } />
+          {benefitRows}
           <TotalBenefitsRow 
             client={ clone } 
             snippets={ snippets } />
-          <IncomeRow snippets={ snippets } />
+          <EarnedRow snippets={ snippets } />
           <TotalsRow snippets={ snippets } />
         </Table.Body>
       </Table>

@@ -34,51 +34,54 @@ class AskPermission extends React.Component {
   };
 
   // Return an array to take advantage of `Modal` styling
-  render () {return ([
-    <Modal.Content key = { `ask-permission-content` }>
-      <p>{ this.props.question }</p>
+  render () {
+    const { question, submitting } = this.props;
+    const { submitType } = this.state;
+    return ([
+      <Modal.Content key = { `ask-permission-content` }>
+        <p>{ question }</p>
 
-      <Form.Field>
-        <Radio
-          name     = { `data-ask` }
-          value    = { `withData` }
-          label    = { `Yes` }
-          checked  = { this.state.submitType === `withData` }
-          onChange = { this.setSubmitType } />
-      </Form.Field>
-      <Form.Field>
-        <Radio
-          name     = { `data-ask` }
-          value    = { `withoutData` }
-          label    = { `No` }
-          checked  = { this.state.submitType === `withoutData` }
-          onChange = { this.setSubmitType } />
-      </Form.Field>
-    </Modal.Content>,
-    <Modal.Actions key = { `ask-permission-actions` }>
-      <Button
-        onClick  ={ this.close }
-        disabled ={ this.props.submitting }>Cancel
-      </Button>
-      <Button
-        onClick  = { this.submit }
-        loading  = { this.props.submitting }
-        disabled = { this.state.submitType === null }
-        color    ='teal'>
-        { (this.state.submitType === `withData`) ? (
-          `Send with my information`
-        ) : (
-          null
-        ) }
-        { (this.state.submitType === `withoutData`) ? (
-          `Send without my information`
-        ) : (
-          null
-        ) }
-        { (this.state.submitType === null) ? (`Send`) : (null) }
-      </Button>
-    </Modal.Actions>,
-  ]);}
+        <Form.Field>
+          <Radio
+            name     = { `data-ask` }
+            value    = { `withData` }
+            label    = { `Yes` }
+            checked  = { submitType === `withData` }
+            onChange = { this.setSubmitType } />
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            name     = { `data-ask` }
+            value    = { `withoutData` }
+            label    = { `No` }
+            checked  = { submitType === `withoutData` }
+            onChange = { this.setSubmitType } />
+        </Form.Field>
+      </Modal.Content>,
+      <Modal.Actions key = { `ask-permission-actions` }>
+        <Button
+          onClick  ={ this.close }
+          disabled ={ submitting }>Cancel
+        </Button>
+        <Button
+          onClick  = { this.submit }
+          loading  = { submitting }
+          disabled = { submitType === null }
+          color    ='teal'>
+          { (submitType === `withData`) ? (
+            `Send with my information`
+          ) : (
+            null
+          ) }
+          { (submitType === `withoutData`) ? (
+            `Send without my information`
+          ) : (
+            null
+          ) }
+          { (submitType === null) ? (`Send`) : (null) }
+        </Button>
+      </Modal.Actions>,
+    ]);}
 }
 
 
@@ -167,21 +170,23 @@ class FeedbackPrompt extends React.Component {
   };
 
   render () {
+    const { isOpen } = this.props;
+    const { formData, submissionFailed, submitting, ready } = this.state;
     const inputProps = (name) => {
       return {
         name,
-        value:    this.state.formData[ name ] || '',
+        value:    formData[ name ] || '',
         onChange: this.handleInputChange,
       };
     };
 
     // Without the #root selector, we can't get the accessibility
-    // focus styles to win 
+    // focus styles to win
     return (
       <Modal
         mountNode = { document.getElementById(`App`) }
         size='large'
-        open={ this.props.isOpen }
+        open={ isOpen }
         onClose={ this.close }
         closeOnDimmerClick={ false }
         closeOnEscape={ false }
@@ -211,7 +216,7 @@ class FeedbackPrompt extends React.Component {
               label={ 'Do you have any other comments?' } />
           </Form>
           <Message
-            hidden={ !this.state.submissionFailed }
+            hidden={ !submissionFailed }
             error>
             Error submitting data, please try again or <a href="mailto:andrew@codeforboston.org">email us</a>.
           </Message>
@@ -219,7 +224,7 @@ class FeedbackPrompt extends React.Component {
         <Modal.Actions>
           <Button
             onClick={ this.close }
-            disabled={ this.state.submitting }>Cancel
+            disabled={ submitting }>Cancel
           </Button>
           <Button
             onClick={ this.onReady }
@@ -230,13 +235,13 @@ class FeedbackPrompt extends React.Component {
         <Modal
           mountNode = { document.getElementById(`App`) }
           size               = { `large` }
-          open               = { this.state.ready }
+          open               = { ready }
           onClose            = { this.closeAskPermission }
           closeOnDimmerClick = { false }
           closeOnEscape      = { false }
           closeIcon>
           <AskPermission
-            submitting         = { this.state.submitting }
+            submitting         = { submitting }
             closeAskPermission = { this.closeAskPermission }
             submit             = { this.submit }
             question           = { `Is it ok if we save the information you've put in here? We won't save anything else about you. If you had problems with the app, it'll help us work on them.` } />

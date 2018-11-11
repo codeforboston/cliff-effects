@@ -11,6 +11,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
   className="some-class"
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -19,6 +20,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -33,8 +35,6 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -76,6 +76,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -90,8 +91,6 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -443,7 +442,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Pay ($)",
               },
               "ticks": Object {
                 "callback": [Function],
@@ -466,7 +465,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
         "showLines": true,
         "title": Object {
           "display": true,
-          "text": "Individual Benefit Amounts for Household as Income Changes",
+          "text": "Individual Benefit Amounts for Household as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -480,7 +479,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 200,
+          "earned": 200,
           "xRange": Array [
             0,
             90,
@@ -895,7 +894,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Pay ($)",
                 },
                 "ticks": Object {
                   "callback": [Function],
@@ -918,7 +917,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
           "showLines": true,
           "title": Object {
             "display": true,
-            "text": "Individual Benefit Amounts for Household as Income Changes",
+            "text": "Individual Benefit Amounts for Household as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -932,7 +931,7 @@ exports[`<BenefitsLineGraph> renders with both snap and section8 1`] = `
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 200,
+            "earned": 200,
             "xRange": Array [
               0,
               90,
@@ -1047,6 +1046,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
   className="some-class"
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -1055,6 +1055,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -1069,8 +1070,6 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -1112,6 +1111,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -1126,8 +1126,6 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -1377,7 +1375,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Pay ($)",
               },
               "ticks": Object {
                 "callback": [Function],
@@ -1400,7 +1398,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
         "showLines": true,
         "title": Object {
           "display": true,
-          "text": "Individual Benefit Amounts for Household as Income Changes",
+          "text": "Individual Benefit Amounts for Household as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -1414,7 +1412,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 200,
+          "earned": 200,
           "xRange": Array [
             0,
             90,
@@ -1727,7 +1725,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Pay ($)",
                 },
                 "ticks": Object {
                   "callback": [Function],
@@ -1750,7 +1748,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
           "showLines": true,
           "title": Object {
             "display": true,
-            "text": "Individual Benefit Amounts for Household as Income Changes",
+            "text": "Individual Benefit Amounts for Household as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -1764,7 +1762,7 @@ exports[`<BenefitsLineGraph> renders with section8 1`] = `
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 200,
+            "earned": 200,
             "xRange": Array [
               0,
               90,
@@ -1879,6 +1877,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
   className="some-class"
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -1887,6 +1886,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -1901,8 +1901,6 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -1944,6 +1942,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -1958,8 +1957,6 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -2209,7 +2206,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Pay ($)",
               },
               "ticks": Object {
                 "callback": [Function],
@@ -2232,7 +2229,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
         "showLines": true,
         "title": Object {
           "display": true,
-          "text": "Individual Benefit Amounts for Household as Income Changes",
+          "text": "Individual Benefit Amounts for Household as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -2246,7 +2243,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 100,
+          "earned": 100,
           "xRange": Array [
             0,
             90,
@@ -2559,7 +2556,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Pay ($)",
                 },
                 "ticks": Object {
                   "callback": [Function],
@@ -2582,7 +2579,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
           "showLines": true,
           "title": Object {
             "display": true,
-            "text": "Individual Benefit Amounts for Household as Income Changes",
+            "text": "Individual Benefit Amounts for Household as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -2596,7 +2593,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned greater than f
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 100,
+            "earned": 100,
             "xRange": Array [
               0,
               90,
@@ -2711,6 +2708,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
   className="some-class"
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -2719,6 +2717,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -2733,8 +2732,6 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -2776,6 +2773,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -2790,8 +2788,6 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -3041,7 +3037,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Pay ($)",
               },
               "ticks": Object {
                 "callback": [Function],
@@ -3064,7 +3060,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
         "showLines": true,
         "title": Object {
           "display": true,
-          "text": "Individual Benefit Amounts for Household as Income Changes",
+          "text": "Individual Benefit Amounts for Household as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -3078,7 +3074,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 200,
+          "earned": 200,
           "xRange": Array [
             0,
             90,
@@ -3391,7 +3387,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Pay ($)",
                 },
                 "ticks": Object {
                   "callback": [Function],
@@ -3414,7 +3410,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
           "showLines": true,
           "title": Object {
             "display": true,
-            "text": "Individual Benefit Amounts for Household as Income Changes",
+            "text": "Individual Benefit Amounts for Household as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -3428,7 +3424,7 @@ exports[`<BenefitsLineGraph> renders with snap and current earned less than futu
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 200,
+            "earned": 200,
             "xRange": Array [
               0,
               90,

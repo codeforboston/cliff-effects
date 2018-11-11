@@ -24,7 +24,7 @@ exports[`<Surrounder> renders provided nodes 1`] = `
         <Left />
       </div>
       <div
-        className="center vertical content"
+        className="center horizontal content"
       >
         <Content />
       </div>

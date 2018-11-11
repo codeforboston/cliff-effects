@@ -10,8 +10,8 @@ const CLIENT_ROW_N = {
 
   current: {
     // Current programs
-    hasSnap:                        COL-T         boolean
-    hasSection8:                    COL-Y         boolean             For now, 'Public Housing' or 'MRVP' counts
+    []                              COL-T,COL-Y   array of strings    Values are identifiers for programs, e.g. 'snap', 'section8'
+                                                                      For now, 'Public Housing' or 'MRVP' counts for section 8
     // Household
     household:  [                   COL-G         one or more         Distribution unclear
       {                             -----                             'head' of household should always be first
@@ -70,8 +70,7 @@ const CLIENT_ROW_N = {
 // const CLIENT_ROW_2 = {
 //   current: {
 //     // Current programs
-//     hasSnap:                        false,
-//     hasSection8:                    false,
+//     benefits: [],
 //     // Household
 //     household:  [{
 //         m_age:                      66,
@@ -126,10 +125,10 @@ const CLIENT_ROW_N = {
 const CLIENT_ROW_3 = {
   current: {
     // Current programs
-    hasSnap:     true,
-    hasSection8: false,  // Public Housing (but NOT Section 8)
+    // Public Housing (but NOT Section 8)
+    benefits:  [ 'snap' ],
     // Household
-    household:   [
+    household: [
       {
         m_age:      2,
         m_role:     'member',
@@ -222,10 +221,12 @@ const CLIENT_ROW_3 = {
 const CLIENT_ROW_4 = {
   current: {
     // Current programs
-    hasSnap:     true,
-    hasSection8: true,
+    benefits: [
+      'snap',
+      'section8',
+    ],
     // Household
-    household:   [
+    household: [
       {
         m_age:      60,
         m_role:     'head',  // deduced from age distribution
@@ -283,10 +284,9 @@ const CLIENT_ROW_4 = {
 const CLIENT_ROW_5 = {
   current: {
     // Current programs
-    hasSnap:     true,
-    hasSection8: false,
+    benefits:  [ 'snap' ],
     // Household
-    household:   [
+    household: [
       {
         m_age:      32,
         m_role:     'head',
@@ -344,10 +344,9 @@ const CLIENT_ROW_5 = {
 const CLIENT_ROW_6 = {
   current: {
     // Current programs
-    hasSnap:     true,
-    hasSection8: false,
+    benefits:  [ 'snap' ],
     // Household
-    household:   [
+    household: [
       {
         m_age:      28,
         m_role:     'head',
@@ -405,10 +404,10 @@ const CLIENT_ROW_6 = {
 const CLIENT_ROW_7 = {
   current: {
     // Current programs
-    hasSnap:     true,
-    hasSection8: false, // Public Housing (but NOT Section 8)
+    // Public Housing (but NOT Section 8)
+    benefits:  [ 'snap' ],
     // Household
-    household:   [
+    household: [
       {
         m_age:      2,
         m_role:     'member',
@@ -471,10 +470,9 @@ const CLIENT_ROW_7 = {
 const CLIENT_ROW_8 = {
   current: {
     // Current programs
-    hasSnap:     false,
-    hasSection8: true,
+    benefits:  [ 'section8' ],
     // Household
-    household:   [
+    household: [
       {
         m_age:      57,
         m_role:     'head',  // deduced from age distribution
@@ -542,11 +540,13 @@ const CLIENT_ROW_8 = {
 const CLIENT_ROW_9 = {
   current: {
     // Current programs
-    hasSnap:     true,
-    hasSection8: true,
+    benefits: [
+      'snap',
+      'section8',
+    ],
     // Household
     // 'm_' for 'member'
-    household:   [
+    household: [
       {
         m_age:      27,
         m_role:     'head',  // deduced from age distribution
@@ -604,10 +604,12 @@ const CLIENT_ROW_9 = {
 const CLIENT_ROW_10 = {
   current: {
     // Current programs
-    hasSnap:     true,
-    hasSection8: true,
+    benefits: [
+      'snap',
+      'section8',
+    ],
     // Household
-    household:   [
+    household: [
       {
         m_age:      37,
         m_role:     'head',
@@ -671,8 +673,7 @@ const CLIENT_ROW_10 = {
 // const CLIENT_ROW_11 = {
 //   current: {
 //     // Current programs
-//     hasSnap:                        false,
-//     hasSection8:                    false,
+//     benefits:                       [],
 //     // Household
 //     household:  [
 //       {

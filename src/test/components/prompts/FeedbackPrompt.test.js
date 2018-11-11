@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 
 import FeedbackPrompt from '../../../components/prompts/FeedbackPrompt';
 
-test('A feedback prompt should match the snapshot', () => {
+test(`<FeedbackPrompt> renders`, () => {
   let isBlocking = true;
 
   let promptData = {
@@ -12,11 +12,12 @@ test('A feedback prompt should match the snapshot', () => {
     leaveText: 'Reset',
   };
 
-  const wrapper = shallow(
-    <FeedbackPrompt
-      { ...promptData }
-      isBlocking={ isBlocking }
-      openFeedback={ jest.fn() } />
-  );
-  expect(wrapper).toMatchSnapshot();
+  expect(() => {
+    mount(
+      <FeedbackPrompt
+        { ...promptData }
+        isBlocking={ isBlocking }
+        openFeedback={ jest.fn() } />
+    );
+  }).not.toThrow();
 });

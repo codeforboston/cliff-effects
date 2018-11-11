@@ -10,17 +10,17 @@ class VerticalLine {
 
   constructor () {
     this.xRange = [];
-    this.income = 0;
+    this.earned = 0;
   }
 
   afterDatasetsDraw = (chart) => {
     const xRange = this.xRange,
-          income = this.income;
+          earned = this.earned;
 
     const i = xRange.findIndex((val) => {
-      return income < val;
+      return earned < val;
     });
-    const positionBetweenTwoPoints = (income - xRange[ i - 1 ]) / (xRange[ i ] - xRange[ i - 1 ]);
+    const positionBetweenTwoPoints = (earned - xRange[ i - 1 ]) / (xRange[ i ] - xRange[ i - 1 ]);
 
     const data = chart.getDatasetMeta(0).data;
     const prevX = data[ i - 1 ]._model.x;
@@ -49,7 +49,7 @@ class VerticalLine {
     const xMargin = 5;
     const yMargin = 200;
     ctx.fillText('Future', offset + xMargin, yMargin);
-    ctx.fillText('Income', offset + xMargin, lineHeight + yMargin);
+    ctx.fillText('Pay', offset + xMargin, lineHeight + yMargin);
 
     ctx.restore();
   };

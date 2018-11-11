@@ -10,6 +10,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
   }
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -18,6 +19,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -32,8 +34,6 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -75,6 +75,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -89,8 +90,6 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -233,7 +232,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
               8460,
             ],
             "fill": "origin",
-            "label": "Income",
+            "label": "Earned",
           },
           Object {
             "backgroundColor": "rgba(101, 47, 138, 1)",
@@ -556,7 +555,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Earned ($)",
               },
               "stacked": true,
               "ticks": Object {
@@ -580,7 +579,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
         },
         "title": Object {
           "display": true,
-          "text": "All Money Coming in as Income Changes",
+          "text": "All Money Coming in as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -594,7 +593,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 200,
+          "earned": 200,
           "xRange": Array [
             0,
             90,
@@ -802,7 +801,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
                 8460,
               ],
               "fill": "origin",
-              "label": "Income",
+              "label": "Earned",
             },
             Object {
               "backgroundColor": "rgba(101, 47, 138, 1)",
@@ -1125,7 +1124,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Earned ($)",
                 },
                 "stacked": true,
                 "ticks": Object {
@@ -1149,7 +1148,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
           },
           "title": Object {
             "display": true,
-            "text": "All Money Coming in as Income Changes",
+            "text": "All Money Coming in as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -1163,7 +1162,7 @@ exports[`<StackedAreaGraph> renders with both snap and section8 1`] = `
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 200,
+            "earned": 200,
             "xRange": Array [
               0,
               90,
@@ -1279,6 +1278,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
   }
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -1287,6 +1287,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -1301,8 +1302,6 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -1344,6 +1343,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -1358,8 +1358,6 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -1502,7 +1500,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
               8460,
             ],
             "fill": "origin",
-            "label": "Income",
+            "label": "Earned",
           },
           Object {
             "backgroundColor": "rgba(206, 203, 61, 1)",
@@ -1723,7 +1721,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Earned ($)",
               },
               "stacked": true,
               "ticks": Object {
@@ -1747,7 +1745,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
         },
         "title": Object {
           "display": true,
-          "text": "All Money Coming in as Income Changes",
+          "text": "All Money Coming in as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -1761,7 +1759,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 200,
+          "earned": 200,
           "xRange": Array [
             0,
             90,
@@ -1969,7 +1967,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
                 8460,
               ],
               "fill": "origin",
-              "label": "Income",
+              "label": "Earned",
             },
             Object {
               "backgroundColor": "rgba(206, 203, 61, 1)",
@@ -2190,7 +2188,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Earned ($)",
                 },
                 "stacked": true,
                 "ticks": Object {
@@ -2214,7 +2212,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
           },
           "title": Object {
             "display": true,
-            "text": "All Money Coming in as Income Changes",
+            "text": "All Money Coming in as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -2228,7 +2226,7 @@ exports[`<StackedAreaGraph> renders with section8 1`] = `
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 200,
+            "earned": 200,
             "xRange": Array [
               0,
               90,
@@ -2344,6 +2342,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
   }
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -2352,6 +2351,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -2366,8 +2366,6 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -2409,6 +2407,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -2423,8 +2422,6 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -2567,7 +2564,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
               8460,
             ],
             "fill": "origin",
-            "label": "Income",
+            "label": "Earned",
           },
           Object {
             "backgroundColor": "rgba(101, 47, 138, 1)",
@@ -2788,7 +2785,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Earned ($)",
               },
               "stacked": true,
               "ticks": Object {
@@ -2812,7 +2809,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
         },
         "title": Object {
           "display": true,
-          "text": "All Money Coming in as Income Changes",
+          "text": "All Money Coming in as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -2826,7 +2823,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 100,
+          "earned": 100,
           "xRange": Array [
             0,
             90,
@@ -3034,7 +3031,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
                 8460,
               ],
               "fill": "origin",
-              "label": "Income",
+              "label": "Earned",
             },
             Object {
               "backgroundColor": "rgba(101, 47, 138, 1)",
@@ -3255,7 +3252,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Earned ($)",
                 },
                 "stacked": true,
                 "ticks": Object {
@@ -3279,7 +3276,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
           },
           "title": Object {
             "display": true,
-            "text": "All Money Coming in as Income Changes",
+            "text": "All Money Coming in as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -3293,7 +3290,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned greater than fu
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 100,
+            "earned": 100,
             "xRange": Array [
               0,
               90,
@@ -3409,6 +3406,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
   }
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -3417,6 +3415,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -3431,8 +3430,6 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -3474,6 +3471,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -3488,8 +3486,6 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -3632,7 +3628,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
               8460,
             ],
             "fill": "origin",
-            "label": "Income",
+            "label": "Earned",
           },
           Object {
             "backgroundColor": "rgba(101, 47, 138, 1)",
@@ -3853,7 +3849,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
             Object {
               "scaleLabel": Object {
                 "display": true,
-                "labelString": "Monthly Income ($)",
+                "labelString": "Monthly Earned ($)",
               },
               "stacked": true,
               "ticks": Object {
@@ -3877,7 +3873,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
         },
         "title": Object {
           "display": true,
-          "text": "All Money Coming in as Income Changes",
+          "text": "All Money Coming in as Pay Changes",
         },
         "tooltips": Object {
           "callbacks": Object {
@@ -3891,7 +3887,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
       Array [
         VerticalLine {
           "afterDatasetsDraw": [Function],
-          "income": 200,
+          "earned": 200,
           "xRange": Array [
             0,
             90,
@@ -4099,7 +4095,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
                 8460,
               ],
               "fill": "origin",
-              "label": "Income",
+              "label": "Earned",
             },
             Object {
               "backgroundColor": "rgba(101, 47, 138, 1)",
@@ -4320,7 +4316,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
               Object {
                 "scaleLabel": Object {
                   "display": true,
-                  "labelString": "Monthly Income ($)",
+                  "labelString": "Monthly Earned ($)",
                 },
                 "stacked": true,
                 "ticks": Object {
@@ -4344,7 +4340,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
           },
           "title": Object {
             "display": true,
-            "text": "All Money Coming in as Income Changes",
+            "text": "All Money Coming in as Pay Changes",
           },
           "tooltips": Object {
             "callbacks": Object {
@@ -4358,7 +4354,7 @@ exports[`<StackedAreaGraph> renders with snap and current earned less than futur
         Array [
           VerticalLine {
             "afterDatasetsDraw": [Function],
-            "income": 200,
+            "earned": 200,
             "xRange": Array [
               0,
               90,

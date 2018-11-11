@@ -1,16 +1,17 @@
+import { isNumberlike } from './validators';
+
+
 /**
  * Transformers for transforming client
  * values into valid values.
+ * @module
  */
 
-/**
- * Reused Functionality
- */
 const returnSame = function (newVal, state) {
   return newVal;
 };
 
-/** @todo Take regular bools out of here. */
+
 const toBoolean = function (value) {
   if (value === 'Yes') {
     return true;
@@ -23,8 +24,25 @@ const toBoolean = function (value) {
   }
 };
 
-const stringToNumber = function (str) {
-  return Number(str);
+/** Given a number or a string representing a number, returns
+ *     a number. Needs both because it's used in setting valid
+ *     client values. Cash values will come in as numbers because
+ *     they have to be converted to monthly values. Other number
+ *     values, like age, will still be strings.
+ *
+ * @param {number|string} numberOrString
+ * @returns {number}
+ */
+const toNumber = function (numberOrString) {
+
+  let trueOrError = isNumberlike(numberOrString);
+
+  if (typeof trueOrError === `object`) {
+    throw (trueOrError);
+  }
+
+  return Number(numberOrString);
+
 };
 
 /**
@@ -33,8 +51,7 @@ const stringToNumber = function (str) {
  */
 const valueFixers = {
   // Current programs
-  hasSnap:                       returnSame,
-  hasSection8:                   returnSame,
+  benefits:                      returnSame,
   // Household
   household:                     returnSame,
   m_age:                         returnSame,  // to positive int (validate in component?)
@@ -43,54 +60,54 @@ const valueFixers = {
   // MONEY AMOUNTS
   // Income
   /** @todo All incomes need transformation */
-  earned:                        stringToNumber,
-  TAFDC:                         stringToNumber,
-  SSI:                           stringToNumber,
-  SSDI:                          stringToNumber,
-  childSupportIn:                stringToNumber,
-  unemployment:                  stringToNumber,
-  workersComp:                   stringToNumber,
-  pension:                       stringToNumber,
-  socialSecurity:                stringToNumber,
-  alimony:                       stringToNumber,
-  otherIncome:                   stringToNumber,
-  incomeExclusions:              stringToNumber,
+  earned:                        toNumber,
+  TAFDC:                         toNumber,
+  SSI:                           toNumber,
+  SSDI:                          toNumber,
+  childSupportIn:                toNumber,
+  unemployment:                  toNumber,
+  workersComp:                   toNumber,
+  pension:                       toNumber,
+  socialSecurity:                toNumber,
+  alimony:                       toNumber,
+  otherIncome:                   toNumber,
+  incomeExclusions:              toNumber,
   // Expenses
-  childDirectCare:               stringToNumber,
-  childBeforeAndAfterSchoolCare: stringToNumber,
-  childTransportation:           stringToNumber,
-  childOtherCare:                stringToNumber,
-  earnedBecauseOfChildCare:      stringToNumber,
-  childSupportPaidOut:           stringToNumber,
-  adultDirectCare:               stringToNumber,
-  adultTransportation:           stringToNumber,
-  adultOtherCare:                stringToNumber,
-  disabledAssistance:            stringToNumber,
-  earnedBecauseOfAdultCare:      stringToNumber,
-  disabledMedical:               stringToNumber,
-  otherMedical:                  stringToNumber,
+  childDirectCare:               toNumber,
+  childBeforeAndAfterSchoolCare: toNumber,
+  childTransportation:           toNumber,
+  childOtherCare:                toNumber,
+  earnedBecauseOfChildCare:      toNumber,
+  childSupportPaidOut:           toNumber,
+  adultDirectCare:               toNumber,
+  adultTransportation:           toNumber,
+  adultOtherCare:                toNumber,
+  disabledAssistance:            toNumber,
+  earnedBecauseOfAdultCare:      toNumber,
+  disabledMedical:               toNumber,
+  otherMedical:                  toNumber,
   /** @todo When client has section 8, switch this to 'housingVoucher' */
   housing:                       returnSame,
-  contractRent:                  stringToNumber,
-  rentShare:                     stringToNumber,
-  rent:                          stringToNumber,
-  mortgage:                      stringToNumber,
-  housingInsurance:              stringToNumber,
-  propertyTax:                   stringToNumber,
+  contractRent:                  toNumber,
+  rentShare:                     toNumber,
+  rent:                          toNumber,
+  mortgage:                      toNumber,
+  housingInsurance:              toNumber,
+  propertyTax:                   toNumber,
   climateControl:                returnSame,
   nonHeatElectricity:            returnSame,
   phone:                         returnSame,
   fuelAssistance:                toBoolean,
-  otherExpensesFood:             stringToNumber,
-  otherExpensesUtilities:        stringToNumber,
-  otherExpensesCable:            stringToNumber,
-  otherExpensesMedical:          stringToNumber,
-  otherExpensesTransport:        stringToNumber,
-  otherExpensesCareProducts:     stringToNumber,
-  otherExpensesClothes:          stringToNumber,
-  otherExpensesPhone:            stringToNumber,
-  otherExpensesEntertainment:    stringToNumber,
-  otherExpensesOther:            stringToNumber,
+  otherExpensesFood:             toNumber,
+  otherExpensesUtilities:        toNumber,
+  otherExpensesCable:            toNumber,
+  otherExpensesMedical:          toNumber,
+  otherExpensesTransport:        toNumber,
+  otherExpensesCareProducts:     toNumber,
+  otherExpensesClothes:          toNumber,
+  otherExpensesPhone:            toNumber,
+  otherExpensesEntertainment:    toNumber,
+  otherExpensesOther:            toNumber,
   wantsToSeeOtherExpenses:       toBoolean,
 
 };  // end valueFixers
@@ -99,6 +116,6 @@ const valueFixers = {
 export {
   valueFixers,
   returnSame,
-  stringToNumber,
+  toNumber,
   toBoolean,
 };

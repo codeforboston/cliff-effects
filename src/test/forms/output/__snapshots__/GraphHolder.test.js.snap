@@ -5,6 +5,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
   Graph={[Function]}
   client={
     Object {
+      "USState": "MA",
       "current": Object {
         "SSDI": 0,
         "SSI": 0,
@@ -13,6 +14,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -27,8 +29,6 @@ exports[`<GraphHolder> matches snapshot 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -70,6 +70,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
         "adultOtherCare": 0,
         "adultTransportation": 0,
         "alimony": 0,
+        "benefits": Array [],
         "childBeforeAndAfterSchoolCare": 0,
         "childDirectCare": 0,
         "childOtherCare": 0,
@@ -84,8 +85,6 @@ exports[`<GraphHolder> matches snapshot 1`] = `
         "earnedBecauseOfAdultCare": 0,
         "earnedBecauseOfChildCare": 0,
         "fuelAssistance": false,
-        "hasSection8": false,
-        "hasSnap": false,
         "household": Array [
           Object {
             "m_age": 30,
@@ -130,6 +129,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
       className="client-graph"
       client={
         Object {
+          "USState": "MA",
           "current": Object {
             "SSDI": 0,
             "SSI": 0,
@@ -138,6 +138,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
             "adultOtherCare": 0,
             "adultTransportation": 0,
             "alimony": 0,
+            "benefits": Array [],
             "childBeforeAndAfterSchoolCare": 0,
             "childDirectCare": 0,
             "childOtherCare": 0,
@@ -152,8 +153,6 @@ exports[`<GraphHolder> matches snapshot 1`] = `
             "earnedBecauseOfAdultCare": 0,
             "earnedBecauseOfChildCare": 0,
             "fuelAssistance": false,
-            "hasSection8": false,
-            "hasSnap": false,
             "household": Array [
               Object {
                 "m_age": 30,
@@ -195,6 +194,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
             "adultOtherCare": 0,
             "adultTransportation": 0,
             "alimony": 0,
+            "benefits": Array [],
             "childBeforeAndAfterSchoolCare": 0,
             "childDirectCare": 0,
             "childOtherCare": 0,
@@ -209,8 +209,6 @@ exports[`<GraphHolder> matches snapshot 1`] = `
             "earnedBecauseOfAdultCare": 0,
             "earnedBecauseOfChildCare": 0,
             "fuelAssistance": false,
-            "hasSection8": false,
-            "hasSnap": false,
             "household": Array [
               Object {
                 "m_age": 30,
@@ -252,6 +250,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
         className="client-graph"
         client={
           Object {
+            "USState": "MA",
             "current": Object {
               "SSDI": 0,
               "SSI": 0,
@@ -260,6 +259,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
               "adultOtherCare": 0,
               "adultTransportation": 0,
               "alimony": 0,
+              "benefits": Array [],
               "childBeforeAndAfterSchoolCare": 0,
               "childDirectCare": 0,
               "childOtherCare": 0,
@@ -274,8 +274,6 @@ exports[`<GraphHolder> matches snapshot 1`] = `
               "earnedBecauseOfAdultCare": 0,
               "earnedBecauseOfChildCare": 0,
               "fuelAssistance": false,
-              "hasSection8": false,
-              "hasSnap": false,
               "household": Array [
                 Object {
                   "m_age": 30,
@@ -317,6 +315,7 @@ exports[`<GraphHolder> matches snapshot 1`] = `
               "adultOtherCare": 0,
               "adultTransportation": 0,
               "alimony": 0,
+              "benefits": Array [],
               "childBeforeAndAfterSchoolCare": 0,
               "childDirectCare": 0,
               "childOtherCare": 0,
@@ -331,8 +330,6 @@ exports[`<GraphHolder> matches snapshot 1`] = `
               "earnedBecauseOfAdultCare": 0,
               "earnedBecauseOfChildCare": 0,
               "fuelAssistance": false,
-              "hasSection8": false,
-              "hasSnap": false,
               "household": Array [
                 Object {
                   "m_age": 30,

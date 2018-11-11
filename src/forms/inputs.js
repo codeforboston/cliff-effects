@@ -129,7 +129,13 @@ class ManagedNumberField extends Component {
   }  // End constructor()
 
   //change form to blank string after click, before input
-  handleFocus = (evnt) => {
+  handleFocus = (evnt, inputProps) => {
+
+    let onFocus = this.props.onFocus;
+    if (onFocus) {
+      onFocus(evnt, inputProps);
+    }
+
     // This makes sure that only zeroes and blanks get reset
     let { format, value } = this.props;
     if (!Number.parseFloat(evnt.target.value)) {
@@ -139,13 +145,23 @@ class ManagedNumberField extends Component {
     }
   };
 
-  handleBlur = (evnt) => {
+  handleBlur = (evnt, inputProps) => {
+    let onBlur = this.props.onBlur;
+    if (onBlur) {
+      onBlur(evnt, inputProps);
+    }
     this.setState({ focused: false, valid: true });
   };
 
   handleChange = (evnt, inputProps) => {
-    let { displayValidator, storeValidator, store, otherData } = this.props;
-    let focusedVal = inputProps.value;
+
+    let onChange = this.props.onChange;
+    if (onChange) {
+      onChange(evnt, inputProps);
+    }
+
+    const { displayValidator, storeValidator, store, otherData } = this.props;
+    const focusedVal = inputProps.value;
 
     // If doesn't pass display validator, don't store and don't change focusedVal
     if (!displayValidator(inputProps.value)) {
@@ -165,8 +181,15 @@ class ManagedNumberField extends Component {
   };  // End handleChange()
 
   render() {
-    let { valid, focused, focusedVal }      = this.state;
-    let { value, name, className, format }  = this.props;
+    const { valid, focused, focusedVal }         = this.state;
+    const { name, className, format, otherData } = this.props;
+    let value = this.props.value;
+
+    // @todo Bad var name. Find more useful name for this.
+    let id = name;
+    if (otherData && otherData.interval) {
+      id = name + `_` + otherData.interval;
+    }
 
     // Format correctly when neighbors are updated, if needed
     if (!focused) {
@@ -177,15 +200,19 @@ class ManagedNumberField extends Component {
 
     // @todo Different class for something 'future' that has a
     // current value that isn't 0?
+    // `aria` from https://www.w3.org/WAI/tutorials/forms/instructions/#using-aria-labelledby
     return (
       <Form.Input
         error     = { !valid }
         value     = { value }
         name      = { name }
+        id        = { id }
         className = { className + ` output-number` }
         onChange  = { this.handleChange }
         onFocus   = { this.handleFocus }
-        onBlur    = { this.handleBlur } />
+        onBlur    = { this.handleBlur }
+        aria-labelledby  = { name + `Label` }
+        aria-describedby = { name + `Message` } />
     );
   }  // End render()
 

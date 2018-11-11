@@ -47,24 +47,24 @@ class StackedAreaGraph extends Component {
     const { client, timescale, activePrograms } = this.props;
     const multiplier = multipliers[ timescale ];
 
-    let withIncome    = activePrograms.slice();
-    withIncome.unshift('income');
+    let withEarned    = activePrograms.slice();
+    withEarned.unshift('earned');
 
     // Adjust to time-interval, round to hundreds
-    let income        = client.future.earned * multiplier,
-        max           = Math.max(income, limits.max * multiplier),
-        xMax          = Math.ceil(max / 100) * 100,
-        xMin          = Math.ceil(limits.min * multiplier / 100) * 100,
-        interval      = Math.ceil(((xMax - xMin) / 100) / 10) * 10,
-        xRange        = _.range(xMin, xMax + interval, interval),
-        extraProps    = { income: { fill: 'origin' }},
-        datasets     = getChartData(xRange, multiplier, client, withIncome, extraProps);
+    const earned        = client.future.earned * multiplier,
+          max           = Math.max(earned, limits.max * multiplier),
+          xMax          = Math.ceil(max / 100) * 100,
+          xMin          = Math.ceil(limits.min * multiplier / 100) * 100,
+          interval      = Math.ceil(((xMax - xMin) / 100) / 10) * 10,
+          xRange        = _.range(xMin, xMax + interval, interval),
+          extraProps    = { earned: { fill: 'origin' }},
+          datasets     = getChartData(xRange, multiplier, client, withEarned, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
     let hack    = this.state.verticalLine;
     hack.xRange = xRange;
-    hack.income = income;
+    hack.earned = earned;
 
     let stackedAreaProps = {
       data: {
@@ -74,7 +74,7 @@ class StackedAreaGraph extends Component {
       options: {
         title: {
           display: true,
-          text:    'All Money Coming in as Income Changes',
+          text:    'All Money Coming in as Pay Changes',
         },  // end `title`
         elements: {
           line:  { fill: '-1' },
@@ -103,7 +103,7 @@ class StackedAreaGraph extends Component {
               stacked:    true,
               scaleLabel: {
                 display:     true,
-                labelString: timescale + ' Income ($)',
+                labelString: timescale + ' Earned ($)',
               },
               ticks: { callback: formatAxis },
             },

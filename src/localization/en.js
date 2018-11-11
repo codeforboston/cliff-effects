@@ -122,12 +122,10 @@ export default {
     },
 
     currentBenefits: {
-      currentBenefits_v1:  `Current Benefits`,
-      selectBenefits_v1:   `Select the benefits you currently receive`,
-      hasSection8Label_v1: `Do you have Section 8 Housing?`,
-      hasSection8Hint_v1:  `Section 8 provides rental housing assistance.`,
-      hasSnapLabel_v1:     `Do you have SNAP?`,
-      hasSnapHint_v1:      `SNAP provides assistance with buying food`,
+      currentBenefits_v1:    `Current Benefits`,
+      selectBenefits_v1:     `Select the benefits you currently receive`,
+      has_section8_label_v1: `Do you have Section 8 Housing?`,
+      has_snap_label_v1:     `Do you have SNAP?`,
     },
 
     household: {
@@ -306,31 +304,31 @@ export default {
       columnCurrentBenefits_v1:   `Current Benefits`, // see BenefitsTable.js
       columnNewEstimate_v1:       `New Estimate`, // see BenefitsTable.js
       columnDifference_v1:        `Difference`, // see BenefitsTable.js
-      rowSNAP_v1:                 `SNAP`, // see BenefitsTable.js
-      rowSection8_v1:             `Section 8 Housing`, // see BenefitsTable.js
+      row_snap_v1:                `SNAP`, // see BenefitsTable.js
+      row_section8_v1:            `Section 8 Housing`, // see BenefitsTable.js
       rowTotalBenefits_v1:        `Total Benefits`, // see BenefitsTable.js
-      rowIncome_v1:               `Income`, // see BenefitsTable.js
+      rowEarned_v2:               `Earned`, // see BenefitsTable.js
       rowNetTotal_v1:             `Net Total`, // see BenefitsTable.js
       beforeMoney_v1:             `$`, // see BenefitsTable.js multiple lines
       afterMoney_v1:              ` / month`, // see BenefitsTable.js multiple lines
       // Stacked Bar Graph:
       stackedBarGraphTitle_v1:    `Changes Chart`, // see line 266 above
-      moneyInAsIncomeChanges_v1:  `Money Coming In as Income Changes`, // see StackedBarGraph.js
+      moneyInAsPayChanges_v2:     `Money Coming In as Pay Changes`, // see StackedBarGraph.js
       // Stacked Area Graph:
       stackedAreaGraphTitle_v1:   `Stacked Incomes`, // see line 267 above
-      allMoneyComingIn_v1:        `All Money Coming In as Income Changes`, // see StackedAreaGraph.js
+      allMoneyComingIn_v2:        `All Money Coming In as Pay Changes`, // see StackedAreaGraph.js
       // Benefit Programs Graph, showing benefit programs as lines not areas:
-      benefitProgramsTitle_v1:    `Individual Benefit Amounts for Household as Income Changes`, // maybe rename as benefitProgramsSubTitle_v1 ? see also BenefitsLineGraph.js
+      benefitProgramsTitle_v2:    `Individual Benefit Amounts for Household as Pay Changes`, // maybe rename as benefitProgramsSubTitle_v1 ? see also BenefitsLineGraph.js
       benefitValue_v1:            `Benefit Value ($)`, // see BenefitsLineGraph.js
       // Snippets that are used in more than one chart, table, or graph:
       totalMoney_v1:              `Total Money Coming In ($)`, // see StackedAreaGraph.js, StackedBarGraph.js
-      weeklyIncome_v1:            `Weekly Income ($)`,
-      monthlyIncome_v1:           `Monthly Income ($)`,
-      yearlyIncome_v1:            `Yearly Income ($)`,
-      hasIncome_v1:               `Income`,
+      weeklyPay_v2:               `Weekly Pay ($)`,
+      monthlyPay_v2:              `Monthly Pay ($)`,
+      yearlyPay_v2:               `Yearly Pay ($)`,
+      hasPay_v2:                  `Pay`,
       hasSNAP_v1:                 `SNAP`,
       hasSection8_v1:             `Section 8`, 
-      futureIncomeLine_v1:        `Future Income`, // see VerticalLine.js
+      futurePayLine_v2:           `Future Pay`, // see VerticalLine.js
       buttonWeekly_v1:            `Weekly`, // see cashflow.js, GraphTimeButtons
       buttonMonthly_v1:           `Monthly`, // see cashflow.js, GraphTimeButtons
       buttonYearly_v1:            `Yearly`, // see cashflow.js, GraphTimeButtons

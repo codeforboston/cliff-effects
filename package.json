@@ -29,16 +29,16 @@
     "docs": "./node_modules/.bin/jsdoc src -R OVERVIEW.md -r -c jsdoc.json -d docs"
   },
   "homepage": "https://codeforboston.github.io/cliff-effects/app",
-  "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "codecov": "3.0.4",
@@ -52,7 +52,7 @@
     "gh-pages": "1.2.0",
     "husky": "^1.1.2",
     "jsdoc": "3.5.5",
-    "lint-staged": "^7.3.0",
+    "lint-staged": "^8.0.4",
     "react-test-renderer": "16.3.2"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",

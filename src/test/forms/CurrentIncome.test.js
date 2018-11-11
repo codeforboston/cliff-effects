@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { CurrentIncomeStep } from '../../forms/CurrentIncome';
 
@@ -9,31 +9,29 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
-let snippets = getTextForLanguage(`en`);
-
-test('Income step component renders as snapshot correctly', () => {
+const snippets = getTextForLanguage(`en`);
+test('Income step component should render without error', () => {
   const navData = {
-          left:   { text: 'Previous', onClick: jest.fn() },
+          left:   (<div>Inc left</div>),
           middle: null,
-          right:  { text: 'Next', onClick: jest.fn() },
+          right:  (<div>Inc right</div>),
         },
-        updateClientValue     = jest.fn(),
-        saveForm         = jest.fn(),
-        askToResetClient = jest.fn(),
-        openFeedback     = jest.fn(),
-        formSnippets     = snippets.visitPage.currentIncome;
+        updateClientValue = jest.fn(),
+        saveForm          = jest.fn(),
+        askToResetClient  = jest.fn(),
+        openFeedback      = jest.fn(),
+        formSnippets      = snippets.visitPage.currentIncome;
 
-  const wrapper = shallow(
-    <CurrentIncomeStep
-      currentStep       = { 3 }
-      client            = { CLIENT_DEFAULTS }
-      navData           = { navData }
-      updateClientValue      = { updateClientValue }
-      saveForm          = { saveForm }
-      askToResetClient  = { askToResetClient }
-      openFeedback      = { openFeedback }
-      snippets          = { formSnippets } />
-  );
-
-  expect(wrapper).toMatchSnapshot();
+  expect(() => {
+    mount(
+      <CurrentIncomeStep
+        client            = { CLIENT_DEFAULTS }
+        navData           = { navData }
+        updateClientValue = { updateClientValue }
+        saveForm          = { saveForm }
+        askToResetClient  = { askToResetClient }
+        openFeedback      = { openFeedback }
+        snippets          = { formSnippets } />
+    );
+  }).not.toThrow();
 });

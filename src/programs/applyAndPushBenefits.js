@@ -3,9 +3,9 @@ import { allBenefitOrders } from './allBenefitOrders';
 import { allBenefitOps } from './allBenefitOps';
 
 
-let baseBenefits = [ `income` ];
-let baseOps = {
-  income: {
+const baseBenefits = [ `earned` ];
+const baseOps = {
+  earned: {
     calc: function (client, timeframe) {
       return client[ timeframe ].earned;
     },

@@ -22,34 +22,24 @@ import ErrorListener from '../components/prompts/ErrorListener';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
-import { CurrentIncomeStep } from '../forms/CurrentIncome';
-import { CurrentExpensesStep } from '../forms/CurrentExpenses';
-import { PredictionsStep } from '../forms/Predictions';
-import { HouseholdStep } from '../forms/Household';
-import { CurrentBenefitsStep } from '../forms/CurrentBenefits';
 import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
 import PredictionsWarning from '../components/prompts/PredictionsWarning';
+import { STEP_VALS } from '../forms/STEP_VALS';
 
 class VisitPage extends Component {
   constructor (props) {
     super(props);
 
-    let {
-      match,
-      clientData,
-    } = this.props;
+    const { clientData } = this.props;
 
     this.state = {
-      clientInfo:  match.params.clientId,
-      visitId:     match.params.visitId,
-      currentStep: 1,
-      isBlocking:  false,
-      redirect:    false,
-      client:      clientData,
+      isBlocking: false,
+      redirect:   false,
+      client:     clientData,
       // For `FeedbackPrompt`
-      promptData:  {
+      promptData: {
         open:      false,  // Start as hidden
         message:   `default`,
         header:    '',
@@ -62,37 +52,11 @@ class VisitPage extends Component {
       userChanged:           {},
       snippets:              props.snippets,
     };  // end this.state {}
-
-    this.steps = [
-      {
-        form:              CurrentBenefitsStep,
-        key:               'currentBenefits',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              HouseholdStep,
-        key:               'household',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              CurrentIncomeStep,
-        key:               'currentIncome',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              CurrentExpensesStep,
-        key:               'currentExpenses',
-        updateClientValue: this.changeCurrent,
-      },
-      {
-        form:              PredictionsStep,
-        key:               'predictions',
-        updateClientValue: this.changeFuture,
-      },//,
-    //  { title: 'Graphs', form: ResultsGraph }
-    ];  // end this.steps {}
-
   };  // End constructor()
+
+  componentDidMount() {
+    this.didMount = true;
+  }
 
   resetClientIfOk = (shouldReset) => {
 
@@ -101,13 +65,13 @@ class VisitPage extends Component {
     }
 
     this.setState({
-      currentStep: 1,
       client:      cloneDeep(CLIENT_DEFAULTS),
       oldHousing:  CLIENT_DEFAULTS.current.housing,
       isBlocking:  false,
       userChanged: {},
     });
 
+    this.goToStep({ index: 0 });
   };
 
   askToResetClient = (promptData) => {
@@ -116,7 +80,7 @@ class VisitPage extends Component {
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
       // just go to the start of the form
-      this.goToStep(1);
+      this.goToStep({ index: 0 });
     } else {
       // Otherwise, suggest the user submit feedback
       this.askForFeedback(this.resetClientIfOk, promptData);
@@ -172,7 +136,7 @@ class VisitPage extends Component {
       oldHousing = clone.current.housing;
     }
 
-    if (clone.current.hasSection8) {
+    if (clone.current.benefits.includes('section8')) {
       clone.current.housing = 'voucher';
     } else {
       // Restore housing to previous value
@@ -221,55 +185,54 @@ class VisitPage extends Component {
   };
 
   nextStep = () => {
-    this.setState((prevState) => {
-      return { currentStep: prevState.currentStep + 1 };
-    });
-    this.scrollToTop();
+    const nextStepIndex = this.getCurrentStepIndex() + 1;
+    
+    if (nextStepIndex === STEP_VALS.length) {
+      return;
+    }
+    
+    this.goToStep({ index: nextStepIndex });
   };
-
+  
   previousStep = () => {
-    this.setState((prevState) => {
-      return { currentStep: prevState.currentStep - 1 };
-    });
+    const prevStepIndex = this.getCurrentStepIndex() - 1;
+
+    if (prevStepIndex < 0) {
+      return;
+    }
+
+    this.goToStep({ index: prevStepIndex });
+  };
+
+  goToStep = ({ key, index }) => {
+    if (!key) {
+      key = STEP_VALS[ index ].key;
+    }
+
+    this.props.history.push(`${this.getPathPrefix()}/${key}`);
     this.scrollToTop();
   };
 
-  goToStep = (index) => {
-    this.setState({ currentStep: index });
+  getPathPrefix = () => {
+    return `/visit/${this.props.clientId}/${this.props.visitId}`;
   };
 
   getCurrentStepIndex = () => {
-    // Keep it between 1 and 8
-    let numSteps      = this.steps.length,
-        currStepIndex = this.state.currentStep,
-        limitedByMin  = Math.min(numSteps, currStepIndex),
-        limitedByMax  = Math.max(1, limitedByMin);
-    // Convert to 0 index
-    return limitedByMax - 1;
+    return STEP_VALS.findIndex((step) => {
+      return step.key === this.props.stepKey;
+    });
   };
 
-  getCurrentStep = (navData) => {
-    let stepIndex    = this.getCurrentStepIndex(),
-        step         = this.steps[ stepIndex ],
-        FormSection  = step.form,
-        formSnippets = this.state.snippets[ step.key ];
-    /** @todo With new interpolation, is this needed anymore? */
-    formSnippets.langCode = this.state.snippets.langCode;
-
-    return (
-      <FormSection
-        currentStep={ this.state.currentStep }
-        client={ this.state.client }
-        navData={ navData }
-        updateClientValue={ step.updateClientValue }
-        saveForm={ this.saveForm }
-        askToResetClient={ this.askToResetClient }
-        openFeedback={ this.openFeedback }
-        snippets={ formSnippets } />
-    );
-  };  // End getCurrentStep()
+  shouldConfirmLeave = ({ location }) => {
+    return !location.pathname.startsWith(this.getPathPrefix());
+  };
 
   render() {
+    if (!this.didMount || !this.props.stepKey) {
+      return (
+        <Redirect to={ `${this.getPathPrefix()}/${STEP_VALS[ 0 ].key }` } />
+      );
+    }
 
     let snippets          = this.state.snippets,
         prevContent       = null,
@@ -286,7 +249,7 @@ class VisitPage extends Component {
     }
 
     // If it's not the last step
-    if (stepIndex !== (this.steps.length - 1)) {
+    if (stepIndex !== (STEP_VALS.length - 1)) {
       // use normal 'next' component
       nextContent = (
         <BigButton onClick = { this.nextStep }>
@@ -308,10 +271,12 @@ class VisitPage extends Component {
       right:  nextContent,
     };
 
+    const step = STEP_VALS[ stepIndex ];
+
+    const StepComponent = step.component;
 
     return (
       <div className='forms-container flex-item flex-column'>
-
         {/* = PROMPTS & PROMPT TRIGGERS = */}
         {/* - Sometimes visible - */}
         {/* Triggered by `ReactRouterLeaveListener`,
@@ -337,15 +302,16 @@ class VisitPage extends Component {
         <ReactRouterLeaveListener
           askForFeedback={ this.askForFeedback }
           confirmer = { this.props.confirmer }
+          shouldRequestConfirmation={ this.shouldConfirmLeave }
           isBlocking={ this.state.isBlocking } />
 
         {/* = LINKS? = */}
         {/* We should probably remove this. If we want to
          * do this we might do this a different way at this
          * point. Perhaps a user's page should be a route
-         * in VisitPage? Like our form sections will be? */}
+         * in VisitPage? */}
         { this.state.redirect ? (
-          <Redirect to={ `/detail/${this.state.clientInfo.clientId}` } />
+          <Redirect to={ `/detail/${this.props.clientId}` } />
         ) : (
           false
         ) }
@@ -359,16 +325,25 @@ class VisitPage extends Component {
             id = { `form-nav` }
             minWidth='874.5'>
             <StepBar
-              currentStepIndex={ this.state.currentStep }
-              steps={ this.steps }
+              currentStepKey={ step.key }
               goToStep={ this.goToStep }
               snippets={ this.state.snippets.stepBar } />
           </Responsive>
           <div
             className="flex-item flex-column current-step-component">
-            { this.getCurrentStep(navData) }
+            <StepComponent
+              snippets={ snippets[ step.key ] }
+              updateClientValue={
+                step.time === 'current' ?
+                  this.changeCurrent :
+                  this.changeFuture
+              }
+              navData={ navData }
+              saveForm={ this.saveForm }
+              askToResetClient={ this.askToResetClient }
+              openFeedback={ this.openFeedback }
+              client={ this.state.client } />
           </div>
-
         </Container>
 
         <Container id={ `alwaysLeftButtons` }>
@@ -380,7 +355,7 @@ class VisitPage extends Component {
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
-        {
+        { 
           distrustConfirmed === false ? (
             <PredictionsWarning
               distrustConfirmed       = { distrustConfirmed }

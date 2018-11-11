@@ -13,9 +13,8 @@ class RentShareField extends Component {
     let isPosNum = isNonNegNumber(ownValue);
     if (!isPosNum) {
       valid = false;
-    }
-    else {
-      valid = ownValue <= this.props.timeState[ 'contractRent' ];
+    } else {
+      valid = Number(ownValue) <= this.props.timeState[ 'contractRent' ];
       if (!valid) {
         message = 'Rent share must be less than contract rent';
       }
@@ -41,6 +40,7 @@ class RentShareField extends Component {
           },
           rowProps = {
             label:    'Your Monthly Rent Share (how much of the total rent you have to pay)',
+            name:     `rentShare`,
             validRow: valid,
             message:  message,
           };
@@ -66,11 +66,10 @@ class ContractRentField extends Component {
     let isPosNum = isNonNegNumber(ownValue);
     if (!isPosNum) {
       valid = false;
-    }
-    else {
+    } else {
       valid = ownValue >= this.props.timeState[ 'rentShare' ];
       if (!valid) {
-        message = 'Rent share must be less than contract rent';
+        message = 'Contract rent must be more than rent share';
       }
     }
 
@@ -94,6 +93,7 @@ class ContractRentField extends Component {
           },
           rowProps = {
             label:    'Monthly Contract Rent (the total rent for your apartment)',
+            name:     `contractRent`,
             validRow: valid,
             message:  message,
           };

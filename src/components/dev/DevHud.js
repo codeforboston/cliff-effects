@@ -12,18 +12,17 @@ import { HeadingWithDetail } from '../details';
 import { CustomClient } from '../CustomClient';
 
 // DATA
-import { localizations } from '../../localization/all';
+import { getLocalizationData } from '../../localization/all';
 
 import { LocalizationReport } from './LocalizationReport.js';
-
 
 /** Contains all HUD items except 'hide' button
  * @todo If there are enough dev features for it,
  *    make menu categories collapsible. */
 const DevMenu = function ({ devProps, funcs, data, state }) {
 
-  let langs    = localizations,
-      langOpts = [];
+  const langs    = getLocalizationData(), // Get copy of localization data
+        langOpts = [];
 
   for (let key in langs) {
     let snips = langs[ key ],

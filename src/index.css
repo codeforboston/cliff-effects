@@ -36,13 +36,6 @@ body {
   padding: 2em 0em;
 }
 
-/* FormPartsContainer.js styles */
-
-.form-section-bottom-row {
-  display: flex;
-  justify-content: space-between;
-}
-
 /* Header.js styles */
 
 #appHeader {
@@ -129,7 +122,6 @@ Used to fill vertical space.
 
 .ui.form h4.ui.header.cashflow-column,
 .ui.form .cashflow .cashflow-column {
-  display: inline-block;
   margin-right: .2em !important;
   width: 7em;
   text-align: center;
@@ -137,6 +129,7 @@ Used to fill vertical space.
 
 .ui.form h4.ui.header.cashflow-column {
   margin-top: 0;
+  display: inline-block;
 }
 
 #cliff-effects-tool .form .cashflow .cashflow-column.output-number,
@@ -157,11 +150,15 @@ Used to fill vertical space.
 }
 
 .ui.form h4.ui.header.cashflow-column:last-child,
-.ui.form .cashflow .cashflow-column:last-child,
-.ui.form .cashflow .cashflow-column-last-child {
+.ui.form .cashflow .cashflow-column-label {
   text-align: left;
   width: auto;
   padding-left: 1em !important;
+}
+
+.ui.form .cashflow .cashflow-column {
+  display: inline-flex;
+  align-items: center;
 }
 
 /* One of these two groups */
@@ -260,6 +257,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* FORM ELEMENTS */
+
+.form-section-bottom-row {
+  display: flex;
+  justify-content: space-between;
+}
 
 /* - Yes/No Toggle - */
 /* WARNING: Non-column appearance will remain until radio
@@ -393,16 +395,19 @@ i.icon.details-icon {
   height: 1em;
 }
 
+.benefits .radio-yes-no:not(:last-child) {
+  margin-bottom: 1em;
+}
+
 .surrounder .horizontal,
 .surrounder .vertical {
   display: flex;
-  justify-content: space-between;
   align-content: stretch;
-  align-items: stretch;
 }
 
 .surrounder .horizontal {
   flex-direction: row;
+  justify-content: space-between;
   align-items: stretch;
 }
 
@@ -526,6 +531,17 @@ STYLES FOR COMMUNICATION
 
 #App .button.caution:hover {
   background-color: #d16614;
+}
+
+#root .message-above {
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+
+#root .invalid {
+  color: red;
+  font-weight: 700;
+  margin-bottom: .4rem;
 }
 
 /*

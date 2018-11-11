@@ -1,7 +1,7 @@
 
-let benefitOrder = [
-  `snap`,
+const benefitOrder = [
   `section8`,
+  `snap`,
 ];
 
 
