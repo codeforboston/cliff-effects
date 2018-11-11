@@ -1,7 +1,7 @@
 
 var benefitOrder = [
-  `snap`,
   `section8`,
+  `snap`,
 ];
 
 
