@@ -20,16 +20,9 @@ class GraphHolder extends Component {
     const { activeID }  = this.state,
           { Graph, client }         = this.props,
           { current }               = client,
-          activePrograms            = [];
-
-    // The ids later used to access all program-specific data and functions
-    // Only active programs are added
-    if (current.hasSection8) { 
-      activePrograms.push('section8');
-    }
-    if (current.hasSnap)    {
-      activePrograms.push('snap');
-    }
+          // The ids later used to access all program-specific data and functions
+          // Only active programs are added
+          activePrograms            = [ ...current.benefits ];
 
     return (
       <div className='graph-holder'>

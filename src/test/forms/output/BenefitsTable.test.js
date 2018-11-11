@@ -20,7 +20,9 @@ test('Benefits table renders correctly', () => {
   const client = cloneDeep(CLIENT_DEFAULTS);
   expect(buildSnapshot(client)).toMatchSnapshot();
 
-  set(client, 'current.hasSnap', true);
+  const benefits = [ 'snap' ];
+
+  set(client, 'current.benefits', benefits);
   expect(buildSnapshot(client)).toMatchSnapshot();
 
   set(client, 'current.earned', 100);
@@ -30,9 +32,6 @@ test('Benefits table renders correctly', () => {
   expect(buildSnapshot(client)).toMatchSnapshot();
 
   set(client, 'current.earned', 300);
-  expect(buildSnapshot(client)).toMatchSnapshot();
-
-  set(client, 'current.hasSection8');
   expect(buildSnapshot(client)).toMatchSnapshot();
 
   set(client, 'future.earned', 400);

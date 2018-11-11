@@ -395,6 +395,10 @@ i.icon.details-icon {
   height: 1em;
 }
 
+.benefits .radio-yes-no:not(:last-child) {
+  margin-bottom: 1em;
+}
+
 .surrounder .horizontal,
 .surrounder .vertical {
   display: flex;

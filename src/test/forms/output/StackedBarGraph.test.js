@@ -29,7 +29,9 @@ describe('<StackedBarGraph>', () => {
   });
 
   it('renders with snap and current earned less than future earned', () => {
-    set(client, 'current.hasSnap', true);
+    const benefits = [ 'snap' ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 100);
     set(client, 'future.earned', 200);
 
@@ -37,7 +39,9 @@ describe('<StackedBarGraph>', () => {
   });
 
   it('renders with snap and current earned greater than future earned', () => {
-    set(client, 'current.hasSnap', true);
+    const benefits = [ 'snap' ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 200);
     set(client, 'future.earned', 100);
     
@@ -45,7 +49,9 @@ describe('<StackedBarGraph>', () => {
   });
 
   it('renders with section8', () => {
-    set(client, 'current.hasSection8', true);
+    const benefits = [ 'section8' ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 100);
     set(client, 'future.earned', 200);
 
@@ -53,8 +59,12 @@ describe('<StackedBarGraph>', () => {
   });
 
   it('renders with both snap and section8', () => {
-    set(client, 'current.hasSnap', true);
-    set(client, 'current.hasSection8', true);
+    const benefits = [
+      'snap',
+      'section8',
+    ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 100);
     set(client, 'future.earned', 200);
 
