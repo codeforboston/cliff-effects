@@ -154,7 +154,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       ) }
 
       { elderlyOrDisabled.length > 0 ? (
-        <ElderlyOrDisabled1
+        <ElderlyOrDisabledAssistance
           snippets          = { snippets }
           type              = { type }
           sharedProps       = { sharedProps }
@@ -169,7 +169,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         *     person is the head or spouse. From Appendix B, item (D)
         *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf} */}
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.hasSnap && elderlyOrDisabled.length > 0) ? (
-        <ElderlyOrDisabled2
+        <UnreimbursedMedical
           snippets    = { snippets }
           type        = { type }
           sharedProps = { sharedProps } />
@@ -286,7 +286,7 @@ const DependentsOver12 = function ({ type, sharedProps }) {
 };  // Ends <DependentsOver12>
 
 
-const ElderlyOrDisabled1 = function ({ current, type, sharedProps, updateClientValue }) {
+const ElderlyOrDisabledAssistance = function ({ current, type, sharedProps, updateClientValue }) {
   return (
     <div>
       <HeadingWithDetail>
@@ -323,10 +323,10 @@ const ElderlyOrDisabled1 = function ({ current, type, sharedProps, updateClientV
         } />
     </div>
   );
-};  // Ends <ElderlyOrDisabled1>
+};  // Ends <ElderlyOrDisabledAssistance>
 
 
-const ElderlyOrDisabled2 = function ({ type, sharedProps }) {
+const UnreimbursedMedical = function ({ type, sharedProps }) {
   return (
     <div>
       <HeadingWithDetail>
@@ -357,7 +357,7 @@ const ElderlyOrDisabled2 = function ({ type, sharedProps }) {
       </CashFlowInputsRow>
     </div>
   );
-};  // Ends <ElderlyOrDisabled2>
+};  // Ends <UnreimbursedMedical>
 
 
 /**
@@ -626,8 +626,8 @@ export {
   Under13,
   ChildSupport,
   DependentsOver12,
-  ElderlyOrDisabled1,
-  ElderlyOrDisabled2,
+  ElderlyOrDisabledAssistance,
+  UnreimbursedMedical,
   Housing,
   HousingRadio,
   HousingDetails,
