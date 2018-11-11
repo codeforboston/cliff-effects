@@ -58,10 +58,11 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Thousands separator
 // - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
 // - [x] Snippets
-// - [ ] Function descriptions
-// - [ ] Hover style for legend items
-// - [ ] Hover style for plot line
 // - [ ] Button placement
+// - [ ] Function descriptions
+// - [ ] Test
+// - [ ] Hover style for legend items (button-like style always, then different for active vs. inactive?)
+// - [ ] Hover style for plot line
 // - [ ] Bigger font?
 // - [ ] Different zoom note for touch device
 
@@ -75,7 +76,13 @@ class TestChartComp extends Component {
   }
 
   render () {
-    const { client, timescale, activePrograms, className, snippets } = this.props,
+    const {
+            client,
+            timescale,
+            activePrograms,
+            className,
+            snippets,
+          } = this.props,
           multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
           currentEarned = client.current.earned * multiplier,
@@ -104,16 +111,12 @@ class TestChartComp extends Component {
     }
 
     // Get 'Unexpected template string expression' warning otherwise
-    const headerFormatStart = `<span style="font-size: 10px">$`,
-          headerFormatEnd   = `{point.key:,.2f}</span><br/>`,
-          headerFormat      = headerFormatStart + headerFormatEnd;
+    const labelHeaderFormatStart = `<span style="font-size: 10px">$`,
+          labelHeaderFormatEnd   = `{point.key:,.2f}</span><br/>`,
+          labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
 
 
     // `zoomKey` doesn't work without another package
-    // @todo Change tooltip to use our own formatting
-    // function (which we need to make) so that we
-    // can use translations for it to get the money
-    // right.
     const plotOptions =  { line: { pointInterval: interval }};
     return (
       <div className={ `benefit-lines-graph ` + (className || ``) }>
@@ -134,7 +137,7 @@ class TestChartComp extends Component {
 
           <Tooltip
             split         = { true }
-            headerFormat  = { headerFormat }
+            headerFormat  = { labelHeaderFormat }
             valuePrefix   = { `$` }
             valueDecimals = { 2 }
             padding       = { 8 }
@@ -160,10 +163,8 @@ class TestChartComp extends Component {
           </XAxis>
 
           <YAxis
-            endOnTick = { false }
-            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
-            style     = {{ width: `30px` }}
-            textLength = { `30px` }>
+            endOnTick  = { false }
+            labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
 
             <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
             { lines }
@@ -176,7 +177,7 @@ class TestChartComp extends Component {
     );
   }  // Ends render()
 
-  // @todo Not yet tested with complex objects
+  // @todo Test with complex objects
   // @todo Abstract to 'localization' folder?
   getTranslatedText = function (translation) {
 
