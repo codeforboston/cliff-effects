@@ -80,11 +80,6 @@ class TestChartComp extends Component {
           resources     = activePrograms,
           currentEarned = client.current.earned * multiplier;
 
-    const chartComponent   = this,
-          formatMoneyWithK = function () {
-            return (chartComponent.formatMoneyWithK.bind(this))(chartComponent);
-          };
-
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
     const max      = (limits.max * multiplier),
@@ -148,7 +143,7 @@ class TestChartComp extends Component {
 
           <XAxis
             endOnTick = { false }
-            labels    = {{ formatter: formatMoneyWithK }}
+            labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
             <XAxis.Title>{ `${timescale} ${this.getTranslatedText(snippets.i_xAxisTitle)}` }</XAxis.Title>
@@ -165,7 +160,7 @@ class TestChartComp extends Component {
 
           <YAxis
             endOnTick = { false }
-            labels    = {{ useHTML: true, formatter: formatMoneyWithK }}
+            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
             style     = {{ width: `30px` }}
             textLength = { `30px` }>
 
@@ -180,7 +175,8 @@ class TestChartComp extends Component {
     );
   }  // Ends render()
 
-  // Not yet tested with complex objects
+  // @todo Not yet tested with complex objects
+  // @todo Abstract to 'localization' folder?
   getTranslatedText = function (translation) {
 
     const children = translation.props.children;
@@ -200,14 +196,15 @@ class TestChartComp extends Component {
     }
   };
 
-  // @todo Abstract to utils/prettifiers?
-  formatMoneyWithK = function (chartComponent) {
-    const snippets  = chartComponent.props.snippets,
-          getText   = chartComponent.getTranslatedText,
+  // @todo Abstract our own formatting to utils/prettifiers
+  // so snippets can be used more effectively?
+  formatMoneyWithK = (hcObject) => {
+    const snippets  = this.props.snippets,
+          getText   = this.getTranslatedText,
           before    = getText(snippets.i_beforeMoney),
           after     = getText(snippets.i_afterMoney),
           // https://api.highcharts.com/highcharts/xAxis.labels.formatter
-          withMoney = before + this.axis.defaultLabelFormatter.call(this) + after,
+          withMoney = before + hcObject.axis.defaultLabelFormatter.call(hcObject) + after,
           asHTML    = `<span class="graph-label">${withMoney}</span>`;
     return asHTML;
   };
