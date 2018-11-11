@@ -293,6 +293,45 @@ exports[`Benefits table renders correctly 2`] = `
           className="right aligned"
         >
           Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          Some translated text.
+          0
+          Some translated text.
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
           0
           Some translated text.
         </td>
@@ -347,7 +386,7 @@ exports[`Benefits table renders correctly 2`] = `
           }
         >
           Some translated text.
-          0
+          192
           Some translated text.
         </td>
         <td
@@ -362,7 +401,7 @@ exports[`Benefits table renders correctly 2`] = `
           }
         >
           Some translated text.
-          0
+          192
           Some translated text.
         </td>
         <td
@@ -487,6 +526,45 @@ exports[`Benefits table renders correctly 3`] = `
           className="right aligned"
         >
           Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          Some translated text.
+          0
+          Some translated text.
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
           100
           Some translated text.
         </td>
@@ -541,7 +619,7 @@ exports[`Benefits table renders correctly 3`] = `
           }
         >
           Some translated text.
-          100
+          292
           Some translated text.
         </td>
         <td
@@ -556,7 +634,7 @@ exports[`Benefits table renders correctly 3`] = `
           }
         >
           Some translated text.
-          0
+          192
           Some translated text.
         </td>
         <td
@@ -681,6 +759,45 @@ exports[`Benefits table renders correctly 4`] = `
           className="right aligned"
         >
           Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          Some translated text.
+          0
+          Some translated text.
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
           100
           Some translated text.
         </td>
@@ -735,7 +852,7 @@ exports[`Benefits table renders correctly 4`] = `
           }
         >
           Some translated text.
-          100
+          292
           Some translated text.
         </td>
         <td
@@ -750,7 +867,7 @@ exports[`Benefits table renders correctly 4`] = `
           }
         >
           Some translated text.
-          200
+          392
           Some translated text.
         </td>
         <td
@@ -875,6 +992,45 @@ exports[`Benefits table renders correctly 5`] = `
           className="right aligned"
         >
           Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
+          192
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          
+           
+          Some translated text.
+          0
+          Some translated text.
+        </td>
+      </tr>
+      <tr
+        className=""
+      >
+        <td
+          className=""
+          style={
+            Object {
+              "fontSize": "1.1em",
+              "fontWeight": 700,
+              "textAlign": "left",
+            }
+          }
+        >
+          Some translated text.
+        </td>
+        <td
+          className="right aligned"
+        >
+          Some translated text.
           300
           Some translated text.
         </td>
@@ -929,7 +1085,7 @@ exports[`Benefits table renders correctly 5`] = `
           }
         >
           Some translated text.
-          300
+          492
           Some translated text.
         </td>
         <td
@@ -944,7 +1100,7 @@ exports[`Benefits table renders correctly 5`] = `
           }
         >
           Some translated text.
-          200
+          392
           Some translated text.
         </td>
         <td
@@ -1069,14 +1225,14 @@ exports[`Benefits table renders correctly 6`] = `
           className="right aligned"
         >
           Some translated text.
-          300
+          192
           Some translated text.
         </td>
         <td
           className="right aligned"
         >
           Some translated text.
-          200
+          187
           Some translated text.
         </td>
         <td
@@ -1085,165 +1241,10 @@ exports[`Benefits table renders correctly 6`] = `
           -
            
           Some translated text.
-          100
+          5
           Some translated text.
         </td>
       </tr>
-      <tr
-        className=""
-        style={
-          Object {
-            "border": "none",
-          }
-        }
-      >
-        <td
-          className="right aligned three wide"
-          style={
-            Object {
-              "borderTop": "2px solid rgba(0, 181, 173, 1)",
-              "fontSize": "1.2em",
-              "fontWeight": 700,
-              "padingTop": "0.25em",
-              "textAlign": "left",
-            }
-          }
-        >
-          Some translated text.
-        </td>
-        <td
-          className="right aligned three wide"
-          style={
-            Object {
-              "borderTop": "2px solid rgba(0, 181, 173, 1)",
-              "fontSize": "1.1em",
-              "fontWeight": 700,
-              "padingTop": "0.25em",
-            }
-          }
-        >
-          Some translated text.
-          300
-          Some translated text.
-        </td>
-        <td
-          className="right aligned three wide"
-          style={
-            Object {
-              "borderTop": "2px solid rgba(0, 181, 173, 1)",
-              "fontSize": "1.1em",
-              "fontWeight": 700,
-              "padingTop": "0.25em",
-            }
-          }
-        >
-          Some translated text.
-          200
-          Some translated text.
-        </td>
-        <td
-          className="right aligned three wide"
-          style={
-            Object {
-              "borderTop": "2px solid rgba(0, 181, 173, 1)",
-              "fontSize": "1.1em",
-              "fontWeight": 700,
-              "padingTop": "0.25em",
-            }
-          }
-        >
-          -
-           
-          Some translated text.
-          100
-          Some translated text.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-`;
-
-exports[`Benefits table renders correctly 7`] = `
-<div>
-  <table
-    className="ui celled table"
-  >
-    <thead
-      className=""
-    >
-      <tr
-        className=""
-      >
-        <td
-          className="three wide"
-          style={
-            Object {
-              "background": "rgba(0, 181, 173, 1)",
-              "borderRadius": "inherit",
-              "color": "white",
-              "fontSize": "1.3em",
-              "fontWeight": 900,
-              "letterSpacing": "0.02em",
-              "textAlign": "center",
-            }
-          }
-        >
-          Some translated text.
-        </td>
-        <td
-          className="three wide"
-          style={
-            Object {
-              "background": "rgba(0, 181, 173, 1)",
-              "borderRadius": "inherit",
-              "color": "white",
-              "fontSize": "1.3em",
-              "fontWeight": 900,
-              "letterSpacing": "0.02em",
-              "textAlign": "center",
-            }
-          }
-        >
-          Some translated text.
-        </td>
-        <td
-          className="three wide"
-          style={
-            Object {
-              "background": "rgba(0, 181, 173, 1)",
-              "borderRadius": "inherit",
-              "color": "white",
-              "fontSize": "1.3em",
-              "fontWeight": 900,
-              "letterSpacing": "0.02em",
-              "textAlign": "center",
-            }
-          }
-        >
-          Some translated text.
-        </td>
-        <td
-          className="three wide"
-          style={
-            Object {
-              "background": "rgba(0, 181, 173, 1)",
-              "borderRadius": "inherit",
-              "color": "white",
-              "fontSize": "1.3em",
-              "fontWeight": 900,
-              "letterSpacing": "0.02em",
-              "textAlign": "center",
-            }
-          }
-        >
-          Some translated text.
-        </td>
-      </tr>
-    </thead>
-    <tbody
-      className=""
-    >
       <tr
         className=""
       >
@@ -1317,7 +1318,7 @@ exports[`Benefits table renders correctly 7`] = `
           }
         >
           Some translated text.
-          300
+          492
           Some translated text.
         </td>
         <td
@@ -1332,7 +1333,7 @@ exports[`Benefits table renders correctly 7`] = `
           }
         >
           Some translated text.
-          400
+          587
           Some translated text.
         </td>
         <td
@@ -1349,7 +1350,7 @@ exports[`Benefits table renders correctly 7`] = `
           +
            
           Some translated text.
-          100
+          95
           Some translated text.
         </td>
       </tr>

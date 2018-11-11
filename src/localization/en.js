@@ -122,11 +122,10 @@ export default {
     },
 
     currentBenefits: {
-      currentBenefits_v1:      `Current Benefits`,
-      selectBenefits_v1:       `Select the benefits you currently receive`,
-      has_section8_label_v1:   `Do you have Section 8 Housing?`,
-      has_snap_label_v1:       `Do you have SNAP?`,
-      has_xrayVision_label_v1: `Do you have X-ray vision?`,
+      currentBenefits_v1:    `Current Benefits`,
+      selectBenefits_v1:     `Select the benefits you currently receive`,
+      has_section8_label_v1: `Do you have Section 8 Housing?`,
+      has_snap_label_v1:     `Do you have SNAP?`,
     },
 
     household: {
