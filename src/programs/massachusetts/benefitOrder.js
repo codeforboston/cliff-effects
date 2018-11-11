@@ -1,5 +1,5 @@
 
-var benefitOrder = [
+const benefitOrder = [
   `section8`,
   `snap`,
 ];

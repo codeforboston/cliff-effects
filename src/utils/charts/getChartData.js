@@ -39,9 +39,9 @@ const getChartData = function (incomes, multiplier, client, activeBenefitsInOrde
   // Active benefits should include 'income' if want it
 
   // Shorter name now that we've clearly expressed what it is
-  var benefits = activeBenefitsInOrder;
+  let benefits = activeBenefitsInOrder;
 
-  var benefitDatasets = [],
+  let benefitDatasets = [],
       allData         = {},  // each active benefit will have data in here
       clone           = _.cloneDeep(client),
       benefitCalcData = {

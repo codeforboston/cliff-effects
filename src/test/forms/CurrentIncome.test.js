@@ -9,7 +9,7 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
-var snippets = getTextForLanguage(`en`);
+const snippets = getTextForLanguage(`en`);
 test('Income step component should render without error', () => {
   const navData = {
           left:   (<div>Inc left</div>),

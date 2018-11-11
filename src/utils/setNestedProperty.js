@@ -3,18 +3,18 @@ import { getSideEffects } from './getSideEffects';
 
 const setNestedProperty = function ({ route, value, time }, { current, future }, previouslySetByUser) {
 
-  var itemID = route.shift();
+  let itemID = route.shift();
 
   if (route.length <= 0) {
 
-    var newEvent = { type: time, name: itemID, value: value };
+    let newEvent = { type: time, name: itemID, value: value };
     setValidCurrent(newEvent, current);
     setValidFuture(newEvent, future, previouslySetByUser);
     applySideEffects({ current, future, itemID });
 
   } else {
     // Get this key or index and remove it from list
-    var next = {
+    let next = {
       current: current[ itemID ],
       future:  future[ itemID ],
     };
@@ -36,7 +36,7 @@ const setValidCurrent = function ({ name, value, type }, newCurrent) {
 
 const setValidFuture = function (evnt, newFuture, setByUser) {
 
-  var newValue = valueFixers[ evnt.name ](evnt.value, newFuture);
+  let newValue = valueFixers[ evnt.name ](evnt.value, newFuture);
 
   if (evnt.type === 'future') {
     newFuture[ evnt.name ] = newValue;
@@ -63,7 +63,7 @@ const setValidFuture = function (evnt, newFuture, setByUser) {
  */
 const applySideEffects = function ({ current, future, itemID }) {
 
-  var changeInCurrent = getSideEffects(current, itemID),
+  let changeInCurrent = getSideEffects(current, itemID),
       changeInFuture  = getSideEffects(future, itemID);
   Object.assign(current, changeInCurrent);
   Object.assign(future, changeInFuture);

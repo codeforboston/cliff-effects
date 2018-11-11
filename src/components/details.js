@@ -38,15 +38,15 @@ class HeadingWithDetail extends Component {
   };
 
   render () {
-    var { showDetails } = this.state;
+    let { showDetails } = this.state;
 
-    var children  = this.props.children;
+    let children  = this.props.children;
     if (!Array.isArray(children) || children.length !== 2) {
       console.warn(`<HeadingWithDetail> must have exactly two children`);
       return null;
     }
 
-    var top       = children[ 0 ] || children,
+    let top       = children[ 0 ] || children,
         details   = children[ 1 ] || null,
         // Has a green question mark icon by default
         iconName  = `question circle outline`,

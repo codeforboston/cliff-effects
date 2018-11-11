@@ -103,10 +103,10 @@ test('should change local and app state correctly to 0 when user inputs empty st
 test('should change local and app state correctly to last valid value when user inputs negative number', () => {
   const mockStore = jest.fn();
 
-  var mockDisplayValidator = jest.fn();
+  let mockDisplayValidator = jest.fn();
   mockDisplayValidator.mockImplementation(hasOnlyNonNegNumberChars);
 
-  var mockValidator = jest.fn();
+  let mockValidator = jest.fn();
   mockValidator.mockImplementation(isNonNegNumber);
 
   // Define the test case here

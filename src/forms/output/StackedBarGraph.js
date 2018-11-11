@@ -28,16 +28,16 @@ import { cloneDeep } from 'lodash';
  */
 const StackedBarGraph = function({ client }) {
 
-  var clone = cloneDeep(client),
+  let clone = cloneDeep(client),
       curr  = clone.current;
 
-  var allData         = {},
-      activeBenefits  = [
-        `earned`,
-        ...curr.benefits,
-      ];
+  const allData        = {},
+        activeBenefits = [
+          `earned`,
+          ...curr.benefits,
+        ];
 
-  var currentCalcData = {
+  let currentCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -46,7 +46,7 @@ const StackedBarGraph = function({ client }) {
   applyAndPushBenefits (currentCalcData);
 
   // Add to the `current` data already there
-  var futureCalcData = {
+  let futureCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -54,7 +54,7 @@ const StackedBarGraph = function({ client }) {
   };
   applyAndPushBenefits (futureCalcData);
 
-  var datasets    = [],
+  let datasets    = [],
       moneyLabels = [];
   for (let bName of activeBenefits) {
 

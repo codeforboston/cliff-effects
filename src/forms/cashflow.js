@@ -108,10 +108,10 @@ class CashFlowInputsRow extends Component {
   };
 
   render() {
-    var { generic, timeState, updateClientValue, children } = this.props;
+    let { generic, timeState, updateClientValue, children } = this.props;
 
-    var updateClient = function (evnt, inputProps, data) {
-      var monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
+    let updateClient = function (evnt, inputProps, data) {
+      let monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
           obj     = { name: generic, value: monthly };
       updateClientValue(evnt, obj);
     };
@@ -123,7 +123,7 @@ class CashFlowInputsRow extends Component {
      * @todo Add some kind of UI indication when it's the same as the 'current'
      * value. What if some of the row's values are the same and some are
      * different? */
-    var baseVal   = timeState[ generic ],
+    let baseVal   = timeState[ generic ],
         baseProps = {
           name:             generic,
           className:        'cashflow-column',
@@ -133,7 +133,7 @@ class CashFlowInputsRow extends Component {
           onBlur:           this.onBlur,
         };
 
-    var cashFlowStoreValidator = this.cashFlowStoreValidator;
+    let cashFlowStoreValidator = this.cashFlowStoreValidator;
   
     return (
       <CashFlowRow
@@ -171,7 +171,7 @@ class CashFlowInputsRow extends Component {
  */
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
 
-  var baseVal      = value || timeState[ generic ],
+  let baseVal      = value || timeState[ generic ],
       colClassName = `cashflow-column`,
       weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
       monthly      = toMoneyStr(baseVal),

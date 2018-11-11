@@ -33,7 +33,7 @@ import { BenefitsLineGraph } from './output/BenefitsLineGraph';
  */
 const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
 
-  var type = 'income';
+  let type = 'income';
 
   return (
     <div className='field-aligner two-column'>

@@ -21,16 +21,16 @@ const getSignSymbol = function (num) {
 
 
 const BenefitsTable = function ({ client, snippets }) {
-  var clone = cloneDeep(client);
-  var curr = clone.current;
+  const clone = cloneDeep(client);
+  const curr = clone.current;
 
-  var allData         = {},
+  let allData         = {},
       activeBenefits  = [
         `earned`,
         ...curr.benefits,
       ];
 
-  var currentCalcData = {
+  let currentCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -40,7 +40,7 @@ const BenefitsTable = function ({ client, snippets }) {
   applyAndPushBenefits (currentCalcData);
 
   // Add to the `current` data already there
-  var futureCalcData = {
+  let futureCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
@@ -49,8 +49,7 @@ const BenefitsTable = function ({ client, snippets }) {
   };
   applyAndPushBenefits (futureCalcData);
 
-  // @todo Abstract getting values for each row
-  var earned   = allData.earned;
+  const earned = allData.earned;
   
   const currentBenefits = {};
   const futureBenefits = {};
@@ -87,12 +86,12 @@ const BenefitsTable = function ({ client, snippets }) {
     totalDiff += benefitDiffs[ benefit ];
   }
 
-  var earnedCurrent       = Math.round(earned[ 0 ]),
-      earnedFuture        = Math.round(earned[ 1 ]),
-      earnedDiff          = earnedFuture - earnedCurrent,
-      netCurrent          = totalBenefitCurrent + earnedCurrent,
-      netFuture           = totalBenefitFuture + earnedFuture,
-      netDiff             = totalDiff + earnedDiff;
+  const earnedCurrent       = Math.round(earned[ 0 ]),
+        earnedFuture        = Math.round(earned[ 1 ]),
+        earnedDiff          = earnedFuture - earnedCurrent,
+        netCurrent          = totalBenefitCurrent + earnedCurrent,
+        netFuture           = totalBenefitFuture + earnedFuture,
+        netDiff             = totalDiff + earnedDiff;
 
   const columnHeaderStyle = {
           background:    'rgba(0, 181, 173, 1)',

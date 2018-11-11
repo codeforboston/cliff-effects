@@ -14,7 +14,7 @@ import { toMoneyStr } from '../../utils/prettifiers';
 import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
 
-var EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?
+let EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?
 
 
 /** Rounds money values, turns them into money-formatted
@@ -23,7 +23,7 @@ var EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly a
  * @param {number} number Number to round and format
  * @returns {string}
  */
-var round$ = function (number) {
+let round$ = function (number) {
   return toMoneyStr(Math.round(number)).replace(`.00`, ``);
 };
 
@@ -36,8 +36,8 @@ var round$ = function (number) {
  * 
  * @returns {number} Total of all last numbers
  */
-var totalLastItemsOfArraysInObject = function (accumulated) {
-  var total = 0;
+let totalLastItemsOfArraysInObject = function (accumulated) {
+  let total = 0;
   for (let arrayName in accumulated) {
     let array = accumulated[ arrayName ];
     total += array[ array.length - 1 ];
@@ -110,13 +110,13 @@ var totalLastItemsOfArraysInObject = function (accumulated) {
  * 
  * @returns {object} moneyValues
  */
-var fillInMoneyValues = (keys, sourceObject, index) => {
+let fillInMoneyValues = (keys, sourceObject, index) => {
 
   if (!Array.isArray(sourceObject.earned)) {
     throw new TypeError(`The given resources object requires an 'earned' property that is an array of numbers.`);
   }
 
-  var moneyValues = {
+  let moneyValues = {
     earned:        0,
     benefits:      [],  // [{ label, amount }]
     benefitsTotal: 0,
@@ -191,9 +191,9 @@ var fillInMoneyValues = (keys, sourceObject, index) => {
  *
  * @returns {object}
  */
-var getBenefitData = function(client, resourceKeys) {
+let getBenefitData = function(client, resourceKeys) {
 
-  var clone  = cloneDeep(client),
+  let clone  = cloneDeep(client),
       // This is the data we need in the groupings we need it
       result = {
         current:  null,  // current money values,
@@ -204,15 +204,15 @@ var getBenefitData = function(client, resourceKeys) {
       accumulated = {};
 
   // 1. Get current and future values
-  var defaultProps = {
+  let defaultProps = {
     activeBenefits: resourceKeys,
     dataToAddTo:    accumulated,
     clientToChange: clone,
     timeframe:      `current`,
   };
-  var currentCalcData = defaultProps;
+  let currentCalcData = defaultProps;
   applyAndPushBenefits(currentCalcData);
-  var futureCalcData = { ...defaultProps, timeframe: `future` };
+  let futureCalcData = { ...defaultProps, timeframe: `future` };
   applyAndPushBenefits(futureCalcData);
   // Now have: { earned: [c, f], n: [c, f], ... }
 
@@ -220,7 +220,7 @@ var getBenefitData = function(client, resourceKeys) {
   // Fill earned values for both current and future earned objects
   result.current = fillInMoneyValues(resourceKeys, accumulated, 0);
   result.future  = fillInMoneyValues(resourceKeys, accumulated, 1);
-  var resultCurr  = result.current,
+  let resultCurr  = result.current,
       resultFutr  = result.future;
 
   // 3. Get difference between totals, partly to
@@ -271,7 +271,7 @@ var getBenefitData = function(client, resourceKeys) {
  */
 const Summary = function ({ client, openFeedback, snippets }) {
 
-  var resourceKeys = [
+  const resourceKeys = [
     `earned`,
     ...client.current.benefits,
   ];
@@ -286,16 +286,16 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
 
   // Otherwise do some logic magic!
-  var data = getBenefitData(client, resourceKeys);
+  let data = getBenefitData(client, resourceKeys);
 
-  var {
+  let {
     current,  // { earned, benefits: [{ label, amount }], benefitsTotal, total }
     future,   // same
     diff,
     recovery, // { total, earned, }
   } = data;
 
-  var sn = snippets;
+  let sn = snippets;
 
   // ==================  
   // WARNING: WHITESPACE IS VERY IMPORTANT HERE. Read about JSX whitespace.
@@ -305,7 +305,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
   // `<span>`s to avoid repeating React keys
 
   // "What could happen?"
-  var detailsNow = (
+  let detailsNow = (
     <p>
       <span>{sn.i_nowEarn} {sn.i_beforeMoney}{toMoneyStr(current.earned)} {sn.i_eachTimeInterval}</span>
       <span>{` `} {sn.i_nowBenefitsTotalIs} {sn.i_beforeMoney}{round$(current.benefitsTotal)}{sn.i_period}</span>
@@ -313,7 +313,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
     </p>
   );
 
-  var detailsFuture = (
+  let detailsFuture = (
     <p>
       <span>{sn.i_newEarn} {sn.i_beforeMoney}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}</span>
       <span>{` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoney}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}</span>
@@ -322,8 +322,8 @@ const Summary = function ({ client, openFeedback, snippets }) {
   );
 
   // List of benefits html list items
-  var benefitList = [];
-  var numBenefits = current.benefits.length;
+  let benefitList = [];
+  let numBenefits = current.benefits.length;
   for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
 
     let cBenefit = current.benefits[ benefiti ],
@@ -340,7 +340,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
   // Ask for feedback
   // Stays put when printing. A take-home hint
   // that the tool is still a prototype
-  var feedbackAsk = (
+  let feedbackAsk = (
     <p>
       <span key = { `pre-ask` }>
         { snippets.i_feedbackAsk }
@@ -356,7 +356,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
   );
 
   // Describe how totals change
-  var posDiff    = round$(Math.abs(diff)),
+  let posDiff    = round$(Math.abs(diff)),
       lessOrMore = ``;
   if (diff > 0) {
     lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoney}{posDiff} {sn.i_moreThan}</span>;
@@ -366,11 +366,11 @@ const Summary = function ({ client, openFeedback, snippets }) {
     lessOrMore = <span>{sn.i_resultIs} {sn.i_sameAs}</span>;
   }
 
-  var summaryFuture = (
+  let summaryFuture = (
     <p>{sn.i_newTotalIs} {sn.i_beforeMoney}{round$(future.total)} {sn.i_eachTimeInterval}{sn.i_period} {lessOrMore}</p>
   );
 
-  var endOfCliffContent = sn.i_noCliff;
+  let endOfCliffContent = sn.i_noCliff;
   // If there was a cliff, how much more will they have
   // to earn before they'll get more than they are now?
   if (recovery.total !== undefined) {
