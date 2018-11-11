@@ -244,6 +244,14 @@ export default {
       'warningMessage_v1':          `此工具當前處在測試狀態，所以這些數據不一定準確。如果此數據和真實數據確實有偏差，請發表建議來幫助我們。`,
       'submitFeedback_v1':          `發送建議`,
 
+
+      beforeMoney_v1:         `$`,
+      afterMoney_v1:          ``,
+      thousandsSeparator_v0:  `,`,
+      beforeMoneyWithTime_v1: `$`,
+      afterMoneyWithTime_v1:  ` /月`,
+      xAxisTitle_v0:          ` Pay<br/>Click and drag to zoom`,
+
       'benefitsTableTitle_v1':    `收入變化`,
       'columnBenefit_v1':         `補助`,
       'columnCurrentBenefits_v1': `現有補助額`,
@@ -254,8 +262,6 @@ export default {
       'rowTotalBenefits_v1':      `補助總額`,
       'rowEarned_v1':             `收入`,
       'rowNetTotal_v1':           `净總額`,
-      'beforeMoney_v1':           `$`,
-      'afterMoney_v1':            ` /月`,
 
       'stackedBarGraphTitle_v1':   `收入變化表`,
       'moneyInAsIncomeChanges_v1': `净收入`,

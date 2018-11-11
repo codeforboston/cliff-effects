@@ -269,6 +269,13 @@ export default {
       chartsHeader_v1:            `With the new pay, how could your benefits change?`,
       warningMessage_v2:          `This tool is in testing and these numbers might not be right. If they're not, please `,
       submitFeedback_v2:          `let us know`,
+      // Shared in output
+      beforeMoney_v1:             `$`,
+      afterMoney_v1:              ``,
+      thousandsSeparator_v1:      `,`,
+      beforeMoneyWithTime_v1:     `$`, // see BenefitsTable.js multiple lines
+      afterMoneyWithTime_v1:      ` / month`, // see BenefitsTable.js multiple lines
+      xAxisTitle_v1:              ` Pay<br/>Click and drag to zoom`,
       // Text Summary:
       summaryTitle_v1:            `Summary`,
       noBenefitsChosen_v1:        `On the first page of questions you didn't choose any of the benefits. If you're not getting any benefits now, this tool can't tell you if you will get any in the future. If you're trying to find help getting into a benefit program, try searching for "social services" in your local area.`,
@@ -309,8 +316,6 @@ export default {
       rowTotalBenefits_v1:        `Total Benefits`, // see BenefitsTable.js
       rowEarned_v2:               `Earned`, // see BenefitsTable.js
       rowNetTotal_v1:             `Net Total`, // see BenefitsTable.js
-      beforeMoney_v1:             `$`, // see BenefitsTable.js multiple lines
-      afterMoney_v1:              ` / month`, // see BenefitsTable.js multiple lines
       // Stacked Bar Graph:
       stackedBarGraphTitle_v1:    `Changes Chart`, // see line 266 above
       moneyInAsPayChanges_v2:     `Money Coming In as Pay Changes`, // see StackedBarGraph.js

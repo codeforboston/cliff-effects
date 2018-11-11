@@ -17,9 +17,9 @@ class GraphHolder extends Component {
   };
 
   render () {
-    const { activeID }  = this.state,
-          { Graph, client }         = this.props,
-          { current }               = client,
+    const { activeID }                = this.state,
+          { Graph, client, snippets } = this.props,
+          { current }                 = client,
           // The ids later used to access all program-specific data and functions
           // Only active programs are added
           activePrograms            = [ ...current.benefits ];
@@ -30,7 +30,8 @@ class GraphHolder extends Component {
           className='client-graph'
           client={ client }
           timescale={ activeID }
-          activePrograms={ activePrograms } />
+          activePrograms = { activePrograms }
+          snippets       = { snippets } />
         <GraphTimeButtons
           activeID={ activeID }
           onClick={ this.onClick } />

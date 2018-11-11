@@ -307,16 +307,16 @@ const Summary = function ({ client, openFeedback, snippets }) {
   // "What could happen?"
   var detailsNow = (
     <p>
-      <span>{sn.i_nowEarn} {sn.i_beforeMoney}{toMoneyStr(current.earned)} {sn.i_eachTimeInterval}</span>
-      <span>{` `} {sn.i_nowBenefitsTotalIs} {sn.i_beforeMoney}{round$(current.benefitsTotal)}{sn.i_period}</span>
-      <span>{` `} {sn.i_nowTotalIs} {sn.i_beforeMoney}{round$(current.total)} {sn.i_eachTimeInterval}{sn.i_period}</span>
+      <span>{sn.i_nowEarn} {sn.i_beforeMoneyWithTime}{toMoneyStr(current.earned)} {sn.i_eachTimeInterval}</span>
+      <span>{` `} {sn.i_nowBenefitsTotalIs} {sn.i_beforeMoneyWithTime}{round$(current.benefitsTotal)}{sn.i_period}</span>
+      <span>{` `} {sn.i_nowTotalIs} {sn.i_beforeMoneyWithTime}{round$(current.total)} {sn.i_eachTimeInterval}{sn.i_period}</span>
     </p>
   );
 
   var detailsFuture = (
     <p>
-      <span>{sn.i_newEarn} {sn.i_beforeMoney}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}</span>
-      <span>{` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoney}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}</span>
+      <span>{sn.i_newEarn} {sn.i_beforeMoneyWithTime}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}</span>
+      <span>{` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoneyWithTime}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}</span>
       <span>{` `} {sn.i_newBenefitDetailsIntro}</span>
     </p>
   );
@@ -331,8 +331,8 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
     benefitList.push(
       <li key = { cBenefit.label }>
-        <span>{cBenefit.label} {sn.i_from} {sn.i_beforeMoney}{round$(cBenefit.amount)}</span>
-        <span>{` `} {sn.i_to} {sn.i_beforeMoney}{round$(fBenefit.amount)} {sn.i_eachTimeInterval}{sn.i_period}</span>
+        <span>{cBenefit.label} {sn.i_from} {sn.i_beforeMoneyWithTime}{round$(cBenefit.amount)}</span>
+        <span>{` `} {sn.i_to} {sn.i_beforeMoneyWithTime}{round$(fBenefit.amount)} {sn.i_eachTimeInterval}{sn.i_period}</span>
       </li>
     );
   }  // ends for each benefit
@@ -359,15 +359,15 @@ const Summary = function ({ client, openFeedback, snippets }) {
   var posDiff    = round$(Math.abs(diff)),
       lessOrMore = ``;
   if (diff > 0) {
-    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoney}{posDiff} {sn.i_moreThan}</span>;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoneyWithTime}{posDiff} {sn.i_moreThan}</span>;
   } else if (diff < 0) {
-    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoney}{posDiff} {sn.i_lessThan}</span>;
+    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoneyWithTime}{posDiff} {sn.i_lessThan}</span>;
   } else if (diff === 0) {
     lessOrMore = <span>{sn.i_resultIs} {sn.i_sameAs}</span>;
   }
 
   var summaryFuture = (
-    <p>{sn.i_newTotalIs} {sn.i_beforeMoney}{round$(future.total)} {sn.i_eachTimeInterval}{sn.i_period} {lessOrMore}</p>
+    <p>{sn.i_newTotalIs} {sn.i_beforeMoneyWithTime}{round$(future.total)} {sn.i_eachTimeInterval}{sn.i_period} {lessOrMore}</p>
   );
 
   var endOfCliffContent = sn.i_noCliff;
@@ -379,8 +379,8 @@ const Summary = function ({ client, openFeedback, snippets }) {
         <div className = { `text-result-section` }>
           <Header>{sn.i_cliffEndHeader}</Header>
           <p>
-            <span>{sn.i_ifGetTo} {sn.i_beforeMoney}{round$(recovery.earned)} {sn.i_eachTimeInterval}</span>
-            <span>{` `} {sn.i_willGet} {sn.i_beforeMoney}{round$(recovery.total - current.total)}</span>
+            <span>{sn.i_ifGetTo} {sn.i_beforeMoneyWithTime}{round$(recovery.earned)} {sn.i_eachTimeInterval}</span>
+            <span>{` `} {sn.i_willGet} {sn.i_beforeMoneyWithTime}{round$(recovery.total - current.total)}</span>
             <span>{` `} {sn.i_moreIn}</span>
           </p>
         </div>

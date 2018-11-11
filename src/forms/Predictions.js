@@ -70,8 +70,9 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             return (
               <Tab.Pane>
                 <GraphHolder
-                  client={ client }
-                  Graph={ TestChart } />
+                  client   = { client }
+                  Graph    = { TestChart }
+                  snippets = { snippets } />
               </Tab.Pane>
             );
           },

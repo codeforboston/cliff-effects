@@ -65,22 +65,17 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [ ] Bigger font?
 // - [ ] Different zoom note for touch device
 
-
-// This doesn't affect the strings we put in there, just pure numbers
-Highcharts.setOptions({ lang: { thousandsSep: `,` }});
-
-
 class TestChartComp extends Component {
 
-  // @todo Abstract to utils/prettifiers?
-  formatMoneyWithK = function () {
-    const withMoney = '$' + this.axis.defaultLabelFormatter.call(this),
-          asHTML    = `<span class="graph-label">${withMoney}</span>`;
-    return asHTML;
-  };
+  constructor (props) {
+    super(props);
+    let separator = this.getTranslatedText(props.snippets.i_thousandsSeparator);
+    // This doesn't affect the strings we put in there, just pure numbers
+    Highcharts.setOptions({ lang: { thousandsSep: separator }});
+  }
 
   render () {
-    const { client, timescale, activePrograms, className } = this.props,
+    const { client, timescale, activePrograms, className, snippets } = this.props,
           multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
           currentEarned = client.current.earned * multiplier;
@@ -114,10 +109,16 @@ class TestChartComp extends Component {
 
 
     // `zoomKey` doesn't work without another package
+    // @todo Change tooltip to use our own formatting
+    // function (which we need to make) so that we
+    // can use translations for it to get the money
+    // right.
     const plotOptions =  { line: { pointInterval: interval }};
     return (
       <div className={ `benefit-lines-graph ` + (className || ``) }>
-        <HighchartsChart plotOptions={ plotOptions }>
+        <HighchartsChart
+          plotOptions = { plotOptions }
+          callback    = { this.prepChart }>
 
           <Chart
             tooltip  = {{ enabled: true }}
@@ -147,7 +148,7 @@ class TestChartComp extends Component {
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <XAxis.Title>{ `${timescale} Pay<br/>Click and drag to zoom` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} ${this.getTranslatedText(snippets.i_xAxisTitle)}` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
               useHTML   = { true }
@@ -175,6 +176,48 @@ class TestChartComp extends Component {
       </div>
     );
   }  // Ends render()
+
+  prepChart = (chart) => {
+    this.chart = chart;
+    // Only way to access props from chart event handlers
+    this.chart.options.getSnippets       = this.getSnippets;
+    this.chart.options.getTranslatedText = this.getTranslatedText;
+  };
+
+  getSnippets = () => {
+    return this.props.snippets;
+  };
+
+  // Not yet tested with complex objects
+  getTranslatedText = function (translation) {
+
+    const children = translation.props.children;
+    
+    if (typeof children === `string`) {
+      return children;
+
+    // To handle more complex translation objects
+    } else if (Array.isArray(children)) {
+
+      let allText = ``;
+      for (let child of children) {
+        allText += ` ` + this.getTranslatedText(child);
+      }
+
+      return allText;
+    }
+  };
+
+  // @todo Abstract to utils/prettifiers?
+  formatMoneyWithK = function () {
+    const snippets  = this.chart.options.getSnippets(),
+          getText   = this.chart.options.getTranslatedText,
+          before    = getText(snippets.i_beforeMoney),
+          after     = getText(snippets.i_afterMoney),
+          withMoney = before + this.axis.defaultLabelFormatter.call(this) + after,
+          asHTML    = `<span class="graph-label">${withMoney}</span>`;
+    return asHTML;
+  };
 };
 
 

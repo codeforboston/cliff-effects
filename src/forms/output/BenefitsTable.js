@@ -137,17 +137,17 @@ const BenefitsTable = function ({ client, snippets }) {
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{totalBenefitCurrent}{ snippets.i_afterMoney }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{totalBenefitCurrent}{ snippets.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{totalBenefitFuture}{ snippets.i_afterMoney }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{totalBenefitFuture}{ snippets.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } { snippets.i_beforeMoney }{ Math.abs(totalDiff) }{ snippets.i_afterMoney }
+          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(totalDiff) }{ snippets.i_afterMoneyWithTime }
         </Table.Cell>
       </Table.Row>
     );
@@ -157,9 +157,9 @@ const BenefitsTable = function ({ client, snippets }) {
     return (
       <Table.Row>
         <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowEarned }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{earnedCurrent}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{earnedFuture}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(earnedDiff) } { snippets.i_beforeMoney }{ Math.abs(earnedDiff) }{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{earnedCurrent}{ snippets.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{earnedFuture}{ snippets.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(earnedDiff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(earnedDiff) }{ snippets.i_afterMoneyWithTime }</Table.Cell>
       </Table.Row>
     );
   };
@@ -175,17 +175,17 @@ const BenefitsTable = function ({ client, snippets }) {
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{netCurrent}{ snippets.i_afterMoney }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{netCurrent}{ snippets.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoney }{netFuture}{ snippets.i_afterMoney }
+          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{netFuture}{ snippets.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } { snippets.i_beforeMoney }{ Math.abs(netDiff) }{ snippets.i_afterMoney }
+          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(netDiff) }{ snippets.i_afterMoneyWithTime }
         </Table.Cell>
       </Table.Row>
     );
@@ -204,9 +204,9 @@ const BenefitsTable = function ({ client, snippets }) {
       <Table.Row
         key={ benefit }>
         <Table.Cell style={ rowHeaderStyle }>{ label }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{currentBenefits[ benefit ]}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{futureBenefits[ benefit ]}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(diff) } { snippets.i_beforeMoney }{ Math.abs(diff) }{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{currentBenefits[ benefit ]}{ snippets.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{futureBenefits[ benefit ]}{ snippets.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(diff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(diff) }{ snippets.i_afterMoneyWithTime }</Table.Cell>
       </Table.Row>
     );
   }
