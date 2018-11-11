@@ -13,45 +13,31 @@ exports[`<CashFlowRow> renders with message 1`] = `
     <div
       className="inline field cashflow"
     >
-      <Surrounder
-        Top={
-          <InvalidMessage
-            id="undefinedMessage"
-            validRow={false}
-          >
-            What did you enter!?
-          </InvalidMessage>
-        }
+      <ValidationError
+        isUserError={true}
+        message="What did you enter!?"
       >
         <div
-          className="surrounder"
+          className="with-message-above "
         >
           <div
-            className="top horizontal"
+            className="message-above invalid"
+            id="undefinedMessage"
+            tabIndex={-1}
           >
-            <InvalidMessage
-              id="undefinedMessage"
-              validRow={false}
-            >
-              <div
-                className="invalid "
-                id="undefinedMessage"
-              >
-                What did you enter!?
-              </div>
-            </InvalidMessage>
+            What did you enter!?
           </div>
           <div
-            className="middle horizontal"
+            className="below-message"
           >
             <div
-              className="center horizontal content"
+              className="cashflow-row"
             >
               <span>
                 Some content
               </span>
               <div
-                className="cashflow-column cashflow-column-last-child"
+                className="cashflow-column cashflow-column-label"
               >
                 <label
                   htmlFor="undefined_monthly"
@@ -64,7 +50,7 @@ exports[`<CashFlowRow> renders with message 1`] = `
             </div>
           </div>
         </div>
-      </Surrounder>
+      </ValidationError>
     </div>
   </FormField>
 </CashFlowRow>
@@ -82,34 +68,23 @@ exports[`<CashFlowRow> renders with no message 1`] = `
     <div
       className="inline field cashflow"
     >
-      <Surrounder
-        Top={
-          <span
-            id="undefinedMessage"
-          />
-        }
+      <ValidationError
+        isUserError={false}
       >
         <div
-          className="surrounder"
+          className="with-message-above "
         >
           <div
-            className="top horizontal"
-          >
-            <span
-              id="undefinedMessage"
-            />
-          </div>
-          <div
-            className="middle horizontal"
+            className="below-message"
           >
             <div
-              className="center horizontal content"
+              className="cashflow-row"
             >
               <span>
                 Some content
               </span>
               <div
-                className="cashflow-column cashflow-column-last-child"
+                className="cashflow-column cashflow-column-label"
               >
                 <label
                   htmlFor="undefined_monthly"
@@ -122,7 +97,7 @@ exports[`<CashFlowRow> renders with no message 1`] = `
             </div>
           </div>
         </div>
-      </Surrounder>
+      </ValidationError>
     </div>
   </FormField>
 </CashFlowRow>

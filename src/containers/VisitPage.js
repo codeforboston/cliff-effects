@@ -57,11 +57,7 @@ class VisitPage extends Component {
   };  // End constructor()
 
   componentDidMount() {
-    // We currently store client data in memory, so when the user reloads, the client data
-    // will disappear. In that case, we move the user back to the first step so that they
-    // can re-enter the data.
-    const firstStepURL = `${this.getPathPrefix()}/${STEP_VALS[ 0 ].key}`;
-    this.props.history.replace(firstStepURL);
+    this.didMount = true;
   }
 
   resetClientIfOk = (shouldReset) => {
@@ -236,7 +232,7 @@ class VisitPage extends Component {
   };
 
   render() {
-    if (!this.props.stepKey) {
+    if (!this.didMount || !this.props.stepKey) {
       return (
         <Redirect to={ `${this.getPathPrefix()}/${STEP_VALS[ 0 ].key }` } />
       );
@@ -281,7 +277,7 @@ class VisitPage extends Component {
 
     const step = STEP_VALS[ stepIndex ];
 
-    const StepComponent = step.form;
+    const StepComponent = step.component;
 
     return (
       <div className='forms-container flex-item flex-column'>

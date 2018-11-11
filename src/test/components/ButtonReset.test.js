@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { ButtonReset } from '../../forms/ButtonReset';
 
@@ -8,7 +8,7 @@ describe('Test ButtonReset component', () => {
   it('Test click event', () => {
     let mockCallBack = jest.fn();
 
-    let button = shallow(
+    let button = mount(
       <ButtonReset
         onClick={ mockCallBack }
         snippets={{}} />
