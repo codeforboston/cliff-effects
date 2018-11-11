@@ -80,6 +80,11 @@ class TestChartComp extends Component {
           resources     = activePrograms,
           currentEarned = client.current.earned * multiplier;
 
+    const chartComponent   = this,
+          formatMoneyWithK = function () {
+            return (chartComponent.formatMoneyWithK.bind(this))(chartComponent);
+          };
+
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
     const max      = (limits.max * multiplier),
@@ -116,9 +121,7 @@ class TestChartComp extends Component {
     const plotOptions =  { line: { pointInterval: interval }};
     return (
       <div className={ `benefit-lines-graph ` + (className || ``) }>
-        <HighchartsChart
-          plotOptions = { plotOptions }
-          callback    = { this.prepChart }>
+        <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
             tooltip  = {{ enabled: true }}
@@ -145,7 +148,7 @@ class TestChartComp extends Component {
 
           <XAxis
             endOnTick = { false }
-            labels    = {{ formatter: this.formatMoneyWithK }}
+            labels    = {{ formatter: formatMoneyWithK }}
             crosshair = {{}}>
 
             <XAxis.Title>{ `${timescale} ${this.getTranslatedText(snippets.i_xAxisTitle)}` }</XAxis.Title>
@@ -162,7 +165,7 @@ class TestChartComp extends Component {
 
           <YAxis
             endOnTick = { false }
-            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
+            labels    = {{ useHTML: true, formatter: formatMoneyWithK }}
             style     = {{ width: `30px` }}
             textLength = { `30px` }>
 
@@ -176,17 +179,6 @@ class TestChartComp extends Component {
       </div>
     );
   }  // Ends render()
-
-  prepChart = (chart) => {
-    this.chart = chart;
-    // Only way to access props from chart event handlers
-    this.chart.options.getSnippets       = this.getSnippets;
-    this.chart.options.getTranslatedText = this.getTranslatedText;
-  };
-
-  getSnippets = () => {
-    return this.props.snippets;
-  };
 
   // Not yet tested with complex objects
   getTranslatedText = function (translation) {
@@ -209,11 +201,12 @@ class TestChartComp extends Component {
   };
 
   // @todo Abstract to utils/prettifiers?
-  formatMoneyWithK = function () {
-    const snippets  = this.chart.options.getSnippets(),
-          getText   = this.chart.options.getTranslatedText,
+  formatMoneyWithK = function (chartComponent) {
+    const snippets  = chartComponent.props.snippets,
+          getText   = chartComponent.getTranslatedText,
           before    = getText(snippets.i_beforeMoney),
           after     = getText(snippets.i_afterMoney),
+          // https://api.highcharts.com/highcharts/xAxis.labels.formatter
           withMoney = before + this.axis.defaultLabelFormatter.call(this) + after,
           asHTML    = `<span class="graph-label">${withMoney}</span>`;
     return asHTML;
