@@ -63,6 +63,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [ ] Hover style for plot line
 // - [ ] Button placement
 // - [ ] Bigger font?
+// - [ ] Different zoom note for touch device
 
 
 // This doesn't affect the strings we put in there, just pure numbers
@@ -85,7 +86,7 @@ class TestChartComp extends Component {
           currentEarned = client.current.earned * multiplier;
 
     // Adjust to time-interval. Highcharts will round
-    // for ticks displayed.
+    // for displayed ticks.
     const max      = (limits.max * multiplier),
           interval = ((max / 100) / 10) * 30;
 
@@ -146,7 +147,7 @@ class TestChartComp extends Component {
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <XAxis.Title>{ `${timescale} Pay` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} Pay<br/>Click and drag to zoom` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
               useHTML   = { true }
@@ -170,6 +171,7 @@ class TestChartComp extends Component {
           </YAxis>
 
         </HighchartsChart>
+
       </div>
     );
   }  // Ends render()
