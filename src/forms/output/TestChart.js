@@ -56,7 +56,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Bottom/left ticks' number format (labels headers!) (https://stackoverflow.com/a/26128177/3791179)
 // - [x] Fixed width for ticks' text - width to not change on interval change
 // - [x] Thousands separator
-// - [ ] Bottom tooltip's number format ~(maybe the same thing as ticks)~
+// - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
 // - [ ] Snippets
 // - [ ] Function descriptions
 // - [ ] Hover style for legend items
@@ -66,9 +66,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 
 // This doesn't affect the strings we put in there, just pure numbers
-Highcharts.setOptions({
-  lang: { thousandsSep: `,` }
-});
+Highcharts.setOptions({ lang: { thousandsSep: `,` }});
 
 
 class TestChartComp extends Component {
