@@ -32,27 +32,6 @@ let multipliers = timescaleMultipliers.fromMonthly,
     limits      = PROGRAM_CHART_VALUES.limits;
 
 
-// Add/remove plotLine
-// https://stackoverflow.com/a/14632292/3791179
-// Also has a mousein and mouseout hook we can use
-// to make it bigger when hovered over.
-
-// Remove point markers
-// https://stackoverflow.com/a/14642909/3791179
-
-// (Note: If we have room to include the plot lines amount
-// in the label, we probably don't need tooltips for them.)
-// Possible way to handle tooltips for plot lines
-// https://stackoverflow.com/questions/12451549/highcharts-plotband-tooltip-hover-default-styling#21277491
-// Dunno if I like the CSS solution since it then hides the label text except on hover.
-// Maybe could use something similar where the HTML has the label part and then a separate tooltip part...
-
-// Haven't figured out how to pan vertically
-// This might help, but means chart may have set dimensions:
-// https://api.highcharts.com/highcharts/chart.scrollablePlotArea
-// Not sure how it would act with zoom.
-
-
 // Still @todo
 // - [x] Bottom/left ticks' number format (labels headers!) (https://stackoverflow.com/a/26128177/3791179)
 // - [x] Fixed width for ticks' text - width to not change on interval change
@@ -64,12 +43,40 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] File name
 // - [x] Replace old graph
 // - [ ] Test
-// - [ ] Function descriptions
+// - [x] Function descriptions
+// - [ ] Add highcharts global options to graph frosting file (change file name and maybe location)
 // - [ ] Hover style for legend items (button-like style always, then different for active vs. inactive?)
 // - [ ] Hover style for plot line
 // - [ ] Bigger font?
 // - [ ] Different zoom note for touch device
 
+// Possible future improvements:
+// 1. Add PlotLine to Legend? Haven't found it yet and can't seem to do a
+//     vertical series. Add/remove PlotLine (can add button to legend?) -
+//     https://stackoverflow.com/a/14632292/3791179.
+// 1. PlotLine hover style - has a mousein and mouseout hook we can use
+//     to make it bigger when hovered over.
+// 1. Possibly remove point markers on lines - https://stackoverflow.com/a/14642909/3791179.
+// 1. Possible tooltips for PlotLine -
+//     https://stackoverflow.com/questions/12451549/highcharts-plotband-tooltip-hover-default-styling#21277491.
+//     CSS solution hides the label text except on hover (not great).
+//     Maybe do something similar where the HTML has the label part
+//     and a separate tooltip part and just hide/reveal the tooltip part.
+// 1. Haven't figured out how to pan vertically. This might help, but
+//     means chart may have set dimensions:
+//     https://api.highcharts.com/highcharts/chart.scrollablePlotArea.
+//     Not sure how it would act with zoom.
+
+/** Graph of each benefit as household income changes. Uses Highchart lib.
+ * @class
+ *
+ * @params {object} props
+ * @params {object} props.client Data for current and future client circumstances.
+ * @params {'Weekly'|'Monthly'|'Yearly'} props.timescale Should be `timeInterval`.
+ * @params {string[]} props.activePrograms Benefit programs in which the household enrolled.
+ * @params {object} props.className An extra class for the outermost component.
+ * @params {object} props.snippets Translation spans of text in app.
+ */
 class BenefitsLinesComp extends Component {
 
   constructor (props) {
@@ -92,7 +99,7 @@ class BenefitsLinesComp extends Component {
       return <Message className={ className }>No public benefit programs have been selected</Message>;
     }
 
-    const  multiplier    = multipliers[ timescale ],
+    const multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
           currentEarned = client.current.earned * multiplier,
           getText       = this.getTranslatedText;
@@ -186,16 +193,25 @@ class BenefitsLinesComp extends Component {
     );
   }  // Ends render()
 
-  // @todo Test with complex objects
   // @todo Abstract to 'localization' folder?
-  getTranslatedText = function (translation) {
+  /** Recursively extract text from language-specific React
+   *     objects. Creates one inline string of text.
+   * @method
+   *
+   * Recursion is untested.
+   * @params {object} translationObj React element containing
+   *     children that are strings or other React elements.
+   *
+   * @returns {string}
+   */
+  getTranslatedText = function (translationObj) {
 
-    const children = translation.props.children;
+    const children = translationObj.props.children;
     
     if (typeof children === `string`) {
       return children;
 
-    // To handle more complex translation objects
+    // To handle more complex translationObj objects
     } else if (Array.isArray(children)) {
 
       let allText = ``;
@@ -208,7 +224,27 @@ class BenefitsLinesComp extends Component {
   };
 
   // @todo Abstract our own formatting to utils/prettifiers
-  // so snippets can be used more effectively?
+  // so snippets can be used more effectively? Like when '10k'
+  // isn't the appropriate shortened form of 10000
+  /** Adds translation-specific money designations
+   *     (like a dollar sign for English) to the number value
+   *     string Highcharts creates, then wraps it in a span with
+   *     a class.
+   * @method
+   *
+   * @params {object} hcObject Object Highcharts sends to event
+   *     handlers
+   *
+   * @returns {string} String representing an HTML element.
+   * 
+   * @example
+   * let toShow = formatMoneyWithk({ axis: { defaultLabelFormatter: function () { return '10k'; }} });
+   * console.log(toShow);
+   * // If app's language code is 'en':
+   * // <span class="graph-label">$10k</span>
+   * // If app's language code is 'vi':
+   * // <span class="graph-label">10k$</span>
+   */
   formatMoneyWithK = (hcObject) => {
     const snippets  = this.props.snippets,
           getText   = this.getTranslatedText,
