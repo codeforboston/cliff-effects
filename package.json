@@ -26,7 +26,9 @@
     "deploy": "npm run build && gh-pages -d build",
     "generateSNAPTests": "./node_modules/.bin/babel-node src/test/programs/federal/snap/generateTestCases",
     "lint": "./node_modules/.bin/eslint src --fix",
-    "docs": "./node_modules/.bin/jsdoc src -R OVERVIEW.md -r -c jsdoc.json -d docs"
+    "docs": "./node_modules/.bin/jsdoc src -R OVERVIEW.md -r -c jsdoc.json -d docs",
+    "preinstall": "npm run check-node-version",
+    "check-node-version": "node ./check-node-version.js"
   },
   "homepage": "https://codeforboston.github.io/cliff-effects/app",
   "husky": {
