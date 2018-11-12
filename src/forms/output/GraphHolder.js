@@ -26,15 +26,15 @@ class GraphHolder extends Component {
 
     return (
       <div className='graph-holder'>
+        <GraphTimeButtons
+          activeID={ activeID }
+          onClick={ this.onClick } />
         <Graph
           className='client-graph'
           client={ client }
           timescale={ activeID }
           activePrograms = { activePrograms }
           snippets       = { snippets } />
-        <GraphTimeButtons
-          activeID={ activeID }
-          onClick={ this.onClick } />
       </div>
     );
   };  // End render()
