@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { range } from 'lodash';
+import { Message } from 'semantic-ui-react';
 
 // HIGHCHARTS
 import Highcharts from 'highcharts';
@@ -61,7 +62,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Button placement
 // - [ ] Adjust button placement based on viewport width (https://stackoverflow.com/a/46586783/3791179)
 // - [x] File name
-// - [ ] Replace old graph
+// - [x] Replace old graph
 // - [ ] Test
 // - [ ] Function descriptions
 // - [ ] Hover style for legend items (button-like style always, then different for active vs. inactive?)
@@ -80,13 +81,18 @@ class BenefitsLinesComp extends Component {
 
   render () {
     const {
-            client,
-            timescale,
-            activePrograms,
-            className,
-            snippets,
-          } = this.props,
-          multiplier    = multipliers[ timescale ],
+      client,
+      timescale,
+      activePrograms,
+      className,
+      snippets,
+    } = this.props;
+
+    if (activePrograms.length === 0) {
+      return <Message className={ className }>No public benefit programs have been selected</Message>;
+    }
+
+    const  multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
           currentEarned = client.current.earned * multiplier,
           getText       = this.getTranslatedText;
