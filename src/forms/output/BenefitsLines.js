@@ -52,6 +52,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [ ] * Legend item for PlotLine
 // - [ ] * Bigger font?
 // - [ ] * Different zoom note for touch device
+// - [ ] * Proportional zoom
 
 // Possible future improvements:
 // 1. Add PlotLine to Legend? Haven't found it yet and can't seem to do a
