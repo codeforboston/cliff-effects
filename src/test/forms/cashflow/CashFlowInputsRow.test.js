@@ -77,7 +77,7 @@ test('updateClientValue gets called correctly when each value is changed', () =>
     1,
     1 / 12,
   ];
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     // ManagedNumberField
     const MNF = wrapper.childAt(i).shallow();
     const newValue = (i + 1) * 10;

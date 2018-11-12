@@ -8,12 +8,12 @@ import {
 
 const DevSwitch = function ({ setDev, devProps, history }) {
 
-  var turnOn = function () {
+  let turnOn = function () {
     setDev(`dev`, true);
     history.goBack();
   };
 
-  var turnOff = function () {
+  let turnOff = function () {
     setDev(`dev`, false);
     history.goBack();
   };

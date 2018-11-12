@@ -71,7 +71,7 @@ const ValidationError = function ({ children, ariaName, isUserError, message, cl
 // NECESSARY VISUAL SUGAR
 // ========================================
 
-var AttentionArrow = function () {
+let AttentionArrow = function () {
 
   return (
     <span className={ 'attention-arrow' }>

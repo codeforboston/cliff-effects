@@ -43,6 +43,10 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Replace old graph
 // - [ ] Test
 // - [x] Function descriptions
+// - [ ] ~Add highcharts global options to graph frosting file (change file name and maybe location)~
+//          1. It's going to need the `snippets` object, which is a bigger change.
+//          2. It's got `limits` too, so is it still just 'frosting?' Also, should we move all the
+//          stuff in the src/utils/charts folder?
 // - [ ] * Hover style for legend items (button-like style always, then different for active vs. inactive?)
 // - [ ] * Hover style for plot line
 // - [ ] * Legend item for PlotLine

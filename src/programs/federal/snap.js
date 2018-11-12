@@ -29,7 +29,7 @@ import {
  * 
  * @namespace
  */
-var SNAPhelpers = {},
+let SNAPhelpers = {},
     hlp         = SNAPhelpers;
 
 
@@ -38,9 +38,9 @@ var SNAPhelpers = {},
  *     changes in earned income */
 const getSNAPBenefits = function (fullClient, timeframe) {
 
-  var client = fullClient[ timeframe ];
+  let client = fullClient[ timeframe ];
 
-  var finalResult = 0,
+  let finalResult = 0,
       householdSize           = hlp.getHouseholdSize(client),
       grossIncomeTestResult   = hlp.passesGrossIncomeTest(client),
       netIncomeTestResult     = hlp.passesNetIncomeTest(client),
@@ -83,7 +83,7 @@ const getSNAPBenefits = function (fullClient, timeframe) {
  * @returns {boolean}
  */
 hlp.passesGrossIncomeTest = function (client) {
-  var adjustedGross    = hlp.getAdjustedGross(client),
+  let adjustedGross    = hlp.getAdjustedGross(client),
       grossIncomeLimit = hlp.getGrossIncomeLimit(client),
       passes           = null;
 
@@ -114,7 +114,7 @@ hlp.passesGrossIncomeTest = function (client) {
  * @returns {boolean}
  */
 hlp.passesNetIncomeTest = function(client) {
-  var maxNetIncome = hlp.getMaxNetIncome(client);
+  let maxNetIncome = hlp.getMaxNetIncome(client);
 
   if (maxNetIncome === `no limit`) {
     return true;
@@ -134,7 +134,7 @@ hlp.passesNetIncomeTest = function(client) {
  */
 hlp.getMaxNetIncome = function (client) {
   // @todo Logic different in website calculator vs. excel sheet for this logic
-  var adjustedGross           = hlp.getAdjustedGross(client),
+  let adjustedGross           = hlp.getAdjustedGross(client),
       grossIncomeLimit        = hlp.getGrossIncomeLimit(client),
       disabledOrElderlyMember = hlp.hasDisabledOrElderlyMember(client);
   
@@ -154,11 +154,11 @@ hlp.getMaxNetIncome = function (client) {
  * @returns {number}
  */
 hlp.getNetIncome = function(client) {
-  var adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
+  let adjustedIncome    = hlp.getAdjustedGrossMinusDeductions(client),
       // These two functions make unit testing much easier
       homelessDeduction = hlp.getHomelessDeduction(client),
       shelterDeduction  = hlp.getShelterDeduction(client);
-  var extraDeductions   = homelessDeduction + shelterDeduction,
+  let extraDeductions   = homelessDeduction + shelterDeduction,
       afterDeductions   = adjustedIncome - extraDeductions;
 
   return Math.max(0, afterDeductions);
@@ -173,13 +173,13 @@ hlp.getNetIncome = function(client) {
  * @returns {number}
  */
 hlp.getAdjustedGrossMinusDeductions = function (client) {
-  var adjustedGross           = hlp.getAdjustedGross(client),
+  let adjustedGross           = hlp.getAdjustedGross(client),
       standardDeduction       = hlp.getStandardDeduction(client),
       earnedIncomeDeduction   = hlp.getEarnedIncomeDeduction(client),
       medicalDeduction        = hlp.getMedicalDeduction(client),
       dependentCareDeduction  = hlp.getDependentCareDeduction(client);
 
-  var adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
+  let adjustedIncome = adjustedGross - standardDeduction - earnedIncomeDeduction - medicalDeduction - dependentCareDeduction;
   return Math.max(0, adjustedIncome);
 };
 
@@ -204,7 +204,7 @@ hlp.getStandardDeduction = function (client) {
  * @returns {number}
  */
 hlp.getEarnedIncomeDeduction = function (client) {
-  var totalMonthlyEarned = client.earned;
+  let totalMonthlyEarned = client.earned;
   return totalMonthlyEarned * SNAPData.PERCENT_GROSS_MONTHLY_EARNED;
 };
 
@@ -215,11 +215,11 @@ hlp.getEarnedIncomeDeduction = function (client) {
  * @returns {number}
  */
 hlp.getMedicalDeduction = function (client) {
-  var medicalDeduce = 0;
+  let medicalDeduce = 0;
 
   if (hlp.hasDisabledOrElderlyMember(client) === true) {
     /** @todo Add disabledAssistance too. Also, otherMedical? */
-    var medicalExpenses = client.disabledMedical;
+    let medicalExpenses = client.disabledMedical;
     if ((medicalExpenses >= SNAPData.MIN_MEDICAL_EXPENSES) && (medicalExpenses <= SNAPData.MAX_MEDICAL_EXPENSES)) {
       medicalDeduce = SNAPData.STANDARD_MEDICAL_DEDUCTION;
 
@@ -240,7 +240,7 @@ hlp.getMedicalDeduction = function (client) {
  */
 hlp.getDependentCareDeduction = function (client) {
 
-  var dependentCare = 0;
+  let dependentCare = 0;
 
   /** @todo Adopt https://github.com/codeforboston/cliff-effects/issues/264
    *     model for all these 'kinds' of 'if' situations. If possible. */
@@ -248,7 +248,7 @@ hlp.getDependentCareDeduction = function (client) {
     dependentCare += sumProps(client, UNDER13_CARE_EXPENSES);
   }
 
-  var membersOver12    = getOlderThan(client, 12),
+  let membersOver12    = getOlderThan(client, 12),
       dependentsOver12 = getDependentMembers(membersOver12);
   /** May want to test this the same way as Expenses step does. More consistent? */
   if (dependentsOver12.length > 0) {
@@ -286,7 +286,7 @@ hlp.getHomelessDeduction = function(client) {
  */
 hlp.getShelterDeduction = function(client) {
 
-  var rawDeduction = hlp.getRawHousingDeduction(client);
+  let rawDeduction = hlp.getRawHousingDeduction(client);
 
   if (hlp.hasDisabledOrElderlyMember(client)) {
     return rawDeduction;
@@ -305,7 +305,7 @@ hlp.getShelterDeduction = function(client) {
  * @returns {number}
  */
 hlp.getRawHousingDeduction = function(client) {
-  var housingCosts        = hlp.getNonUtilityHousingCosts(client),
+  let housingCosts        = hlp.getNonUtilityHousingCosts(client),
       utilityCosts        = hlp.getUtilityCostByBracket(client),
       totalHousingCost    = housingCosts + utilityCosts,
       halfAdjustedIncome  = hlp.getAdjustedGrossMinusDeductions(client) * 0.50,
@@ -324,7 +324,7 @@ hlp.getRawHousingDeduction = function(client) {
  * @returns {number}
  */
 hlp.getNonUtilityHousingCosts = function(client) {
-  var housingCost = null;
+  let housingCost = null;
 
   if (hlp.isHomeless(client)) {
     housingCost = 0;
@@ -352,7 +352,7 @@ hlp.getUtilityCostByBracket = function (client) {
 
   } else {
     
-    var utilityCategory = null;
+    let utilityCategory = null;
 
     if (client.climateControl || client.fuelAssistance) {
       utilityCategory = 'Heating';
@@ -380,7 +380,7 @@ hlp.getUtilityCostByBracket = function (client) {
  * @returns {number}
  */
 hlp.getAdjustedGross = function (client) {
-  var raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
+  let raw = client.earned + getGrossUnearnedIncomeMonthly(client) - client.childSupportPaidOut;
   return Math.max(0, raw);
 };
 
@@ -391,7 +391,7 @@ hlp.getAdjustedGross = function (client) {
  * @returns {number}
  */
 hlp.getGrossIncomeLimit = function (client) {
-  var data      = federalPovertyGuidelines,
+  let data      = federalPovertyGuidelines,
       numPeople = hlp.getHouseholdSize(client),
       // Data is given in yearly amounts
       limit     = getLimitBySize(data, numPeople, 200),

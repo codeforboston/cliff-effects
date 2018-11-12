@@ -33,7 +33,7 @@ import { BenefitsLines } from './output/BenefitsLines';
  */
 const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
 
-  var type = 'income';
+  let type = 'income';
 
   return (
     <div className='field-aligner two-column'>

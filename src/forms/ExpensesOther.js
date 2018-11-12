@@ -26,7 +26,7 @@ import {
  */
 const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
 
-  var sharedProps = {
+  let sharedProps = {
     timeState:         timeState,
     current:           timeState,
     type:              `expense`,
@@ -34,7 +34,7 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
     updateClientValue: updateClientValue,
   };
 
-  var housing            = timeState.housing,
+  let housing            = timeState.housing,
       housingCosts       = getHousingCosts(timeState),
       dependentCare      = getNonTransportCareCosts(timeState),
       dependentTransport = getTransportDependentCosts(timeState),

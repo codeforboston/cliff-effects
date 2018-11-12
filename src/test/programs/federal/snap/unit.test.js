@@ -18,7 +18,7 @@ import { SNAPData } from '../../../../data/federal/2017/SNAPData';
 // ==================
 // HELPERS
 // ==================
-var addNumMembers = function (num, household) {
+let addNumMembers = function (num, household) {
   while (num > 0) {
     household.push({ m_age: 30, m_role: 'member', m_disabled: false });
     num -= 1;

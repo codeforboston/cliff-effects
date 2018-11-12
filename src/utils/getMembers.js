@@ -9,7 +9,7 @@
 */
 const getEveryMember = function (memberList, memberTest, comparisonData) {
 
-  var members   = [];
+  let members   = [];
 
   for (let memi = 0; memi < memberList.length; memi++) {
 
@@ -30,7 +30,7 @@ const getEveryMember = function (memberList, memberTest, comparisonData) {
  *     a `client`s household that pass `memberTest()`
  */
 const getEveryMemberOfHousehold = function (client, memberTest, comparisonData) {
-  var household = client.household;
+  let household = client.household;
   return getEveryMember(household, memberTest, comparisonData);
 };  // End getEveryMemberOfHousehold()
 
@@ -118,7 +118,7 @@ const getUnder13OfHousehold = function (client) {
 
 const isYoungerThan = function (member, comparisonData) {
   // Can be number or object with correct prop
-  var age = comparisonData.age || comparisonData;
+  let age = comparisonData.age || comparisonData;
   return member.m_age < age;
 };
 
@@ -128,7 +128,7 @@ const getYoungerThan = function (client, age) {
 
 const isOlderThan = function (member, comparisonData) {
   // Can be number or object with correct prop
-  var age = comparisonData.age || comparisonData;
+  let age = comparisonData.age || comparisonData;
   // console.log(age, member.m_age);
   return member.m_age > age;
 };

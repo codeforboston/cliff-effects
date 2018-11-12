@@ -62,7 +62,7 @@ class ShowOnYes extends React.Component {
       ...rest
     } = this.props;
 
-    var show = this.state.show;
+    let show = this.state.show;
     return (
       <div className = { `show-on-yes` }>
 

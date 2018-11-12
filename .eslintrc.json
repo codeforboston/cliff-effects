@@ -48,6 +48,7 @@
     "react/jsx-tag-spacing": ["warn"],
     "react/self-closing-comp": "warn",
     "space-in-parens": ["warn", "never"],
-    "space-infix-ops": ["warn"]
+    "space-infix-ops": ["warn"],
+    "no-var": ["warn"]
   }
 }
