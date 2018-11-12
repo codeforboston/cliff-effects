@@ -60,7 +60,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
 // - [x] Snippets
 // - [x] Button placement
-// - [ ] Adjust button placement based on viewport width (https://stackoverflow.com/a/46586783/3791179)
+// - [x] Adjust button placement based on viewport width and semantic-ui-react styles (https://stackoverflow.com/a/46586783/3791179)
 // - [x] File name
 // - [x] Replace old graph
 // - [ ] Test

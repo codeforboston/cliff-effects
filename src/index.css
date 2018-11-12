@@ -240,15 +240,39 @@ input[type=number]::-webkit-outer-spin-button {
 .graph-holder {
   position: relative;
   min-height: 7rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  /*display: flex;*/
+  /*justify-content: flex-end;*/
+  /*align-items: flex-end;*/
+  display: block;
+  text-align: center;
 }
 
 .graph-time-options {
   position: absolute;
   top: 2em;
   left: 0;
+  z-index: 1;
+}
+
+@media only speech {
+  .graph-time-options {
+    position: static;
+  }
+}
+
+@media only screen and (max-width: 75rem) {
+  .graph-time-options {
+    position: static;
+  }
+}
+
+@media only screen and (max-width: 27rem) {
+  .graph-time-options {
+    width: 100%;
+  }
+  .graph-time-options .ui.button {
+    padding: .8em;
+  }
 }
 
 .benefit-lines-graph {
