@@ -58,15 +58,18 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Thousands separator
 // - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
 // - [x] Snippets
-// - [ ] Button placement
-// - [ ] Function descriptions
+// - [x] Button placement
+// - [ ] Adjust button placement based on viewport width (https://stackoverflow.com/a/46586783/3791179)
+// - [x] File name
+// - [ ] Replace old graph
 // - [ ] Test
+// - [ ] Function descriptions
 // - [ ] Hover style for legend items (button-like style always, then different for active vs. inactive?)
 // - [ ] Hover style for plot line
 // - [ ] Bigger font?
 // - [ ] Different zoom note for touch device
 
-class TestChartComp extends Component {
+class BenefitsLinesComp extends Component {
 
   constructor (props) {
     super(props);
@@ -213,7 +216,7 @@ class TestChartComp extends Component {
 };
 
 
-const TestChart = withHighcharts(TestChartComp, Highcharts);
+const BenefitsLines = withHighcharts(BenefitsLinesComp, Highcharts);
 
 
-export { TestChart };
+export { BenefitsLines };

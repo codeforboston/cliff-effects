@@ -6,7 +6,7 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
-import { TestChart } from './output/TestChart';
+import { BenefitsLines } from './output/BenefitsLines';
 import { Summary } from './output/Summary';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
@@ -63,7 +63,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             <Menu.Item
               key = { `tab5` }
               as  = { Button }>
-              { `Test` }
+              { `Benefit Programs` }
             </Menu.Item>
           ),
           render: () => {
@@ -71,7 +71,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               <Tab.Pane>
                 <GraphHolder
                   client   = { client }
-                  Graph    = { TestChart }
+                  Graph    = { BenefitsLines }
                   snippets = { snippets } />
               </Tab.Pane>
             );
