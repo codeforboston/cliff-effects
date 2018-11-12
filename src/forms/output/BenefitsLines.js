@@ -44,11 +44,11 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [x] Replace old graph
 // - [ ] Test
 // - [x] Function descriptions
-// - [ ] Add highcharts global options to graph frosting file (change file name and maybe location)
-// - [ ] Hover style for legend items (button-like style always, then different for active vs. inactive?)
-// - [ ] Hover style for plot line
-// - [ ] Bigger font?
-// - [ ] Different zoom note for touch device
+// - [ ] * Hover style for legend items (button-like style always, then different for active vs. inactive?)
+// - [ ] * Hover style for plot line
+// - [ ] * Legend item for PlotLine
+// - [ ] * Bigger font?
+// - [ ] * Different zoom note for touch device
 
 // Possible future improvements:
 // 1. Add PlotLine to Legend? Haven't found it yet and can't seem to do a
