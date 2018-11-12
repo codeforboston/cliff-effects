@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { range } from 'lodash';
-import { Message } from 'semantic-ui-react';
 
 // HIGHCHARTS
 import Highcharts from 'highcharts';
@@ -74,7 +73,8 @@ let multipliers = timescaleMultipliers.fromMonthly,
  * @params {object} props.client Data for current and future client circumstances.
  * @params {'Weekly'|'Monthly'|'Yearly'} props.timescale Should be `timeInterval`.
  * @params {string[]} props.activePrograms Benefit programs in which the household enrolled.
- * @params {object} props.className An extra class for the outermost component.
+ * @params {object} props.className An extra class for the outermost component,
+ *     whether it's the chart or the no-chart message.
  * @params {object} props.snippets Translation spans of text in app.
  */
 class BenefitsLinesComp extends Component {
@@ -94,10 +94,6 @@ class BenefitsLinesComp extends Component {
       className,
       snippets,
     } = this.props;
-
-    if (activePrograms.length === 0) {
-      return <Message className={ className }>No public benefit programs have been selected</Message>;
-    }
 
     const multiplier    = multipliers[ timescale ],
           resources     = activePrograms,

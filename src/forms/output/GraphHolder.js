@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Message } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
 import { GraphTimeButtons } from '../../components/GraphTimeButtons';
@@ -23,6 +24,10 @@ class GraphHolder extends Component {
           // The ids later used to access all program-specific data and functions
           // Only active programs are added
           activePrograms            = [ ...current.benefits ];
+
+    if (activePrograms.length === 0) {
+      return <Message className={ `graph-holder` }>{ snippets.i_noBenefitsSelected }</Message>;
+    }
 
     return (
       <div className='graph-holder'>

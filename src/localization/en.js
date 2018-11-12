@@ -278,6 +278,7 @@ export default {
       xAxisTitleEnd_v1:           ` Pay`,
       zoomInstructions_v1:        `Click and drag to zoom`,
       currentPayPlotLineLabel_v1: `Current pay:`,
+      noBenefitsSelected_v1:      `No public benefit programs have been selected`,
       // Text Summary:
       summaryTitle_v1:            `Summary`,
       noBenefitsChosen_v1:        `On the first page of questions you didn't choose any of the benefits. If you're not getting any benefits now, this tool can't tell you if you will get any in the future. If you're trying to find help getting into a benefit program, try searching for "social services" in your local area.`,

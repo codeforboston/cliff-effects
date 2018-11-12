@@ -253,6 +253,7 @@ export default {
       xAxisTitleEnd_v0:           ` Pay`,
       zoomInstructions_v0:        `Click and drag to zoom`,
       currentPayPlotLineLabel_v0: `Current pay:`,
+      noBenefitsSelected_v0:      `No public benefit programs have been selected`,
 
       'benefitsTableTitle_v1':    `收入變化`,
       'columnBenefit_v1':         `補助`,
