@@ -40,12 +40,12 @@ export default {
     aboutPageHeader_v1: `About the Cliff Effects Tool`,
 
     whatForHeader_v1:        `What is this tool for?`,
-    whatForImportantNote_v1: [
+    whatForImportantNote_v2: [
       {
         name: `__importantNote__`,
         text: `Important Note:`,
       },
-      `This application is a minimum viable product. It should not be used as the sole tool to understand a client's SNAP or Section 8 financial situation, or for any other public assistance program.`,
+      `This application is a minimum viable product. It should not be used as the only tool to understand a client's SNAP or Section 8 financial situation, or for any other public assistance program. It's made by volunteers with limited time and the tool may not be up to date with the current regulations.`,
     ],
     whatFor_v2: [
       `This tool can help show how a change in income affects how much someone receives in public assistance from SNAP (Supplemental Nutrition Assistance Program) and Section 8 Housing Voucher benefits. It was designed for the case managers at `,
@@ -54,11 +54,13 @@ export default {
     ],
 
     whyHeader_v1: `Why is this tool important?`,
-    why1_v1:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. The household is working to increase what they earn, but they end up with a net loss that actually puts them further behind. These cliff effects prevent many families from actually getting off of public assistance programs.`,
-    why2_v1:      `Cliff effects are also difficult to predict. The interactions between income, household size, many other criteria, as well as the effects of the programs themselves impact each other in unexpected ways. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
+    why1_v2:      `All the ways that benefits interact with a family's circumstances and with each other are impossible fo one person to calculate accurately. A family making fanancial choices these days is making them blind. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
+    why2_v2:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit.`,
 
+    // May need to remove some of these as people from MLRI indicated they aren't accurate
     videoLinkText_v1:    `Two-minute video describing cliff effects`,
     quantLinkText_v1:    `Quantitative scenarios demonstrating cliff effects`,
+    // This one may have been the one found to be inaccurate
     benefitsLinkText_v1: `Breakdown of different benefits offered in MA`,
 
     howToUseHeader_v1: `How do I use this tool?`,
