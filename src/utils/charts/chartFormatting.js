@@ -1,6 +1,10 @@
 import _ from 'lodash';
 
-// Helper functions to format vlaues
+/** Helper functions to format vlaues
+ * @module
+ * @todo Use language of the app in money formatters
+ */
+
 const toFancyMoneyStr = function (toFormat) {
   return toFormat.toLocaleString('en-US', { style: 'currency',currency: 'USD' }).replace('.00','');
 };
