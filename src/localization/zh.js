@@ -46,9 +46,9 @@ export default {
     ],
 
     'whyHeader_v1': `這個工具爲什麽重要？`,
-    // v2: `All the ways that benefits interact with a family's circumstances and with each other are impossible fo one person to calculate accurately. A family making fanancial choices these days is making them blind. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`
+    // v2: All the ways that benefits interact with a family's circumstances and with each other are impossible for one person to calculate accurately. A family making fanancial choices these days is making them blind. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.
     'why1_v1':      `懸崖效應發生于一個家庭經濟情況的微小改變，比如少額漲薪，不成比例地降低其補助額度。此家庭在試著增加其收入水平，卻實際上損失了收入，從而使其處在更大劣勢。這樣的懸崖效應阻止很多家庭離開公共補助項目。`,
-    // v2: `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit.`
+    // v2: A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit.
     'why2_v1':      `此外，懸崖效應也非常難預測。收入、家庭大小、其它因素、甚至項目本身，都可能意料不到地互相影響。我們在探索簡化這個難題的方式，從而幫助家庭更好理解和預測其自我狀況。`,
 
     'videoLinkText_v1':    `懸崖效應兩分鐘介紹視頻`,

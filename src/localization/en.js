@@ -54,7 +54,7 @@ export default {
     ],
 
     whyHeader_v1: `Why is this tool important?`,
-    why1_v2:      `All the ways that benefits interact with a family's circumstances and with each other are impossible fo one person to calculate accurately. A family making fanancial choices these days is making them blind. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
+    why1_v2:      `All the ways that benefits interact with a family's circumstances and with each other are impossible for one person to calculate accurately. A family making fanancial choices these days is making them blind. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
     why2_v2:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit.`,
 
     // May need to remove some of these as people from MLRI indicated they aren't accurate
