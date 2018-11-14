@@ -49,7 +49,7 @@ class FeedbackPrompt extends React.Component {
     }
 
     // Otherwise, set up the prompt
-    var realLeave   = leaveText || 'Leave',
+    let realLeave   = leaveText || 'Leave',
         realStay    = stayText || `Cancel`,
         realMessage = message;
     if (message === 'default') {

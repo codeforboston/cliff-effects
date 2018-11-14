@@ -37,14 +37,15 @@ describe('<GraphHolder>', () => {
   it('adds selected programs to array', () => {
     expect(passedActivePrograms(buildWrapper())).toEqual([]);
 
-    set(client, 'current.hasSnap', true);
-    expect(passedActivePrograms(buildWrapper())).toEqual([ 'snap' ]);
+    const benefits = [ 'snap' ];
 
-    set(client, 'current.hasSection8', true);
-    expect(passedActivePrograms(buildWrapper())).toEqual([
-      'section8',
-      'snap', 
-    ]);
+    set(client, 'current.benefits', benefits);
+    expect(passedActivePrograms(buildWrapper())).toEqual(benefits);
+
+    benefits.push('section8');
+
+    set(client, 'current.benefits', benefits);
+    expect(passedActivePrograms(buildWrapper())).toEqual(benefits);
   });
 
   it('matches snapshot', () => {

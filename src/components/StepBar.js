@@ -5,10 +5,10 @@ import { STEP_VALS } from '../forms/STEP_VALS';
 
 const StepBar = ({ currentStepKey, goToStep, snippets }) => {
 
-  var cleanSteps = [];
+  let cleanSteps = [];
 
   STEP_VALS.forEach((step, index) => {
-    var newStep = { title: { content: snippets[ `i_` + step.key ] }};
+    let newStep = { title: { content: snippets[ `i_` + step.key ] }};
     newStep.active = step.key === currentStepKey;
     newStep.onClick = (e) => {
       goToStep({ key: step.key });

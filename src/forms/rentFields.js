@@ -8,7 +8,7 @@ class RentShareField extends Component {
   state = { valid: true, message: null };
 
   storeValidator = (ownValue) => {
-    var message = null, valid = true;
+    let message = null, valid = true;
 
     let isPosNum = isNonNegNumber(ownValue);
     if (!isPosNum) {
@@ -61,7 +61,7 @@ class ContractRentField extends Component {
   state = { valid: true, message: null };
 
   storeValidator = (ownValue) => {
-    var message = null, valid = true;
+    let message = null, valid = true;
 
     let isPosNum = isNonNegNumber(ownValue);
     if (!isPosNum) {

@@ -10,7 +10,7 @@ import createReducer from '../../reducers';
 
 const NO_OP = () => {};
 
-var snippets = getTextForLanguage(`en`);
+const snippets = getTextForLanguage(`en`);
 test('Expenses step component should render without error', () => {
   const navData = {
           left:   (<div>Exp left</div>),

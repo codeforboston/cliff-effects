@@ -48,9 +48,9 @@ import { CashFlowInputsRow } from './cashflow';
  */
 const IncomeForm = function ({ client, setIncomeValue, snippets }) {
 
-  var type = 'income';
+  let type = 'income';
 
-  var sharedProps = {
+  const sharedProps = {
     timeState: client,
     type:      type,
     setValue:  setIncomeValue,

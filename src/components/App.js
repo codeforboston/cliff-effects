@@ -48,10 +48,10 @@ class App extends Component {
   constructor (props) {
     super(props);
 
-    var defaults = cloneDeep(CLIENT_DEFAULTS);
+    let defaults = cloneDeep(CLIENT_DEFAULTS);
 
     // Development variables are the only things stored
-    var localDev = localStorage.getItem(`cliffEffectsDevProps`);
+    let localDev = localStorage.getItem(`cliffEffectsDevProps`);
     if (typeof localDev !== `string`) {
       localDev = {};
     } else {
@@ -104,7 +104,7 @@ class App extends Component {
    * @param {string} inputProps.value - the [ISO 639-1 code]{@link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes} for the newly selected language.
   */
   setLanguage = (evnt, inputProps) => {
-    var snippets = getTextForLanguage(inputProps.value);
+    let snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
     this.props.setLanguage({ language: inputProps.value });
   };
@@ -119,10 +119,10 @@ class App extends Component {
   setDev = (key, value) => {
     this.setState((prevState) => {
 
-      var props = prevState.devProps;
+      let props = prevState.devProps;
       if (props[ key ] !== value) {
 
-        var newProps = { ...props, [ key ]: value };
+        let newProps = { ...props, [ key ]: value };
         localStorage.setItem(`cliffEffectsDevProps`, JSON.stringify(newProps));
 
         return { devProps: newProps };
@@ -158,7 +158,7 @@ class App extends Component {
    * of obj with values equal to true, separated by spaces.
    */
   propsToClasses (obj) {
-    var classes = ``;
+    let classes = ``;
     for (let key in obj) {
       if (obj[ key ] === true) {
         classes += ` ` + key;
@@ -178,7 +178,7 @@ class App extends Component {
   };  // End acceptTerms()
 
   render () {
-    var {
+    let {
       langCode,
       snippets,
       devProps,
@@ -186,9 +186,9 @@ class App extends Component {
       distrustConfirmed,
     } = this.state;
 
-    var { warningOff } = devProps;
+    let { warningOff } = devProps;
 
-    var confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
+    let confirmer = new Confirmer(),  // Makes sure user doesn't accidentally lose work
         classes   = this.propsToClasses(devProps),
         devFuncs  = {
           setDev:      this.setDev,

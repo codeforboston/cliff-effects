@@ -4,23 +4,7 @@ import React from 'react';
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
 import { ControlledRadioYesNo } from './inputs';
-
-
-class LocalizedRadioYesNo extends React.PureComponent {
-  handleRadioChange = (event, data) => {
-    this.props.setHasBenefit({ benefit: this.props.name, value: data.checked });
-  };
-
-  render() {
-    return (
-      <ControlledRadioYesNo
-        checked   = { this.props.checked }
-        labelText = { this.props.snippets[ `i_` + this.props.name + `Label` ] }
-        name      = { this.props.name }
-        onChange  = { this.handleRadioChange } />
-    );
-  }
-}
+import { allBenefitOrders } from '../programs/allBenefitOrders';
 
 
 /** Asks which benefits the user is currently receiving
@@ -36,28 +20,47 @@ class LocalizedRadioYesNo extends React.PureComponent {
  *
  * @returns {object} Component
  */
-const CurrentBenefitsContent = ({ currentClient, setHasBenefit, snippets }) => {
+class CurrentBenefitsContent extends React.Component {
+  handleRadioChange = (event, inputProps) => {
+    const benefitName = inputProps.name;
 
-  var sharedProps = {
-    setHasBenefit,
-    snippets,
+    this.props.setHasBenefit(benefitName, inputProps.value);
   };
 
-  return (
-    <div >
-      <LocalizedRadioYesNo
-        { ...sharedProps }
-        checked = { currentClient.get('hasSection8') }
-        name    = { 'hasSection8' } />
-      <div className = { `question-spacer` } />
-      <LocalizedRadioYesNo
-        { ...sharedProps }
-        checked = { currentClient.get('hasSnap') }
-        name    = { 'hasSnap' } />
-    </div>
-  );  // end return
+  render() {
+    const { current, snippets, benefits } = this.props;
 
-};  // End CurrentBenefitsContent()
+    const components = [];
+  
+    for (let benefitIndex = 0; benefitIndex < benefits.length; benefitIndex++) {
+      const benefit = benefits[ benefitIndex ];
+
+      const snippetKey = `i_has_${benefit}_label`;
+
+      if (!(snippetKey in snippets)) {
+        throw new Error(`No snippet found as label for benefit radio buttons; expected key "${snippetKey}"`);
+      }
+
+      const labelText = snippets[ snippetKey ];
+  
+      components.push(
+        <ControlledRadioYesNo
+          key={ benefit }
+          snippets={ snippets }
+          labelText={ labelText }
+          onChange={ this.handleRadioChange }
+          checked = { current.get('benefits').includes(benefit) }
+          name    = { benefit } />
+      );
+    }
+
+    return (
+      <div>
+        {components}
+      </div>
+    );
+  }
+}  // End CurrentBenefitsContent()
 
 /**
  * @todo Combine with related components?
@@ -82,8 +85,9 @@ const CurrentBenefitsStep = ({ setHasBenefit, navData, currentClient, snippets }
       formSize  = { `massive` }>
       <CurrentBenefitsContent
         setHasBenefit = { setHasBenefit }
-        currentClient      = { currentClient }
-        snippets     = { snippets } />
+        currentClient = { currentClient }
+        snippets      = { snippets }
+        benefits      = { allBenefitOrders[ currentClient.get('USState') ] } />
     </FormPartsContainer>
   );
 

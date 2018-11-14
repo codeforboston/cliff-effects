@@ -11,7 +11,7 @@ import createReducer from '../../reducers';
 const NO_OP = () => {};
 
 
-var snippets = getTextForLanguage(`en`);
+const snippets = getTextForLanguage(`en`);
 test('Household step component should render without error', () => {
   const navData = {
           left:   (<div>House left</div>),

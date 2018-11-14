@@ -9,7 +9,7 @@ import { getTextForLanguage } from '../../utils/getTextForLanguage';
 import createReducer from '../../reducers';
 
 
-var snippets = getTextForLanguage(`en`);
+const snippets = getTextForLanguage(`en`);
 test('Income step component should render without error', () => {
   const navData = {
           left:   (<div>Inc left</div>),

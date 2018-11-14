@@ -9,7 +9,7 @@ import { getTextForLanguage } from '../../utils/getTextForLanguage';
 import createReducer from '../../reducers';
 
 
-var snippets = getTextForLanguage(`en`);
+const snippets = getTextForLanguage(`en`);
 test('Benefits step component should render without error', () => {
   const navData = {
           left:   null,

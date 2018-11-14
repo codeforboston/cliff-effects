@@ -23,7 +23,7 @@ import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 
 // Graphs get things in monthly values, so we'll convert from there
-var multipliers = timescaleMultipliers.fromMonthly,
+let multipliers = timescaleMultipliers.fromMonthly,
     // Each graph controls its own scaling
     limits      = PROGRAM_CHART_VALUES.limits;
 
@@ -44,12 +44,17 @@ class BenefitsLineGraph extends Component {
     }
 
     // Adjust to time-interval, round to hundreds
-    var max       = Math.ceil((limits.max * multiplier) / 100) * 100,
+    let max       = Math.ceil((limits.max * multiplier) / 100) * 100,
         interval  = Math.ceil((max / 100) / 10) * 10;
 
-    var xRange      = _.range(limits.min, max, interval),  // x-axis/earned income numbers
-        extraProps  = { snap: { fill: false }, section8: { fill: false }},
-        datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
+    let extraProps  = {};
+    
+    for (let benefitIndex = 0; benefitIndex < activePrograms.length; benefitIndex++) {
+      extraProps[ activePrograms[ benefitIndex ] ] = { fill: false };
+    }
+
+    const xRange      = _.range(limits.min, max, interval),  // x-axis/earned income numbers
+          datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
     if (datasets.length === 0) {
@@ -58,12 +63,12 @@ class BenefitsLineGraph extends Component {
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    var earned  = client.future.earned * multiplier,
-        hack    = this.state.verticalLine;
+    const earned  = client.future.earned * multiplier,
+          hack    = this.state.verticalLine;
     hack.xRange = xRange;
     hack.earned = earned;
 
-    var lineProps = {
+    let lineProps = {
       data: {
         labels:   xRange,
         datasets: datasets,

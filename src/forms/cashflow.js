@@ -117,6 +117,13 @@ class CashFlowInputsRow extends React.Component {
   render() {
     const { children, generic, timeState } = this.props;
 
+    /* Get the time ('future' or 'current') monthly value unless there is
+     * none, in which case, get the 'current' monthly cash flow value
+     * (to prefill future values with 'current' ones if needed).
+     *
+     * @todo Add some kind of UI indication when it's the same as the 'current'
+     * value. What if some of the row's values are the same and some are
+     * different? */
     const baseVal = timeState.get(generic);
 
     const baseProps = {
@@ -163,7 +170,7 @@ class CashFlowInputsRow extends React.Component {
  */
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
 
-  var baseVal      = value || timeState[ generic ],
+  let baseVal      = value || timeState[ generic ],
       colClassName = `cashflow-column`,
       weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
       monthly      = toMoneyStr(baseVal),

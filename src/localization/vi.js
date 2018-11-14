@@ -115,12 +115,10 @@ export default {
     },
 
     currentBenefits: {
-      'currentBenefits_v1':  `Lợi Ích Hiện Tại`,
-      'selectBenefits_v1':   `Chọn những lợi ích bạn hiện đang nhận được`,
-      'hasSection8Label_v1': `Bạn có chương trình Section 8 Housing không?`,
-      'hasSection8Hint_v1':  `Chương trình Section 8 Housing giúp cung cấp hỗ trợ nhà ở cho thuê.`,
-      'hasSnapLabel_v1':     `Bạn có chương trình phiếu mua hàng SNAP không?`,
-      'hasSnapHint_v1':      `Chương trình SNAP cung cấp hỗ trợ thực phẩm`,
+      currentBenefits_v1:    `Lợi Ích Hiện Tại`,
+      selectBenefits_v1:     `Chọn những lợi ích bạn hiện đang nhận được`,
+      has_section8_label_v1: `Bạn có chương trình Section 8 Housing không?`,
+      has_snap_label_v1:     `Bạn có chương trình phiếu mua hàng SNAP không?`,
     },
 
     household: {

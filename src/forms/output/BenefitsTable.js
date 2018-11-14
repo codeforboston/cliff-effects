@@ -21,69 +21,77 @@ const getSignSymbol = function (num) {
 
 
 const BenefitsTable = function ({ client, snippets }) {
+  const clone = cloneDeep(client);
+  const curr = clone.current;
 
-  var clone = cloneDeep(client);
-  var curr = clone.current;
+  let allData         = {},
+      activeBenefits  = [
+        `earned`,
+        ...curr.benefits,
+      ];
 
-  var allData         = {},
-      activeBenefits  = [ `earned` ];
-
-  if (curr.hasSection8) {
-    activeBenefits.push(`section8`);
-  }
-
-  if (curr.hasSnap) {
-    activeBenefits.push(`snap`);
-  }
-
-  var currentCalcData = {
+  let currentCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
     timeframe:      `current`,
+    USState:        client.USState,
   };
   applyAndPushBenefits (currentCalcData);
 
   // Add to the `current` data already there
-  var futureCalcData = {
+  let futureCalcData = {
     activeBenefits: activeBenefits,
     dataToAddTo:    allData,
     clientToChange: clone,
     timeframe:      `future`,
+    USState:        client.USState,
   };
   applyAndPushBenefits (futureCalcData);
 
-  // @todo Abstract getting values for each row
-  var earned   = allData.earned,
-      section8 = allData.section8,
-      snap     = allData.snap;
+  const earned = allData.earned;
+  
+  const currentBenefits = {};
+  const futureBenefits = {};
+  const benefitDiffs = {};
+  let totalDiff = 0;
+  let totalBenefitCurrent = 0;
+  let totalBenefitFuture = 0;
 
-  var sec8BenefitCurrent = 0,
-      sec8BenefitFuture  = 0,
-      SNAPBenefitCurrent = 0,
-      SNAPBenefitFuture  = 0;
+  for (let benefitIndex = 0; benefitIndex < curr.benefits.length; benefitIndex++) {
+    const benefit = curr.benefits[ benefitIndex ];
 
-  if (curr.hasSection8) {
-    sec8BenefitCurrent     = Math.round(section8[ 0 ]);
-    sec8BenefitFuture      = Math.round(section8[ 1 ]);
+    const benefitData = allData[ benefit ];
+    
+    if (benefitData) {
+      const [
+        currentBenefit,
+        futureBenefit, 
+      ] = benefitData;
+      
+      currentBenefits[ benefit ] = Math.round(currentBenefit);
+  
+      futureBenefits[ benefit ] = Math.round(futureBenefit);
+
+      totalBenefitCurrent += currentBenefits[ benefit ];
+      totalBenefitFuture += futureBenefits[ benefit ];
+    }
+    else {
+      currentBenefits[ benefit ] = 0;
+
+      futureBenefits[ benefit ] = 0;
+    }
+
+    benefitDiffs[ benefit ] = futureBenefits[ benefit ] - currentBenefits[ benefit ];
+    totalDiff += benefitDiffs[ benefit ];
   }
 
-  if (curr.hasSnap) {
-    SNAPBenefitCurrent = Math.round(snap[ 0 ]);
-    SNAPBenefitFuture  = Math.round(snap[ 1 ]);
-  }
-
-  var SNAPDiff            = SNAPBenefitFuture - SNAPBenefitCurrent,
-      sec8Diff            = sec8BenefitFuture - sec8BenefitCurrent,
-      totalBenefitCurrent = SNAPBenefitCurrent + sec8BenefitCurrent,
-      totalBenefitFuture  = SNAPBenefitFuture + sec8BenefitFuture,
-      totalDiff           = SNAPDiff + sec8Diff,
-      earnedCurrent       = Math.round(earned[ 0 ]),
-      earnedFuture        = Math.round(earned[ 1 ]),
-      earnedDiff          = earnedFuture - earnedCurrent,
-      netCurrent          = totalBenefitCurrent + earnedCurrent,
-      netFuture           = totalBenefitFuture + earnedFuture,
-      netDiff             = totalDiff + earnedDiff;
+  const earnedCurrent       = Math.round(earned[ 0 ]),
+        earnedFuture        = Math.round(earned[ 1 ]),
+        earnedDiff          = earnedFuture - earnedCurrent,
+        netCurrent          = totalBenefitCurrent + earnedCurrent,
+        netFuture           = totalBenefitFuture + earnedFuture,
+        netDiff             = totalDiff + earnedDiff;
 
   const columnHeaderStyle = {
           background:    'rgba(0, 181, 173, 1)',
@@ -113,40 +121,8 @@ const BenefitsTable = function ({ client, snippets }) {
           padingTop:  '0.25em',
         };
 
-
-  const SNAPBenefitRow = function({ client, snippets }){
-
-    if (!client.current.hasSnap) {
-      return (null);
-    }
-
-    return (
-      <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowSNAP }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{SNAPBenefitCurrent}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{SNAPBenefitFuture}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(SNAPDiff) } { snippets.i_beforeMoney }{ Math.abs(SNAPDiff) }{ snippets.i_afterMoney }</Table.Cell>
-      </Table.Row>
-    );
-  };
-
-  const Sec8BenefitRow  = function({ client, snippets }){
-    if (!client.current.hasSection8) {
-      return (null);
-    }
-
-    return (
-      <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowSection8 }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{sec8BenefitCurrent}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{sec8BenefitFuture}{ snippets.i_afterMoney }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(sec8Diff) } { snippets.i_beforeMoney }{ Math.abs(sec8Diff) }{ snippets.i_afterMoney }</Table.Cell>
-      </Table.Row>
-    );
-  };
-
   const TotalBenefitsRow = function({ client, snippets }){
-    if (!client.current.hasSnap || !client.current.hasSection8) {
+    if (client.current.benefits.length <= 1) {
       return (null);
     }
 
@@ -214,6 +190,26 @@ const BenefitsTable = function ({ client, snippets }) {
     );
   };
 
+  const benefitRows = [];
+
+  for (let benefitIndex = 0; benefitIndex < curr.benefits.length; benefitIndex++) {
+    const benefit = curr.benefits[ benefitIndex ];
+
+    const diff = benefitDiffs[ benefit ];
+
+    const label = snippets[ `i_row_${benefit}` ];
+
+    benefitRows.push(
+      <Table.Row
+        key={ benefit }>
+        <Table.Cell style={ rowHeaderStyle }>{ label }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{currentBenefits[ benefit ]}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ snippets.i_beforeMoney }{futureBenefits[ benefit ]}{ snippets.i_afterMoney }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(diff) } { snippets.i_beforeMoney }{ Math.abs(diff) }{ snippets.i_afterMoney }</Table.Cell>
+      </Table.Row>
+    );
+  }
+
   return (
     <div>
       <Table celled>
@@ -238,12 +234,7 @@ const BenefitsTable = function ({ client, snippets }) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <SNAPBenefitRow 
-            client={ clone }
-            snippets={ snippets } />
-          <Sec8BenefitRow 
-            client={ clone }
-            snippets={ snippets } />
+          {benefitRows}
           <TotalBenefitsRow 
             client={ clone } 
             snippets={ snippets } />

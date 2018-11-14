@@ -37,7 +37,7 @@ const Columns = {};
 
 // `noMargin` is a bit hacky, but it'll do for now
 Columns.One = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -45,7 +45,7 @@ Columns.One = function ({ noMargin, children }) {
 };
 
 Columns.Two = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -53,7 +53,7 @@ Columns.Two = function ({ noMargin, children }) {
 };
 
 Columns.Three = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -61,7 +61,7 @@ Columns.Three = function ({ noMargin, children }) {
 };
 
 Columns.Four = function ({ noMargin, children }) {
-  var marginTop = columnStyle.marginTop;
+  let marginTop = columnStyle.marginTop;
   if (noMargin) {
     marginTop = 0;
   }
@@ -71,7 +71,7 @@ Columns.Four = function ({ noMargin, children }) {
 
 const ColumnHeader = function ({ children, columnNum }) {
 
-  var Container = Columns[ columnNum ];
+  let Container = Columns[ columnNum ];
 
   return (
     <Container>
@@ -117,7 +117,7 @@ class Role extends React.PureComponent {
   render() {
     const { member, snippets } = this.props;
     
-    var ThisRole  = null,
+    let ThisRole  = null,
         margin   = '0';
   
     if (this.props.index === 0) {
@@ -128,7 +128,7 @@ class Role extends React.PureComponent {
   
       margin = '-1em';
   
-      var options = [
+      const options = [
         { text: snippets.i_spouse, value: 'spouse' },
         { text: snippets.i_childOther, value: 'member' },
       ];
@@ -265,7 +265,7 @@ class HouseholdContent extends React.PureComponent {
   };  // End getMembers()
 
   addMember = () => {
-    var member;
+    let member;
     if (this.props.household.size === 1) {
       member = { m_age: 30, m_role: 'spouse', m_disabled: false };
     } else {

@@ -11,7 +11,7 @@ const empty = function () {
 
 
 const earnedBecauseOfChildCare = function (clientPartial) {
-  var sum = (
+  let sum = (
     clientPartial.childDirectCare +
     clientPartial.childBeforeAndAfterSchoolCare +
     clientPartial.childTransportation +
@@ -45,7 +45,7 @@ const sideEffects = {
 
 
 const getSideEffects = function (clientPartial, itemID) {
-  var func = sideEffects[ itemID ] || empty;
+  let func = sideEffects[ itemID ] || empty;
   return func(clientPartial);
 };  // End getSideEffects();
 
