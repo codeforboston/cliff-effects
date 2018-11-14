@@ -240,9 +240,6 @@ input[type=number]::-webkit-outer-spin-button {
 .graph-holder {
   position: relative;
   min-height: 7rem;
-  /*display: flex;*/
-  /*justify-content: flex-end;*/
-  /*align-items: flex-end;*/
   display: block;
   text-align: center;
 }
