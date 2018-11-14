@@ -263,6 +263,15 @@ export default {
       'warningMessage_v1':          `Công cụ này đang được thử nghiệm và những con số này có thể không đúng. Nếu chúng không đúng, xin vui lòng gửi cho chúng tôi phản hồi của bạn.`,
       'submitFeedback_v1':          `Gửi Phản Hồi`,
 
+      beforeMoney_v1:             ``,
+      afterMoney_v1:              `$`,
+      thousandsSeparator_v0:      `,`,
+      beforeMoneyWithTime_v1:     ` / tháng`,
+      afterMoneyWithTime_v1:      `$`,
+      xAxisTitleEnd_v0:           ` Pay`,
+      zoomInstructions_v0:        `Click and drag to zoom`,
+      currentPayPlotLineLabel_v0: `Current pay:`,
+      noBenefitsSelected_v0:      `No public benefit programs have been selected`,
 
       'benefitsTableTitle_v1':    `Những Thay Đổi`,
       'columnBenefit_v1':         `Lợi Ích `,
@@ -274,8 +283,6 @@ export default {
       'rowTotalBenefits_v1':      `Tổng Lợi Ích`,
       rowEarned_v1:               `Tiền Thu Nhập`,
       rowNetTotal_v1:             `Tổng số tiền sau khi chi phí`,
-      beforeMoney_v1:             ` / tháng`,
-      afterMoney_v1:              `$`,
 
       stackedBarGraphTitle_v1: `Đồ Thị Về Việc Thay Đổi`,
       moneyInAsPayChanges_v1:  `Tiền Nhận Được Lúc Mà Thay Đổi Thu Nhập`,

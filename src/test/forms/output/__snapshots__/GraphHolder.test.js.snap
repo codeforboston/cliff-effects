@@ -124,6 +124,83 @@ exports[`<GraphHolder> matches snapshot 1`] = `
   <div
     className="graph-holder"
   >
+    <GraphTimeButtons
+      activeID="Yearly"
+      onClick={[Function]}
+    >
+      <ButtonGroup
+        basic={true}
+        className="graph-time-options"
+      >
+        <div
+          className="ui basic buttons graph-time-options"
+        >
+          <GraphButton
+            activeID="Yearly"
+            id="Weekly"
+            onClick={[Function]}
+          >
+            <Button
+              active={false}
+              as="button"
+              id="Weekly"
+              onClick={[Function]}
+            >
+              <button
+                className="ui button"
+                id="Weekly"
+                onClick={[Function]}
+                role="button"
+              >
+                Weekly
+              </button>
+            </Button>
+          </GraphButton>
+          <GraphButton
+            activeID="Yearly"
+            id="Monthly"
+            onClick={[Function]}
+          >
+            <Button
+              active={false}
+              as="button"
+              id="Monthly"
+              onClick={[Function]}
+            >
+              <button
+                className="ui button"
+                id="Monthly"
+                onClick={[Function]}
+                role="button"
+              >
+                Monthly
+              </button>
+            </Button>
+          </GraphButton>
+          <GraphButton
+            activeID="Yearly"
+            id="Yearly"
+            onClick={[Function]}
+          >
+            <Button
+              active={true}
+              as="button"
+              id="Yearly"
+              onClick={[Function]}
+            >
+              <button
+                className="ui active button"
+                id="Yearly"
+                onClick={[Function]}
+                role="button"
+              >
+                Yearly
+              </button>
+            </Button>
+          </GraphButton>
+        </div>
+      </ButtonGroup>
+    </GraphTimeButtons>
     <Graph
       activePrograms={Array []}
       className="client-graph"
@@ -368,83 +445,6 @@ exports[`<GraphHolder> matches snapshot 1`] = `
         timescale="Yearly"
       />
     </Graph>
-    <GraphTimeButtons
-      activeID="Yearly"
-      onClick={[Function]}
-    >
-      <ButtonGroup
-        basic={true}
-        className="graph-time-options"
-      >
-        <div
-          className="ui basic buttons graph-time-options"
-        >
-          <GraphButton
-            activeID="Yearly"
-            id="Weekly"
-            onClick={[Function]}
-          >
-            <Button
-              active={false}
-              as="button"
-              id="Weekly"
-              onClick={[Function]}
-            >
-              <button
-                className="ui button"
-                id="Weekly"
-                onClick={[Function]}
-                role="button"
-              >
-                Weekly
-              </button>
-            </Button>
-          </GraphButton>
-          <GraphButton
-            activeID="Yearly"
-            id="Monthly"
-            onClick={[Function]}
-          >
-            <Button
-              active={false}
-              as="button"
-              id="Monthly"
-              onClick={[Function]}
-            >
-              <button
-                className="ui button"
-                id="Monthly"
-                onClick={[Function]}
-                role="button"
-              >
-                Monthly
-              </button>
-            </Button>
-          </GraphButton>
-          <GraphButton
-            activeID="Yearly"
-            id="Yearly"
-            onClick={[Function]}
-          >
-            <Button
-              active={true}
-              as="button"
-              id="Yearly"
-              onClick={[Function]}
-            >
-              <button
-                className="ui active button"
-                id="Yearly"
-                onClick={[Function]}
-                role="button"
-              >
-                Yearly
-              </button>
-            </Button>
-          </GraphButton>
-        </div>
-      </ButtonGroup>
-    </GraphTimeButtons>
   </div>
 </GraphHolder>
 `;

@@ -10,7 +10,7 @@ import Summary from '../containers/forms/output/Summary';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
-import { BenefitsLineGraph } from './output/BenefitsLineGraph';
+import { BenefitsLines } from './output/BenefitsLines';
 
 // ========================================
 // COMPONENTS
@@ -63,11 +63,11 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               { snippets.i_summaryTitle }
             </Menu.Item>
           ),
-          render: () => {return (
-            <Tab.Pane>
-              <Summary
-                openFeedback = { openFeedback }
-                snippets     = { snippets } />
+          render: () => { return (
+            <Tab.Pane><Summary
+              client       = { client }
+              openFeedback = { openFeedback }
+              snippets     = { snippets } />
             </Tab.Pane>
           );}, 
         },
@@ -97,7 +97,13 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               { snippets.i_tabTitleChangesChart }
             </Menu.Item>
           ),
-          render: () => {return <Tab.Pane><StackedBarGraph client={ client } /></Tab.Pane>;},
+          render: () => { return (
+            <Tab.Pane>
+              <StackedBarGraph
+                client   = { client }
+                snippets = { snippets } />
+            </Tab.Pane>
+          );},
         },
         {
           menuItem: (
@@ -112,7 +118,8 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               <Tab.Pane>
                 <GraphHolder
                   client={ client }
-                  Graph={ StackedAreaGraph } />
+                  Graph={ StackedAreaGraph }
+                  snippets = { snippets } />
               </Tab.Pane>
             );
           },
@@ -129,8 +136,9 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             return (
               <Tab.Pane>
                 <GraphHolder
-                  client={ client }
-                  Graph={ BenefitsLineGraph } />
+                  client   = { client }
+                  Graph    = { BenefitsLines }
+                  snippets = { snippets } />
               </Tab.Pane>
             );
           },
