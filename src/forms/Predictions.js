@@ -9,7 +9,7 @@ import { GraphHolder } from './output/GraphHolder';
 import { Summary } from './output/Summary';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
-import { StackedAreaGraph } from './output/StackedAreaGraph';
+import { StackedResources } from './output/StackedResources';
 import { BenefitsLines } from './output/BenefitsLines';
 
 // ========================================
@@ -120,7 +120,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               <Tab.Pane>
                 <GraphHolder
                   client={ client }
-                  Graph={ StackedAreaGraph }
+                  Graph={ StackedResources }
                   snippets = { snippets } />
               </Tab.Pane>
             );
