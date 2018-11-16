@@ -175,6 +175,11 @@ class ManagedNumberField extends Component {
     let valid = storeValidator(inputProps.value);
 
     if (valid) {
+      inputProps = {
+        ...inputProps,
+        value: Number(inputProps.value),
+      };
+
       store(evnt, inputProps, otherData);
     }
     this.setState({ focusedVal: focusedVal, valid: valid });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import App from '../App';
+import App from '../components/App';
 
 global.localStorage = {
   getItem: function (key) { return `false`; },
@@ -9,6 +9,12 @@ global.localStorage = {
   setItem: function (key, value) { return; },
 };
 
+const NO_OP = () => {};
+
 it('renders without crashing', () => {
-  shallow(<App />);
+  shallow(
+    <App
+      setLanguage={ NO_OP }
+      setUSState={ NO_OP } />
+  );
 });

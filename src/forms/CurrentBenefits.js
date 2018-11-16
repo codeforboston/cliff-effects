@@ -1,6 +1,5 @@
 // REACT COMPONENTS
 import React from 'react';
-import cloneDeep from 'lodash/cloneDeep';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -14,8 +13,8 @@ import { allBenefitOrders } from '../programs/allBenefitOrders';
  *
  * @function
  * @param {object} props
- * @property {object} props.current Client current info.
- * @property {function} props.updateClientValue Updates state upstream.
+ * @property {Immutable.Map} props.currentClient Client current info.
+ * @property {function} props.setHasBenefit Sets whether the client has a particular benefit.
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
@@ -23,37 +22,11 @@ import { allBenefitOrders } from '../programs/allBenefitOrders';
  */
 class CurrentBenefitsContent extends React.Component {
   handleRadioChange = (event, inputProps) => {
-    const benefitName = inputProps.name;
-
-    const route = 'benefits';
-
-    const value = cloneDeep(this.props.current.benefits);
-
-    if (inputProps.value) {
-      value.push(benefitName);
-      value.sort(
-        // Make sure benefits are in the correct order
-        (a, b) => {
-          const aIndex = this.props.benefits.indexOf(a);
-          const bIndex = this.props.benefits.indexOf(b);
-
-          return aIndex - bIndex;
-        }
-      );
-    }
-    else {
-      const index = value.indexOf(benefitName);
-
-      if (index >= 0) {
-        value.splice(index, 1);
-      }
-    }
-
-    this.props.updateClientValue(event, { route, value, time: 'current' });
+    this.props.setHasBenefit({ benefit: inputProps.name, value: inputProps.value });
   };
 
   render() {
-    const { current, snippets, benefits } = this.props;
+    const { currentClient, snippets, benefits } = this.props;
 
     const components = [];
   
@@ -74,7 +47,7 @@ class CurrentBenefitsContent extends React.Component {
           snippets={ snippets }
           labelText={ labelText }
           onChange={ this.handleRadioChange }
-          checked = { current.benefits.includes(benefit) }
+          checked = { currentClient.get('benefits').includes(benefit) }
           name    = { benefit } />
       );
     }
@@ -92,15 +65,15 @@ class CurrentBenefitsContent extends React.Component {
  *
  * @function
  * @param {object} props
- * @property {function} props.updateClientValue Updates state upstream.
  * @property {object} props.navData Bottom row buttons
- * @property {object} props.client JSON object with future and current values.
+ * @property {Immutable.Map} props.currentClient Immutable Map with current values.
+ * @property {string} props.USState the US state that the client lives in
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) => {
+const CurrentBenefitsStep = ({ setHasBenefit, navData, currentClient, USState, snippets }) => {
 
   return (
     <FormPartsContainer
@@ -110,10 +83,10 @@ const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) =
       formClass = { `benefits` }
       formSize  = { `massive` }>
       <CurrentBenefitsContent
-        updateClientValue = { updateClientValue }
-        current      = { client.current }
-        snippets     = { snippets }
-        benefits     = { allBenefitOrders[ client.USState ] } />
+        setHasBenefit = { setHasBenefit }
+        currentClient = { currentClient }
+        snippets      = { snippets }
+        benefits      = { allBenefitOrders[ USState ] } />
     </FormPartsContainer>
   );
 

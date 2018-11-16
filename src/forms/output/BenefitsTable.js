@@ -5,9 +5,6 @@ import { Table } from 'semantic-ui-react';
 // BENEFIT LOGIC
 import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
-// OBJECT MANIPULATION
-import { cloneDeep } from 'lodash';
-
 
 const getSignSymbol = function (num) {
   if (num > 0) {
@@ -21,7 +18,8 @@ const getSignSymbol = function (num) {
 
 
 const BenefitsTable = function ({ client, snippets }) {
-  const clone = cloneDeep(client);
+  // @todo: make applyAndPushBenefits() work with Immutable.js collections
+  const clone = client.toJS();
   const curr = clone.current;
 
   let allData         = {},

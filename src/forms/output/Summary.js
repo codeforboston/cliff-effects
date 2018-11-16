@@ -1,5 +1,7 @@
 // REACT COMPONENTS
 import React from 'react';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Header, Button } from 'semantic-ui-react';
 
 // DATA
@@ -7,7 +9,6 @@ import { Header, Button } from 'semantic-ui-react';
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
 // DATA MANIPULATION
-import { cloneDeep } from 'lodash';
 import { toMoneyStr } from '../../utils/prettifiers';
 
 // BENEFIT LOGIC
@@ -56,7 +57,7 @@ let totalLastItemsOfArraysInObject = function (accumulated) {
  *     array of numerical values (which are meant to be money
  *     values right now).
  * @param {array} sourceObject.earned Earned income values.
- * @param {int} Which item in each array should be used to
+ * @param {int} index Which item in each array should be used to
  *      accumulate values.
  *
  * @example
@@ -192,10 +193,10 @@ let fillInMoneyValues = (keys, sourceObject, index) => {
  * @returns {object}
  */
 let getBenefitData = function(client, resourceKeys) {
-
-  let clone  = cloneDeep(client),
-      // This is the data we need in the groupings we need it
-      result = {
+  // @todo: refactor to use Immutable collections
+  client = client.toJS();
+  // This is the data we need in the groupings we need it
+  let result = {
         current:  null,  // current money values,
         future:   null,  // future money values,
         diff:     0,
@@ -207,7 +208,7 @@ let getBenefitData = function(client, resourceKeys) {
   let defaultProps = {
     activeBenefits: resourceKeys,
     dataToAddTo:    accumulated,
-    clientToChange: clone,
+    clientToChange: client,
     timeframe:      `current`,
   };
   let currentCalcData = defaultProps;
@@ -236,7 +237,7 @@ let getBenefitData = function(client, resourceKeys) {
     // till the client is making more money than they are now
     while (recoveryAmount - resultCurr.total <= 0) {
 
-      clone.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
+      client.future.earned += EARNED_MONTHLY_INCREMENT_AMOUNT;
       applyAndPushBenefits(futureCalcData);
       // If has dramatic cliff, must have recovery
       recoveryAmount = totalLastItemsOfArraysInObject(accumulated);
@@ -273,14 +274,23 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
   const resourceKeys = [
     `earned`,
-    ...client.current.benefits,
+    ...client.getIn([
+      'current',
+      'benefits',
+    ]).toArray(),
   ];
 
   // Really quick returns if other calcs not needed
   if (resourceKeys.length <= 1) {
     return snippets.i_noBenefitsChosen;
   }
-  if (client.future.earned === client.current.earned) {
+  if (client.getIn([
+    'future',
+    'earned', 
+  ]) === client.getIn([
+    'current',
+    'earned', 
+  ])) {
     return snippets.i_noFutureChange;
   }
 
@@ -326,8 +336,9 @@ const Summary = function ({ client, openFeedback, snippets }) {
   let numBenefits = current.benefits.length;
   for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
 
-    let cBenefit = current.benefits[ benefiti ],
-        fBenefit = future.benefits[ benefiti ];
+    let cBenefit = current.benefits[ benefiti ];
+    
+    let fBenefit = future.benefits[ benefiti ];
 
     benefitList.push(
       <li key = { cBenefit.label }>
@@ -428,6 +439,11 @@ const Summary = function ({ client, openFeedback, snippets }) {
   );
 };  // Ends <Summary>
 
+
+Summary.propTypes = {
+  client:       ImmutablePropTypes.map,
+  openFeedback: PropTypes.func,
+};
 
 export {
   Summary,

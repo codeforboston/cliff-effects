@@ -54,7 +54,8 @@ class BenefitsLineGraph extends Component {
     }
 
     const xRange      = _.range(limits.min, max, interval),  // x-axis/earned income numbers
-          datasets    = getChartData(xRange, multiplier, client, activePrograms, extraProps);
+          // @todo: make this use Immutable.js collections
+          datasets    = getChartData(xRange, multiplier, client.toJS(), activePrograms, extraProps);
 
     // If there's no data to show, don't show the table
     if (datasets.length === 0) {
@@ -63,8 +64,12 @@ class BenefitsLineGraph extends Component {
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference
-    const earned  = client.future.earned * multiplier,
-          hack    = this.state.verticalLine;
+    const earned  = client.getIn([
+      'future',
+      'earned',
+    ]) * multiplier;
+
+    const hack = this.state.verticalLine;
     hack.xRange = xRange;
     hack.earned = earned;
 

@@ -6,25 +6,27 @@ import {
 } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import { Confirmer } from './utils/getUserConfirmation';
+import { Confirmer } from '../utils/getUserConfirmation';
 
 // CUSTOM COMPONENTS
-import HomePage from './containers/HomePage';
-import AboutPage from './containers/AboutPage';
-import VisitPage from './containers/VisitPage';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import HomePage from '../containers/HomePage';
+import AboutPage from '../containers/AboutPage';
+import VisitPage from '../containers/VisitPage';
+import Footer from './Footer';
+import Header from './Header';
 
 // Development HUD
-import { DevSwitch } from './containers/DevSwitch';
-import { DevHud } from './components/dev/DevHud';
+import { DevSwitch } from '../containers/DevSwitch';
+import { DevHud } from './dev/DevHud';
 
 // Object Manipulation
 import { cloneDeep } from 'lodash';
-import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
+import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // LOCALIZATION
-import { getTextForLanguage } from './utils/getTextForLanguage';
+import { getTextForLanguage } from '../utils/getTextForLanguage';
+
+
 
 /**
  * Main top-level component of the app. Contains the router that controls access
@@ -88,6 +90,9 @@ class App extends Component {
       },
       distrustConfirmed: false,
     };
+
+    this.props.setLanguage({ language: this.state.langCode });
+    this.props.setUSState({ state: 'MA' });
   };  // End constructor()
 
   /**
@@ -101,6 +106,7 @@ class App extends Component {
   setLanguage = (evnt, inputProps) => {
     let snippets = getTextForLanguage(inputProps.value);
     this.setState({ language: inputProps.value, snippets: snippets });
+    this.props.setLanguage({ language: inputProps.value });
   };
 
   /** Set the value of a specified key in the app state's devProps.
@@ -276,6 +282,5 @@ class App extends Component {
     );
   };  // End render()
 }
-
 
 export default App;

@@ -38,7 +38,7 @@ import { CashFlowInputsRow } from './cashflow';
  *
  * @function
  * @param {object} props
- * @property {object} props.current Client current info. Could be
+ * @property {Immutable.Map} props.currentClient Client current info. Could be
  *     changed to just 'client' to allow future values in abstraction.
  * @property {string} props.time 'current' or 'future'. (needed?)
  * @property {function} props.updateClientValue Updates state upstream.
@@ -46,23 +46,14 @@ import { CashFlowInputsRow } from './cashflow';
  *
  * @returns {object} React element
  */
-const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
+const IncomeForm = function ({ client, setIncomeValue, snippets }) {
 
   let type = 'income';
 
-  /** Makes sure values are propagated to 'future' properties if needed
-   * @member
-   * @depricated
-   */
-  let ensureFuture = function (evnt, inputProps) {
-    updateClientValue(evnt, { ...inputProps, fillFuture: true });
-  };  // End ensureFuture()
-
-  let sharedProps = {
-    timeState:         current,
-    time:              time,
-    type:              type,
-    updateClientValue: ensureFuture,
+  const sharedProps = {
+    timeState: client,
+    type:      type,
+    setValue:  setIncomeValue,
   };
 
   return (
@@ -138,14 +129,14 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
 /**
  * @function
  * @param {object} props
- * @property {function} props.updateClientValue Updates state upstream.
+ * @property {function} props.setIncomeValue Updates the state of an income value.
  * @property {object} props.navData Bottom row buttons. 
  * @property {object} props.client JSON object with `future` and `current` props.
  * @property {function} props.snippets Uses user chosen language-specific text.
  *
  * @returns {object} React element
  */
-const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippets }) {
+const CurrentIncomeStep = function ({ setIncomeValue, navData, currentClient, snippets }) {
 // `props` is a cloned version of the original props. References broken.
 
   return (
@@ -155,9 +146,8 @@ const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippe
       navData   = { navData }
       formClass = { `income` }>
       <IncomeForm
-        updateClientValue = { updateClientValue }
-        current={ client.current }
-        time={ 'current' }
+        setIncomeValue = { setIncomeValue }
+        client={ currentClient }
         snippets={ snippets } />
     </FormPartsContainer>
   );

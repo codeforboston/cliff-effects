@@ -6,7 +6,7 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
-import { Summary } from './output/Summary';
+import Summary from '../containers/forms/output/Summary';
 import { BenefitsTable } from './output/BenefitsTable';
 import { StackedBarGraph } from './output/StackedBarGraph';
 import { StackedAreaGraph } from './output/StackedAreaGraph';
@@ -23,15 +23,13 @@ import { BenefitsLines } from './output/BenefitsLines';
  * @function
  * @param {object} props
  * @param {object} props.future Client future/predictive data.
- * @param {string} props.time Used in class names. Meant to make
- *     this more easily decoupled in future.
- * @param {function} props.updateClientValue Update client state
+ * @param {function} props.setPredictionValue Update client state
  *     value.
  * @param {object} props.snippets Language-specific text
  *
  * @returns {object} React element
  */
-const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
+const IncomeForm = function ({ future, setPredictionValue, snippets }) {
 
   let type = 'income';
 
@@ -41,8 +39,8 @@ const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
       <CashFlowInputsRow
         timeState={ future }
         type={ type }
-        time={ time }
-        updateClientValue = { updateClientValue }
+        time="future"
+        setValue = { setPredictionValue }
         generic='earned'
         labelInfo='(Weekly pay = hourly wage times average number of work hours per week)'>
         { snippets.i_futureIncomeQuestion }
@@ -150,7 +148,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
 };
 
 
-const PredictionsStep = function ({ updateClientValue, navData, client, snippets, openFeedback }) {
+const PredictionsStep = function ({ setPredictionValue, navData, client, snippets, openFeedback }) {
 
   return (
     <FormPartsContainer
@@ -163,9 +161,8 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
         access its style that way */}
       <div id = { `predictionsForm` }>
         <IncomeForm
-          updateClientValue = { updateClientValue }
-          future            = { client.future }
-          time              = { 'future' }
+          setPredictionValue = { setPredictionValue }
+          future            = { client.get('future') }
           snippets          = { snippets } />
         <Divider className='ui section divider hidden' />
       </div>
@@ -190,7 +187,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           </Button>
         </Message>
       </div>
-      <TabbedVisualizations 
+      <TabbedVisualizations
         client       = { client }
         openFeedback = { openFeedback }
         snippets     = { snippets } />
@@ -199,4 +196,3 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
 };  // End FutureIncomeStep() Component
 
 export { PredictionsStep };
-

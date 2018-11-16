@@ -1,5 +1,5 @@
 // REACT COMPONENTS
-import React, { Component } from 'react';
+import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
@@ -10,7 +10,6 @@ import { ValidationError } from './formHelpers';
 import { toMonthlyAmount } from '../utils/math';
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
-
 
 /** Contains cash flow inputs, their label, and any user feedback
  *
@@ -72,12 +71,13 @@ const maximum_value_yearly = 999999.99;
  * @param {object} props.updateClientValue Updates client state
  * @param {object} props.children Text for the row label
  */
-class CashFlowInputsRow extends Component {
+class CashFlowInputsRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = { valid: true, message: null };
   }
 
+  
   // Special store validator that handles maximums and sets error message
   cashFlowStoreValidator = (max) => {
     return (str) => {
@@ -103,18 +103,19 @@ class CashFlowInputsRow extends Component {
     };
   };
 
+  setValue = (event, { value }, { interval }) => {
+    this.props.setValue({
+      name:  this.props.generic,
+      value: toMonthlyAmount[ interval ](event, value),
+    });
+  };
+
   onBlur = (evnt) => {
     this.setState({ valid: true, message: null });
   };
 
   render() {
-    let { generic, timeState, updateClientValue, children } = this.props;
-
-    let updateClient = function (evnt, inputProps, data) {
-      let monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
-          obj     = { name: generic, value: monthly };
-      updateClientValue(evnt, obj);
-    };
+    const { children, generic, timeState } = this.props;
 
     /* Get the time ('future' or 'current') monthly value unless there is
      * none, in which case, get the 'current' monthly cash flow value
@@ -123,18 +124,17 @@ class CashFlowInputsRow extends Component {
      * @todo Add some kind of UI indication when it's the same as the 'current'
      * value. What if some of the row's values are the same and some are
      * different? */
-    let baseVal   = timeState[ generic ],
-        baseProps = {
-          name:             generic,
-          className:        'cashflow-column',
-          store:            updateClient,
-          displayValidator: hasOnlyNonNegNumberChars,
-          format:           toMoneyStr,
-          onBlur:           this.onBlur,
-        };
+    const baseVal = timeState.get(generic);
 
-    let cashFlowStoreValidator = this.cashFlowStoreValidator;
-  
+    const baseProps = {
+      name:             generic,
+      className:        'cashflow-column',
+      store:            this.setValue,
+      displayValidator: hasOnlyNonNegNumberChars,
+      format:           toMoneyStr,
+      onBlur:           this.onBlur,
+    };
+
     return (
       <CashFlowRow
         label={ children }
@@ -142,17 +142,17 @@ class CashFlowInputsRow extends Component {
         validRow={ this.state.valid }
         message={ this.state.message }>
         <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
+          storeValidator={ this.cashFlowStoreValidator(maximum_value_yearly / 52) }
           { ...baseProps }
           value     = { baseVal / (4 + 1 / 3) }
           otherData = {{ interval: 'weekly' }} />
         <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 12) }
+          storeValidator={ this.cashFlowStoreValidator(maximum_value_yearly / 12) }
           { ...baseProps }
           value     = { baseVal }
           otherData = {{ interval: 'monthly' }} />
         <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly) }
+          storeValidator={ this.cashFlowStoreValidator(maximum_value_yearly) }
           { ...baseProps }
           value     = { baseVal * 12 }
           otherData = {{ interval: 'yearly' }} />
@@ -160,7 +160,6 @@ class CashFlowInputsRow extends Component {
     );
   }
 }
-
 
 /** Show a value, or the sum of multiple values, of data
  *     that the user has already put in from another input.
@@ -171,7 +170,7 @@ class CashFlowInputsRow extends Component {
  */
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
 
-  let baseVal      = value || timeState[ generic ],
+  let baseVal      = value || timeState.get(generic),
       colClassName = `cashflow-column`,
       weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
       monthly      = toMoneyStr(baseVal),
@@ -204,18 +203,17 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
  * @param {object} props
  * @param {object} props.inputProps Key name, validators, and onBlur
  * @param {object} props.baseValue Start value of field?
- * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.setValue Updates client state
  * @param {object} props.rowProps `label`, `validRow`, `message`
  *
  * @returns Component
  */
-const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue, rowProps }) {
-
+const MonthlyCashFlowRow = function ({ inputProps, baseValue, setValue, rowProps }) {
   inputProps = {
     ...inputProps, // name, validators, and onBlur
     className: 'cashflow-column',
     format:    toMoneyStr,
-    store:     updateClientValue,
+    store:     setValue,
   };
 
   return (
@@ -228,7 +226,6 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
   );
 
 };  // End <MonthlyCashFlowRow>
-
 
 // Ideas of how to handle a different styling situation
 // (if we swap the input and label positions)

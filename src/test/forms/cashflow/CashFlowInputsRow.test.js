@@ -1,4 +1,5 @@
 import React from 'react';
+import { fromJS } from 'immutable';
 import { mount, shallow } from 'enzyme';
 
 import { CashFlowInputsRow } from '../../../forms/cashflow';
@@ -14,20 +15,20 @@ test('CashFlowInputsRow should render', () => {
     mount(
       <CashFlowInputsRow
         generic={ propName }
-        timeState={{ [ propName ]: 0 }}
-        updateClientValue={ () => {} } >
+        timeState={ fromJS({ [ propName ]: 0 }) }
+        setValue={ () => {} } >
         label
       </CashFlowInputsRow>
     );
   }).not.toThrow();
 });
 
-test(`Second ManagedNumberField child should have value of timeState[ 'clientProp' ]`, () =>  {
+test(`Second ManagedNumberField child should have value of timeState.get(clientProp)`, () =>  {
   const wrapper = mount(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={{ [ propName ]: monthlyVal }}
-      updateClientValue={ () => {} }>
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
+      setValue={ () => {} }>
         label
     </CashFlowInputsRow>
   );
@@ -39,8 +40,8 @@ test('First ManagedNumberField child should have weekly value', () => {
   const wrapper = mount(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={{ [ propName ]: monthlyVal }}
-      updateClientValue={ () => {} }>
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
+      setValue={ () => {} }>
         label
     </CashFlowInputsRow>
   );
@@ -52,8 +53,8 @@ test('Third ManagedNumberField child should have yearly value', () => {
   const wrapper = mount(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={{ [ propName ]: monthlyVal }}
-      updateClientValue={ () => {} }>
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
+      setValue={ () => {} }>
         label
     </CashFlowInputsRow>
   );
@@ -61,13 +62,13 @@ test('Third ManagedNumberField child should have yearly value', () => {
   expect(yearlyInput.prop(`value`)).toBeCloseTo(monthlyVal * 12);
 });
 
-test('updateClientValue gets called correctly when each value is changed', () => {
+test('setValue gets called correctly when each value is changed', () => {
   const mockSetClientProperty = jest.fn();
   const wrapper = shallow(
     <CashFlowInputsRow
       generic={ propName }
-      timeState={{ [ propName ]: monthlyVal }}
-      updateClientValue={ mockSetClientProperty }>
+      timeState={ fromJS({ [ propName ]: monthlyVal }) }
+      setValue={ mockSetClientProperty }>
         label
     </CashFlowInputsRow>
   );
@@ -85,8 +86,7 @@ test('updateClientValue gets called correctly when each value is changed', () =>
     MNF.prop('onChange')(evnt, { value: newValue });
 
     expect(mockSetClientProperty.mock.calls).toHaveLength(i + 1);
-    expect(mockSetClientProperty.mock.calls[ i ][ 0 ]).toBe(evnt);
-    expect(mockSetClientProperty.mock.calls[ i ][ 1 ].name).toBe(propName) ;
-    expect(mockSetClientProperty.mock.calls[ i ][ 1 ].value).toBeCloseTo(newValue * multipliers[ i ]);
+    expect(mockSetClientProperty.mock.calls[ i ][ 0 ].name).toBe(propName) ;
+    expect(mockSetClientProperty.mock.calls[ i ][ 0 ].value).toBeCloseTo(newValue * multipliers[ i ]);
   }
 });

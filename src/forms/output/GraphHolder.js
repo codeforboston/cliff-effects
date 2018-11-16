@@ -19,11 +19,12 @@ class GraphHolder extends Component {
 
   render () {
     const { activeID }                = this.state,
-          { Graph, client, snippets } = this.props,
-          { current }                 = client,
-          // The ids later used to access all program-specific data and functions
-          // Only active programs are added
-          activePrograms            = [ ...current.benefits ];
+          { Graph, client, snippets } = this.props;
+    const current = client.get('current');
+    
+    // The ids later used to access all program-specific data and functions
+    // Only active programs are added
+    const activePrograms = current.get('benefits').toArray();
 
     if (activePrograms.length === 0) {
       return <Message className={ `graph-holder` }>{ snippets.i_noBenefitsSelected }</Message>;

@@ -6,6 +6,7 @@ import { BigButton } from '../../../forms/inputs';
 describe('<BigButton>', () => {
   it('renders Button with overridden props', () => {
     const child = <span>Click me!</span>;
+
     const button = mount(
       <BigButton
         className={ `test` }

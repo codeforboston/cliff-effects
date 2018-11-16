@@ -1,8 +1,8 @@
-import { CurrentIncomeStep } from './CurrentIncome';
-import { CurrentExpensesStep } from './CurrentExpenses';
-import { PredictionsStep } from './Predictions';
-import { HouseholdStep } from './Household';
-import { CurrentBenefitsStep } from './CurrentBenefits';
+import { CurrentIncomeStep } from '../containers/forms/CurrentIncome';
+import { CurrentExpensesStep } from '../containers/forms/CurrentExpenses';
+import { PredictionsStep } from '../containers/forms/Predictions';
+import { HouseholdStep } from '../containers/forms/Household';
+import { CurrentBenefitsStep } from '../containers/forms/CurrentBenefits';
 
 export const STEP_VALS = [
   {

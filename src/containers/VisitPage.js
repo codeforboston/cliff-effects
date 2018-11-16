@@ -4,6 +4,7 @@ import {
   Responsive,
 } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // DATA MANAGEMENT
 import { setNestedProperty } from '../utils/setNestedProperty';
@@ -26,6 +27,7 @@ import StepBar from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
 import PredictionsWarning from '../components/prompts/PredictionsWarning';
+import { setClientValue } from '../actions';
 import { STEP_VALS } from '../forms/STEP_VALS';
 
 class VisitPage extends Component {
@@ -121,7 +123,9 @@ class VisitPage extends Component {
         routeList   = route.split('/'),
         id          = routeList[ 0 ],  // `routeList` gets mutated
         newEvent    = { time: time, route: routeList, value: value };
-
+    
+    this.props.setClientValue({ time, route: routeList, value });      
+    
     setNestedProperty(newEvent, clone, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
@@ -136,7 +140,7 @@ class VisitPage extends Component {
       oldHousing = clone.current.housing;
     }
 
-    if (clone.current.benefits.includes('section8')) {
+    if (clone.current.get('benefits').includes('section8')) {
       clone.current.housing = 'voucher';
     } else {
       // Restore housing to previous value
@@ -371,4 +375,14 @@ class VisitPage extends Component {
   }
 }
 
-export default VisitPage;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setClientValue({ time, route, value }) {
+      dispatch(
+        setClientValue({ time, route, value })
+      );
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(VisitPage);
