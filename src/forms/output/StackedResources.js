@@ -94,8 +94,9 @@ class StackedResourcesComp extends Component {
     }
 
     // Get 'Unexpected template string expression' warning otherwise
-    const labelHeaderFormatStart = `<span style="font-size: 10px">$`,
-          labelHeaderFormatEnd   = `{point.key:,.2f}</span><br/>`,
+    // @todo Change to prep for context, like in @knod 'other-expenses' branch
+    const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
+          labelHeaderFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
           labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
 
 

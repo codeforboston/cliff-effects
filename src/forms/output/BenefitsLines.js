@@ -132,8 +132,9 @@ class BenefitsLinesComp extends Component {
     }
 
     // Get 'Unexpected template string expression' warning otherwise
-    const labelHeaderFormatStart = `<span style="font-size: 10px">$`,
-          labelHeaderFormatEnd   = `{point.key:,.2f}</span><br/>`,
+    // @todo Abstract commonalities between graphs
+    const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
+          labelHeaderFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
           labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
 
 
@@ -205,7 +206,7 @@ class BenefitsLinesComp extends Component {
    *     a class.
    * @method
    *
-   * @params {highchartsObject} hcObject Object Highcharts sends to event
+   * @params {object} highchartsObject Object Highcharts sends to event
    *     handlers
    *
    * @returns {string} String representing an HTML element.
