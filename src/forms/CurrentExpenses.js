@@ -19,7 +19,7 @@ import {
 import {
   ContractRentField,
   RentShareField,
-  ImmutablePlainRentRow as PlainRentRow,
+  PlainRentRow,
 } from './rentFields';
 import { HeadingWithDetail } from '../components/details';
 // Premature feature temporarily hidden to avoid messy revert
@@ -278,6 +278,7 @@ const ChildSupport = function ({ type, sharedProps }) {
       <IntervalColumnHeadings type={ type } />
       <CashFlowInputsRow
         { ...sharedProps }
+        setValue={ sharedProps.setExpenseValue }
         generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support
       </CashFlowInputsRow>
     </div>
@@ -470,6 +471,8 @@ const HousingDetails = function ({
   type,
   time,
   setExpenseValue,
+  setPaysUtility,
+  setGetsFuelAssistance,
 }) {
 
   let housing = client.get('housing'),
@@ -486,7 +489,10 @@ const HousingDetails = function ({
       <div>
         <ContractRentField { ...sharedProps } />
         <RentShareField { ...sharedProps } />
-        <Utilities { ...sharedProps } />
+        <Utilities
+          { ...sharedProps }
+          setPaysUtility={ setPaysUtility }
+          setGetsFuelAssistance={ setGetsFuelAssistance } />
       </div>
     );
 
@@ -527,15 +533,15 @@ const HousingDetails = function ({
 
 
 const Utilities = function ({
-  current,
+  client,
   setGetsFuelAssistance,
   setPaysUtility,
 }) {
 
-  let hasClimate     = current.get('climateControl'),
-      hasElectricity = current.get('nonHeatElectricity'),
-      hasPhone       = current.get('phone'),
-      hasFuelAssist  = current.get('fuelAssistance');
+  let hasClimate     = client.get('climateControl'),
+      hasElectricity = client.get('nonHeatElectricity'),
+      hasPhone       = client.get('phone'),
+      hasFuelAssist  = client.get('fuelAssistance');
 
   
   let setChecked = function (evnt, { name, checked }) {

@@ -51,14 +51,18 @@ class StackedAreaGraph extends Component {
     withEarned.unshift('earned');
 
     // Adjust to time-interval, round to hundreds
-    const earned        = client.future.earned * multiplier,
-          max           = Math.max(earned, limits.max * multiplier),
+    const earned = client.getIn([
+      'future',
+      'earned',
+    ]) * multiplier;
+    const max           = Math.max(earned, limits.max * multiplier),
           xMax          = Math.ceil(max / 100) * 100,
           xMin          = Math.ceil(limits.min * multiplier / 100) * 100,
           interval      = Math.ceil(((xMax - xMin) / 100) / 10) * 10,
           xRange        = _.range(xMin, xMax + interval, interval),
           extraProps    = { earned: { fill: 'origin' }},
-          datasets     = getChartData(xRange, multiplier, client, withEarned, extraProps);
+          // @todo: refactor visualizations to use Immutable collections
+          datasets     = getChartData(xRange, multiplier, client.toJS(), withEarned, extraProps);
 
     // react-chartjs-2 keeps references to plugins, so we
     // have to mutate that reference

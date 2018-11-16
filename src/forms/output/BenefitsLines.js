@@ -102,7 +102,10 @@ class BenefitsLinesComp extends Component {
 
     const multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
-          currentEarned = client.current.earned * multiplier,
+          currentEarned = client.getIn([
+            'current',
+            'earned',
+          ]) * multiplier,
           getText       = this.getTranslatedText;
 
     // Adjust to time-interval. Highcharts will round
@@ -111,7 +114,8 @@ class BenefitsLinesComp extends Component {
           interval = ((max / 100) / 10) * 30;
 
     const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
-          datasets = getChartData(xRange, multiplier, client, resources, {});
+          // @todo make this use Immutable.js collections
+          datasets = getChartData(xRange, multiplier, client.toJS(), resources, {});
 
     // Individual benefit lines
     const lines = [];

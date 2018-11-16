@@ -1,21 +1,36 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { defaultsDeep } from 'lodash';
 
-import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 import { ContractRentField } from '../../../forms/rentFields';
 
-const buildField = (values = {}) => {
+import createReducer from '../../../reducers';
+import { setCashValue } from '../../../actions';
+
+const reducer = createReducer();
+
+const buildField = (state) => {
   const props = {
-    timeState:         defaultsDeep({}, values, CLIENT_DEFAULTS.current),
-    updateClientValue: jest.fn(),
+    timeState: state.getIn([
+      'client',
+      'current',
+    ]),
+    updateClientValue: function() {},
   };
   return mount(<ContractRentField { ...props } />);
 };
 
 describe('ContractRentField.storeValidator()', () => {
   it('when input valid, sets state to valid', () => {
-    const field = buildField({ rentShare: 0 });
+    const state = reducer(
+      undefined,
+      setCashValue({
+        time:  'current',
+        name:  'rentShare',
+        value: 0,
+      })
+    );
+
+    const field = buildField(state);
     expect(field.state()).toEqual({ valid: true, message: null });
 
     field.instance().storeValidator(1);
@@ -24,7 +39,12 @@ describe('ContractRentField.storeValidator()', () => {
   });
 
   it('when input negative, sets state to invalid', () => {
-    const field = buildField();
+    const state = reducer(
+      undefined,
+      {}
+    );
+
+    const field = buildField(state);
     expect(field.state()).toEqual({ valid: true, message: null });
 
     field.instance().storeValidator(-1);
@@ -33,7 +53,16 @@ describe('ContractRentField.storeValidator()', () => {
   });
 
   it('when contract rent less than rent share, sets state to invalid', () => {
-    const field = buildField({ rentShare: 2 });
+    const state = reducer(
+      undefined,
+      setCashValue({
+        time:  'current',
+        name:  'rentShare',
+        value: 2,
+      })
+    );
+
+    const field = buildField(state);
     expect(field.state()).toEqual({ valid: true, message: null });
 
     field.instance().storeValidator(1);
@@ -44,7 +73,12 @@ describe('ContractRentField.storeValidator()', () => {
 
 describe('ContractRentField.onBlur', () => {
   it('resets state', () => {
-    const field = buildField();
+    const state = reducer(
+      undefined,
+      {}
+    );
+
+    const field = buildField(state);
     field.setState({ valid: false, message: 'Not the default value' });
 
     field.instance().onBlur();

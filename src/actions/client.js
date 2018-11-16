@@ -123,3 +123,16 @@ export const setGetsFuelAssistance = ({ time, getsAssistance }) => {
     },
   };
 };
+
+export const SET_HAS_BENEFIT = 'SET_HAS_BENEFIT';
+
+export const setHasBenefit = ({ time, benefit, value }) => {
+  return {
+    type:    SET_HAS_BENEFIT,
+    payload: {
+      time,
+      benefit,
+      value: !!value,
+    },
+  };
+};

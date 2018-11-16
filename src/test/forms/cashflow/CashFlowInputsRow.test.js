@@ -23,7 +23,7 @@ test('CashFlowInputsRow should render', () => {
   }).not.toThrow();
 });
 
-test(`Second ManagedNumberField child should have value of timeState[ 'clientProp' ]`, () =>  {
+test(`Second ManagedNumberField child should have value of timeState.get(clientProp)`, () =>  {
   const wrapper = mount(
     <CashFlowInputsRow
       generic={ propName }

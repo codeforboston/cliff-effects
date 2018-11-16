@@ -140,7 +140,7 @@ class VisitPage extends Component {
       oldHousing = clone.current.housing;
     }
 
-    if (clone.current.benefits.includes('section8')) {
+    if (clone.current.get('benefits').includes('section8')) {
       clone.current.housing = 'voucher';
     } else {
       // Restore housing to previous value

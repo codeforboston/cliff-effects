@@ -1,15 +1,18 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { cloneDeep, set } from 'lodash';
 
 import { BenefitsTable } from '../../../forms/output/BenefitsTable';
 import { snippets } from '../../helpers';
-import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
-const buildSnapshot = (client) => {
+import createReducer from '../../../reducers';
+import { setHasBenefit, setCashValue } from '../../../actions';
+
+const reducer = createReducer();
+
+const buildSnapshot = (state) => {
   const rendered = renderer.create(
     <BenefitsTable 
-      client={ client } 
+      client={ state.get('client') } 
       snippets={ snippets } />
   );
 
@@ -17,23 +20,66 @@ const buildSnapshot = (client) => {
 };
 
 test('Benefits table renders correctly', () => {
-  const client = cloneDeep(CLIENT_DEFAULTS);
-  expect(buildSnapshot(client)).toMatchSnapshot();
+  let state = reducer(undefined, {});
 
-  const benefits = [ 'snap' ];
+  expect(buildSnapshot(state)).toMatchSnapshot();
 
-  set(client, 'current.benefits', benefits);
-  expect(buildSnapshot(client)).toMatchSnapshot();
+  state = [
+    setHasBenefit({
+      time:    'current',
+      benefit: 'snap',
+      value:   true,
+    }),
+  ].reduce(reducer, state);
 
-  set(client, 'current.earned', 100);
-  expect(buildSnapshot(client)).toMatchSnapshot();
+  state = reducer(
+    state,
+    setHasBenefit({
+      time:    'current',
+      benefit: 'snap',
+      value:   true,
+    })
+  );
 
-  set(client, 'future.earned', 200);
-  expect(buildSnapshot(client)).toMatchSnapshot();
+  expect(buildSnapshot(state)).toMatchSnapshot();
 
-  set(client, 'current.earned', 300);
-  expect(buildSnapshot(client)).toMatchSnapshot();
+  state = reducer(
+    state,
+    setCashValue({
+      time:  'current',
+      name:  'earned',
+      value: 100,
+    })
+  );
+  expect(buildSnapshot(state)).toMatchSnapshot();
 
-  set(client, 'future.earned', 400);
-  expect(buildSnapshot(client)).toMatchSnapshot();
+  state = reducer(
+    state,
+    setCashValue({
+      time:  'future',
+      name:  'earned',
+      value: 200,
+    })
+  );
+  expect(buildSnapshot(state)).toMatchSnapshot();
+
+  state = reducer(
+    state,
+    setCashValue({
+      time:  'current',
+      name:  'earned',
+      value: 300,
+    })
+  );
+  expect(buildSnapshot(state)).toMatchSnapshot();
+
+  state = reducer(
+    state,
+    setCashValue({
+      time:  'future',
+      name:  'earned',
+      value: 400,
+    })
+  );
+  expect(buildSnapshot(state)).toMatchSnapshot();
 });

@@ -13,9 +13,6 @@ import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 // Colors and text for parts of the chart
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 
-// OBJECT MANIPULATION
-import { cloneDeep } from 'lodash';
-
 
 /** Visual representation of the table
  *
@@ -27,8 +24,8 @@ import { cloneDeep } from 'lodash';
  *     and future. All client props are needed.
  */
 const StackedBarGraph = function({ client }) {
-
-  let clone = cloneDeep(client),
+  // @todo make applyAndPushBenefits() use Immutable.js collections
+  let clone = client.toJS(),
       curr  = clone.current;
 
   const allData        = {},

@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { fromJS, Set } from 'immutable';
 
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 import {
@@ -12,10 +12,32 @@ import {
   SET_HOUSING_TYPE,
   SET_PAYS_UTILITY,
   SET_GETS_FUEL_ASSISTANCE,
+  SET_HAS_BENEFIT,
 } from '../actions';
 
+const getDefaultClients = () => {
+  return fromJS(CLIENT_DEFAULTS)
+    .updateIn(
+      [
+        'current',
+        'benefits',
+      ],
+      (benefits) => {
+        return Set(benefits);
+      }
+    ).updateIn(
+      [
+        'future',
+        'benefits',
+      ],
+      (benefits) => {
+        return Set(benefits);
+      }
+    );
+};
+
 const clientReducer = (
-  state = fromJS(CLIENT_DEFAULTS),
+  state = getDefaultClients(),
   action
 ) => {
   switch (action.type) {
@@ -141,6 +163,38 @@ const clientReducer = (
       ],
       getsAssistance
     );
+  }
+
+  case SET_HAS_BENEFIT: {
+    const { time, benefit, value } = action.payload;
+
+    state = state.updateIn(
+      [
+        time,
+        'benefits',
+      ],
+      (benefits) => {
+        if (value) {
+          return benefits.add(benefit);
+        }
+        else {
+          return benefits.delete(benefit);
+        }
+      }
+    );
+
+    // Side effect--might be better if this could be decoupled from the reducer?
+    if (benefit === 'section8') {
+      state = state.setIn(
+        [
+          time,
+          'housing',
+        ],
+        'voucher'
+      );
+    }
+
+    return state;
   }
   
   default:

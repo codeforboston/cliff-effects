@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { MonthlyCashFlowRow, ImmutableMonthlyCashFlowRow } from './cashflow';
+import { MonthlyCashFlowRow } from './cashflow';
 
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 
 
 class RentShareField extends Component {
   state = { valid: true, message: null };
+
+  setValue = (event, inputProps) => {
+    this.props.setValue({
+      name:  inputProps.name,
+      value: inputProps.value,
+    });
+  };
 
   storeValidator = (ownValue) => {
     let message = null, valid = true;
@@ -14,7 +21,7 @@ class RentShareField extends Component {
     if (!isPosNum) {
       valid = false;
     } else {
-      valid = Number(ownValue) <= this.props.timeState[ 'contractRent' ];
+      valid = Number(ownValue) <= this.props.timeState.get('contractRent');
       if (!valid) {
         message = 'Rent share must be less than contract rent';
       }
@@ -29,7 +36,7 @@ class RentShareField extends Component {
   };
 
   render() {
-    const { timeState, updateClientValue } = this.props,
+    const { timeState } = this.props,
           { valid, message } = this.state;
 
     const inputProps = {
@@ -47,11 +54,11 @@ class RentShareField extends Component {
 
     return (
       <MonthlyCashFlowRow
-        inputProps         = { inputProps }
-        baseValue          = { timeState[ 'rentShare' ] }
-        includes           = { [ 'monthly' ] }
-        updateClientValue = { updateClientValue }
-        rowProps           = { rowProps } />
+        inputProps = { inputProps }
+        baseValue  = { timeState.get('rentShare') }
+        includes   = { [ 'monthly' ] }
+        setValue   = { this.setValue }
+        rowProps   = { rowProps } />
     );
   }
 };  // End <RentShareField>
@@ -60,6 +67,13 @@ class RentShareField extends Component {
 class ContractRentField extends Component {
   state = { valid: true, message: null };
 
+  setValue = (event, inputProps) => {
+    this.props.setValue({
+      name:  inputProps.name,
+      value: inputProps.value,
+    });
+  };
+
   storeValidator = (ownValue) => {
     let message = null, valid = true;
 
@@ -67,7 +81,7 @@ class ContractRentField extends Component {
     if (!isPosNum) {
       valid = false;
     } else {
-      valid = ownValue >= this.props.timeState[ 'rentShare' ];
+      valid = ownValue >= this.props.timeState.get('rentShare');
       if (!valid) {
         message = 'Contract rent must be more than rent share';
       }
@@ -82,7 +96,7 @@ class ContractRentField extends Component {
   };
 
   render() {
-    const { timeState, updateClientValue } = this.props,
+    const { timeState } = this.props,
           { valid, message } = this.state;
 
     const inputProps = {
@@ -101,16 +115,16 @@ class ContractRentField extends Component {
     return (
       <MonthlyCashFlowRow
         inputProps         = { inputProps }
-        baseValue          = { timeState[ 'contractRent' ] }
+        baseValue          = { timeState.get('contractRent') }
         includes           = { [ 'monthly' ] }
-        updateClientValue = { updateClientValue }
+        setValue = { this.setValue }
         rowProps           = { rowProps } />
     );
   }
 };  // End <ContractRentField>
 
 
-const PlainRentRow = function ({ timeState, updateClientValue }) {
+const PlainRentRow = function ({ timeState, setValue }) {
 
   const inputProps = {
           name:             'rent',
@@ -127,31 +141,6 @@ const PlainRentRow = function ({ timeState, updateClientValue }) {
   return (
     <MonthlyCashFlowRow
       inputProps         = { inputProps }
-      baseValue          = { timeState[ 'rent' ] }
-      includes           = { [ 'monthly' ] }
-      updateClientValue = { updateClientValue }
-      rowProps           = { rowProps } />
-  );
-
-};  // End <PlainRentRow>
-
-const ImmutablePlainRentRow = function ({ timeState, setValue }) {
-
-  const inputProps = {
-          name:             'rent',
-          displayValidator: hasOnlyNonNegNumberChars,
-          storeValidator:   isNonNegNumber,
-          onBlur:           function () {},
-        },
-        rowProps = {
-          label:    'Monthly Rent',
-          validRow: true,
-          message:  null,
-        };
-
-  return (
-    <ImmutableMonthlyCashFlowRow
-      inputProps         = { inputProps }
       baseValue          = { timeState.get('rent') }
       includes           = { [ 'monthly' ] }
       setValue           = { setValue }
@@ -165,5 +154,4 @@ export {
   ContractRentField,
   RentShareField,
   PlainRentRow,
-  ImmutablePlainRentRow,
 };

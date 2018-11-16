@@ -187,11 +187,8 @@ const PredictionsStep = function ({ setPredictionValue, navData, client, snippet
           </Button>
         </Message>
       </div>
-      {/*
-        @todo: refactor visualizations to use Immutable collections
-      */}
       <TabbedVisualizations
-        client       = { client.toJS() }
+        client       = { client }
         openFeedback = { openFeedback }
         snippets     = { snippets } />
     </FormPartsContainer>

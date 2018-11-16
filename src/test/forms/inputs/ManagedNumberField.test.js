@@ -93,7 +93,7 @@ test('should change local and app state correctly to 0 when user inputs empty st
 
   // sending the proper call to change the application's state
   // Since value is empty string, store should be given 0 as value
-  expect(mockStore.mock.calls[ 0 ][ 1 ].value).toEqual(`0`);
+  expect(mockStore.mock.calls[ 0 ][ 1 ].value).toEqual(0);
 
   // changes to this.state's focusedVal and valid variables
   expect(wrapper.state('focusedVal')).toBe(userInput);

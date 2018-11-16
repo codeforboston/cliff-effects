@@ -22,13 +22,11 @@ import { allBenefitOrders } from '../programs/allBenefitOrders';
  */
 class CurrentBenefitsContent extends React.Component {
   handleRadioChange = (event, inputProps) => {
-    const benefitName = inputProps.name;
-
-    this.props.setHasBenefit(benefitName, inputProps.value);
+    this.props.setHasBenefit({ benefit: inputProps.name, value: inputProps.value });
   };
 
   render() {
-    const { current, snippets, benefits } = this.props;
+    const { currentClient, snippets, benefits } = this.props;
 
     const components = [];
   
@@ -49,7 +47,7 @@ class CurrentBenefitsContent extends React.Component {
           snippets={ snippets }
           labelText={ labelText }
           onChange={ this.handleRadioChange }
-          checked = { current.get('benefits').includes(benefit) }
+          checked = { currentClient.get('benefits').includes(benefit) }
           name    = { benefit } />
       );
     }
@@ -69,12 +67,13 @@ class CurrentBenefitsContent extends React.Component {
  * @param {object} props
  * @property {object} props.navData Bottom row buttons
  * @property {Immutable.Map} props.currentClient Immutable Map with current values.
+ * @property {string} props.USState the US state that the client lives in
  * @property {function} props.snippets Uses user chosen language-specific
  *    snippets.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ setHasBenefit, navData, currentClient, snippets }) => {
+const CurrentBenefitsStep = ({ setHasBenefit, navData, currentClient, USState, snippets }) => {
 
   return (
     <FormPartsContainer
@@ -87,7 +86,7 @@ const CurrentBenefitsStep = ({ setHasBenefit, navData, currentClient, snippets }
         setHasBenefit = { setHasBenefit }
         currentClient = { currentClient }
         snippets      = { snippets }
-        benefits      = { allBenefitOrders[ currentClient.get('USState') ] } />
+        benefits      = { allBenefitOrders[ USState ] } />
     </FormPartsContainer>
   );
 

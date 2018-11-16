@@ -7,7 +7,9 @@ import { CurrentBenefitsStep } from '../../forms/CurrentBenefits';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 import createReducer from '../../reducers';
+import { setUSState } from '../../actions';
 
+const reducer = createReducer();
 
 const snippets = getTextForLanguage(`en`);
 test('Benefits step component should render without error', () => {
@@ -21,15 +23,21 @@ test('Benefits step component should render without error', () => {
         benefitsSnippets  = snippets.visitPage.currentBenefits;
 
   expect(() => {
-    const reducer = createReducer();
 
-    const state = reducer(undefined, {});
+    const state = reducer(
+      undefined,
+      setUSState({ state: 'MA' })
+    );
 
     mount(
       <CurrentBenefitsStep
         currentClient     = { state.getIn([
           'client',
           'current', 
+        ]) }
+        USState           =  { state.getIn([
+          'geography',
+          'state',
         ]) }
         setHasBenefit     = { () => {} }
         navData           = { navData }

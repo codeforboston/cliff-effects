@@ -274,7 +274,10 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
   const resourceKeys = [
     `earned`,
-    ...client.current.benefits,
+    ...client.getIn([
+      'current',
+      'benefits',
+    ]).toArray(),
   ];
 
   // Really quick returns if other calcs not needed
@@ -333,8 +336,9 @@ const Summary = function ({ client, openFeedback, snippets }) {
   let numBenefits = current.benefits.length;
   for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
 
-    let cBenefit = current.benefits[ benefiti ],
-        fBenefit = future.benefits[ benefiti ];
+    let cBenefit = current.benefits[ benefiti ];
+    
+    let fBenefit = future.benefits[ benefiti ];
 
     benefitList.push(
       <li key = { cBenefit.label }>

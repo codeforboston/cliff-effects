@@ -170,7 +170,7 @@ class CashFlowInputsRow extends React.Component {
  */
 const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
 
-  let baseVal      = value || timeState[ generic ],
+  let baseVal      = value || timeState.get(generic),
       colClassName = `cashflow-column`,
       weekly       = toMoneyStr(baseVal / (4 + 1 / 3)),
       monthly      = toMoneyStr(baseVal),
@@ -203,18 +203,17 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
  * @param {object} props
  * @param {object} props.inputProps Key name, validators, and onBlur
  * @param {object} props.baseValue Start value of field?
- * @param {object} props.updateClientValue Updates client state
+ * @param {object} props.setValue Updates client state
  * @param {object} props.rowProps `label`, `validRow`, `message`
  *
  * @returns Component
  */
-const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue, rowProps }) {
-
+const MonthlyCashFlowRow = function ({ inputProps, baseValue, setValue, rowProps }) {
   inputProps = {
     ...inputProps, // name, validators, and onBlur
     className: 'cashflow-column',
     format:    toMoneyStr,
-    store:     updateClientValue,
+    store:     setValue,
   };
 
   return (
@@ -227,45 +226,6 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
   );
 
 };  // End <MonthlyCashFlowRow>
-
-
-/** One row for _one_ cash flow input - a monthly value
- *
- * @function
- * @param {object} props
- * @param {object} props.inputProps Key name, validators, and onBlur
- * @param {object} props.baseValue Start value of field?
- * @param {object} props.updateClientValue Updates client state
- * @param {object} props.rowProps `label`, `validRow`, `message`
- *
- * @returns Component
- */
-export class ImmutableMonthlyCashFlowRow extends React.PureComponent {
-
-  setValue = (event, { value }) => {
-    this.props.setValue({
-      name:  this.props.inputProps.name,
-      value: toMonthlyAmount.monthly(event, value),
-    });
-  };
-
-  render() {
-    const { inputProps, baseValue, rowProps } = this.props;
-    
-    return (
-      <CashFlowRow { ...rowProps }>
-        <ManagedNumberField
-          { ...inputProps }
-          className="cashflow-column"
-          format={ toMoneyStr }
-          store={ this.setValue }
-          value={ baseValue }
-          otherData={{ interval: 'monthly' }} />
-      </CashFlowRow>
-    );
-  }
-}; // End <ImmutableMonthlyCashFlowRow>
-
 
 // Ideas of how to handle a different styling situation
 // (if we swap the input and label positions)

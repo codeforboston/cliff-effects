@@ -1,13 +1,18 @@
 import { connect } from 'react-redux';
 
 import { CurrentBenefitsStep } from '../../forms/CurrentBenefits';
-import { setClientValue } from '../../actions';
+import { setHasBenefit } from '../../actions';
 
 const mapStateToProps = (state) => {
   return {
     currentClient: state.getIn([
       'client',
       'current', 
+    ]),
+
+    USState: state.getIn([
+      'geography',
+      'state',
     ]),
   };
 };
@@ -16,9 +21,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setHasBenefit({ benefit, value }) {
       dispatch(
-        setClientValue({
-          time:  'current',
-          route: [ benefit ],
+        setHasBenefit({
+          time: 'current',
+          benefit,
           value,
         })
       );
