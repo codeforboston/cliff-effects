@@ -23,7 +23,7 @@ const snippetToText = function (translationObj) {
 
     let allText = ``;
     for (let child of children) {
-      allText += ` ` + this.snippetToText(child);
+      allText += ` ` + snippetToText(child);
     }
 
     return allText;
