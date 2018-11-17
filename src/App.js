@@ -99,48 +99,48 @@ class App extends Component {
   };  // End constructor()
 
   componentDidMount() {
-    Promise.all([
-      localforage.getItem(DEV_PROPS_STORAGE_KEY),
-      localforage.getItem(CLIENT_LAST_LOADED_STORAGE_KEY),
-      localforage.getItem(LOADED_CLIENT_STORAGE_KEY),
-    ]).then(
-      ([
-        localDev,
-        clientLastLoaded,
-        loadedClient,
-      ]) => {
-        if (localDev) {
-          this.setState((prevState) => {
-            const now = Date.now();
-
-            clientLastLoaded = clientLastLoaded || 0;
-
-            let state = merge(
-              {},
-              prevState,
-              { devProps: localDev }
-            );
-
-            // This will clear out a loaded client from local storage
-            // if it's been there too long--this is for security purposes,
-            // as the loaded client could potentially have sensitive client
-            // data and we want to minimize exposure of that info.
-            if (now - clientLastLoaded >= STORED_CLIENT_TTL) {
-              localforage.removeItem(LOADED_CLIENT_STORAGE_KEY);
-              localforage.removeItem(CLIENT_LAST_LOADED_STORAGE_KEY);
-            }
-            else {
-              state.clients.loaded = loadedClient;
-            }
-
-            return state;
-          });
-        }
-      }
-    );
-
     // Webpack should remove this whole conditional when not built for development environment
     if (process.env.NODE_ENV === 'development') {
+      Promise.all([
+        localforage.getItem(DEV_PROPS_STORAGE_KEY),
+        localforage.getItem(CLIENT_LAST_LOADED_STORAGE_KEY),
+        localforage.getItem(LOADED_CLIENT_STORAGE_KEY),
+      ]).then(
+        ([
+          localDev,
+          clientLastLoaded,
+          loadedClient,
+        ]) => {
+          if (localDev) {
+            this.setState((prevState) => {
+              const now = Date.now();
+
+              clientLastLoaded = clientLastLoaded || 0;
+
+              let state = merge(
+                {},
+                prevState,
+                { devProps: localDev }
+              );
+
+              // This will clear out a loaded client from local storage
+              // if it's been there too long--this is for security purposes,
+              // as the loaded client could potentially have sensitive client
+              // data and we want to minimize exposure of that info.
+              if (now - clientLastLoaded >= STORED_CLIENT_TTL) {
+                localforage.removeItem(LOADED_CLIENT_STORAGE_KEY);
+                localforage.removeItem(CLIENT_LAST_LOADED_STORAGE_KEY);
+              }
+              else {
+                state.clients.loaded = loadedClient;
+              }
+
+              return state;
+            });
+          }
+        }
+      );
+
       printSummaryToConsole();
 
       addEnableDevProperty(() => {
@@ -150,7 +150,7 @@ class App extends Component {
       addClientGetterProperty(() => {
         return this.state.clients.loaded;
       });
-    }
+    } // End development environment conditional
   }
 
   /**
@@ -180,7 +180,9 @@ class App extends Component {
       if (props[ key ] !== value) {
         let newProps = { ...props, [ key ]: value };
 
-        localforage.setItem(DEV_PROPS_STORAGE_KEY, newProps);
+        if (process.env.NODE_ENV === 'development') {
+          localforage.setItem(DEV_PROPS_STORAGE_KEY, newProps);
+        }
 
         return { devProps: newProps };
       }
@@ -202,8 +204,10 @@ class App extends Component {
             defaults = cloneDeep(clients.default),
             newData  = Object.assign(defaults, toLoad);
 
-      localforage.setItem(CLIENT_LAST_LOADED_STORAGE_KEY, Date.now());
-      localforage.setItem(LOADED_CLIENT_STORAGE_KEY, newData);
+      if (process.env.NODE_ENV === 'development') {
+        localforage.setItem(CLIENT_LAST_LOADED_STORAGE_KEY, Date.now());
+        localforage.setItem(LOADED_CLIENT_STORAGE_KEY, newData);
+      }
 
       return { clients: { ...clients, loaded: newData }};
     });
