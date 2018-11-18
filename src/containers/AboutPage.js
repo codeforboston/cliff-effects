@@ -34,12 +34,6 @@ const AboutPage = ({ snippets }) => {
             { snippets.i_quantLinkText }
           </ExternalLink>
         </li>
-
-        <li>
-          <ExternalLink href="https://www.umb.edu/editor_uploads/images/centers_institutes/center_social_policy/The_Road_to_the_Cliff_Edge_08.16.17.pdf">
-            { snippets.i_benefitsLinkText }
-          </ExternalLink>
-        </li>
       </ul>
 
       <Header as='h3'>{ snippets.i_howToUseHeader }</Header>

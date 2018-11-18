@@ -55,13 +55,11 @@ export default {
 
     whyHeader_v1: `Why is this tool important?`,
     why1_v2:      `All the ways that benefits interact with a family's circumstances and with each other are impossible for one person to calculate accurately. A family making fanancial choices these days is making them blind. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.`,
-    why2_v2:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit.`,
+    why2_v3:      `A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit. Below are links to more information specifically about cliff effects relevant to 2017 and before.`,
 
-    // May need to remove some of these as people from MLRI indicated they aren't accurate
-    videoLinkText_v1:    `Two-minute video describing cliff effects`,
-    quantLinkText_v1:    `Quantitative scenarios demonstrating cliff effects`,
-    // This one may have been the one found to be inaccurate
-    benefitsLinkText_v1: `Breakdown of different benefits offered in MA`,
+    // Double check accuracy and search for clearer resources
+    videoLinkText_v1: `Two-minute video describing cliff effects`,
+    quantLinkText_v1: `Quantitative scenarios demonstrating cliff effects`,
 
     howToUseHeader_v1: `How do I use this tool?`,
     howToUse_v1:       `Go step-by-step to add information about a client's current benefits, household, income, and other relevant information. This information will be used to predict the client's approximate benefit amount. When you reach the end, change the 'Future Income' amount to see how a change in earned income will cause a change in benefit amount. Currently, the SNAP and Section 8 Housing Voucher programs are both available. Note that predictions may not directly match up with a client’s current benefit amount. The app’s focus is the amount of change that occurs in benefits when there are changes in earned income.`,
