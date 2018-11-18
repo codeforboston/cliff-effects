@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
   PlotLine,
-  LineSeries,
+  AreaSeries,
   withHighcharts,
 } from 'react-jsx-highcharts';
 
@@ -35,47 +35,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
     limits      = PROGRAM_CHART_VALUES.limits;
 
 
-// Still @todo
-// - [x] Bottom/left ticks' number format (labels headers!) (https://stackoverflow.com/a/26128177/3791179)
-// - [x] Fixed width for ticks' text - width to not change on interval change
-// - [x] Thousands separator
-// - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
-// - [x] Snippets
-// - [x] Button placement
-// - [x] Adjust button placement based on viewport width and semantic-ui-react styles (https://stackoverflow.com/a/46586783/3791179)
-// - [x] File name
-// - [x] Replace old graph
-// - [ ] Test
-// - [x] Function descriptions
-// - [ ] ~Add highcharts global options to graph frosting file (change file name and maybe location)~
-//          1. It's going to need the `snippets` object, which is a bigger change.
-//          2. It's got `limits` too, so is it still just 'frosting?' Also, should we move all the
-//          stuff in the src/utils/charts folder?
-// - [ ] * Hover style for legend items (button-like style always, then different for active vs. inactive?)
-// - [ ] * Hover style for plot line
-// - [ ] * Legend item for PlotLine
-// - [ ] * Bigger font?
-// - [ ] * Different zoom note for touch device
-// - [ ] * Proportional zoom
-
-// Possible future improvements:
-// 1. Add PlotLine to Legend? Haven't found it yet and can't seem to do a
-//     vertical series. Add/remove PlotLine (can add button to legend?) -
-//     https://stackoverflow.com/a/14632292/3791179.
-// 1. PlotLine hover style - has a mousein and mouseout hook we can use
-//     to make it bigger when hovered over.
-// 1. Possibly remove point markers on lines - https://stackoverflow.com/a/14642909/3791179.
-// 1. Possible tooltips for PlotLine -
-//     https://stackoverflow.com/questions/12451549/highcharts-plotband-tooltip-hover-default-styling#21277491.
-//     CSS solution hides the label text except on hover (not great).
-//     Maybe do something similar where the HTML has the label part
-//     and a separate tooltip part and just hide/reveal the tooltip part.
-// 1. Haven't figured out how to pan vertically. This might help, but
-//     means chart may have set dimensions:
-//     https://api.highcharts.com/highcharts/chart.scrollablePlotArea.
-//     Not sure how it would act with zoom.
-
-/** Graph of each benefit as household income changes. Uses Highchart lib.
+/** Graph of all incoming resources as household income changes. Uses Highchart lib.
  * @class
  *
  * @params {object} props
@@ -86,7 +46,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
  *     whether it's the chart or the no-chart message.
  * @params {object} props.snippets Translation spans of text in app.
  */
-class BenefitsLinesComp extends Component {
+class StackedResourcesComp extends Component {
 
   constructor (props) {
     super(props);
@@ -105,7 +65,7 @@ class BenefitsLinesComp extends Component {
     } = this.props;
 
     const multiplier    = multipliers[ timescale ],
-          resources     = activePrograms,
+          resources     = [ `earned` ].concat(activePrograms),
           currentEarned = client.current.earned * multiplier,
           getText       = snippetToText;
 
@@ -119,27 +79,34 @@ class BenefitsLinesComp extends Component {
 
     // Individual benefit lines
     const lines = [];
-    for (let dataset of datasets) {
-      let line = (
-        <LineSeries
-          key  = { dataset.label }
-          id   = { dataset.label.replace(` `, ``) }
-          name = { dataset.label }
-          data = { dataset.data } />
-      );
+    for (let dataseti = 0; dataseti < datasets.length; dataseti++) {
+      let dataset = datasets[ dataseti ],
+          line = (
+            <AreaSeries
+              key         = { dataset.label }
+              id          = { dataset.label.replace(` `, ``) }
+              name        = { dataset.label }
+              data        = { dataset.data }
+              legendIndex = { dataseti } />
+          );
 
-      lines.push(line);
+      lines.unshift(line);
     }
 
     // Get 'Unexpected template string expression' warning otherwise
-    // @todo Abstract commonalities between graphs
+    // @todo Change to prep for context, like in @knod 'other-expenses' branch
     const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
           labelHeaderFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
           labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
 
 
+    const plotOptions =  {
+      area:   { stacking: `normal`, pointInterval: interval },
+      series: { marker: { enabled: false }},  // No dots on the lines
+    };
+
+    // @todo Abstract different component attributes as frosting
     // `zoomKey` doesn't work without another package
-    const plotOptions =  { line: { pointInterval: interval }};
     return (
       <div className={ `benefit-lines-graph ` + (className || ``) }>
         <HighchartsChart plotOptions={ plotOptions }>
@@ -206,7 +173,7 @@ class BenefitsLinesComp extends Component {
    *     a class.
    * @method
    *
-   * @params {object} highchartsObject Object Highcharts sends to event
+   * @params {highchartsObject} hcObject Object Highcharts sends to event
    *     handlers
    *
    * @returns {string} String representing an HTML element.
@@ -225,7 +192,7 @@ class BenefitsLinesComp extends Component {
 };
 
 
-const BenefitsLines = withHighcharts(BenefitsLinesComp, Highcharts);
+const StackedResources = withHighcharts(StackedResourcesComp, Highcharts);
 
 
-export { BenefitsLines };
+export { StackedResources };
