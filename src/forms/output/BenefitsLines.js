@@ -131,7 +131,8 @@ class BenefitsLinesComp extends Component {
       lines.push(line);
     }
 
-    // Get 'Unexpected template string expression' warning otherwise
+    // Label for split tooltip 'labels'/'label headers' that appear
+    // at the bottom. Really long.
     // @todo Abstract commonalities between graphs
     const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
           labelHeaderFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
