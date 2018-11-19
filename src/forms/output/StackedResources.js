@@ -72,7 +72,7 @@ class StackedResourcesComp extends Component {
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
     const max      = (limits.max * multiplier),
-          interval = ((max / 100) / 10) * 30;
+          interval = ((max / 100) / 10);
 
     const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
           datasets = getChartData(xRange, multiplier, client, resources, {});
