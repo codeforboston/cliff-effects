@@ -54,31 +54,19 @@ class StackedResourcesComp extends Component {
     let separator = snippetToText(props.snippets.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
-  }
 
-  zoomChart (event) {
-    let valuesAtMouse = {
-          x: event.xAxis[ 0 ].value,
-          y: event.yAxis[ 0 ].value,
-        },
-        axes = {
-          x: event.xAxis[ 0 ].axis,
-          y: event.yAxis[ 0 ].axis,
-        };
-    zoom(event, this, valuesAtMouse, axes);
-  }
+    this.state = { altKeyClass: `` };
+  };
 
-  zoomPoint (event) {
-    let valuesAtMouse = {
-          x: event.point.x,
-          y: event.point.total,
-        },
-        axes = {
-          x: this.xAxis,
-          y: this.yAxis,
-        };
-    zoom(event, this.chart, valuesAtMouse, axes);
-  }
+  componentDidMount () {
+    document.addEventListener(`keydown`, this.handleKeyDown);
+    document.addEventListener(`keyup`, this.handleKeyUp);
+  };
+
+  componentWillUnmount () {
+    document.removeEventListener(`keydown`, this.handleKeyDown);
+    document.removeEventListener(`keyup`, this.handleKeyUp);
+  };
 
   render () {
     const {
@@ -88,6 +76,11 @@ class StackedResourcesComp extends Component {
       className,
       snippets,
     } = this.props;
+
+    let classes = `benefit-lines-graph zoomable ` + this.state.altKeyClass;
+    if (className) {
+      classes += ` ` + className;
+    }
 
     const multiplier    = multipliers[ timescale ],
           resources     = [ `earned` ].concat(activePrograms),
@@ -134,15 +127,15 @@ class StackedResourcesComp extends Component {
     // @todo Abstract different component attributes as frosting
     // `zoomKey` doesn't work without another package
     return (
-      <div className={ `benefit-lines-graph ` + (className || ``) }>
+      <div className={ classes }>
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-            onClick  = { this.zoomChart }
-            tooltip  = {{ enabled: true }}
-            zoomType = { `xy` }
-            panning  = { true }
-            panKey   = { `alt` }
+            onClick   = { this.zoomChart }
+            tooltip   = {{ enabled: true }}
+            zoomType  = { `xy` }
+            panning   = { true }
+            panKey    = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
           <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>
@@ -179,8 +172,9 @@ class StackedResourcesComp extends Component {
           </XAxis>
 
           <YAxis
-            endOnTick  = { false }
-            labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
+            endOnTick = { false }
+            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
+            crosshair = {{}}>
 
             <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
             { lines }
@@ -215,6 +209,42 @@ class StackedResourcesComp extends Component {
    */
   formatMoneyWithK = (highchartsObject) => {
     return formatMoneyWithK(highchartsObject, this.props.snippets);
+  };
+
+  zoomChart (event) {
+    let valuesAtMouse = {
+          x: event.xAxis[ 0 ].value,
+          y: event.yAxis[ 0 ].value,
+        },
+        axes = {
+          x: event.xAxis[ 0 ].axis,
+          y: event.yAxis[ 0 ].axis,
+        };
+    zoom(event, this, valuesAtMouse, axes);
+  };
+
+  zoomPoint (event) {
+    let valuesAtMouse = {
+          x: event.point.x,
+          y: event.point.total,
+        },
+        axes = {
+          x: this.xAxis,
+          y: this.yAxis,
+        };
+    zoom(event, this.chart, valuesAtMouse, axes);
+  };
+
+  handleKeyDown = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `alt-down` });
+    }
+  };
+
+  handleKeyUp = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `` });
+    }
   };
 };
 

@@ -3,6 +3,7 @@
 // 1. Apply to benefit lines too
 // 2. Magnifying glass look for mouse
 // 2b. unless `alt` is down (how?)
+// 3. Remove drag zooming
 
 // Works until you get into the lowest x-axis unit
 // allowed, at which point only y gets zoomed in
