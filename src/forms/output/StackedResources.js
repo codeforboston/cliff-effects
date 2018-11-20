@@ -125,7 +125,6 @@ class StackedResourcesComp extends Component {
     };
 
     // @todo Abstract different component attributes as frosting
-    // `zoomKey` doesn't work without another package
     return (
       <div className={ classes }>
         <HighchartsChart plotOptions={ plotOptions }>
@@ -133,7 +132,6 @@ class StackedResourcesComp extends Component {
           <Chart
             onClick   = { this.zoomChart }
             tooltip   = {{ enabled: true }}
-            zoomType  = { `xy` }
             panning   = { true }
             panKey    = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />

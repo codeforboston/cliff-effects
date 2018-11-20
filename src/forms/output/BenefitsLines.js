@@ -138,7 +138,6 @@ class BenefitsLinesComp extends Component {
           labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
 
 
-    // `zoomKey` doesn't work without another package
     const plotOptions =  { line: { pointInterval: interval }};
     return (
       <div className={ `benefit-lines-graph ` + (className || ``) }>
@@ -146,7 +145,6 @@ class BenefitsLinesComp extends Component {
 
           <Chart
             tooltip  = {{ enabled: true }}
-            zoomType = { `xy` }
             panning  = { true }
             panKey   = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
