@@ -24,6 +24,7 @@ import {
   formatMoneyWithK,
   snippetToText,
 } from './chartStringTransformers';
+import { zoom } from './zoom';
 
 // DATA
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
@@ -55,6 +56,30 @@ class StackedResourcesComp extends Component {
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
   }
 
+  zoomChart (event) {
+    let valuesAtMouse = {
+          x: event.xAxis[ 0 ].value,
+          y: event.yAxis[ 0 ].value,
+        },
+        axes = {
+          x: event.xAxis[ 0 ].axis,
+          y: event.yAxis[ 0 ].axis,
+        };
+    zoom(event, this, valuesAtMouse, axes);
+  }
+
+  zoomPoint (event) {
+    let valuesAtMouse = {
+          x: event.point.x,
+          y: event.point.total,
+        },
+        axes = {
+          x: this.xAxis,
+          y: this.yAxis,
+        };
+    zoom(event, this.chart, valuesAtMouse, axes);
+  }
+
   render () {
     const {
       client,
@@ -72,7 +97,7 @@ class StackedResourcesComp extends Component {
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
     const max      = (limits.max * multiplier),
-          interval = ((max / 100) / 10) * 30;
+          interval = ((max / 100) / 10);
 
     const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
           datasets = getChartData(xRange, multiplier, client, resources, {});
@@ -87,7 +112,8 @@ class StackedResourcesComp extends Component {
               id          = { dataset.label.replace(` `, ``) }
               name        = { dataset.label }
               data        = { dataset.data }
-              legendIndex = { dataseti } />
+              legendIndex = { dataseti }
+              onClick     = { this.zoomPoint } />
           );
 
       lines.unshift(line);
@@ -112,6 +138,7 @@ class StackedResourcesComp extends Component {
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
+            onClick  = { this.zoomChart }
             tooltip  = {{ enabled: true }}
             zoomType = { `xy` }
             panning  = { true }
