@@ -172,7 +172,7 @@ class BenefitsLinesComp extends Component {
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_zoomInstructions)}` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_panInstructions)}` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
               useHTML   = { true }
