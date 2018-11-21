@@ -116,7 +116,6 @@ class StackedResourcesComp extends Component {
       lines.unshift(line);
     }
 
-    // Get 'Unexpected template string expression' warning otherwise
     // @todo Change to prep for context, like in @knod 'other-expenses' branch
     const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
           labelHeaderFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
@@ -189,7 +188,6 @@ class StackedResourcesComp extends Component {
     );
   }  // Ends render()
 
-
   /** Adds translation-specific money designations
    *     (like a dollar sign for English) to the number value
    *     string Highcharts creates, then wraps it in a span with
@@ -213,6 +211,12 @@ class StackedResourcesComp extends Component {
     return formatMoneyWithK(highchartsObject, this.props.snippets);
   };
 
+  /** Sends data to `zoom()` when the chart itself is clicked
+   *     on, formatted in the way that `zoom()` needs.
+   * @param {object} event Highcharts event object
+   * @returns nothing (but in future may be a message if
+   *     zooming is blocked)
+   */
   zoomChart (event) {
     let valuesAtMouse = {
           x: event.xAxis[ 0 ].value,
@@ -225,6 +229,13 @@ class StackedResourcesComp extends Component {
     zoom(event, this, valuesAtMouse, axes);
   };
 
+  /** Sends data to `zoom()` when a stacked-line chart series
+   *     point is clicked on, formatted in the way that `zoom()`
+   *     needs.
+   * @param {object} event Highcharts event object
+   * @returns nothing (but in future may be a message if
+   *     zooming is blocked)
+   */
   zoomPoint (event) {
     let valuesAtMouse = {
           x: event.point.x,
@@ -237,12 +248,28 @@ class StackedResourcesComp extends Component {
     zoom(event, this.chart, valuesAtMouse, axes);
   };
 
+  /** Alters class name based on which keys were depressed.
+   *     Right now, it's use is to detect someone using the 'alt'
+   *     key so that the mouse cursor image can be changed to
+   *     show the user can pan the chart.
+   *
+   * @param {object} event Highcharts event object
+   * @returns nothing
+   */
   handleKeyDown = (event) => {
     if (event.key === `Alt`) {
       this.setState({ altKeyClass: `alt-down` });
     }
   };
 
+  /** Alters class name based on which keys were released.
+   *     Right now, it's use is to detect someone letting go of
+   *     the 'alt' key so that the mouse cursor image can be
+   *     changed to show the user can zoom on the chart.
+   *
+   * @param {object} event Highcharts event object
+   * @returns nothing
+   */
   handleKeyUp = (event) => {
     if (event.key === `Alt`) {
       this.setState({ altKeyClass: `` });
