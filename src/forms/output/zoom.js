@@ -1,7 +1,3 @@
-
-// @todo
-// [ ] 4. When maxed out on zooming, tell user
-
 // Works until you get into the lowest x-axis unit
 // allowed, at which point only y gets zoomed in
 
