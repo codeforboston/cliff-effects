@@ -1,14 +1,11 @@
 
 // @todo
-// [ ] 1. Apply to benefit lines too
-// [x] 2. Magnifying glass look for mouse
-// [x] 2b. unless `alt` is down (how?)
-// [x] 3. Remove drag zooming
+// [ ] 4. When maxed out on zooming, tell user
 
 // Works until you get into the lowest x-axis unit
 // allowed, at which point only y gets zoomed in
 
-/** Proportional zooming in charts.
+/** Proportional zooming in charts. Mutator.
  *
  * @param {object} event Whatever event highchart sends. Should have a `.altKey`
  * @param {object} chart Highcharts `chart` object for showing reset zoom button.

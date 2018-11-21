@@ -310,9 +310,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* Lines graph. Needed? */
-.benefit-lines-graph {
+/*.client-graph {
   width: 100%;
-}
+}*/
 
 /* FORM ELEMENTS */
 

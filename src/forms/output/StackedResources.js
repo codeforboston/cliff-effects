@@ -36,6 +36,9 @@ let multipliers = timescaleMultipliers.fromMonthly,
     limits      = PROGRAM_CHART_VALUES.limits;
 
 
+// Still @todo
+// - [ ] Function descriptions
+
 /** Graph of all incoming resources as household income changes. Uses Highchart lib.
  * @class
  *
@@ -77,7 +80,7 @@ class StackedResourcesComp extends Component {
       snippets,
     } = this.props;
 
-    let classes = `benefit-lines-graph zoomable ` + this.state.altKeyClass;
+    let classes = `stacked-resources-graph zoomable ` + this.state.altKeyClass;
     if (className) {
       classes += ` ` + className;
     }
@@ -130,10 +133,10 @@ class StackedResourcesComp extends Component {
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-            onClick   = { this.zoomChart }
-            tooltip   = {{ enabled: true }}
-            panning   = { true }
-            panKey    = { `alt` }
+            onClick = { this.zoomChart }
+            tooltip = {{ enabled: true }}
+            panning = { true }
+            panKey  = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
           <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>

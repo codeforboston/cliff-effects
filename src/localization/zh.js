@@ -254,7 +254,7 @@ export default {
       beforeMoneyWithTime_v1:     `$`,
       afterMoneyWithTime_v1:      ` /月`,
       xAxisTitleEnd_v0:           ` Pay`,
-      panInstructions_v0:         `To pan, hold alt while you click and drag`,
+      panInstructions_v0:         `To pan, hold 'alt' while you click and drag`,
       currentPayPlotLineLabel_v0: `Current pay:`,
       noBenefitsSelected_v0:      `No public benefit programs have been selected`,
 

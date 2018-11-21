@@ -24,6 +24,7 @@ import {
   formatMoneyWithK,
   snippetToText,
 } from './chartStringTransformers';
+import { zoom } from './zoom';
 
 // DATA
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
@@ -36,17 +37,8 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 
 // Still @todo
-// - [x] Bottom/left ticks' number format (labels headers!) (https://stackoverflow.com/a/26128177/3791179)
-// - [x] Fixed width for ticks' text - width to not change on interval change
-// - [x] Thousands separator
-// - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
-// - [x] Snippets
-// - [x] Button placement
-// - [x] Adjust button placement based on viewport width and semantic-ui-react styles (https://stackoverflow.com/a/46586783/3791179)
-// - [x] File name
-// - [x] Replace old graph
+// - [ ] Function descriptions
 // - [ ] Test
-// - [x] Function descriptions
 // - [ ] ~Add highcharts global options to graph frosting file (change file name and maybe location)~
 //          1. It's going to need the `snippets` object, which is a bigger change.
 //          2. It's got `limits` too, so is it still just 'frosting?' Also, should we move all the
@@ -56,7 +48,6 @@ let multipliers = timescaleMultipliers.fromMonthly,
 // - [ ] * Legend item for PlotLine
 // - [ ] * Bigger font?
 // - [ ] * Different zoom note for touch device
-// - [ ] * Proportional zoom
 
 // Possible future improvements:
 // 1. Add PlotLine to Legend? Haven't found it yet and can't seem to do a
@@ -93,7 +84,19 @@ class BenefitsLinesComp extends Component {
     let separator = snippetToText(props.snippets.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
+
+    this.state = { altKeyClass: `` };
   }
+
+  componentDidMount () {
+    document.addEventListener(`keydown`, this.handleKeyDown);
+    document.addEventListener(`keyup`, this.handleKeyUp);
+  };
+
+  componentWillUnmount () {
+    document.removeEventListener(`keydown`, this.handleKeyDown);
+    document.removeEventListener(`keyup`, this.handleKeyUp);
+  };
 
   render () {
     const {
@@ -104,6 +107,11 @@ class BenefitsLinesComp extends Component {
       snippets,
     } = this.props;
 
+    let classes = `benefits-lines-graph zoomable ` + this.state.altKeyClass;
+    if (className) {
+      classes += ` ` + className;
+    }
+
     const multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
           currentEarned = client.current.earned * multiplier,
@@ -112,7 +120,7 @@ class BenefitsLinesComp extends Component {
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
     const max      = (limits.max * multiplier),
-          interval = ((max / 100) / 10) * 30;
+          interval = ((max / 100) / 10);
 
     const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
           datasets = getChartData(xRange, multiplier, client, resources, {});
@@ -125,7 +133,8 @@ class BenefitsLinesComp extends Component {
           key  = { dataset.label }
           id   = { dataset.label.replace(` `, ``) }
           name = { dataset.label }
-          data = { dataset.data } />
+          data = { dataset.data }
+          onClick = { this.zoomPoint } />
       );
 
       lines.push(line);
@@ -140,13 +149,14 @@ class BenefitsLinesComp extends Component {
 
     const plotOptions =  { line: { pointInterval: interval }};
     return (
-      <div className={ `benefit-lines-graph ` + (className || ``) }>
+      <div className={ classes }>
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-            tooltip  = {{ enabled: true }}
-            panning  = { true }
-            panKey   = { `alt` }
+            onClick = { this.zoomChart }
+            tooltip = {{ enabled: true }}
+            panning = { true }
+            panKey  = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
           <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>
@@ -183,8 +193,9 @@ class BenefitsLinesComp extends Component {
           </XAxis>
 
           <YAxis
-            endOnTick  = { false }
-            labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
+            endOnTick = { false }
+            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
+            crosshair = {{}}>
 
             <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
             { lines }
@@ -219,6 +230,42 @@ class BenefitsLinesComp extends Component {
    */
   formatMoneyWithK = (highchartsObject) => {
     return formatMoneyWithK(highchartsObject, this.props.snippets);
+  };
+
+  zoomChart (event) {
+    let valuesAtMouse = {
+          x: event.xAxis[ 0 ].value,
+          y: event.yAxis[ 0 ].value,
+        },
+        axes = {
+          x: event.xAxis[ 0 ].axis,
+          y: event.yAxis[ 0 ].axis,
+        };
+    zoom(event, this, valuesAtMouse, axes);
+  };
+
+  zoomPoint (event) {
+    let valuesAtMouse = {
+          x: event.point.x,
+          y: event.point.y,
+        },
+        axes = {
+          x: this.xAxis,
+          y: this.yAxis,
+        };
+    zoom(event, this.chart, valuesAtMouse, axes);
+  };
+
+  handleKeyDown = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `alt-down` });
+    }
+  };
+
+  handleKeyUp = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `` });
+    }
   };
 };
 
