@@ -276,7 +276,7 @@ export default {
       beforeMoneyWithTime_v1:     `$`, // see BenefitsTable.js multiple lines
       afterMoneyWithTime_v1:      ` / month`, // see BenefitsTable.js multiple lines
       xAxisTitleEnd_v1:           ` Pay`,
-      zoomInstructions_v1:        `Click and drag to zoom`,
+      panInstructions_v1:         `To pan, hold alt while you click and drag`,
       currentPayPlotLineLabel_v1: `Current pay:`,
       noBenefitsSelected_v1:      `No public benefit programs have been selected`,
       // Text Summary:
