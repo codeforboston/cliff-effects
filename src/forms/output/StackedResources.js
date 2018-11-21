@@ -38,6 +38,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
 
 // Still @todo
 // - [ ] Function descriptions
+// - [ ] Abstract pan key?
 
 /** Graph of all incoming resources as household income changes. Uses Highchart lib.
  * @class
