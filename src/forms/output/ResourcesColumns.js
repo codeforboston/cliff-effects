@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { range } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 // HIGHCHARTS
 import Highcharts from 'highcharts';
@@ -11,8 +11,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-  PlotLine,
-  AreaSeries,
+  ColumnSeries,
   withHighcharts,
 } from 'react-jsx-highcharts';
 
@@ -25,14 +24,9 @@ import {
   snippetToText,
 } from './chartStringTransformers';
 
-// DATA
-import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
-
 
 // Graphs get things in monthly values, so we'll convert from there
-let multipliers = timescaleMultipliers.fromMonthly,
-    // Each graph controls its own scaling
-    limits      = PROGRAM_CHART_VALUES.limits;
+let multipliers = timescaleMultipliers.fromMonthly;
 
 
 /** Graph of all incoming resources as household income changes. Uses Highchart lib.
@@ -40,13 +34,13 @@ let multipliers = timescaleMultipliers.fromMonthly,
  *
  * @params {object} props
  * @params {object} props.client Data for current and future client circumstances.
- * @params {'Weekly'|'Monthly'|'Yearly'} props.timescale Should be `timeInterval`.
+ * @params {'Weekly'|'Monthly'|'Yearly'} props.timescale Interval of time to show for pay amount.
  * @params {string[]} props.activePrograms Benefit programs in which the household enrolled.
  * @params {object} props.className An extra class for the outermost component,
  *     whether it's the chart or the no-chart message.
  * @params {object} props.snippets Translation spans of text in app.
  */
-class StackedResourcesComp extends Component {
+class ResourcesColumnsComp extends Component {
 
   constructor (props) {
     super(props);
@@ -64,62 +58,61 @@ class StackedResourcesComp extends Component {
       snippets,
     } = this.props;
 
-    const multiplier    = multipliers[ timescale ],
-          resources     = [ `earned` ].concat(activePrograms),
-          currentEarned = client.current.earned * multiplier,
-          getText       = snippetToText;
+    let clone = cloneDeep(client);
+
+    let multiplier    = multipliers[ timescale ],
+        resources     = [ `earned` ].concat(activePrograms),
+        currentEarned = client.current.earned * multiplier,
+        futureEarned  = client.future.earned * multiplier,
+        getText       = snippetToText;
 
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
-    const max      = (limits.max * multiplier),
-          interval = ((max / 100) / 10);
+    const xRange   = [
+            currentEarned,
+            futureEarned, 
+          ],  // x-axis/earned income numbers
+          datasets = getChartData(xRange, multiplier, clone, resources, {});
 
-    const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
-          datasets = getChartData(xRange, multiplier, client, resources, {});
-
-    // Data to stack
-    const lines = [];
+    // Columns and categories for each pay amount
+    let columns    = [],
+        categories = [];
     for (let dataseti = 0; dataseti < datasets.length; dataseti++) {
       let dataset = datasets[ dataseti ],
-          line = (
-            <AreaSeries
+          column = (
+            <ColumnSeries
               key         = { dataset.label }
               id          = { dataset.label.replace(` `, ``) }
               name        = { dataset.label }
               data        = { dataset.data }
-              legendIndex = { dataseti } />
+              legendIndex = { dataseti }
+              x           = { dataseti }
+              label       = { dataseti } />
           );
 
-      lines.unshift(line);
+      columns.unshift(column);
+
+      if (dataset.label === `Earned`) {
+        for (let amount of dataset.data) {
+          let formatted = toFancyMoneyStr(amount);
+          categories.push(formatted);
+        }
+      }
     }
 
-    // Label for split tooltip 'labels'/'label headers' that appear
-    // at the bottom. Really long.
-    // @todo Change to prep for context, like in @knod 'other-expenses' branch
-    const bottomTooltipFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
-          bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
-          bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
 
-
-    const plotOptions =  {
-      area:   { stacking: `normal`, pointInterval: interval },
-      series: { marker: { enabled: false }},  // No dots on the lines
-    };
-
+    const plotOptions =  { column: { stacking: `normal` }};
     // @todo Abstract different component attributes as frosting
-    // `zoomKey` doesn't work without another package
     return (
-      <div className={ `resources-stacked ` + (className || ``) }>
+      <div className={ `benefit-columns-graph ` + (className || ``) }>
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
             tooltip  = {{ enabled: true }}
-            zoomType = { `xy` }
-            panning  = { true }
-            panKey   = { `alt` }
+            zoomType = { `y` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
-          <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>
+          <Title>{ getText(snippets.i_stackedBarGraphTitle) }</Title>
 
           <Legend
             align         = { `center` }
@@ -127,7 +120,6 @@ class StackedResourcesComp extends Component {
 
           <Tooltip
             split         = { true }
-            headerFormat  = { bottomTooltipFormat }
             valuePrefix   = { `$` }
             valueDecimals = { 2 }
             padding       = { 8 }
@@ -136,19 +128,12 @@ class StackedResourcesComp extends Component {
             hideDelay     = { 300 } />
 
           <XAxis
-            endOnTick = { false }
-            labels    = {{ formatter: this.formatMoneyWithK }}
-            crosshair = {{}}>
+            endOnTick  = { false }
+            categories = { categories }
+            crosshair  = {{}}>
 
-            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_zoomInstructions)}` }</XAxis.Title>
-            <PlotLine
-              value     = { currentEarned }
-              useHTML   = { true }
-              label     = {{ text: `${getText(snippets.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
-              zIndex    = { 5 }
-              width     = { 2 }
-              color     = { `gray` }
-              dashStyle = { `ShortDashDot` } />
+            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}` }</XAxis.Title>
+            { columns }
 
           </XAxis>
 
@@ -157,7 +142,6 @@ class StackedResourcesComp extends Component {
             labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
 
             <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
-            { lines }
 
           </YAxis>
 
@@ -193,7 +177,7 @@ class StackedResourcesComp extends Component {
 };
 
 
-const StackedResources = withHighcharts(StackedResourcesComp, Highcharts);
+const ResourcesColumns = withHighcharts(ResourcesColumnsComp, Highcharts);
 
 
-export { StackedResources };
+export { ResourcesColumns };
