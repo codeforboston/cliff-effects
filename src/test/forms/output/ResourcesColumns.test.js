@@ -2,50 +2,36 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { cloneDeep, set } from 'lodash';
 
-import { BenefitsLineGraph } from '../../../forms/output/BenefitsLineGraph';
+import { ResourcesColumns } from '../../../forms/output/ResourcesColumns';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
-jest.mock('react-chartjs-2', () => {
-  const LineMock = () => {
-    return null;
-  };
+// jest.mock('react-chartjs-2', () => {
+//   const BarMock = () => {
+//     return null;
+//   };
 
-  return {
-    Line(props) {
-      return <LineMock { ...props } />;
-    },
-  };
-});
+//   return {
+//     Bar(props) {
+//       return <BarMock { ...props } />;
+//     },
+//   };
+// });
 
-describe('<BenefitsLineGraph>', () => {
-  let activePrograms;
+describe.skip('<ResourcesColumns>', () => {
   let client;
-  let defaultProps;
 
   const buildGraph = () => {
-    return mount(<BenefitsLineGraph { ...defaultProps } />);
+    return mount(<ResourcesColumns client={ client } />);
   };
 
   beforeEach(() => {
-    activePrograms = [];
     client = cloneDeep(CLIENT_DEFAULTS);
-    defaultProps = {
-      activePrograms: activePrograms,
-      client:         client,
-      timescale:      'Monthly',
-      className:      'some-class',
-    };
-  });
-  
-  it('renders message when no benefits selected', () => {
-    const graph = buildGraph();
-
-    expect(graph.children).toHaveLength(1);
-    expect(graph.childAt(0).is('Message')).toBe(true);
   });
 
   it('renders with snap and current earned less than future earned', () => {
-    activePrograms.push('snap');
+    const benefits = [ 'snap' ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 100);
     set(client, 'future.earned', 200);
 
@@ -53,7 +39,9 @@ describe('<BenefitsLineGraph>', () => {
   });
 
   it('renders with snap and current earned greater than future earned', () => {
-    activePrograms.push('snap');
+    const benefits = [ 'snap' ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 200);
     set(client, 'future.earned', 100);
     
@@ -61,7 +49,9 @@ describe('<BenefitsLineGraph>', () => {
   });
 
   it('renders with section8', () => {
-    activePrograms.push('section8');
+    const benefits = [ 'section8' ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 100);
     set(client, 'future.earned', 200);
 
@@ -69,8 +59,12 @@ describe('<BenefitsLineGraph>', () => {
   });
 
   it('renders with both snap and section8', () => {
-    activePrograms.push('snap');
-    activePrograms.push('section8');
+    const benefits = [
+      'snap',
+      'section8',
+    ];
+
+    set(client, 'current.benefits', benefits);
     set(client, 'current.earned', 100);
     set(client, 'future.earned', 200);
 
