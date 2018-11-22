@@ -24,6 +24,7 @@ import {
   formatMoneyWithK,
   snippetToText,
 } from './chartStringTransformers';
+import { zoom } from './zoom';
 
 // DATA
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
@@ -34,6 +35,10 @@ let multipliers = timescaleMultipliers.fromMonthly,
     // Each graph controls its own scaling
     limits      = PROGRAM_CHART_VALUES.limits;
 
+
+// Still @todo
+// - [ ] Function descriptions
+// - [ ] Abstract pan key?
 
 /** Graph of all incoming resources as household income changes. Uses Highchart lib.
  * @class
@@ -53,7 +58,19 @@ class StackedResourcesComp extends Component {
     let separator = snippetToText(props.snippets.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
-  }
+
+    this.state = { altKeyClass: `` };
+  };
+
+  componentDidMount () {
+    document.addEventListener(`keydown`, this.handleKeyDown);
+    document.addEventListener(`keyup`, this.handleKeyUp);
+  };
+
+  componentWillUnmount () {
+    document.removeEventListener(`keydown`, this.handleKeyDown);
+    document.removeEventListener(`keyup`, this.handleKeyUp);
+  };
 
   render () {
     const {
@@ -63,6 +80,11 @@ class StackedResourcesComp extends Component {
       className,
       snippets,
     } = this.props;
+
+    let classes = `resources-stacked zoomable ` + this.state.altKeyClass;
+    if (className) {
+      classes += ` ` + className;
+    }
 
     const multiplier    = multipliers[ timescale ],
           resources     = [ `earned` ].concat(activePrograms),
@@ -87,7 +109,8 @@ class StackedResourcesComp extends Component {
               id          = { dataset.label.replace(` `, ``) }
               name        = { dataset.label }
               data        = { dataset.data }
-              legendIndex = { dataseti } />
+              legendIndex = { dataseti }
+              onClick     = { this.zoomPoint } />
           );
 
       lines.unshift(line);
@@ -107,16 +130,15 @@ class StackedResourcesComp extends Component {
     };
 
     // @todo Abstract different component attributes as frosting
-    // `zoomKey` doesn't work without another package
     return (
-      <div className={ `resources-stacked ` + (className || ``) }>
+      <div className={ classes }>
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-            tooltip  = {{ enabled: true }}
-            zoomType = { `xy` }
-            panning  = { true }
-            panKey   = { `alt` }
+            onClick = { this.zoomChart }
+            tooltip = {{ enabled: true }}
+            panning = { true }
+            panKey  = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
           <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>
@@ -140,7 +162,7 @@ class StackedResourcesComp extends Component {
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_zoomInstructions)}` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_panInstructions)}` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
               useHTML   = { true }
@@ -153,8 +175,9 @@ class StackedResourcesComp extends Component {
           </XAxis>
 
           <YAxis
-            endOnTick  = { false }
-            labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
+            endOnTick = { false }
+            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
+            crosshair = {{}}>
 
             <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
             { lines }
@@ -166,7 +189,6 @@ class StackedResourcesComp extends Component {
       </div>
     );
   }  // Ends render()
-
 
   /** Adds translation-specific money designations
    *     (like a dollar sign for English) to the number value
@@ -189,6 +211,71 @@ class StackedResourcesComp extends Component {
    */
   formatMoneyWithK = (highchartsObject) => {
     return formatMoneyWithK(highchartsObject, this.props.snippets);
+  };
+
+  /** Sends data to `zoom()` when the chart itself is clicked
+   *     on, formatted in the way that `zoom()` needs.
+   * @param {object} event Highcharts event object
+   * @returns nothing (but in future may be a message if
+   *     zooming is blocked)
+   */
+  zoomChart (event) {
+    let valuesAtMouse = {
+          x: event.xAxis[ 0 ].value,
+          y: event.yAxis[ 0 ].value,
+        },
+        axes = {
+          x: event.xAxis[ 0 ].axis,
+          y: event.yAxis[ 0 ].axis,
+        };
+    zoom(event, this, valuesAtMouse, axes);
+  };
+
+  /** Sends data to `zoom()` when a stacked-line chart series
+   *     point is clicked on, formatted in the way that `zoom()`
+   *     needs.
+   * @param {object} event Highcharts event object
+   * @returns nothing (but in future may be a message if
+   *     zooming is blocked)
+   */
+  zoomPoint (event) {
+    let valuesAtMouse = {
+          x: event.point.x,
+          y: event.point.total,
+        },
+        axes = {
+          x: this.xAxis,
+          y: this.yAxis,
+        };
+    zoom(event, this.chart, valuesAtMouse, axes);
+  };
+
+  /** Alters class name based on which keys were depressed.
+   *     Right now, it's use is to detect someone using the 'alt'
+   *     key so that the mouse cursor image can be changed to
+   *     show the user can pan the chart.
+   *
+   * @param {object} event Highcharts event object
+   * @returns nothing
+   */
+  handleKeyDown = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `alt-down` });
+    }
+  };
+
+  /** Alters class name based on which keys were released.
+   *     Right now, it's use is to detect someone letting go of
+   *     the 'alt' key so that the mouse cursor image can be
+   *     changed to show the user can zoom on the chart.
+   *
+   * @param {object} event Highcharts event object
+   * @returns nothing
+   */
+  handleKeyUp = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `` });
+    }
   };
 };
 

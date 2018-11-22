@@ -272,7 +272,7 @@ export default {
       beforeMoneyWithTime_v1:     ` / tháng`,
       afterMoneyWithTime_v1:      `$`,
       xAxisTitleEnd_v0:           ` Pay`,
-      zoomInstructions_v0:        `Click and drag to zoom`,
+      panInstructions_v0:         `To pan, hold 'alt' while you click and drag`,
       currentPayPlotLineLabel_v0: `Current pay:`,
       noBenefitsSelected_v0:      `No public benefit programs have been selected`,
 

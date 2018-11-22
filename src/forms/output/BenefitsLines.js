@@ -24,6 +24,7 @@ import {
   formatMoneyWithK,
   snippetToText,
 } from './chartStringTransformers';
+import { zoom } from './zoom';
 
 // DATA
 import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
@@ -33,47 +34,6 @@ import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
 let multipliers = timescaleMultipliers.fromMonthly,
     // Each graph controls its own scaling
     limits      = PROGRAM_CHART_VALUES.limits;
-
-
-// Still @todo
-// - [x] Bottom/left ticks' number format (labels headers!) (https://stackoverflow.com/a/26128177/3791179)
-// - [x] Fixed width for ticks' text - width to not change on interval change
-// - [x] Thousands separator
-// - [x] Bottom tooltip's number format ~(maybe the same thing as ticks)~
-// - [x] Snippets
-// - [x] Button placement
-// - [x] Adjust button placement based on viewport width and semantic-ui-react styles (https://stackoverflow.com/a/46586783/3791179)
-// - [x] File name
-// - [x] Replace old graph
-// - [ ] Test
-// - [x] Function descriptions
-// - [ ] ~Add highcharts global options to graph frosting file (change file name and maybe location)~
-//          1. It's going to need the `snippets` object, which is a bigger change.
-//          2. It's got `limits` too, so is it still just 'frosting?' Also, should we move all the
-//          stuff in the src/utils/charts folder?
-// - [ ] * Hover style for legend items (button-like style always, then different for active vs. inactive?)
-// - [ ] * Hover style for plot line
-// - [ ] * Legend item for PlotLine
-// - [ ] * Bigger font?
-// - [ ] * Different zoom note for touch device
-// - [ ] * Proportional zoom
-
-// Possible future improvements:
-// 1. Add PlotLine to Legend? Haven't found it yet and can't seem to do a
-//     vertical series. Add/remove PlotLine (can add button to legend?) -
-//     https://stackoverflow.com/a/14632292/3791179.
-// 1. PlotLine hover style - has a mousein and mouseout hook we can use
-//     to make it bigger when hovered over.
-// 1. Possibly remove point markers on lines - https://stackoverflow.com/a/14642909/3791179.
-// 1. Possible tooltips for PlotLine -
-//     https://stackoverflow.com/questions/12451549/highcharts-plotband-tooltip-hover-default-styling#21277491.
-//     CSS solution hides the label text except on hover (not great).
-//     Maybe do something similar where the HTML has the label part
-//     and a separate tooltip part and just hide/reveal the tooltip part.
-// 1. Haven't figured out how to pan vertically. This might help, but
-//     means chart may have set dimensions:
-//     https://api.highcharts.com/highcharts/chart.scrollablePlotArea.
-//     Not sure how it would act with zoom.
 
 /** Graph of each benefit as household income changes. Uses Highchart lib.
  * @class
@@ -93,7 +53,19 @@ class BenefitsLinesComp extends Component {
     let separator = snippetToText(props.snippets.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
+
+    this.state = { altKeyClass: `` };
   }
+
+  componentDidMount () {
+    document.addEventListener(`keydown`, this.handleKeyDown);
+    document.addEventListener(`keyup`, this.handleKeyUp);
+  };
+
+  componentWillUnmount () {
+    document.removeEventListener(`keydown`, this.handleKeyDown);
+    document.removeEventListener(`keyup`, this.handleKeyUp);
+  };
 
   render () {
     const {
@@ -103,6 +75,11 @@ class BenefitsLinesComp extends Component {
       className,
       snippets,
     } = this.props;
+
+    let classes = `benefits-lines-graph zoomable ` + this.state.altKeyClass;
+    if (className) {
+      classes += ` ` + className;
+    }
 
     const multiplier    = multipliers[ timescale ],
           resources     = activePrograms,
@@ -125,7 +102,8 @@ class BenefitsLinesComp extends Component {
           key  = { dataset.label }
           id   = { dataset.label.replace(` `, ``) }
           name = { dataset.label }
-          data = { dataset.data } />
+          data = { dataset.data }
+          onClick = { this.zoomPoint } />
       );
 
       lines.push(line);
@@ -139,17 +117,16 @@ class BenefitsLinesComp extends Component {
           labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
 
 
-    // `zoomKey` doesn't work without another package
     const plotOptions =  { line: { pointInterval: interval }};
     return (
-      <div className={ `benefit-lines-graph ` + (className || ``) }>
+      <div className={ classes }>
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-            tooltip  = {{ enabled: true }}
-            zoomType = { `xy` }
-            panning  = { true }
-            panKey   = { `alt` }
+            onClick = { this.zoomChart }
+            tooltip = {{ enabled: true }}
+            panning = { true }
+            panKey  = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
           <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>
@@ -173,7 +150,7 @@ class BenefitsLinesComp extends Component {
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_zoomInstructions)}` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_panInstructions)}` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
               useHTML   = { true }
@@ -186,8 +163,9 @@ class BenefitsLinesComp extends Component {
           </XAxis>
 
           <YAxis
-            endOnTick  = { false }
-            labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
+            endOnTick = { false }
+            labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
+            crosshair = {{}}>
 
             <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
             { lines }
@@ -199,7 +177,6 @@ class BenefitsLinesComp extends Component {
       </div>
     );
   }  // Ends render()
-
 
   /** Adds translation-specific money designations
    *     (like a dollar sign for English) to the number value
@@ -222,6 +199,71 @@ class BenefitsLinesComp extends Component {
    */
   formatMoneyWithK = (highchartsObject) => {
     return formatMoneyWithK(highchartsObject, this.props.snippets);
+  };
+
+  /** Sends data to `zoom()` when the chart itself is clicked
+   *     on, formatted in the way that `zoom()` needs.
+   * @param {object} event Highcharts event object
+   * @returns nothing (but in future may be a message if
+   *     zooming is blocked)
+   */
+  zoomChart (event) {
+    let valuesAtMouse = {
+          x: event.xAxis[ 0 ].value,
+          y: event.yAxis[ 0 ].value,
+        },
+        axes = {
+          x: event.xAxis[ 0 ].axis,
+          y: event.yAxis[ 0 ].axis,
+        };
+    zoom(event, this, valuesAtMouse, axes);
+  };
+
+  /** Sends data to `zoom()` when a plain line chart series
+   *     point is clicked on, formatted in the way that `zoom()`
+   *     needs.
+   * @param {object} event Highcharts event object
+   * @returns nothing (but in future may be a message if
+   *     zooming is blocked)
+   */
+  zoomPoint (event) {
+    let valuesAtMouse = {
+          x: event.point.x,
+          y: event.point.y,
+        },
+        axes = {
+          x: this.xAxis,
+          y: this.yAxis,
+        };
+    zoom(event, this.chart, valuesAtMouse, axes);
+  };
+
+  /** Alters class name based on which keys were depressed.
+   *     Right now, it's use is to detect someone using the 'alt'
+   *     key so that the mouse cursor image can be changed to
+   *     show the user can pan the chart.
+   *
+   * @param {object} event Highcharts event object
+   * @returns nothing
+   */
+  handleKeyDown = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `alt-down` });
+    }
+  };
+
+  /** Alters class name based on which keys were released.
+   *     Right now, it's use is to detect someone letting go of
+   *     the 'alt' key so that the mouse cursor image can be
+   *     changed to show the user can zoom on the chart.
+   *
+   * @param {object} event Highcharts event object
+   * @returns nothing
+   */
+  handleKeyUp = (event) => {
+    if (event.key === `Alt`) {
+      this.setState({ altKeyClass: `` });
+    }
   };
 };
 
