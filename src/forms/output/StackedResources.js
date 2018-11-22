@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
   PlotLine,
-  LineSeries,
+  AreaSeries,
   withHighcharts,
 } from 'react-jsx-highcharts';
 
@@ -35,7 +35,12 @@ let multipliers = timescaleMultipliers.fromMonthly,
     // Each graph controls its own scaling
     limits      = PROGRAM_CHART_VALUES.limits;
 
-/** Graph of each benefit as household income changes. Uses Highchart lib.
+
+// Still @todo
+// - [ ] Function descriptions
+// - [ ] Abstract pan key?
+
+/** Graph of all incoming resources as household income changes. Uses Highchart lib.
  * @class
  *
  * @params {object} props
@@ -46,7 +51,7 @@ let multipliers = timescaleMultipliers.fromMonthly,
  *     whether it's the chart or the no-chart message.
  * @params {object} props.snippets Translation spans of text in app.
  */
-class BenefitsLinesComp extends Component {
+class StackedResourcesComp extends Component {
 
   constructor (props) {
     super(props);
@@ -55,7 +60,7 @@ class BenefitsLinesComp extends Component {
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
 
     this.state = { altKeyClass: `` };
-  }
+  };
 
   componentDidMount () {
     document.addEventListener(`keydown`, this.handleKeyDown);
@@ -76,13 +81,13 @@ class BenefitsLinesComp extends Component {
       snippets,
     } = this.props;
 
-    let classes = `benefits-lines-graph zoomable ` + this.state.altKeyClass;
+    let classes = `resources-stacked zoomable ` + this.state.altKeyClass;
     if (className) {
       classes += ` ` + className;
     }
 
     const multiplier    = multipliers[ timescale ],
-          resources     = activePrograms,
+          resources     = [ `earned` ].concat(activePrograms),
           currentEarned = client.current.earned * multiplier,
           getText       = snippetToText;
 
@@ -94,30 +99,37 @@ class BenefitsLinesComp extends Component {
     const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
           datasets = getChartData(xRange, multiplier, client, resources, {});
 
-    // Individual benefit lines
+    // Data to stack
     const lines = [];
-    for (let dataset of datasets) {
-      let line = (
-        <LineSeries
-          key  = { dataset.label }
-          id   = { dataset.label.replace(` `, ``) }
-          name = { dataset.label }
-          data = { dataset.data }
-          onClick = { this.zoomPoint } />
-      );
+    for (let dataseti = 0; dataseti < datasets.length; dataseti++) {
+      let dataset = datasets[ dataseti ],
+          line = (
+            <AreaSeries
+              key         = { dataset.label }
+              id          = { dataset.label.replace(` `, ``) }
+              name        = { dataset.label }
+              data        = { dataset.data }
+              legendIndex = { dataseti }
+              onClick     = { this.zoomPoint } />
+          );
 
-      lines.push(line);
+      lines.unshift(line);
     }
 
     // Label for split tooltip 'labels'/'label headers' that appear
     // at the bottom. Really long.
-    // @todo Abstract commonalities between graphs
-    const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
-          labelHeaderFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
-          labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
+    // @todo Change to prep for context, like in @knod 'other-expenses' branch
+    const bottomTooltipFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
+          bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
+          bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
 
 
-    const plotOptions =  { line: { pointInterval: interval }};
+    const plotOptions =  {
+      area:   { stacking: `normal`, pointInterval: interval },
+      series: { marker: { enabled: false }},  // No dots on the lines
+    };
+
+    // @todo Abstract different component attributes as frosting
     return (
       <div className={ classes }>
         <HighchartsChart plotOptions={ plotOptions }>
@@ -137,7 +149,7 @@ class BenefitsLinesComp extends Component {
 
           <Tooltip
             split         = { true }
-            headerFormat  = { labelHeaderFormat }
+            headerFormat  = { bottomTooltipFormat }
             valuePrefix   = { `$` }
             valueDecimals = { 2 }
             padding       = { 8 }
@@ -184,7 +196,7 @@ class BenefitsLinesComp extends Component {
    *     a class.
    * @method
    *
-   * @params {object} highchartsObject Object Highcharts sends to event
+   * @params {highchartsObject} hcObject Object Highcharts sends to event
    *     handlers
    *
    * @returns {string} String representing an HTML element.
@@ -219,7 +231,7 @@ class BenefitsLinesComp extends Component {
     zoom(event, this, valuesAtMouse, axes);
   };
 
-  /** Sends data to `zoom()` when a plain line chart series
+  /** Sends data to `zoom()` when a stacked-line chart series
    *     point is clicked on, formatted in the way that `zoom()`
    *     needs.
    * @param {object} event Highcharts event object
@@ -229,7 +241,7 @@ class BenefitsLinesComp extends Component {
   zoomPoint (event) {
     let valuesAtMouse = {
           x: event.point.x,
-          y: event.point.y,
+          y: event.point.total,
         },
         axes = {
           x: this.xAxis,
@@ -268,7 +280,7 @@ class BenefitsLinesComp extends Component {
 };
 
 
-const BenefitsLines = withHighcharts(BenefitsLinesComp, Highcharts);
+const StackedResources = withHighcharts(StackedResourcesComp, Highcharts);
 
 
-export { BenefitsLines };
+export { StackedResources };

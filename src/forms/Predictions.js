@@ -8,8 +8,8 @@ import { CashFlowInputsRow } from './cashflow';
 import { GraphHolder } from './output/GraphHolder';
 import { Summary } from './output/Summary';
 import { BenefitsTable } from './output/BenefitsTable';
-import { StackedBarGraph } from './output/StackedBarGraph';
-import { StackedAreaGraph } from './output/StackedAreaGraph';
+import { ResourcesColumns } from './output/ResourcesColumns';
+import { StackedResources } from './output/StackedResources';
 import { BenefitsLines } from './output/BenefitsLines';
 
 // ========================================
@@ -101,8 +101,9 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
           ),
           render: () => { return (
             <Tab.Pane>
-              <StackedBarGraph
+              <GraphHolder
                 client   = { client }
+                Graph    = { ResourcesColumns }
                 snippets = { snippets } />
             </Tab.Pane>
           );},
@@ -120,7 +121,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               <Tab.Pane>
                 <GraphHolder
                   client={ client }
-                  Graph={ StackedAreaGraph }
+                  Graph={ StackedResources }
                   snippets = { snippets } />
               </Tab.Pane>
             );

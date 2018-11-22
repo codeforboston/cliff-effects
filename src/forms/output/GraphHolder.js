@@ -9,7 +9,7 @@ class GraphHolder extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { activeID: 'Yearly' };
+    this.state = { activeID: 'Monthly' };
   }
 
   onClick = (evnt) => {

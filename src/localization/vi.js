@@ -48,7 +48,7 @@ export default {
     'whyHeader_v1': `Tại sao công cụ này quan trọng?`,
     // v2: All the ways that benefits interact with a family's circumstances and with each other are impossible for one person to calculate accurately. A family making fanancial choices these days is making them blind. We're exploring ways to deal with this issue of complexity and help families better understand and predict their situation.
     'why1_v1':      `Hiệu ứng vách đá này xảy ra khi có sự thay đổi nhỏ trong hoàn cảnh của hộ gia đình - như tăng tiền lương nhẹ - và cái đó làm giảm lợi ích của họ một cách không cân xứng. Hộ gia đình đang làm việc để tăng lượng của họ, nhưng cuối cùng họ sẽ bị lỗ với tiền nhân được hàng tháng. Những cái hiệu ứng vách đá ngăn chặn nhiều gia đình thực sự rời khỏi chương trình hỗ trợ công cộng.`,
-    // v2: A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit.
+    // v2: A cliff effect occurs when a slight change in a household’s circumstances - say, a slight pay raise - disproportionately lowers their benefits. Some situations can leave a family earning more, but bringing in less money all together. Sometimes these cliff effects prevent many families from actually getting off of public assistance programs. A lot of people are working to improve the situation, but there's a lot of work left to do. SNAP itself underwent some major changes in the past few years that aim to improve the course of that benefit. Below are links to more information specifically about cliff effects relevant to 2017 and before.
     'why2_v1':      `Những hiệu ứng vách đá cũng khó để dự đoán. Các tương tác giữa tiền lương, số người trong hộ nhà đinh, và nhiều tiêu chí khác, cũng như các hiệu ứng mà mỗi chương trình đã tác động lẫn nhau kết quả cách bất ngờ. Chúng tôi đang tìm cách giải quyết vấn đề phức tạp này và giúp các gia đình hiểu rõ hơn và dự đoán tình hình của họ.`,
 
     'videoLinkText_v1':    `Phim dài hai phút mô tả hiệu ứng vách đá`,
@@ -272,7 +272,7 @@ export default {
       beforeMoneyWithTime_v1:     ` / tháng`,
       afterMoneyWithTime_v1:      `$`,
       xAxisTitleEnd_v0:           ` Pay`,
-      zoomInstructions_v0:        `Click and drag to zoom`,
+      panInstructions_v0:         `To pan, hold 'alt' while you click and drag`,
       currentPayPlotLineLabel_v0: `Current pay:`,
       noBenefitsSelected_v0:      `No public benefit programs have been selected`,
 
