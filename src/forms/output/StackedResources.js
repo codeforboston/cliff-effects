@@ -81,7 +81,7 @@ class StackedResourcesComp extends Component {
       snippets,
     } = this.props;
 
-    let classes = `stacked-resources-graph zoomable ` + this.state.altKeyClass;
+    let classes = `resources-stacked zoomable ` + this.state.altKeyClass;
     if (className) {
       classes += ` ` + className;
     }
@@ -99,7 +99,7 @@ class StackedResourcesComp extends Component {
     const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
           datasets = getChartData(xRange, multiplier, client, resources, {});
 
-    // Individual benefit lines
+    // Data to stack
     const lines = [];
     for (let dataseti = 0; dataseti < datasets.length; dataseti++) {
       let dataset = datasets[ dataseti ],
@@ -116,10 +116,12 @@ class StackedResourcesComp extends Component {
       lines.unshift(line);
     }
 
+    // Label for split tooltip 'labels'/'label headers' that appear
+    // at the bottom. Really long.
     // @todo Change to prep for context, like in @knod 'other-expenses' branch
-    const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
-          labelHeaderFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
-          labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
+    const bottomTooltipFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
+          bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
+          bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
 
 
     const plotOptions =  {
@@ -147,7 +149,7 @@ class StackedResourcesComp extends Component {
 
           <Tooltip
             split         = { true }
-            headerFormat  = { labelHeaderFormat }
+            headerFormat  = { bottomTooltipFormat }
             valuePrefix   = { `$` }
             valueDecimals = { 2 }
             padding       = { 8 }
