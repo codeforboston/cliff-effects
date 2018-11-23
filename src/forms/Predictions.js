@@ -27,11 +27,11 @@ import { BenefitsLines } from './output/BenefitsLines';
  *     this more easily decoupled in future.
  * @param {function} props.updateClientValue Update client state
  *     value.
- * @param {object} props.snippets Language-specific text
+ * @param {object} props.translations Language-specific text
  *
  * @returns {object} React element
  */
-const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
+const IncomeForm = function ({ future, time, updateClientValue, translations }) {
 
   let type = 'income';
 
@@ -45,14 +45,14 @@ const IncomeForm = function ({ future, time, updateClientValue, snippets }) {
         updateClientValue = { updateClientValue }
         generic='earned'
         labelInfo='(Weekly pay = hourly wage times average number of work hours per week)'>
-        { snippets.i_futureIncomeQuestion }
+        { translations.i_futureIncomeQuestion }
       </CashFlowInputsRow>
     </div>
   );
 };  // End IncomeForm() Component
 
 
-const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
+const TabbedVisualizations = ({ client, openFeedback, translations }) => {
   return (
     <Tab
       menu={{ color: 'teal',  attached: true, tabular: true }}
@@ -62,14 +62,14 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             <Menu.Item
               key = { `tab0` }
               as  = { Button }>
-              { snippets.i_summaryTitle }
+              { translations.i_summaryTitle }
             </Menu.Item>
           ),
           render: () => { return (
             <Tab.Pane><Summary
               client       = { client }
               openFeedback = { openFeedback }
-              snippets     = { snippets } />
+              translations = { translations } />
             </Tab.Pane>
           );}, 
         },
@@ -78,7 +78,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             <Menu.Item
               key = { `tab1` }
               as  = { Button }>
-              { snippets.i_tabTitleChanges }
+              { translations.i_tabTitleChanges }
             </Menu.Item>
           ),
           render: () => {
@@ -86,7 +86,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               <Tab.Pane>
                 <BenefitsTable
                   client={ client }
-                  snippets={ snippets } />
+                  translations={ translations } />
               </Tab.Pane>
             );
           },
@@ -96,7 +96,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             <Menu.Item
               key = { `tab2` }
               as  = { Button }>
-              { snippets.i_tabTitleChangesChart }
+              { translations.i_tabTitleChangesChart }
             </Menu.Item>
           ),
           render: () => { return (
@@ -104,7 +104,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
               <GraphHolder
                 client   = { client }
                 Graph    = { ResourcesColumns }
-                snippets = { snippets } />
+                translations = { translations } />
             </Tab.Pane>
           );},
         },
@@ -113,7 +113,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             <Menu.Item
               key = { `tab3` }
               as  = { Button }>
-              { snippets.i_tabTitleStackedIncomes }
+              { translations.i_tabTitleStackedIncomes }
             </Menu.Item>
           ),
           render: () => {
@@ -122,7 +122,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
                 <GraphHolder
                   client={ client }
                   Graph={ StackedResources }
-                  snippets = { snippets } />
+                  translations = { translations } />
               </Tab.Pane>
             );
           },
@@ -132,7 +132,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
             <Menu.Item
               key = { `tab4` }
               as  = { Button }>
-              { snippets.i_tabTitleBenefitPrograms }
+              { translations.i_tabTitleBenefitPrograms }
             </Menu.Item>
           ),
           render: () => {
@@ -141,7 +141,7 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
                 <GraphHolder
                   client   = { client }
                   Graph    = { BenefitsLines }
-                  snippets = { snippets } />
+                  translations = { translations } />
               </Tab.Pane>
             );
           },
@@ -151,11 +151,11 @@ const TabbedVisualizations = ({ client, openFeedback, snippets }) => {
 };
 
 
-const PredictionsStep = function ({ updateClientValue, navData, client, snippets, openFeedback }) {
+const PredictionsStep = function ({ updateClientValue, navData, client, translations, openFeedback }) {
 
   return (
     <FormPartsContainer
-      title     = { snippets.i_title }
+      title     = { translations.i_title }
       clarifier = { null }
       navData   = { navData }
       formClass = { `predictions` }>
@@ -167,34 +167,34 @@ const PredictionsStep = function ({ updateClientValue, navData, client, snippets
           updateClientValue = { updateClientValue }
           future            = { client.future }
           time              = { 'future' }
-          snippets          = { snippets } />
+          translations      = { translations } />
         <Divider className='ui section divider hidden' />
       </div>
       <div id={ `resultsIntro` }>
         <Header
           as        ='h3'
           className ='ui Header align centered'>
-          { snippets.i_chartsHeader }
+          { translations.i_chartsHeader }
         </Header>
         <Message
           className = { `prediction-message` }
           visible
           warning>
-          { snippets.i_warningMessage }
+          { translations.i_warningMessage }
           <Button
             className = { `feedback-button` }
             size      = { `small` }
             color     = { `teal` }
             compact
             onClick   = { openFeedback }>
-            { snippets.i_submitFeedback }
+            { translations.i_submitFeedback }
           </Button>
         </Message>
       </div>
       <TabbedVisualizations 
         client       = { client }
         openFeedback = { openFeedback }
-        snippets     = { snippets } />
+        translations = { translations } />
     </FormPartsContainer>
   );
 };  // End FutureIncomeStep() Component

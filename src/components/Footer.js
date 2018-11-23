@@ -8,7 +8,7 @@ import {
   Image,
 } from 'semantic-ui-react';
 
-const Footer = ({ snippets }) => {
+const Footer = ({ translations }) => {
   return (
     <Segment
       className = { `footer_segment` }
@@ -27,9 +27,9 @@ const Footer = ({ snippets }) => {
             <Header
               as='h4'
               inverted>
-              { snippets.i_header }
+              { translations.i_header }
             </Header>
-            <p>{ snippets.i_cfbCredit }</p>
+            <p>{ translations.i_cfbCredit }</p>
           </Grid.Column>
           <a
 

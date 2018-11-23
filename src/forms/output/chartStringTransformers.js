@@ -49,9 +49,9 @@ const snippetToText = function (translationObj) {
  * // If app's language code is 'vi':
  * // <span class="graph-label">10k$</span>
  */
-const formatMoneyWithK = (chartObject, snippets) => {
-  const before    = snippetToText(snippets.i_beforeMoney),
-        after     = snippetToText(snippets.i_afterMoney),
+const formatMoneyWithK = (chartObject, translations) => {
+  const before    = snippetToText(translations.i_beforeMoney),
+        after     = snippetToText(translations.i_afterMoney),
         // https://api.highcharts.com/highcharts/xAxis.labels.formatter
         withMoney = before + chartObject.axis.defaultLabelFormatter.call(chartObject) + after,
         asHTML    = `<span class="graph-label">${withMoney}</span>`;

@@ -38,13 +38,13 @@ let multipliers = timescaleMultipliers.fromMonthly;
  * @params {string[]} props.activePrograms Benefit programs in which the household enrolled.
  * @params {object} props.className An extra class for the outermost component,
  *     whether it's the chart or the no-chart message.
- * @params {object} props.snippets Translation spans of text in app.
+ * @params {object} props.translations Translation spans of text in app.
  */
 class ResourcesColumnsComp extends Component {
 
   constructor (props) {
     super(props);
-    let separator = snippetToText(props.snippets.i_thousandsSeparator);
+    let separator = snippetToText(props.translations.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
   }
@@ -55,7 +55,7 @@ class ResourcesColumnsComp extends Component {
       timescale,
       activePrograms,
       className,
-      snippets,
+      translations,
     } = this.props;
 
     let clone = cloneDeep(client);
@@ -112,7 +112,7 @@ class ResourcesColumnsComp extends Component {
             zoomType = { `y` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
-          <Title>{ getText(snippets.i_stackedBarGraphTitle) }</Title>
+          <Title>{ getText(translations.i_stackedBarGraphTitle) }</Title>
 
           <Legend
             align         = { `center` }
@@ -132,7 +132,7 @@ class ResourcesColumnsComp extends Component {
             categories = { categories }
             crosshair  = {{}}>
 
-            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} ${getText(translations.i_xAxisTitleEnd)}` }</XAxis.Title>
             { columns }
 
           </XAxis>
@@ -141,7 +141,7 @@ class ResourcesColumnsComp extends Component {
             endOnTick  = { false }
             labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
 
-            <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
+            <YAxis.Title>{ getText(translations.i_benefitValue) }</YAxis.Title>
 
           </YAxis>
 
@@ -172,7 +172,7 @@ class ResourcesColumnsComp extends Component {
    * // <span class="graph-label">10k$</span>
    */
   formatMoneyWithK = (highchartsObject) => {
-    return formatMoneyWithK(highchartsObject, this.props.snippets);
+    return formatMoneyWithK(highchartsObject, this.props.translations);
   };
 };
 

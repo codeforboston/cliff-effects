@@ -3,14 +3,14 @@ import renderer from 'react-test-renderer';
 import { cloneDeep, set } from 'lodash';
 
 import { BenefitsTable } from '../../../forms/output/BenefitsTable';
-import { snippets } from '../../helpers';
+import { translations } from '../../helpers';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
 const buildSnapshot = (client) => {
   const rendered = renderer.create(
     <BenefitsTable 
       client={ client } 
-      snippets={ snippets } />
+      translations={ translations } />
   );
 
   return rendered.toJSON();

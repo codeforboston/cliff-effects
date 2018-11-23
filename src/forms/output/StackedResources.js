@@ -49,13 +49,13 @@ let multipliers = timescaleMultipliers.fromMonthly,
  * @params {string[]} props.activePrograms Benefit programs in which the household enrolled.
  * @params {object} props.className An extra class for the outermost component,
  *     whether it's the chart or the no-chart message.
- * @params {object} props.snippets Translation spans of text in app.
+ * @params {object} props.translations Translation spans of text in app.
  */
 class StackedResourcesComp extends Component {
 
   constructor (props) {
     super(props);
-    let separator = snippetToText(props.snippets.i_thousandsSeparator);
+    let separator = snippetToText(props.translations.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
 
@@ -78,7 +78,7 @@ class StackedResourcesComp extends Component {
       timescale,
       activePrograms,
       className,
-      snippets,
+      translations,
     } = this.props;
 
     let classes = `resources-stacked zoomable ` + this.state.altKeyClass;
@@ -119,8 +119,8 @@ class StackedResourcesComp extends Component {
     // Label for split tooltip 'labels'/'label headers' that appear
     // at the bottom. Really long.
     // @todo Change to prep for context, like in @knod 'other-expenses' branch
-    const bottomTooltipFormatStart = `<span style="font-size: 10px">${getText(snippets.i_beforeMoney)}`,
-          bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(snippets.i_afterMoney)}</span><br/>`,
+    const bottomTooltipFormatStart = `<span style="font-size: 10px">${getText(translations.i_beforeMoney)}`,
+          bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
           bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
 
 
@@ -141,7 +141,7 @@ class StackedResourcesComp extends Component {
             panKey  = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
-          <Title>{ getText(snippets.i_benefitProgramsTitle) }</Title>
+          <Title>{ getText(translations.i_benefitProgramsTitle) }</Title>
 
           <Legend
             align         = { `center` }
@@ -162,11 +162,11 @@ class StackedResourcesComp extends Component {
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <XAxis.Title>{ `${timescale} ${getText(snippets.i_xAxisTitleEnd)}<br/>${getText(snippets.i_panInstructions)}` }</XAxis.Title>
+            <XAxis.Title>{ `${timescale} ${getText(translations.i_xAxisTitleEnd)}<br/>${getText(translations.i_panInstructions)}` }</XAxis.Title>
             <PlotLine
               value     = { currentEarned }
               useHTML   = { true }
-              label     = {{ text: `${getText(snippets.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
+              label     = {{ text: `${getText(translations.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
               zIndex    = { 5 }
               width     = { 2 }
               color     = { `gray` }
@@ -179,7 +179,7 @@ class StackedResourcesComp extends Component {
             labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
-            <YAxis.Title>{ getText(snippets.i_benefitValue) }</YAxis.Title>
+            <YAxis.Title>{ getText(translations.i_benefitValue) }</YAxis.Title>
             { lines }
 
           </YAxis>
@@ -210,7 +210,7 @@ class StackedResourcesComp extends Component {
    * // <span class="graph-label">10k$</span>
    */
   formatMoneyWithK = (highchartsObject) => {
-    return formatMoneyWithK(highchartsObject, this.props.snippets);
+    return formatMoneyWithK(highchartsObject, this.props.translations);
   };
 
   /** Sends data to `zoom()` when the chart itself is clicked

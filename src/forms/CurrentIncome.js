@@ -42,11 +42,11 @@ import { CashFlowInputsRow } from './cashflow';
  *     changed to just 'client' to allow future values in abstraction.
  * @property {string} props.time 'current' or 'future'. (needed?)
  * @property {function} props.updateClientValue Updates state upstream.
- * @property {function} props.snippets Uses user chosen language-specific text.
+ * @property {function} props.translations Uses user chosen language-specific text.
  *
  * @returns {object} React element
  */
-const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
+const IncomeForm = function ({ current, time, updateClientValue, translations }) {
 
   let type = 'income';
 
@@ -75,59 +75,59 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
       <CashFlowInputsRow
         { ...sharedProps }
         generic='earned'>
-        { snippets.earnedIncome.i_label }
+        { translations.earnedIncome.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='TAFDC'> 
-        { snippets.TAFDC.i_label }
+        { translations.TAFDC.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='SSI'> 
-        { snippets.SSI.i_label }
+        { translations.SSI.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='SSDI'>
-        { snippets.SSDI.i_label }
+        { translations.SSDI.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='childSupportIn'>
-        { snippets.childSupport.i_label }
+        { translations.childSupport.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='unemployment'> 
-        { snippets.unemployment.i_label }      
+        { translations.unemployment.i_label }      
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='workersComp'> 
-        { snippets.workersComp.i_label }
+        { translations.workersComp.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='pension'>
-        { snippets.pension.i_label }
+        { translations.pension.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='socialSecurity'>
-        { snippets.socialSecurity.i_label }
+        { translations.socialSecurity.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='alimony'> 
-        { snippets.alimony.i_label }
+        { translations.alimony.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic='otherIncome'>
-        { snippets.otherIncome.i_label }
+        { translations.otherIncome.i_label }
       </CashFlowInputsRow>
-      <Form.Field>{ snippets.i_explainSnapCalculation }</Form.Field>
+      <Form.Field>{ translations.i_explainSnapCalculation }</Form.Field>
 
     </div>
   );  // end return
@@ -141,24 +141,24 @@ const IncomeForm = function ({ current, time, updateClientValue, snippets }) {
  * @property {function} props.updateClientValue Updates state upstream.
  * @property {object} props.navData Bottom row buttons. 
  * @property {object} props.client JSON object with `future` and `current` props.
- * @property {function} props.snippets Uses user chosen language-specific text.
+ * @property {function} props.translations Uses user chosen language-specific text.
  *
  * @returns {object} React element
  */
-const CurrentIncomeStep = function ({ updateClientValue, navData, client, snippets }) {
+const CurrentIncomeStep = function ({ updateClientValue, navData, client, translations }) {
 // `props` is a cloned version of the original props. References broken.
 
   return (
     <FormPartsContainer
-      title     = { snippets.i_title }
-      clarifier = { snippets.i_clarifier }
+      title     = { translations.i_title }
+      clarifier = { translations.i_clarifier }
       navData   = { navData }
       formClass = { `income` }>
       <IncomeForm
         updateClientValue = { updateClientValue }
         current={ client.current }
         time={ 'current' }
-        snippets={ snippets } />
+        translations={ translations } />
     </FormPartsContainer>
   );
 
