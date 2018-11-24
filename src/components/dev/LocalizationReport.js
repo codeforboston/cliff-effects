@@ -76,6 +76,8 @@ class LocalizationReport extends Component {
   // @todo Why not do this at the top before this
   // component is even created? Then there wouldn't
   // have to be a check for null in the comparison function.
+  // Or do it when constructing the component. I don't think
+  // there's anything that would preclude that in here.
   componentDidMount() {
     // Get the list of non-EN localizations for testing
     let localizationKeys = Object.keys(localizations);
