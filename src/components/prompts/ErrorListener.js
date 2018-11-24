@@ -32,4 +32,4 @@ class ErrorListener extends React.Component {
   }
 }
 
-export default ErrorListener;
+export { ErrorListener };

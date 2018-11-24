@@ -31,4 +31,4 @@ class BrowserLeaveListener extends React.Component {
   }
 }
 
-export default BrowserLeaveListener;
+export { BrowserLeaveListener };
