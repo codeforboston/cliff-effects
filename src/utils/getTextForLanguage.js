@@ -2,7 +2,7 @@
 
 // TRANSFORMER FUNCTIONS
 import { mergeWith } from 'lodash';
-import { interpolateSnippets } from './interpolation.js';
+import { interpolateTranslations } from './interpolation.js';
 
 // DATA
 import { getLocalizationData } from '../localization/all';
@@ -12,7 +12,7 @@ import inlineComponents from '../localization/inlineComponents';
 const localizations = getLocalizationData();
 
 // store interpolated and (if necessary) merged translations objects
-let finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };
+let finishedTranslations = { en: interpolateTranslations(localizations.en, inlineComponents) };
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
  * (to avoid arrays of English strings being mixed with arrays of translated
@@ -35,16 +35,16 @@ const getTextForLanguage = function (langCode) {
     langCode = 'en';
   }
 
-  if (!finishedSnippets[ langCode ]) {
+  if (!finishedTranslations[ langCode ]) {
     // interpolate translations and merge with English (filling in any gaps)
-    const interpolatedSnippets = interpolateSnippets(localizations[ langCode ], inlineComponents);
+    const interpolatedTranslations = interpolateTranslations(localizations[ langCode ], inlineComponents);
 
     // deeply merge the object containing translations in langName with English,
     // so that we fall back to English if a particular field is missing.
-    finishedSnippets[ langCode ] =  mergeWith({}, finishedSnippets.en, interpolatedSnippets, mergeCustomizer);
+    finishedTranslations[ langCode ] =  mergeWith({}, finishedTranslations.en, interpolatedTranslations, mergeCustomizer);
   }
 
-  return finishedSnippets[ langCode ];
+  return finishedTranslations[ langCode ];
 };  // End getTextForLanguage()
 
 
