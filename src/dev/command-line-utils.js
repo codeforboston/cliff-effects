@@ -7,9 +7,7 @@ export const printSummaryToConsole = () => {
 
 - enableDev() - Enable the Dev HUD (without needing to go to /dev)
 
-- client      - The current value of the loaded client (a recursively frozen
-                one, so that you can't change it, which could cause weirdness
-                in the app)
+- clientClone - A deep clone of the current value of the loaded client
 
 ===============================================================================`,
     'color: blue',
@@ -33,7 +31,7 @@ export const addClientGetterProperty = (clientGetter) => {
   Object.defineProperties(
     window,
     {
-      client: {
+      clientClone: {
         enumerable:   true,
         configurable: true,
         get:          () => {
