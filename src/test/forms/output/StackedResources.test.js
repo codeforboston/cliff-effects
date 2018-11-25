@@ -17,6 +17,7 @@ import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 //   };
 // });
 
+// Skipping till highcharts testing is worked out
 describe.skip('<StackedResources>', () => {
   let activePrograms;
   let client;
