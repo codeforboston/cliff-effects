@@ -25,11 +25,11 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         langOpts = [];
 
   for (let key in langs) {
-    let snips = langs[ key ],
+    let translations = langs[ key ],
         lang  = {
-          text:  snips.langName,
-          key:   snips.langCode,
-          value: snips.langCode,
+          text:  translations.langName,
+          key:   translations.langCode,
+          value: translations.langCode,
         };
     langOpts.push(lang);
   }

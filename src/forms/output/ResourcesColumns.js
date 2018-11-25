@@ -21,7 +21,7 @@ import { getChartData } from '../../utils/charts/getChartData';
 import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
 import {
   formatMoneyWithK,
-  snippetToText,
+  textFromTranslatedElement,
 } from './chartStringTransformers';
 
 
@@ -44,7 +44,7 @@ class ResourcesColumnsComp extends Component {
 
   constructor (props) {
     super(props);
-    let separator = snippetToText(props.translations.i_thousandsSeparator);
+    let separator = textFromTranslatedElement(props.translations.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
   }
@@ -64,7 +64,7 @@ class ResourcesColumnsComp extends Component {
         resources     = [ `earned` ].concat(activePrograms),
         currentEarned = client.current.earned * multiplier,
         futureEarned  = client.future.earned * multiplier,
-        getText       = snippetToText;
+        getText       = textFromTranslatedElement;
 
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.

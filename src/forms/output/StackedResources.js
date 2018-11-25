@@ -22,7 +22,7 @@ import { getChartData } from '../../utils/charts/getChartData';
 import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
 import {
   formatMoneyWithK,
-  snippetToText,
+  textFromTranslatedElement,
 } from './chartStringTransformers';
 import { zoom } from './zoom';
 
@@ -55,7 +55,7 @@ class StackedResourcesComp extends Component {
 
   constructor (props) {
     super(props);
-    let separator = snippetToText(props.translations.i_thousandsSeparator);
+    let separator = textFromTranslatedElement(props.translations.i_thousandsSeparator);
     // This doesn't affect the strings we put in there, just pure numbers
     Highcharts.setOptions({ lang: { thousandsSep: separator }});
 
@@ -89,7 +89,7 @@ class StackedResourcesComp extends Component {
     const multiplier    = multipliers[ timescale ],
           resources     = [ `earned` ].concat(activePrograms),
           currentEarned = client.current.earned * multiplier,
-          getText       = snippetToText;
+          getText       = textFromTranslatedElement;
 
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
