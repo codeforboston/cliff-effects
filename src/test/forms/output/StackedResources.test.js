@@ -5,18 +5,6 @@ import { cloneDeep, set } from 'lodash';
 import { StackedResources } from '../../../forms/output/StackedResources';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
-// jest.mock('react-chartjs-2', () => {
-//   const LineMock = () => {
-//     return null;
-//   };
-
-//   return {
-//     Line(props) {
-//       return <LineMock { ...props } />;
-//     },
-//   };
-// });
-
 // Skipping till highcharts testing is worked out
 describe.skip('<StackedResources>', () => {
   let activePrograms;

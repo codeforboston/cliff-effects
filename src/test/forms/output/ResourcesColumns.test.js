@@ -5,18 +5,6 @@ import { cloneDeep, set } from 'lodash';
 import { ResourcesColumns } from '../../../forms/output/ResourcesColumns';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
-// jest.mock('react-chartjs-2', () => {
-//   const BarMock = () => {
-//     return null;
-//   };
-
-//   return {
-//     Bar(props) {
-//       return <BarMock { ...props } />;
-//     },
-//   };
-// });
-
 // Skipping till highcharts testing is worked out
 describe.skip('<ResourcesColumns>', () => {
   let client;
