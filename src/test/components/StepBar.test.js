@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import StepBar from '../../components/StepBar';
+import { StepBar } from '../../components/StepBar';
 import { STEP_VALS } from '../../forms/STEP_VALS';
 import { translations } from '../helpers';
 
