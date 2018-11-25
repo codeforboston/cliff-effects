@@ -47,7 +47,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         </Button>
       </Menu.Item>
 
-      <Menu.Item header> Snippets</Menu.Item>
+      <Menu.Item header>Translations</Menu.Item>
       <Menu.Item>
         <Checkbox
           label    = { `Mark English translations` }

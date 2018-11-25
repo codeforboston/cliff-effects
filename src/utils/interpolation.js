@@ -41,7 +41,7 @@ const interpolateText = function (template, components, langCode) {
 };
 
 /** Recursively interpolate each template in a translations object */
-const interpolateSnippets = function (translations, components) {
+const interpolateTranslations = function (translations, components) {
   let named        = {},
       versionRegex = /_v\d+$/;
 
@@ -70,7 +70,7 @@ const interpolateSnippets = function (translations, components) {
     } else {
       // else: value is a nested object
       value.langCode = langCode;
-      named[ key ] = interpolateSnippets(value, components);
+      named[ key ] = interpolateTranslations(value, components);
     }
 
   }  // end for every key in translations
@@ -79,4 +79,4 @@ const interpolateSnippets = function (translations, components) {
 };
 
 
-export { interpolateText, interpolateSnippets };
+export { interpolateText, interpolateTranslations };
