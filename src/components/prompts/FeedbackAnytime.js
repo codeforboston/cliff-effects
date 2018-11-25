@@ -17,7 +17,7 @@ const FeedbackAnytime = function ({ openFeedback }) {
     </div>
   );
 
-};  // End <FeedbackAnytime>
+};  // Ends <FeedbackAnytime>
 
 
 export { FeedbackAnytime };

@@ -25,11 +25,11 @@ class AskPermission extends React.Component {
     this.props.closeAskPermission();
   };
 
-  submit = (evnt) => {
-    this.props.submit(evnt, this.state.submitType);
+  submit = (event) => {
+    this.props.submit(event, this.state.submitType);
   };
 
-  setSubmitType = (evnt, inputProps) => {
+  setSubmitType = (event, inputProps) => {
     this.setState({ submitType: inputProps.value });
   };
 
@@ -130,7 +130,7 @@ class FeedbackForm extends React.Component {
           throw error;
         }
       });
-  }
+  };
 
   close = (event) => {
     // Reset state for next time it's opened
@@ -151,7 +151,7 @@ class FeedbackForm extends React.Component {
     this.setState({ ready: false });
   };
 
-  submit = (evnt, type) => {
+  submit = (event, type) => {
     this.setState({ submitting: true });
 
     let data = this.state.formData;
@@ -254,7 +254,7 @@ class FeedbackForm extends React.Component {
         </Modal>
       </Modal>
     );
-  }
+  };
 };
 
 

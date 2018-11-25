@@ -24,29 +24,30 @@ import { Prompt } from 'react-router-dom';
 class ReactRouterLeaveListener extends React.Component {
   componentDidMount() {
 
-    let { confirmer, askForFeedback } = this.props;
+    let {
+      confirmer,
+      askForFeedback,
+    } = this.props;
 
     const tempConfirm = (message, reactCallback) => {
       // `message` is passed indirectly to `<FeedbackPrompt>`
-      return askForFeedback(reactCallback, { message: 'default' });
+      return askForFeedback(reactCallback, { message: `default` });
     };
     // Temporarily use our custom function
     confirmer.set(tempConfirm);
 
-  }
+  };
 
   componentWillUnmount() {
     // Restore React Router's standard functionality
     this.props.confirmer.unset();
-  }
+  };
 
   getConfirmationMessage = (location) => {
-    // Allow component consumer to determine whether to request confirmation based on
-    // destination location
-    if (typeof this.props.shouldRequestConfirmation === 'function') {
-      if (
-        !this.props.shouldRequestConfirmation({ location })
-      ) {
+    // Allow component consumer to determine whether to request
+    // confirmation based on destination location
+    if (typeof this.props.shouldRequestConfirmation === `function`) {
+      if (!this.props.shouldRequestConfirmation({ location })) {
         return true;
       }
     }
@@ -60,10 +61,12 @@ class ReactRouterLeaveListener extends React.Component {
     // This is always invisible and waits for the user
     // to navigate to a different React Page/Route.
     // This message doesn't usually show up, but sometimes does.
-    return <Prompt
-      when    = { isBlocking }
-      message = { this.getConfirmationMessage } />;
-  }
-}
+    return (
+      <Prompt
+        when    = { isBlocking }
+        message = { this.getConfirmationMessage } />
+    );
+  };
+};
 
-export default ReactRouterLeaveListener;
+export { ReactRouterLeaveListener };
