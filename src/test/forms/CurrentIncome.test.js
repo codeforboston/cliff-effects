@@ -9,7 +9,7 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
-const snippets = getTextForLanguage(`en`);
+const translations = getTextForLanguage(`en`).visitPage.currentIncome;
 test('Income step component should render without error', () => {
   const navData = {
           left:   (<div>Inc left</div>),
@@ -19,8 +19,7 @@ test('Income step component should render without error', () => {
         updateClientValue = jest.fn(),
         saveForm          = jest.fn(),
         askToResetClient  = jest.fn(),
-        openFeedback      = jest.fn(),
-        formSnippets      = snippets.visitPage.currentIncome;
+        openFeedback      = jest.fn();
 
   expect(() => {
     mount(
@@ -31,7 +30,7 @@ test('Income step component should render without error', () => {
         saveForm          = { saveForm }
         askToResetClient  = { askToResetClient }
         openFeedback      = { openFeedback }
-        snippets          = { formSnippets } />
+        translations      = { translations } />
     );
   }).not.toThrow();
 });

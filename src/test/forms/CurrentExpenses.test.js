@@ -9,7 +9,7 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
-const snippets = getTextForLanguage(`en`);
+const translations = getTextForLanguage(`en`);
 test('Expenses step component should render without error', () => {
   const navData = {
           left:   (<div>Exp left</div>),
@@ -20,7 +20,7 @@ test('Expenses step component should render without error', () => {
         saveForm          = jest.fn(),
         askToResetClient  = jest.fn(),
         openFeedback      = jest.fn(),
-        formSnippets      = snippets.visitPage.currentExpenses;
+        formTranslations  = translations.visitPage.currentExpenses;
 
   expect(() => {
     mount(
@@ -31,7 +31,7 @@ test('Expenses step component should render without error', () => {
         saveForm          = { saveForm }
         askToResetClient  = { askToResetClient }
         openFeedback      = { openFeedback }
-        snippets          = { formSnippets } />
+        translations      = { formTranslations } />
     );
   }).not.toThrow();
 });
