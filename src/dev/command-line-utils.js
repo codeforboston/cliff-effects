@@ -1,4 +1,4 @@
-import deepFreeze from './deepFreeze';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const printSummaryToConsole = () => {
   console.log(
@@ -37,7 +37,7 @@ export const addClientGetterProperty = (clientGetter) => {
         enumerable:   true,
         configurable: true,
         get:          () => {
-          return deepFreeze(clientGetter());
+          return cloneDeep(clientGetter());
         },
       },
     }
