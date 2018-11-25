@@ -110,11 +110,7 @@ class LocalizationReport extends Component {
       return results;
     }
 
-    let pass = true;
-    if (filter !== `true`) {
-      pass = false;
-    }
-
+    let pass = filter === `true`;
     return results.filter((result) => {
       return result.pass === pass;
     });
