@@ -8,7 +8,7 @@ import ZH from './zh';
 /** 
  * @returns {function}
  * 
- * @summary Exports a function which returns a deep clone of the language snippet objects.
+ * @summary Exports a function which returns a deep clone of the language translation objects.
  * 
  * @description 
  * interpolateSnippets() mutates it's localization object, whereas Localization Report in DevHud

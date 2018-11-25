@@ -113,12 +113,12 @@ The type of interaction our partners were looking for was a user-friendly one. S
 
 In the future, this tool could let users try out changes in multiple life circumstances, not just their future income. That said, it should never allow users to change certain kinds of future values. For example, right now the rent share looks like an input _and_ an output. Rent share is just another way of showing the amount of the housing voucher and it _is_ an input for current values. We need that information to calculate future values of the housing voucher. Because we ourselves calculate future values, though, it absolutely can't be a user input field for future values. Basically, you can't put something as an input if it's already a calculated result from the app.
 
-### G2. Snippets
+### G2. Translation objects
 
-Snippets are the way we're working on making the app translatable. As you can see, they have version numbers in the language files. When big changes are made to an English snippet, we bump up that snippet's version number. We then use that to be able to tell what snippets are out of date in other languages. If a snippet is out of date in another language, the app uses the English snippet by default. When another language's snippet is brought up-to-date with the English one, its version number is updated and it will be used in the app again.
+Translation objects are the way we're working on making the app translatable. As you can see, they have version numbers in the language files. When big changes are made to an English translation object, we bump up that translation object's version number. We then use that to be able to tell what translation objects are out of date in other languages. If a translation object is out of date in another language, the app uses the English translation object by default. When another language's translation object is brought up-to-date with the English one, its version number is updated and it will be used in the app again.
 
-When the code preps the snippets for the app, though, it gets rid of the version numbers so that it'll be easier to maintain the code as snippets change. Because we don't want the key name change to be invisible, we decided to add `i_` to the beginning of the snippet. That way a person new to the project can at least see that the weirdness is deliberate and can easily search the code for `i_` to find the source.
+When the code preps the translation objects for the app, though, it gets rid of the version numbers so that it'll be easier to maintain the code as translation objects change. Because we don't want the key name change to be invisible, we decided to add `i_` to the beginning of the translation object. That way a person new to the project can at least see that the weirdness is deliberate and can easily search the code for `i_` to find the source.
 
-There's a wiki page in the works about the flow of editing snippet files, since we use google docs to allow non-coders to edit the translations.
+There's a wiki page in the works about the flow of editing translation object files, since we use google docs to allow non-coders to edit the translations.
 
 ### G3. See some guides in our [wiki](https://github.com/codeforboston/cliff-effects/wiki)

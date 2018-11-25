@@ -11,7 +11,7 @@ import inlineComponents from '../localization/inlineComponents';
 // Get copy of localization data
 const localizations = getLocalizationData();
 
-// store interpolated and (if necessary) merged snippets objects
+// store interpolated and (if necessary) merged translations objects
 let finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
@@ -24,8 +24,9 @@ const mergeCustomizer = function (objValue, srcValue) {
   }
 };
 
-/** Returns the object named by langName that contains
- * the text snippets of that language. If that language
+/**
+ * Returns the object named by langName that contains
+ * the text translations of that language. If that language
  * doesn't exist, it warns the coder and returns English.
  */
 const getTextForLanguage = function (langCode) {
@@ -35,10 +36,10 @@ const getTextForLanguage = function (langCode) {
   }
 
   if (!finishedSnippets[ langCode ]) {
-    // interpolate snippets and merge with English (filling in any gaps)
+    // interpolate translations and merge with English (filling in any gaps)
     const interpolatedSnippets = interpolateSnippets(localizations[ langCode ], inlineComponents);
 
-    // deeply merge the object containing snippets in langName with English,
+    // deeply merge the object containing translations in langName with English,
     // so that we fall back to English if a particular field is missing.
     finishedSnippets[ langCode ] =  mergeWith({}, finishedSnippets.en, interpolatedSnippets, mergeCustomizer);
   }

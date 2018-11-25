@@ -11,7 +11,7 @@
  *
  * @returns {string}
  */
-const snippetToText = function (translationObj) {
+const textFromTranslatedElement = function (translationObj) {
 
   const children = translationObj.props.children;
   
@@ -23,7 +23,7 @@ const snippetToText = function (translationObj) {
 
     let allText = ``;
     for (let child of children) {
-      allText += ` ` + snippetToText(child);
+      allText += ` ` + textFromTranslatedElement(child);
     }
 
     return allText;
@@ -49,9 +49,9 @@ const snippetToText = function (translationObj) {
  * // If app's language code is 'vi':
  * // <span class="graph-label">10k$</span>
  */
-const formatMoneyWithK = (chartObject, snippets) => {
-  const before    = snippetToText(snippets.i_beforeMoney),
-        after     = snippetToText(snippets.i_afterMoney),
+const formatMoneyWithK = (chartObject, translations) => {
+  const before    = textFromTranslatedElement(translations.i_beforeMoney),
+        after     = textFromTranslatedElement(translations.i_afterMoney),
         // https://api.highcharts.com/highcharts/xAxis.labels.formatter
         withMoney = before + chartObject.axis.defaultLabelFormatter.call(chartObject) + after,
         asHTML    = `<span class="graph-label">${withMoney}</span>`;
@@ -61,5 +61,5 @@ const formatMoneyWithK = (chartObject, snippets) => {
 
 export {
   formatMoneyWithK,
-  snippetToText,
+  textFromTranslatedElement,
 };

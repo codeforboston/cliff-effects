@@ -11,7 +11,7 @@ describe('Test ButtonReset component', () => {
     let button = mount(
       <ButtonReset
         onClick={ mockCallBack }
-        snippets={{}} />
+        translations={{}} />
     );
     button.find('BigButton').simulate('click');
 

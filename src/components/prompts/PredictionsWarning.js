@@ -12,7 +12,7 @@ import {
  * @extends React.Component
  * @param {boolean} termsAccepted - boolean indicating whether terms and conditions have been accepted by the user
  * @param {function} toggleDistrustConfirmed - function to set the termsAccepted in app state
- * @param {object} snippets - object containing localization snippets
+ * @param {object} translations - object containing translations
  */
 class TermsAndConditions extends Component {
   
@@ -45,7 +45,7 @@ class TermsAndConditions extends Component {
   
     const {
       termsAccepted,
-      snippets,
+      translations,
     } = this.props;
 
     return (
@@ -57,13 +57,13 @@ class TermsAndConditions extends Component {
         closeOnDimmerClick={ false }
         closeOnEscape={ false }>
         <Modal.Header> 
-          { snippets.i_header }
+          { translations.i_header }
         </Modal.Header>
         <Modal.Content scrolling>
 
-          { snippets.i_warning } 
+          { translations.i_warning } 
 
-          <h4>{ snippets.i_formInstructions }</h4>
+          <h4>{ translations.i_formInstructions }</h4>
 
           <div
             className="radio-yes-no"
@@ -75,7 +75,7 @@ class TermsAndConditions extends Component {
                 onClick = { () => {return this.handleChange('checkbox1');} } />
             </Form.Field>
             <Form.Field>
-              { snippets.i_checkboxLabel1 }
+              { translations.i_checkboxLabel1 }
             </Form.Field>
           </div>
 
@@ -89,7 +89,7 @@ class TermsAndConditions extends Component {
                 onClick = { () => {return this.handleChange('checkbox2');} } />
             </Form.Field>
             <Form.Field>
-              { snippets.i_checkboxLabel2 }
+              { translations.i_checkboxLabel2 }
             </Form.Field>
           </div>
          
@@ -97,13 +97,13 @@ class TermsAndConditions extends Component {
         <Modal.Actions>
           <Button
             onClick={ () => {return this.closeModal(false);} }>
-            { snippets.i_buttonCancel }
+            { translations.i_buttonCancel }
           </Button>
           <Button
             disabled={ !this.allowContinue() }
             onClick={ () => {return this.closeModal(true);} }
             color='teal'>
-            { snippets.i_buttonAcceptWarning }
+            { translations.i_buttonAcceptWarning }
           </Button>
         </Modal.Actions>
       </Modal>

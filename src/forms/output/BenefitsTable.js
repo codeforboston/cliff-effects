@@ -20,7 +20,7 @@ const getSignSymbol = function (num) {
 };  // End getSignSymbol()
 
 
-const BenefitsTable = function ({ client, snippets }) {
+const BenefitsTable = function ({ client, translations }) {
   const clone = cloneDeep(client);
   const curr = clone.current;
 
@@ -121,7 +121,7 @@ const BenefitsTable = function ({ client, snippets }) {
           padingTop:  '0.25em',
         };
 
-  const TotalBenefitsRow = function({ client, snippets }){
+  const TotalBenefitsRow = function({ client, translations }){
     if (client.current.benefits.length <= 1) {
       return (null);
     }
@@ -131,60 +131,60 @@ const BenefitsTable = function ({ client, snippets }) {
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowHeaderStyle }>{ snippets.i_rowTotalBenefits }
+          style={ totalsRowHeaderStyle }>{ translations.i_rowTotalBenefits }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{totalBenefitCurrent}{ snippets.i_afterMoneyWithTime }
+          style={ totalsRowStyle }>{ translations.i_beforeMoneyWithTime }{totalBenefitCurrent}{ translations.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{totalBenefitFuture}{ snippets.i_afterMoneyWithTime }
+          style={ totalsRowStyle }>{ translations.i_beforeMoneyWithTime }{totalBenefitFuture}{ translations.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(totalDiff) }{ snippets.i_afterMoneyWithTime }
+          style={ totalsRowStyle }>{ getSignSymbol(totalDiff) } { translations.i_beforeMoneyWithTime }{ Math.abs(totalDiff) }{ translations.i_afterMoneyWithTime }
         </Table.Cell>
       </Table.Row>
     );
   };
 
-  const EarnedRow = function ({ snippets }) {
+  const EarnedRow = function ({ translations }) {
     return (
       <Table.Row>
-        <Table.Cell style={ rowHeaderStyle }>{ snippets.i_rowEarned }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{earnedCurrent}{ snippets.i_afterMoneyWithTime }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{earnedFuture}{ snippets.i_afterMoneyWithTime }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(earnedDiff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(earnedDiff) }{ snippets.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell style={ rowHeaderStyle }>{ translations.i_rowEarned }</Table.Cell>
+        <Table.Cell textAlign='right'>{ translations.i_beforeMoneyWithTime }{earnedCurrent}{ translations.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ translations.i_beforeMoneyWithTime }{earnedFuture}{ translations.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(earnedDiff) } { translations.i_beforeMoneyWithTime }{ Math.abs(earnedDiff) }{ translations.i_afterMoneyWithTime }</Table.Cell>
       </Table.Row>
     );
   };
 
-  const TotalsRow = function ({ snippets }) {
+  const TotalsRow = function ({ translations }) {
     return (
       <Table.Row style={{ border: 'none' }}>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowHeaderStyle }>{ snippets.i_rowNetTotal }
+          style={ totalsRowHeaderStyle }>{ translations.i_rowNetTotal }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{netCurrent}{ snippets.i_afterMoneyWithTime }
+          style={ totalsRowStyle }>{ translations.i_beforeMoneyWithTime }{netCurrent}{ translations.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ snippets.i_beforeMoneyWithTime }{netFuture}{ snippets.i_afterMoneyWithTime }
+          style={ totalsRowStyle }>{ translations.i_beforeMoneyWithTime }{netFuture}{ translations.i_afterMoneyWithTime }
         </Table.Cell>
         <Table.Cell
           textAlign='right'
           width={ 3 }
-          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(netDiff) }{ snippets.i_afterMoneyWithTime }
+          style={ totalsRowStyle }>{ getSignSymbol(netDiff) } { translations.i_beforeMoneyWithTime }{ Math.abs(netDiff) }{ translations.i_afterMoneyWithTime }
         </Table.Cell>
       </Table.Row>
     );
@@ -197,15 +197,15 @@ const BenefitsTable = function ({ client, snippets }) {
 
     const diff = benefitDiffs[ benefit ];
 
-    const label = snippets[ `i_row_${benefit}` ];
+    const label = translations[ `i_row_${benefit}` ];
 
     benefitRows.push(
       <Table.Row
         key={ benefit }>
         <Table.Cell style={ rowHeaderStyle }>{ label }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{currentBenefits[ benefit ]}{ snippets.i_afterMoneyWithTime }</Table.Cell>
-        <Table.Cell textAlign='right'>{ snippets.i_beforeMoneyWithTime }{futureBenefits[ benefit ]}{ snippets.i_afterMoneyWithTime }</Table.Cell>
-        <Table.Cell textAlign='right'>{ getSignSymbol(diff) } { snippets.i_beforeMoneyWithTime }{ Math.abs(diff) }{ snippets.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ translations.i_beforeMoneyWithTime }{currentBenefits[ benefit ]}{ translations.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ translations.i_beforeMoneyWithTime }{futureBenefits[ benefit ]}{ translations.i_afterMoneyWithTime }</Table.Cell>
+        <Table.Cell textAlign='right'>{ getSignSymbol(diff) } { translations.i_beforeMoneyWithTime }{ Math.abs(diff) }{ translations.i_afterMoneyWithTime }</Table.Cell>
       </Table.Row>
     );
   }
@@ -217,19 +217,19 @@ const BenefitsTable = function ({ client, snippets }) {
           <Table.Row >
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>{ snippets.i_columnBenefit }
+              width={ 3 }>{ translations.i_columnBenefit }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>{ snippets.i_columnCurrentBenefits }
+              width={ 3 }>{ translations.i_columnCurrentBenefits }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>{ snippets.i_columnNewEstimate }
+              width={ 3 }>{ translations.i_columnNewEstimate }
             </Table.Cell>
             <Table.Cell
               style={ columnHeaderStyle }
-              width={ 3 }>{ snippets.i_columnDifference }
+              width={ 3 }>{ translations.i_columnDifference }
             </Table.Cell>
           </Table.Row>
         </Table.Header>
@@ -237,9 +237,9 @@ const BenefitsTable = function ({ client, snippets }) {
           {benefitRows}
           <TotalBenefitsRow 
             client={ clone } 
-            snippets={ snippets } />
-          <EarnedRow snippets={ snippets } />
-          <TotalsRow snippets={ snippets } />
+            translations={ translations } />
+          <EarnedRow translations={ translations } />
+          <TotalsRow translations={ translations } />
         </Table.Body>
       </Table>
     </div>

@@ -14,7 +14,7 @@ const interpolateText = function (template, components, langCode) {
     let props = {
       key:       item.name || langCode + count,
       lang:      langCode,
-      className: `snippet`,
+      className: `translation`,
     };
 
     if (typeof(item) === 'string') {
@@ -40,22 +40,22 @@ const interpolateText = function (template, components, langCode) {
   });
 };
 
-/** Recursively interpolate each template in a snippets object */
-const interpolateSnippets = function (snippets, components) {
+/** Recursively interpolate each template in a translations object */
+const interpolateSnippets = function (translations, components) {
   let named        = {},
       versionRegex = /_v\d+$/;
 
-  for (let key in snippets) {
+  for (let key in translations) {
     let newKey = `i_` + key.replace(versionRegex, ``),
-        value = snippets[ key ];
+        value = translations[ key ];
 
     count++;
-    let langCode = snippets.langCode;
+    let langCode = translations.langCode;
 
     let props = {
       key:       langCode + count,
       lang:      langCode,
-      className: `snippet`,
+      className: `translation`,
     };
 
     if (key === 'langCode') {
@@ -73,7 +73,7 @@ const interpolateSnippets = function (snippets, components) {
       named[ key ] = interpolateSnippets(value, components);
     }
 
-  }  // end for every key in snippets
+  }  // end for every key in translations
 
   return named;
 };

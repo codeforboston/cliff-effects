@@ -9,18 +9,18 @@ import { CLIENT_DEFAULTS } from '../../utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from '../../utils/getTextForLanguage';
 
 
-const snippets = getTextForLanguage(`en`);
+const translations = getTextForLanguage(`en`);
 test('Benefits step component should render without error', () => {
   const navData = {
           left:   null,
           middle: null,
           right:  (<div>CB right</div>),
         },
-        updateClientValue = jest.fn(),
-        saveForm          = jest.fn(),
-        askToResetClient  = jest.fn(),
-        openFeedback      = jest.fn(),
-        benefitsSnippets  = snippets.visitPage.currentBenefits;
+        updateClientValue    = jest.fn(),
+        saveForm             = jest.fn(),
+        askToResetClient     = jest.fn(),
+        openFeedback         = jest.fn(),
+        benefitsTranslations = translations.visitPage.currentBenefits;
 
   expect(() => {
     mount(
@@ -31,7 +31,7 @@ test('Benefits step component should render without error', () => {
         saveForm          = { saveForm }
         askToResetClient  = { askToResetClient }
         openFeedback      = { openFeedback }
-        snippets          = { benefitsSnippets } />
+        translations      = { benefitsTranslations } />
     );
   }).not.toThrow();
 });

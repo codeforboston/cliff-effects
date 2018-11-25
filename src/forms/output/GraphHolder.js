@@ -19,14 +19,14 @@ class GraphHolder extends Component {
 
   render () {
     const { activeID }                = this.state,
-          { Graph, client, snippets } = this.props,
+          { Graph, client, translations } = this.props,
           { current }                 = client,
           // The ids later used to access all program-specific data and functions
           // Only active programs are added
           activePrograms            = [ ...current.benefits ];
 
     if (activePrograms.length === 0) {
-      return <Message className={ `graph-holder` }>{ snippets.i_noBenefitsSelected }</Message>;
+      return <Message className={ `graph-holder` }>{ translations.i_noBenefitsSelected }</Message>;
     }
 
     return (
@@ -39,7 +39,7 @@ class GraphHolder extends Component {
           client={ client }
           timescale={ activeID }
           activePrograms = { activePrograms }
-          snippets       = { snippets } />
+          translations = { translations } />
       </div>
     );
   };  // End render()
