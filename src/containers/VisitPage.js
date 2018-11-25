@@ -11,11 +11,9 @@ import { cloneDeep } from 'lodash';
 import { convertForUpdate } from '../utils/convertForUpdate';
 
 // Data
-// import { clientList } from '../config/dummyClients';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
-// import AlertSidebar from '../AlertSidebar'
 import BrowserLeaveListener from '../components/prompts/BrowserLeaveListener';
 import ReactRouterLeaveListener from '../components/prompts/ReactRouterLeaveListener';
 import ErrorListener from '../components/prompts/ErrorListener';
@@ -42,7 +40,7 @@ class VisitPage extends Component {
       promptData: {
         open:      false,  // Start as hidden
         message:   `default`,
-        header:    '',
+        header:    ``,
         leaveText: `Leave`,
         callback:  () => {},
       },
@@ -51,15 +49,16 @@ class VisitPage extends Component {
       oldHousing:            clientData.current.housing,
       userChanged:           {},
       translations:          props.translations,
-    };  // end this.state {}
-  };  // End constructor()
+    };  // ends this.state {}
+  };  // Ends constructor()
 
-  componentDidMount() {
+
+  componentDidMount = () => {
     this.didMount = true;
-  }
+  };
+
 
   resetClientIfOk = (shouldReset) => {
-
     if (!shouldReset) {
       return;
     }
@@ -72,10 +71,10 @@ class VisitPage extends Component {
     });
 
     this.goToStep({ index: 0 });
-  };
+  };  // Ends resetClientIfOk()
+
 
   askToResetClient = (promptData) => {
-
     promptData = promptData || this.promptData;
     // If the user hasn't interacted with the form at all
     if (!this.state.isBlocking) {
@@ -85,10 +84,10 @@ class VisitPage extends Component {
       // Otherwise, suggest the user submit feedback
       this.askForFeedback(this.resetClientIfOk, promptData);
     }
-  };
+  };  // Ends askToResetClient()
+
 
   askForFeedback = (callback, promptText) => {
-
     // When user exits feedback prompt somehow,
     // close it before finishing the callback.
     let closePrompt = (isOk) => {
@@ -103,41 +102,42 @@ class VisitPage extends Component {
         callback: closePrompt,
       },
     });
+  };  // Ends askForFeedback()
 
-  };
 
   openFeedback = () => {
     this.setState({ feedbackFormRequested: true });
   };
 
+
   closeFeedback = () => {
     this.setState({ feedbackFormRequested: false });
   };
 
-  updateClientValue = ({ route, value, time }) => {
 
+  updateClientValue = ({ route, value, time }) => {
     let clone       = cloneDeep(this.state.client),
         userChanged = { ...this.state.userChanged },  // only 1 deep
-        routeList   = route.split('/'),
+        routeList   = route.split(`/`),
         id          = routeList[ 0 ],  // `routeList` gets mutated
         newEvent    = { time: time, route: routeList, value: value };
 
     setNestedProperty(newEvent, clone, this.state.userChanged[ id ]);
     // Only set if the input was valid...? For now, always.
     // Also, userChanged should be only one step deep
-    if (time === 'future') {
+    if (time === `future`) {
       userChanged[ id ] = true;
     }
 
     // Hack for MVP (otherwise need dependency + history system)
     let oldHousing = this.state.oldHousing;
-    if (route === 'housing') {
+    if (route === `housing`) {
       // clone housing should be right now
       oldHousing = clone.current.housing;
     }
 
-    if (clone.current.benefits.includes('section8')) {
-      clone.current.housing = 'voucher';
+    if (clone.current.benefits.includes(`section8`)) {
+      clone.current.housing = `voucher`;
     } else {
       // Restore housing to previous value
       clone.current.housing = oldHousing;
@@ -155,23 +155,26 @@ class VisitPage extends Component {
         isBlocking:  true,
       };
     });
-  };  // End onClientChange()
+  };  // Ends updateClientValue()
+
 
   changeCurrent = (evnt, data) => {
-    data.time = 'current';
+    data.time   = `current`;
     let newData = convertForUpdate(data);
     this.updateClientValue(newData);
   };
+
 
   changeFuture = (evnt, data) => {
-    data.time = 'future';
+    data.time   = `future`;
     let newData = convertForUpdate(data);
     this.updateClientValue(newData);
   };
 
-  // Implement once privacy and security are worked out
+
+  // @todo Implement once privacy and security are worked out
   saveForm = (exitAfterSave) => {
-    alert('Form saved (not really, this is a placeholder).');
+    alert(`Form saved (not really, this is a placeholder).`);
     if (exitAfterSave) {
       this.setState({ isBlocking: false, redirect: true });
     } else {
@@ -179,43 +182,44 @@ class VisitPage extends Component {
     }
   };
 
-  scrollToTop = () => {
+
+  scrollToTop () {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
   };
 
+
   nextStep = () => {
-    const nextStepIndex = this.getCurrentStepIndex() + 1;
-    
+    const nextStepIndex = this.getCurrentStepIndex() + 1; 
     if (nextStepIndex === STEP_VALS.length) {
       return;
     }
-    
     this.goToStep({ index: nextStepIndex });
   };
-  
+
+
   previousStep = () => {
     const prevStepIndex = this.getCurrentStepIndex() - 1;
-
     if (prevStepIndex < 0) {
       return;
     }
-
     this.goToStep({ index: prevStepIndex });
   };
+
 
   goToStep = ({ key, index }) => {
     if (!key) {
       key = STEP_VALS[ index ].key;
     }
-
     this.props.history.push(`${this.getPathPrefix()}/${key}`);
     this.scrollToTop();
   };
 
+
   getPathPrefix = () => {
     return `/visit/${this.props.clientId}/${this.props.visitId}`;
   };
+
 
   getCurrentStepIndex = () => {
     return STEP_VALS.findIndex((step) => {
@@ -223,9 +227,11 @@ class VisitPage extends Component {
     });
   };
 
+
   shouldConfirmLeave = ({ location }) => {
     return !location.pathname.startsWith(this.getPathPrefix());
   };
+
 
   render() {
     if (!this.didMount || !this.props.stepKey) {
@@ -234,7 +240,7 @@ class VisitPage extends Component {
       );
     }
 
-    let translations          = this.state.translations,
+    let translations      = this.state.translations,
         prevContent       = null,
         nextContent       = null,
         stepIndex         = this.getCurrentStepIndex(),
@@ -271,78 +277,74 @@ class VisitPage extends Component {
       right:  nextContent,
     };
 
-    const step = STEP_VALS[ stepIndex ];
-
-    const StepComponent = step.component;
+    let step          = STEP_VALS[ stepIndex ],
+        StepComponent = step.component;
 
     return (
-      <div className='forms-container flex-item flex-column'>
+      <div className={ `forms-container flex-item flex-column` }>
         {/* = PROMPTS & PROMPT TRIGGERS = */}
         {/* - Sometimes visible - */}
         {/* Triggered by `ReactRouterLeaveListener`,
          *`ResetAnytime`, or `ErrorListener` */}
         <FeedbackPrompt
           { ...this.state.promptData }
-          isBlocking={ this.state.isBlocking }
-          openFeedback={ this.openFeedback } />
+          isBlocking   = { this.state.isBlocking }
+          openFeedback = { this.openFeedback } />
         {/* Triggered by `FeedbackPrompt` & `FeedbackAnytime` */}
         <FeedbackForm
-          isOpen={ this.state.feedbackFormRequested }
-          close={ this.closeFeedback }
-          data={ this.state.client } />
+          isOpen = { this.state.feedbackFormRequested }
+          close  = { this.closeFeedback }
+          data   = { this.state.client } />
 
         {/* - Never visible - */}
         <ErrorListener
-          callback={ this.resetClientIfOk }
-          client={ this.state.client }
-          askForFeedback={ this.askForFeedback } />
+          callback       = { this.resetClientIfOk }
+          client         = { this.state.client }
+          askForFeedback = { this.askForFeedback } />
         {/* Browser nav - reload/back/unload. */}
         <BrowserLeaveListener isBlocking={ this.state.isBlocking } />
         {/* React nav buttons (Home/About) */}
         <ReactRouterLeaveListener
-          askForFeedback={ this.askForFeedback }
-          confirmer = { this.props.confirmer }
-          shouldRequestConfirmation={ this.shouldConfirmLeave }
-          isBlocking={ this.state.isBlocking } />
+          askForFeedback            = { this.askForFeedback }
+          confirmer                 = { this.props.confirmer }
+          shouldRequestConfirmation = { this.shouldConfirmLeave }
+          isBlocking                = { this.state.isBlocking } />
 
         {/* = LINKS? = */}
         {/* We should probably remove this. If we want to
          * do this we might do this a different way at this
          * point. Perhaps a user's page should be a route
          * in VisitPage? */}
-        { this.state.redirect ? (
+        { (this.state.redirect) ? (
           <Redirect to={ `/detail/${this.props.clientId}` } />
         ) : (
-          false
+          null
         ) }
 
         {/* = SECTION = */}
         {/* `padding` here duplicates previous `<Grid>` styling */}
         <Container
-          id = { `cliff-effects-tool` }
-          className='flex-item flex-column'>
+          id        = { `cliff-effects-tool` }
+          className = { `flex-item flex-column` }>
           <Responsive
-            id = { `form-nav` }
-            minWidth='874.5'>
+            id       = { `form-nav` }
+            minWidth = { `874.5` }>
             <StepBar
-              currentStepKey={ step.key }
-              goToStep={ this.goToStep }
-              translations={ this.state.translations.stepBar } />
+              currentStepKey = { step.key }
+              goToStep       = { this.goToStep }
+              translations   = { this.state.translations.stepBar } />
           </Responsive>
-          <div
-            className="flex-item flex-column current-step-component">
+          <div className={ `flex-item flex-column current-step-component` }>
             <StepComponent
-              translations={ translations[ step.key ] }
-              updateClientValue={
-                step.time === 'current' ?
-                  this.changeCurrent :
-                  this.changeFuture
+              translations      = { translations[ step.key ] }
+              updateClientValue = {
+                (step.time === `current`) ? (this.changeCurrent) : (this.changeFuture)
               }
-              navData={ navData }
-              saveForm={ this.saveForm }
-              askToResetClient={ this.askToResetClient }
-              openFeedback={ this.openFeedback }
-              client={ this.state.client } />
+              navData          = { navData }
+              saveForm         = { this.saveForm }
+              askToResetClient = { this.askToResetClient }
+              openFeedback     = { this.openFeedback }
+              client           = { this.state.client } />
           </div>
         </Container>
 
@@ -355,20 +357,18 @@ class VisitPage extends Component {
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
-        { 
-          distrustConfirmed === false ? (
-            <PredictionsWarning
-              distrustConfirmed       = { distrustConfirmed }
-              toggleDistrustConfirmed = { this.props.funcs.toggleDistrustConfirmed }
-              translations={{ ...translations.warningModal }} />
-          ) : (
-            null
-          )
-        }
+        { (distrustConfirmed === false) ? (
+          <PredictionsWarning
+            distrustConfirmed       = { distrustConfirmed }
+            toggleDistrustConfirmed = { this.props.funcs.toggleDistrustConfirmed }
+            translations            = {{ ...translations.warningModal }} />
+        ) : (
+          null
+        ) }
 
       </div>
     );
-  }
-}
+  };
+};  // Ends <VisitPage>
 
-export default VisitPage;
+export { VisitPage };

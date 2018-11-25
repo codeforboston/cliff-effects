@@ -9,9 +9,9 @@ import { Helmet } from 'react-helmet';
 import { Confirmer } from './utils/getUserConfirmation';
 
 // CUSTOM COMPONENTS
-import HomePage from './containers/HomePage';
-import AboutPage from './containers/AboutPage';
-import VisitPage from './containers/VisitPage';
+import { HomePage } from './containers/HomePage';
+import { AboutPage } from './containers/AboutPage';
+import { VisitPage } from './containers/VisitPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
 

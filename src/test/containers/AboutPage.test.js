@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import AboutPage from '../../containers/AboutPage';
+import { AboutPage } from '../../containers/AboutPage';
 import { translations } from '../helpers';
 
 describe('<AboutPage>', () => {
