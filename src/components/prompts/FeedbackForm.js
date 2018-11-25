@@ -81,8 +81,9 @@ class AskPermission extends React.Component {
           { (submitType === null) ? (`Send`) : (null) }
         </Button>
       </Modal.Actions>,
-    ]);}
-}
+    ]);
+  };
+};  // Ends <AskPermission>
 
 
 /**
@@ -255,7 +256,7 @@ class FeedbackForm extends React.Component {
       </Modal>
     );
   };
-};
+};  // Ends <FeedbackForm>
 
 
 export {

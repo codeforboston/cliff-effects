@@ -80,6 +80,6 @@ class FeedbackPrompt extends React.Component {
       </Modal>
     );
   };
-};
+};  // Ends <FeedbackPrompt>
 
 export { FeedbackPrompt };

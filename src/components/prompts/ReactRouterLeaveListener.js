@@ -67,6 +67,6 @@ class ReactRouterLeaveListener extends React.Component {
         message = { this.getConfirmationMessage } />
     );
   };
-};
+};  // Ends <ReactRouterLeaveListener>
 
 export { ReactRouterLeaveListener };

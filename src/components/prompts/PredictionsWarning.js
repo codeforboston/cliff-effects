@@ -104,9 +104,9 @@ class PredictionsWarningComp extends Component {
           </Button>
         </Modal.Actions>
       </Modal>
-    ); // Ends return()
+    ); // ends return()
   }; // Ends render()
-};
+};  // Ends <PredictionsWarningComp>
 
 const PredictionsWarning = withRouter(PredictionsWarningComp);
 
