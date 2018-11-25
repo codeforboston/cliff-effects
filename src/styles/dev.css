@@ -51,12 +51,12 @@
   overflow: hidden;
 }
 
-.dev.english .snippet[lang="en"] {
+.dev.english .translation[lang="en"] {
   color: red;
   text-decoration: underline red double;
 }
 
-.dev.nonEnglish .snippet:not([lang="en"]) {
+.dev.nonEnglish .translation:not([lang="en"]) {
   color: blue;
   text-decoration: underline blue;
 }

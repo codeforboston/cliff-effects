@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-export const snippets = new Proxy({}, {
+export const translations = new Proxy({}, {
   get() {
     return 'Some translated text.';
   },

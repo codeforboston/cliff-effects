@@ -3,14 +3,14 @@ import { mount } from 'enzyme';
 
 import StepBar from '../../components/StepBar';
 import { STEP_VALS } from '../../forms/STEP_VALS';
-import { snippets } from '../helpers';
+import { translations } from '../helpers';
 
 describe('<StepBar>', () => {
   const goToStep = jest.fn();
   const defaultProps = {
     currentStepKey: STEP_VALS[ 0 ].key,
     goToStep:       goToStep,
-    snippets:       snippets,
+    translations:   translations,
   };
 
   const buildWrapper = (props = {}) => {

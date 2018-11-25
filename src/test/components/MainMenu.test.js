@@ -3,12 +3,12 @@ import { mount } from 'enzyme';
 
 import { MainMenu } from '../../components/MainMenu';
 import { withRouter } from '../helpers';
-import { snippets } from '../helpers';
+import { translations } from '../helpers';
 
 describe('<MainMenu>', () => {
   it('renders', () => {
     expect(() => {
-      return mount(withRouter(<MainMenu snippets={ snippets } />));
+      return mount(withRouter(<MainMenu translations={ translations } />));
     }).not.toThrow();
   });
 });

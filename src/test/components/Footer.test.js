@@ -2,12 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import Footer from '../../components/Footer';
-import { snippets } from '../helpers';
+import { translations } from '../helpers';
 
 describe('<Footer>', () => {
   it('matches snapshot', () => {
     expect(() => {
-      mount(<Footer snippets={ snippets } />);
+      mount(<Footer translations={ translations } />);
     }).not.toThrow();
   });
 });

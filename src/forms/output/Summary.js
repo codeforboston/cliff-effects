@@ -269,7 +269,7 @@ let getBenefitData = function(client, resourceKeys) {
  *     instead of a cliff? One where the losses grow over
  *     time for a while?
  */
-const Summary = function ({ client, openFeedback, snippets }) {
+const Summary = function ({ client, openFeedback, translations }) {
 
   const resourceKeys = [
     `earned`,
@@ -278,10 +278,10 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
   // Really quick returns if other calcs not needed
   if (resourceKeys.length <= 1) {
-    return snippets.i_noBenefitsChosen;
+    return translations.i_noBenefitsChosen;
   }
   if (client.future.earned === client.current.earned) {
-    return snippets.i_noFutureChange;
+    return translations.i_noFutureChange;
   }
 
 
@@ -295,8 +295,6 @@ const Summary = function ({ client, openFeedback, snippets }) {
     recovery, // { total, earned, }
   } = data;
 
-  let sn = snippets;
-
   // ==================  
   // WARNING: WHITESPACE IS VERY IMPORTANT HERE. Read about JSX whitespace.
   // ==================
@@ -307,17 +305,17 @@ const Summary = function ({ client, openFeedback, snippets }) {
   // "What could happen?"
   let detailsNow = (
     <p>
-      <span>{sn.i_nowEarn} {sn.i_beforeMoneyWithTime}{toMoneyStr(current.earned)} {sn.i_eachTimeInterval}</span>
-      <span>{` `} {sn.i_nowBenefitsTotalIs} {sn.i_beforeMoneyWithTime}{round$(current.benefitsTotal)}{sn.i_period}</span>
-      <span>{` `} {sn.i_nowTotalIs} {sn.i_beforeMoneyWithTime}{round$(current.total)} {sn.i_eachTimeInterval}{sn.i_period}</span>
+      <span>{translations.i_nowEarn} {translations.i_beforeMoneyWithTime}{toMoneyStr(current.earned)} {translations.i_eachTimeInterval}</span>
+      <span>{` `} {translations.i_nowBenefitsTotalIs} {translations.i_beforeMoneyWithTime}{round$(current.benefitsTotal)}{translations.i_period}</span>
+      <span>{` `} {translations.i_nowTotalIs} {translations.i_beforeMoneyWithTime}{round$(current.total)} {translations.i_eachTimeInterval}{translations.i_period}</span>
     </p>
   );
 
   let detailsFuture = (
     <p>
-      <span>{sn.i_newEarn} {sn.i_beforeMoneyWithTime}{toMoneyStr(future.earned)} {sn.i_eachTimeInterval}</span>
-      <span>{` `} {sn.i_newBenefitsTotalIs} {sn.i_beforeMoneyWithTime}{round$(future.benefitsTotal)} {sn.i_eachTimeInterval}{sn.i_period}</span>
-      <span>{` `} {sn.i_newBenefitDetailsIntro}</span>
+      <span>{translations.i_newEarn} {translations.i_beforeMoneyWithTime}{toMoneyStr(future.earned)} {translations.i_eachTimeInterval}</span>
+      <span>{` `} {translations.i_newBenefitsTotalIs} {translations.i_beforeMoneyWithTime}{round$(future.benefitsTotal)} {translations.i_eachTimeInterval}{translations.i_period}</span>
+      <span>{` `} {translations.i_newBenefitDetailsIntro}</span>
     </p>
   );
 
@@ -331,8 +329,8 @@ const Summary = function ({ client, openFeedback, snippets }) {
 
     benefitList.push(
       <li key = { cBenefit.label }>
-        <span>{cBenefit.label} {sn.i_from} {sn.i_beforeMoneyWithTime}{round$(cBenefit.amount)}</span>
-        <span>{` `} {sn.i_to} {sn.i_beforeMoneyWithTime}{round$(fBenefit.amount)} {sn.i_eachTimeInterval}{sn.i_period}</span>
+        <span>{cBenefit.label} {translations.i_from} {translations.i_beforeMoneyWithTime}{round$(cBenefit.amount)}</span>
+        <span>{` `} {translations.i_to} {translations.i_beforeMoneyWithTime}{round$(fBenefit.amount)} {translations.i_eachTimeInterval}{translations.i_period}</span>
       </li>
     );
   }  // ends for each benefit
@@ -343,14 +341,14 @@ const Summary = function ({ client, openFeedback, snippets }) {
   let feedbackAsk = (
     <p>
       <span key = { `pre-ask` }>
-        { snippets.i_feedbackAsk }
+        { translations.i_feedbackAsk }
       </span>
       <Button
         compact
         key     = { `ask` }
         size    = { `small` }
         onClick = { openFeedback }>
-        { snippets.i_submitFeedback }
+        { translations.i_submitFeedback }
       </Button>
     </p>
   );
@@ -359,34 +357,34 @@ const Summary = function ({ client, openFeedback, snippets }) {
   let posDiff    = round$(Math.abs(diff)),
       lessOrMore = ``;
   if (diff > 0) {
-    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoneyWithTime}{posDiff} {sn.i_moreThan}</span>;
+    lessOrMore = <span>{translations.i_resultIs} {translations.i_beforeMoneyWithTime}{posDiff} {translations.i_moreThan}</span>;
   } else if (diff < 0) {
-    lessOrMore = <span>{sn.i_resultIs} {sn.i_beforeMoneyWithTime}{posDiff} {sn.i_lessThan}</span>;
+    lessOrMore = <span>{translations.i_resultIs} {translations.i_beforeMoneyWithTime}{posDiff} {translations.i_lessThan}</span>;
   } else if (diff === 0) {
-    lessOrMore = <span>{sn.i_resultIs} {sn.i_sameAs}</span>;
+    lessOrMore = <span>{translations.i_resultIs} {translations.i_sameAs}</span>;
   }
 
   let summaryFuture = (
-    <p>{sn.i_newTotalIs} {sn.i_beforeMoneyWithTime}{round$(future.total)} {sn.i_eachTimeInterval}{sn.i_period} {lessOrMore}</p>
+    <p>{translations.i_newTotalIs} {translations.i_beforeMoneyWithTime}{round$(future.total)} {translations.i_eachTimeInterval}{translations.i_period} {lessOrMore}</p>
   );
 
-  let endOfCliffContent = sn.i_noCliff;
+  let endOfCliffContent = translations.i_noCliff;
   // If there was a cliff, how much more will they have
   // to earn before they'll get more than they are now?
   if (recovery.total !== undefined) {
     endOfCliffContent = (
       <div>
         <div className = { `text-result-section` }>
-          <Header>{sn.i_cliffEndHeader}</Header>
+          <Header>{translations.i_cliffEndHeader}</Header>
           <p>
-            <span>{sn.i_ifGetTo} {sn.i_beforeMoneyWithTime}{round$(recovery.earned)} {sn.i_eachTimeInterval}</span>
-            <span>{` `} {sn.i_willGet} {sn.i_beforeMoneyWithTime}{round$(recovery.total - current.total)}</span>
-            <span>{` `} {sn.i_moreIn}</span>
+            <span>{translations.i_ifGetTo} {translations.i_beforeMoneyWithTime}{round$(recovery.earned)} {translations.i_eachTimeInterval}</span>
+            <span>{` `} {translations.i_willGet} {translations.i_beforeMoneyWithTime}{round$(recovery.total - current.total)}</span>
+            <span>{` `} {translations.i_moreIn}</span>
           </p>
         </div>
 
         <hr />
-        <p>{sn.i_findHelp}</p>
+        <p>{translations.i_findHelp}</p>
       </div>
     );
   }  // ends if there's a cliff end
@@ -399,7 +397,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
     <div>
 
       <div className = { `text-result-section` }>
-        <Header>{sn.i_detailsHeader}</Header>
+        <Header>{translations.i_detailsHeader}</Header>
         { detailsNow }
         { detailsFuture }
         <ul>
@@ -409,7 +407,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
       </div>
 
       <div className = { `text-result-section` }>
-        <Header>{sn.i_summaryHeader}</Header>
+        <Header>{translations.i_summaryHeader}</Header>
         { summaryFuture }
       </div>
       
@@ -420,7 +418,7 @@ const Summary = function ({ client, openFeedback, snippets }) {
           className = { `print` }
           color     = { `teal` }
           onClick   = { print }>
-          { sn.i_printButton }
+          { translations.i_printButton }
         </Button>
       </div>
 

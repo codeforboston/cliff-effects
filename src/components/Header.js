@@ -15,8 +15,8 @@ class Header extends React.Component {
         textAlign='center'
         vertical
         color='teal'>
-        <MainMenu snippets={ this.props.snippets } />
-        <BetaWarning snippets={ this.props.snippets } />
+        <MainMenu translations={ this.props.translations } />
+        <BetaWarning translations={ this.props.translations } />
       </Segment>
     );
   }

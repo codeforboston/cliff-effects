@@ -3,12 +3,12 @@ import { Step } from 'semantic-ui-react';
 
 import { STEP_VALS } from '../forms/STEP_VALS';
 
-const StepBar = ({ currentStepKey, goToStep, snippets }) => {
+const StepBar = ({ currentStepKey, goToStep, translations }) => {
 
   let cleanSteps = [];
 
   STEP_VALS.forEach((step, index) => {
-    let newStep = { title: { content: snippets[ `i_` + step.key ] }};
+    let newStep = { title: { content: translations[ `i_` + step.key ] }};
     newStep.active = step.key === currentStepKey;
     newStep.onClick = (e) => {
       goToStep({ key: step.key });

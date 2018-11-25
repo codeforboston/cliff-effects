@@ -16,8 +16,8 @@ import { allBenefitOrders } from '../programs/allBenefitOrders';
  * @param {object} props
  * @property {object} props.current Client current info.
  * @property {function} props.updateClientValue Updates state upstream.
- * @property {function} props.snippets Uses user chosen language-specific
- *    snippets.
+ * @property {function} props.translations Uses user chosen language-specific
+ *    translations.
  *
  * @returns {object} Component
  */
@@ -53,25 +53,25 @@ class CurrentBenefitsContent extends React.Component {
   };
 
   render() {
-    const { current, snippets, benefits } = this.props;
+    const { current, translations, benefits } = this.props;
 
     const components = [];
   
     for (let benefitIndex = 0; benefitIndex < benefits.length; benefitIndex++) {
       const benefit = benefits[ benefitIndex ];
 
-      const snippetKey = `i_has_${benefit}_label`;
+      const translationKey = `i_has_${benefit}_label`;
 
-      if (!(snippetKey in snippets)) {
-        throw new Error(`No snippet found as label for benefit radio buttons; expected key "${snippetKey}"`);
+      if (!(translationKey in translations)) {
+        throw new Error(`No translation found as label for benefit radio buttons; expected key "${translationKey}"`);
       }
 
-      const labelText = snippets[ snippetKey ];
+      const labelText = translations[ translationKey ];
   
       components.push(
         <ControlledRadioYesNo
           key={ benefit }
-          snippets={ snippets }
+          translations={ translations }
           labelText={ labelText }
           onChange={ this.handleRadioChange }
           checked = { current.benefits.includes(benefit) }
@@ -95,24 +95,24 @@ class CurrentBenefitsContent extends React.Component {
  * @property {function} props.updateClientValue Updates state upstream.
  * @property {object} props.navData Bottom row buttons
  * @property {object} props.client JSON object with future and current values.
- * @property {function} props.snippets Uses user chosen language-specific
- *    snippets.
+ * @property {function} props.translations Uses user chosen language-specific
+ *    translations.
  *
  * @returns {object} Component
  */
-const CurrentBenefitsStep = ({ updateClientValue, navData, client, snippets }) => {
+const CurrentBenefitsStep = ({ updateClientValue, navData, client, translations }) => {
 
   return (
     <FormPartsContainer
-      title     = { snippets.i_currentBenefits }
-      clarifier = { snippets.i_selectBenefits }
+      title     = { translations.i_currentBenefits }
+      clarifier = { translations.i_selectBenefits }
       navData   = { navData }
       formClass = { `benefits` }
       formSize  = { `massive` }>
       <CurrentBenefitsContent
         updateClientValue = { updateClientValue }
         current      = { client.current }
-        snippets     = { snippets }
+        translations = { translations }
         benefits     = { allBenefitOrders[ client.USState ] } />
     </FormPartsContainer>
   );

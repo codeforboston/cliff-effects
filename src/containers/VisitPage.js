@@ -50,7 +50,7 @@ class VisitPage extends Component {
       // Hack for MVP
       oldHousing:            clientData.current.housing,
       userChanged:           {},
-      snippets:              props.snippets,
+      translations:          props.translations,
     };  // end this.state {}
   };  // End constructor()
 
@@ -234,7 +234,7 @@ class VisitPage extends Component {
       );
     }
 
-    let snippets          = this.state.snippets,
+    let translations          = this.state.translations,
         prevContent       = null,
         nextContent       = null,
         stepIndex         = this.getCurrentStepIndex(),
@@ -243,7 +243,7 @@ class VisitPage extends Component {
     if (stepIndex !== 0) {
       prevContent = (
         <BigButton onClick = { this.previousStep }>
-          { snippets.i_previous }
+          { translations.i_previous }
         </BigButton>
       );
     }
@@ -253,14 +253,14 @@ class VisitPage extends Component {
       // use normal 'next' component
       nextContent = (
         <BigButton onClick = { this.nextStep }>
-          { snippets.i_next }
+          { translations.i_next }
         </BigButton>
       );
     // Otherwise, set up to reset client
     } else {
       nextContent  = (
         <ButtonReset onClick  = { this.askToResetClient } >
-          { snippets.i_newClient }
+          { translations.i_newClient }
         </ButtonReset>
       );
     }
@@ -327,12 +327,12 @@ class VisitPage extends Component {
             <StepBar
               currentStepKey={ step.key }
               goToStep={ this.goToStep }
-              snippets={ this.state.snippets.stepBar } />
+              translations={ this.state.translations.stepBar } />
           </Responsive>
           <div
             className="flex-item flex-column current-step-component">
             <StepComponent
-              snippets={ snippets[ step.key ] }
+              translations={ translations[ step.key ] }
               updateClientValue={
                 step.time === 'current' ?
                   this.changeCurrent :
@@ -350,7 +350,7 @@ class VisitPage extends Component {
           <ButtonReset
             onClick   = { this.askToResetClient }
             overrides = {{ id: `resetFixed`, size: `medium` }}>
-            { snippets.i_newClient }
+            { translations.i_newClient }
           </ButtonReset>
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
@@ -360,7 +360,7 @@ class VisitPage extends Component {
             <PredictionsWarning
               distrustConfirmed       = { distrustConfirmed }
               toggleDistrustConfirmed = { this.props.funcs.toggleDistrustConfirmed }
-              snippets={{ ...snippets.warningModal }} />
+              translations={{ ...translations.warningModal }} />
           ) : (
             null
           )
