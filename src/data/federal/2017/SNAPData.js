@@ -2,7 +2,12 @@
  * @namespace
  *
  * RESOURCES:
- * Derived from https://www.masslegalservices.org/content/online-snap-calculator
+ * Derived from {@link https://www.masslegalservices.org/content/online-snap-calculator}
+ * See more resources in the actual code since some
+ *      can't be referenced in these comments.
+ */
+/* MORE RESOURCES
+ * (Since pdfs and htmls can't seem to be referenced safely in jsdoc comments)
  * http://www.mass.gov/eohhs/consumer/basic-needs/financial/program-eligibility-charts-and-tables.html
  * http://www.mass.gov/eohhs/gov/departments/dta/program-eligibility-charts-and-tables.html
  * Standard deductions: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-400.pdf
