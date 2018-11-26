@@ -19,16 +19,16 @@ const zoom = function (event, chart, valuesAtMouse, axes) {
     return true;  // continue with what you were doing?
   }
 
-  let xVal     = valuesAtMouse.x,
-      yVal     = valuesAtMouse.y,
-      xAxis    = axes.x,
-      yAxis    = axes.y,
+  let xVal      = valuesAtMouse.x,
+      yVal      = valuesAtMouse.y,
+      xAxis     = axes.x,
+      yAxis     = axes.y,
       xExtremes = xAxis.getExtremes(),
       yExtremes = yAxis.getExtremes(),
-      xAxisMin = xExtremes.min,
-      xAxisMax = xExtremes.max,
-      yAxisMin = yExtremes.min,
-      yAxisMax = yExtremes.max;
+      xAxisMin  = xExtremes.min,
+      xAxisMax  = xExtremes.max,
+      yAxisMin  = yExtremes.min,
+      yAxisMax  = yExtremes.max;
 
   xAxisMin = Math.max(0, xAxisMin);
   xAxisMax = Math.min(xAxis.dataMax, xAxisMax);
@@ -75,7 +75,7 @@ const zoom = function (event, chart, valuesAtMouse, axes) {
 
   chart.showResetZoom();
 
-};
+};  // Ends zoom()
 
 
 export { zoom };
