@@ -86,21 +86,21 @@ class StackedResourcesComp extends Component {
       classes += ` ` + className;
     }
 
-    const multiplier    = multipliers[ timescale ],
-          resources     = [ `earned` ].concat(activePrograms),
-          currentEarned = client.current.earned * multiplier,
-          getText       = textFromTranslatedElement;
+    let multiplier    = multipliers[ timescale ],
+        resources     = [ `earned` ].concat(activePrograms),
+        currentEarned = client.current.earned * multiplier,
+        getText       = textFromTranslatedElement;
 
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
-    const max      = (limits.max * multiplier),
-          interval = ((max / 100) / 10);
+    let max      = (limits.max * multiplier),
+        interval = ((max / 100) / 10);
 
-    const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
-          datasets = getChartData(xRange, multiplier, client, resources, {});
+    let xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
+        datasets = getChartData(xRange, multiplier, client, resources, {});
 
     // Data to stack
-    const lines = [];
+    let lines = [];
     for (let dataseti = 0; dataseti < datasets.length; dataseti++) {
       let dataset = datasets[ dataseti ],
           line = (
@@ -119,12 +119,12 @@ class StackedResourcesComp extends Component {
     // Label for split tooltip 'labels'/'label headers' that appear
     // at the bottom. Really long.
     // @todo Change to prep for context, like in @knod 'other-expenses' branch
-    const bottomTooltipFormatStart = `<span style="font-size: 10px">${getText(translations.i_beforeMoney)}`,
-          bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
-          bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
+    let bottomTooltipFormatStart = `<span class="tooltip-label-header">${getText(translations.i_beforeMoney)}`,
+        bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
+        bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
 
 
-    const plotOptions =  {
+    let plotOptions =  {
       area:   { stacking: `normal`, pointInterval: interval },
       series: { marker: { enabled: false }},  // No dots on the lines
     };
@@ -277,10 +277,10 @@ class StackedResourcesComp extends Component {
       this.setState({ altKeyClass: `` });
     }
   };
-};
+};  // Ends <StackedResourcesComp>
 
 
-const StackedResources = withHighcharts(StackedResourcesComp, Highcharts);
+let StackedResources = withHighcharts(StackedResourcesComp, Highcharts);
 
 
 export { StackedResources };
