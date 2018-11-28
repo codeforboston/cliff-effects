@@ -1,10 +1,11 @@
 /** Data tables for MA SNAP calculations.
- * @namespace
  *
  * RESOURCES:
  * Derived from {@link https://www.masslegalservices.org/content/online-snap-calculator}
  * See more resources in the actual code since some
  *      can't be referenced in these comments.
+ *
+ * @namespace
  */
 const SNAPData = {
   // Code-style note: Properties have to use quotes
