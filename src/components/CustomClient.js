@@ -49,7 +49,7 @@ class CustomClient extends React.Component {
   };
 
   submit = (event) => {
-    let { toLoad } = this.state;
+    const { toLoad } = this.state;
     event.preventDefault();
     this.load(toLoad);
   };
@@ -73,7 +73,7 @@ class CustomClient extends React.Component {
   };
 
   render() {
-    let { toLoad, error, json } = this.state;
+    const { toLoad, error, json } = this.state;
 
     return (
       <Form
