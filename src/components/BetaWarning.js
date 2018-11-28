@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 
 
-const BetaWarning = function (props) {
+const BetaWarning = function () {
   return (
     <Menu.Item>
       <Responsive
