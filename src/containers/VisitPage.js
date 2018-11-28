@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom';
 import { setNestedProperty } from '../utils/setNestedProperty';
 import { cloneDeep } from 'lodash';
 import { convertForUpdate } from '../utils/convertForUpdate';
+import { addClientGetterProperty } from '../dev/command-line-utils';
 
 // Data
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
@@ -20,7 +21,7 @@ import ErrorListener from '../components/prompts/ErrorListener';
 import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
 import FeedbackForm from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
-import StepBar from '../components/StepBar';
+import { StepBar } from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
 import PredictionsWarning from '../components/prompts/PredictionsWarning';
@@ -55,6 +56,15 @@ class VisitPage extends Component {
 
   componentDidMount = () => {
     this.didMount = true;
+
+    // Webpack should remove this whole conditional when not built for development environment
+    if (process.env.NODE_ENV === `development`) {
+      // Override property set in App.js, because that property
+      // doesn't get changed by updateClientValue()
+      addClientGetterProperty(() => {
+        return this.state.client;
+      });
+    }
   };
 
 

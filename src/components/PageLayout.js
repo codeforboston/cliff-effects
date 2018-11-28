@@ -4,28 +4,32 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-const PageLayout = (props) => {
+
+const PageLayout = ({ children }) => {
   return (
     <div>
       <Segment
-        className="pl-segment"
+        className = { `pl-segment` }
         vertical>
         <Grid
           container
           stackable
-          verticalAlign='middle'>
+          verticalAlign = { `middle` }>
           <Grid.Row>
             <Grid.Column width={ 10 }>
-              {props.children}
+
+              { children }
+
             </Grid.Column>
             <Grid.Column
-              floated='right'
-              width={ 6 } />
+              floated = { `right` }
+              width   = { 6 } />
           </Grid.Row>
         </Grid>
       </Segment>
     </div>
   );
 };
+
 
 export { PageLayout };
