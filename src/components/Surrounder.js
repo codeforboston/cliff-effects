@@ -6,26 +6,26 @@ const Surrounder = function ({ Top, Left, Right, Bottom, children }) {
   let contents = { top: null, left: null, right: null, bottom: null };
 
   if (Top) {
-    contents.top = (<div className = { `top horizontal` } >{ Top }</div>);
+    contents.top = (<div className={ `top horizontal` }>{ Top }</div>);
   }
   if (Left) {
-    contents.left = (<div className = { `left vertical` } >{ Left }</div>);
+    contents.left = (<div className={ `left vertical` }>{ Left }</div>);
   }
   if (Right) {
-    contents.right = (<div className = { `right vertical` } >{ Right }</div>);
+    contents.right = (<div className={ `right vertical` }>{ Right }</div>);
   }
   if (Bottom) {
-    contents.bottom = (<div className = { `bottom horizontal` } >{ Bottom }</div>);
+    contents.bottom = (<div className={ `bottom horizontal` }>{ Bottom }</div>);
   }
 
   return (
-    <div className = { `surrounder` }>
+    <div className={ `surrounder` }>
       { contents.top }
 
-      <div className = { `middle horizontal` } >
+      <div className={ `middle horizontal` }>
         { contents.left }
 
-        <div className = { `center horizontal content` } >
+        <div className={ `center horizontal content` }>
           { children }
         </div>
 
@@ -36,7 +36,7 @@ const Surrounder = function ({ Top, Left, Right, Bottom, children }) {
     </div>
   );
 
-};  // End <Surrounder>
+};  // Ends <Surrounder>
 
 
 export { Surrounder };
