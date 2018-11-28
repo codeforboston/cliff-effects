@@ -43,6 +43,22 @@ class PredictionsWarningComp extends Component {
     }
   };
 
+  clickHandlerBox1 = () => {
+    return this.handleChange(`checkbox1`);
+  };
+
+  clickHandlerBox2 = () => {
+    return this.handleChange(`checkbox2`);
+  };
+
+  cancelHandler = () => {
+    return this.closeModal(false);
+  };
+
+  acceptHandler = () => {
+    return this.closeModal(true);
+  };
+
   render() {
   
     const {
@@ -74,7 +90,7 @@ class PredictionsWarningComp extends Component {
               <Checkbox
                 checked = { this.state.Checkbox1 }
                 name    = { `checkbox1` }
-                onClick = { () => { return this.handleChange(`checkbox1`); } } />
+                onClick = { this.clickHandlerBox1 } />
             </Form.Field>
             <Form.Field>{ translations.i_checkboxLabel1 }</Form.Field>
           </div>
@@ -86,19 +102,19 @@ class PredictionsWarningComp extends Component {
               <Checkbox
                 checked = { this.state.Checkbox2 }
                 name    = { `checkbox2` }
-                onClick = { () => { return this.handleChange(`checkbox2`); } } />
+                onClick = { this.clickHandlerBox2 } />
             </Form.Field>
             <Form.Field>{ translations.i_checkboxLabel2 }</Form.Field>
           </div>
          
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={ () => { return this.closeModal(false); } }>
+          <Button onClick={ this.cancelHandler }>
             { translations.i_buttonCancel }
           </Button>
           <Button
             disabled = { !this.allowContinue() }
-            onClick  = { () => { return this.closeModal(true); } }
+            onClick  = { this.acceptHandler }
             color    = { `teal` }>
             { translations.i_buttonAcceptWarning }
           </Button>
