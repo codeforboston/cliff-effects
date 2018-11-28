@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom';
 import { setNestedProperty } from '../utils/setNestedProperty';
 import { cloneDeep } from 'lodash';
 import { convertForUpdate } from '../utils/convertForUpdate';
+import { addClientGetterProperty } from '../dev/command-line-utils';
 
 // Data
 // import { clientList } from '../config/dummyClients';
@@ -56,6 +57,15 @@ class VisitPage extends Component {
 
   componentDidMount() {
     this.didMount = true;
+
+    // Webpack should remove this whole conditional when not built for development environment
+    if (process.env.NODE_ENV === 'development') {
+      // Override property set in App.js, because that property
+      // doesn't get changed by updateClientValue()
+      addClientGetterProperty(() => {
+        return this.state.client;
+      });
+    }
   }
 
   resetClientIfOk = (shouldReset) => {
