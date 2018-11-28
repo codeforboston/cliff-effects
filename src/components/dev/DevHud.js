@@ -25,11 +25,11 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         langOpts = [];
 
   for (let key in langs) {
-    let snips = langs[ key ],
+    let translations = langs[ key ],
         lang  = {
-          text:  snips.langName,
-          key:   snips.langCode,
-          value: snips.langCode,
+          text:  translations.langName,
+          key:   translations.langCode,
+          value: translations.langCode,
         };
     langOpts.push(lang);
   }
@@ -40,28 +40,28 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         <Button
           compact
           negative
-          size = { `tiny` }
+          size      = { `tiny` }
           className = { `off` }
           onClick   = { funcs.turnOff }>
           HUD Off
         </Button>
       </Menu.Item>
 
-      <Menu.Item header> Snippets</Menu.Item>
+      <Menu.Item header>Translations</Menu.Item>
       <Menu.Item>
         <Checkbox
-          label    = { `Mark English snippets` }
+          label    = { `Mark English translations` }
           checked  = { devProps.english }
           onChange = { funcs.english } />
       </Menu.Item>
       <Menu.Item>
         <HeadingWithDetail>
           <Checkbox
-            label    = { `Mark non-English snippets` }
+            label    = { `Mark non-English translations` }
             checked  = { devProps.nonEnglish }
             onChange = { funcs.nonEnglish } />
           <span>
-            Note: text that doesn&apos;t have an underline (for reasons) has no snippets.
+            Note: text that doesn&apos;t have an underline (for reasons) has no translations.
           </span>
         </HeadingWithDetail>
       </Menu.Item>
@@ -177,4 +177,7 @@ class DevHud extends Component {
 };
 
 
-export { DevHud, DevMenu };
+export {
+  DevHud,
+  DevMenu,
+};

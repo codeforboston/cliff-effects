@@ -6,7 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 
 
-const MainMenu = function ({ snippets }) {
+const MainMenu = function ({ translations }) {
   return (
     <Menu
       inverted
@@ -17,17 +17,17 @@ const MainMenu = function ({ snippets }) {
         <Link
           className="main-nav"
           to="/">
-          { snippets.i_homeNav }
+          { translations.i_homeNav }
         </Link>
       </Menu.Item>
       <Menu.Item>
         <Link
           className="main-nav"
           to="/about">
-          { snippets.i_aboutNav }
+          { translations.i_aboutNav }
         </Link>
       </Menu.Item>
-      <Menu.Item>{ snippets.i_githubNav }</Menu.Item>
+      <Menu.Item>{ translations.i_githubNav }</Menu.Item>
       <Menu.Item position='right'>
         {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
         {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}

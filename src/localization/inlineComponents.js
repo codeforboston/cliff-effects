@@ -5,7 +5,7 @@ import contributors from './contributors';
 
 /** @name inlineComponents
  * @description Contains inline components that can be
- *     substituted into snippets using the interpolation
+ *     substituted into translations using the interpolation
  *     functions in utls/interpolation.js. See en.js
  *     for examples of usage.
  */

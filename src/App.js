@@ -68,20 +68,20 @@ class App extends Component {
     /**
      *  React state.
      *  @property {string} langCode - [ISO 639-1 code]{@link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes} of currently selected language
-     *  @property {object} snippets - text snippets in the current language (output of {@link getTextForLanguage})
+     *  @property {object} translations - text translations in the current language (output of {@link getTextForLanguage})
      *  @property {object} clients  - sets of client data to keep track of:
      *  @property {object} clients.default - default set, never changes
      *  @property {object} clients.loaded  - set that has been loaded using the dev HUD
      *  @property {object} devProps - dev HUD settings. They get added as classes to the div that encloses the whole app. May want to rethink.
      *  @property {boolean} devProps.dev - whether dev HUD is turned on
-     *  @property {boolean} devProps.english - whether to highlight English snippets
-     *  @property {boolean} devProps.nonEnglish - whether to highlight snippets in the current language, if that language is not English
+     *  @property {boolean} devProps.english - whether to highlight English translations
+     *  @property {boolean} devProps.nonEnglish - whether to highlight translations in the current language, if that language is not English
      *  @property {boolean} distrustConfirmed - displays modal to accept terms before allowing user to fill out form
      */
     this.state = {
-      langCode: `en`,
-      snippets: getTextForLanguage(`en`),
-      clients:  {
+      langCode:     `en`,
+      translations: getTextForLanguage(`en`),
+      clients:      {
         default: defaults,
         loaded:  defaults,
       },
@@ -162,8 +162,8 @@ class App extends Component {
    * @param {string} inputProps.value - the [ISO 639-1 code]{@link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes} for the newly selected language.
   */
   setLanguage = (evnt, inputProps) => {
-    let snippets = getTextForLanguage(inputProps.value);
-    this.setState({ language: inputProps.value, snippets: snippets });
+    let translations = getTextForLanguage(inputProps.value);
+    this.setState({ language: inputProps.value, translations: translations });
   };
 
   /** Set the value of a specified key in the app state's devProps.
@@ -244,7 +244,7 @@ class App extends Component {
   render () {
     let {
       langCode,
-      snippets,
+      translations,
       devProps,
       clients,
       distrustConfirmed,
@@ -278,7 +278,7 @@ class App extends Component {
                 return (
                   <Header
                     { ...props }
-                    snippets={{ ...snippets.header, langCode: snippets.langCode }} />);
+                    translations={{ ...translations.header, langCode: translations.langCode }} />);
               } } />
 
             <Switch>
@@ -289,7 +289,7 @@ class App extends Component {
                   return (
                     <HomePage
                       { ...props }
-                      snippets={{ ...snippets.homePage, langCode: snippets.langCode }} />);
+                      translations={{ ...translations.homePage, langCode: translations.langCode }} />);
                 } } />
               <Route
                 path="/about"
@@ -297,7 +297,7 @@ class App extends Component {
                   return (
                     <AboutPage
                       { ...props }
-                      snippets={{ ...snippets.aboutPage, langCode: snippets.langCode }} />);
+                      translations={{ ...translations.aboutPage, langCode: translations.langCode }} />);
                 } } />
               <Route
                 path="/visit/:clientId/:visitId/:stepKey?"
@@ -314,7 +314,7 @@ class App extends Component {
                       distrustConfirmed = { distrustConfirmed || warningOff }
                       funcs             = { funcs }
                       confirmer         = { confirmer }
-                      snippets          = {{ ...snippets.visitPage, langCode: snippets.langCode }}
+                      translations      = {{ ...translations.visitPage, langCode: translations.langCode }}
                       clientData        = { clientData } />);
                 } } />
 
@@ -331,7 +331,7 @@ class App extends Component {
 
           </div>
         </HashRouter>
-        <Footer snippets={{ ...snippets.footer, langCode: snippets.langCode }} />
+        <Footer translations={{ ...translations.footer, langCode: translations.langCode }} />
 
         { (devProps.dev === true) ? (
           <DevHud

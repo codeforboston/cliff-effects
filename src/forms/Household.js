@@ -113,22 +113,22 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // UNIQUE
 // ======================
 
-const Role = function ({ member, setMember, snippets }) {
+const Role = function ({ member, setMember, translations }) {
 
   let ThisRole  = null,
       margin   = '0';
 
   if (member.index === 0) {
 
-    ThisRole  = <span>{ snippets.i_headOfHousehold }</span>;
+    ThisRole  = <span>{ translations.i_headOfHousehold }</span>;
 
   } else if (member.index === 1) {
 
     margin = '-1em';
 
     let options = [
-      { text: snippets.i_spouse, value: 'spouse' },
-      { text: snippets.i_childOther, value: 'member' },
+      { text: translations.i_spouse, value: 'spouse' },
+      { text: translations.i_childOther, value: 'member' },
     ];
 
     ThisRole = <Dropdown
@@ -140,7 +140,7 @@ const Role = function ({ member, setMember, snippets }) {
 
   } else {
 
-    ThisRole = <span>{ snippets.i_childOther }</span>;
+    ThisRole = <span>{ translations.i_childOther }</span>;
 
   }
 
@@ -154,7 +154,7 @@ const Role = function ({ member, setMember, snippets }) {
 };  // End Role(<>)
 
 
-const MemberField = function ({ household, time, setHousehold, updateClientValue, snippets }, indx) {
+const MemberField = function ({ household, time, setHousehold, updateClientValue, translations }, indx) {
 
   let member      = household[ indx ],
       routeStart  = 'household/' + indx + '/';
@@ -219,7 +219,7 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
         <Role
           member={ member }
           setMember={ onMemberChange }
-          snippets={ snippets } />
+          translations={ translations } />
       </Columns.Two>
 
       <Columns.Three>
@@ -248,7 +248,7 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
 };  // End MemberField()
 
 
-const getMembers = function (current, time, setHousehold, updateClientValue, snippets) {
+const getMembers = function (current, time, setHousehold, updateClientValue, translations) {
 
   let household = current.household,
       props     = {
@@ -256,7 +256,7 @@ const getMembers = function (current, time, setHousehold, updateClientValue, sni
         time:              time,
         setHousehold:      setHousehold,
         updateClientValue: updateClientValue,
-        snippets:          snippets,
+        translations:      translations,
       };
 
   let mems = [];
@@ -269,7 +269,7 @@ const getMembers = function (current, time, setHousehold, updateClientValue, sni
 };  // End getMembers()
 
 
-const HouseholdContent = function ({ current, time, updateClientValue, snippets }) {
+const HouseholdContent = function ({ current, time, updateClientValue, translations }) {
 
   // Don't mutate state properties
   let household = cloneDeep(current.household);
@@ -306,12 +306,12 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
     <div className='field-aligner two-column'>
       <div style={{ marginBottom: '.5em' }}>
         <ColumnHeader columnNum='One' />
-        <ColumnHeader columnNum='Two'> { snippets.i_role }</ColumnHeader>
-        <ColumnHeader columnNum='Three'>{ snippets.i_age }</ColumnHeader>
-        <ColumnHeader columnNum='Four'>{ snippets.i_disabled }</ColumnHeader>
+        <ColumnHeader columnNum='Two'> { translations.i_role }</ColumnHeader>
+        <ColumnHeader columnNum='Three'>{ translations.i_age }</ColumnHeader>
+        <ColumnHeader columnNum='Four'>{ translations.i_disabled }</ColumnHeader>
       </div>
 
-      { getMembers(current, time, setHousehold, updateClientValue, snippets) }
+      { getMembers(current, time, setHousehold, updateClientValue, translations) }
 
       <Button
         type={ 'button' }
@@ -330,7 +330,7 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
           <Header
             as='h4'
             color={ 'teal' }>
-            { snippets.i_addMember }
+            { translations.i_addMember }
           </Header>
         </Columns.Two>
 
@@ -345,19 +345,19 @@ const HouseholdContent = function ({ current, time, updateClientValue, snippets 
 
 
 // `props` is a cloned version of the original props. References broken.
-const HouseholdStep = function ({ updateClientValue, navData, client, snippets }) {
+const HouseholdStep = function ({ updateClientValue, navData, client, translations }) {
 
   return (
     <FormPartsContainer
-      title     = { snippets.i_title }
-      clarifier = { snippets.i_clarifier }
+      title     = { translations.i_title }
+      clarifier = { translations.i_clarifier }
       navData   = { navData }
       formClass = { `household` }>
       <HouseholdContent
         updateClientValue = { updateClientValue }
         current={ client.current }
         time={ 'current' }
-        snippets={ snippets } />
+        translations={ translations } />
     </FormPartsContainer>
   );
 

@@ -328,7 +328,7 @@ export default {
       // Benefit Programs Graph, showing benefit programs as lines not areas:
       benefitProgramsTitle_v3:    `Individual Benefit Amounts as Pay Changes`, // maybe rename as benefitProgramsSubTitle_v1 ? see also BenefitsLineGraph.js
       benefitValue_v1:            `Benefit Value ($)`, // see BenefitsLineGraph.js
-      // Snippets that are used in more than one chart, table, or graph:
+      // Translations that are used in more than one chart, table, or graph:
       totalMoney_v1:              `Total Money Coming In ($)`, // see StackedAreaGraph.js, StackedBarGraph.js
       weeklyPay_v2:               `Weekly Pay ($)`,
       monthlyPay_v2:              `Monthly Pay ($)`,

@@ -58,23 +58,23 @@ import { getUnder13Expenses } from '../utils/cashflow';
   * @param {function} props.updateClientValue Setting client state
   * @param {object} props.navData Buttons for bottom row
   * @param {object} props.client Data for calculating benefits, `future` and `current`
-  * @param {object} props.snippets  Language-specific content
+  * @param {object} props.translations  Language-specific content
   *
   * @returns React element
   */
-const CurrentExpensesStep = function ({ updateClientValue, navData, client, snippets }) {
+const CurrentExpensesStep = function ({ updateClientValue, navData, client, translations }) {
 
   return (
     <FormPartsContainer
-      title     = { snippets.i_title }
-      clarifier = { snippets.i_clarifier }
+      title     = { translations.i_title }
+      clarifier = { translations.i_clarifier }
       navData   = { navData }
       formClass = { `expenses` }>
       <ExpensesFormContent
         updateClientValue = { updateClientValue }
         current={ client.current }
         time={ 'current' }
-        snippets={ snippets } />
+        translations={ translations } />
     </FormPartsContainer>
   );
 
@@ -87,11 +87,11 @@ const CurrentExpensesStep = function ({ updateClientValue, navData, client, snip
  * @param {object} props.current Client data of current user circumstances
  * @param {string} props.time 'current' or 'future'
  * @param {function} props.updateClientValue Sets state values
- * @param {object} props.snippets Language-specific content
+ * @param {object} props.translations Language-specific content
  *
  * @returns React element
  */
-const ExpensesFormContent = function ({ current, time, updateClientValue, snippets }) {
+const ExpensesFormContent = function ({ current, time, updateClientValue, translations }) {
 
   let type        = 'expense',
       household   = current.household,
@@ -125,7 +125,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
       { under13.length > 0 ? (
         <Under13
-          snippets          = { snippets }
+          translations      = { translations }
           type              = { type }
           sharedProps       = { sharedProps }
           current           = { current }
@@ -136,9 +136,9 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 
       { current.benefits.includes('snap') ? (
         <ChildSupport
-          snippets    = { snippets }
-          type        = { type }
-          sharedProps = { sharedProps } />
+          translations = { translations }
+          type         = { type }
+          sharedProps  = { sharedProps } />
       ) : (
         null
       ) }
@@ -146,16 +146,16 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
       {/* Head or spouse can't be a dependent, so they don't count. */}
       { over12.length > 0 ? (
         <DependentsOver12
-          snippets    = { snippets }
-          type        = { type }
-          sharedProps = { sharedProps } />
+          translations = { translations }
+          type         = { type }
+          sharedProps  = { sharedProps } />
       ) : (
         null
       ) }
 
       { elderlyOrDisabled.length > 0 ? (
         <ElderlyOrDisabledAssistance
-          snippets          = { snippets }
+          translations      = { translations }
           type              = { type }
           sharedProps       = { sharedProps }
           current           = { current }
@@ -170,7 +170,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
         *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf} */}
       { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.benefits.includes('snap') && elderlyOrDisabled.length > 0) ? (
         <UnreimbursedMedical
-          snippets    = { snippets }
+          translations    = { translations }
           type        = { type }
           sharedProps = { sharedProps } />
       ) : (
@@ -199,32 +199,32 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, snippe
 };  // Ends <ExpensesFormContent>
 
 
-const Under13 = function ({ snippets, type, sharedProps, current, updateClientValue }) {
+const Under13 = function ({ translations, type, sharedProps, current, updateClientValue }) {
   return (
     <div>
-      <ContentH1 subheading = { snippets.unreimbursedNonMedicalChildCare.i_subheading }>
-        { snippets.unreimbursedNonMedicalChildCare.i_sectionHeading }
+      <ContentH1 subheading = { translations.unreimbursedNonMedicalChildCare.i_subheading }>
+        { translations.unreimbursedNonMedicalChildCare.i_sectionHeading }
       </ContentH1>
       <IntervalColumnHeadings type={ type } />
       <CashFlowInputsRow
         { ...sharedProps }
         generic={ 'childDirectCare' }>
-        { snippets.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
+        { translations.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic={ 'childBeforeAndAfterSchoolCare' }>
-        { snippets.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
+        { translations.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic={ 'childTransportation' }>
-        { snippets.unreimbursedNonMedicalChildCare.childTransportation.i_label }
+        { translations.unreimbursedNonMedicalChildCare.childTransportation.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic={ 'childOtherCare' }>
-        { snippets.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
+        { translations.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
       </CashFlowInputsRow>
 
       <EarnedFrom

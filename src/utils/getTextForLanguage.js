@@ -2,7 +2,7 @@
 
 // TRANSFORMER FUNCTIONS
 import { mergeWith } from 'lodash';
-import { interpolateSnippets } from './interpolation.js';
+import { interpolateTranslations } from './interpolation.js';
 
 // DATA
 import { getLocalizationData } from '../localization/all';
@@ -11,8 +11,8 @@ import inlineComponents from '../localization/inlineComponents';
 // Get copy of localization data
 const localizations = getLocalizationData();
 
-// store interpolated and (if necessary) merged snippets objects
-let finishedSnippets = { en: interpolateSnippets(localizations.en, inlineComponents) };
+// store interpolated and (if necessary) merged translations objects
+let finishedTranslations = { en: interpolateTranslations(localizations.en, inlineComponents) };
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
  * (to avoid arrays of English strings being mixed with arrays of translated
@@ -24,8 +24,9 @@ const mergeCustomizer = function (objValue, srcValue) {
   }
 };
 
-/** Returns the object named by langName that contains
- * the text snippets of that language. If that language
+/**
+ * Returns the object named by langName that contains
+ * the text translations of that language. If that language
  * doesn't exist, it warns the coder and returns English.
  */
 const getTextForLanguage = function (langCode) {
@@ -34,16 +35,16 @@ const getTextForLanguage = function (langCode) {
     langCode = 'en';
   }
 
-  if (!finishedSnippets[ langCode ]) {
-    // interpolate snippets and merge with English (filling in any gaps)
-    const interpolatedSnippets = interpolateSnippets(localizations[ langCode ], inlineComponents);
+  if (!finishedTranslations[ langCode ]) {
+    // interpolate translations and merge with English (filling in any gaps)
+    const interpolatedTranslations = interpolateTranslations(localizations[ langCode ], inlineComponents);
 
-    // deeply merge the object containing snippets in langName with English,
+    // deeply merge the object containing translations in langName with English,
     // so that we fall back to English if a particular field is missing.
-    finishedSnippets[ langCode ] =  mergeWith({}, finishedSnippets.en, interpolatedSnippets, mergeCustomizer);
+    finishedTranslations[ langCode ] =  mergeWith({}, finishedTranslations.en, interpolatedTranslations, mergeCustomizer);
   }
 
-  return finishedSnippets[ langCode ];
+  return finishedTranslations[ langCode ];
 };  // End getTextForLanguage()
 
 
