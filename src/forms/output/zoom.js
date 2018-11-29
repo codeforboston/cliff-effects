@@ -4,7 +4,7 @@
 /** Proportional zooming in charts. Mutator.
  *
  * @param {object} event Whatever event highchart sends. Should have a `.altKey`
- * @param {object} chart Highcharts `chart` object for showing reset zoom button.
+ * @param {object} chart Highcharts `chart` object to show reset zoom button.
  * @param {object} valuesAtMouse
  * @param {number} valuesAtMouse.x X-axis graph value (earnings) at mouse position.
  * @param {number} valuesAtMouse.y Y-axis graph value (total in) at mouse position.

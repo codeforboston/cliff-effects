@@ -1,10 +1,19 @@
-/*
- * RESOURCES
- * Derived from https://www.masslegalservices.org/content/online-snap-calculator
- * http://www.mass.gov/eohhs/consumer/basic-needs/financial/program-eligibility-charts-and-tables.html
- * http://www.mass.gov/eohhs/gov/departments/dta/program-eligibility-charts-and-tables.html
+/** Data tables for MA SNAP calculations.
+ *
+ * RESOURCES:
+ * Derived from {@link https://www.masslegalservices.org/content/online-snap-calculator}
+ * {@link http://www.mass.gov/eohhs/consumer/basic-needs/financial/program-eligibility-charts-and-tables.html}
+ * {@link http://www.mass.gov/eohhs/gov/departments/dta/program-eligibility-charts-and-tables.html}
+ * Standard deductions: {@link http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-400.pdf}
+ * Utility allowance categories: {@link http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-945.pdf}
+ * Net income limits: {@link http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-970.pdf}
+ * SNAP allowance maximums: {@link http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-980-hh-1-10.pdf}
+ *
+ * @namespace
  */
 const SNAPData = {
+  // Code-style note: Properties have to use quotes
+
   // in monthly values, because that is what 106 CMR 364.400 leads to: http://www.mass.gov/eohhs/docs/dta/eligibility-charts/c-snap-364-400.pdf
   STANDARD_DEDUCTIONS:          { 0: 0, 1: 160, 2: 160, 3: 160, 4: 170, 5: 199, 6: 228, 'eachAdditional': 0 },
   PERCENT_GROSS_MONTHLY_EARNED: 0.20,
@@ -25,5 +34,7 @@ const SNAPData = {
   SMALL_HOUSEHOLD_SIZE:         2,
   SMALL_HOUSEHOLD_MIN_GRANT:    15,
 };
+// @todo: Make class for 'money amount by number of items'-type object
+
 
 export { SNAPData };
