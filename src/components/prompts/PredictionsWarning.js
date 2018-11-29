@@ -15,7 +15,7 @@ import {
  * @param {function} toggleDistrustConfirmed - function to set the termsAccepted in app state
  * @param {object} translations - object containing translations
  */
-class PredictionsWarningComp extends Component {
+class PredictionsWarning extends Component {
   
   state = { 
     checkbox1: false,
@@ -122,9 +122,9 @@ class PredictionsWarningComp extends Component {
       </Modal>
     ); // ends return()
   }; // Ends render()
-};  // Ends <PredictionsWarningComp>
+};  // Ends <PredictionsWarning>
 
-const PredictionsWarning = withRouter(PredictionsWarningComp);
+const wrappedWarning = withRouter(PredictionsWarning);
 
 
-export { PredictionsWarning };
+export { wrappedWarning as PredictionsWarning };
