@@ -5,11 +5,14 @@ import { Message } from 'semantic-ui-react';
 import { GraphTimeButtons } from '../../components/GraphTimeButtons';
 
 
+/** Keeps track of time interval currently requested
+ *      (weekly/monthly/yearly) and, if needed, shows
+ *      'no graph' message. */
 class GraphHolder extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { activeID: 'Monthly' };
+    this.state = { activeID: `Monthly` };
   }
 
   onClick = (evnt) => {
@@ -18,33 +21,32 @@ class GraphHolder extends Component {
   };
 
   render () {
-    const { activeID }                = this.state,
+    const { activeID }                    = this.state,
           { Graph, client, translations } = this.props,
-          { current }                 = client,
+          { current }                     = client,
           // The ids later used to access all program-specific data and functions
           // Only active programs are added
-          activePrograms            = [ ...current.benefits ];
+          activePrograms                  = [ ...current.benefits ];
 
     if (activePrograms.length === 0) {
       return <Message className={ `graph-holder` }>{ translations.i_noBenefitsSelected }</Message>;
     }
 
     return (
-      <div className='graph-holder'>
+      <div className={ `graph-holder` }>
         <GraphTimeButtons
-          activeID={ activeID }
-          onClick={ this.onClick } />
+          activeID = { activeID }
+          onClick  = { this.onClick } />
         <Graph
-          className='client-graph'
-          client={ client }
-          timescale={ activeID }
+          className      = { `client-graph` }
+          client         = { client }
+          timescale      = { activeID }
           activePrograms = { activePrograms }
-          translations = { translations } />
+          translations   = { translations } />
       </div>
     );
-  };  // End render()
-
-};  // End <GraphHolder>
+  };  // Ends render()
+};  // Ends <GraphHolder>
 
 
 export { GraphHolder };

@@ -40,7 +40,7 @@ const DevMenu = function ({ devProps, funcs, data, state }) {
         <Button
           compact
           negative
-          size = { `tiny` }
+          size      = { `tiny` }
           className = { `off` }
           onClick   = { funcs.turnOff }>
           HUD Off
@@ -177,4 +177,7 @@ class DevHud extends Component {
 };
 
 
-export { DevHud, DevMenu };
+export {
+  DevHud,
+  DevMenu,
+};

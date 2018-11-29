@@ -5,6 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import localforage from 'localforage';
 
 import { Confirmer } from './utils/getUserConfirmation';
 
@@ -18,13 +19,29 @@ import Header from './components/Header';
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
 import { DevHud } from './components/dev/DevHud';
+import {
+  printSummaryToConsole,
+  addClientGetterProperty,
+  addEnableDevProperty,
+} from './dev/command-line-utils';
 
 // Object Manipulation
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import merge from 'lodash/merge';
 import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 
 // LOCALIZATION
 import { getTextForLanguage } from './utils/getTextForLanguage';
+
+
+const DEV_PROPS_STORAGE_KEY = 'cliffEffectsDevProps';
+
+const LOADED_CLIENT_STORAGE_KEY = 'cliffEffects_loadedClient';
+
+const CLIENT_LAST_LOADED_STORAGE_KEY = 'cliffEffects_clientLastLoaded';
+
+// Time-to-live for stored client data, in milliseconds
+const STORED_CLIENT_TTL = 1000 * 60 * 60 * 24; // 1 day
 
 /**
  * Main top-level component of the app. Contains the router that controls access
@@ -47,14 +64,6 @@ class App extends Component {
     super(props);
 
     let defaults = cloneDeep(CLIENT_DEFAULTS);
-
-    // Development variables are the only things stored
-    let localDev = localStorage.getItem(`cliffEffectsDevProps`);
-    if (typeof localDev !== `string`) {
-      localDev = {};
-    } else {
-      localDev = JSON.parse(localDev);
-    }
 
     /**
      *  React state.
@@ -84,11 +93,65 @@ class App extends Component {
         english:    true,
         nonEnglish: true,
         warningOff: true,
-        ...localDev,
       },
       distrustConfirmed: false,
     };
   };  // End constructor()
+
+  componentDidMount() {
+    // Webpack should remove this whole conditional when not built for development environment
+    if (process.env.NODE_ENV === 'development') {
+      Promise.all([
+        localforage.getItem(DEV_PROPS_STORAGE_KEY),
+        localforage.getItem(CLIENT_LAST_LOADED_STORAGE_KEY),
+        localforage.getItem(LOADED_CLIENT_STORAGE_KEY),
+      ]).then(
+        ([
+          localDev,
+          clientLastLoaded,
+          loadedClient,
+        ]) => {
+          if (localDev) {
+            this.setState((prevState) => {
+              const now = Date.now();
+
+              clientLastLoaded = clientLastLoaded || 0;
+
+              let state = merge(
+                {},
+                prevState,
+                { devProps: localDev }
+              );
+
+              // This will clear out a loaded client from local storage
+              // if it's been there too long--this is for security purposes,
+              // as the loaded client could potentially have sensitive client
+              // data and we want to minimize exposure of that info.
+              if (now - clientLastLoaded >= STORED_CLIENT_TTL) {
+                localforage.removeItem(LOADED_CLIENT_STORAGE_KEY);
+                localforage.removeItem(CLIENT_LAST_LOADED_STORAGE_KEY);
+              }
+              else {
+                state.clients.loaded = loadedClient;
+              }
+
+              return state;
+            });
+          }
+        }
+      );
+
+      printSummaryToConsole();
+
+      addEnableDevProperty(() => {
+        return this.setDev('dev', true);
+      });
+
+      addClientGetterProperty(() => {
+        return this.state.clients.loaded;
+      });
+    } // End development environment conditional
+  }
 
   /**
    * Set the human language of the app (i.e. the language in which the UI will
@@ -115,9 +178,11 @@ class App extends Component {
 
       let props = prevState.devProps;
       if (props[ key ] !== value) {
-
         let newProps = { ...props, [ key ]: value };
-        localStorage.setItem(`cliffEffectsDevProps`, JSON.stringify(newProps));
+
+        if (process.env.NODE_ENV === 'development') {
+          localforage.setItem(DEV_PROPS_STORAGE_KEY, newProps);
+        }
 
         return { devProps: newProps };
       }
@@ -138,6 +203,11 @@ class App extends Component {
       const clients  = cloneDeep(prevState.clients),
             defaults = cloneDeep(clients.default),
             newData  = Object.assign(defaults, toLoad);
+
+      if (process.env.NODE_ENV === 'development') {
+        localforage.setItem(CLIENT_LAST_LOADED_STORAGE_KEY, Date.now());
+        localforage.setItem(LOADED_CLIENT_STORAGE_KEY, newData);
+      }
 
       return { clients: { ...clients, loaded: newData }};
     });

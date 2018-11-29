@@ -5,7 +5,9 @@
   "dependencies": {
     "ajv": "6.5.4",
     "chart.js": "2.7.2",
+    "cross-env": "^5.2.0",
     "highcharts": "^6.2.0",
+    "localforage": "^1.7.3",
     "lodash": "4.17.10",
     "moment": "2.22.1",
     "react": "16.3.2",
@@ -20,7 +22,7 @@
     "semantic-ui-react": "0.75.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env NODE_ENV=development; react-scripts start",
     "build": "npm run docs && react-scripts build && node postbuild.js",
     "test": "react-scripts test",
     "coverage": "react-scripts test --coverage",
