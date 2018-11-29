@@ -1,3 +1,5 @@
+/** @module */
+
 // REACT COMPONENTS
 import React, { Component } from 'react';
 import { Form } from 'semantic-ui-react';
@@ -11,6 +13,13 @@ import { toMonthlyAmount } from '../utils/math';
 import { isNonNegNumber, hasOnlyNonNegNumberChars } from '../utils/validators';
 import { toMoneyStr } from '../utils/prettifiers';
 
+
+/** Maximum input value of yearly income allowed in the textbox,
+ *     monthly/daily will be scaled
+ * @var
+ */
+const MAXIMUM_VALUE_YEARLY = 999999.99;
+const PERIODS_REGEX = /\./g;
 
 /** Contains cash flow inputs, their label, and any user feedback
  *
@@ -33,14 +42,14 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
   return (
     <Form.Field
       inline
-      className={ 'cashflow' }>
+      className = { `cashflow` }>
       <ValidationError
         ariaName    = { name }
         isUserError = { validRow === false }
         message     = { message }>
         <div className={ `cashflow-row` }>
           { children }
-          <div className={ 'cashflow-column cashflow-column-label' }>
+          <div className={ `cashflow-column cashflow-column-label` }>
             <label
               htmlFor   = { name + `_monthly` }
               id        = { name + `Label` }
@@ -52,14 +61,7 @@ const CashFlowRow = function ({ children, label, name, validRow, message }) {
       </ValidationError>
     </Form.Field>
   );
-};  // End <CashFlowRow>
-
-
-/** Maximum input value of yearly income allowed in the textbox,
- *     monthly/daily will be scaled
- * @var
- */
-const maximum_value_yearly = 999999.99;
+};  // Ends <CashFlowRow>
 
 // @todo Find elegant way to combine CashFlowInputsRow and MonthlyCashFlowRow
 // use `includes` array to include only certain columns perhaps.
@@ -83,7 +85,7 @@ class CashFlowInputsRow extends Component {
     return (str) => {
       if (!isNonNegNumber(str)) {
         let message    = `That number doesn't look right`,
-            numPeriods = str.match(/\./g) || [];
+            numPeriods = str.match(PERIODS_REGEX) || [];
 
         // Have a more detailed message if possible
         if (numPeriods.length > 1) {
@@ -95,20 +97,25 @@ class CashFlowInputsRow extends Component {
       }
       else if (parseFloat(str) > max) {
         // @todo Value should match up with the input that's being edited
-        this.setState({ valid: false, message: (`The biggest number you can put in here is $` + maximum_value_yearly + `/yr`) });
+        this.setState({ valid: false, message: (`The biggest number you can put in here is $` + MAXIMUM_VALUE_YEARLY + `/yr`) });
         return false;
       }
       this.setState({ valid: true, message: null });
       return true;
     };
-  };
+  };  // Ends cashFlowStoreValidator()
 
   onBlur = (evnt) => {
     this.setState({ valid: true, message: null });
   };
 
   render() {
-    let { generic, timeState, updateClientValue, children } = this.props;
+    let {
+      generic,
+      timeState,
+      updateClientValue,
+      children,
+    } = this.props;
 
     let updateClient = function (evnt, inputProps, data) {
       let monthly = toMonthlyAmount[ data.interval ](evnt, inputProps.value),
@@ -126,7 +133,7 @@ class CashFlowInputsRow extends Component {
     let baseVal   = timeState[ generic ],
         baseProps = {
           name:             generic,
-          className:        'cashflow-column',
+          className:        `cashflow-column`,
           store:            updateClient,
           displayValidator: hasOnlyNonNegNumberChars,
           format:           toMoneyStr,
@@ -137,29 +144,29 @@ class CashFlowInputsRow extends Component {
   
     return (
       <CashFlowRow
-        label={ children }
-        name={ generic }
-        validRow={ this.state.valid }
-        message={ this.state.message }>
+        label    = { children }
+        name     = { generic }
+        validRow = { this.state.valid }
+        message  = { this.state.message }>
         <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 52) }
+          storeValidator = { cashFlowStoreValidator(MAXIMUM_VALUE_YEARLY / 52) }
           { ...baseProps }
           value     = { baseVal / (4 + 1 / 3) }
-          otherData = {{ interval: 'weekly' }} />
+          otherData = {{ interval: `weekly` }} />
         <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly / 12) }
+          storeValidator = { cashFlowStoreValidator(MAXIMUM_VALUE_YEARLY / 12) }
           { ...baseProps }
           value     = { baseVal }
-          otherData = {{ interval: 'monthly' }} />
+          otherData = {{ interval: `monthly` }} />
         <ManagedNumberField
-          storeValidator={ cashFlowStoreValidator(maximum_value_yearly) }
+          storeValidator = { cashFlowStoreValidator(MAXIMUM_VALUE_YEARLY) }
           { ...baseProps }
           value     = { baseVal * 12 }
-          otherData = {{ interval: 'yearly' }} />
+          otherData = {{ interval: `yearly` }} />
       </CashFlowRow>
     );
-  }
-}
+  };  // Ends render()
+};  // Ends <CashFlowInputsRow>
 
 
 /** Show a value, or the sum of multiple values, of data
@@ -178,17 +185,17 @@ const CashFlowDisplayRow = function ({ generic, value, timeState, children }) {
       yearly       = toMoneyStr(baseVal * 12);
 
   return (
-    <div className = { `cashflow cashflow-display` }>
-      <div className = { colClassName + ` ` + generic + ` output-number` } >
+    <div className={ `cashflow cashflow-display` }>
+      <div className={ colClassName + ` ` + generic + ` output-number` } >
         { weekly }
       </div>
-      <div className = { colClassName + ` ` + generic + ` output-number` } >
+      <div className={ colClassName + ` ` + generic + ` output-number` } >
         { monthly }
       </div>
-      <div className = { colClassName + ` ` + generic + ` output-number` } >
+      <div className={ colClassName + ` ` + generic + ` output-number` } >
         { yearly }
       </div>
-      <div className = { colClassName + ` cashflow-column-label` }>
+      <div className={ colClassName + ` cashflow-column-label` }>
         <label>{ children }</label>
       </div>
 
@@ -213,7 +220,7 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
 
   inputProps = {
     ...inputProps, // name, validators, and onBlur
-    className: 'cashflow-column',
+    className: `cashflow-column`,
     format:    toMoneyStr,
     store:     updateClientValue,
   };
@@ -222,12 +229,12 @@ const MonthlyCashFlowRow = function ({ inputProps, baseValue, updateClientValue,
     <CashFlowRow { ...rowProps }>
       <ManagedNumberField
         { ...inputProps }
-        value={ baseValue }
-        otherData={{ interval: 'monthly' }} />
+        value     = { baseValue }
+        otherData = {{ interval: `monthly` }} />
     </CashFlowRow>
   );
 
-};  // End <MonthlyCashFlowRow>
+};  // Ends <MonthlyCashFlowRow>
 
 
 // Ideas of how to handle a different styling situation

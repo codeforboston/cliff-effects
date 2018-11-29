@@ -37,10 +37,6 @@ import {
 import { getUnder13Expenses } from '../utils/cashflow';
 
 
-// ========================================
-// COMPONENTS
-// ========================================
-
 /* Move these to SNAP calc logic scripts:
  * @todo SNAP: Does a medical assistant's payments count as a medical expense?
  *     (Answer: Yes. @see {@link https://www.mass.gov/service-details/snap-verifications})
@@ -72,9 +68,9 @@ const CurrentExpensesStep = function ({ updateClientValue, navData, client, tran
       formClass = { `expenses` }>
       <ExpensesFormContent
         updateClientValue = { updateClientValue }
-        current={ client.current }
-        time={ 'current' }
-        translations={ translations } />
+        current           = { client.current }
+        time              = { `current` }
+        translations      = { translations } />
     </FormPartsContainer>
   );
 
@@ -93,7 +89,7 @@ const CurrentExpensesStep = function ({ updateClientValue, navData, client, tran
  */
 const ExpensesFormContent = function ({ current, time, updateClientValue, translations }) {
 
-  let type        = 'expense',
+  let type        = `expense`,
       household   = current.household,
       sharedProps = {
         timeState:         current,
@@ -114,16 +110,18 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, transl
         over12        = getEveryMember(allDependents, isOver12);
 
   // 'Elderly' here is using the lowest common denominator - SNAP standards.
+  // @todo Make this dependant on type of benefit and use that benefit's
+  // values
   const isElderlyOrDisabled = function (member) {
     return isDisabled(member) || member.m_age >= 60;
   };
-  const elderlyOrDisabled = getEveryMember(household, isElderlyOrDisabled),
+  const elderlyOrDisabled             = getEveryMember(household, isElderlyOrDisabled),
         elderlyOrDisabledHeadOrSpouse = getEveryMember(elderlyOrDisabled, isHeadOrSpouse);
 
   return (
-    <div className='field-aligner two-column'>
+    <div className={ `field-aligner two-column` }>
 
-      { under13.length > 0 ? (
+      { (under13.length > 0) ? (
         <Under13
           translations      = { translations }
           type              = { type }
@@ -134,7 +132,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, transl
         null
       ) }
 
-      { current.benefits.includes('snap') ? (
+      { current.benefits.includes(`snap`) ? (
         <ChildSupport
           translations = { translations }
           type         = { type }
@@ -144,7 +142,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, transl
       ) }
 
       {/* Head or spouse can't be a dependent, so they don't count. */}
-      { over12.length > 0 ? (
+      { (over12.length > 0) ? (
         <DependentsOver12
           translations = { translations }
           type         = { type }
@@ -153,7 +151,7 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, transl
         null
       ) }
 
-      { elderlyOrDisabled.length > 0 ? (
+      { (elderlyOrDisabled.length > 0) ? (
         <ElderlyOrDisabledAssistance
           translations      = { translations }
           type              = { type }
@@ -168,28 +166,28 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, transl
         * These medical expenses count for Section 8 too if the disabled
         *     person is the head or spouse. From Appendix B, item (D)
         *     {@link http://www.tacinc.org/media/58886/S8MS%20Full%20Book.pdf} */}
-      { elderlyOrDisabledHeadOrSpouse.length > 0 || (current.benefits.includes('snap') && elderlyOrDisabled.length > 0) ? (
+      { (elderlyOrDisabledHeadOrSpouse.length > 0 || (current.benefits.includes('snap') && elderlyOrDisabled.length > 0)) ? (
         <UnreimbursedMedical
-          translations    = { translations }
-          type        = { type }
-          sharedProps = { sharedProps } />
+          translations = { translations }
+          type         = { type }
+          sharedProps  = { sharedProps } />
       ) : (
         null
       ) }
 
       <Housing
-        current={ current }
-        time={ time }
-        type={ type }
+        current           = { current }
+        time              = { time }
+        type              = { type }
         updateClientValue = { updateClientValue } />
 
       {/* Premature feature temporarily hidden to avoid messy revert
         <ShowOnYes
-          clientPartial = { current }
-          propName = { `wantsToSeeOtherExpenses` }
+          clientPartial     = { current }
+          propName          = { `wantsToSeeOtherExpenses` }
           updateClientValue = { updateClientValue }
-          question = { `Do you want to enter your other expenses so you can see if you need to make a different plan?` }
-          heading = { `Other Expenses` }>
+          question          = { `Do you want to enter your other expenses so you can see if you need to make a different plan?` }
+          heading           = { `Other Expenses` }>
           <ExpensesOther { ...sharedProps } />
         </ShowOnYes>
       */}
@@ -202,35 +200,37 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, transl
 const Under13 = function ({ translations, type, sharedProps, current, updateClientValue }) {
   return (
     <div>
-      <ContentH1 subheading = { translations.unreimbursedNonMedicalChildCare.i_subheading }>
+      <ContentH1 subheading={ translations.unreimbursedNonMedicalChildCare.i_subheading }>
         { translations.unreimbursedNonMedicalChildCare.i_sectionHeading }
       </ContentH1>
+
       <IntervalColumnHeadings type={ type } />
+
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'childDirectCare' }>
+        generic = { `childDirectCare` }>
         { translations.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'childBeforeAndAfterSchoolCare' }>
+        generic = { `childBeforeAndAfterSchoolCare` }>
         { translations.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'childTransportation' }>
+        generic = { `childTransportation` }>
         { translations.unreimbursedNonMedicalChildCare.childTransportation.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'childOtherCare' }>
+        generic = { `childOtherCare` }>
         { translations.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
       </CashFlowInputsRow>
 
       <EarnedFrom
         hasExpenses = { getUnder13Expenses(current) !== 0 }
-        label    = { `If you didn't have that child care, would it change how much pay you can bring home?` }
-        propData = {{
+        label       = { `If you didn't have that child care, would it change how much pay you can bring home?` }
+        propData    = {{
           client:        current,
           childPropName: `earnedBecauseOfChildCare`,
           update:        updateClientValue,
@@ -239,7 +239,7 @@ const Under13 = function ({ translations, type, sharedProps, current, updateClie
           <CashFlowInputsRow
             { ...sharedProps }
             generic = { `earnedBecauseOfChildCare` }>
-            { `How much less would you make?` }
+            How much less would you make?
           </CashFlowInputsRow>
         } />
 
@@ -252,10 +252,13 @@ const ChildSupport = function ({ type, sharedProps }) {
   return (
     <div>
       <ContentH1>Child Support</ContentH1>
+
       <IntervalColumnHeadings type={ type } />
+
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'childSupportPaidOut' }> <strong>Legally obligated</strong> child support
+        generic = { `childSupportPaidOut` }>
+        <strong>Legally obligated</strong> child support
       </CashFlowInputsRow>
     </div>
   );
@@ -265,21 +268,26 @@ const ChildSupport = function ({ type, sharedProps }) {
 const DependentsOver12 = function ({ type, sharedProps }) {
   return (
     <div>
-      <ContentH1 subheading = { 'For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don\'t include amounts that are paid for by other benefit programs.\n' }>
+      <ContentH1 subheading={ `For the care of people who are older than 12, but are still dependents (those under 18 or disabled). Don't include amounts that are paid for by other benefit programs.` }>
         Dependent Care of Persons Over 12 Years of Age
       </ContentH1>
+
       <IntervalColumnHeadings type={ type } />
+
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'adultDirectCare' }> Direct care costs
+        generic = { `adultDirectCare` }>
+        Direct care costs
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'adultTransportation' }> Transportation costs
+        generic = { `adultTransportation` }>
+        Transportation costs
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'adultOtherCare' }> Other care
+        generic = { `adultOtherCare` }>
+        Other care
       </CashFlowInputsRow>
     </div>
   );
@@ -300,16 +308,19 @@ const ElderlyOrDisabledAssistance = function ({ current, type, sharedProps, upda
           </ul>
         </div>
       </HeadingWithDetail>
+
       <IntervalColumnHeadings type={ type } />
+
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ 'disabledAssistance' }> Disabled/Handicapped assistance
+        generic = { `disabledAssistance` }>
+        Disabled/Handicapped assistance
       </CashFlowInputsRow>
 
       <EarnedFrom
         hasExpenses = { current.disabledAssistance !== 0 }
-        label    = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
-        propData = {{
+        label       = { `If you didn't have that assistance, would it change how much pay you can bring home?` }
+        propData    = {{
           client:        current,
           childPropName: `earnedBecauseOfAdultCare`,
           update:        updateClientValue,
@@ -318,7 +329,7 @@ const ElderlyOrDisabledAssistance = function ({ current, type, sharedProps, upda
           <CashFlowInputsRow
             { ...sharedProps }
             generic = { `earnedBecauseOfAdultCare` }>
-            { `How much less would you make?` }
+            How much less would you make?
           </CashFlowInputsRow>
         } />
     </div>
@@ -329,6 +340,7 @@ const ElderlyOrDisabledAssistance = function ({ current, type, sharedProps, upda
 const UnreimbursedMedical = function ({ type, sharedProps }) {
   return (
     <div>
+
       <HeadingWithDetail>
         <ContentH1>Unreimbursed Medical Expenses</ContentH1>
         <div>
@@ -346,14 +358,18 @@ const UnreimbursedMedical = function ({ type, sharedProps }) {
           </ul>
         </div>
       </HeadingWithDetail>
+
       <IntervalColumnHeadings type={ type } />
+
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='disabledMedical'> Disabled/Elderly medical expenses
+        generic = { `disabledMedical` }>
+        Disabled/Elderly medical expenses
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='otherMedical'> Medical expenses of other members
+        generic = { `otherMedical` }>
+        Medical expenses of other members
       </CashFlowInputsRow>
     </div>
   );
@@ -387,28 +403,27 @@ const Housing = function ({ current, type, time, updateClientValue }) {
 
   return (
     <div>
-
       <ContentH1>Housing</ContentH1>
 
-      { current.housing === 'voucher' ? (
+      { (current.housing === `voucher`) ? (
         null
       ) : (
         <div>
-          <Header as='h4'>What is your housing situation?</Header>
+          <Header as={ `h4` }>What is your housing situation?</Header>
           <HousingRadio
-            currentValue={ current.housing }
-            label={ 'Homeless' }
-            time={ time }
+            currentValue = { current.housing }
+            label        = { `Homeless` }
+            time         = { time }
             updateClientValue = { ensureRouteAndValue } />
           <HousingRadio
-            currentValue={ current.housing }
-            label={ 'Renter' }
-            time={ time }
+            currentValue = { current.housing }
+            label        = { `Renter` }
+            time         = { time }
             updateClientValue = { ensureRouteAndValue } />
           <HousingRadio
-            currentValue={ current.housing }
-            label={ 'Homeowner' }
-            time={ time }
+            currentValue = { current.housing }
+            label        = { `Homeowner` }
+            time         = { time }
             updateClientValue = { ensureRouteAndValue } />
         </div>
       ) }
@@ -428,10 +443,10 @@ const HousingRadio = function ({ currentValue, label, time, updateClientValue })
   return (
     <Form.Field>
       <Radio
-        name={ 'housing' }
-        label={ label }
-        value={ value }
-        checked={ currentValue === value }
+        name     = { `housing` }
+        label    = { label }
+        value    = { value }
+        checked  = { currentValue === value }
         onChange = { updateClientValue } />
     </Form.Field>
   );
@@ -450,7 +465,7 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
         updateClientValue: updateClientValue,
       };
 
-  if (current.housing === 'voucher') {
+  if (current.housing === `voucher`) {
     return (
       <div>
         <ContractRentField { ...sharedProps } />
@@ -459,10 +474,10 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
       </div>
     );
 
-  } else if (housing === 'homeless') {
+  } else if (housing === `homeless`) {
     return null;
 
-  } else if (housing === 'renter') {
+  } else if (housing === `renter`) {
     return (
       <div>
         <br />
@@ -471,27 +486,27 @@ const HousingDetails = function ({ current, type, time, updateClientValue }) {
       </div>
     );
 
-  } else if (housing === 'homeowner') {
+  } else if (housing === `homeowner`) {
     return (
       <div>
         <IntervalColumnHeadings type={ type } />
         <CashFlowInputsRow
           { ...sharedProps }
-          generic={ 'mortgage' }> Mortgage
+          generic = { `mortgage` }> Mortgage
         </CashFlowInputsRow>
         <CashFlowInputsRow
           { ...sharedProps }
-          generic={ 'housingInsurance' }> Insurance Costs
+          generic = { `housingInsurance` }> Insurance Costs
         </CashFlowInputsRow>
         <CashFlowInputsRow
           { ...sharedProps }
-          generic={ 'propertyTax' }> Property Tax
+          generic = { `propertyTax` }> Property Tax
         </CashFlowInputsRow>
         <Utilities { ...sharedProps } />
       </div>
     );
 
-  }  // ends which expenses
+  }  // ends which kind of housing
 };  // Ends <HousingDetails>
 
 
@@ -518,34 +533,34 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
   // Will require more work in the change handler
   return (
     <div>
-      <Header as='h4'>Which of these utilities do you pay for?</Header>
+      <Header as={ `h4` }>Which of these utilities do you pay for?</Header>
 
       <Checkbox
-        name={ 'climateControl' }
-        label={ 'Heating or cooling (e.g. A/C during summer)' }
-        checked={ hasClimate }
-        onChange={ setChecked }
+        name      = { `climateControl` }
+        label     = { `Heating or cooling (e.g. A/C during summer)` }
+        checked   = { hasClimate }
+        onChange  = { setChecked }
         onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
-        name={ 'nonHeatElectricity' }
-        label={ 'Electricity for non-heating purposes' }
-        checked={ hasElectricity }
-        onChange={ setChecked }
+        name      = { `nonHeatElectricity` }
+        label     = { `Electricity for non-heating purposes` }
+        checked   = { hasElectricity }
+        onChange  = { setChecked }
         onKeyDown = { onKeyDown } />
       <br />
       <Checkbox
-        name={ 'phone' }
-        label={ 'Telephone service' }
-        checked={ hasPhone }
-        onChange={ setChecked }
+        name      = { `phone` }
+        label     = { `Telephone service` }
+        checked   = { hasPhone }
+        onChange  = { setChecked }
         onKeyDown = { onKeyDown } />
       <br />
       <br />
       <ControlledRadioYesNo
-        labelText = { 'Do you get Fuel Assistance?' }
+        labelText = { `Do you get Fuel Assistance?` }
         checked   = { hasFuelAssist }
-        name      = { 'fuelAssistance' }
+        name      = { `fuelAssistance` }
         onChange  = { updateClientValue } />
 
     </div>
@@ -594,7 +609,10 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   if (hasExpenses) {
 
-    const { childPropName, client } = propData;
+    const {
+      childPropName,
+      client,
+    } = propData;
     const showProps = {
       childName:           childPropName,
       showChildrenAtStart: client[ childPropName ] > 0,
@@ -606,7 +624,7 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
     };
 
     return (
-      <div className= { 'earned-from' }>
+      <div className={ `earned-from` }>
         <ShowOnYes { ...showProps }>
           { CashFlowRow }
         </ShowOnYes>
@@ -615,7 +633,7 @@ const EarnedFrom = function ({ hasExpenses, CashFlowRow, label, propData }) {
 
   } else {
     return null;
-  }
+  }  // ends if client has expenses
 
 };  // Ends <EarnedFrom>
 
