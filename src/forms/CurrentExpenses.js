@@ -562,7 +562,6 @@ const Utilities = function ({ current, type, time, updateClientValue }) {
         checked   = { hasFuelAssist }
         name      = { `fuelAssistance` }
         onChange  = { updateClientValue } />
-
     </div>
 
   );
