@@ -1,6 +1,11 @@
+/** @module */
+
 // REACT COMPONENTS
 import React from 'react';
-import { Header, Button } from 'semantic-ui-react';
+import {
+  Header,
+  Button,
+} from 'semantic-ui-react';
 
 // DATA
 // Colors and text for parts of the chart
@@ -14,7 +19,7 @@ import { toMoneyStr } from '../../utils/prettifiers';
 import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
 
 
-let EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?
+const EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?
 
 
 /** Rounds money values, turns them into money-formatted
@@ -210,6 +215,7 @@ let getBenefitData = function(client, resourceKeys) {
     clientToChange: clone,
     timeframe:      `current`,
   };
+
   let currentCalcData = defaultProps;
   applyAndPushBenefits(currentCalcData);
   let futureCalcData = { ...defaultProps, timeframe: `future` };
@@ -220,8 +226,8 @@ let getBenefitData = function(client, resourceKeys) {
   // Fill earned values for both current and future earned objects
   result.current = fillInMoneyValues(resourceKeys, accumulated, 0);
   result.future  = fillInMoneyValues(resourceKeys, accumulated, 1);
-  let resultCurr  = result.current,
-      resultFutr  = result.future;
+  let resultCurr = result.current,
+      resultFutr = result.future;
 
   // 3. Get difference between totals, partly to
   // see if we need to get cliff info.
@@ -245,7 +251,7 @@ let getBenefitData = function(client, resourceKeys) {
     result.recovery.total  = recoveryAmount;
     result.recovery.earned = earned[ earned.length - 1 ];
 
-  }  // ends if hit dramatic cliff
+  }  // ends if hit dramatic cliff (implicit taxes > 100%)
 
   return result;
 };  // Ends getBenefitData()
@@ -328,7 +334,7 @@ const Summary = function ({ client, openFeedback, translations }) {
         fBenefit = future.benefits[ benefiti ];
 
     benefitList.push(
-      <li key = { cBenefit.label }>
+      <li key={ cBenefit.label }>
         <span>{cBenefit.label} {translations.i_from} {translations.i_beforeMoneyWithTime}{round$(cBenefit.amount)}</span>
         <span>{` `} {translations.i_to} {translations.i_beforeMoneyWithTime}{round$(fBenefit.amount)} {translations.i_eachTimeInterval}{translations.i_period}</span>
       </li>
@@ -340,9 +346,7 @@ const Summary = function ({ client, openFeedback, translations }) {
   // that the tool is still a prototype
   let feedbackAsk = (
     <p>
-      <span key = { `pre-ask` }>
-        { translations.i_feedbackAsk }
-      </span>
+      <span key={ `pre-ask` }>{ translations.i_feedbackAsk }</span>
       <Button
         compact
         key     = { `ask` }
@@ -374,7 +378,7 @@ const Summary = function ({ client, openFeedback, translations }) {
   if (recovery.total !== undefined) {
     endOfCliffContent = (
       <div>
-        <div className = { `text-result-section` }>
+        <div className={ `text-result-section` }>
           <Header>{translations.i_cliffEndHeader}</Header>
           <p>
             <span>{translations.i_ifGetTo} {translations.i_beforeMoneyWithTime}{round$(recovery.earned)} {translations.i_eachTimeInterval}</span>
@@ -396,7 +400,7 @@ const Summary = function ({ client, openFeedback, translations }) {
   return (
     <div>
 
-      <div className = { `text-result-section` }>
+      <div className={ `text-result-section` }>
         <Header>{translations.i_detailsHeader}</Header>
         { detailsNow }
         { detailsFuture }
@@ -406,7 +410,7 @@ const Summary = function ({ client, openFeedback, translations }) {
         { feedbackAsk }
       </div>
 
-      <div className = { `text-result-section` }>
+      <div className={ `text-result-section` }>
         <Header>{translations.i_summaryHeader}</Header>
         { summaryFuture }
       </div>
