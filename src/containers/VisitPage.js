@@ -325,7 +325,7 @@ class VisitPage extends Component {
          * do this we might do this a different way at this
          * point. Perhaps a user's page should be a route
          * in VisitPage? */}
-        { (this.state.redirect) ? (
+        { this.state.redirect ? (
           <Redirect to={ `/detail/${this.props.clientId}` } />
         ) : (
           null
