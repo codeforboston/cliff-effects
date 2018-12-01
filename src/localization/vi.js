@@ -1,4 +1,4 @@
-export default {
+const vi = {
 
   langName: `Tiếng Việt`,   // Change this to the name of your language (written in your language)
   langCode: `vi`,
@@ -309,4 +309,7 @@ export default {
       buttonYearly_v1:  `Hàng Năm`,
     },
   },
-};
+};  // ends vi
+
+
+export { vi };

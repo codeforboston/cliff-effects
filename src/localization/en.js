@@ -1,4 +1,4 @@
-export default {
+const en = {
 
   langName: `English`,
   langCode: `en`,
@@ -353,4 +353,7 @@ export default {
     },
 
   },
-};
+};  // ends en
+
+
+export { en };

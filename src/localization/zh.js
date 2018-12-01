@@ -1,4 +1,4 @@
-export default {
+const zh = {
 
   langName: `中文`,   // Change this to the name of your language (written in your language)
   langCode: `zh`,
@@ -291,5 +291,7 @@ export default {
       'buttonYearly_v1':  `每年`,
     },
   },
-};
+};  // ends zh
 
+
+export { zh };
