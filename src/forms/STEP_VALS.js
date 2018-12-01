@@ -7,27 +7,27 @@ import { CurrentBenefitsStep } from './CurrentBenefits';
 export const STEP_VALS = [
   {
     component: CurrentBenefitsStep,
-    key:       'currentBenefits',
-    time:      'current',
+    key:       `currentBenefits`,
+    time:      `current`,
   },
   {
     component: HouseholdStep,
-    key:       'household',
-    time:      'current',
+    key:       `household`,
+    time:      `current`,
   },
   {
     component: CurrentIncomeStep,
-    key:       'currentIncome',
-    time:      'current',
+    key:       `currentIncome`,
+    time:      `current`,
   },
   {
     component: CurrentExpensesStep,
-    key:       'currentExpenses',
-    time:      'current',
+    key:       `currentExpenses`,
+    time:      `current`,
   },
   {
     component: PredictionsStep,
-    key:       'predictions',
-    time:      'future',
+    key:       `predictions`,
+    time:      `future`,
   },
-]; // end STEP_VALS
+]; // ends STEP_VALS

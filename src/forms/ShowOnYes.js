@@ -24,7 +24,7 @@ class ShowOnYes extends React.Component {
   constructor (props) {
     super(props);
     this.state = { show: props.showChildrenAtStart || false };
-  }
+  };
 
   handleChange = (evt, inputProps) => {
     if (inputProps.value === true) {
@@ -32,7 +32,6 @@ class ShowOnYes extends React.Component {
     } else {
       this.hideChildren(evt);
     }
-
   };
 
   showChildren = (evnt) => {
@@ -52,7 +51,7 @@ class ShowOnYes extends React.Component {
   // Instead of a header and children, discuss using
   // a function instead that would return a heading
   // and contents.
-  render() {
+  render () {
 
     const {
       childName,
@@ -64,7 +63,7 @@ class ShowOnYes extends React.Component {
 
     let show = this.state.show;
     return (
-      <div className = { `show-on-yes` }>
+      <div className={ `show-on-yes` }>
 
         <ContentH1>{ heading }</ContentH1>
 
@@ -72,7 +71,7 @@ class ShowOnYes extends React.Component {
           <ControlledRadioYesNo
             labelText = { question }
             checked   = { show }
-            name      = { 'confirm_' + childName }
+            name      = { `confirm_` + childName }
             onChange  = { this.handleChange } />
         </Surrounder>
         
@@ -80,8 +79,8 @@ class ShowOnYes extends React.Component {
 
       </div>
     );
-  }
-}
+  };
+};  // Ends <ShowOnYes>
 
 
 export { ShowOnYes };
