@@ -12,7 +12,7 @@ import {
 * @returns React element
 */
 const SpaceHolder = function () {
-  return (<div className = { `space-holder` } />);
+  return (<div className={ `space-holder` } />);
 };
 
 
@@ -31,23 +31,23 @@ const SpaceHolder = function () {
  */
 const FormBottomRow = function({ left, middle, right }) {
 
-  let Left   = <SpaceHolder key = { 'left' } />,
-      Middle = <SpaceHolder key = { 'middle' } />,
-      Right  = <SpaceHolder key = { 'right' } />;
+  let Left   = <SpaceHolder key={ `left` } />,
+      Middle = <SpaceHolder key={ `middle` } />,
+      Right  = <SpaceHolder key={ `right` } />;
 
   if (left) {
-    Left = (<div key = { `left` }>{ left }</div>);
+    Left = (<div key={ `left` }>{ left }</div>);
   }
 
   // Considering having a non-button as a label
   // for the section/page number. Not sure how to
   // preserve the same style.
   if (middle) {
-    Middle = (<div key = { 'middle' }>{ middle }</div>);
+    Middle = (<div key={ `middle` }>{ middle }</div>);
   }
 
   if (right) {
-    Right = (<div key = { `right` }>{ right }</div>);
+    Right = (<div key={ `right` }>{ right }</div>);
   }
 
   let children = [
@@ -58,9 +58,8 @@ const FormBottomRow = function({ left, middle, right }) {
     Right,
   ];
 
-  /* @todo Move styles to CSS */
   return (
-    <div className = { `form-section-bottom-row` }>
+    <div className={ `form-section-bottom-row` }>
       { children }
     </div>
   );
@@ -89,27 +88,27 @@ const FormBottomRow = function({ left, middle, right }) {
 const FormPartsContainer = function({ title, clarifier, children, navData, formClass, formSize }) {
   return (
     <Form
-      size={ formSize || `large` }
-      className= { formClass + ` flex-item flex-column` }>
+      size      = { formSize || `large` }
+      className = { formClass + ` flex-item flex-column` }>
       <Segment
-        padded='very'
-        className="flex-item flex-column">
+        padded    = { `very` }
+        className = { `flex-item flex-column` }>
         <Segment
-          basic={ true }
-          className="flex-item">
+          basic     = { true }
+          className = { `flex-item` }>
           <Header
-            as='h1'
+            as        = { `h1` }
             className = { `section-header` }
-            color='teal'
-            textAlign='center'>
+            color     = { `teal` }
+            textAlign = { `center` }>
             { title }
           </Header>
           { !clarifier ? (
             null
           ) : (
             <Header
-              as='h3'
-              textAlign='center'>
+              as        = { `h3` }
+              textAlign = { `center` }>
               { clarifier }
             </Header>
           ) }
@@ -118,7 +117,7 @@ const FormPartsContainer = function({ title, clarifier, children, navData, formC
 
         </Segment>
 
-        <div id = { `section-bottom` }>
+        <div id={ `section-bottom` }>
           <Divider />
           <FormBottomRow { ...navData } />
         </div>

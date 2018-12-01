@@ -153,7 +153,7 @@ Used to fill vertical space.
 .ui.form .cashflow .cashflow-column-label {
   text-align: left;
   width: auto;
-  padding-left: 1em !important;
+  padding-left: 1em;
 }
 
 .ui.form .cashflow .cashflow-column {
@@ -194,11 +194,72 @@ Used to fill vertical space.
     transform: scale(0.85) translate(-10%, 0);
 }
 
+
+/* HOUSEHOLD */
 #addMember {
     padding: 0;
     padding-top: .5rem;
     padding-bottom: .5rem;
     margin-top: 0.7rem;
+}
+
+.household .column {
+  display:   inline-block;
+  text-align: center;
+  margin-top: 0.7em;
+}
+
+.household .column-headers {
+  margin-bottom: .5em;
+}
+
+.ui .household .column-headers h4.ui.header.household-column {
+  padding-left: 0;
+}
+
+.household .add-row-column {
+  margin: 0;
+}
+
+.household .column-one {
+  width: 5em;
+}
+.household .column-two {
+  width: 20em;
+  text-align: left;
+  padding-left: 1em;
+}
+.household .column-three {
+  width: 5em;
+}
+.household .column-four {
+  width: 10em;
+}
+
+.household .member .remove.button {
+  padding: 0;
+  height: 2.2em;
+  width: 2.2em;
+}
+
+.household .role {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+}
+
+.household .role.head {
+  margin-left: 0em;
+}
+
+.household .role.second-member-choice {
+  margin-left: -1em;
+}
+
+.household i.no-removing {
+  color: #cfcfd0;
+  font-size: 2.2em;
+  vertical-align: text-top;
 }
 
 /* Override text unselectable in semantic-ui-react */

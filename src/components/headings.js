@@ -130,6 +130,7 @@ const IntervalColumnHeadings = function ({ type }) {
 * @returns Component
 */
 const ColumnHeading = function ({ type, colName, style, children }) {
+  // @todo Move 'cashflow' stuff elsewhere
   let classes = type + '-column cashflow-column header ' + colName;
   return (
     <Header
