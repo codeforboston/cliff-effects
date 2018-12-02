@@ -25,11 +25,11 @@ class AskPermission extends React.Component {
     this.props.closeAskPermission();
   };
 
-  submit = (evnt) => {
-    this.props.submit(evnt, this.state.submitType);
+  submit = (event) => {
+    this.props.submit(event, this.state.submitType);
   };
 
-  setSubmitType = (evnt, inputProps) => {
+  setSubmitType = (event, inputProps) => {
     this.setState({ submitType: inputProps.value });
   };
 
@@ -38,7 +38,7 @@ class AskPermission extends React.Component {
     const { question, submitting } = this.props;
     const { submitType } = this.state;
     return ([
-      <Modal.Content key = { `ask-permission-content` }>
+      <Modal.Content key={ `ask-permission-content` }>
         <p>{ question }</p>
 
         <Form.Field>
@@ -58,7 +58,7 @@ class AskPermission extends React.Component {
             onChange = { this.setSubmitType } />
         </Form.Field>
       </Modal.Content>,
-      <Modal.Actions key = { `ask-permission-actions` }>
+      <Modal.Actions key={ `ask-permission-actions` }>
         <Button
           onClick  ={ this.close }
           disabled ={ submitting }>Cancel
@@ -81,14 +81,15 @@ class AskPermission extends React.Component {
           { (submitType === null) ? (`Send`) : (null) }
         </Button>
       </Modal.Actions>,
-    ]);}
-}
+    ]);
+  };
+};  // Ends <AskPermission>
 
 
 /**
  * Modal that shows the feedback form.
  */
-class FeedbackPrompt extends React.Component {
+class FeedbackForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -130,7 +131,7 @@ class FeedbackPrompt extends React.Component {
           throw error;
         }
       });
-  }
+  };
 
   close = (event) => {
     // Reset state for next time it's opened
@@ -151,12 +152,12 @@ class FeedbackPrompt extends React.Component {
     this.setState({ ready: false });
   };
 
-  submit = (evnt, type) => {
+  submit = (event, type) => {
     this.setState({ submitting: true });
 
     let data = this.state.formData;
     if (type === `withData`) {
-      data = Object.assign({ clientData: this.props.data }, this.state.formData);
+      data = Object.assign({ clientData: this.props.data }, data);
     }
 
     this.sendDataToSpreadsheet(data)
@@ -184,56 +185,62 @@ class FeedbackPrompt extends React.Component {
     // focus styles to win
     return (
       <Modal
-        mountNode = { document.getElementById(`App`) }
-        size='large'
-        open={ isOpen }
-        onClose={ this.close }
-        closeOnDimmerClick={ false }
-        closeOnEscape={ false }
+        mountNode          = { document.getElementById(`App`) }
+        size               = { `large` }
+        open               = { isOpen }
+        onClose            = { this.close }
+        closeOnDimmerClick = { false }
+        closeOnEscape      = { false }
         closeIcon>
+
         <Modal.Header>Tell Us More</Modal.Header>
+
         <Modal.Content scrolling>
           <Form>
             <Form.Input
               autoFocus
-              { ...inputProps('currentSnap') }
-              label={ <span>If the <strong>current</strong> SNAP amount was wrong, what's the right amount?</span> } />
+              { ...inputProps(`currentSnap`) }
+              label = { <span>If the <strong>current</strong> SNAP amount was wrong, what's the right amount?</span> } />
             <Form.Input
-              { ...inputProps('futureSnap') }
-              label={ <span>If the <strong>future</strong> SNAP amount was wrong, what's the right amount?</span> } />
+              { ...inputProps(`futureSnap`) }
+              label = { <span>If the <strong>future</strong> SNAP amount was wrong, what's the right amount?</span> } />
             <Form.Input
-              { ...inputProps('futureS8') }
-              label={ <span>If the <strong>future</strong> Section 8 amount was wrong, what's the right amount?</span> } />
+              { ...inputProps(`futureS8`) }
+              label = { <span>If the <strong>future</strong> Section 8 amount was wrong, what's the right amount?</span> } />
             <Form.TextArea
-              { ...inputProps('otherCircumstances') }
-              label={ 'What else could be going on that could affect your benefit amount? ' +
-              'For example, are you a veteran? Are you a full-time student?' } />
+              { ...inputProps(`otherCircumstances`) }
+              label = { `What else could be going on that could affect your benefit amount? ` +
+              `For example, are you a veteran? Are you a full-time student?` } />
             <Form.TextArea
-              { ...inputProps('bugReport') }
-              label={ 'If there was a bug or error, describe the bug and what you were trying to do when the bug happened.' } />
+              { ...inputProps(`bugReport`) }
+              label = { `If there was a bug or error, describe the bug and what you were trying to do when the bug happened.` } />
             <Form.TextArea
-              { ...inputProps('comments') }
-              label={ 'Do you have any other comments?' } />
+              { ...inputProps(`comments`) }
+              label = { `Do you have any other comments?` } />
           </Form>
+
           <Message
-            hidden={ !submissionFailed }
+            hidden = { !submissionFailed }
             error>
             Error submitting data, please try again or <a href="mailto:andrew@codeforboston.org">email us</a>.
           </Message>
         </Modal.Content>
+
         <Modal.Actions>
           <Button
-            onClick={ this.close }
-            disabled={ submitting }>Cancel
+            onClick  = { this.close }
+            disabled = { submitting }>
+            Cancel
           </Button>
           <Button
-            onClick={ this.onReady }
-            color='teal'>Ready
+            onClick = { this.onReady }
+            color   = { `teal` }>
+            Ready
           </Button>
         </Modal.Actions>
 
         <Modal
-          mountNode = { document.getElementById(`App`) }
+          mountNode          = { document.getElementById(`App`) }
           size               = { `large` }
           open               = { ready }
           onClose            = { this.closeAskPermission }
@@ -248,9 +255,11 @@ class FeedbackPrompt extends React.Component {
         </Modal>
       </Modal>
     );
-  }
+  };
+};  // Ends <FeedbackForm>
+
+
+export {
+  FeedbackForm,
+  AskPermission,
 };
-
-
-export default FeedbackPrompt;
-export { AskPermission };

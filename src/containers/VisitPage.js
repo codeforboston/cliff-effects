@@ -15,16 +15,16 @@ import { addClientGetterProperty } from '../dev/command-line-utils';
 import { CLIENT_DEFAULTS } from '../utils/CLIENT_DEFAULTS';
 
 // Our Components
-import BrowserLeaveListener from '../components/prompts/BrowserLeaveListener';
-import ReactRouterLeaveListener from '../components/prompts/ReactRouterLeaveListener';
-import ErrorListener from '../components/prompts/ErrorListener';
-import FeedbackPrompt from '../components/prompts/FeedbackPrompt';
-import FeedbackForm from '../components/prompts/FeedbackForm';
+import { BrowserLeaveListener } from '../components/prompts/BrowserLeaveListener';
+import { ReactRouterLeaveListener } from '../components/prompts/ReactRouterLeaveListener';
+import { ErrorListener } from '../components/prompts/ErrorListener';
+import { FeedbackPrompt } from '../components/prompts/FeedbackPrompt';
+import { FeedbackForm } from '../components/prompts/FeedbackForm';
 import { FeedbackAnytime } from '../components/prompts/FeedbackAnytime';
+import { PredictionsWarning } from '../components/prompts/PredictionsWarning';
 import { StepBar } from '../components/StepBar';
 import { BigButton } from '../forms/inputs';
 import { ButtonReset } from '../forms/ButtonReset';
-import PredictionsWarning from '../components/prompts/PredictionsWarning';
 import { STEP_VALS } from '../forms/STEP_VALS';
 
 class VisitPage extends Component {

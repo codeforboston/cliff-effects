@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import {
+  Button,
+  Modal,
+} from 'semantic-ui-react';
 
 /**
  * Called with result of user interaction with on leave modal.
@@ -26,6 +29,7 @@ class FeedbackPrompt extends React.Component {
     event.preventDefault();
     this.props.callback(true);
   };
+
   stay = (event) => {
     event.preventDefault();
     this.props.callback(false);
@@ -49,32 +53,33 @@ class FeedbackPrompt extends React.Component {
     }
 
     // Otherwise, set up the prompt
-    let realLeave   = leaveText || 'Leave',
+    let realLeave   = leaveText || `Leave`,
         realStay    = stayText || `Cancel`,
         realMessage = message;
-    if (message === 'default') {
+    if (message === `default`) {
       realMessage = `Clicking "${realLeave}" will erase the information you have put into the form. Do you want to tell us something about the app first? That information could help us. You will still be able to come back and click "${realLeave}" afterwards.`;
     }
 
     return (
       <Modal
         mountNode = { document.getElementById(`App`) }
-        open={ open }>
+        open      = { open }>
         <Modal.Header>{header || `Do you want to tell us more before you click "${realLeave}"?`}</Modal.Header>
         <Modal.Content>
-          <p> {realMessage} </p>
+          <p>{ realMessage }</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={ this.stay }>{realStay}</Button>
-          <Button onClick={ this.leave }>{realLeave}</Button>
+          <Button onClick={ this.stay }>{ realStay }</Button>
+          <Button onClick={ this.leave }>{ realLeave }</Button>
           <Button
-            onClick={ openFeedback }
-            primary>Tell Us More
+            onClick = { openFeedback }
+            primary>
+            Tell Us More
           </Button>
         </Modal.Actions>
       </Modal>
     );
-  }
-}
+  };
+};  // Ends <FeedbackPrompt>
 
-export default FeedbackPrompt;
+export { FeedbackPrompt };

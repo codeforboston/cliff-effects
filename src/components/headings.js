@@ -21,11 +21,11 @@ const ContentH1 = function ({ subheading, children }) {
   }
 
   return (
-    <div className={ 'text-h1' } >
+    <div className={ `text-h1` } >
       <div /> {/** div here to make sure header margin doesn\'t collapse */}
       <Header
         as    = { `h3` }
-        style = {{ display: 'inline-block' }}>
+        style = {{ display: `inline-block` }}>
         { children }
       </Header>
       <ContentSubH1>{ subheading }</ContentSubH1>
@@ -137,6 +137,7 @@ const IntervalColumnHeadings = function ({ type }) {
 * @returns Component
 */
 const ColumnHeading = function ({ type, colName, style, children }) {
+  // @todo Move 'cashflow' stuff elsewhere
   let classes = type + `-column cashflow-column header ` + colName;
   return (
     <Header
