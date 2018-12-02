@@ -84,11 +84,11 @@ class CashFlowInputsRow extends Component {
   cashFlowStoreValidator = (max) => {
     return (str) => {
       if (!isNonNegNumber(str)) {
-        let message    = `That number doesn't look right`,
-            numPeriods = str.match(PERIODS_REGEX) || [];
+        let message = `That number doesn't look right`,
+            periods = str.match(PERIODS_REGEX) || [];
 
         // Have a more detailed message if possible
-        if (numPeriods.length > 1) {
+        if (periods.length > 1) {
           message = `The number should only have one decimal point`;
         }
 
