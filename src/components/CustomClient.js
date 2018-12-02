@@ -1,5 +1,8 @@
 import React from 'react';
-import { Form, Message } from 'semantic-ui-react';
+import {
+  Form,
+  Message,
+} from 'semantic-ui-react';
 
 
 /**
@@ -8,11 +11,11 @@ import { Form, Message } from 'semantic-ui-react';
  * @param {object} toLoad Parsed JSON object.
  */
 
+// @todo Change this component to a more generic `<LoadJSON>`
+
 /** Accept data from a user's JSON object and send it to `load`
  *     callback. Currently for development only.
  *
- * @todo Change this component to a more generic `<LoadJSON>`
- * 
  * @param {object} props
  * @param {load} props.load
  * @param {object} props.toRestore Data to use to reset
@@ -24,7 +27,7 @@ class CustomClient extends React.Component {
   state = {
     toLoad: null,  // parsed json
     error:  null,
-    json:   '',
+    json:   ``,
   };
 
   load = (toLoad) => {
@@ -35,7 +38,7 @@ class CustomClient extends React.Component {
     this.setState({
       toLoad: null,
       error:  null,
-      json:   '',
+      json:   ``,
     });
 
     this.props.load({ toLoad: toLoad });
@@ -52,9 +55,9 @@ class CustomClient extends React.Component {
   };
 
   handleChange = (_event, inputProps) => {
-    const { value } = inputProps;
+    let { value } = inputProps;
     try {
-      const newClient = JSON.parse(value);
+      let newClient = JSON.parse(value);
       this.setState({
         toLoad: newClient,
         error:  null,
@@ -74,33 +77,34 @@ class CustomClient extends React.Component {
 
     return (
       <Form
-        error={ error !== null }
-        onSubmit={ this.submit }>
+        error    = { error !== null }
+        onSubmit = { this.submit }>
+
         <Form.Field>
           <label>Client JSON</label>
           <Form.Input
-            type={ 'text' }
-            value={ json }
-            onChange={ this.handleChange } />
+            type     = { `text` }
+            value    = { json }
+            onChange = { this.handleChange } />
         </Form.Field>
+
         <Message 
           error
-          header={ 'JSON Parse Failed!' }
-          content={ error && error.message } />
-        <div className = { `load-buttons` }>
+          header  = { `JSON Parse Failed!` }
+          content = { error && error.message } />
+
+        <div className={ `load-buttons` }>
           <Form.Button
-            type={ 'submit' }
-            disabled={ toLoad === null }>
+            type     = { `submit` }
+            disabled = { toLoad === null }>
             Import Data
           </Form.Button>
-          <Form.Button
-            onClick = { this.reset }>
-            Reset
-          </Form.Button>
+          <Form.Button onClick={ this.reset }>Reset</Form.Button>
         </div>
+
       </Form>
     );
-  }
-}
+  };
+};  // Ends <CustomClient>
 
 export { CustomClient };
