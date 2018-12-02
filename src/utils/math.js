@@ -1,4 +1,6 @@
-/** For different kinds of math operations we need, some unconventional */
+/** For different kinds of math operations we need, some unconventional
+ * @module
+ */
 
 const sum = function (vals) {
   let total = 0;
@@ -14,13 +16,14 @@ const roundMoney = function (val) {
   // storage objects, keep things exact. Also, this doesn't restrict
   // to two decimal places. Do that in the input's attributes.
   return (Math.round(val * 100) / 100); // val = '' returns 0
-};  // End roundMoney()
+};
 
 
 /** This is how we've seen it done in MA tables
  *
  * @see Math was observed at {link http://www.mass.gov/eohhs/docs/masshealth/deskguides/fpl-deskguide.pdf}
  * @see More notes on data at {link https://docs.google.com/document/d/1DRNm1TLP31s_yDdsH8IDoRV7_KjjJ46NyAaZOgLoQmY/edit#}
+ * @todo Implement US State specific rounding? Benefit program-specific?
  */
 const moneyToWholeNum = function (val) {
   return Math.ceil(val);
@@ -28,25 +31,23 @@ const moneyToWholeNum = function (val) {
 
 
 /**
-* Turns a value into a float, limits it in between min and max, and
-* makes sure to return a number (not NaN).
-*
-* @todo Testing required
-*/
+ * Turns a value into a float, limits it in between min and max, and
+ *     makes sure to return a number (not NaN).
+ */
 const limit = function (initialVal, minMax) {
 
-  /** @todo Add trailing 0's somewhere */
+  // @todo Add trailing 0's somewhere
   let min = minMax.min,
       max = minMax.max;
 
   let raw   = parseFloat(initialVal),
       value = raw;
 
-  if (typeof min === 'number' && !isNaN(min)) {
+  if (typeof min === `number` && !isNaN(min)) {
     value = Math.max(min, raw);
   }
 
-  if (typeof max === 'number' && !isNaN(max)) {
+  if (typeof max === `number` && !isNaN(max)) {
     value = Math.min(max, raw);
   }
 
@@ -55,19 +56,19 @@ const limit = function (initialVal, minMax) {
   }
 
   return value;
-};  // End limit()
+};
 
 
 let toMonthlyAmount = {};
 
+/** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
 toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
-  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
-  let monthlyRaw  = weeklyVal * (4 + 1 / 3),
-      monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
+  let monthlyRaw = weeklyVal * (4 + 1 / 3),
+      monthly    = toMonthlyAmount[ `monthly` ](evnt, monthlyRaw);
   return monthly;
 
-};  // End toMonthlyAmount.weekly()
+};
 
 
 toMonthlyAmount.monthly = function (evnt, monthlyVal) {
@@ -75,17 +76,17 @@ toMonthlyAmount.monthly = function (evnt, monthlyVal) {
   let monthlyInBounds = limit(monthlyVal, { min: 0 });
   return monthlyInBounds;
 
-};  // End toMonthlyAmount.monthly()
+};
 
 
+/** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
 toMonthlyAmount.yearly = function (evnt, yearlyVal) {
 
-  /** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
-  let monthlyRaw  = (yearlyVal / 12),
-      monthly     = toMonthlyAmount[ 'monthly' ](evnt, monthlyRaw);
+  let monthlyRaw = (yearlyVal / 12),
+      monthly    = toMonthlyAmount[ `monthly` ](evnt, monthlyRaw);
   return monthly;
 
-};  // End toMonthlyAmount.yearly()
+};
 
 
 export {

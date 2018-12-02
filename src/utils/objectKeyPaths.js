@@ -70,7 +70,7 @@
  * //   [ 'e', 'f', 'g', 'h' ]
  * // ]
  */
-const getKeyPathsArray = (obj, stripVersions, base = []) => {
+const getKeyPathsArray = function (obj, stripVersions, base = []) {
   // Array to contain our keys paths (if any)
   let pathsArr = [],
       versionRegex = /_v\d+$/;
@@ -80,7 +80,7 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
     return pathsArr;
 
   // Return an array of paths to each prop using the base path and the key in each loop iteration
-  } else if (typeof obj === 'object') {
+  } else if (typeof obj === `object`) {
     const keys = Object.keys(obj).sort();
     
     // Handle having an empty object
@@ -109,13 +109,13 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
         pathsArr = pathsArr.concat(childPaths);
       }
       return pathsArr;
-    }
+    }  // ends if there are or aren't any keys
 
   // Otherwise, we've got some sort of primative such as a str, num, etc, so don't do anything
   } else {
     return pathsArr;
-  }
-};
+  }  // ends if is or isn't an array
+};  // Ends getKeyPathsArray()
 
 
 /**
@@ -146,7 +146,7 @@ const getKeyPathsArray = (obj, stripVersions, base = []) => {
  * //   'e.f.g.h'
  * // ]
  */
-const getKeyPathStrings = (keyPathsArr) => {
+const getKeyPathStrings = function (keyPathsArr) {
   return keyPathsArr.map((keyPath) => { 
     return keyPath.join('.');
   });

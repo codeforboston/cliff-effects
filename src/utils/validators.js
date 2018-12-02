@@ -16,15 +16,15 @@ const hasOnlyNonNegWholeNumberChars = function (str) {
 };
 
 /** Returns true if a string represents a positve number (integer or float) */
-// Should this only be valid if it has <= 2 decimal places?
 const isNonNegNumber = function (str) {
+  // Should this only be valid if it has <= 2 decimal places?
   return str !== '' && !/[^0-9.]|\..*\./.test(str);
 };
 
 
 /** Returns true if a string represents a positive integer */
-/** @todo Change name to 'isWholeNumber'. */
 const isNonNegWholeNumber = function (str) {
+  // @todo Change name to 'isWholeNumber'.
   return str !== '' && /^[0-9]*$/.test(str);
 };
 
@@ -68,7 +68,7 @@ const isNumberlike = function (numberOrString) {
     return new TypeError(`Expected 'numberOrString' to be a number or string that can be converted to a number and it was ${numberOrString}.`);
   }
 
-};
+};  // Ends isNumberlike()
 
 
 export {
