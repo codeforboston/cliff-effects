@@ -34,7 +34,7 @@ import {
 const getDependentCostsMonthly = function (client) {
   let props = UNDER13_CARE_EXPENSES.concat(OVER12_CARE_EXPENSES);
   return sumProps(client, props);
-};  // End getDependentCostsMonthly()
+};
 
 
 /**
@@ -47,27 +47,27 @@ const getDependentCostsMonthly = function (client) {
  */
 const getUnder13Expenses = function (client) {
   return sumProps(client, UNDER13_CARE_EXPENSES);
-};  // End getUnder13Expenses()
+};
 
 
 const getOver12Expenses = function (client) {
   return sumProps(client, OVER12_CARE_EXPENSES);
-};  // End getOver13Expenses()
+};
 
 
 const getMedicalExpenses = function (client) {
   return sumProps(client, ALL_MEDICAL_EXPENSES);
-};  // End getMedicalExpenses()
+};
 
 
 const getNonTransportCareCosts = function (client) {
   return sumProps(client, NON_TRANSPORT_DEPENDENT_COSTS);
-};  // End getNonTransportationCareCosts()
+};
 
 
 const getTransportDependentCosts = function (client) {
   return sumProps(client, TRANSPORT_DEPENDENT_COSTS);
-};  // End getTransportDependentCosts()
+};
 
 
 // ==================================
@@ -84,7 +84,7 @@ const getHousingCosts = function (client) {
   } else if (housing === `homeowner`) {
     return sumProps(client, HOMEOWNER_COSTS);
   }
-};  // End getHousingCosts()
+};
 
 
 // ==================================
@@ -101,7 +101,7 @@ const getHousingCosts = function (client) {
  */
 const getGrossUnearnedIncomeMonthly = function (client) {
   return sumProps(client, UNEARNED_INCOME_SOURCES);
-};  // End getGrossUnearnedIncomeMonthly()
+};
 
 
 /**
@@ -115,10 +115,10 @@ const getGrossUnearnedIncomeMonthly = function (client) {
  *     income with no deductions or exclusions.
  */
 const getSimpleGrossIncomeMonthly = function (client) {
-  let earned    = client.earned,
-      unearned  = getGrossUnearnedIncomeMonthly(client);
+  let earned   = client.earned,
+      unearned = getGrossUnearnedIncomeMonthly(client);
   return earned + unearned;
-};  // End getSimpleGrossIncomeMonthly()
+};
 
 
 // ==================================
@@ -136,7 +136,7 @@ const getSimpleGrossIncomeMonthly = function (client) {
  */
 const sumProps = function (obj, props) {
   return sum(values(pick(obj, props)));
-};  // End sumProps()
+};
 
 
 export {

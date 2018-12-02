@@ -1,11 +1,11 @@
-/** Allows insertion of provided components at specified points in a translated text block. */
-
 import React from 'react';
 
 // To make sure all keys are unique
 let count = 0;
 
-/** Interpolate components into a single text block (specified as an array) */
+/** Interpolate components into a single text block (specified as an
+ * array).
+ */
 const interpolateText = function (template, components, langCode) {
   return template.map((item) => {
 
@@ -38,9 +38,13 @@ const interpolateText = function (template, components, langCode) {
       return React.cloneElement(component, props);
     }
   });
-};
+};  // Ends interpolateText()
 
-/** Recursively interpolate each template in a translations object */
+
+/** Recursively interpolate each template in a translations object.
+ * Allows insertion of provided components at specified points
+ * in a translated text block.
+ */
 const interpolateTranslations = function (translations, components) {
   let named        = {},
       versionRegex = /_v\d+$/;
@@ -73,10 +77,13 @@ const interpolateTranslations = function (translations, components) {
       named[ key ] = interpolateTranslations(value, components);
     }
 
-  }  // end for every key in translations
+  }  // ends for every key in translations
 
   return named;
+};  // Ends interpolateTranslations()
+
+
+export {
+  interpolateText,
+  interpolateTranslations,
 };
-
-
-export { interpolateText, interpolateTranslations };

@@ -9,20 +9,20 @@ import { cloneDeep } from 'lodash';
  */
 const CLIENT_DEFAULTS = {
   
-  // Property Name                | Default Value   | Valid Value Description
+  // Property Name                | Default Value    | Valid Value Description
 
-  // @todo get this value from the app somewhere  
-  USState: 'MA',                   // Two-letter code denoting the state the client is in
+  // @todo get this value from the app somewhere
+  USState: `MA`,              // Two-letter code denoting the state the client is in
 
   current: {
     // Current programs
-    benefits:  [],         // Benefit names (e.g. 'snap', 'section8')
+    benefits:  [],                // Benefit names (e.g. 'snap', 'section8')
     // Household
     // 'm_' for 'member'
     household: [
-      {                  // 'head' member  // one or more member objects
-        m_age:      30,               // whole number
-        m_role:     'head',           // 'head', 'spouse', 'member'
+      {                           // 'head' member   // one or more member objects
+        m_age:      30,                // whole number
+        m_role:     `head`,            // 'head', 'spouse', 'member'
         m_disabled: false,             // boolean
       }, 
     ],
@@ -53,7 +53,7 @@ const CLIENT_DEFAULTS = {
     disabledMedical:               0,                // positive number
     otherMedical:                  0,                // positive number
     /** @todo Make housing expense values more robust. */
-    housing:                       'homeless',       // 'homeless', 'homeowner', 'renter', 'voucher'
+    housing:                       `homeless`,       // 'homeless', 'homeowner', 'renter', 'voucher'
     contractRent:                  0,                // positive number
     rentShare:                     0,                // positive number
     rent:                          0,                // positive number
@@ -78,7 +78,7 @@ const CLIENT_DEFAULTS = {
   },
 
   // Note: A `future` value will default to the client's `current` value until a user changes it explicitly
-  future: {},                       // same structure // same
+  future: {},                      // same structure // same
 
 };
 
