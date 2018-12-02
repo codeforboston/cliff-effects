@@ -3,11 +3,12 @@ import React from 'react';
 import {
   Button,
   Form,
-  Dropdown,
   Header,
   Checkbox,
   Icon,
 } from 'semantic-ui-react';
+
+import Select from 'react-select';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -113,7 +114,7 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // UNIQUE
 // ======================
 
-const Role = function ({ member, setMember, translations }) {
+const Role = function ({ member, setMember, setDropdownMember, translations }) {
 
   let ThisRole  = null,
       margin   = '0';
@@ -127,16 +128,20 @@ const Role = function ({ member, setMember, translations }) {
     margin = '-1em';
 
     let options = [
-      { text: translations.i_spouse, value: 'spouse' },
-      { text: translations.i_childOther, value: 'member' },
+      { label: translations.i_spouse, value: 'spouse', name: 'm_role' },
+      { label: translations.i_childOther, value: 'member', name: 'm_role' },
     ];
 
-    ThisRole = <Dropdown
-      selection
+    let selectedValue = options.find((obj) => {
+      return obj.value === member.m_role;
+    });
+
+
+    ThisRole = <Select
       name={ 'm_role' }
-      value={ member.m_role }
+      value={ selectedValue }
       options={ options }
-      onChange={ setMember } />;
+      onChange={ setDropdownMember } />;
 
   } else {
 
@@ -165,6 +170,14 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
     let route = routeStart + inputProps.name;
     let data  = { route: route, value: inputProps.value };
     updateClientValue(evnt, data);
+  };
+
+  let onMemberDropdownChange = function (selectedOption) {
+    const data = {
+      route: routeStart + selectedOption.name,
+      value: selectedOption.value,
+    };
+    updateClientValue(selectedOption, data);
   };
 
 
@@ -219,6 +232,7 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
         <Role
           member={ member }
           setMember={ onMemberChange }
+          setDropdownMember={ onMemberDropdownChange }
           translations={ translations } />
       </Columns.Two>
 
