@@ -34,7 +34,7 @@ class CurrentBenefitsContent extends React.Component {
       value.sort(
         // Make sure benefits are in the correct order
         (a, b) => {
-          // @todo Is this code right? Don't we need `.current` in here?
+          // `props.benefits` is list of available benefits
           const aIndex = this.props.benefits.indexOf(a),
                 bIndex = this.props.benefits.indexOf(b);
 
