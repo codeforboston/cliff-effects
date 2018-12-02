@@ -20,15 +20,15 @@ class BrowserLeaveListener extends React.Component {
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.confirm);
-  }
+  };
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.confirm);
-  }
+  };
 
   render() {
     return null;
-  }
-}
+  };
+};
 
-export default BrowserLeaveListener;
+export { BrowserLeaveListener };
