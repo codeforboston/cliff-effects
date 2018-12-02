@@ -367,7 +367,7 @@ class VisitPage extends Component {
           <FeedbackAnytime openFeedback={ this.openFeedback } />
         </Container>
 
-        { (distrustConfirmed === false) ? (
+        { !distrustConfirmed ? (
           <PredictionsWarning
             distrustConfirmed       = { distrustConfirmed }
             toggleDistrustConfirmed = { this.props.funcs.toggleDistrustConfirmed }
