@@ -11,7 +11,7 @@ import { CashFlowInputsRow } from './cashflow';
 // ========================================
 // COMPONENTS
 // ========================================
-/* Move to program calculations
+/* Move to program calculations:
  * @todo Figure out which programs need to know which types of incomes
  * and categorize/tag them accordingly.
  * @todo Calc and store `client.currentUnearnedIncomeMonthly`? I think
@@ -34,7 +34,7 @@ import { CashFlowInputsRow } from './cashflow';
  * (@see {@link http://www.masslegalhelp.org/housing/financial-eligibility})
  */
 
-/** Contents of income step. Abstract to allow entry of `future` values too.
+/** Contents of income step. Abstracted to allow entry of `future` values too.
  *
  * @function
  * @param {object} props
@@ -48,7 +48,7 @@ import { CashFlowInputsRow } from './cashflow';
  */
 const IncomeForm = function ({ current, time, updateClientValue, translations }) {
 
-  let type = 'income';
+  let type = `income`;
 
   /** Makes sure values are propagated to 'future' properties if needed
    * @member
@@ -56,7 +56,7 @@ const IncomeForm = function ({ current, time, updateClientValue, translations })
    */
   let ensureFuture = function (evnt, inputProps) {
     updateClientValue(evnt, { ...inputProps, fillFuture: true });
-  };  // End ensureFuture()
+  };
 
   let sharedProps = {
     timeState:         current,
@@ -66,73 +66,73 @@ const IncomeForm = function ({ current, time, updateClientValue, translations })
   };
 
   return (
-    <div className='field-aligner two-column'>
+    <div className={ `field-aligner two-column` }>
 
       <IntervalColumnHeadings type={ type } />
 
-      {/* All kinds of things need to be explained. */}
+      {/* Need to give user more info on these. */}
       
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='earned'>
+        generic = { `earned` }>
         { translations.earnedIncome.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='TAFDC'> 
+        generic = { `TAFDC` }> 
         { translations.TAFDC.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='SSI'> 
+        generic = { `SSI` }> 
         { translations.SSI.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='SSDI'>
+        generic = { `SSDI` }>
         { translations.SSDI.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='childSupportIn'>
+        generic = { `childSupportIn` }>
         { translations.childSupport.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='unemployment'> 
+        generic = { `unemployment` }> 
         { translations.unemployment.i_label }      
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='workersComp'> 
+        generic = { `workersComp` }> 
         { translations.workersComp.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='pension'>
+        generic = { `pension` }>
         { translations.pension.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='socialSecurity'>
+        generic = { `socialSecurity` }>
         { translations.socialSecurity.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='alimony'> 
+        generic = { `alimony` }> 
         { translations.alimony.i_label }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic='otherIncome'>
+        generic = { `otherIncome` }>
         { translations.otherIncome.i_label }
       </CashFlowInputsRow>
       <Form.Field>{ translations.i_explainSnapCalculation }</Form.Field>
 
     </div>
-  );  // end return
+  );  // ends return
 
-};  // End IncomeForm()
+};  // Ends <IncomeForm>
 
 
 /**
@@ -156,13 +156,13 @@ const CurrentIncomeStep = function ({ updateClientValue, navData, client, transl
       formClass = { `income` }>
       <IncomeForm
         updateClientValue = { updateClientValue }
-        current={ client.current }
-        time={ 'current' }
-        translations={ translations } />
+        current           = { client.current }
+        time              = { 'current' }
+        translations      = { translations } />
     </FormPartsContainer>
   );
 
-};  // End CurrentIncomeStep()
+};
 
 
 export {
