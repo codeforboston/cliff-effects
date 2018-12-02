@@ -55,7 +55,7 @@ const ValidationError = function ({ children, ariaName, isUserError, message, cl
         { message }
       </div>
     );
-  }
+  }  // ends if there's a message
 
   return (
     <div className={ `with-message-above ` + className }>
@@ -74,21 +74,21 @@ const ValidationError = function ({ children, ariaName, isUserError, message, cl
 let AttentionArrow = function () {
 
   return (
-    <span className={ 'attention-arrow' }>
+    <span className={ `attention-arrow` }>
       <Icon
-        className = { 'attention-font' }
         fitted
-        name      = { 'angle right' }
-        size      = { 'big' } />
+        className = { `attention-font` }
+        name      = { `angle right` }
+        size      = { `big` } />
       <Icon
-        className = { 'attention-font' }
         fitted
-        name      = { 'angle right' }
-        size      = { 'big' } />
+        className = { `attention-font` }
+        name      = { `angle right` }
+        size      = { `big` } />
     </span>
   );
 
-};  // End <AttentionArrow>
+};  // End <AttentionArrow
 
 
 export {
