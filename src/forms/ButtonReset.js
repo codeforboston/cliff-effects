@@ -4,6 +4,8 @@ import React from 'react';
 import { BigButton } from './inputs';
 
 
+const BLANK_CALLBACK = function () {};
+
 const ButtonReset = function ({ children, onClick, overrides }) {
 
   if (!overrides) {
@@ -15,7 +17,7 @@ const ButtonReset = function ({ children, onClick, overrides }) {
       header:    ``,
       message:   `default`,
       leaveText: `Start New Client`,
-      callback:  () => {},
+      callback:  { BLANK_CALLBACK },
     });
   };
 
@@ -28,7 +30,7 @@ const ButtonReset = function ({ children, onClick, overrides }) {
     </BigButton>
   );
 
-};  // End <ButtonReset>
+};  // Ends <ButtonReset>
 
 
 export { ButtonReset };
