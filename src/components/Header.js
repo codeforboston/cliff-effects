@@ -1,25 +1,26 @@
 import React from 'react';
-
 import { Segment } from 'semantic-ui-react';
 
 import { MainMenu } from './MainMenu';
 import { BetaWarning } from './BetaWarning';
 
+
 class Header extends React.Component {
   render() {
     return (
       <Segment
-        id={ `appHeader` }
-        className="header-segment"
+        id        = { `appHeader` }
+        className = { `header-segment` }
+        textAlign = { `center` }
+        color     = { `teal` }
         inverted
-        textAlign='center'
-        vertical
-        color='teal'>
+        vertical>
         <MainMenu translations={ this.props.translations } />
         <BetaWarning translations={ this.props.translations } />
       </Segment>
     );
-  }
-}
+  };
+};
 
-export default Header;
+
+export { Header };

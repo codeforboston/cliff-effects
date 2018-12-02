@@ -13,8 +13,8 @@ import { Confirmer } from './utils/getUserConfirmation';
 import HomePage from './containers/HomePage';
 import AboutPage from './containers/AboutPage';
 import VisitPage from './containers/VisitPage';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
 
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
