@@ -4,8 +4,8 @@
 
 /** Recursively extract text from language-specific React
  *     objects. Creates one inline string of text.
- *
  * Recursion is untested.
+ *
  * @params {object} translationObj React element containing
  *     children that are strings or other React elements.
  *

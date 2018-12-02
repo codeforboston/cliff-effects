@@ -81,21 +81,21 @@ class BenefitsLinesComp extends Component {
       classes += ` ` + className;
     }
 
-    const multiplier    = multipliers[ timescale ],
-          resources     = activePrograms,
-          currentEarned = client.current.earned * multiplier,
-          getText       = textFromTranslatedElement;
+    let multiplier    = multipliers[ timescale ],
+        resources     = activePrograms,
+        currentEarned = client.current.earned * multiplier,
+        getText       = textFromTranslatedElement;
 
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
-    const max      = (limits.max * multiplier),
-          interval = ((max / 100) / 10);
+    let max      = (limits.max * multiplier),
+        interval = ((max / 100) / 10);
 
-    const xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
-          datasets = getChartData(xRange, multiplier, client, resources, {});
+    let xRange   = range(limits.min, max, interval),  // x-axis/earned income numbers
+        datasets = getChartData(xRange, multiplier, client, resources, {});
 
     // Individual benefit lines
-    const lines = [];
+    let lines = [];
     for (let dataset of datasets) {
       let line = (
         <LineSeries
@@ -112,12 +112,12 @@ class BenefitsLinesComp extends Component {
     // Label for split tooltip 'labels'/'label headers' that appear
     // at the bottom. Really long.
     // @todo Abstract commonalities between graphs
-    const labelHeaderFormatStart = `<span style="font-size: 10px">${getText(translations.i_beforeMoney)}`,
-          labelHeaderFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
-          labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
+    let labelHeaderFormatStart = `<span class="tooltip-label-header">${getText(translations.i_beforeMoney)}`,
+        labelHeaderFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
+        labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
 
 
-    const plotOptions =  { line: { pointInterval: interval }};
+    let plotOptions =  { line: { pointInterval: interval }};
     return (
       <div className={ classes }>
         <HighchartsChart plotOptions={ plotOptions }>
@@ -265,10 +265,10 @@ class BenefitsLinesComp extends Component {
       this.setState({ altKeyClass: `` });
     }
   };
-};
+};  // Ends <BenefitsLinesComp>
 
 
-const BenefitsLines = withHighcharts(BenefitsLinesComp, Highcharts);
+let BenefitsLines = withHighcharts(BenefitsLinesComp, Highcharts);
 
 
 export { BenefitsLines };

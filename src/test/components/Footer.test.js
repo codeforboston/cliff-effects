@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Footer from '../../components/Footer';
+import { Footer } from '../../components/Footer';
 import { translations } from '../helpers';
 
 describe('<Footer>', () => {
