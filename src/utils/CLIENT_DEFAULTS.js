@@ -11,21 +11,24 @@ const CLIENT_DEFAULTS = {
   
   // Property Name                | Default Value    | Valid Value Description
 
+  /* eslint-disable */
   // @todo get this value from the app somewhere
-  USState: `MA`,              // Two-letter code denoting the state the client is in
+  USState:                        `MA`,              // Two-letter code denoting the state the client is in
 
   current: {
     // Current programs
-    benefits:  [],                // Benefit names (e.g. 'snap', 'section8')
+    benefits:                     [],                // Benefit names (e.g. 'snap', 'section8')
     // Household
     // 'm_' for 'member'
     household: [
       {                           // 'head' member   // one or more member objects
-        m_age:      30,                // whole number
-        m_role:     `head`,            // 'head', 'spouse', 'member'
-        m_disabled: false,             // boolean
+        m_age:                    30,                // whole number
+        m_role:                   `head`,            // 'head', 'spouse', 'member'
+        m_disabled:               false,             // boolean
       }, 
     ],
+    /* eslint-enable */
+
     // Income
     earned:                        0,                // positive number (can have more than two decimal places)
     TAFDC:                         0,                // positive number
