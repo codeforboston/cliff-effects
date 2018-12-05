@@ -1,5 +1,12 @@
 import React from 'react';
-import { Divider, Header, Tab, Message, Button, Menu } from 'semantic-ui-react';
+import {
+  Divider,
+  Header,
+  Tab,
+  Message,
+  Button,
+  Menu,
+} from 'semantic-ui-react';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -12,9 +19,7 @@ import { ResourcesColumns } from './output/ResourcesColumns';
 import { StackedResources } from './output/StackedResources';
 import { BenefitsLines } from './output/BenefitsLines';
 
-// ========================================
-// COMPONENTS
-// ========================================
+
 /** @todo Cash flow row for trying out different future incomes.
  *
  * As per Project Hope's input, for the first prototype
@@ -33,30 +38,30 @@ import { BenefitsLines } from './output/BenefitsLines';
  */
 const IncomeForm = function ({ future, time, updateClientValue, translations }) {
 
-  let type = 'income';
+  let type = `income`;
 
   return (
-    <div className='field-aligner two-column'>
+    <div className={ `field-aligner two-column` }>
       <IntervalColumnHeadings type={ type } />
       <CashFlowInputsRow
-        timeState={ future }
-        type={ type }
-        time={ time }
+        timeState         = { future }
+        type              = { type }
+        time              = { time }
         updateClientValue = { updateClientValue }
-        generic='earned'
-        labelInfo='(Weekly pay = hourly wage times average number of work hours per week)'>
+        generic           = { `earned` }
+        labelInfo         = { `(Weekly pay = hourly wage times average number of work hours per week)` }>
         { translations.i_futureIncomeQuestion }
       </CashFlowInputsRow>
     </div>
   );
-};  // End IncomeForm() Component
+};
 
 
 const TabbedVisualizations = ({ client, openFeedback, translations }) => {
   return (
     <Tab
-      menu={{ color: 'teal',  attached: true, tabular: true }}
-      panes={ [
+      menu  = {{ color: `teal`,  attached: true, tabular: true }}
+      panes = { [
         {
           menuItem: (
             <Menu.Item
@@ -85,8 +90,8 @@ const TabbedVisualizations = ({ client, openFeedback, translations }) => {
             return (
               <Tab.Pane>
                 <BenefitsTable
-                  client={ client }
-                  translations={ translations } />
+                  client       = { client }
+                  translations = { translations } />
               </Tab.Pane>
             );
           },
@@ -102,8 +107,8 @@ const TabbedVisualizations = ({ client, openFeedback, translations }) => {
           render: () => { return (
             <Tab.Pane>
               <GraphHolder
-                client   = { client }
-                Graph    = { ResourcesColumns }
+                client       = { client }
+                Graph        = { ResourcesColumns }
                 translations = { translations } />
             </Tab.Pane>
           );},
@@ -120,8 +125,8 @@ const TabbedVisualizations = ({ client, openFeedback, translations }) => {
             return (
               <Tab.Pane>
                 <GraphHolder
-                  client={ client }
-                  Graph={ StackedResources }
+                  client       = { client }
+                  Graph        = { StackedResources }
                   translations = { translations } />
               </Tab.Pane>
             );
@@ -139,8 +144,8 @@ const TabbedVisualizations = ({ client, openFeedback, translations }) => {
             return (
               <Tab.Pane>
                 <GraphHolder
-                  client   = { client }
-                  Graph    = { BenefitsLines }
+                  client       = { client }
+                  Graph        = { BenefitsLines }
                   translations = { translations } />
               </Tab.Pane>
             );
@@ -148,7 +153,7 @@ const TabbedVisualizations = ({ client, openFeedback, translations }) => {
         },
       ] } />
   );
-};
+};  // Ends <TabbedVisualizations>
 
 
 const PredictionsStep = function ({ updateClientValue, navData, client, translations, openFeedback }) {
@@ -159,33 +164,33 @@ const PredictionsStep = function ({ updateClientValue, navData, client, translat
       clarifier = { null }
       navData   = { navData }
       formClass = { `predictions` }>
-      {/* `predictionsForm`: This whole div will be outside
+      {/* `predictions-form`: This whole div will be outside
         the form in the future and then we'll be able to
         access its style that way */}
-      <div id = { `predictionsForm` }>
+      <div id={ `predictions-form` }>
         <IncomeForm
           updateClientValue = { updateClientValue }
           future            = { client.future }
-          time              = { 'future' }
+          time              = { `future` }
           translations      = { translations } />
-        <Divider className='ui section divider hidden' />
+        <Divider className={ `ui section divider hidden` } />
       </div>
-      <div id={ `resultsIntro` }>
+      <div id={ `results-intro` }>
         <Header
-          as        ='h3'
-          className ='ui Header align centered'>
+          as        = { `h3` }
+          className = { `ui Header align centered` }>
           { translations.i_chartsHeader }
         </Header>
         <Message
-          className = { `prediction-message` }
           visible
-          warning>
+          warning
+          className = { `prediction-message` }>
           { translations.i_warningMessage }
           <Button
+            compact
             className = { `feedback-button` }
             size      = { `small` }
             color     = { `teal` }
-            compact
             onClick   = { openFeedback }>
             { translations.i_submitFeedback }
           </Button>
@@ -197,7 +202,7 @@ const PredictionsStep = function ({ updateClientValue, navData, client, translat
         translations = { translations } />
     </FormPartsContainer>
   );
-};  // End FutureIncomeStep() Component
+};  // End <PredictionsStep>
+
 
 export { PredictionsStep };
-
