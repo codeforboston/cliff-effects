@@ -65,7 +65,7 @@ let toMonthlyAmount = {};
 toMonthlyAmount.weekly = function (evnt, weeklyVal) {
 
   let monthlyRaw = weeklyVal * (4 + 1 / 3),
-      monthly    = toMonthlyAmount[ `monthly` ](evnt, monthlyRaw);
+      monthly    = toMonthlyAmount.monthly(evnt, monthlyRaw);
   return monthly;
 
 };
@@ -79,11 +79,13 @@ toMonthlyAmount.monthly = function (evnt, monthlyVal) {
 };
 
 
-/** @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9} */
+/** For what we used to guide the math of what counts as a month,
+ *     @see {@link https://docs.google.com/document/d/13kb1hsxMi6pN9oAUGsTatDz4OSX5IeDLF9B-ddPjMCk/edit#heading=h.hxz256tmbsz9}
+ */
 toMonthlyAmount.yearly = function (evnt, yearlyVal) {
 
   let monthlyRaw = (yearlyVal / 12),
-      monthly    = toMonthlyAmount[ `monthly` ](evnt, monthlyRaw);
+      monthly    = toMonthlyAmount.monthly(evnt, monthlyRaw);
   return monthly;
 
 };
