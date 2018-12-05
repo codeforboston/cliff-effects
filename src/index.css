@@ -471,7 +471,7 @@ i.icon.details-icon {
 /* =============== */
 /* PREDICTIONS (manual theme implementation) */
 /* =============== */
-#resultsIntro {
+#results-intro {
   margin-bottom: 1em;
 }
 
@@ -681,8 +681,8 @@ PRINTING STYLES
   #reset_fixed,
   #form-nav,
   #section-bottom,
-  #predictionsForm,
-  #resultsIntro,
+  #predictions-form,
+  #results-intro,
   #App .tabular.menu,
   .print-row {
     display: none;
