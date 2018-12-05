@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-/** Helper functions to format vlaues for charts
+/** Helper functions to format values for charts
  * @module
  * @todo Use language of the app in money formatters
  */
