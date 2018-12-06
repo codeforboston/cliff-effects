@@ -220,12 +220,9 @@ const en = {
         earnedBecauseOfChildCare_v1: `Income made possible by childcare expenses`,
       },
       childSupport: {
-        sectionHeading_v1:    `Child Support`,
-        columnExpenseType_v1: `Expense`,
-        childSupportPaidOut:  {
-          legallyObligated_v1: `Legally obligated`,
-          childSupport_v1:     ` child support`,
-        },
+        sectionHeading_v1:      `Child Support`,
+        columnExpenseType_v1:   `Expense`,
+        childSupportPaidOut_v1: `Child support you pay that is legally required`,
       },
       housing: {
         sectionHeading_v1:   `Housing`,
