@@ -8,10 +8,11 @@ import { cloneDeep } from 'lodash';
  *     two decimal places.
  */
 const CLIENT_DEFAULTS = {
+  /* eslint-disable key-spacing */
+  // Disables eslint spacing for this first section to align with columns declared below
   
   // Property Name                | Default Value    | Valid Value Description
 
-  /* eslint-disable */
   // @todo get this value from the app somewhere
   USState:                        `MA`,              // Two-letter code denoting the state the client is in
 
