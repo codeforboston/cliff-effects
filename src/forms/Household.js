@@ -3,11 +3,12 @@ import React from 'react';
 import {
   Button,
   Form,
-  Dropdown,
   Header,
   Checkbox,
   Icon,
 } from 'semantic-ui-react';
+
+import Select from 'react-select';
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
@@ -106,7 +107,7 @@ const MemberButton = function ({ basic, color, iconName, className, onClick }) {
 // UNIQUE
 // ======================
 
-const Role = function ({ member, setMember, translations }) {
+const Role = function ({ member, setMember, setDropdownMember, translations }) {
 
   let thisRole  = null,
       className = `head`;
@@ -120,17 +121,21 @@ const Role = function ({ member, setMember, translations }) {
     className = `second-member-choice`;  // -1em
 
     let options = [
-      { text: translations.i_spouse, value: `spouse` },
-      { text: translations.i_childOther, value: `member` },
+      { label: translations.i_spouse, value: 'spouse', name: 'm_role' },
+      { label: translations.i_childOther, value: 'member', name: 'm_role' },
     ];
 
+    let selectedValue = options.find((obj) => {
+      return obj.value === member.m_role;
+    });
+
     thisRole = (
-      <Dropdown
+      <Select
         selection
         name     = { `m_role` }
-        value    = { member.m_role }
+        value    = { selectedValue }
         options  = { options }
-        onChange = { setMember } />
+        onChange = { setDropdownMember } />
     );
 
   } else {
@@ -156,6 +161,15 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
         data  = { route: route, value: inputProps.value };
     updateClientValue(evnt, data);
   };
+
+  let onMemberDropdownChange = function (selectedOption) {
+    const data = {
+      route: routeStart + selectedOption.name,
+      value: selectedOption.value,
+    };
+    updateClientValue(selectedOption, data);
+  };
+
 
   let onMemberChecked = function (evnt, inputProps) {
     let route = routeStart + inputProps.name,
@@ -211,9 +225,10 @@ const MemberField = function ({ household, time, setHousehold, updateClientValue
 
       <Columns.Two>
         <Role
-          member       = { member }
-          setMember    = { onMemberChange }
-          translations = { translations } />
+          member           = { member }
+          setMember        = { onMemberChange }
+          setDropdownMember={ onMemberDropdownChange }
+          translations     = { translations } />
       </Columns.Two>
 
       <Columns.Three>
