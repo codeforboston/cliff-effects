@@ -248,7 +248,7 @@ const Under13 = function ({ translations, type, sharedProps, current, updateClie
 };  // Ends <Under13>
 
 
-const ChildSupport = function ({ type, sharedProps }) {
+const ChildSupport = function ({ type, sharedProps, translations }) {
   return (
     <div>
       <ContentH1>Child Support</ContentH1>
@@ -258,7 +258,7 @@ const ChildSupport = function ({ type, sharedProps }) {
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childSupportPaidOut` }>
-        <strong>Legally obligated</strong> child support
+        { translations.childSupport.i_childSupportPaidOut }
       </CashFlowInputsRow>
     </div>
   );
