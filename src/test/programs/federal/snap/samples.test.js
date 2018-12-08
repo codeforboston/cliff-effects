@@ -1,4 +1,4 @@
-import { getSNAPBenefits } from '../../../../programs/federal/snap';
+import { getSNAPBenefits } from '../../../../benefits/federal/snap';
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';

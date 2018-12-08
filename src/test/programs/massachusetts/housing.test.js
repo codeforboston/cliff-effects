@@ -1,4 +1,4 @@
-import { getSection8Benefit, section8Helpers } from '../../../programs/massachusetts/section8';
+import { getSection8Benefit, section8Helpers } from '../../../benefits/massachusetts/section8';
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';

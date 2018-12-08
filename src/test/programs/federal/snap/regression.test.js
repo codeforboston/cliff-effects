@@ -5,7 +5,7 @@ import readline from 'readline';
 import { cloneDeep, extend } from 'lodash';
 
 import { CLIENT_DEFAULTS } from '../../../../utils/CLIENT_DEFAULTS';
-import { getSNAPBenefits } from '../../../../programs/federal/snap';
+import { getSNAPBenefits } from '../../../../benefits/federal/snap';
 
 test('getSNAPBenefits() matches saved results', (done) => {
   const rl = readline.createInterface({ input: fs.createReadStream(path.resolve(__dirname, 'test-cases.txt')) });
