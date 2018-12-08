@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Message } from 'semantic-ui-react';
 
 // CUSTOM COMPONENTS
-import { GraphTimeButtons } from '../../components/GraphTimeButtons';
+import { GraphTimeButtons } from './GraphTimeButtons';
 
 
 /** Keeps track of time interval currently requested
