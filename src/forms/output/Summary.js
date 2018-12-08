@@ -9,7 +9,7 @@ import {
 
 // DATA
 // Colors and text for parts of the chart
-import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
+import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
 
 // DATA MANIPULATION
 import { cloneDeep } from 'lodash';
@@ -65,8 +65,8 @@ let totalLastItemsOfArraysInObject = function (accumulated) {
  *      accumulate values.
  *
  * @example
- * // In PROGRAM_CHART_VALUES.js
- * let PROGRAM_CHART_VALUES = {
+ * // In BENEFIT_CHART_VALUES.js
+ * let BENEFIT_CHART_VALUES = {
  *  benefit1: { name: "B1" },
  *  benefit2: { name: "B2" },
  * };
@@ -99,7 +99,7 @@ let totalLastItemsOfArraysInObject = function (accumulated) {
  * // }
  * 
  * Unfortunately, stll relies on an outside value -
- *     PROGRAM_CHART_VALUES.
+ *     BENEFIT_CHART_VALUES.
  * 
  * @typedef {object} benefit
  * @property {string} label Name to be displayed for the benefit
@@ -136,7 +136,7 @@ let fillInMoneyValues = (keys, sourceObject, index) => {
       moneyValues.earned = amount;
     } else {
       moneyValues.benefits.push({
-        label:  PROGRAM_CHART_VALUES[ itemKey ].name,
+        label:  BENEFIT_CHART_VALUES[ itemKey ].name,
         amount: amount,
       });
       // Add up all benefits (we're not including earned income)
