@@ -17,8 +17,8 @@ import {
 
 // LOGIC
 import { timescaleMultipliers } from '../../utils/convert-by-timescale';
-import { getChartData } from '../../utils/charts/getChartData';
-import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
+import { getChartData } from './getChartData';
+import { toFancyMoneyStr } from './chartFormatting';
 import {
   formatMoneyWithK,
   textFromTranslatedElement,

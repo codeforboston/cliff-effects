@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
+import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
 
 // LOGIC
 import { applyAndPushBenefits } from '../../benefits/applyAndPushBenefits';
@@ -72,7 +72,7 @@ const getChartData = function (incomes, multiplier, client, activeBenefitsInOrde
   // Return in the same order as it was asked for
   for (let benefiti = 0; benefiti < benefits.length; benefiti++) {
     let benefitName   = benefits[ benefiti ],
-        graphFrosting = PROGRAM_CHART_VALUES[ benefitName ];
+        graphFrosting = BENEFIT_CHART_VALUES[ benefitName ];
 
     // All the graph info for that benefit
     benefitDatasets.push({
