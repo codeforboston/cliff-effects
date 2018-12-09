@@ -16,7 +16,7 @@ import { cloneDeep } from 'lodash';
 import { toMoneyStr } from '../../utils/prettifiers';
 
 // BENEFIT LOGIC
-import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
+import { applyAndPushBenefits } from '../../benefits/applyAndPushBenefits';
 
 
 const EARNED_MONTHLY_INCREMENT_AMOUNT = 50;  // About a 25 cent raise in monthly amount for 40hrs/week?

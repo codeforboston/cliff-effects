@@ -7,7 +7,7 @@ import { FormPartsContainer } from './FormPartsContainer';
 import { ControlledRadioYesNo } from './inputs';
 
 // DATA
-import { allBenefitOrders } from '../programs/allBenefitOrders';
+import { allBenefitOrders } from '../benefits/allBenefitOrders';
 
 
 /** Asks which benefits the user is currently receiving

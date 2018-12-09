@@ -3,7 +3,7 @@ import React from 'react';
 import { Table } from 'semantic-ui-react';
 
 // BENEFIT LOGIC
-import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
+import { applyAndPushBenefits } from '../../benefits/applyAndPushBenefits';
 
 // OBJECT MANIPULATION
 import { cloneDeep } from 'lodash';

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
 
 // LOGIC
-import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
+import { applyAndPushBenefits } from '../../benefits/applyAndPushBenefits';
 
 
 /** Returns the graph data formated in a way our graph
