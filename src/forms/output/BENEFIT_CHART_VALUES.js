@@ -1,5 +1,5 @@
 
-const PROGRAM_CHART_VALUES = {
+const BENEFIT_CHART_VALUES = {
   earned: {
     name:  `Earned`,
     color: `rgb(136, 187, 236)`,
@@ -18,4 +18,4 @@ const PROGRAM_CHART_VALUES = {
   },
 };
 
-export { PROGRAM_CHART_VALUES };
+export { BENEFIT_CHART_VALUES };

@@ -18,8 +18,8 @@ import {
 
 // LOGIC
 import { timescaleMultipliers } from '../../utils/convert-by-timescale';
-import { getChartData } from '../../utils/charts/getChartData';
-import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
+import { getChartData } from './getChartData';
+import { toFancyMoneyStr } from './chartFormatting';
 import {
   formatMoneyWithK,
   textFromTranslatedElement,
@@ -27,13 +27,13 @@ import {
 import { zoom } from './zoom';
 
 // DATA
-import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
+import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
 
 
 // Graphs get things in monthly values, so we'll convert from there
 let multipliers = timescaleMultipliers.fromMonthly,
     // Each graph controls its own scaling
-    limits      = PROGRAM_CHART_VALUES.limits;
+    limits      = BENEFIT_CHART_VALUES.limits;
 
 
 // Still @todo
