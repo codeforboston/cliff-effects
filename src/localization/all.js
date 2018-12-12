@@ -1,9 +1,9 @@
 import cloneDeep from 'lodash/cloneDeep';
 
-import DE from './de';
-import EN from './en';
-import VI from './vi';
-import ZH from './zh';
+import { de } from './de';
+import { en } from './en';
+import { vi } from './vi';
+import { zh } from './zh';
 
 /** 
  * @returns {function}
@@ -17,10 +17,10 @@ import ZH from './zh';
 */
 const getLocalizationData = () => {
   return cloneDeep({
-    de: DE,
-    en: EN,
-    vi: VI,
-    zh: ZH,
+    de: de,
+    en: en,
+    vi: vi,
+    zh: zh,
   });
 };
 

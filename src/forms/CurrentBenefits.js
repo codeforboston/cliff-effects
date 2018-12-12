@@ -5,7 +5,9 @@ import cloneDeep from 'lodash/cloneDeep';
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
 import { ControlledRadioYesNo } from './inputs';
-import { allBenefitOrders } from '../programs/allBenefitOrders';
+
+// DATA
+import { allBenefitOrders } from '../benefits/allBenefitOrders';
 
 
 /** Asks which benefits the user is currently receiving
@@ -23,45 +25,48 @@ import { allBenefitOrders } from '../programs/allBenefitOrders';
  */
 class CurrentBenefitsContent extends React.Component {
   handleRadioChange = (event, inputProps) => {
-    const benefitName = inputProps.name;
-
-    const route = 'benefits';
-
-    const value = cloneDeep(this.props.current.benefits);
+    const benefitName = inputProps.name,
+          route       = `benefits`,
+          value       = cloneDeep(this.props.current.benefits);
 
     if (inputProps.value) {
       value.push(benefitName);
       value.sort(
         // Make sure benefits are in the correct order
         (a, b) => {
-          const aIndex = this.props.benefits.indexOf(a);
-          const bIndex = this.props.benefits.indexOf(b);
+          // `props.benefits` is list of available benefits
+          const aIndex = this.props.benefits.indexOf(a),
+                bIndex = this.props.benefits.indexOf(b);
 
           return aIndex - bIndex;
         }
       );
-    }
-    else {
+    } else {
       const index = value.indexOf(benefitName);
 
       if (index >= 0) {
         value.splice(index, 1);
       }
-    }
+    }  // ends if input value
 
-    this.props.updateClientValue(event, { route, value, time: 'current' });
-  };
+    this.props.updateClientValue(event, { route, value, time: `current` });
+  };  // Ends handleRadioChange()
 
   render() {
-    const { current, translations, benefits } = this.props;
+    const {
+      current,
+      translations,
+      benefits,
+    } = this.props;
 
     const components = [];
   
     for (let benefitIndex = 0; benefitIndex < benefits.length; benefitIndex++) {
-      const benefit = benefits[ benefitIndex ];
+      const benefit        = benefits[ benefitIndex ],
+            translationKey = `i_has_${benefit}_label`;
 
-      const translationKey = `i_has_${benefit}_label`;
-
+      // @todo This would have to be handled in every translation situation.
+      // @todo Also, is there a way we can include this in the translation report?
       if (!(translationKey in translations)) {
         throw new Error(`No translation found as label for benefit radio buttons; expected key "${translationKey}"`);
       }
@@ -70,26 +75,22 @@ class CurrentBenefitsContent extends React.Component {
   
       components.push(
         <ControlledRadioYesNo
-          key={ benefit }
-          translations={ translations }
-          labelText={ labelText }
-          onChange={ this.handleRadioChange }
-          checked = { current.benefits.includes(benefit) }
-          name    = { benefit } />
+          key          = { benefit }
+          translations = { translations }
+          labelText    = { labelText }
+          onChange     = { this.handleRadioChange }
+          checked      = { current.benefits.includes(benefit) }
+          name         = { benefit } />
       );
-    }
+    }  // ends for every benefit
 
     return (
-      <div>
-        {components}
-      </div>
+      <div>{ components }</div>
     );
-  }
-}  // End CurrentBenefitsContent()
+  };  // Ends render()
+};  // Ends <CurrentBenefitsContent>
 
-/**
- * @todo Combine with related components?
- *
+/** 
  * @function
  * @param {object} props
  * @property {function} props.updateClientValue Updates state upstream.
@@ -101,6 +102,7 @@ class CurrentBenefitsContent extends React.Component {
  * @returns {object} Component
  */
 const CurrentBenefitsStep = ({ updateClientValue, navData, client, translations }) => {
+  // @todo Combine with related components since there are so few?
 
   return (
     <FormPartsContainer
@@ -111,12 +113,13 @@ const CurrentBenefitsStep = ({ updateClientValue, navData, client, translations 
       formSize  = { `massive` }>
       <CurrentBenefitsContent
         updateClientValue = { updateClientValue }
-        current      = { client.current }
-        translations = { translations }
-        benefits     = { allBenefitOrders[ client.USState ] } />
+        current           = { client.current }
+        translations      = { translations }
+        benefits          = { allBenefitOrders[ client.USState ] } />
     </FormPartsContainer>
   );
 
-};  // End CurrentBenefitsStep()
+};  // Ends <CurrentBenefitsStep>
+
 
 export { CurrentBenefitsStep };

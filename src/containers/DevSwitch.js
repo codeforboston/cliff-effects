@@ -36,7 +36,7 @@ const DevSwitch = function ({ setDev, devProps, history }) {
     </Segment>
   );
 
-};  // End <DevSwitch>
+};  // Ends <DevSwitch>
 
 
 export { DevSwitch };

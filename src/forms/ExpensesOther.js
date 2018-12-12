@@ -8,7 +8,7 @@ import {
 } from './cashflow';
 import { IntervalColumnHeadings } from '../components/headings';
 
-// // LOGIC
+// LOGIC
 import {
   getMedicalExpenses,
   getNonTransportCareCosts,
@@ -46,31 +46,34 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
 
       {/* Is this complexity really required? Can we just
       * have children and include a warning in the docs? */}
-      { housingCosts > 0 ? (
+      { (housingCosts > 0) ? (
         <CashFlowDisplayRow
           timeState = { timeState }
           value     = { housingCosts }
-          generic   = { `housingCosts` }> Payments for housing
+          generic   = { `housingCosts` }>
+          Payments for housing
         </CashFlowDisplayRow>
       ) : (
         null
       ) }
 
-      { dependentCare > 0 ? (
+      { (dependentCare > 0) ? (
         <CashFlowDisplayRow
           timeState = { timeState }
           value     = { dependentCare }
-          generic   = { `dependentCare` }> Dependent care (other than transportation)
+          generic   = { `dependentCare` }>
+          Dependent care (other than transportation)
         </CashFlowDisplayRow>
       ) : (
         null
       ) }
 
-      { dependentTransport > 0 ? (
+      { (dependentTransport > 0) ? (
         <CashFlowDisplayRow
           timeState = { timeState }
           value     = { dependentTransport }
-          generic   = { `dependentTransport` }> Transportation for dependents
+          generic   = { `dependentTransport` }>
+          Transportation for dependents
         </CashFlowDisplayRow>
       ) : (
         null
@@ -79,18 +82,19 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `otherExpensesTransport` }>
-        { dependentTransport > 0 ? (
+        { (dependentTransport > 0) ? (
           `Money you spend on other transportation`
         ) : (
           `Money you spend on transportation`
         ) }
       </CashFlowInputsRow>
 
-      { medExpenses > 0 ? (
+      { (medExpenses > 0) ? (
         <CashFlowDisplayRow
           timeState = { timeState }
           value     = { medExpenses }
-          generic   = { `medicalTotal` }> Medical expenses you wrote in earlier
+          generic   = { `medicalTotal` }>
+          Medical expenses you wrote in earlier
         </CashFlowDisplayRow>
       ) : (
         null
@@ -99,7 +103,7 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `otherExpensesMedical` }>
-        { medExpenses > 0 ? (
+        { (medExpenses > 0) ? (
           `Money you spend because of other medical problems`
         ) : (
           `Money you spend because of medical problems`
@@ -107,7 +111,8 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ `otherExpensesFood` }> Money you spend on food
+        generic = { `otherExpensesFood` }>
+        Money you spend on food
       </CashFlowInputsRow>
       {/* Utilities are complicated because the housing
       * voucher could be taking them into account and
@@ -117,48 +122,53 @@ const ExpensesOther = function ({ timeState, type, time, updateClientValue }) {
       * at out of pocket expenses, it's still relevant. */}
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ `otherExpensesPhone` }> Any phone costs
+        generic = { `otherExpensesPhone` }>
+        Any phone costs
       </CashFlowInputsRow>
 
-      { housing !== `homeless` ? (
+      { (housing !== `homeless`) ? (
         <CashFlowInputsRow
           { ...sharedProps }
-          generic={ `otherExpensesCable` }> Cable/internet costs
+          generic = { `otherExpensesCable` }>
+          Cable/internet costs
         </CashFlowInputsRow>
       ) : (
         null
-      )
-      }
+      ) }
 
-      { housing !== `homeless` ? (
+      { (housing !== `homeless`) ? (
         <CashFlowInputsRow
           { ...sharedProps }
-          generic={ `otherExpensesUtilities` }> Other utility costs
+          generic = { `otherExpensesUtilities` }>
+          Other utility costs
         </CashFlowInputsRow>
       ) : (
         null
-      )
-      }
+      ) }
 
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ `otherExpensesEntertainment` }> Other entertainment costs
+        generic = { `otherExpensesEntertainment` }>
+        Other entertainment costs
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ `otherExpensesCareProducts` }> Personal care and household goods costs
+        generic = { `otherExpensesCareProducts` }>
+        Personal care and household goods costs
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ `otherExpensesClothes` }> Money you spend on clothing
+        generic = { `otherExpensesClothes` }>
+        Money you spend on clothing
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
-        generic={ `otherExpensesOther` }> Any other money you spend
+        generic = { `otherExpensesOther` }>
+        Any other money you spend
       </CashFlowInputsRow>
     </div>
   );
-};
+};  // Ends <ExpensesOther>
 
 
 export { ExpensesOther };

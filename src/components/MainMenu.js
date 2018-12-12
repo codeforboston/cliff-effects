@@ -11,30 +11,30 @@ const MainMenu = function ({ translations }) {
     <Menu
       inverted
       secondary
-      size='large'>
+      size = { `large` }>
 
       <Menu.Item>
         <Link
-          className="main-nav"
-          to="/">
+          className = { `main-nav` }
+          to        = { `/` }>
           { translations.i_homeNav }
         </Link>
       </Menu.Item>
       <Menu.Item>
         <Link
-          className="main-nav"
-          to="/about">
+          className = { `main-nav` }
+          to        = { `/about` }>
           { translations.i_aboutNav }
         </Link>
       </Menu.Item>
       <Menu.Item>{ translations.i_githubNav }</Menu.Item>
-      <Menu.Item position='right'>
+      <Menu.Item position={ `right` }>
         {/*<Link to="/login"><Button inverted>Log in</Button></Link>*/}
         {/*<Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>*/}
       </Menu.Item>
     </Menu>
   );
-};  // End MainMenu(<>)
+};  // Ends <MainMenu>
 
 
 export { MainMenu };

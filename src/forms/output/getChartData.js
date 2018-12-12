@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { PROGRAM_CHART_VALUES } from '../../utils/charts/PROGRAM_CHART_VALUES';
+import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
 
 // LOGIC
-import { applyAndPushBenefits } from '../../programs/applyAndPushBenefits';
+import { applyAndPushBenefits } from '../../benefits/applyAndPushBenefits';
 
 
 /** Returns the graph data formated in a way our graph
@@ -64,15 +64,15 @@ const getChartData = function (incomes, multiplier, client, activeBenefitsInOrde
     // Adjust money amount to correct time interval (weekly, monthly, or yearly)
     for (let benefiti = 0; benefiti < benefits.length; benefiti++) {
       let benefitName = benefits[ benefiti ],
-          val = allData[ benefitName ][ incomei ] * multiplier;
+          val         = allData[ benefitName ][ incomei ] * multiplier;
       allData[ benefitName ][ incomei ] = val;
-    }  // end for all active benefits
-  }  // end for all incomes
+    }  // ends for all active benefits
+  }  // ends for all incomes
 
   // Return in the same order as it was asked for
   for (let benefiti = 0; benefiti < benefits.length; benefiti++) {
     let benefitName   = benefits[ benefiti ],
-        graphFrosting = PROGRAM_CHART_VALUES[ benefitName ];
+        graphFrosting = BENEFIT_CHART_VALUES[ benefitName ];
 
     // All the graph info for that benefit
     benefitDatasets.push({
@@ -85,7 +85,7 @@ const getChartData = function (incomes, multiplier, client, activeBenefitsInOrde
   }
 
   return benefitDatasets;
-};  // End getChartData()
+};  // Ends getChartData()
 
 
 export { getChartData };

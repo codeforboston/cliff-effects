@@ -46,6 +46,7 @@ class HeadingWithDetail extends Component {
       return null;
     }
 
+    // @todo This always has two children now, so this can be simplified
     let top       = children[ 0 ] || children,
         details   = children[ 1 ] || null,
         // Has a green question mark icon by default
@@ -59,11 +60,11 @@ class HeadingWithDetail extends Component {
     }
 
     return (
-      <div className = { `heading-with-detail` }>
+      <div className={ `heading-with-detail` }>
         
         <Surrounder
           Right = {
-            <span onKeyDown = { this.onKeyDown } >
+            <span onKeyDown={ this.onKeyDown } >
               <Icon
                 tabIndex  = { 0 }
                 name      = { iconName }
@@ -79,16 +80,18 @@ class HeadingWithDetail extends Component {
               <Message>{ details }</Message>
             </Transition>
           }>
+
           <div className={ `has-details` }>{ top }</div>
+
         </Surrounder>
       </div>
     );
   };
-};  // End <HeadingWithDetail>
+};  // Ends <HeadingWithDetail>
 
 
-/** @todo Have rows that can have details. Maybe other things too. */
-class RowWithDetail extends Component {};  // <End RowWithDetail>
+/* @todo Have rows that can have details. Maybe other things too. */
+class RowWithDetail extends Component {};
 
 
 export {

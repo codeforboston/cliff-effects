@@ -21,15 +21,15 @@ class ErrorListener extends React.Component {
 
   componentDidMount() {
     window.addEventListener('error', this.handleError);
-  }
+  };
 
   componentWillUnmount() {
     window.removeEventListener('error', this.handleError);
-  }
+  };
 
   render() {
     return null;
-  }
-}
+  };
+};
 
-export default ErrorListener;
+export { ErrorListener };

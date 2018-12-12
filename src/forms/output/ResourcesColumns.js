@@ -17,8 +17,8 @@ import {
 
 // LOGIC
 import { timescaleMultipliers } from '../../utils/convert-by-timescale';
-import { getChartData } from '../../utils/charts/getChartData';
-import { toFancyMoneyStr } from '../../utils/charts/chartFormatting';
+import { getChartData } from './getChartData';
+import { toFancyMoneyStr } from './chartFormatting';
 import {
   formatMoneyWithK,
   textFromTranslatedElement,
@@ -68,11 +68,11 @@ class ResourcesColumnsComp extends Component {
 
     // Adjust to time-interval. Highcharts will round
     // for displayed ticks.
-    const xRange   = [
-            currentEarned,
-            futureEarned, 
-          ],  // x-axis/earned income numbers
-          datasets = getChartData(xRange, multiplier, clone, resources, {});
+    let xRange   = [
+          currentEarned,
+          futureEarned, 
+        ],  // x-axis/earned income numbers
+        datasets = getChartData(xRange, multiplier, clone, resources, {});
 
     // Columns and categories for each pay amount
     let columns    = [],
@@ -98,7 +98,7 @@ class ResourcesColumnsComp extends Component {
           categories.push(formatted);
         }
       }
-    }
+    }  // ends for every dataset
 
 
     const plotOptions =  { column: { stacking: `normal` }};
@@ -108,8 +108,8 @@ class ResourcesColumnsComp extends Component {
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-            tooltip  = {{ enabled: true }}
-            zoomType = { `y` }
+            tooltip         = {{ enabled: true }}
+            zoomType        = { `y` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
           <Title>{ getText(translations.i_stackedBarGraphTitle) }</Title>
@@ -146,10 +146,9 @@ class ResourcesColumnsComp extends Component {
           </YAxis>
 
         </HighchartsChart>
-
       </div>
     );
-  }  // Ends render()
+  };  // Ends render()
 
 
   /** Adds translation-specific money designations
@@ -174,7 +173,7 @@ class ResourcesColumnsComp extends Component {
   formatMoneyWithK = (highchartsObject) => {
     return formatMoneyWithK(highchartsObject, this.props.translations);
   };
-};
+};  // Ends <ResourcesColumnsComp>
 
 
 const ResourcesColumns = withHighcharts(ResourcesColumnsComp, Highcharts);

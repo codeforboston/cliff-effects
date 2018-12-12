@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import App from '../App';
+import { App } from '../App';
 
 global.localStorage = {
   getItem: function (key) { return `false`; },

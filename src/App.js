@@ -10,11 +10,11 @@ import localforage from 'localforage';
 import { Confirmer } from './utils/getUserConfirmation';
 
 // CUSTOM COMPONENTS
-import HomePage from './containers/HomePage';
-import AboutPage from './containers/AboutPage';
-import VisitPage from './containers/VisitPage';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import { HomePage } from './containers/HomePage';
+import { AboutPage } from './containers/AboutPage';
+import { VisitPage } from './containers/VisitPage';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
 
 // Development HUD
 import { DevSwitch } from './containers/DevSwitch';
@@ -34,28 +34,25 @@ import { CLIENT_DEFAULTS } from './utils/CLIENT_DEFAULTS';
 import { getTextForLanguage } from './utils/getTextForLanguage';
 
 
-const DEV_PROPS_STORAGE_KEY = 'cliffEffectsDevProps';
-
-const LOADED_CLIENT_STORAGE_KEY = 'cliffEffects_loadedClient';
-
-const CLIENT_LAST_LOADED_STORAGE_KEY = 'cliffEffects_clientLastLoaded';
-
-// Time-to-live for stored client data, in milliseconds
-const STORED_CLIENT_TTL = 1000 * 60 * 60 * 24; // 1 day
+const DEV_PROPS_STORAGE_KEY          = `cliffEffectsDevProps`,
+      LOADED_CLIENT_STORAGE_KEY      = `cliffEffects_loadedClient`,
+      CLIENT_LAST_LOADED_STORAGE_KEY = `cliffEffects_clientLastLoaded`,
+      // Time-to-live for stored client data, in milliseconds
+      STORED_CLIENT_TTL              = 1000 * 60 * 60 * 24; // 1 day
 
 /**
  * Main top-level component of the app. Contains the router that controls access
- * to the {@link HomePage}, {@link VisitPage}, and {@link AboutPage}, as well
- * as providing the common {@link Header} and {@link Footer} to these pages.
- * It also manages the {@link DevHud}, which provides debugging and analysis
- * options for developers.
+ *     to the {@link HomePage}, {@link VisitPage}, and {@link AboutPage}, as well
+ *     as providing the common {@link Header} and {@link Footer} to these pages.
+ *     It also manages the {@link DevHud}, which provides debugging and analysis
+ *     options for developers.
  *
  * You can change the HashRouter tags (below if you are viewing this comment in
- * the source code) to Router tags to turn off hash routing. Hash routing is
- * only used to be compatible with GitHub Pages.
+ *     the source code) to Router tags to turn off hash routing. Hash routing is
+ *     only used to be compatible with GitHub Pages.
  *
  * Sends in the initial client values from {@link CLIENT_DEFAULTS} to
- * {@link VisitPage}.
+ *     {@link VisitPage}.
  *
  * @extends React.Component
  */
@@ -96,66 +93,59 @@ class App extends Component {
       },
       distrustConfirmed: false,
     };
-  };  // End constructor()
+  };  // Ends constructor()
 
   componentDidMount() {
     // Webpack should remove this whole conditional when not built for development environment
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === `development`) {
       Promise.all([
         localforage.getItem(DEV_PROPS_STORAGE_KEY),
         localforage.getItem(CLIENT_LAST_LOADED_STORAGE_KEY),
         localforage.getItem(LOADED_CLIENT_STORAGE_KEY),
-      ]).then(
-        ([
-          localDev,
-          clientLastLoaded,
-          loadedClient,
-        ]) => {
-          if (localDev) {
-            this.setState((prevState) => {
-              const now = Date.now();
+      ]).then(([
+        localDev,
+        clientLastLoaded,
+        loadedClient, 
+      ]) => {
+        if (localDev) {
+          this.setState((prevState) => {
+            const now = Date.now();
 
-              clientLastLoaded = clientLastLoaded || 0;
+            clientLastLoaded = clientLastLoaded || 0;
 
-              let state = merge(
-                {},
-                prevState,
-                { devProps: localDev }
-              );
+            let state = merge({}, prevState, { devProps: localDev });
 
-              // This will clear out a loaded client from local storage
-              // if it's been there too long--this is for security purposes,
-              // as the loaded client could potentially have sensitive client
-              // data and we want to minimize exposure of that info.
-              if (now - clientLastLoaded >= STORED_CLIENT_TTL) {
-                localforage.removeItem(LOADED_CLIENT_STORAGE_KEY);
-                localforage.removeItem(CLIENT_LAST_LOADED_STORAGE_KEY);
-              }
-              else {
-                state.clients.loaded = loadedClient;
-              }
+            // This will clear out a loaded client from local storage
+            // if it's been there too long--this is for security purposes,
+            // as the loaded client could potentially have sensitive client
+            // data and we want to minimize exposure of that info.
+            if (now - clientLastLoaded >= STORED_CLIENT_TTL) {
+              localforage.removeItem(LOADED_CLIENT_STORAGE_KEY);
+              localforage.removeItem(CLIENT_LAST_LOADED_STORAGE_KEY);
+            } else {
+              state.clients.loaded = loadedClient;
+            }
 
-              return state;
-            });
-          }
-        }
-      );
+            return state;
+          });  // ends setState
+        }  // ends if localDev
+      });  // ends Promise
 
       printSummaryToConsole();
 
       addEnableDevProperty(() => {
-        return this.setDev('dev', true);
+        return this.setDev(`dev`, true);
       });
 
       addClientGetterProperty(() => {
         return this.state.clients.loaded;
       });
-    } // End development environment conditional
-  }
+    } // ends if in development environment
+  };  // Ends componentDidMount()
 
   /**
    * Set the human language of the app (i.e. the language in which the UI will
-   * display text for users to read, NOT the coding language).
+   *     display text for users to read, NOT the coding language).
    * @method
    * @param {object} evnt - The event object from an input that uses this event handler (not used)
    * @param {object} inputProps - An object representing the properties of the Semantic UI React input component which triggered the language change.
@@ -167,8 +157,8 @@ class App extends Component {
   };
 
   /** Set the value of a specified key in the app state's devProps.
-   * These keys should only be set to boolean values (@todo enforce only allowing boolean values?).
-   * Keys with a value of true are added as classes to the app's main element when it is rendered.
+   *     These keys should only be set to boolean values (@todo enforce only allowing boolean values?).
+   *     Keys with a value of true are added as classes to the app's main element when it is rendered.
    * @method
    * @param {string} key - The key whose value is to be changed in the app state's devProps
    * @param {boolean} value - The value to be set for the given key in the app state's devProps
@@ -180,17 +170,17 @@ class App extends Component {
       if (props[ key ] !== value) {
         let newProps = { ...props, [ key ]: value };
 
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === `development`) {
           localforage.setItem(DEV_PROPS_STORAGE_KEY, newProps);
         }
 
         return { devProps: newProps };
       }
     });
-  };  // End setDev()
+  };
 
   /** Load an individual client's data. Currently, the only source of client
-   * data to load is a text input field in the Dev HUD.
+   *     data to load is a text input field in the Dev HUD.
    * @method
    * @param {object} params
    * @param {object} params.toLoad - A JSON object representing the client data
@@ -204,22 +194,22 @@ class App extends Component {
             defaults = cloneDeep(clients.default),
             newData  = Object.assign(defaults, toLoad);
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === `development`) {
         localforage.setItem(CLIENT_LAST_LOADED_STORAGE_KEY, Date.now());
         localforage.setItem(LOADED_CLIENT_STORAGE_KEY, newData);
       }
 
       return { clients: { ...clients, loaded: newData }};
     });
-  };  // End loadClient()
+  };
 
   /** Concatenate the true boolean values in input object to a space-delimited
-   * string, for use as a CSS class string. Currently used to convert
-   * [devProps]{@link App#state} to classes for the rendered `div`.
+   *     string, for use as a CSS class string. Currently used to convert
+   *     [devProps]{@link App#state} to classes for the rendered `div`.
    * @method
    * @param {object} obj - the object to be converted to a string
    * @returns {string} a string constructed by concatenating together the keys
-   * of obj with values equal to true, separated by spaces.
+   *     of obj with values equal to true, separated by spaces.
    */
   propsToClasses (obj) {
     let classes = ``;
@@ -229,18 +219,19 @@ class App extends Component {
       }
     }
     return classes;
-  };  // End propsToClasses()
+  };
 
   /** Toggles distrustConfirmed flag in app state.  Passed to PredictionsWarning modal
-   * which calls this in the onClose handler.  App is unavailable until terms 
-   * are accepted unless warningOff is set to true in DevHud.
+   *     which calls this in the onClose handler.  App is unavailable until terms 
+   *     are accepted unless warningOff is set to true in DevHud.
    * @method
    */
   toggleDistrustConfirmed = () => {
     let userDistrusts = this.state.distrustConfirmed;
     this.setState({ distrustConfirmed: !userDistrusts });
-  };  // End acceptTerms()
+  };
 
+  // @todo I think we can remove langCode from translations now
   render () {
     let {
       langCode,
@@ -271,37 +262,34 @@ class App extends Component {
         </Helmet>
 
         <HashRouter getUserConfirmation={ confirmer.getConfirmation }>
-          <div id='HashRouter'>
+          <div id={ `HashRouter` }>
             <Route
-              path="/:rest+"
-              component={ (props) => {
-                return (
-                  <Header
-                    { ...props }
-                    translations={{ ...translations.header, langCode: translations.langCode }} />);
-              } } />
+              path      = { `/:rest+` }
+              component = { (props) => { return (
+                <Header
+                  { ...props }
+                  translations = {{ ...translations.header, langCode: translations.langCode }} />
+              );} } />
 
             <Switch>
               <Route
                 exact
-                path="/"
-                component={ (props) => {
-                  return (
-                    <HomePage
-                      { ...props }
-                      translations={{ ...translations.homePage, langCode: translations.langCode }} />);
-                } } />
+                path      = { `/` }
+                component = { (props) => { return (
+                  <HomePage
+                    { ...props }
+                    translations = {{ ...translations.homePage, langCode: translations.langCode }} />
+                );} } />
               <Route
-                path="/about"
-                component={ (props) => {
-                  return (
-                    <AboutPage
-                      { ...props }
-                      translations={{ ...translations.aboutPage, langCode: translations.langCode }} />);
-                } } />
+                path      = { `/about` }
+                component = { (props) => { return (
+                  <AboutPage
+                    { ...props }
+                    translations = {{ ...translations.aboutPage, langCode: translations.langCode }} />
+                );} } />
               <Route
-                path="/visit/:clientId/:visitId/:stepKey?"
-                component={ ({ match, history, ...props }) => {
+                path      = { `/visit/:clientId/:visitId/:stepKey?` }
+                component = { ({ match, history, ...props }) => {
                   const { clientId, visitId, stepKey } = match.params;
 
                   return (
@@ -315,13 +303,14 @@ class App extends Component {
                       funcs             = { funcs }
                       confirmer         = { confirmer }
                       translations      = {{ ...translations.visitPage, langCode: translations.langCode }}
-                      clientData        = { clientData } />);
+                      clientData        = { clientData } />
+                  );
                 } } />
 
               {/* For managing our development HUD */}
               <Route
-                path = { `/dev` }
-                component={ (props) => { return (
+                path      = { `/dev` }
+                component = { (props) => { return (
                   <DevSwitch
                     { ...props }
                     setDev   = { this.setDev }
@@ -344,8 +333,8 @@ class App extends Component {
         ) }
       </div>
     );
-  };  // End render()
-}
+  };  // Ends render()
+};  // Ends <App>
 
 
-export default App;
+export { App };

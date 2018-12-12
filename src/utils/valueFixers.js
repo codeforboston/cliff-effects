@@ -1,11 +1,11 @@
-import { isNumberlike } from './validators';
-
-
 /**
  * Transformers for transforming client
  * values into valid values.
  * @module
  */
+
+import { isNumberlike } from './validators';
+
 
 const returnSame = function (newVal, state) {
   return newVal;
@@ -13,11 +13,11 @@ const returnSame = function (newVal, state) {
 
 
 const toBoolean = function (value) {
-  if (value === 'Yes') {
+  if (value === `Yes`) {
     return true;
-  } else if (value === 'No') {
+  } else if (value === `No`) {
     return false;
-  } else if (typeof(value) === 'boolean') {
+  } else if (typeof(value) === `boolean`) {
     return value;
   } else {
     return null;
@@ -42,13 +42,10 @@ const toNumber = function (numberOrString) {
   }
 
   return Number(numberOrString);
-
 };
 
-/**
- * For every client property and
- * nested property.
- */
+
+/** For every client property and nested property. */
 const valueFixers = {
   // Current programs
   benefits:                      returnSame,
@@ -59,7 +56,6 @@ const valueFixers = {
   m_disabled:                    returnSame,
   // MONEY AMOUNTS
   // Income
-  /** @todo All incomes need transformation */
   earned:                        toNumber,
   TAFDC:                         toNumber,
   SSI:                           toNumber,
@@ -86,7 +82,7 @@ const valueFixers = {
   earnedBecauseOfAdultCare:      toNumber,
   disabledMedical:               toNumber,
   otherMedical:                  toNumber,
-  /** @todo When client has section 8, switch this to 'housingVoucher' */
+  // @todo When client has section 8, switch this to 'housingVoucher'
   housing:                       returnSame,
   contractRent:                  toNumber,
   rentShare:                     toNumber,

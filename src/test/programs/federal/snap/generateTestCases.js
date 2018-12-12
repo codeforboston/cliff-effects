@@ -8,7 +8,7 @@ import {
   UNDER13_CARE_EXPENSES,
   OVER12_CARE_EXPENSES,
 } from '../../../../data/massachusetts/name-cores';
-import { getSNAPBenefits } from '../../../../programs/federal/snap';
+import { getSNAPBenefits } from '../../../../benefits/federal/snap';
 
 export const FILE_NAME = 'test-cases.txt';
 const NUMBER_TEST_CASES = 1000;

@@ -3,7 +3,7 @@ import React from 'react';
 import { Header } from 'semantic-ui-react';
 
 
-/** h1 styles available for form (and other) text.
+/** <h1> styles available for form (and other) text.
 *
 * @function
 * @param {object} props
@@ -21,11 +21,11 @@ const ContentH1 = function ({ subheading, children }) {
   }
 
   return (
-    <div className={ 'text-h1' } >
+    <div className={ `text-h1` } >
       <div /> {/** div here to make sure header margin doesn\'t collapse */}
       <Header
-        as='h3'
-        style={{ display: 'inline-block' }}>
+        as    = { `h3` }
+        style = {{ display: `inline-block` }}>
         { children }
       </Header>
       <ContentSubH1>{ subheading }</ContentSubH1>
@@ -33,11 +33,11 @@ const ContentH1 = function ({ subheading, children }) {
     </div>
   );
 
-};  // End ContentH1{} Component
+};  // Ends <ContentH1>
 
 
 /** A clearer way than a ternary operator to have a possible
-* subheader and separate styling.
+*     subheader and separate styling.
 *
 * @function
 * @param {object} props
@@ -53,16 +53,16 @@ const ContentSubH1 = function ({ children }) {
 
   return (
     <div
-      className = { 'text-sub-h1' }
-      style={{ display: 'block', textAlign: 'left' }}>
+      className = { `text-sub-h1` }
+      style     = {{ display: `block`, textAlign: `left` }}>
       { children }
     </div>
   );
 
-};  // End ContentSubH1{} Component
+};  // Ends <ContentSubH1>
 
 
-/* To discuss: Should form-specific headings be in a different file? */
+/* @todo To discuss: Should form-specific headings be in a different file? */
 
 
 /** Weekly/Monthly/Yearly headings combined for the
@@ -83,38 +83,45 @@ const ContentSubH1 = function ({ children }) {
 */
 const IntervalColumnHeadings = function ({ type }) {
 
-  let columnTitle = type.toLowerCase().replace(/\b[a-z]/g, (letter) => {
+  let styles      = { fontSize: `14px` },
+      toUpper     = function (letter) {
         return letter.toUpperCase();
-      }) + ' Type',
-      styles      = { fontSize: '14px' };
+      },
+      asLowerCase = type.toLowerCase(),
+      toReplace   = /\b[a-z]/g,
+      columnTitle = asLowerCase.replace(toReplace, toUpper) + ` Type`;
 
   return (
-    <div style={{ display: 'inline-block' }}>
+    <div style={{ display: `inline-block` }}>
       <ColumnHeading
-        type={ type }
-        colName='weekly'
-        style={ styles }>Weekly
+        type    = { type }
+        colName = { `weekly` }
+        style   = { styles }>
+        Weekly
       </ColumnHeading>
       <ColumnHeading
-        type={ type }
-        colName='monthly'
-        style={ styles }>Monthly
+        type    = { type }
+        colName = { `monthly` }
+        style   = { styles }>
+        Monthly
       </ColumnHeading>
       <ColumnHeading
-        type={ type }
-        colName='yearly'
-        style={ styles }>Yearly
+        type    = { type }
+        colName = { `yearly` }
+        style   = { styles }>
+        Yearly
       </ColumnHeading>
       <ColumnHeading
-        type={ type }
-        colName={ type }
-        style={ styles }
-        columnTitle={ columnTitle }>{columnTitle}
+        type        = { type }
+        colName     = { type }
+        style       = { styles }
+        columnTitle = { columnTitle }>
+        { columnTitle }
       </ColumnHeading>
     </div>
   );
 
-};  // End <IntervalColumnHeadings>
+};  // Ends <IntervalColumnHeadings>
 
 
 /** Style for text at the tops of columns, like
@@ -130,17 +137,18 @@ const IntervalColumnHeadings = function ({ type }) {
 * @returns Component
 */
 const ColumnHeading = function ({ type, colName, style, children }) {
-  let classes = type + '-column cashflow-column header ' + colName;
+  // @todo Move 'cashflow' stuff elsewhere
+  let classes = type + `-column cashflow-column header ` + colName;
   return (
     <Header
-      as='h4'
-      className={ classes }
-      style={ style }
-      color='teal'>
+      as        = { `h4` }
+      className = { classes }
+      style     = { style }
+      color     = { `teal` }>
       { children }
     </Header>
   );
-};  // End <ColumnHeading>
+};  // Ends <ColumnHeading>
 
 
 export {

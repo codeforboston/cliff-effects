@@ -1,4 +1,4 @@
-export default {
+const de = {
 
   langName: `Deutsch`,
   langCode: `de`,
@@ -303,5 +303,7 @@ export default {
       buttonYearly_v1:            `Jährlich`, // see cashflow.js, GraphTimeButton
     },
   },
-};
+};  // ends de
 
+
+export { de };

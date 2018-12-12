@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 
-import FeedbackPrompt from '../../../components/prompts/FeedbackPrompt';
+import { FeedbackPrompt } from '../../../components/prompts/FeedbackPrompt';
 
 test(`<FeedbackPrompt> renders`, () => {
   let isBlocking = true;

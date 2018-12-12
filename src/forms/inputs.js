@@ -45,7 +45,7 @@ const BigButton = function ({ children, className, overrides, ...otherProps }) {
   return (
     <Button { ...overriddenDefaults }>{ children }</Button>
   );
-};  // End <BigButton>
+};  // Ends <BigButton>
 
 
 /** Yes/no toggleable radio button group with a label.
@@ -64,46 +64,46 @@ const BigButton = function ({ children, className, overrides, ...otherProps }) {
  * @returns {object} React element
  */
 class ControlledRadioYesNo extends Component {
-  constructor(props){
-    super(props);
-    this.state = {};
-  }
-
   handleChange = (evnt, inputProps) => {
-    inputProps.value = inputProps.value === 'Yes';
+    inputProps.value = inputProps.value === `Yes`;
     this.props.onChange(evnt, inputProps);
   };
 
-  render(){
+  render () {
+
+    let {
+      name,
+      checked,
+      labelText,
+    } = this.props;
 
     return (
-      <div className="radio-yes-no">
+      <div className={ `radio-yes-no` }>
 
         <Form.Field>
           <Radio
-            label='Yes'
-            name={ this.props.name }
-            value='Yes'
-            checked={ this.props.checked === true }
-            onChange={ this.handleChange } />
+            label    = { `Yes` }
+            name     = { name }
+            value    = { `Yes` }
+            checked  = { checked === true }
+            onChange = { this.handleChange } />
         </Form.Field>
         <Form.Field >
           <Radio
-            label='No'
-            name={ this.props.name }
-            value='No'
-            checked={ this.props.checked === false }
-            onChange={ this.handleChange } />
+            label    = { `No` }
+            name     = { name }
+            value    = { `No` }
+            checked  = { checked === false }
+            onChange = { this.handleChange } />
         </Form.Field>
         <Form.Field >
-          <b>{this.props.labelText}</b>
-
+          <b>{ labelText }</b>
         </Form.Field>
 
       </div>
     );
-  }
-};  // End <ControlledRadioYesNo>
+  };
+};  // Ends <ControlledRadioYesNo>
 
 
 // @todo description
@@ -124,9 +124,13 @@ class ControlledRadioYesNo extends Component {
 class ManagedNumberField extends Component {
   constructor (props) {
     super(props);
-    let { format, value } = props;
+
+    let {
+      format,
+      value,
+    } = props;
     this.state = { valid: true, focused: false, focusedVal: format(value) };
-  }  // End constructor()
+  };
 
   //change form to blank string after click, before input
   handleFocus = (evnt, inputProps) => {
@@ -137,9 +141,13 @@ class ManagedNumberField extends Component {
     }
 
     // This makes sure that only zeroes and blanks get reset
-    let { format, value } = this.props;
+    let {
+      format,
+      value,
+    } = this.props;
+
     if (!Number.parseFloat(evnt.target.value)) {
-      this.setState({ focused: true, focusedVal: '' });
+      this.setState({ focused: true, focusedVal: `` });
     } else {
       this.setState({ focused: true, focusedVal: format(value) });
     }
@@ -160,8 +168,13 @@ class ManagedNumberField extends Component {
       onChange(evnt, inputProps);
     }
 
-    const { displayValidator, storeValidator, store, otherData } = this.props;
-    const focusedVal = inputProps.value;
+    const focusedVal = inputProps.value,
+          {
+            displayValidator,
+            storeValidator,
+            store,
+            otherData,
+          } = this.props;
 
     // If doesn't pass display validator, don't store and don't change focusedVal
     if (!displayValidator(inputProps.value)) {
@@ -170,19 +183,19 @@ class ManagedNumberField extends Component {
 
     if (focusedVal.length === 0) {
       // If field contains an empty string, set value to be 0 (visible on blur)
-      inputProps.value = '0';
+      inputProps.value = `0`;
     }
-    let valid = storeValidator(inputProps.value);
 
+    let valid = storeValidator(inputProps.value);
     if (valid) {
       store(evnt, inputProps, otherData);
     }
     this.setState({ focusedVal: focusedVal, valid: valid });
-  };  // End handleChange()
+  };  // Ends handleChange()
 
-  render() {
-    const { valid, focused, focusedVal }         = this.state;
-    const { name, className, format, otherData } = this.props;
+  render () {
+    const { valid, focused, focusedVal }         = this.state,
+          { name, className, format, otherData } = this.props;
     let value = this.props.value;
 
     // @todo Bad var name. Find more useful name for this.
@@ -214,9 +227,9 @@ class ManagedNumberField extends Component {
         aria-labelledby  = { name + `Label` }
         aria-describedby = { name + `Message` } />
     );
-  }  // End render()
+  }  // Ends render()
 
-};  // End <ManagedNumberField>
+};  // Ends <ManagedNumberField>
 
 
 export {

@@ -97,7 +97,7 @@ Used to fill vertical space.
 `height: 100%` doesn't work with Flexbox on Mobile Safari.
 */
 .flex-column {
-  display: flex!important;
+  display: flex;
   flex-direction: column;
 }
 .flex-item {
@@ -122,7 +122,7 @@ Used to fill vertical space.
 
 .ui.form h4.ui.header.cashflow-column,
 .ui.form .cashflow .cashflow-column {
-  margin-right: .2em !important;
+  margin-right: .2em;
   width: 7em;
   text-align: center;
 }
@@ -153,7 +153,7 @@ Used to fill vertical space.
 .ui.form .cashflow .cashflow-column-label {
   text-align: left;
   width: auto;
-  padding-left: 1em !important;
+  padding-left: 1em;
 }
 
 .ui.form .cashflow .cashflow-column {
@@ -194,11 +194,72 @@ Used to fill vertical space.
     transform: scale(0.85) translate(-10%, 0);
 }
 
+
+/* HOUSEHOLD */
 #addMember {
     padding: 0;
     padding-top: .5rem;
     padding-bottom: .5rem;
     margin-top: 0.7rem;
+}
+
+.household .column {
+  display:   inline-block;
+  text-align: center;
+  margin-top: 0.7em;
+}
+
+.household .column-headers {
+  margin-bottom: .5em;
+}
+
+.ui .household .column-headers h4.ui.header.household-column {
+  padding-left: 0;
+}
+
+.household .add-row-column {
+  margin: 0;
+}
+
+.household .column-one {
+  width: 5em;
+}
+.household .column-two {
+  width: 20em;
+  text-align: left;
+  padding-left: 1em;
+}
+.household .column-three {
+  width: 5em;
+}
+.household .column-four {
+  width: 10em;
+}
+
+.household .member .remove.button {
+  padding: 0;
+  height: 2.2em;
+  width: 2.2em;
+}
+
+.household .role {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+}
+
+.household .role.head {
+  margin-left: 0em;
+}
+
+.household .role.second-member-choice {
+  margin-left: -1em;
+}
+
+.household i.no-removing {
+  color: #cfcfd0;
+  font-size: 2.2em;
+  vertical-align: text-top;
 }
 
 /* Override text unselectable in semantic-ui-react */
@@ -410,7 +471,7 @@ i.icon.details-icon {
 /* =============== */
 /* PREDICTIONS (manual theme implementation) */
 /* =============== */
-#resultsIntro {
+#results-intro {
   margin-bottom: 1em;
 }
 
@@ -486,8 +547,8 @@ i.icon.details-icon {
 /* HomePage.js styles */
 
 #HomePage {
-  background-image: url(./images/splash.svg) !important;
-  background-size: cover !important;
+  background-image: url(./images/splash.svg);
+  background-size: cover;
   flex: 1 0;
   display: flex;
   flex-direction: column;
@@ -620,8 +681,8 @@ PRINTING STYLES
   #reset_fixed,
   #form-nav,
   #section-bottom,
-  #predictionsForm,
-  #resultsIntro,
+  #predictions-form,
+  #results-intro,
   #App .tabular.menu,
   .print-row {
     display: none;
@@ -645,7 +706,7 @@ PRINTING STYLES
   }
 
   #App .footer_segment {
-    background: transparent !important;
+    background: transparent;
   }
 
   #App .footer_segment a,
@@ -662,7 +723,7 @@ SMALL SCREEN
 */
 @media only screen and (max-width: 767px) {
   #alwaysLeftButtons {
-    /* Fighting semantic-ui */
+    /* Fighting semantic-ui that use `!important` at this width */
     margin-right: 0!important;
     margin-left: 0!important;
   }

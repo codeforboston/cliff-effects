@@ -1,23 +1,22 @@
 import _ from 'lodash';
 
-/** Helper functions to format vlaues
+/** Helper functions to format values for charts
  * @module
  * @todo Use language of the app in money formatters
  */
 
 const toFancyMoneyStr = function (toFormat) {
-  return toFormat.toLocaleString('en-US', { style: 'currency',currency: 'USD' }).replace('.00','');
+  return toFormat.toLocaleString(`en-US`, { style: `currency`,currency: `USD` }).replace(`.00`,``);
 };
 
 const formatAxis = function (label) {
   /* Adds 1,000s separators to graph axes */
-  return label.toLocaleString('en-US');
+  return label.toLocaleString(`en-US`);
 };
 
 const formatLabel =  function(tooltipItem, data) {
-  /* From https://github.com/chartjs/Chart.js/issues/2386 */
   return data.datasets[ tooltipItem.datasetIndex ].label
-          + ': ' + toFancyMoneyStr(tooltipItem.yLabel);
+          + `: ` + toFancyMoneyStr(tooltipItem.yLabel);
 };
 
 const formatBenefitLinesTitle = function (tooltipItems, data) {
@@ -33,7 +32,6 @@ const formatStackedTitle = function(tooltipItems, data) {
 };
 
 
-// For use by react-chartjs-2
 export {
   toFancyMoneyStr,
   formatAxis,

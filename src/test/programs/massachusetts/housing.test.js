@@ -1,4 +1,4 @@
-import { getSection8Benefit, section8Helpers } from '../../../programs/massachusetts/section8';
+import { getSection8Benefit, section8Helpers } from '../../../benefits/massachusetts/section8';
 
 // CLIENTS
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
@@ -120,19 +120,19 @@ describe('section8Helpers', () => {
       expect(section8Helpers.isDisabledOrElderly(current.household[ 0 ])).toEqual(true);
     });
 
-    // `section8Helpers.hasAnyDsbOrElderly()`
+    // `section8Helpers.hasAnyDisabledOrElderly()`
 
-    describe('`.hasAnyDsbOrElderly` given a disabled and elderly member', () => {
-      it('should be greater than zero', () => {
-        expect(section8Helpers.hasAnyDsbOrElderly(defaultClient, 'current')).toEqual(true);
+    describe('`.hasAnyDisabledOrElderly` given a disabled and elderly member', () => {
+      it('should return true', () => {
+        expect(section8Helpers.hasAnyDisabledOrElderly(defaultClient, 'current')).toEqual(true);
       });
     });
 
-    // `section8Helpers.hasDsbOrEldHeadOrSpouse()`
+    // `section8Helpers.hasDisabledOrElderlyHeadOrSpouse()`
 
-    describe('`.hasDsbOrEldHeadOrSpouse` given a disabled and elderly head', () => {
-      it('should be greater than zero', () => {
-        expect(section8Helpers.hasDsbOrEldHeadOrSpouse(defaultClient, 'current')).toEqual(true);
+    describe('`.hasDisabledOrElderlyHeadOrSpouse` given a disabled and elderly head', () => {
+      it('should return true', () => {
+        expect(section8Helpers.hasDisabledOrElderlyHeadOrSpouse(defaultClient, 'current')).toEqual(true);
       });
     });
 
