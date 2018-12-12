@@ -1,6 +1,3 @@
-/**
- *
- */
 const convertForUpdate = function ({ name, route, ...otherProps }) {
 
   let forUpdate = {
@@ -10,7 +7,7 @@ const convertForUpdate = function ({ name, route, ...otherProps }) {
 
   return forUpdate;
 
-};  // End convertForUpdate()
+};
 
 
 export { convertForUpdate };
