@@ -4,6 +4,7 @@
  *     new state.
  */
 
+// @todo US State specific?
 
 const empty = function () {
   return {};
@@ -41,13 +42,13 @@ const sideEffects = {
   childTransportation:           earnedBecauseOfChildCare,
   childOtherCare:                earnedBecauseOfChildCare,
   disabledAssistance:            earnedBecauseOfAdultCare,
-};  // end sideEffects
+};
 
 
 const getSideEffects = function (clientPartial, itemID) {
   let func = sideEffects[ itemID ] || empty;
   return func(clientPartial);
-};  // End getSideEffects();
+};
 
 
 export {

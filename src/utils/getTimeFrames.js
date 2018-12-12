@@ -1,13 +1,13 @@
 /**
  * Abstracts current and future program and
- * income values on Predictions form
+ *     income values on Predictions form.
  */
 
 const getBenefitTimeFrames = function (client, benefitCheck, benefitsFunc) {
   if (client.current[ benefitCheck ]) {
     return {
-      benefitCurrent: Math.round(benefitsFunc (client, 'current')),
-      benefitFuture:  Math.round(benefitsFunc (client, 'future')),
+      benefitCurrent: Math.round(benefitsFunc (client, `current`)),
+      benefitFuture:  Math.round(benefitsFunc (client, `future`)),
     };
   } else {
     return 0;
@@ -21,4 +21,8 @@ const getIncomeTimeFrames = function(client) {
   };
 };
 
-export { getBenefitTimeFrames, getIncomeTimeFrames };
+
+export {
+  getBenefitTimeFrames,
+  getIncomeTimeFrames,
+};
