@@ -22,8 +22,9 @@ import { getChartData } from './getChartData';
 import { toFancyMoneyStr } from './chartFormatting';
 import {
   setThousandsSeparator,
-  textFromTranslatedElement,
+  getBottomTooltipFormat,
   formatMoneyWithK,
+  textFromTranslatedElement,
 } from './chartStringTransformers';
 import { zoom } from './zoom';
 
@@ -108,12 +109,8 @@ class BenefitsLinesComp extends Component {
     }
 
     // Label for split tooltip 'labels'/'label headers' that appear
-    // at the bottom. Really long.
-    // @todo Abstract commonalities between graphs
-    let bottomTooltipFormatStart = `<span class="tooltip-label-header">${getText(translations.i_beforeMoney)}`,
-        bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
-        bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
-
+    // at the bottom. Different each time to stay up to date with app language.
+    let bottomTooltipFormat = getBottomTooltipFormat(translations);
 
     let plotOptions =  { line: { pointInterval: interval }};
     return (

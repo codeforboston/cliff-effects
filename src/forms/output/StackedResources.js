@@ -22,8 +22,9 @@ import { getChartData } from './getChartData';
 import { toFancyMoneyStr } from './chartFormatting';
 import {
   setThousandsSeparator,
-  textFromTranslatedElement,
+  getBottomTooltipFormat,
   formatMoneyWithK,
+  textFromTranslatedElement,
 } from './chartStringTransformers';
 import { zoom } from './zoom';
 
@@ -60,6 +61,7 @@ class StackedResourcesComp extends Component {
     this.state = { altKeyClass: `` };
   };
 
+  // Consider moving this functionality to `GraphHolder`
   componentDidMount () {
     document.addEventListener(`keydown`, this.handleKeyDown);
     document.addEventListener(`keyup`, this.handleKeyUp);
@@ -115,12 +117,9 @@ class StackedResourcesComp extends Component {
     }
 
     // Label for split tooltip 'labels'/'label headers' that appear
-    // at the bottom. Really long.
-    // @todo Change to prep for context, like in @knod 'other-expenses' branch
-    let bottomTooltipFormatStart = `<span class="tooltip-label-header">${getText(translations.i_beforeMoney)}`,
-        bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
-        bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
-
+    // at the bottom. Different each time to stay up to date with app language.
+    // @todo Change to prep for context, like in @knod 'other-expenses' branch (what does this mean?)
+    let bottomTooltipFormat = getBottomTooltipFormat(translations);
 
     let plotOptions =  {
       area:   { stacking: `normal`, pointInterval: interval },

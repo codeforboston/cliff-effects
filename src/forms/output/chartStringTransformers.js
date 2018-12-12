@@ -19,32 +19,21 @@ const setThousandsSeparator = function (translations, Highcharts) {
 };
 
 
-/** Recursively extract text from language-specific React
- *     objects. Creates one inline string of text.
- * Recursion is untested.
+/** Get the string that will format the 'bottom tooltips',
+ *     which are really the label headers but don't look that
+ *     way visually on the chart.
  *
- * @params {object} translationObj React element containing
- *     children that are strings or other React elements.
+ * @params {object} translations The strings for the app's current
+ *     language.
  *
  * @returns {string}
  */
-const textFromTranslatedElement = function (translationObj) {
-
-  const children = translationObj.props.children;
-  
-  if (typeof children === `string`) {
-    return children;
-
-  // To handle more complex translationObj objects
-  } else if (Array.isArray(children)) {
-
-    let allText = ``;
-    for (let child of children) {
-      allText += ` ` + textFromTranslatedElement(child);
-    }
-
-    return allText;
-  }
+const getBottomTooltipFormat = function (translations) {
+  let getText             = textFromTranslatedElement,
+      start               = `<span class="tooltip-label-header">${getText(translations.i_beforeMoney)}`,
+      end                 = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
+      bottomTooltipFormat = start + end;
+  return bottomTooltipFormat;
 };
 
 
@@ -76,8 +65,38 @@ const formatMoneyWithK = (chartObject, translations) => {
 };
 
 
+/** Recursively extract text from language-specific React
+ *     objects. Creates one inline string of text.
+ * Recursion is untested.
+ *
+ * @params {object} translationObj React element containing
+ *     children that are strings or other React elements.
+ *
+ * @returns {string}
+ */
+const textFromTranslatedElement = function (translationObj) {
+
+  const children = translationObj.props.children;
+  
+  if (typeof children === `string`) {
+    return children;
+
+  // To handle more complex translationObj objects
+  } else if (Array.isArray(children)) {
+
+    let allText = ``;
+    for (let child of children) {
+      allText += ` ` + textFromTranslatedElement(child);
+    }
+
+    return allText;
+  }
+};
+
+
 export {
   setThousandsSeparator,
-  textFromTranslatedElement,
+  getBottomTooltipFormat,
   formatMoneyWithK,
+  textFromTranslatedElement,
 };

@@ -21,8 +21,8 @@ import { getChartData } from './getChartData';
 import { toFancyMoneyStr } from './chartFormatting';
 import {
   setThousandsSeparator,
-  textFromTranslatedElement,
   formatMoneyWithK,
+  textFromTranslatedElement,
 } from './chartStringTransformers';
 
 
