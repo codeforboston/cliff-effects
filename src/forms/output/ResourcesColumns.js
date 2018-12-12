@@ -25,6 +25,9 @@ import {
   textFromTranslatedElement,
 } from './chartStringTransformers';
 
+// DATA
+import { CHART_FROSTING } from './CHART_FROSTING';
+
 
 // Graphs get things in monthly values, so we'll convert from there
 let multipliers = timescaleMultipliers.fromMonthly;
@@ -99,6 +102,7 @@ class ResourcesColumnsComp extends Component {
       }
     }  // ends for every dataset
 
+    let beforeMoney = getText(translations.i_beforeMoney);
 
     const plotOptions =  { column: { stacking: `normal` }};
     // @todo Abstract different component attributes as frosting
@@ -107,27 +111,20 @@ class ResourcesColumnsComp extends Component {
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
+            { ...CHART_FROSTING.chart }
             tooltip         = {{ enabled: true }}
-            zoomType        = { `y` }
-            resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
+            zoomType        = { `y` } />
 
           <Title>{ getText(translations.i_stackedBarGraphTitle) }</Title>
 
-          <Legend
-            align         = { `center` }
-            verticalAlign = { `top` } />
+          <Legend { ...CHART_FROSTING.legend } />
 
           <Tooltip
-            split         = { true }
-            valuePrefix   = { `$` }
-            valueDecimals = { 2 }
-            padding       = { 8 }
-            borderRadius  = { 4 }
-            borderColor   = { `transparent`  }
-            hideDelay     = { 300 } />
+            { ...CHART_FROSTING.tooltip }
+            valuePrefix = { beforeMoney } />
 
           <XAxis
-            endOnTick  = { false }
+            { ...CHART_FROSTING.xAxis }
             categories = { categories }
             crosshair  = {{}}>
 
@@ -137,7 +134,7 @@ class ResourcesColumnsComp extends Component {
           </XAxis>
 
           <YAxis
-            endOnTick  = { false }
+            { ...CHART_FROSTING.yAxis }
             labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
 
             <YAxis.Title>{ getText(translations.i_benefitValue) }</YAxis.Title>

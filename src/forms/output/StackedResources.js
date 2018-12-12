@@ -30,6 +30,7 @@ import { zoom } from './zoom';
 
 // DATA
 import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
+import { CHART_FROSTING } from './CHART_FROSTING';
 
 
 // Graphs get things in monthly values, so we'll convert from there
@@ -119,7 +120,8 @@ class StackedResourcesComp extends Component {
     // Label for split tooltip 'labels'/'label headers' that appear
     // at the bottom. Different each time to stay up to date with app language.
     // @todo Change to prep for context, like in @knod 'other-expenses' branch (what does this mean?)
-    let bottomTooltipFormat = getBottomTooltipFormat(translations);
+    let bottomTooltipFormat = getBottomTooltipFormat(translations),
+        beforeMoney         = getText(translations.i_beforeMoney);
 
     let plotOptions =  {
       area:   { stacking: `normal`, pointInterval: interval },
@@ -132,47 +134,37 @@ class StackedResourcesComp extends Component {
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
+            { ...CHART_FROSTING.chart }
             onClick = { this.zoomChart }
             tooltip = {{ enabled: true }}
             panning = { true }
-            panKey  = { `alt` }
-            resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
+            panKey  = { `alt` } />
 
           <Title>{ getText(translations.i_benefitProgramsTitle) }</Title>
 
-          <Legend
-            align         = { `center` }
-            verticalAlign = { `top` } />
+          <Legend { ...CHART_FROSTING.legend } />
 
           <Tooltip
-            split         = { true }
-            headerFormat  = { bottomTooltipFormat }
-            valuePrefix   = { `$` }
-            valueDecimals = { 2 }
-            padding       = { 8 }
-            borderRadius  = { 4 }
-            borderColor   = { `transparent`  }
-            hideDelay     = { 300 } />
+            { ...CHART_FROSTING.tooltip }
+            headerFormat = { bottomTooltipFormat }
+            valuePrefix  = { beforeMoney } />
 
           <XAxis
-            endOnTick = { false }
+            { ...CHART_FROSTING.xAxis }
             labels    = {{ formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
             <XAxis.Title>{ `${timescale} ${getText(translations.i_xAxisTitleEnd)}<br/>${getText(translations.i_panInstructions)}` }</XAxis.Title>
             <PlotLine
+              { ...CHART_FROSTING.plotLine }
               value     = { currentEarned }
               useHTML   = { true }
-              label     = {{ text: `${getText(translations.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }}
-              zIndex    = { 5 }
-              width     = { 2 }
-              color     = { `gray` }
-              dashStyle = { `ShortDashDot` } />
+              label     = {{ text: `${getText(translations.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }} />
 
           </XAxis>
 
           <YAxis
-            endOnTick = { false }
+            { ...CHART_FROSTING.yAxis }
             labels    = {{ useHTML: true, formatter: this.formatMoneyWithK }}
             crosshair = {{}}>
 
