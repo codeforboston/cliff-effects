@@ -110,9 +110,9 @@ class BenefitsLinesComp extends Component {
     // Label for split tooltip 'labels'/'label headers' that appear
     // at the bottom. Really long.
     // @todo Abstract commonalities between graphs
-    let labelHeaderFormatStart = `<span class="tooltip-label-header">${getText(translations.i_beforeMoney)}`,
-        labelHeaderFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
-        labelHeaderFormat      = labelHeaderFormatStart + labelHeaderFormatEnd;
+    let bottomTooltipFormatStart = `<span class="tooltip-label-header">${getText(translations.i_beforeMoney)}`,
+        bottomTooltipFormatEnd   = `{point.key:,.2f}${getText(translations.i_afterMoney)}</span><br/>`,
+        bottomTooltipFormat      = bottomTooltipFormatStart + bottomTooltipFormatEnd;
 
 
     let plotOptions =  { line: { pointInterval: interval }};
@@ -135,7 +135,7 @@ class BenefitsLinesComp extends Component {
 
           <Tooltip
             split         = { true }
-            headerFormat  = { labelHeaderFormat }
+            headerFormat  = { bottomTooltipFormat }
             valuePrefix   = { `$` }
             valueDecimals = { 2 }
             padding       = { 8 }
