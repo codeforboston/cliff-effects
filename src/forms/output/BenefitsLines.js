@@ -21,8 +21,9 @@ import { timescaleMultipliers } from '../../utils/convert-by-timescale';
 import { getChartData } from './getChartData';
 import { toFancyMoneyStr } from './chartFormatting';
 import {
-  formatMoneyWithK,
+  setThousandsSeparator,
   textFromTranslatedElement,
+  formatMoneyWithK,
 } from './chartStringTransformers';
 import { zoom } from './zoom';
 
@@ -50,10 +51,7 @@ class BenefitsLinesComp extends Component {
 
   constructor (props) {
     super(props);
-    let separator = textFromTranslatedElement(props.translations.i_thousandsSeparator);
-    // This doesn't affect the strings we put in there, just pure numbers
-    Highcharts.setOptions({ lang: { thousandsSep: separator }});
-
+    setThousandsSeparator(props.translations, Highcharts);
     this.state = { altKeyClass: `` };
   }
 

@@ -2,6 +2,23 @@
  * @module */
 
 
+/** Mutator. Set the thousands separator character for a Highcharts`
+ *     options.
+ *
+ * @params {object} translations The strings for the app's current
+ *     language.
+ * @params {object} Highcharts Where to set the options.
+ *
+ * @returns {nothing}
+ */
+const setThousandsSeparator = function (translations, Highcharts) {
+  // We really need our own number formatting functions
+  let separator = textFromTranslatedElement(translations.i_thousandsSeparator);
+  // This is for Highcharts to format pure numbers
+  Highcharts.setOptions({ lang: { thousandsSep: separator }});
+};
+
+
 /** Recursively extract text from language-specific React
  *     objects. Creates one inline string of text.
  * Recursion is untested.
@@ -60,6 +77,7 @@ const formatMoneyWithK = (chartObject, translations) => {
 
 
 export {
-  formatMoneyWithK,
+  setThousandsSeparator,
   textFromTranslatedElement,
+  formatMoneyWithK,
 };
