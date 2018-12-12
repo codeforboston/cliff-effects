@@ -1,5 +1,3 @@
-/** Returns a translator based on the language given */
-
 // TRANSFORMER FUNCTIONS
 import { mergeWith } from 'lodash';
 import { interpolateTranslations } from './interpolation.js';
@@ -15,8 +13,8 @@ const localizations = getLocalizationData();
 let finishedTranslations = { en: interpolateTranslations(localizations.en, inlineComponents) };
 
 /** Customizes Lodash's mergeWith function to replace arrays completely
- * (to avoid arrays of English strings being mixed with arrays of translated
- * strings, if they happen to have different lengths).
+ *     (to avoid arrays of English strings being mixed with arrays of translated
+ *     strings, if they happen to have different lengths).
  */
 const mergeCustomizer = function (objValue, srcValue) {
   if (Array.isArray(objValue)) {
@@ -26,13 +24,13 @@ const mergeCustomizer = function (objValue, srcValue) {
 
 /**
  * Returns the object named by langName that contains
- * the text translations of that language. If that language
- * doesn't exist, it warns the coder and returns English.
+ *     the text translations of that language. If that language
+ *     doesn't exist, it warns the coder and returns English.
  */
 const getTextForLanguage = function (langCode) {
   if (!localizations[ langCode ]) {
-    console.warn('There\'s no localization for ' + langCode + '. Defaulting to English.');
-    langCode = 'en';
+    console.warn(`There's no localization for ` + langCode + `. Defaulting to English.`);
+    langCode = `en`;
   }
 
   if (!finishedTranslations[ langCode ]) {
@@ -45,7 +43,10 @@ const getTextForLanguage = function (langCode) {
   }
 
   return finishedTranslations[ langCode ];
-};  // End getTextForLanguage()
+};
 
 
-export { getTextForLanguage };
+export {
+  mergeCustomizer,
+  getTextForLanguage,
+};
