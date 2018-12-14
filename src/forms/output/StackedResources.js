@@ -141,7 +141,7 @@ class StackedResourcesComp extends Component {
             panKey  = { `alt` }
             resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
 
-          <Title>{ getText(translations.i_benefitProgramsTitle) }</Title>
+          <Title>{ getText(translations.i_stackedAreaGraphTitle) }</Title>
 
           <Legend
             align         = { `center` }
