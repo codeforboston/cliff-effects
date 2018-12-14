@@ -146,9 +146,9 @@ class BenefitsLinesComp extends Component {
             <XAxis.Title>{ `${timescale} ${getText(translations.i_xAxisTitleEnd)}<br/>${getText(translations.i_panInstructions)}` }</XAxis.Title>
             <PlotLine
               { ...CHART_FROSTING.plotLine }
-              value     = { currentEarned }
-              useHTML   = { true }
-              label     = {{ text: `${getText(translations.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }} />
+              value   = { currentEarned }
+              useHTML = { true }
+              label   = {{ text: `${getText(translations.i_currentPayPlotLineLabel)}<br/>${toFancyMoneyStr(currentEarned)}`, rotation: 0 }} />
 
           </XAxis>
 

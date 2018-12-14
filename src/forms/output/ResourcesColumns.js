@@ -81,7 +81,7 @@ class ResourcesColumnsComp extends Component {
         categories = [];
     for (let dataseti = 0; dataseti < datasets.length; dataseti++) {
       let dataset = datasets[ dataseti ],
-          column = (
+          column  = (
             <ColumnSeries
               key         = { dataset.label }
               id          = { dataset.label.replace(` `, ``) }
@@ -112,8 +112,8 @@ class ResourcesColumnsComp extends Component {
 
           <Chart
             { ...CHART_FROSTING.chart }
-            tooltip         = {{ enabled: true }}
-            zoomType        = { `y` } />
+            tooltip  = {{ enabled: true }}
+            zoomType = { `y` } />
 
           <Title>{ getText(translations.i_stackedBarGraphTitle) }</Title>
 
@@ -135,7 +135,7 @@ class ResourcesColumnsComp extends Component {
 
           <YAxis
             { ...CHART_FROSTING.yAxis }
-            labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
+            labels = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
 
             <YAxis.Title>{ getText(translations.i_benefitValue) }</YAxis.Title>
 
