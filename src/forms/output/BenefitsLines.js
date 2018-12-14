@@ -26,7 +26,10 @@ import {
   formatMoneyWithK,
   textFromTranslatedElement,
 } from './chartStringTransformers';
-import { zoom } from './zoom';
+import {
+  zoomChart,
+  zoom,
+} from './zoom-handlers';
 
 // DATA
 import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
@@ -121,7 +124,7 @@ class BenefitsLinesComp extends Component {
 
           <Chart
             { ...CHART_FROSTING.chart }
-            onClick = { this.zoomChart }
+            onClick = { zoomChart }
             tooltip = {{ enabled: true }}
             panning = { true }
             panKey  = { `alt` } />
@@ -186,24 +189,6 @@ class BenefitsLinesComp extends Component {
    */
   formatMoneyWithK = (highchartsObject) => {
     return formatMoneyWithK(highchartsObject, this.props.translations);
-  };
-
-  /** Sends data to `zoom()` when the chart itself is clicked
-   *     on, formatted in the way that `zoom()` needs.
-   * @param {object} event Highcharts event object
-   * @returns nothing (but in future may be a message if
-   *     zooming is blocked)
-   */
-  zoomChart (event) {
-    let valuesAtMouse = {
-          x: event.xAxis[ 0 ].value,
-          y: event.yAxis[ 0 ].value,
-        },
-        axes = {
-          x: event.xAxis[ 0 ].axis,
-          y: event.yAxis[ 0 ].axis,
-        };
-    zoom(event, this, valuesAtMouse, axes);
   };
 
   /** Sends data to `zoom()` when a plain line chart series
