@@ -75,57 +75,57 @@ const IncomeForm = function ({ current, time, updateClientValue, translations })
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `earned` }>
-        { translations.earnedIncome.i_label }
+        { translations.i_earnedIncomeLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `TAFDC` }> 
-        { translations.TAFDC.i_label }
+        { translations.i_TAFDClabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `SSI` }> 
-        { translations.SSI.i_label }
+        { translations.i_SSIlabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `SSDI` }>
-        { translations.SSDI.i_label }
+        { translations.i_SSDIlabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childSupportIn` }>
-        { translations.childSupport.i_label }
+        { translations.i_childSupportLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `unemployment` }> 
-        { translations.unemployment.i_label }      
+        { translations.i_unemploymentLabel }      
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `workersComp` }> 
-        { translations.workersComp.i_label }
+        { translations.i_workersCompLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `pension` }>
-        { translations.pension.i_label }
+        { translations.i_pensionLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `socialSecurity` }>
-        { translations.socialSecurity.i_label }
+        { translations.i_socialSecurityLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `alimony` }> 
-        { translations.alimony.i_label }
+        { translations.i_alimonyLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `otherIncome` }>
-        { translations.otherIncome.i_label }
+        { translations.i_otherIncomeLabel }
       </CashFlowInputsRow>
       <Form.Field>{ translations.i_explainSnapCalculation }</Form.Field>
 
@@ -157,7 +157,7 @@ const CurrentIncomeStep = function ({ updateClientValue, navData, client, transl
       <IncomeForm
         updateClientValue = { updateClientValue }
         current           = { client.current }
-        time              = { 'current' }
+        time              = { `current` }
         translations      = { translations } />
     </FormPartsContainer>
   );
