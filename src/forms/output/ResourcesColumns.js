@@ -20,9 +20,13 @@ import { timescaleMultipliers } from '../../utils/convert-by-timescale';
 import { getChartData } from './getChartData';
 import { toFancyMoneyStr } from './chartFormatting';
 import {
+  setThousandsSeparator,
   formatMoneyWithK,
   textFromTranslatedElement,
 } from './chartStringTransformers';
+
+// DATA
+import { CHART_FROSTING } from './CHART_FROSTING';
 
 
 // Graphs get things in monthly values, so we'll convert from there
@@ -44,9 +48,7 @@ class ResourcesColumnsComp extends Component {
 
   constructor (props) {
     super(props);
-    let separator = textFromTranslatedElement(props.translations.i_thousandsSeparator);
-    // This doesn't affect the strings we put in there, just pure numbers
-    Highcharts.setOptions({ lang: { thousandsSep: separator }});
+    setThousandsSeparator(props.translations, Highcharts);
   }
 
   render () {
@@ -79,7 +81,7 @@ class ResourcesColumnsComp extends Component {
         categories = [];
     for (let dataseti = 0; dataseti < datasets.length; dataseti++) {
       let dataset = datasets[ dataseti ],
-          column = (
+          column  = (
             <ColumnSeries
               key         = { dataset.label }
               id          = { dataset.label.replace(` `, ``) }
@@ -100,6 +102,7 @@ class ResourcesColumnsComp extends Component {
       }
     }  // ends for every dataset
 
+    let beforeMoney = getText(translations.i_beforeMoney);
 
     const plotOptions =  { column: { stacking: `normal` }};
     // @todo Abstract different component attributes as frosting
@@ -108,27 +111,20 @@ class ResourcesColumnsComp extends Component {
         <HighchartsChart plotOptions={ plotOptions }>
 
           <Chart
-            tooltip         = {{ enabled: true }}
-            zoomType        = { `y` }
-            resetZoomButton = {{ theme: { zIndex: 200 }, relativeTo: `chart` }} />
+            { ...CHART_FROSTING.chart }
+            tooltip  = {{ enabled: true }}
+            zoomType = { `y` } />
 
           <Title>{ getText(translations.i_stackedBarGraphTitle) }</Title>
 
-          <Legend
-            align         = { `center` }
-            verticalAlign = { `top` } />
+          <Legend { ...CHART_FROSTING.legend } />
 
           <Tooltip
-            split         = { true }
-            valuePrefix   = { `$` }
-            valueDecimals = { 2 }
-            padding       = { 8 }
-            borderRadius  = { 4 }
-            borderColor   = { `transparent`  }
-            hideDelay     = { 300 } />
+            { ...CHART_FROSTING.tooltip }
+            valuePrefix = { beforeMoney } />
 
           <XAxis
-            endOnTick  = { false }
+            { ...CHART_FROSTING.xAxis }
             categories = { categories }
             crosshair  = {{}}>
 
@@ -138,8 +134,8 @@ class ResourcesColumnsComp extends Component {
           </XAxis>
 
           <YAxis
-            endOnTick  = { false }
-            labels     = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
+            { ...CHART_FROSTING.yAxis }
+            labels = {{ useHTML: true, formatter: this.formatMoneyWithK }}>
 
             <YAxis.Title>{ getText(translations.i_benefitValue) }</YAxis.Title>
 

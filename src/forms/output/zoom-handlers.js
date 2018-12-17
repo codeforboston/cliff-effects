@@ -1,6 +1,29 @@
 // Works until you get into the lowest x-axis unit
 // allowed, at which point only y gets zoomed in
 
+
+// Zoom functionality that's shared between charts
+
+
+/** Sends data to `zoom()` when the chart itself is clicked
+ *     on, formatted in the way that `zoom()` needs.
+ * @param {object} event Highcharts event object
+ * @returns nothing (but in future may be a message if
+ *     zooming is blocked)
+ */
+const zoomChart = function (event) {
+  let valuesAtMouse = {
+        x: event.xAxis[ 0 ].value,
+        y: event.yAxis[ 0 ].value,
+      },
+      axes = {
+        x: event.xAxis[ 0 ].axis,
+        y: event.yAxis[ 0 ].axis,
+      };
+  zoom(event, this, valuesAtMouse, axes);
+};
+
+
 /** Proportional zooming in charts. Mutator.
  *
  * @param {object} event Whatever event highchart sends. Should have a `.altKey`
@@ -78,4 +101,7 @@ const zoom = function (event, chart, valuesAtMouse, axes) {
 };  // Ends zoom()
 
 
-export { zoom };
+export {
+  zoomChart,
+  zoom,
+};
