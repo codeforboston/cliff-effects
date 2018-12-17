@@ -143,7 +143,7 @@ class StackedResourcesComp extends Component {
             panning = { true }
             panKey  = { `alt` } />
 
-          <Title>{ getText(translations.i_benefitProgramsTitle) }</Title>
+          <Title>{ getText(translations.i_stackedAreaGraphTitle) }</Title>
 
           <Legend { ...CHART_FROSTING.legend } />
 
