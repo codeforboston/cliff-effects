@@ -175,27 +175,19 @@ const en = {
     currentExpenses: {
       title_v1:                        `Current Household Expenses`,
       unreimbursedNonMedicalChildCare: {
-        sectionHeading_v1:    `Reasonable Unreimbursed Non-Medical Child(ren) Care`,
-        subheading_v1:        `A "child" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.`,
-        columnExpenseType_v1: `Expense`,
-        childDirectCare:      {
-          label_v1: `Direct care costs`,
-          hint_v1:  `How much do you pay for child care out of pocket?`,
-        },
-        childBeforeAndAfterSchoolCare: {
-          label_v1: `Before- and after-school care`,
-          hint_v1:  `How much do you pay for child care for times before or after school?`,
-        },
-        childTransportation: {
-          label_v1: `Transportation costs`,
-          hint_v1:  `How much do you pay for transportation?`,
-        },
-        childOtherCare: {
-          label_v1: `Other care`,
-          hint_v1:  `How much do you pay for other child care?`,
-        },
-        doEarnBecauseOfChildCare_v1: `Does child care allow you to make additional income?`,
-        earnedBecauseOfChildCare_v1: `Income made possible by childcare expenses`,
+        sectionHeading_v1:                     `Reasonable Unreimbursed Non-Medical Child(ren) Care`,
+        subheading_v1:                         `A "child" is a person 12 or younger. Don't include amounts that are paid for by other benefit programs.`,
+        columnExpenseType_v1:                  `Expense`,
+        childDirectCareLabel_v1:               `Direct care costs`,
+        childDirectCareHint_v1:                `How much do you pay for child care out of pocket?`,
+        childBeforeAndAfterSchoolCareLabel_v1: `Before- and after-school care`,
+        childBeforeAndAfterSchoolCareHint_v1:  `How much do you pay for child care for times before or after school?`,
+        childTransportationLabel_v1:           `Transportation costs`,
+        childTransportationHint_v1:            `How much do you pay for transportation?`,
+        childOtherCareLabel_v1:                `Other care`,
+        childOtherCareHint_v1:                 `How much do you pay for other child care?`,
+        doEarnBecauseOfChildCare_v1:           `Does child care allow you to make additional income?`,
+        earnedBecauseOfChildCare_v1:           `Income made possible by childcare expenses`,
       },
       childSupport: {
         sectionHeading_v1:      `Child Support`,

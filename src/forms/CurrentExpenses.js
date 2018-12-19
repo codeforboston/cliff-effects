@@ -209,22 +209,22 @@ const Under13 = function ({ translations, type, sharedProps, current, updateClie
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childDirectCare` }>
-        { translations.unreimbursedNonMedicalChildCare.childDirectCare.i_label }
+        { translations.unreimbursedNonMedicalChildCare.i_childDirectCareLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childBeforeAndAfterSchoolCare` }>
-        { translations.unreimbursedNonMedicalChildCare.childBeforeAndAfterSchoolCare.i_label}
+        { translations.unreimbursedNonMedicalChildCare.i_childBeforeAndAfterSchoolCareLabel}
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childTransportation` }>
-        { translations.unreimbursedNonMedicalChildCare.childTransportation.i_label }
+        { translations.unreimbursedNonMedicalChildCare.i_childTransportationLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childOtherCare` }>
-        { translations.unreimbursedNonMedicalChildCare.childOtherCare.i_label }
+        { translations.unreimbursedNonMedicalChildCare.i_childOtherCareLabel }
       </CashFlowInputsRow>
 
       <EarnedFrom
