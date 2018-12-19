@@ -200,8 +200,8 @@ const ExpensesFormContent = function ({ current, time, updateClientValue, transl
 const Under13 = function ({ translations, type, sharedProps, current, updateClientValue }) {
   return (
     <div>
-      <ContentH1 subheading={ translations.unreimbursedNonMedicalChildCare.i_subheading }>
-        { translations.unreimbursedNonMedicalChildCare.i_sectionHeading }
+      <ContentH1 subheading={ translations.i_childCareSubheading }>
+        { translations.i_childCareSectionHeading }
       </ContentH1>
 
       <IntervalColumnHeadings type={ type } />
@@ -209,22 +209,22 @@ const Under13 = function ({ translations, type, sharedProps, current, updateClie
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childDirectCare` }>
-        { translations.unreimbursedNonMedicalChildCare.i_childDirectCareLabel }
+        { translations.i_childDirectCareLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childBeforeAndAfterSchoolCare` }>
-        { translations.unreimbursedNonMedicalChildCare.i_childBeforeAndAfterSchoolCareLabel}
+        { translations.i_childBeforeAndAfterSchoolCareLabel}
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childTransportation` }>
-        { translations.unreimbursedNonMedicalChildCare.i_childTransportationLabel }
+        { translations.i_childTransportationLabel }
       </CashFlowInputsRow>
       <CashFlowInputsRow
         { ...sharedProps }
         generic = { `childOtherCare` }>
-        { translations.unreimbursedNonMedicalChildCare.i_childOtherCareLabel }
+        { translations.i_childOtherCareLabel }
       </CashFlowInputsRow>
 
       <EarnedFrom
