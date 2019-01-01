@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { cloneDeep, set } from 'lodash';
 
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
-import { GraphHolder } from '../../../forms/output/GraphHolder';
+import { GraphHolder } from '../../../forms/predictions/GraphHolder';
 
 const passedActivePrograms = (wrapper) => {
   return wrapper.find('Graph').prop('activePrograms');

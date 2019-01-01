@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { cloneDeep, set } from 'lodash';
 
-import { BenefitsTable } from '../../../forms/output/BenefitsTable';
+import { BenefitsTable } from '../../../forms/predictions/BenefitsTable';
 import { translations } from '../../helpers';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 

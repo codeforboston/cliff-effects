@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { cloneDeep, set } from 'lodash';
 
-import { BenefitsLines } from '../../../forms/output/BenefitsLines';
+import { BenefitsLines } from '../../../forms/predictions/BenefitsLines';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
 // Skipping till highcharts testing is worked out

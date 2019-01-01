@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   Divider,
   Header,
@@ -12,12 +12,18 @@ import {
 import { FormPartsContainer } from './FormPartsContainer';
 import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
-import { GraphHolder } from './output/GraphHolder';
-import { Summary } from './output/Summary';
-import { BenefitsTable } from './output/BenefitsTable';
-import { ResourcesColumns } from './output/ResourcesColumns';
-import { StackedResources } from './output/StackedResources';
-import { BenefitsLines } from './output/BenefitsLines';
+import { GraphHolder } from './predictions/GraphHolder';
+import { Summary } from './predictions/Summary';
+import { BenefitsTable } from './predictions/BenefitsTable';
+import { ResourcesColumns } from './predictions/ResourcesColumns';
+import { StackedResources } from './predictions/StackedResources';
+import { BenefitsLines } from './predictions/BenefitsLines';
+
+// NON-COMPONENTS
+import { applyAndPushBenefits } from '../benefits/applyAndPushBenefits';
+import { calcDataToChartData } from './predictions/build-resource-data';
+import { toMoneyStr } from '../utils/prettifiers';
+import { cloneDeep } from 'lodash';
 
 
 /** @todo Cash flow row for trying out different future incomes.
@@ -156,7 +162,91 @@ const TabbedVisualizations = ({ client, openFeedback, translations }) => {
 };  // Ends <TabbedVisualizations>
 
 
+// Recap of current info from client
+let Recap = function ({ client, translations, openFeedback }) {
+
+  // Get the data for the component
+  let clone        = cloneDeep(client),
+      current      = clone.current,
+      resourceKeys = [
+        `earned`,
+        ...current.benefits,
+      ],
+      accumulated = {},
+      calcData    = {
+        activeBenefits: resourceKeys,
+        dataToAddTo:    accumulated,
+        clientToChange: clone,
+        timeframe:      `current`,
+      };
+
+  applyAndPushBenefits(calcData);
+  let data = calcDataToChartData(resourceKeys, accumulated, 0);
+
+  // Build the contents of the component
+  let start = (<p>The tool is still being tested, so don't use it to make decisions. If it's right, it has calculated your money coming in as:</p>);
+
+  // Benefit list items
+  let resourceList = [
+    (
+      <li key={ `earned` }>{ `Pay from work: ` }{translations.i_beforeMoneyWithTime}{round$(data.earned)} {translations.i_eachTimeInterval}</li>
+    ),
+  ];
+  let numBenefits = current.benefits.length;
+  for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
+
+    let cBenefit = data.benefits[ benefiti ];
+    resourceList.push(
+      <li key={ cBenefit.label }>
+        {cBenefit.label}: {translations.i_beforeMoneyWithTime}{round$(cBenefit.amount)} {translations.i_eachTimeInterval}
+      </li>
+    );
+  }  // ends for each benefit
+
+  let totals = (
+    <p>
+      { `That's ` }
+      <strong>
+        { translations.i_beforeMoneyWithTime }{ round$(data.total) + ` ` }
+      </strong>
+      { translations.i_eachTimeInterval }{ translations.i_period }
+    </p>
+  );
+
+  // Ask for feedback. Stays put when printing. A take-home hint
+  // that the tool is still a prototype
+  let feedbackAsk = (
+    <Message>
+      <span key={ `pre-ask` }>{ translations.i_feedbackAsk }</span>
+      <Button
+        compact
+        key     = { `ask` }
+        size    = { `small` }
+        onClick = { openFeedback }>
+        { translations.i_submitFeedback }
+      </Button>
+    </Message>
+  );
+
+  return (
+    <Fragment>
+      <Header>Right now</Header>
+      { start }
+      <ol>{ resourceList }</ol>
+      { totals }
+      { feedbackAsk }
+      <Divider />
+    </Fragment>
+  );
+};  // Ends <Recap>
+
+
 const PredictionsStep = function ({ updateClientValue, navData, client, translations, openFeedback }) {
+
+  // Really quick returns if other calcs not needed
+  if (client.current.benefits.length === 0) {
+    return translations.i_noBenefitsChosen;
+  }
 
   return (
     <FormPartsContainer
@@ -164,9 +254,16 @@ const PredictionsStep = function ({ updateClientValue, navData, client, translat
       clarifier = { null }
       navData   = { navData }
       formClass = { `predictions` }>
+
       {/* `predictions-form`: This whole div will be outside
         the form in the future and then we'll be able to
         access its style that way */}
+
+      <Recap
+        client       = { client }
+        translations = { translations }
+        openFeedback = { openFeedback } />
+
       <div id={ `predictions-form` }>
         <IncomeForm
           updateClientValue = { updateClientValue }
@@ -203,6 +300,17 @@ const PredictionsStep = function ({ updateClientValue, navData, client, translat
     </FormPartsContainer>
   );
 };  // End <PredictionsStep>
+
+
+/** Rounds money values, turns them into money-formatted
+ *     strings, then removes trailing '.00'
+ *
+ * @param {number} number Number to round and format
+ * @returns {string}
+ */
+let round$ = function (number) {
+  return toMoneyStr(Math.round(number)).replace(`.00`, ``);
+};
 
 
 export { PredictionsStep };

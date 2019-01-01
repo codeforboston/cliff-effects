@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { GraphTimeButtons } from '../../forms/output/GraphTimeButtons';
+import { GraphTimeButtons } from '../../forms/predictions/GraphTimeButtons';
 
 describe('<GraphTimeButtons>', () => {
   it('renders Weekly, Monthly, and Yearly buttons', () => {
