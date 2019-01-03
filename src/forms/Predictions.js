@@ -26,6 +26,67 @@ import { toMoneyStr } from '../utils/prettifiers';
 import { cloneDeep } from 'lodash';
 
 
+const PredictionsStep = function ({ updateClientValue, navData, client, translations, openFeedback }) {
+
+  // Really quick returns if other calcs not needed
+  if (client.current.benefits.length === 0) {
+    return translations.i_noBenefitsChosen;
+  }
+
+  return (
+    <FormPartsContainer
+      title     = { translations.i_title }
+      clarifier = { null }
+      navData   = { navData }
+      formClass = { `predictions` }>
+
+      {/* `predictions-form`: This whole div will be outside
+        the form in the future and then we'll be able to
+        access its style that way */}
+
+      <Recap
+        client       = { client }
+        translations = { translations }
+        openFeedback = { openFeedback } />
+
+      <div id={ `predictions-form` }>
+        <IncomeForm
+          updateClientValue = { updateClientValue }
+          future            = { client.future }
+          time              = { `future` }
+          translations      = { translations } />
+        <Divider className={ `ui section divider hidden` } />
+      </div>
+      <div id={ `results-intro` }>
+        <Header
+          as        = { `h3` }
+          className = { `ui Header align centered` }>
+          { translations.i_chartsHeader }
+        </Header>
+        <Message
+          visible
+          warning
+          className = { `prediction-message` }>
+          { translations.i_warningMessage }
+          <Button
+            compact
+            className = { `feedback-button` }
+            size      = { `small` }
+            color     = { `teal` }
+            onClick   = { openFeedback }>
+            { translations.i_submitFeedback }
+          </Button>
+        </Message>
+      </div>
+      <TabbedVisualizations 
+        client       = { client }
+        openFeedback = { openFeedback }
+        translations = { translations } />
+    </FormPartsContainer>
+  );
+};  // End <PredictionsStep>
+
+
 /** @todo Cash flow row for trying out different future incomes.
  *
  * As per Project Hope's input, for the first prototype
@@ -239,67 +300,6 @@ let Recap = function ({ client, translations, openFeedback }) {
     </Fragment>
   );
 };  // Ends <Recap>
-
-
-const PredictionsStep = function ({ updateClientValue, navData, client, translations, openFeedback }) {
-
-  // Really quick returns if other calcs not needed
-  if (client.current.benefits.length === 0) {
-    return translations.i_noBenefitsChosen;
-  }
-
-  return (
-    <FormPartsContainer
-      title     = { translations.i_title }
-      clarifier = { null }
-      navData   = { navData }
-      formClass = { `predictions` }>
-
-      {/* `predictions-form`: This whole div will be outside
-        the form in the future and then we'll be able to
-        access its style that way */}
-
-      <Recap
-        client       = { client }
-        translations = { translations }
-        openFeedback = { openFeedback } />
-
-      <div id={ `predictions-form` }>
-        <IncomeForm
-          updateClientValue = { updateClientValue }
-          future            = { client.future }
-          time              = { `future` }
-          translations      = { translations } />
-        <Divider className={ `ui section divider hidden` } />
-      </div>
-      <div id={ `results-intro` }>
-        <Header
-          as        = { `h3` }
-          className = { `ui Header align centered` }>
-          { translations.i_chartsHeader }
-        </Header>
-        <Message
-          visible
-          warning
-          className = { `prediction-message` }>
-          { translations.i_warningMessage }
-          <Button
-            compact
-            className = { `feedback-button` }
-            size      = { `small` }
-            color     = { `teal` }
-            onClick   = { openFeedback }>
-            { translations.i_submitFeedback }
-          </Button>
-        </Message>
-      </div>
-      <TabbedVisualizations 
-        client       = { client }
-        openFeedback = { openFeedback }
-        translations = { translations } />
-    </FormPartsContainer>
-  );
-};  // End <PredictionsStep>
 
 
 /** Rounds money values, turns them into money-formatted
