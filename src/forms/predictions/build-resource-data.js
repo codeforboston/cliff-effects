@@ -69,7 +69,7 @@ import { BENEFIT_CHART_VALUES } from './BENEFIT_CHART_VALUES';
  * 
  * @returns {object} moneyValues
  */
-let calcDataToChartData = (keys, sourceObject, index) => {
+let benefitArrayDataToSingleData = (keys, sourceObject, index) => {
 
   if (!Array.isArray(sourceObject.earned)) {
     throw new TypeError(`The given resources object requires an 'earned' property that is an array of numbers.`);
@@ -101,7 +101,7 @@ let calcDataToChartData = (keys, sourceObject, index) => {
   moneyValues.total = moneyValues.earned + moneyValues.benefitsTotal;
 
   return moneyValues;
-};  // Ends calcDataToChartData()
+};  // Ends benefitArrayDataToSingleData()
 
 
-export { calcDataToChartData };
+export { benefitArrayDataToSingleData };

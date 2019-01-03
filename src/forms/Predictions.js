@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Divider,
   Header,
@@ -22,68 +22,112 @@ import { BenefitsLines } from './predictions/BenefitsLines';
 
 // NON-COMPONENTS
 import { applyAndPushBenefits } from '../benefits/applyAndPushBenefits';
-import { calcDataToChartData } from './predictions/build-resource-data';
+import { benefitArrayDataToSingleData } from './predictions/build-resource-data';
 import { toMoneyStr } from '../utils/prettifiers';
 import { cloneDeep } from 'lodash';
 
 
-const PredictionsStep = function ({ updateClientValue, navData, client, translations, openFeedback }) {
+class PredictionsStep extends Component{
+  // Accumulated data for rendering results
+  state = {
+    client:             this.props.client,
+    currentBenefitData: {},
+  };
 
-  // Really quick returns if other calcs not needed
-  if (client.current.benefits.length === 0) {
-    return translations.i_noBenefitsChosen;
+  componentDidMount () {
+    // Multiple things need the current benefit data
+    // to show results
+    this.setState((prevState) => {
+      let clone        = cloneDeep(prevState.client),
+          accumulated = {};
+
+      let resourceKeys = [
+            `earned`,
+            ...clone.current.benefits,
+          ],
+          calcData    = {
+            activeBenefits: resourceKeys,
+            dataToAddTo:    accumulated,
+            clientToChange: clone,
+            timeframe:      `current`,
+          };
+
+      // mutates `accumulated`
+      applyAndPushBenefits(calcData);
+
+      return {
+        client:             clone,
+        currentBenefitData: accumulated,
+      };
+    });
   }
 
-  return (
-    <FormPartsContainer
-      title     = { translations.i_title }
-      clarifier = { null }
-      navData   = { navData }
-      formClass = { `predictions` }>
+  render () {
+    let { currentBenefitData } = this.state;
+    let { client, updateClientValue, navData, translations, openFeedback } = this.props;
 
-      {/* `predictions-form`: This whole div will be outside
-        the form in the future and then we'll be able to
-        access its style that way */}
+    if (currentBenefitData.earned === undefined) {
+      return null;
+    }
 
-      <Recap
-        client       = { client }
-        translations = { translations }
-        openFeedback = { openFeedback } />
+    // Really quick returns if other calcs not needed
+    if (client.current.benefits.length === 0) {
+      return translations.i_noBenefitsChosen;
+    }
 
-      <div id={ `predictions-form` }>
-        <Raise
-          updateClientValue = { updateClientValue }
-          client            = { client }
-          translations      = { translations } />
-        <Divider className={ `ui section divider hidden` } />
-      </div>
-      <div id={ `results-intro` }>
-        <Header
-          as        = { `h3` }
-          className = { `ui Header align centered` }>
-          { translations.i_chartsHeader }
-        </Header>
-        <Message
-          visible
-          warning
-          className = { `prediction-message` }>
-          { translations.i_warningMessage }
-          <Button
-            compact
-            className = { `feedback-button` }
-            size      = { `small` }
-            color     = { `teal` }
-            onClick   = { openFeedback }>
-            { translations.i_submitFeedback }
-          </Button>
-        </Message>
-      </div>
-      <TabbedVisualizations 
-        client       = { client }
-        openFeedback = { openFeedback }
-        translations = { translations } />
-    </FormPartsContainer>
-  );
+    return (
+      <FormPartsContainer
+        title     = { translations.i_title }
+        clarifier = { null }
+        navData   = { navData }
+        formClass = { `predictions` }>
+
+        {/* `predictions-form`: This whole div will be outside
+          the form in the future and then we'll be able to
+          access its style that way */}
+
+        <Recap
+          client             = { client }
+          currentBenefitData = { currentBenefitData }
+          translations       = { translations }
+          openFeedback       = { openFeedback } />
+
+        <div id={ `predictions-form` }>
+          <Raise
+            client            = { client }
+            updateClientValue = { updateClientValue }
+            currentBenefitData = { currentBenefitData }
+            translations      = { translations } />
+          <Divider className={ `ui section divider hidden` } />
+        </div>
+        <div id={ `results-intro` }>
+          <Header
+            as        = { `h3` }
+            className = { `ui Header align centered` }>
+            { translations.i_chartsHeader }
+          </Header>
+          <Message
+            visible
+            warning
+            className = { `prediction-message` }>
+            { translations.i_warningMessage }
+            <Button
+              compact
+              className = { `feedback-button` }
+              size      = { `small` }
+              color     = { `teal` }
+              onClick   = { openFeedback }>
+              { translations.i_submitFeedback }
+            </Button>
+          </Message>
+        </div>
+        <TabbedVisualizations 
+          client       = { client }
+          openFeedback = { openFeedback }
+          translations = { translations } />
+      </FormPartsContainer>
+    );
+  }  // End render()
 };  // End <PredictionsStep>
 
 
@@ -187,58 +231,25 @@ const TabbedVisualizations = ({ client, openFeedback, translations }) => {
 
 
 // Recap of current info from client
-let Recap = function ({ client, translations, openFeedback }) {
+let Recap = function ({ client, currentBenefitData, translations, openFeedback }) {
 
   // Get the data for the component
-  let clone        = cloneDeep(client),
-      current      = clone.current,
+  let current      = client.current,
       resourceKeys = [
         `earned`,
         ...current.benefits,
-      ],
-      accumulated = {},
-      calcData    = {
-        activeBenefits: resourceKeys,
-        dataToAddTo:    accumulated,
-        clientToChange: clone,
-        timeframe:      `current`,
-      };
+      ];
 
-  // mutates `accumulated`
-  applyAndPushBenefits(calcData);
-  let data = calcDataToChartData(resourceKeys, accumulated, 0);
+  let data = benefitArrayDataToSingleData(resourceKeys, currentBenefitData, 0);
 
   // Build the contents of the component
-  let start = (<p>The tool is still being tested, so don't use it to make decisions. If it's right, it has calculated your money coming in as:</p>);
-
-  // Benefit list items
-  let resourceList = [
-    (
-      <li key={ `earned` }>{ `Pay from work: ` }{translations.i_beforeMoneyWithTime}{round$(data.earned)} {translations.i_eachTimeInterval}</li>
-    ),
-  ];
-  let numBenefits = current.benefits.length;
-  for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
-
-    let cBenefit = data.benefits[ benefiti ];
-    resourceList.push(
-      <li key={ cBenefit.label }>
-        {cBenefit.label}: {translations.i_beforeMoneyWithTime}{round$(cBenefit.amount)} {translations.i_eachTimeInterval}
-      </li>
-    );
-  }  // ends for each benefit
-
-  let totals = (
+  let start = (
     <p>
-      { `That's ` }
-      <strong>
-        { translations.i_beforeMoneyWithTime }{ round$(data.total) + ` ` }
-      </strong>
-      { translations.i_eachTimeInterval }{ translations.i_period }
+      { `The tool is still being tested, so don't use it to make decisions. If it's right, it has calculated your money coming in as:` }
     </p>
   );
 
-  // Ask for feedback. Stays put when printing. A take-home hint
+  // Stays put when printing. A take-home hint
   // that the tool is still a prototype
   let feedbackAsk = (
     <Message>
@@ -257,8 +268,10 @@ let Recap = function ({ client, translations, openFeedback }) {
     <Fragment>
       <Header>Right now</Header>
       { start }
-      <ol>{ resourceList }</ol>
-      { totals }
+      <TextResults
+        client       = { client }
+        data         = { data }
+        translations = { translations } />
       { feedbackAsk }
       <Divider />
     </Fragment>
@@ -278,7 +291,7 @@ let Recap = function ({ client, translations, openFeedback }) {
  *
  * @returns {object} React element
  */
-const Raise = function ({ client, updateClientValue, translations }) {
+const Raise = function ({ client, updateClientValue, currentBenefitData, translations }) {
 
   let future = client.future,
       key    = `raise`,
@@ -317,17 +330,113 @@ const Raise = function ({ client, updateClientValue, translations }) {
         Left                = { <AttentionArrow /> }>
         { inputs }
       </ShowOnYes>
-      <RaiseResult
-        client       = { client }
-        translations = { translations } />
+      <div className={ `question-spacer` } />
+      <RaiseResults
+        client             = { client }
+        currentBenefitData = { currentBenefitData }
+        translations       = { translations } />
     </Fragment>
   );
 };
 
 
-let RaiseResult = function () {
-  return null;
-};  // Ends <RaiseResult>
+let RaiseResults = function ({ client, currentBenefitData, translations }) {
+  // Add the data for the future of the client using the raise
+  let clone             = cloneDeep(client),
+      futureBenefitData = {};
+
+  let resourceKeys = [
+        `earned`,
+        ...clone.current.benefits,
+      ],
+      calcData    = {
+        activeBenefits: resourceKeys,
+        dataToAddTo:    futureBenefitData,
+        clientToChange: clone,
+        timeframe:      `future`,
+      };
+
+  // mutates `accumulated`
+  applyAndPushBenefits(calcData);
+  let currentData = benefitArrayDataToSingleData(resourceKeys, currentBenefitData, 0),
+      futureData  = benefitArrayDataToSingleData(resourceKeys, futureBenefitData, 0);
+
+  let start = (
+    <p>
+      <span>{ `If you get a raise of ` }</span>
+      <span>{ translations.i_beforeMoneyWithTime }{ round$(clone.future.raise) } { translations.i_eachTimeInterval }</span>
+      <span>{ ` your money coming in could look like this:` }</span>
+    </p>
+  );
+
+  let diff        = futureData.total - currentData.total,
+      changeStart = (<span>{ ` That would be ` }</span>),
+      amount      = (
+        <span>
+          { translations.i_beforeMoneyWithTime }{ round$(Math.abs(diff)) } { translations.i_eachTimeInterval }
+        </span>
+      ),
+      lessOrMore = null;
+
+  if (diff === 0) {
+    lessOrMore = (<span>{ `the same as before.` }</span>);
+  } else if (diff > 0) {
+    lessOrMore = (<strong>{ amount }{ ` more than before.` }</strong>);
+  } else {
+    lessOrMore = (<strong>{ amount }{ ` less than before.` }</strong>);
+  }
+
+  return (
+    <Fragment>
+      { start }
+      <TextResults
+        client       = { client }
+        data         = { futureData }
+        translations = { translations } />
+      { changeStart }
+      { lessOrMore }
+      <Message>{ translations.i_findHelp }</Message>
+    </Fragment>
+  );
+};  // Ends <RaiseResults>
+
+
+let TextResults = function ({ client, data, translations }) {
+  // Benefit list items. Always starts with `earned`.
+  let resourceList = [
+    (
+      <li key={ `earned` }>{ `Pay from work: ` }{translations.i_beforeMoneyWithTime}{round$(data.earned)} {translations.i_eachTimeInterval}</li>
+    ),
+  ];
+
+  let numBenefits = client.current.benefits.length;
+  for (let benefiti = 0; benefiti < numBenefits; benefiti++) {
+
+    let cBenefit = data.benefits[ benefiti ];
+    resourceList.push(
+      <li key={ cBenefit.label }>
+        {cBenefit.label}: {translations.i_beforeMoneyWithTime}{round$(cBenefit.amount)} {translations.i_eachTimeInterval}
+      </li>
+    );
+  }  // ends for each benefit
+
+  let totals = (
+    <p>
+      { `That's ` }
+      <strong>
+        { translations.i_beforeMoneyWithTime }{ round$(data.total) + ` ` }
+      </strong>
+      { translations.i_eachTimeInterval }{ translations.i_period }
+    </p>
+  );
+
+  return (
+    <Fragment>
+      <ol>{ resourceList }</ol>
+      { totals }
+    </Fragment>
+  );
+};
 
 
 /** Rounds money values, turns them into money-formatted

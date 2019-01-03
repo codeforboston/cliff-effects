@@ -10,7 +10,7 @@ import {
 // NON-COMPONENTS
 import { applyAndPushBenefits } from '../../benefits/applyAndPushBenefits';
 import { toMoneyStr } from '../../utils/prettifiers';
-import { calcDataToChartData } from './build-resource-data';
+import { benefitArrayDataToSingleData } from './build-resource-data';
 import { cloneDeep } from 'lodash';
 
 
@@ -120,8 +120,8 @@ let getBenefitData = function(client, resourceKeys) {
 
   // 2. Get totals
   // Fill earned values for both current and future earned objects
-  result.current = calcDataToChartData(resourceKeys, accumulated, 0);
-  result.future  = calcDataToChartData(resourceKeys, accumulated, 1);
+  result.current = benefitArrayDataToSingleData(resourceKeys, accumulated, 0);
+  result.future  = benefitArrayDataToSingleData(resourceKeys, accumulated, 1);
   let resultCurr = result.current,
       resultFutr = result.future;
 
