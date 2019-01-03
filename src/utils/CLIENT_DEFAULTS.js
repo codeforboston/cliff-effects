@@ -28,7 +28,8 @@ const CLIENT_DEFAULTS = {
 
     // Income
     earned:                        0, // positive number (can have more than two decimal places)
-    TAFDC:                         0, // positive number
+    raise:                         0, // positive number (@todo doesn't really belong here, just in future)
+    TAFDC:                         0, // positive number 
     SSI:                           0, // positive number
     SSDI:                          0, // positive number
     childSupportIn:                0, // positive number

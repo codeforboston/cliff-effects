@@ -57,6 +57,7 @@ const valueFixers = {
   // MONEY AMOUNTS
   // Income
   earned:                        toNumber,
+  raise:                         toNumber,
   TAFDC:                         toNumber,
   SSI:                           toNumber,
   SSDI:                          toNumber,

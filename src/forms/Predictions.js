@@ -10,8 +10,9 @@ import {
 
 // PROJECT COMPONENTS
 import { FormPartsContainer } from './FormPartsContainer';
-import { IntervalColumnHeadings } from '../components/headings';
 import { CashFlowInputsRow } from './cashflow';
+import { ShowOnYes } from './ShowOnYes';
+import { AttentionArrow } from './formHelpers';
 import { GraphHolder } from './predictions/GraphHolder';
 import { Summary } from './predictions/Summary';
 import { BenefitsTable } from './predictions/BenefitsTable';
@@ -50,10 +51,9 @@ const PredictionsStep = function ({ updateClientValue, navData, client, translat
         openFeedback = { openFeedback } />
 
       <div id={ `predictions-form` }>
-        <IncomeForm
+        <Raise
           updateClientValue = { updateClientValue }
-          future            = { client.future }
-          time              = { `future` }
+          client            = { client }
           translations      = { translations } />
         <Divider className={ `ui section divider hidden` } />
       </div>
@@ -85,43 +85,6 @@ const PredictionsStep = function ({ updateClientValue, navData, client, translat
     </FormPartsContainer>
   );
 };  // End <PredictionsStep>
-
-
-/** @todo Cash flow row for trying out different future incomes.
- *
- * As per Project Hope's input, for the first prototype
- *     we're only including the ability to change earned income.
- *
- * @function
- * @param {object} props
- * @param {object} props.future Client future/predictive data.
- * @param {string} props.time Used in class names. Meant to make
- *     this more easily decoupled in future.
- * @param {function} props.updateClientValue Update client state
- *     value.
- * @param {object} props.translations Language-specific text
- *
- * @returns {object} React element
- */
-const IncomeForm = function ({ future, time, updateClientValue, translations }) {
-
-  let type = `income`;
-
-  return (
-    <div className={ `field-aligner two-column` }>
-      <IntervalColumnHeadings type={ type } />
-      <CashFlowInputsRow
-        timeState         = { future }
-        type              = { type }
-        time              = { time }
-        updateClientValue = { updateClientValue }
-        generic           = { `earned` }
-        labelInfo         = { `(Weekly pay = hourly wage times average number of work hours per week)` }>
-        { translations.i_futureIncomeQuestion }
-      </CashFlowInputsRow>
-    </div>
-  );
-};
 
 
 const TabbedVisualizations = ({ client, openFeedback, translations }) => {
@@ -241,6 +204,7 @@ let Recap = function ({ client, translations, openFeedback }) {
         timeframe:      `current`,
       };
 
+  // mutates `accumulated`
   applyAndPushBenefits(calcData);
   let data = calcDataToChartData(resourceKeys, accumulated, 0);
 
@@ -300,6 +264,70 @@ let Recap = function ({ client, translations, openFeedback }) {
     </Fragment>
   );
 };  // Ends <Recap>
+
+
+/** As per Project Hope's input, for the first prototype
+ *     we're only including the ability to change earned income.
+ *
+ * @function
+ * @param {object} props
+ * @param {object} props.client Client current and future data.
+ * @param {function} props.updateClientValue Update client state
+ *     value.
+ * @param {object} props.translations Language-specific text
+ *
+ * @returns {object} React element
+ */
+const Raise = function ({ client, updateClientValue, translations }) {
+
+  let future = client.future,
+      key    = `raise`,
+      type   = `income`;
+
+  let reset = function (event) {
+    updateClientValue(event, {
+      name:  key,
+      value: 0,
+    });
+  };
+
+  let inputs = (
+    <div className={ `field-aligner two-column` }>
+      <CashFlowInputsRow
+        timeState         = { future }
+        type              = { type }
+        time              = { `future` }
+        updateClientValue = { updateClientValue }
+        generic           = { key }>
+        { `How much would your raise be?` }
+      </CashFlowInputsRow>
+    </div>
+  );
+
+  return (
+    <Fragment>
+      <div className={ `question-spacer` } />
+      <Header>What would happen with a raise?</Header>
+      <ShowOnYes
+        childName           = { key }
+        showChildrenAtStart = { future.raise > 0 }
+        question            = { `Do you want to see what would happen if you got a raise?` }
+        heading             = { null }
+        onNo                = { reset }
+        Left                = { <AttentionArrow /> }>
+        { inputs }
+      </ShowOnYes>
+      <RaiseResult
+        client       = { client }
+        translations = { translations } />
+    </Fragment>
+  );
+};
+
+
+let RaiseResult = function () {
+  return null;
+};  // Ends <RaiseResult>
 
 
 /** Rounds money values, turns them into money-formatted
