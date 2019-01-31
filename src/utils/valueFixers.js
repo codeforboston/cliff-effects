@@ -37,7 +37,7 @@ const toNumber = function (numberOrString) {
 
   let trueOrError = isNumberlike(numberOrString);
 
-  if (typeof trueOrError === `object`) {
+  if (trueOrError instanceof Error) {
     throw (trueOrError);
   }
 
