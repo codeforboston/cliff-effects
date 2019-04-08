@@ -4,14 +4,15 @@ import { getSideEffects } from './getSideEffects';
 
 const setNestedProperty = function ({ route, value, time }, { current, future }, previouslySetByUser) {
 
-  let itemID = route.shift();
+  let itemID = route.shift(),
+      client = { current: current, future: future };
 
   if (route.length <= 0) {
 
     let newEvent = { type: time, name: itemID, value: value };
     setValidCurrent(newEvent, current);
     setValidFuture(newEvent, future, previouslySetByUser);
-    applySideEffects({ current, future, itemID });
+    applySideEffects({ client, itemID });
 
   } else {
     // Get this key or index and remove it from list
@@ -20,7 +21,7 @@ const setNestedProperty = function ({ route, value, time }, { current, future },
       future:  future[ itemID ],
     };
     setNestedProperty({ route, value, time }, next, previouslySetByUser);
-    applySideEffects({ current, future, itemID });
+    applySideEffects({ client, itemID });
   }  // ends if last recursion because route is empty
 
 };
@@ -63,16 +64,15 @@ const setValidFuture = function (evnt, newFuture, setByUser) {
  * @param {object} future
  * @param {string} itemID
  */
-const applySideEffects = function ({ current, future, itemID }) {
-
-  let changeInCurrent = getSideEffects(current, itemID),
-      changeInFuture  = getSideEffects(future, itemID);
-  Object.assign(current, changeInCurrent);
-  Object.assign(future, changeInFuture);
+const applySideEffects = function ({ client, itemID }) {
+  let changeInCurrent = getSideEffects(client, `current`, itemID),
+      changeInFuture  = getSideEffects(client, `future`, itemID);
+  Object.assign(client.current, changeInCurrent);
+  Object.assign(client.future, changeInFuture);
 
   return {
-    current: current,
-    future:  future,
+    current: client.current,
+    future:  client.future,
     itemID:  itemID,
   };
 };

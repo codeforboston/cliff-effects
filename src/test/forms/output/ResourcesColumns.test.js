@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { cloneDeep, set } from 'lodash';
 
-import { ResourcesColumns } from '../../../forms/output/ResourcesColumns';
+import { ResourcesColumns } from '../../../forms/predictions/ResourcesColumns';
 import { CLIENT_DEFAULTS } from '../../../utils/CLIENT_DEFAULTS';
 
 // Skipping till highcharts testing is worked out

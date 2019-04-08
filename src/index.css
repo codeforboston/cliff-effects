@@ -508,7 +508,6 @@ i.icon.details-icon {
 /* =============== */
 /* LAYOUT */
 /* =============== */
-/* Surrounder (general) */
 .question-spacer {
   display: block;
   height: 1em;
@@ -518,6 +517,7 @@ i.icon.details-icon {
   margin-bottom: 1em;
 }
 
+/* Surrounder (general) */
 .surrounder .horizontal,
 .surrounder .vertical {
   display: flex;
@@ -542,6 +542,10 @@ i.icon.details-icon {
 
 .heading-with-detail .surrounder .visible.message.slide {
   margin-bottom: 1em;
+}
+
+.show-on-yes .surrounder .center.horizontal {
+  align-items: center;
 }
 
 /* HomePage.js styles */
